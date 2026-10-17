@@ -1,0 +1,42 @@
+/* Shared scientific component preview; the game shell lives in game.css. */
+.arc-loading {padding:3rem;text-align:center;background:var(--surface-deep);color:var(--text-primary);}
+.arc-preview {border:1px solid var(--edge);background:radial-gradient(ellipse at center,#37618c33,transparent 65%),#09192c;border-radius:var(--radius);overflow:hidden;}
+.arc-preview-controls {display:flex;align-items:center;gap:.375rem;padding:.5rem;border-bottom:1px solid #6987aa50;flex-wrap:wrap;}
+.arc-preview-controls span {font-size:var(--font-meta);color:var(--text-secondary);margin-right:auto;}
+.arc-preview-controls button {padding:.375rem .5rem;font-size:var(--font-meta);background:#17304c;border:1px solid #6987aa70;border-radius:.5rem;min-height:32px;}
+.arc-preview>svg {display:block;width:100%;cursor:grab;touch-action:none;}
+.arc-preview>svg:active {cursor:grabbing;}
+.arc-atom {cursor:pointer;}
+.arc-atom:focus-visible {outline:none;}
+.arc-atom:focus-visible circle {stroke:#fff;stroke-width:2;}
+.arc-paused {min-height:12rem;display:flex;flex-direction:column;align-items:center;justify-content:center;font-size:var(--font-control);}
+.arc-paused small {font-size:var(--font-meta);color:var(--text-secondary);}
+.arc-preview-legend {display:flex;align-items:center;gap:.75rem;padding:.625rem;font-size:var(--font-meta);color:var(--text-secondary);flex-wrap:wrap;}
+.arc-preview-legend>span {display:flex;align-items:center;gap:.25rem;}
+.arc-preview-legend i {width:7px;height:7px;border-radius:50%;}
+.arc-preview-legend small {font-size:var(--font-meta);flex:1;text-align:right;}
+.architect-workspace {padding:2rem;max-width:100%;color:var(--text-primary);}
+.architect-layout {display:grid;grid-template-columns:minmax(0,1fr) minmax(17rem,.65fr);gap:1.5rem;margin-top:1.5rem;}
+.architect-editor {display:flex;flex-direction:column;gap:1rem;min-width:0;}
+.architect-editor>.button {align-self:flex-start;}
+.architect-sequence {background:var(--surface-deep);border:1px solid var(--edge);padding:1rem;border-radius:var(--radius);overflow-wrap:anywhere;}
+.architect-sequence strong {font-size:var(--font-body);display:block;}
+.architect-sequence>span {font-size:var(--font-meta);color:var(--text-secondary);display:block;margin-top:.5rem;}
+.architect-residues {display:flex;flex-direction:column;gap:.625rem;}
+.architect-residues article {display:flex;align-items:center;gap:1rem;border:1px solid #6987aa70;background:#10243c;border-radius:var(--radius);padding:.75rem;}
+.architect-residue-art {width:6rem;height:5rem;flex-shrink:0;background:transparent;}
+.architect-residues article>div {min-width:0;flex:1;}
+.architect-residues strong {display:block;margin-bottom:.5rem;}
+.architect-residues select {font-size:var(--font-control);}
+.architect-row-actions {display:flex;flex-direction:column;flex:0!important;}
+.architect-molecule {background:var(--surface-deep);border:1px solid #6987aa70;border-radius:var(--radius);padding:1rem;align-self:start;min-width:0;}
+.architect-molecule h2 {font-size:var(--font-section);margin-bottom:1rem;}
+.architect-molecule>.molecule-diagram {height:13rem;margin:1rem 0;}
+.architect-molecule>p {margin:1rem 0;}
+.architect-molecule .button-row {margin-bottom:1rem;}
+.architect-message {margin:1rem 0;padding:1rem;border:1px solid #6987aa70;background:var(--surface);border-radius:var(--radius);}
+.architect-library {width:45rem;}
+.architect-library>input {margin:1rem 0;}
+.architect-library article {padding:1rem 0;border-bottom:1px solid #6987aa70;}
+.architect-library article p {margin:.5rem 0;overflow-wrap:anywhere;}
+@media(max-width:1200px) {.architect-layout {grid-template-columns:1fr;}.architect-workspace {padding:1.25rem;}.architect-molecule {width:100%;}}

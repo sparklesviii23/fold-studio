@@ -1,0 +1,13 @@
+import {beforeEach,afterEach,describe,expect,it,vi} from 'vitest';
+import {DraftWriter} from './drafts';
+import {initialGraph} from './graph';
+let store:Map<string,string>;
+beforeEach(()=>{store=new Map();vi.stubGlobal('localStorage',{getItem:(k:string)=>store.get(k)??null,setItem:(k:string,v:string)=>store.set(k,v)});});
+afterEach(()=>vi.unstubAllGlobals());
+describe('Honest durable snapshots and revision serialization',()=>{
+ it('retains the exact latest graph locally before asynchronous writes',()=>{const w=new DraftWriter('local-practice',async()=>({revision:1}),()=>{}),s={...initialGraph(),notes:'immediate closing recovery'};w.changed(s);expect(JSON.parse(store.get('fold-molecular-draft-v2:local-practice')!).state).toEqual(s);});
+ it('does not say Saved while a newer change is queued',async()=>{let resolve:(v:any)=>void=()=>{};const statuses:string[]=[],write=vi.fn(()=>new Promise<any>(r=>resolve=r)),w=new DraftWriter('p',write,s=>statuses.push(s));w.changed({...initialGraph(),name:'first'});const first=w.flush();await Promise.resolve();await Promise.resolve();w.changed({...initialGraph(),name:'newer'});resolve({revision:1});await first;expect(statuses.at(-1)).toBe('Newer edit queued…');const second=w.flush();await Promise.resolve();await Promise.resolve();resolve({revision:2});await second;expect(statuses.at(-1)).toBe('Saved locally');expect(write.mock.calls.length).toBe(2);expect(w.revision).toBe(2);});
+ it('service failure preserves recovery and does not advance a stale revision',async()=>{const statuses:string[]=[],w=new DraftWriter('p',async()=>{throw new Error('stale revision');},s=>statuses.push(s));w.revision=4;w.changed({...initialGraph(),notes:'unsynced'});await expect(w.flush()).rejects.toThrow(/stale/);expect(w.revision).toBe(4);expect(JSON.parse(store.get('fold-molecular-draft-v2:p')!).state.notes).toBe('unsynced');expect(statuses.at(-1)).toMatch(/retained/);});
+ it('storage failure is reported without a false recovery claim',async()=>{vi.stubGlobal('localStorage',{setItem:()=>{throw new Error('quota');}});const statuses:string[]=[],w=new DraftWriter('p',async()=>{throw new Error('offline');},s=>statuses.push(s));w.changed(initialGraph());await expect(w.flush()).rejects.toThrow();expect(w.recoveryAvailable).toBe(false);expect(statuses.at(-1)).toBe('Save failed · no local recovery snapshot');});
+ it('unchanged flushes do not serialize repeated graph writes',async()=>{const write=vi.fn(async()=>({revision:1})),w=new DraftWriter('p',write,()=>{});w.changed(initialGraph());await w.flush();await w.flush();expect(write).toHaveBeenCalledTimes(1);});
+});

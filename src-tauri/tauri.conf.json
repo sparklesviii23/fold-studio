@@ -1,0 +1,62 @@
+{
+  "$schema": "https://schema.tauri.app/config/2",
+  "productName": "FOLD STUDIO",
+  "version": "4.3.0",
+  "identifier": "org.foldstudio.observatory",
+  "build": {
+    "beforeDevCommand": "pnpm dev",
+    "devUrl": "http://localhost:1420",
+    "beforeBuildCommand": "pnpm build",
+    "frontendDist": "../dist"
+  },
+  "app": {
+    "windows": [
+      {
+        "title": "FOLD STUDIO \u2014 The Molecular Observatory",
+        "width": 1440,
+        "height": 960,
+        "minWidth": 1024,
+        "minHeight": 720,
+        "titleBarStyle": "Overlay",
+        "hiddenTitle": true,
+        "backgroundColor": "#071326",
+        "visible": true
+      }
+    ],
+    "security": {
+      "csp": "default-src 'self'; script-src 'self' 'unsafe-eval'; style-src 'self' 'unsafe-inline'; img-src 'self' data: blob:; font-src 'self' data:; worker-src 'self' blob:; connect-src 'self' ipc: http://ipc.localhost https://rest.uniprot.org https://alphafold.ebi.ac.uk https://files.rcsb.org https://data.rcsb.org https://search.rcsb.org https://www.ebi.ac.uk"
+    }
+  },
+  "bundle": {
+    "active": true,
+    "targets": [
+      "app"
+    ],
+    "resources": {
+      "../scientific/worker.py": "scientific/worker.py",
+      "../scientific/engine-version.txt": "scientific/engine-version.txt",
+      "../scientific/requirements-tested-macos-arm64.txt": "scientific/requirements-tested-macos-arm64.txt",
+      "../fixtures/": "fixtures/",
+      "../scientific/observatory.py": "scientific/observatory.py",
+      "../scientific/chimerax_session.py": "scientific/chimerax_session.py",
+      "../scientific/peptides.py": "scientific/peptides.py",
+      "../scientific/amino-acids.json": "scientific/amino-acids.json",
+      "../scientific/confidence.py": "scientific/confidence.py",
+      "../scientific/molecular_graph.py": "scientific/molecular_graph.py",
+      "../scientific/native_inventory.py": "scientific/native_inventory.py",
+      "icons/icon.png": "icons/icon.png",
+      "../scientific/scene_bridge.py": "scientific/scene_bridge.py",
+      "../scientific/capability_audit.py": "scientific/capability_audit.py",
+      "../scientific/pinned-capabilities-1.12.json": "scientific/pinned-capabilities-1.12.json",
+      "../scientific/validation-evidence-4.2.json": "scientific/validation-evidence-4.2.json",
+      "../scientific/intelligence.py": "scientific/intelligence.py"
+    },
+    "macOS": {
+      "minimumSystemVersion": "12.0"
+    },
+    "icon": [
+      "icons/icon.png",
+      "icons/icon.icns"
+    ]
+  }
+}

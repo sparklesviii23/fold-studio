@@ -1,0 +1,13 @@
+export interface Feature {type:string;description?:string;location:{start:{value?:number;modifier?:string};end:{value?:number;modifier?:string}};alternativeSequence?:{originalSequence?:string;alternativeSequences?:string[]}}
+export interface Protein {primaryAccession:string;uniProtkbId:string;entryType:string;proteinDescription:{recommendedName?:{fullName:{value:string}};submissionNames?:{fullName:{value:string}}[]};genes?:{geneName?:{value:string}}[];organism:{scientificName:string;taxonId:number};sequence:{value:string;length:number;molWeight?:number};features?:Feature[];comments?:{commentType:string;texts?:{value:string}[]}[];entryAudit?:{sequenceVersion:number;entryVersion:number};uniProtKBCrossReferences?:{database:string;id:string;properties:{key:string;value:string}[]}[];_source?:string;_retrieved?:string;_offlineCache?:boolean}
+export interface Project {id:string;name:string;notes:string;created:string;updated:string}
+export interface Item {id:string;project_id:string;kind:string;name:string;data:any;created?:string}
+export interface Job {id:string;project_id:string;name:string;engine:'boltz2'|'colabfold'|'setup';state:string;created:string;updated:string;data:any;log?:string}
+export interface Library {projects:Project[];records:Item[];jobs:Job[];settings:Record<string,any>}
+export interface Compute {chip:string;architecture:string;memoryGB:number|null;diskFreeGB:number;macOS:string;installed:boolean;mpsAvailable:boolean;version:string|null;torchVersion?:string;python:string;weightsDownloaded:boolean;validatedMPS?:false|{jobId:string;date:string};error?:string}
+export interface StructureEntry {id:string;source:string;type:string;url:string;coverage:string;method?:string;resolution?:string;confidenceKind?:string;metadata:any;accession?:string}
+export interface Residue {chain:string;authChain:string;label:number;auth:number;insertion:string;name:string;one:string;xyz:[number,number,number];bFactor:number;unit:number;index:number;sourcePosition?:number}
+export type Workspace='Home'|'Protein Explorer'|'Sequence Workbench'|'Structure Prediction'|'Molecular Viewer'|'Research Projects'|'Local Compute'|'Settings'|'Research Library'|'Molecular Architect'|'Molecular Arcade'|'Molecular Intelligence';
+
+export interface AtomRecord extends Residue {key:string;atomName:string;element:string;occupancy:number;altLoc:string;serial:number;operatorName:string;modelIndex:number;nativeModelId?:string;nativeSpec?:string}
+export interface MolecularScene {structureId:string;sourceSha256:string;camera:any;representation:string;coloring:string;hiddenChains:string[];selection:string[];lensRadius:number|null;created:string}

@@ -1,0 +1,34 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "FOLD future external research worker result contract",
+  "description": "Versioned integration boundary for future BindCraft or PS5 adapters. No executable worker is supplied. Adapters must preserve engine provenance and import real coordinate artifacts through the existing scientific library service.",
+  "type": "object",
+  "required": ["contractVersion", "provider", "externalJobId", "state", "provenance", "artifacts"],
+  "properties": {
+    "contractVersion": {"const": 1},
+    "provider": {"enum": ["bindcraft", "ps5"]},
+    "externalJobId": {"type": "string", "minLength": 1},
+    "state": {"enum": ["prepared", "submitted", "running", "completed", "failed", "cancelled"]},
+    "provenance": {
+      "type": "object",
+      "required": ["engine", "version", "inputSha256", "parameters"],
+      "properties": {
+        "engine": {"type": "string"}, "version": {"type": "string"},
+        "inputSha256": {"type": "string", "pattern": "^[0-9a-f]{64}$"},
+        "parameters": {"type": "object"}, "workerHardware": {"type": "string"},
+        "started": {"type": "string", "format": "date-time"},
+        "finished": {"type": "string", "format": "date-time"}
+      }
+    },
+    "artifacts": {"type": "array", "items": {
+      "type": "object", "required": ["name", "sha256", "kind"],
+      "properties": {
+        "name": {"type": "string", "pattern": "^[^/\\\\]+$"},
+        "sha256": {"type": "string", "pattern": "^[0-9a-f]{64}$"},
+        "kind": {"enum": ["pdb", "mmcif", "metrics", "log"]}
+      }, "additionalProperties": false
+    }},
+    "error": {"type": "string"}
+  },
+  "additionalProperties": false
+}

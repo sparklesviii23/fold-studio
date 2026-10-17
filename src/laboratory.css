@@ -1,0 +1,27 @@
+/* FOLD 4.2: retain the original navy Observatory and improve its materials. */
+.shell.environment-stellar{background:radial-gradient(ellipse at 72% 28%,#15395b4d,transparent 48%),radial-gradient(ellipse at 15% 90%,#19335933,transparent 55%),#071326}
+.shell .sidebar{background:linear-gradient(165deg,#0d2037ee,#09172bed);border-right:1px solid #83abd61c;box-shadow:12px 0 60px #02091333}
+.shell .nav-item{border-radius:12px;min-height:42px;transition:background .2s,box-shadow .2s,color .2s}
+.shell .nav-item.active{background:linear-gradient(110deg,#315e874f,#15375280);box-shadow:inset 0 1px 0 #b6d7ff18,inset 2px 0 0 #a8cfff99}
+.shell .window-chrome{background:linear-gradient(180deg,#13283e80,#0a1c2d22);border-bottom-color:#a9cdf514}
+.shell .glass-panel{background:linear-gradient(145deg,#132e46ee,#0b2035ed);border:1px solid #7fadd94a;border-top-color:#b5d7f279;border-radius:20px;box-shadow:inset 0 1px 0 #e7f4ff10,0 24px 70px #01071188;backdrop-filter:blur(30px) saturate(118%)}
+.shell .panel-form{gap:15px}.shell .panel-form label{line-height:1.5}.shell .panel-form .button-row{gap:8px}
+.shell .panel-eyebrow{font-size:.72rem;letter-spacing:1.8px;color:#a4c9e8}
+.shell .glass-dock{max-height:calc(100% - 180px);overflow-y:auto;scrollbar-width:thin;border-radius:22px;background:linear-gradient(150deg,#183750d9,#0c2138d9);box-shadow:inset 0 1px 0 #d1e8ff17,0 18px 60px #020a1780}
+.shell .glass-dock>button{flex-shrink:0}.shell .glass-dock>button:hover{box-shadow:inset 0 0 0 1px #badbff22}
+.engine-viewport canvas{outline:none}.scene-integrity{position:absolute;left:24px;bottom:23px;max-width:420px;z-index:4;border:1px solid #75a6cd30;border-radius:14px;background:#0b2136bd;backdrop-filter:blur(18px);padding:8px 12px;font-size:.75rem;color:#b3cce3;box-shadow:0 8px 30px #020a1740}
+.scene-integrity summary{cursor:pointer;display:flex;align-items:center;gap:8px;list-style:none}.scene-integrity p{margin-top:7px}.scene-integrity.partial{border-color:#baa16d66}.scene-integrity.failed{border-color:#ee9f9f88;color:#f3c2c2}.scene-integrity code{font-family:ui-monospace,monospace;color:#c2d9ee}
+.representation-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px}.representation-grid .button{justify-content:center;min-height:43px;padding:9px}
+.chain-assignment,.model-card,.command-builder,.capability-detail{padding:15px;border:1px solid #6389ab33;background:linear-gradient(150deg,#24446238,#0a1a2d66);border-radius:15px;display:flex;flex-direction:column;gap:12px}
+.chain-assignment>div:first-child,.model-card>div:first-child{display:flex;justify-content:space-between;align-items:baseline;gap:12px}.chain-assignment small,.model-card small{font-size:.75rem;color:#98b2cc}.chain-palette{display:flex;gap:9px;align-items:center;flex-wrap:wrap}
+.chain-palette button{width:25px;height:25px;border-radius:50%;border:1px solid #d5eaff88;box-shadow:0 2px 8px #02061166;transition:transform .15s}.chain-palette button:hover{transform:scale(1.13)}
+.panel-form input[type=color]{width:46px;height:33px;padding:2px;border-radius:9px;border:1px solid #98bedf66;background:#162d45}.lab-result{padding:14px;background:#07172bad;border:1px solid #80b8d63b;border-radius:14px;display:grid;gap:10px}.lab-result pre,.python-output,.command-builder pre{font: .78rem/1.65 ui-monospace,SFMono-Regular,monospace;white-space:pre-wrap;overflow-wrap:anywhere;max-height:340px;overflow:auto;color:#c3ddf4}.lab-result.error{border-color:#df8d8d66}.lab-result p{font-size:.75rem}.measurement-value{font-size:1.6rem;font-variant-numeric:tabular-nums;color:#d8ecff}.measurement-value small{font-size:.8rem;color:#91b3d3}
+.lab-tabs{display:flex;gap:5px;flex-wrap:wrap}.lab-tabs button{padding:7px 10px;border-radius:10px;background:#0b1c30;color:#a2b8cf}.lab-tabs button.active{background:#365f845e;color:#d1e7ff;box-shadow:inset 0 0 0 1px #8bb8dd50}
+.capability-list{display:grid;gap:5px;max-height:360px;overflow:auto}.capability-list>button{display:flex;align-items:center;justify-content:space-between;gap:10px;text-align:left;border-radius:11px;background:#11294173;padding:11px}.capability-list>button:hover{background:#294d6d66}.capability-list strong,.capability-list small{display:block}.capability-list small{color:#91aaca;font-size:.73rem;margin-top:4px}.command-builder code{white-space:pre-wrap;color:#a6c8e6;font-size:.75rem;line-height:1.6}.scientific-code{font-family:ui-monospace,SFMono-Regular,monospace!important;background:#07172ce0!important;font-size:.8rem!important;tab-size:4}.scientific-about{display:grid;gap:13px;margin-top:22px}
+.command-entry textarea{font-family:ui-monospace,SFMono-Regular,monospace;font-size:.81rem;line-height:1.7;min-height:95px;background:#08192dc9;border:0}.command-entry{align-items:flex-start}.command-entry>button{margin-top:5px}
+@media(prefers-reduced-motion:no-preference){.shell .glass-panel{animation:fold-panel-appear .2s ease-out}@keyframes fold-panel-appear{from{opacity:0;filter:blur(2px)}to{opacity:1;filter:none}}}
+@media(prefers-reduced-motion:reduce){.shell *{scroll-behavior:auto}.shell .nav-item,.chain-palette button{transition:none}}
+
+/* Reserve measured space above both collapsed and expanded scene status. */
+.scene-integrity{bottom:28px;max-height:40vh;overflow:auto;box-sizing:border-box}
+.observatory-caption{bottom:4px!important}
