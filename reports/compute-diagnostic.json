@@ -1,0 +1,46 @@
+{
+  "name": "FOLD COMPUTE",
+  "schemaVersion": 1,
+  "host": {
+    "architecture": "arm64",
+    "macOS": "26.4.1"
+  },
+  "bindcraftRuntime": {
+    "state": "detected",
+    "python": "3.12.14",
+    "architecture": "arm64",
+    "versions": {
+      "jax": "0.11.2",
+      "jaxlib": "0.11.2",
+      "dm-haiku": "0.0.17",
+      "optax": "0.2.8",
+      "biotite": "1.8.0"
+    },
+    "jaxDevices": [
+      {
+        "platform": "cpu",
+        "kind": "cpu"
+      }
+    ]
+  },
+  "predictionRuntime": {
+    "state": "detected",
+    "python": "3.12.14",
+    "architecture": "arm64",
+    "versions": {
+      "torch": "2.14.1"
+    },
+    "mpsAvailable": true
+  },
+  "remote": {
+    "enabled": false
+  },
+  "binderDesign": {
+    "state": "blocked",
+    "reason": "Full AlphaFold forward/backward and campaign execution have not been validated on this Apple Silicon backend. No campaign is launched."
+  },
+  "metalAttention": {
+    "state": "experimental",
+    "scope": "One float32 attention kernel; run validate-metal-attention.py for measured forward/gradient parity."
+  }
+}

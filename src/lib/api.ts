@@ -44,3 +44,5 @@ export async function exportConfidence(structureId:string,kind:string):Promise<b
 export async function external(url:string){if(isTauri())await openUrl(url);else window.open(url,'_blank','noopener,noreferrer');}
 export function proteinName(p:any):string{return p.proteinDescription?.recommendedName?.fullName?.value??p.proteinDescription?.submissionNames?.[0]?.fullName?.value??p.uniProtkbId??p.primaryAccession;}
 export function geneName(p:any):string{return p.genes?.[0]?.geneName?.value??p.primaryAccession;}
+
+export async function chooseDirectory():Promise<string|null>{if(!isTauri())throw new Error("Choose folders from the native FOLD app.");const path=await open({multiple:false,directory:true});return typeof path==="string"?path:null;}

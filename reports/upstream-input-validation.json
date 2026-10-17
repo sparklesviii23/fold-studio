@@ -1,0 +1,46 @@
+{
+  "scope": "Upstream settings parsing and target backbone/hotspot correspondence only. No design/weights invoked.",
+  "cases": [
+    {
+      "fixture": "hPDL1.pdb",
+      "modality": "binder",
+      "residues": 115,
+      "backboneAtoms": 460,
+      "maxCoordinateDifferenceAngstrom": 3.784179682497779e-06,
+      "hotspots": "A18",
+      "coldspots": "A132",
+      "state": "passed"
+    },
+    {
+      "fixture": "hPDL1.pdb",
+      "modality": "peptide",
+      "residues": 115,
+      "backboneAtoms": 460,
+      "maxCoordinateDifferenceAngstrom": 3.784179682497779e-06,
+      "hotspots": "A18",
+      "coldspots": "A132",
+      "state": "passed"
+    },
+    {
+      "fixture": "ANGPTL3.cif",
+      "modality": "binder",
+      "residues": 460,
+      "backboneAtoms": 1840,
+      "maxCoordinateDifferenceAngstrom": 3.784179682497779e-06,
+      "hotspots": "A1",
+      "coldspots": "A460",
+      "state": "passed"
+    },
+    {
+      "fixture": "ANGPTL3.cif",
+      "modality": "peptide",
+      "residues": 460,
+      "backboneAtoms": 1840,
+      "maxCoordinateDifferenceAngstrom": 3.784179682497779e-06,
+      "hotspots": "A1",
+      "coldspots": "A460",
+      "state": "passed"
+    }
+  ],
+  "state": "passed"
+}

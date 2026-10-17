@@ -18,3 +18,22 @@ This notice is not a replacement for dependency license files. Redistribution sh
 ## wwPDB Chemical Component Dictionary
 
 The 20 canonical amino-acid CCD components in `scientific/components/` and their normalized subset in `scientific/amino-acids.json` were retrieved from RCSB PDB on 10 October 2026. The data remain attributed to the [wwPDB Chemical Component Dictionary](https://www.wwpdb.org/data/ccd). Individual file URLs, SHA-256 checksums and component modification dates accompany every template. Reference: Westbrook et al., *The chemical component dictionary: complete descriptions of constituent molecules in experimentally determined 3D macromolecules in the Protein Data Bank* (2015), [doi:10.1093/bioinformatics/btu789](https://doi.org/10.1093/bioinformatics/btu789). These are chemical definitions and ideal coordinates, not new experimental or prediction results.
+
+## Project Metal: versioned BindCraft2 component
+
+`vendor/bindcraft2` is an unmodified source snapshot of BindCraft2 revision
+`c0ee638d11bc010817c2c97ee58ed5c323e664e2`. The source-available hosting-restricted
+license and copyright notices are retained in `vendor/bindcraft2/LICENSE` and
+`README_licensing_section.md`. It is not covered by Fold Studio's MIT license.
+AlphaFold/ColabDesign code, ProteinMPNN code and HyperMPNN parameters retain their
+upstream notices/terms. The per-file SHA-256 manifest is `vendor/bindcraft2-source.json`.
+No AlphaFold model parameters are included. Fold's experimental float32 PyTorch
+attention adapter follows the upstream equations and is explicitly limited to
+kernel-level compatibility; it does not imply an official upstream association.
+
+ChimeraX remains a separately installed, unmodified runtime in this milestone.
+No ChimeraX source, executable or Qt interface has been added to the distribution.
+The local installation's license is available at
+`Contents/share/docs/license.html`. A fully self-contained runtime distribution
+is a separate packaging milestone; existing user permissions are not revoked or
+reinterpreted here. Nothing in this development milestone is uploaded or published.

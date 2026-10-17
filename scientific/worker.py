@@ -10,6 +10,7 @@ from observatory import Observatory, ACTIONS as OBSERVATORY_ACTIONS
 from peptides import Peptides, ACTIONS as PEPTIDE_ACTIONS
 import molecular_graph
 import intelligence
+import fold_engine
 
 AA = 'ACDEFGHIKLMNPQRSTVWY'
 MAX_FILE = 100 * 1024 * 1024
@@ -443,6 +444,7 @@ class Service:
         return True
     def dispatch(self,action,p):
         if action not in ACTIONS: raise ValueError('Unsupported scientific action.')
+        if action in fold_engine.ACTIONS: return fold_engine.Engine(self).dispatch(action,p)
         if action in intelligence.ACTIONS: return intelligence.Lab(self).dispatch(action,p)
         if action in OBSERVATORY_ACTIONS: return Observatory(self).dispatch(action,p)
         if action in molecular_graph.ACTIONS: return molecular_graph.dispatch(self,action,p)
@@ -451,7 +453,7 @@ class Service:
 
 ACTIONS={'record_update','record_remove','record_restore','library','setting_set','project_create','project_update','project_delete','record_save','sequence_save','mutate','fasta_parse','fasta_import','uniprot_search','uniprot_get','structures','structure_download','import_structure','asset_read','compute','install_engine','prediction_start','job_read','job_cancel','cloud_prepare','cloud_opened','cloud_import','export_project','export_file','reconcile'}
 
-ACTIONS |= OBSERVATORY_ACTIONS | PEPTIDE_ACTIONS | molecular_graph.ACTIONS | intelligence.ACTIONS
+ACTIONS |= fold_engine.ACTIONS | OBSERVATORY_ACTIONS | PEPTIDE_ACTIONS | molecular_graph.ACTIONS | intelligence.ACTIONS
 
 def execute_job(service,id):
     job=service.job(id); p=job['data']; folder=service.root/'jobs'/id
@@ -535,10 +537,10 @@ def main():
         if not token: raise ValueError('Set FOLD_DEV_TOKEN for the development preview.')
         class Handler(BaseHTTPRequestHandler):
             def send_cors_headers(self):
-                self.send_header('Access-Control-Allow-Origin','http://127.0.0.1:1420'); self.send_header('Access-Control-Allow-Headers','Content-Type,Authorization'); self.send_header('Access-Control-Allow-Methods','POST,OPTIONS'); self.end_headers()
+                self.send_header('Access-Control-Allow-Origin','http://127.0.0.1:1424'); self.send_header('Access-Control-Allow-Headers','Content-Type,Authorization'); self.send_header('Access-Control-Allow-Methods','POST,OPTIONS'); self.end_headers()
             def do_OPTIONS(self): self.send_response(204); self.send_cors_headers()
             def do_POST(self):
-                if self.headers.get('Origin')!='http://127.0.0.1:1420' or self.headers.get('Authorization')!='Bearer '+token:
+                if self.headers.get('Origin')!='http://127.0.0.1:1424' or self.headers.get('Authorization')!='Bearer '+token:
                     self.send_response(403); self.send_cors_headers(); return
                 try:
                     size=int(self.headers.get('Content-Length','0'))

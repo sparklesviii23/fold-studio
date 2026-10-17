@@ -1,3 +1,11 @@
+# Project Metal development branch
+
+This isolated development build preserves Fold Studio 4.3 and adds versioned
+BindCraft2 source, shared campaign preparation/import, compute diagnostics and a
+reference-tested experimental Apple MPS attention kernel. Full native binder
+design and self-contained runtime packaging are unfinished. See
+[the implementation and validation report](docs/PROJECT_METAL_M1.md).
+
 # FOLD STUDIO
 
 FOLD STUDIO is an experimental macOS application for exploring protein structures, organizing molecular research and working with peptide-design and prediction workflows. It combines a custom React/TypeScript interface with a Rust/Tauri desktop shell, a Python scientific service, and interactive molecular graphics from Mol*. A separately installed UCSF ChimeraX runtime supplies compatible scientific commands and calculations through an original FOLD adapter, without exposing its original Qt interface.

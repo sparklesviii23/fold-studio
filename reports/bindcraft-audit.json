@@ -1,0 +1,992 @@
+{
+  "source": {
+    "state": "present",
+    "revision": "c0ee638d11bc010817c2c97ee58ed5c323e664e2",
+    "manifestSha256": "8f06e409dac335261d2505361f4358e2b4df389b8f85a497967406d8c4af4277",
+    "license": "BindCraft2 Source-Available License (Hosting-Restricted)",
+    "modified": false
+  },
+  "declaredDependencies": "[project]\nname = \"bindcraft\"\nversion = \"1.0.3\"\nrequires-python = \">=3.12\"\ndependencies = [\n    \"jax>=0.11,<0.12\",\n    \"dm-haiku\",\n    \"optax\",\n    \"biotite\",\n    \"matplotlib\",\n    \"numpy\",\n    \"scipy\",\n    \"ml_collections\",\n    \"absl-py\",\n]\n\n[project.scripts]\nbindcraft = \"bindcraft.cli:main\"\n\n[project.optional-dependencies]\n# The GPU environment every recorded baseline was measured in carries jax-cuda13-plugin and\n# jax-cuda13-pjrt, so cuda13 is the extra that reproduces that stack.\n# jax[cuda1x] carries the matching cuDNN for the architecture it is installed on. cuEquivariance\n# does not ride along with it: cuequivariance-jax is pure python and its fused kernels come from an\n# ops wheel built against one CUDA major version, so the extra names the one that matches, and both\n# publish x86-64 and aarch64 builds.\ncuda12 = [\"jax[cuda12]>=0.11,<0.12\", \"cuequivariance-jax>=0.11,<0.12\", \"cuequivariance-ops-cu12>=0.11,<0.12\"]\ncuda13 = [\"jax[cuda13]>=0.11,<0.12\", \"cuequivariance-jax>=0.11,<0.12\", \"cuequivariance-ops-cu13>=0.11,<0.12\"]\nrocm = [\"jax[rocm7-local]>=0.11,<0.12\"]\ndocs = [\"sphinx\", \"furo\", \"myst-parser\", \"sphinx-copybutton\"]\n\n[build-system]\nrequires = [\"setuptools\"]\nbuild-backend = \"setuptools.build_meta\"\n\n#The package sits at the repository root, so discovery is told which top-level name is the package\n#and leaves containers, docs and examples alone.\n[tool.setuptools.packages.find]\ninclude = [\"bindcraft*\"]\n\n# ProteinMPNN rides along with the package so an installation redesigns sequences out of the box.\n# AlphaFold parameters are 5.3 GB and are downloaded on first use instead; weights/alphafold is\n# where a container bakes them.\n[tool.setuptools.package-data]\nbindcraft = [\"weights/proteinmpnn/*/*.npz\", \"weights/README.md\"]\n",
+  "imports": {
+    "bindcraft": [
+      "bindcraft/MPNN_stage.py",
+      "bindcraft/af/alphafold/common/confidence.py",
+      "bindcraft/af/alphafold/common/protein.py",
+      "bindcraft/af/alphafold/data/prep_inputs.py",
+      "bindcraft/af/alphafold/model/all_atom.py",
+      "bindcraft/af/alphafold/model/all_atom_multimer.py",
+      "bindcraft/af/alphafold/model/config.py",
+      "bindcraft/af/alphafold/model/data.py",
+      "bindcraft/af/alphafold/model/folding.py",
+      "bindcraft/af/alphafold/model/folding_multimer.py",
+      "bindcraft/af/alphafold/model/geometry/__init__.py",
+      "bindcraft/af/alphafold/model/geometry/rigid_matrix_vector.py",
+      "bindcraft/af/alphafold/model/geometry/rotation_matrix.py",
+      "bindcraft/af/alphafold/model/geometry/vector.py",
+      "bindcraft/af/alphafold/model/model.py",
+      "bindcraft/af/alphafold/model/modules.py",
+      "bindcraft/af/alphafold/model/modules_multimer.py",
+      "bindcraft/af/alphafold/model/r3.py",
+      "bindcraft/af2.py",
+      "bindcraft/campaign.py",
+      "bindcraft/campaign_filter.py",
+      "bindcraft/campaign_log.py",
+      "bindcraft/campaign_output.py",
+      "bindcraft/cli.py",
+      "bindcraft/design_identity.py",
+      "bindcraft/design_workers.py",
+      "bindcraft/desperation.py",
+      "bindcraft/developability.py",
+      "bindcraft/epitope_targeting.py",
+      "bindcraft/filters.py",
+      "bindcraft/loss.py",
+      "bindcraft/parameter_sweep.py",
+      "bindcraft/prediction.py",
+      "bindcraft/preflight.py",
+      "bindcraft/protein_preparation.py",
+      "bindcraft/proteinmpnn.py",
+      "bindcraft/rank.py",
+      "bindcraft/score.py",
+      "bindcraft/selfcheck.py",
+      "bindcraft/sequence_optimization.py",
+      "bindcraft/settings.py",
+      "bindcraft/target_schedule.py",
+      "bindcraft/trajectory.py",
+      "bindcraft/trajectory_output.py"
+    ],
+    "jax": [
+      "bindcraft/MPNN_stage.py",
+      "bindcraft/af/accel.py",
+      "bindcraft/af/alphafold/common/confidence.py",
+      "bindcraft/af/alphafold/model/all_atom.py",
+      "bindcraft/af/alphafold/model/all_atom_multimer.py",
+      "bindcraft/af/alphafold/model/common_modules.py",
+      "bindcraft/af/alphafold/model/folding.py",
+      "bindcraft/af/alphafold/model/folding_multimer.py",
+      "bindcraft/af/alphafold/model/geometry/rigid_matrix_vector.py",
+      "bindcraft/af/alphafold/model/geometry/rotation_matrix.py",
+      "bindcraft/af/alphafold/model/geometry/struct_of_array.py",
+      "bindcraft/af/alphafold/model/geometry/utils.py",
+      "bindcraft/af/alphafold/model/geometry/vector.py",
+      "bindcraft/af/alphafold/model/layer_stack.py",
+      "bindcraft/af/alphafold/model/lddt.py",
+      "bindcraft/af/alphafold/model/mapping.py",
+      "bindcraft/af/alphafold/model/model.py",
+      "bindcraft/af/alphafold/model/modules.py",
+      "bindcraft/af/alphafold/model/modules_multimer.py",
+      "bindcraft/af/alphafold/model/prng.py",
+      "bindcraft/af/alphafold/model/quat_affine.py",
+      "bindcraft/af/alphafold/model/r3.py",
+      "bindcraft/af/alphafold/model/utils.py",
+      "bindcraft/af2.py",
+      "bindcraft/campaign.py",
+      "bindcraft/epitope_targeting.py",
+      "bindcraft/filters.py",
+      "bindcraft/loss.py",
+      "bindcraft/mpnn/modules.py",
+      "bindcraft/mpnn/sample.py",
+      "bindcraft/mpnn/score.py",
+      "bindcraft/mpnn/utils.py",
+      "bindcraft/prediction.py",
+      "bindcraft/preflight.py",
+      "bindcraft/protein.py",
+      "bindcraft/protein_preparation.py",
+      "bindcraft/proteinmpnn.py",
+      "bindcraft/sequence_optimization.py",
+      "bindcraft/target_schedule.py",
+      "bindcraft/trajectory.py",
+      "bindcraft/trajectory_output.py"
+    ],
+    "os": [
+      "bindcraft/MPNN_stage.py",
+      "bindcraft/__init__.py",
+      "bindcraft/af/alphafold/model/data.py",
+      "bindcraft/af2.py",
+      "bindcraft/campaign.py",
+      "bindcraft/campaign_filter.py",
+      "bindcraft/campaign_log.py",
+      "bindcraft/campaign_output.py",
+      "bindcraft/cli.py",
+      "bindcraft/design_workers.py",
+      "bindcraft/model_weights.py",
+      "bindcraft/parameter_sweep.py",
+      "bindcraft/preflight.py",
+      "bindcraft/protein.py",
+      "bindcraft/proteinmpnn.py",
+      "bindcraft/rank.py",
+      "bindcraft/score.py",
+      "bindcraft/settings.py",
+      "bindcraft/trajectory_output.py"
+    ],
+    "time": [
+      "bindcraft/MPNN_stage.py",
+      "bindcraft/campaign.py",
+      "bindcraft/design_workers.py"
+    ],
+    "typing": [
+      "bindcraft/MPNN_stage.py",
+      "bindcraft/af/alphafold/common/protein.py",
+      "bindcraft/af/alphafold/common/residue_constants.py",
+      "bindcraft/af/alphafold/model/all_atom.py",
+      "bindcraft/af/alphafold/model/all_atom_multimer.py",
+      "bindcraft/af/alphafold/model/common_modules.py",
+      "bindcraft/af/alphafold/model/data.py",
+      "bindcraft/af/alphafold/model/folding.py",
+      "bindcraft/af/alphafold/model/folding_multimer.py",
+      "bindcraft/af/alphafold/model/geometry/rigid_matrix_vector.py",
+      "bindcraft/af/alphafold/model/geometry/utils.py",
+      "bindcraft/af/alphafold/model/geometry/vector.py",
+      "bindcraft/af/alphafold/model/layer_stack.py",
+      "bindcraft/af/alphafold/model/mapping.py",
+      "bindcraft/af/alphafold/model/model.py",
+      "bindcraft/af/alphafold/model/modules_multimer.py",
+      "bindcraft/af/alphafold/model/quat_affine.py",
+      "bindcraft/af/alphafold/model/r3.py",
+      "bindcraft/af/alphafold/model/utils.py",
+      "bindcraft/af2.py",
+      "bindcraft/campaign_filter.py",
+      "bindcraft/campaign_output.py",
+      "bindcraft/developability.py",
+      "bindcraft/filters.py",
+      "bindcraft/loss.py",
+      "bindcraft/prediction.py",
+      "bindcraft/protein.py",
+      "bindcraft/proteinmpnn.py",
+      "bindcraft/sequence_optimization.py",
+      "bindcraft/settings.py",
+      "bindcraft/target_schedule.py",
+      "bindcraft/trajectory.py",
+      "bindcraft/trajectory_output.py"
+    ],
+    "ast": [
+      "bindcraft/__init__.py",
+      "bindcraft/cli.py"
+    ],
+    "functools": [
+      "bindcraft/__init__.py",
+      "bindcraft/af/accel.py",
+      "bindcraft/af/alphafold/common/protein.py",
+      "bindcraft/af/alphafold/common/residue_constants.py",
+      "bindcraft/af/alphafold/model/folding.py",
+      "bindcraft/af/alphafold/model/folding_multimer.py",
+      "bindcraft/af/alphafold/model/layer_stack.py",
+      "bindcraft/af/alphafold/model/mapping.py",
+      "bindcraft/af/alphafold/model/modules.py",
+      "bindcraft/af/alphafold/model/modules_multimer.py",
+      "bindcraft/af/alphafold/model/quat_affine.py",
+      "bindcraft/af/alphafold/model/utils.py",
+      "bindcraft/campaign_output.py",
+      "bindcraft/developability.py",
+      "bindcraft/filters.py",
+      "bindcraft/loss.py",
+      "bindcraft/mpnn/modules.py",
+      "bindcraft/protein.py",
+      "bindcraft/protein_preparation.py"
+    ],
+    "importlib": [
+      "bindcraft/__init__.py",
+      "bindcraft/campaign_log.py",
+      "bindcraft/campaign_output.py",
+      "bindcraft/cli.py",
+      "bindcraft/selfcheck.py"
+    ],
+    "pkgutil": [
+      "bindcraft/__init__.py"
+    ],
+    "cuequivariance_jax": [
+      "bindcraft/af/accel.py"
+    ],
+    "numpy": [
+      "bindcraft/af/alphafold/common/confidence.py",
+      "bindcraft/af/alphafold/common/protein.py",
+      "bindcraft/af/alphafold/common/residue_constants.py",
+      "bindcraft/af/alphafold/data/prep_inputs.py",
+      "bindcraft/af/alphafold/model/all_atom.py",
+      "bindcraft/af/alphafold/model/all_atom_multimer.py",
+      "bindcraft/af/alphafold/model/common_modules.py",
+      "bindcraft/af/alphafold/model/data.py",
+      "bindcraft/af/alphafold/model/folding.py",
+      "bindcraft/af/alphafold/model/folding_multimer.py",
+      "bindcraft/af/alphafold/model/geometry/rotation_matrix.py",
+      "bindcraft/af/alphafold/model/geometry/vector.py",
+      "bindcraft/af/alphafold/model/model.py",
+      "bindcraft/af/alphafold/model/modules_multimer.py",
+      "bindcraft/af/alphafold/model/quat_affine.py",
+      "bindcraft/af/alphafold/model/utils.py",
+      "bindcraft/design_identity.py",
+      "bindcraft/developability.py",
+      "bindcraft/epitope_targeting.py",
+      "bindcraft/filters.py",
+      "bindcraft/mpnn/modules.py",
+      "bindcraft/mpnn/sample.py",
+      "bindcraft/mpnn/score.py",
+      "bindcraft/protein.py",
+      "bindcraft/proteinmpnn.py",
+      "bindcraft/trajectory_output.py"
+    ],
+    "scipy": [
+      "bindcraft/af/alphafold/common/confidence.py"
+    ],
+    "biotite": [
+      "bindcraft/af/alphafold/common/protein.py",
+      "bindcraft/filters.py",
+      "bindcraft/protein.py"
+    ],
+    "dataclasses": [
+      "bindcraft/af/alphafold/common/protein.py",
+      "bindcraft/af/alphafold/model/geometry/rotation_matrix.py",
+      "bindcraft/af/alphafold/model/geometry/struct_of_array.py",
+      "bindcraft/af/alphafold/model/geometry/vector.py",
+      "bindcraft/protein.py",
+      "bindcraft/protein_preparation.py",
+      "bindcraft/settings.py"
+    ],
+    "io": [
+      "bindcraft/af/alphafold/common/protein.py",
+      "bindcraft/af/alphafold/model/data.py",
+      "bindcraft/af/alphafold/model/utils.py",
+      "bindcraft/campaign_output.py",
+      "bindcraft/protein.py"
+    ],
+    "warnings": [
+      "bindcraft/af/alphafold/common/protein.py",
+      "bindcraft/protein.py"
+    ],
+    "collections": [
+      "bindcraft/af/alphafold/common/residue_constants.py",
+      "bindcraft/af/alphafold/model/layer_stack.py",
+      "bindcraft/af/alphafold/model/r3.py",
+      "bindcraft/af/alphafold/model/utils.py",
+      "bindcraft/campaign_output.py",
+      "bindcraft/prediction.py"
+    ],
+    "haiku": [
+      "bindcraft/af/alphafold/model/common_modules.py",
+      "bindcraft/af/alphafold/model/data.py",
+      "bindcraft/af/alphafold/model/folding.py",
+      "bindcraft/af/alphafold/model/folding_multimer.py",
+      "bindcraft/af/alphafold/model/layer_stack.py",
+      "bindcraft/af/alphafold/model/mapping.py",
+      "bindcraft/af/alphafold/model/model.py",
+      "bindcraft/af/alphafold/model/modules.py",
+      "bindcraft/af/alphafold/model/modules_multimer.py",
+      "bindcraft/af/alphafold/model/prng.py",
+      "bindcraft/af/alphafold/model/utils.py",
+      "bindcraft/mpnn/modules.py",
+      "bindcraft/mpnn/sample.py",
+      "bindcraft/mpnn/score.py",
+      "bindcraft/proteinmpnn.py"
+    ],
+    "numbers": [
+      "bindcraft/af/alphafold/model/common_modules.py",
+      "bindcraft/af/alphafold/model/folding_multimer.py",
+      "bindcraft/af/alphafold/model/utils.py"
+    ],
+    "copy": [
+      "bindcraft/af/alphafold/model/config.py",
+      "bindcraft/af2.py",
+      "bindcraft/settings.py"
+    ],
+    "ml_collections": [
+      "bindcraft/af/alphafold/model/config.py",
+      "bindcraft/af/alphafold/model/folding.py",
+      "bindcraft/af/alphafold/model/folding_multimer.py",
+      "bindcraft/af/alphafold/model/model.py"
+    ],
+    "__future__": [
+      "bindcraft/af/alphafold/model/geometry/rigid_matrix_vector.py",
+      "bindcraft/af/alphafold/model/geometry/rotation_matrix.py",
+      "bindcraft/af/alphafold/model/geometry/vector.py"
+    ],
+    "contextlib": [
+      "bindcraft/af/alphafold/model/layer_stack.py",
+      "bindcraft/af/alphafold/model/utils.py",
+      "bindcraft/af2.py",
+      "bindcraft/campaign_output.py"
+    ],
+    "inspect": [
+      "bindcraft/af/alphafold/model/layer_stack.py",
+      "bindcraft/af/alphafold/model/mapping.py",
+      "bindcraft/filters.py",
+      "bindcraft/loss.py",
+      "bindcraft/settings.py"
+    ],
+    "absl": [
+      "bindcraft/af/alphafold/model/model.py"
+    ],
+    "fcntl": [
+      "bindcraft/af2.py",
+      "bindcraft/campaign_output.py"
+    ],
+    "hashlib": [
+      "bindcraft/af2.py",
+      "bindcraft/campaign_output.py",
+      "bindcraft/design_identity.py"
+    ],
+    "threading": [
+      "bindcraft/campaign.py",
+      "bindcraft/design_workers.py"
+    ],
+    "argparse": [
+      "bindcraft/campaign_filter.py",
+      "bindcraft/rank.py",
+      "bindcraft/score.py"
+    ],
+    "json": [
+      "bindcraft/campaign_filter.py",
+      "bindcraft/campaign_output.py",
+      "bindcraft/cli.py",
+      "bindcraft/design_workers.py",
+      "bindcraft/parameter_sweep.py",
+      "bindcraft/rank.py",
+      "bindcraft/score.py",
+      "bindcraft/settings.py",
+      "bindcraft/trajectory_output.py"
+    ],
+    "operator": [
+      "bindcraft/campaign_filter.py"
+    ],
+    "pathlib": [
+      "bindcraft/campaign_filter.py",
+      "bindcraft/campaign_output.py",
+      "bindcraft/cli.py",
+      "bindcraft/design_workers.py",
+      "bindcraft/model_weights.py",
+      "bindcraft/rank.py",
+      "bindcraft/score.py",
+      "bindcraft/settings.py"
+    ],
+    "sys": [
+      "bindcraft/campaign_filter.py",
+      "bindcraft/campaign_output.py",
+      "bindcraft/cli.py",
+      "bindcraft/design_workers.py",
+      "bindcraft/rank.py",
+      "bindcraft/score.py",
+      "bindcraft/selfcheck.py"
+    ],
+    "math": [
+      "bindcraft/campaign_log.py",
+      "bindcraft/campaign_output.py",
+      "bindcraft/parameter_sweep.py",
+      "bindcraft/rank.py",
+      "bindcraft/score.py",
+      "bindcraft/settings.py",
+      "bindcraft/trajectory.py"
+    ],
+    "csv": [
+      "bindcraft/campaign_output.py",
+      "bindcraft/parameter_sweep.py",
+      "bindcraft/trajectory_output.py"
+    ],
+    "datetime": [
+      "bindcraft/campaign_output.py"
+    ],
+    "shutil": [
+      "bindcraft/campaign_output.py",
+      "bindcraft/model_weights.py",
+      "bindcraft/trajectory_output.py"
+    ],
+    "statistics": [
+      "bindcraft/campaign_output.py",
+      "bindcraft/parameter_sweep.py"
+    ],
+    "subprocess": [
+      "bindcraft/campaign_output.py",
+      "bindcraft/cli.py",
+      "bindcraft/design_workers.py"
+    ],
+    "zipfile": [
+      "bindcraft/campaign_output.py"
+    ],
+    "re": [
+      "bindcraft/cli.py",
+      "bindcraft/protein.py",
+      "bindcraft/protein_preparation.py",
+      "bindcraft/rank.py"
+    ],
+    "itertools": [
+      "bindcraft/epitope_targeting.py",
+      "bindcraft/parameter_sweep.py",
+      "bindcraft/protein.py"
+    ],
+    "random": [
+      "bindcraft/loss.py",
+      "bindcraft/parameter_sweep.py",
+      "bindcraft/protein_preparation.py",
+      "bindcraft/settings.py"
+    ],
+    "tarfile": [
+      "bindcraft/model_weights.py"
+    ],
+    "urllib": [
+      "bindcraft/model_weights.py"
+    ],
+    "enum": [
+      "bindcraft/protein.py"
+    ],
+    "optax": [
+      "bindcraft/protein.py",
+      "bindcraft/sequence_optimization.py"
+    ],
+    "glob": [
+      "bindcraft/rank.py"
+    ],
+    "textwrap": [
+      "bindcraft/score.py"
+    ],
+    "difflib": [
+      "bindcraft/settings.py"
+    ],
+    "base64": [
+      "bindcraft/trajectory_output.py"
+    ],
+    "gzip": [
+      "bindcraft/trajectory_output.py"
+    ],
+    "matplotlib": [
+      "bindcraft/trajectory_output.py"
+    ]
+  },
+  "acceleratorReferences": [
+    {
+      "file": "bindcraft/__init__.py",
+      "line": 15,
+      "text": "if 'triton_gemm' not in os.environ.get('XLA_FLAGS', ''):"
+    },
+    {
+      "file": "bindcraft/__init__.py",
+      "line": 16,
+      "text": "append_xla_flags('--xla_gpu_enable_triton_gemm=false')"
+    },
+    {
+      "file": "bindcraft/af/accel.py",
+      "line": 54,
+      "text": "#cuDNN's fused-attention backward re-materialises the softmax from the saved log-sum-exp, and a query"
+    },
+    {
+      "file": "bindcraft/af/accel.py",
+      "line": 57,
+      "text": "#give cuDNN at least one pad key column at -LOGIT_CLIP so those rows have a well-defined backward; two"
+    },
+    {
+      "file": "bindcraft/af/accel.py",
+      "line": 59,
+      "text": "key_pad = (2 - key_count % 2) if implementation == 'cudnn' else key_count % 2"
+    },
+    {
+      "file": "bindcraft/af/accel.py",
+      "line": 77,
+      "text": "if backend not in ('cudnn', 'xla'):"
+    },
+    {
+      "file": "bindcraft/af/accel.py",
+      "line": 79,
+      "text": "unsupported_dtype = backend == 'cudnn' and q.dtype not in FUSED_DTYPES"
+    },
+    {
+      "file": "bindcraft/af/accel.py",
+      "line": 92,
+      "text": "jax.block_until_ready(jax.nn.dot_product_attention(probe_query, probe_query, probe_query, scale=1.0, implementation='cudnn'))"
+    },
+    {
+      "file": "bindcraft/af/accel.py",
+      "line": 95,
+      "text": "return 'cudnn'"
+    },
+    {
+      "file": "bindcraft/af/accel.py",
+      "line": 98,
+      "text": "def cuequivariance_available() -> bool:"
+    },
+    {
+      "file": "bindcraft/af/accel.py",
+      "line": 100,
+      "text": "import cuequivariance_jax  # noqa: F401"
+    },
+    {
+      "file": "bindcraft/af/accel.py",
+      "line": 107,
+      "text": "import cuequivariance_jax as cuequivariance"
+    },
+    {
+      "file": "bindcraft/af/accel.py",
+      "line": 120,
+      "text": "updated = cuequivariance.triangle_multiplicative_update("
+    },
+    {
+      "file": "bindcraft/af/alphafold/model/modules.py",
+      "line": 1016,
+      "text": "\"\"\"The fused update evaluated by cuEquivariance's kernel instead of by XLA."
+    },
+    {
+      "file": "bindcraft/af/alphafold/model/modules.py",
+      "line": 1050,
+      "text": "if gc.get('use_cueq', False) and accel.cuequivariance_available():"
+    },
+    {
+      "file": "bindcraft/cli.py",
+      "line": 157,
+      "text": "listing = subprocess.run(['nvidia-smi', '--query-gpu=name', '--format=csv,noheader'], capture_output=True, text=True, check=True).stdout"
+    },
+    {
+      "file": "bindcraft/cli.py",
+      "line": 160,
+      "text": "visible = os.environ.get('CUDA_VISIBLE_DEVICES', '').split(',')[0].strip()"
+    },
+    {
+      "file": "bindcraft/design_identity.py",
+      "line": 15,
+      "text": "'attention_backend', 'subbatch_size', 'use_cueq', 'gpu_ids', 'auto_multi_gpu', 'design_workers',"
+    },
+    {
+      "file": "bindcraft/design_workers.py",
+      "line": 25,
+      "text": "visible = os.environ.get('CUDA_VISIBLE_DEVICES')"
+    },
+    {
+      "file": "bindcraft/design_workers.py",
+      "line": 29,
+      "text": "listing = subprocess.run(['nvidia-smi', '--query-gpu=index', '--format=csv,noheader'], capture_output=True, text=True, check=True).stdout"
+    },
+    {
+      "file": "bindcraft/design_workers.py",
+      "line": 34,
+      "text": "def selected_design_gpus(gpu_ids: str | list | None=None) -> list[str]:"
+    },
+    {
+      "file": "bindcraft/design_workers.py",
+      "line": 36,
+      "text": "if gpu_ids in (None, '', 'all'):"
+    },
+    {
+      "file": "bindcraft/design_workers.py",
+      "line": 38,
+      "text": "requested = [str(device).strip() for device in (gpu_ids.split(',') if isinstance(gpu_ids, str) else gpu_ids) if str(device).strip()]"
+    },
+    {
+      "file": "bindcraft/design_workers.py",
+      "line": 46,
+      "text": "listing = subprocess.run(['nvidia-smi', '--query-gpu=index,memory.free,memory.total', '--format=csv,noheader,nounits'], capture_output=True, text=True, check=True).stdout"
+    },
+    {
+      "file": "bindcraft/design_workers.py",
+      "line": 124,
+      "text": "gpus = selected_design_gpus(os.environ.get('BINDCRAFT_GPU_IDS', settings.get('gpu_ids')))"
+    },
+    {
+      "file": "bindcraft/design_workers.py",
+      "line": 211,
+      "text": "environment = {**os.environ, 'CUDA_VISIBLE_DEVICES': worker['gpu'], 'BINDCRAFT_WORKER_ID': str(worker_index), 'BINDCRAFT_WORKER_COUNT': str(len(plan))}"
+    },
+    {
+      "file": "bindcraft/preflight.py",
+      "line": 57,
+      "text": "COMMA_SEPARATED_SETTINGS = frozenset({'chains', 'coldspots', 'gpu_ids', 'hotspots', 'mutate_positions', 'scaffold_edits'})"
+    },
+    {
+      "file": "bindcraft/selfcheck.py",
+      "line": 6,
+      "text": "ACCELERATOR_MODULES = {'cuda13': ('jax_plugins.xla_cuda13', 'cuequivariance_jax'), 'cuda12': ('jax_plugins.xla_cuda12', 'cuequivariance_jax'), 'rocm': ('jax_plugins.xla_rocm',), 'oneapi': ('jax_plugins.xla_oneapi',)}"
+    },
+    {
+      "file": "bindcraft/settings.py",
+      "line": 36,
+      "text": "CAMPAIGN_SETTING_NAMES = frozenset({'aa_bias', 'archive_trajectories', 'attention_backend', 'auto_multi_gpu', 'autotune', 'autotune_loss_weights', 'betasheet_reopt_extra_anneal_steps', 'betasheet_reopt_extra_refine_steps', 'betasheet_reopt_recycles', 'betasheet_reopt_trigger', 'binder_chain', 'binder_lengths', 'binder_name', 'binder_scaffold', 'binder_shapes', 'campaign_name', 'campaign_seed', 'compile_next_length', 'copies', 'crop_fasta_sequence', 'cyclic_offset_mode', 'cyclize_peptide', 'design_dropout', 'design_models', 'design_recycles', 'design_workers', 'desperation', 'desperation_trajectories', 'detarget_check_interval', 'domain_linker_fix_cut', 'enough_passing_sequences', 'filters', 'forced_targeting', 'forced_targeting_shell', 'gpu_ids', 'hash_design_names', 'idr_crop_count', 'induced_fit_monomer_adaptive', 'induced_fit_monomer_chunk', 'induced_fit_monomer_plddt', 'induced_fit_monomer_steps', 'induced_fit_mpnn_designed_share', 'induced_fit_mpnn_shell', 'induced_fit_mpnn_threshold', 'induced_fit_steps', 'initial_guess', 'kept_sequences', 'length_bucket_size', 'losses', 'max_binder_chain_breaks_final', 'max_binder_free_cysteines_final', 'max_coldspot_contact_final', 'max_cyclic_closure_distance_final', 'max_detarget_interface_residues_final', 'max_detarget_iptm', 'max_detarget_rounds', 'max_exposed_loop_fraction_final', 'max_helix_fraction_final', 'max_induced_fit_tm_final', 'max_interdomain_contact_final', 'max_mhc_anchor_score_final', 'max_off_epitope_contact_final', 'max_off_paratope_contact_final', 'max_oligomer_symmetry_rmsd_final', 'max_protease_site_score_final', 'max_scaffold_framework_rmsd_final', 'max_surface_hydrophobicity_final', 'max_termini_distance_final', 'max_terminus_exposure_final', 'max_trajectories', 'max_workers_per_gpu', 'min_binder_disulfides_final', 'min_domain_separation_ratio_final', 'min_epitope_residues_contacted_final', 'min_framework_packing_final', 'min_hotspot_contact_final', 'min_induced_fit_interface_rmsd_final', 'min_interface_buried_area_final', 'min_receptor_chains_contacted_final', 'min_scaffold_sequence_retained_final', 'min_target_crop_length_final', 'min_target_plddt_final', 'min_termini_away_cosine_final', 'mpnn_fix_linker', 'mpnn_model', 'mpnn_variant', 'multitarget_best_round', 'multitarget_cumulative_filter', 'multitarget_filter_models', 'multitarget_merged_gradient_budget', 'multitarget_merged_gradients', 'multitarget_rounds_per_target', 'multitarget_steps', 'multitarget_swap_patience', 'multitarget_swap_threshold', 'multitarget_tied_redesign', 'multitarget_warmup_patience', 'mutate_positions', 'number_of_final_designs', 'oligomer_tie', 'parameter_sweep', 'project_folder', 'redesign_interface', 'relax_accepted_designs', 'relax_learning_rate', 'relax_min_sep', 'relax_overlap_tol', 'relax_restraint_backbone', 'relax_restraint_sidechain', 'relax_steps', 'relax_weight_bond', 'relax_weight_clash', 'resume', 'save_binder_monomers', 'save_design_animations', 'save_design_frames', 'save_design_trajectory', 'save_design_sequences', 'save_failed_refolds', 'save_failed_trajectories', 'save_loss_plots', 'sequence_candidates', 'sparse_output', 'subbatch_size', 'target_chain', 'targets', 'trajectory_only', 'use_cueq', 'validation_crop_flank', 'validation_model', 'validation_models', 'validation_recycles', 'worker_launch_stagger', 'workers_per_gpu'})"
+    }
+  ],
+  "modalities": {
+    "ARP": {
+      "preset": {
+        "description": "The ankyrin-repeat scaffold with editable repeat positions",
+        "binder_scaffold": "scaffolds/ARP.cif",
+        "mutate_positions": "A16,A19,A20,A23,A44-48(5-10),A53,A56,A77-81(5-10),A86,A89,A110-114(5-10),A119,A122,A143-147(5-10),A152,A156",
+        "design_models": 3,
+        "validation_model": "multimer",
+        "min_scaffold_sequence_retained_final": 1.0,
+        "max_scaffold_framework_rmsd_final": 3.0,
+        "min_monomer_plddt_final": 0.7,
+        "aa_bias": {
+          "C": 0.0,
+          "F": 0.9,
+          "W": 0.3,
+          "Y": 0.9
+        }
+      },
+      "configuration": "not_started",
+      "nativeDesignExecution": "blocked"
+    },
+    "Fab": {
+      "preset": {
+        "description": "Heavy and light chains with editable variable domains, the constant body kept off the target",
+        "binder_scaffold": "scaffolds/Fab.cif",
+        "mutate_positions": "L30-32,L91-94,L96,H31-33,H50,H52-55(4-6),H57,H59,H99-106(5-18),H72*",
+        "design_models": 3,
+        "validation_model": "multimer",
+        "min_scaffold_sequence_retained_final": 1.0,
+        "max_scaffold_framework_rmsd_final": 3.0,
+        "min_monomer_plddt_final": 0.7,
+        "aa_bias": {
+          "C": 0.0,
+          "F": 0.9,
+          "W": 0.3,
+          "Y": 0.9
+        }
+      },
+      "configuration": "not_started",
+      "nativeDesignExecution": "blocked"
+    },
+    "VHH": {
+      "preset": {
+        "description": "The VHH single-domain antibody scaffold with editable CDRs; samples both paratope conformations",
+        "binder_scaffold": "scaffolds/VHH.cif",
+        "mutate_positions": "A27-33,A35*,A37*,A45*,A47*,A50*,A52-57(5-7),A59,A97-99*,A100-114(3-25),A115,A116",
+        "paratope_conformations": [
+          "extended",
+          "folded_back"
+        ],
+        "weights_binder_intra_coldspot": 1.0,
+        "weights_binder_coldspot": 1.0,
+        "design_models": 3,
+        "validation_model": "multimer",
+        "min_scaffold_sequence_retained_final": 1.0,
+        "min_monomer_plddt_final": 0.7,
+        "aa_bias": {
+          "C": 0.0,
+          "F": 0.9,
+          "W": 0.3,
+          "Y": 0.9
+        }
+      },
+      "configuration": "not_started",
+      "nativeDesignExecution": "blocked"
+    },
+    "binder": {
+      "preset": {
+        "description": "A new miniprotein binder of 60-100 residues, folded from nothing",
+        "binder_lengths": [
+          60,
+          180
+        ],
+        "aa_bias": {
+          "C": 0
+        },
+        "min_monomer_plddt_final": 0.7,
+        "filters": {
+          "Binder_RMSD": {
+            "threshold": 3.5,
+            "higher": false
+          }
+        }
+      },
+      "configuration": "tested",
+      "nativeDesignExecution": "blocked"
+    },
+    "cyclic_peptide": {
+      "preset": {
+        "description": "A 7-20 residue peptide closed head to tail; read Cyclic_Closure_Distance",
+        "validation_model": "multimer",
+        "cyclize_peptide": true,
+        "binder_lengths": [
+          7,
+          16
+        ],
+        "aa_bias": {
+          "C": 0
+        },
+        "refine_steps": 75,
+        "weights_iptm_loss": 0.1,
+        "weights_compactness": 0.0,
+        "max_ipae_final": 0.33,
+        "filters": {
+          "pTM": {
+            "threshold": null
+          },
+          "Unbound_Binder_pLDDT": {
+            "threshold": null
+          }
+        }
+      },
+      "configuration": "not_started",
+      "nativeDesignExecution": "blocked"
+    },
+    "fold_switch": {
+      "preset": {
+        "description": "The whole fold differs between free and bound, under a TM-score ceiling of 0.6",
+        "weights_induced_fit_global": 1.0,
+        "induced_fit_tm_target": 0.6,
+        "max_induced_fit_tm_final": 0.6,
+        "filters": {
+          "Binder_RMSD": {
+            "threshold": null
+          }
+        }
+      },
+      "configuration": "not_started",
+      "nativeDesignExecution": "blocked"
+    },
+    "homo_oligomer": {
+      "preset": {
+        "description": "Identical copies of one 40-80 residue chain; lengths are per copy",
+        "copies": 2,
+        "binder_lengths": [
+          40,
+          120
+        ],
+        "min_monomer_plddt_final": 0.7,
+        "filters": {
+          "Binder_RMSD": {
+            "threshold": 3.5,
+            "higher": false
+          }
+        }
+      },
+      "configuration": "not_started",
+      "nativeDesignExecution": "blocked"
+    },
+    "induced_fit": {
+      "preset": {
+        "description": "The interface moves at least 5 angstroms between the free and bound prediction",
+        "weights_induced_fit_interface": 0.224,
+        "induced_fit_delta": 5.0,
+        "min_induced_fit_interface_rmsd_final": 5.0,
+        "filters": {
+          "Binder_RMSD": {
+            "threshold": null
+          }
+        }
+      },
+      "configuration": "not_started",
+      "nativeDesignExecution": "blocked"
+    },
+    "large_binder": {
+      "preset": {
+        "description": "A longer binder, with extended optimisation; name binder_lengths as well",
+        "binder_lengths": [
+          250,
+          600
+        ],
+        "screen_steps": 100,
+        "refine_steps": 50,
+        "anneal_steps": 90,
+        "harden_steps": 10,
+        "mutate_steps": 30,
+        "design_models": 3,
+        "validation_model": "multimer",
+        "weights_plddt_loss": 1.0,
+        "weights_iptm_loss": 0.1,
+        "weights_interface_contacts": 0.8,
+        "weights_binder_contacts": 1.8,
+        "weights_interface_pae": 0.5,
+        "weights_binder_pae": 0.8,
+        "weights_binder_helicity": -0.2,
+        "weights_compactness": 0.1,
+        "min_plddt_screen": 0.6,
+        "min_plddt_refine": 0.6,
+        "min_plddt_mutate": 0.6,
+        "min_monomer_plddt_final": 0.6,
+        "filters": {
+          "Binder_RMSD": {
+            "threshold": 3.5,
+            "higher": false
+          }
+        }
+      },
+      "configuration": "not_started",
+      "nativeDesignExecution": "blocked"
+    },
+    "multidomain": {
+      "preset": {
+        "description": "Two domains on one 120-300 residue chain, with separation and linker objectives",
+        "binder_lengths": [
+          120,
+          300
+        ],
+        "aa_bias": {
+          "C": 0
+        },
+        "design_recycles": 2,
+        "screen_steps": 100,
+        "refine_steps": 50,
+        "anneal_steps": 90,
+        "harden_steps": 10,
+        "mutate_steps": 30,
+        "weights_multidomain": 1.25,
+        "weights_binder_pae": 0.1,
+        "weights_binder_contacts": 0,
+        "weights_compactness": 0,
+        "n_domains": 2,
+        "min_domain_size": 50,
+        "max_domain_size": 180,
+        "max_domains": 2,
+        "domain_rg_weight": 0.5,
+        "domain_sep_weight": 1.0,
+        "domain_contact_cutoff": 8.0,
+        "domain_pae_margin": 0.2,
+        "domain_linker_helix_weight": 0.5,
+        "max_interdomain_contact_final": 0.05,
+        "min_domain_separation_ratio_final": 1.0,
+        "min_plddt_final": 0.75,
+        "min_ptm_final": 0.4,
+        "max_ipae_final": 0.45,
+        "min_monomer_plddt_final": 0.7
+      },
+      "configuration": "not_started",
+      "nativeDesignExecution": "blocked"
+    },
+    "peptide": {
+      "preset": {
+        "description": "A 12-25 residue linear peptide, judged bound without needing a free fold",
+        "validation_model": "multimer",
+        "binder_lengths": [
+          12,
+          25
+        ],
+        "aa_bias": {
+          "C": 0
+        },
+        "refine_steps": 75,
+        "weights_iptm_loss": 0.1,
+        "weights_compactness": 0.0,
+        "max_ipae_final": 0.33,
+        "filters": {
+          "pTM": {
+            "threshold": null
+          },
+          "Unbound_Binder_pLDDT": {
+            "threshold": null
+          }
+        }
+      },
+      "configuration": "tested",
+      "nativeDesignExecution": "blocked"
+    },
+    "scFv": {
+      "preset": {
+        "description": "Heavy and light variable domains as two chains; no linker is designed",
+        "binder_scaffold": "scaffolds/scFv.cif",
+        "mutate_positions": "L30-32,L91-94,L96,H31-33,H50,H52-55(4-6),H57,H59,H99-106(5-18),H72*",
+        "design_models": 3,
+        "validation_model": "multimer",
+        "min_scaffold_sequence_retained_final": 1.0,
+        "max_scaffold_framework_rmsd_final": 3.0,
+        "min_monomer_plddt_final": 0.7,
+        "aa_bias": {
+          "C": 0.0,
+          "F": 0.9,
+          "W": 0.3,
+          "Y": 0.9
+        }
+      },
+      "configuration": "not_started",
+      "nativeDesignExecution": "blocked"
+    }
+  },
+  "properties": {
+    "bigbang": {
+      "preset": {
+        "description": "Start the gradient stages from the coordinates on hand too, which for a binder folded from nothing is the origin",
+        "bigbang_initialization": true
+      },
+      "configuration": "not_started",
+      "nativeDesignExecution": "blocked"
+    },
+    "disulfide_staple": {
+      "preset": {
+        "description": "Allow cysteine and require a geometrically detected disulfide",
+        "weights_disulfide": 1.0,
+        "disulfide_distance": 3.8,
+        "disulfide_sequence_separation": 3,
+        "min_binder_disulfides_final": 1,
+        "aa_bias": {
+          "C": 1.0
+        }
+      },
+      "configuration": "not_started",
+      "nativeDesignExecution": "blocked"
+    },
+    "forced_targeting": {
+      "preset": {
+        "description": "Concentrate the paratope on the target's declared hotspots",
+        "forced_targeting": true,
+        "min_hotspot_contact_final": 0.5
+      },
+      "configuration": "not_started",
+      "nativeDesignExecution": "blocked"
+    },
+    "humanize": {
+      "preset": {
+        "description": "Human-like sequence preferences and an MHC-II anchor-score objective",
+        "weights_humanization": 1.0,
+        "humanization_species": "human",
+        "humanization_mhc2_weight": 1.0,
+        "humanization_coupling_weight": 0.5,
+        "max_mhc_anchor_score_final": 1.95
+      },
+      "configuration": "not_started",
+      "nativeDesignExecution": "blocked"
+    },
+    "initial_guess": {
+      "preset": {
+        "description": "Re-predict an accepted candidate from the pose the trajectory folded, which is the initial guess",
+        "initial_guess": true
+      },
+      "configuration": "not_started",
+      "nativeDesignExecution": "blocked"
+    },
+    "mixed_topology": {
+      "preset": {
+        "description": "At most 50% helix and at least 20% beta sheet",
+        "weights_non_helical": 1.0,
+        "weights_binder_helicity": 0,
+        "max_helix_fraction_final": 0.5,
+        "filters": {
+          "Binder_BetaSheet_Fraction": {
+            "threshold": 0.2,
+            "higher": true
+          }
+        }
+      },
+      "configuration": "not_started",
+      "nativeDesignExecution": "blocked"
+    },
+    "protease_stable": {
+      "preset": {
+        "description": "Penalise protease cleavage motifs, exposed loops and exposed termini",
+        "weights_protease_sites": 1.0,
+        "weights_exposed_loops": 0.5,
+        "weights_exposed_termini": 0.5,
+        "exposed_loops_measure": "plddt",
+        "exposed_loops_distinguish_sheets": true,
+        "max_protease_site_score_final": 0.5,
+        "max_exposed_loop_fraction_final": 0.7,
+        "max_terminus_exposure_final": 0.6
+      },
+      "configuration": "not_started",
+      "nativeDesignExecution": "blocked"
+    },
+    "termini_accessible": {
+      "preset": {
+        "description": "Point both chain ends away from the target",
+        "weights_termini_angle": 0.1,
+        "weights_n_terminus_away": 0.5,
+        "weights_c_terminus_away": 0.5,
+        "min_termini_away_cosine_final": 0.0,
+        "min_n_terminus_away_cosine_final": 0.0,
+        "min_c_terminus_away_cosine_final": 0.0
+      },
+      "configuration": "not_started",
+      "nativeDesignExecution": "blocked"
+    },
+    "termini_together": {
+      "preset": {
+        "description": "Bring the N and C termini within 10 angstroms of each other",
+        "weights_termini_distance": 1.0,
+        "termini_distance_threshold": 7.0,
+        "max_termini_distance_final": 10.0
+      },
+      "configuration": "not_started",
+      "nativeDesignExecution": "blocked"
+    }
+  }
+}
