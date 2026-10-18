@@ -260,6 +260,10 @@ class Service:
     def engine_python(self):
         bundled=pathlib.Path(__file__).resolve().parents[1]/'runtime-boltz/bin/python3.12'
         return self.setting('enginePython') or str(bundled if bundled.is_file() else self.root/'engine/venv/bin/python')
+    def prediction_resources(self,p):
+        if set(p)-{'verify'} or type(p.get('verify',False)) is not bool:raise ValueError('Model inspection accepts only an explicit verification switch.')
+        from boltz_resources import status
+        return status(self.root/'engine/models',p.get('verify',False))
     def compute(self,p):
         return self.compute_for(self.engine_python())
     def compute_for(self,python):
@@ -268,7 +272,7 @@ class Service:
             memory=int(subprocess.check_output(['/usr/sbin/sysctl','-n','hw.memsize'],text=True,stderr=subprocess.DEVNULL).strip())
             chip=subprocess.check_output(['/usr/sbin/sysctl','-n','machdep.cpu.brand_string'],text=True).strip()
         except Exception: pass
-        result={'chip':chip,'architecture':platform.machine(),'macOS':platform.mac_ver()[0],'memoryGB':round(memory/1024**3,1) if memory else None,'diskFreeGB':round(shutil.disk_usage(self.root).free/1024**3,1),'python':str(python),'installed':False,'mpsAvailable':False,'mpsBuilt':False,'version':None,'weightsDownloaded':(self.root/'engine/models/boltz2_conf.ckpt').exists()}
+        result={'chip':chip,'architecture':platform.machine(),'macOS':platform.mac_ver()[0],'memoryGB':round(memory/1024**3,1) if memory else None,'diskFreeGB':round(shutil.disk_usage(self.root).free/1024**3,1),'python':str(python),'runtimeKind':'bundled' if os.path.abspath(python)==str(pathlib.Path(__file__).resolve().parents[1]/'runtime-boltz/bin/python3.12') else 'configured' if self.setting('enginePython') else 'managed','installed':False,'mpsAvailable':False,'mpsBuilt':False,'version':None,'weightsDownloaded':(self.root/'engine/models/boltz2_conf.ckpt').exists()}
         py=pathlib.Path(python)
         if not py.is_file(): return result
         try:
@@ -457,7 +461,7 @@ class Service:
         if action in PEPTIDE_ACTIONS: return Peptides(self).dispatch(action,p)
         return getattr(self,action)(p)
 
-ACTIONS={'record_update','record_remove','record_restore','library','setting_set','project_create','project_update','project_delete','record_save','sequence_save','mutate','fasta_parse','fasta_import','uniprot_search','uniprot_get','structures','structure_download','import_structure','asset_read','compute','install_engine','prediction_start','job_read','job_cancel','cloud_prepare','cloud_opened','cloud_import','export_project','export_file','reconcile'}
+ACTIONS={'record_update','record_remove','record_restore','library','setting_set','project_create','project_update','project_delete','record_save','sequence_save','mutate','fasta_parse','fasta_import','uniprot_search','uniprot_get','structures','structure_download','import_structure','asset_read','compute','install_engine','prediction_start','prediction_resources','job_read','job_cancel','cloud_prepare','cloud_opened','cloud_import','export_project','export_file','reconcile'}
 
 ACTIONS |= mpnn.ACTIONS | fold_engine.ACTIONS | OBSERVATORY_ACTIONS | PEPTIDE_ACTIONS | molecular_graph.ACTIONS | intelligence.ACTIONS
 

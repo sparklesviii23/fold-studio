@@ -1,0 +1,503 @@
+{
+  "scope": "Original-filter small three-state CPU pathway on explicit technical fragments; no biological specificity claim.",
+  "job": {
+    "id": "1c1f58e4-9920-468c-8369-cada84b95a59",
+    "project_id": "b4e0ca2f-61be-46a2-a8d4-b84f5c2ee519",
+    "name": "Original filters \u00b7 small multi-state CPU case",
+    "engine": "bindcraft2",
+    "state": "completed",
+    "data": {
+      "projectId": "b4e0ca2f-61be-46a2-a8d4-b84f5c2ee519",
+      "name": "Original filters \u00b7 small multi-state CPU case",
+      "preparation": {
+        "schemaVersion": 1,
+        "name": "Original filters \u00b7 small multi-state CPU case",
+        "valid": true,
+        "executionReady": false,
+        "modality": "peptide",
+        "scaffold": null,
+        "source": {
+          "structureId": "4294218e-6bf0-48f7-9c5b-dc97629d592f",
+          "projectId": "b4e0ca2f-61be-46a2-a8d4-b84f5c2ee519",
+          "sha256": "c152bef545f70158970e739878231fbe6ba92b6218a0ce39a84ec4b873b56c8d",
+          "format": "pdb",
+          "model": "1"
+        },
+        "config": {
+          "validation_model": "multimer",
+          "binder_lengths": [
+            12
+          ],
+          "aa_bias": {
+            "C": 0
+          },
+          "refine_steps": 75,
+          "weights_iptm_loss": 0.1,
+          "weights_compactness": 0.0,
+          "max_ipae_final": 0.33,
+          "filters": {
+            "pTM": {
+              "threshold": null
+            },
+            "Unbound_Binder_pLDDT": {
+              "threshold": null
+            }
+          },
+          "number_of_final_designs": 1,
+          "max_trajectories": 1,
+          "campaign_seed": 42,
+          "attention_backend": "stock",
+          "use_cueq": false,
+          "auto_multi_gpu": false,
+          "design_workers": 1,
+          "resume": false,
+          "targets": [
+            {
+              "name": "target",
+              "target_path": "input.pdb",
+              "chains": "A",
+              "hotspots": "",
+              "coldspots": ""
+            },
+            {
+              "name": "target2",
+              "target_path": "target2.pdb",
+              "chains": "A",
+              "hotspots": "",
+              "coldspots": "",
+              "objective": "target",
+              "weight": 1.0
+            },
+            {
+              "name": "target3",
+              "target_path": "target3.pdb",
+              "chains": "A",
+              "hotspots": "",
+              "coldspots": "",
+              "objective": "detarget",
+              "weight": -0.5
+            }
+          ],
+          "project_folder": "output"
+        },
+        "residueMap": [
+          {
+            "id": "[\"A\",18,\"\"]",
+            "chain": "A",
+            "number": 18,
+            "aminoAcid": "A"
+          },
+          {
+            "id": "[\"A\",19,\"\"]",
+            "chain": "A",
+            "number": 19,
+            "aminoAcid": "F"
+          },
+          {
+            "id": "[\"A\",20,\"\"]",
+            "chain": "A",
+            "number": 20,
+            "aminoAcid": "T"
+          },
+          {
+            "id": "[\"A\",21,\"\"]",
+            "chain": "A",
+            "number": 21,
+            "aminoAcid": "V"
+          },
+          {
+            "id": "[\"A\",22,\"\"]",
+            "chain": "A",
+            "number": 22,
+            "aminoAcid": "T"
+          },
+          {
+            "id": "[\"A\",23,\"\"]",
+            "chain": "A",
+            "number": 23,
+            "aminoAcid": "V"
+          },
+          {
+            "id": "[\"A\",24,\"\"]",
+            "chain": "A",
+            "number": 24,
+            "aminoAcid": "P"
+          },
+          {
+            "id": "[\"A\",25,\"\"]",
+            "chain": "A",
+            "number": 25,
+            "aminoAcid": "K"
+          },
+          {
+            "id": "[\"A\",26,\"\"]",
+            "chain": "A",
+            "number": 26,
+            "aminoAcid": "D"
+          },
+          {
+            "id": "[\"A\",27,\"\"]",
+            "chain": "A",
+            "number": 27,
+            "aminoAcid": "L"
+          },
+          {
+            "id": "[\"A\",28,\"\"]",
+            "chain": "A",
+            "number": 28,
+            "aminoAcid": "Y"
+          },
+          {
+            "id": "[\"A\",29,\"\"]",
+            "chain": "A",
+            "number": 29,
+            "aminoAcid": "V"
+          }
+        ],
+        "settingsSha256": "c56da32613cd162f5eaa7419bfc10ee77b73bcd65f9c68c506936fc2a2f45c16",
+        "upstream": {
+          "state": "present",
+          "revision": "c0ee638d11bc010817c2c97ee58ed5c323e664e2",
+          "manifestSha256": "8f06e409dac335261d2505361f4358e2b4df389b8f85a497967406d8c4af4277",
+          "license": "BindCraft2 Source-Available License (Hosting-Restricted)",
+          "modified": false
+        },
+        "warnings": [
+          "Prepared configuration is not a completed design or a validated full-model Metal backend.",
+          "Hotspots use observed source numbering; no biological numbering conversion is inferred.",
+          "Memory feasibility has not been established for this target.",
+          "Multiple target states retain original upstream selection, weighting and rejection behavior. Preparation does not establish cross-reactivity or specificity."
+        ],
+        "targetSources": [
+          {
+            "name": "target",
+            "file": "input.pdb",
+            "source": {
+              "structureId": "4294218e-6bf0-48f7-9c5b-dc97629d592f",
+              "projectId": "b4e0ca2f-61be-46a2-a8d4-b84f5c2ee519",
+              "sha256": "c152bef545f70158970e739878231fbe6ba92b6218a0ce39a84ec4b873b56c8d",
+              "format": "pdb",
+              "model": "1"
+            },
+            "residueMap": [
+              {
+                "id": "[\"A\",18,\"\"]",
+                "chain": "A",
+                "number": 18,
+                "aminoAcid": "A"
+              },
+              {
+                "id": "[\"A\",19,\"\"]",
+                "chain": "A",
+                "number": 19,
+                "aminoAcid": "F"
+              },
+              {
+                "id": "[\"A\",20,\"\"]",
+                "chain": "A",
+                "number": 20,
+                "aminoAcid": "T"
+              },
+              {
+                "id": "[\"A\",21,\"\"]",
+                "chain": "A",
+                "number": 21,
+                "aminoAcid": "V"
+              },
+              {
+                "id": "[\"A\",22,\"\"]",
+                "chain": "A",
+                "number": 22,
+                "aminoAcid": "T"
+              },
+              {
+                "id": "[\"A\",23,\"\"]",
+                "chain": "A",
+                "number": 23,
+                "aminoAcid": "V"
+              },
+              {
+                "id": "[\"A\",24,\"\"]",
+                "chain": "A",
+                "number": 24,
+                "aminoAcid": "P"
+              },
+              {
+                "id": "[\"A\",25,\"\"]",
+                "chain": "A",
+                "number": 25,
+                "aminoAcid": "K"
+              },
+              {
+                "id": "[\"A\",26,\"\"]",
+                "chain": "A",
+                "number": 26,
+                "aminoAcid": "D"
+              },
+              {
+                "id": "[\"A\",27,\"\"]",
+                "chain": "A",
+                "number": 27,
+                "aminoAcid": "L"
+              },
+              {
+                "id": "[\"A\",28,\"\"]",
+                "chain": "A",
+                "number": 28,
+                "aminoAcid": "Y"
+              },
+              {
+                "id": "[\"A\",29,\"\"]",
+                "chain": "A",
+                "number": 29,
+                "aminoAcid": "V"
+              }
+            ],
+            "objective": "target",
+            "weight": 1.0
+          },
+          {
+            "name": "target2",
+            "file": "target2.pdb",
+            "source": {
+              "structureId": "694c9e8b-c6b0-4557-8f8c-9698393ea506",
+              "projectId": "b4e0ca2f-61be-46a2-a8d4-b84f5c2ee519",
+              "sha256": "2a899d2315e3f8c758a7afbef9cfe4c20a0c07211b5733e7aaab4eb3639a6d08",
+              "format": "pdb",
+              "model": "1"
+            },
+            "residueMap": [
+              {
+                "id": "[\"A\",1,\"\"]",
+                "chain": "A",
+                "number": 1,
+                "aminoAcid": "F"
+              },
+              {
+                "id": "[\"A\",2,\"\"]",
+                "chain": "A",
+                "number": 2,
+                "aminoAcid": "T"
+              },
+              {
+                "id": "[\"A\",3,\"\"]",
+                "chain": "A",
+                "number": 3,
+                "aminoAcid": "I"
+              },
+              {
+                "id": "[\"A\",4,\"\"]",
+                "chain": "A",
+                "number": 4,
+                "aminoAcid": "T"
+              },
+              {
+                "id": "[\"A\",5,\"\"]",
+                "chain": "A",
+                "number": 5,
+                "aminoAcid": "A"
+              },
+              {
+                "id": "[\"A\",6,\"\"]",
+                "chain": "A",
+                "number": 6,
+                "aminoAcid": "P"
+              },
+              {
+                "id": "[\"A\",7,\"\"]",
+                "chain": "A",
+                "number": 7,
+                "aminoAcid": "K"
+              },
+              {
+                "id": "[\"A\",8,\"\"]",
+                "chain": "A",
+                "number": 8,
+                "aminoAcid": "D"
+              },
+              {
+                "id": "[\"A\",9,\"\"]",
+                "chain": "A",
+                "number": 9,
+                "aminoAcid": "L"
+              },
+              {
+                "id": "[\"A\",10,\"\"]",
+                "chain": "A",
+                "number": 10,
+                "aminoAcid": "Y"
+              },
+              {
+                "id": "[\"A\",11,\"\"]",
+                "chain": "A",
+                "number": 11,
+                "aminoAcid": "V"
+              },
+              {
+                "id": "[\"A\",12,\"\"]",
+                "chain": "A",
+                "number": 12,
+                "aminoAcid": "V"
+              }
+            ],
+            "objective": "target",
+            "weight": 1.0
+          },
+          {
+            "name": "target3",
+            "file": "target3.pdb",
+            "source": {
+              "structureId": "19610c84-fe25-4d6d-b1a9-64f9dff33d34",
+              "projectId": "b4e0ca2f-61be-46a2-a8d4-b84f5c2ee519",
+              "sha256": "52b62b9cde9f3afb730addf175b5ed0d357605fe6974063f79f492da768f8411",
+              "format": "pdb",
+              "model": "1"
+            },
+            "residueMap": [
+              {
+                "id": "[\"A\",32,\"\"]",
+                "chain": "A",
+                "number": 32,
+                "aminoAcid": "W"
+              },
+              {
+                "id": "[\"A\",33,\"\"]",
+                "chain": "A",
+                "number": 33,
+                "aminoAcid": "N"
+              },
+              {
+                "id": "[\"A\",34,\"\"]",
+                "chain": "A",
+                "number": 34,
+                "aminoAcid": "P"
+              },
+              {
+                "id": "[\"A\",35,\"\"]",
+                "chain": "A",
+                "number": 35,
+                "aminoAcid": "P"
+              },
+              {
+                "id": "[\"A\",36,\"\"]",
+                "chain": "A",
+                "number": 36,
+                "aminoAcid": "T"
+              },
+              {
+                "id": "[\"A\",37,\"\"]",
+                "chain": "A",
+                "number": 37,
+                "aminoAcid": "F"
+              },
+              {
+                "id": "[\"A\",38,\"\"]",
+                "chain": "A",
+                "number": 38,
+                "aminoAcid": "S"
+              },
+              {
+                "id": "[\"A\",39,\"\"]",
+                "chain": "A",
+                "number": 39,
+                "aminoAcid": "P"
+              },
+              {
+                "id": "[\"A\",40,\"\"]",
+                "chain": "A",
+                "number": 40,
+                "aminoAcid": "A"
+              },
+              {
+                "id": "[\"A\",41,\"\"]",
+                "chain": "A",
+                "number": 41,
+                "aminoAcid": "L"
+              },
+              {
+                "id": "[\"A\",42,\"\"]",
+                "chain": "A",
+                "number": 42,
+                "aminoAcid": "L"
+              },
+              {
+                "id": "[\"A\",43,\"\"]",
+                "chain": "A",
+                "number": 43,
+                "aminoAcid": "V"
+              }
+            ],
+            "objective": "detarget",
+            "weight": -0.5
+          }
+        ]
+      },
+      "outputs": [],
+      "settingsFile": "settings.json",
+      "provenanceFile": "provenance.json",
+      "runtime": "/Users/vii/Documents/FoldStudio-MetalPort/runtimes/jax-cpu/bin/python",
+      "parameters": "/Users/vii/Documents/FoldStudio-MetalPort/models/alphafold",
+      "checkpointSha256": {
+        "model_1_multimer_v3": "611da8fc7478928f68de12e8b226260ef1f4ce62bcc29b008572e52f4f212959",
+        "model_2_multimer_v3": "51362b0844382ae0f5720c59b81dd13a43eea40fbf9995dd2573bdab88865378"
+      },
+      "profile": "experimental-cpu-float32-multitarget",
+      "execution": "cpu",
+      "precision": "float32",
+      "modelEnsemble": false,
+      "modelSelection": {
+        "designModels": [
+          "model_1_multimer_v3"
+        ],
+        "validationModels": [
+          "model_2_multimer_v3"
+        ]
+      },
+      "resourceEstimate": {
+        "paddedResidues": 64,
+        "aggregatePaddedResidues": 192
+      },
+      "paddedResidueLimit": 256,
+      "runtimeInfo": {},
+      "executionSettingsSha256": "66cd998bf524d0c22cebfacb7dfd2d00b340895db8ce00a82302f3bf35b8582c",
+      "pid": 79953,
+      "workerPath": "/Users/vii/Documents/FoldStudio-MetalPort/fold-studio/scientific/worker.py",
+      "logAsset": "/Users/vii/Documents/FoldStudio-MetalPort/validation/native-multitarget-cpu/jobs/1c1f58e4-9920-468c-8369-cada84b95a59/execution.log",
+      "started": "2026-10-18T12:15:25.749966+00:00",
+      "stage": "completed",
+      "finished": "2026-10-18T12:21:53.789688+00:00",
+      "acceptedStructureFiles": 0,
+      "outcome": "no_accepted_designs",
+      "limitations": [
+        "Experimental cpu campaign; default scientific rejection criteria retained.",
+        "Predicted designs are not validated binding or inhibition.",
+        "Full modality and ensemble scientific parity not established."
+      ],
+      "executionProgress": {
+        "source": "upstream execution log",
+        "percent": null,
+        "lastReportedStage": "screen",
+        "stageOutcome": "rejected",
+        "stageDetails": "i_pTM.target=0.01    i_pTM.target2=0.01    i_pTM.target3=0.01    pLDDT.target=0.45    pLDDT.target2=0.62   due to [pLDDT.target]",
+        "lastObservedUpdate": {
+          "stage": "screen",
+          "sequenceUpdates": 100,
+          "metrics": {
+            "target.binder_contacts": 1.4406850337982178,
+            "target.binder_helicity": -1.8803062438964844,
+            "target.binder_pae": 0.039930522441864014,
+            "target.interface_contacts.target": 3.8505799770355225,
+            "target.interface_pae.target": 0.058845121413469315,
+            "target.iptm": 0.006629349663853645,
+            "target.iptm_loss.target": 0.09933706372976303,
+            "target.plddt_loss": 0.026867209002375603,
+            "target.ptm": 0.14355069398880005
+          }
+        }
+      }
+    },
+    "created": "2026-10-18T12:11:18.988803+00:00",
+    "updated": "2026-10-18T12:21:53.790081+00:00",
+    "log": "licity\":-1.3395535945892334,\"target2.binder_pae\":0.04588843882083893,\"target2.interface_contacts.target2\":3.704864978790283,\"target2.interface_pae.target2\":0.049984969198703766,\"target2.iptm\":0.009671094827353954,\"target2.iptm_loss.target2\":0.09903289377689362,\"target2.plddt_loss\":0.040244393050670624,\"target2.ptm\":0.1367035210132599}}\nFOLD_PROGRESS {\"stage\":\"screen\",\"sequenceUpdates\":35,\"metrics\":{\"target2.binder_contacts\":1.5093433856964111,\"target2.binder_helicity\":-1.4294748306274414,\"target2.binder_pae\":0.04371919855475426,\"target2.interface_contacts.target2\":3.6586310863494873,\"target2.interface_pae.target2\":0.04645151644945145,\"target2.iptm\":0.013693667948246002,\"target2.iptm_loss.target2\":0.0986306294798851,\"target2.plddt_loss\":0.034218788146972656,\"target2.ptm\":0.141678586602211}}\nFOLD_PROGRESS {\"stage\":\"screen\",\"sequenceUpdates\":36,\"metrics\":{\"target2.binder_contacts\":1.4835373163223267,\"target2.binder_helicity\":-1.454038381576538,\"target2.binder_pae\":0.04329251870512962,\"target2.interface_contacts.target2\":3.6576156616210938,\"target2.interface_pae.target2\":0.04590752348303795,\"target2.iptm\":0.011942143552005291,\"target2.iptm_loss.target2\":0.09880578517913818,\"target2.plddt_loss\":0.03468892350792885,\"target2.ptm\":0.13918672502040863}}\nFOLD_PROGRESS {\"stage\":\"screen\",\"sequenceUpdates\":37,\"metrics\":{\"target2.binder_contacts\":1.4516310691833496,\"target2.binder_helicity\":-1.367447018623352,\"target2.binder_pae\":0.04261099919676781,\"target2.interface_contacts.target2\":3.668642997741699,\"target2.interface_pae.target2\":0.044642072170972824,\"target2.iptm\":0.012623938731849194,\"target2.iptm_loss.target2\":0.09873760491609573,\"target2.plddt_loss\":0.032970067113637924,\"target2.ptm\":0.1479150354862213}}\nFOLD_PROGRESS {\"stage\":\"screen\",\"sequenceUpdates\":38,\"metrics\":{\"target2.binder_contacts\":1.4306734800338745,\"target2.binder_helicity\":-1.4543756246566772,\"target2.binder_pae\":0.03794785961508751,\"target2.interface_contacts.target2\":3.690819025039673,\"target2.interface_pae.target2\":0.047868262976408005,\"target2.iptm\":0.011630276218056679,\"target2.iptm_loss.target2\":0.0988369733095169,\"target2.plddt_loss\":0.03160451352596283,\"target2.ptm\":0.15488222241401672}}\nFOLD_PROGRESS {\"stage\":\"screen\",\"sequenceUpdates\":39,\"metrics\":{\"target2.binder_contacts\":1.4240646362304688,\"target2.binder_helicity\":-1.4959362745285034,\"target2.binder_pae\":0.03786294907331467,\"target2.interface_contacts.target2\":3.6432371139526367,\"target2.interface_pae.target2\":0.0467846542596817,\"target2.iptm\":0.01442996971309185,\"target2.iptm_loss.target2\":0.0985570028424263,\"target2.plddt_loss\":0.032226402312517166,\"target2.ptm\":0.15759047865867615}}\nFOLD_PROGRESS {\"stage\":\"screen\",\"sequenceUpdates\":40,\"metrics\":{\"target2.binder_contacts\":1.4910894632339478,\"target2.binder_helicity\":-1.4501986503601074,\"target2.binder_pae\":0.03943093866109848,\"target2.interface_contacts.target2\":3.7612338066101074,\"target2.interface_pae.target2\":0.05016181617975235,\"target2.iptm\":0.010167849250137806,\"target2.iptm_loss.target2\":0.09898322075605392,\"target2.plddt_loss\":0.0320575051009655,\"target2.ptm\":0.15000644326210022}}\nFOLD_PROGRESS {\"stage\":\"screen\",\"sequenceUpdates\":41,\"metrics\":{\"target2.binder_contacts\":1.4410371780395508,\"target2.binder_helicity\":-1.5041638612747192,\"target2.binder_pae\":0.034565214067697525,\"target2.interface_contacts.target2\":3.822037696838379,\"target2.interface_pae.target2\":0.055669546127319336,\"target2.iptm\":0.008920093066990376,\"target2.iptm_loss.target2\":0.09910799562931061,\"target2.plddt_loss\":0.02970966510474682,\"target2.ptm\":0.17547786235809326}}\nFOLD_PROGRESS {\"stage\":\"screen\",\"sequenceUpdates\":42,\"metrics\":{\"target3.binder_contacts\":1.3389360904693604,\"target3.binder_helicity\":-1.6470431089401245,\"target3.binder_pae\":0.03548233211040497,\"target3.iptm\":0.007328663021326065,\"target3.non_contact.target3\":1.8684144020080566,\"target3.plddt_loss\":0.03455996513366699,\"target3.ptm\":0.16994573175907135}}\nFOLD_PROGRESS {\"stage\":\"screen\",\"sequenceUpdates\":43,\"metrics\":{\"target3.binder_contacts\":1.3747444152832031,\"target3.binder_helicity\":-1.6857357025146484,\"target3.binder_pae\":0.033306583762168884,\"target3.iptm\":0.01044585183262825,\"target3.non_contact.target3\":1.8246718645095825,\"target3.plddt_loss\":0.02787485532462597,\"target3.ptm\":0.1686413586139679}}\nFOLD_PROGRESS {\"stage\":\"screen\",\"sequenceUpdates\":44,\"metrics\":{\"target3.binder_contacts\":1.3261808156967163,\"target3.binder_helicity\":-1.6493676900863647,\"target3.binder_pae\":0.032411299645900726,\"target3.iptm\":0.008159801363945007,\"target3.non_contact.target3\":1.7460626363754272,\"target3.plddt_loss\":0.02577800862491131,\"target3.ptm\":0.1794249564409256}}\nFOLD_PROGRESS {\"stage\":\"screen\",\"sequenceUpdates\":45,\"metrics\":{\"target3.binder_contacts\":1.3185473680496216,\"target3.binder_helicity\":-1.7514736652374268,\"target3.binder_pae\":0.030317295342683792,\"target3.iptm\":0.008191132918000221,\"target3.non_contact.target3\":1.7673200368881226,\"target3.plddt_loss\":0.02476736716926098,\"target3.ptm\":0.17845091223716736}}\nFOLD_PROGRESS {\"stage\":\"screen\",\"sequenceUpdates\":46,\"metrics\":{\"target3.binder_contacts\":1.3560711145401,\"target3.binder_helicity\":-1.8114163875579834,\"target3.binder_pae\":0.03153610602021217,\"target3.iptm\":0.009133260697126389,\"target3.non_contact.target3\":1.807624340057373,\"target3.plddt_loss\":0.024014083668589592,\"target3.ptm\":0.1720321625471115}}\nFOLD_PROGRESS {\"stage\":\"screen\",\"sequenceUpdates\":47,\"metrics\":{\"target.binder_contacts\":1.4318604469299316,\"target.binder_helicity\":-1.6149132251739502,\"target.binder_pae\":0.03555716201663017,\"target.interface_contacts.target\":3.9698004722595215,\"target.interface_pae.target\":0.06143253669142723,\"target.iptm\":0.008110368624329567,\"target.iptm_loss.target\":0.09918896853923798,\"target.plddt_loss\":0.02736576460301876,\"target.ptm\":0.16453611850738525}}\nFOLD_PROGRESS {\"stage\":\"screen\",\"sequenceUpdates\":48,\"metrics\":{\"target.binder_contacts\":1.357635259628296,\"target.binder_helicity\":-1.686947226524353,\"target.binder_pae\":0.032676517963409424,\"target.interface_contacts.target\":4.130732536315918,\"target.interface_pae.target\":0.06837326288223267,\"target.iptm\":0.005316867958754301,\"target.iptm_loss.target\":0.09946831315755844,\"target.plddt_loss\":0.0256888959556818,\"target.ptm\":0.1600075662136078}}\nFOLD_PROGRESS {\"stage\":\"screen\",\"sequenceUpdates\":49,\"metrics\":{\"target.binder_contacts\":1.3739277124404907,\"target.binder_helicity\":-1.75554358959198,\"target.binder_pae\":0.034784164279699326,\"target.interface_contacts.target\":3.836822032928467,\"target.interface_pae.target\":0.0545092411339283,\"target.iptm\":0.007904350757598877,\"target.iptm_loss.target\":0.09920956939458847,\"target.plddt_loss\":0.027582168579101562,\"target.ptm\":0.16938984394073486}}\nFOLD_PROGRESS {\"stage\":\"screen\",\"sequenceUpdates\":50,\"metrics\":{\"target.binder_contacts\":1.4391440153121948,\"target.binder_helicity\":-1.8653109073638916,\"target.binder_pae\":0.0336935929954052,\"target.interface_contacts.target\":3.9032227993011475,\"target.interface_pae.target\":0.06334125250577927,\"target.iptm\":0.005704683717340231,\"target.iptm_loss.target\":0.09942953288555145,\"target.plddt_loss\":0.02667268179357052,\"target.ptm\":0.15504659712314606}}\nFOLD_PROGRESS {\"stage\":\"screen\",\"sequenceUpdates\":51,\"metrics\":{\"target.binder_contacts\":1.426448941230774,\"target.binder_helicity\":-1.6639922857284546,\"target.binder_pae\":0.03418207913637161,\"target.interface_contacts.target\":3.8081159591674805,\"target.interface_pae.target\":0.05130132660269737,\"target.iptm\":0.00891166366636753,\"target.iptm_loss.target\":0.09910883754491806,\"target.plddt_loss\":0.030509421601891518,\"target.ptm\":0.16841089725494385}}\nFOLD_PROGRESS {\"stage\":\"screen\",\"sequenceUpdates\":52,\"metrics\":{\"target.binder_contacts\":1.3297998905181885,\"target.binder_helicity\":-2.008009672164917,\"target.binder_pae\":0.02957647480070591,\"target.interface_contacts.target\":3.781609535217285,\"target.interface_pae.target\":0.056266721338033676,\"target.iptm\":0.00816615391522646,\"target.iptm_loss.target\":0.09918338805437088,\"target.plddt_loss\":0.022212069481611252,\"target.ptm\":0.18191196024417877}}\nFOLD_PROGRESS {\"stage\":\"screen\",\"sequenceUpdates\":53,\"metrics\":{\"target.binder_contacts\":1.343599557876587,\"target.binder_helicity\":-1.745016098022461,\"target.binder_pae\":0.03278337046504021,\"target.interface_contacts.target\":4.026261806488037,\"target.interface_pae.target\":0.06447698920965195,\"target.iptm\":0.005766841117292643,\"target.iptm_loss.target\":0.09942331165075302,\"target.plddt_loss\":0.024435782805085182,\"target.ptm\":0.1732330322265625}}\nFOLD_PROGRESS {\"stage\":\"screen\",\"sequenceUpdates\":54,\"metrics\":{\"target.binder_contacts\":1.2562978267669678,\"target.binder_helicity\":-2.187018871307373,\"target.binder_pae\":0.030409319326281548,\"target.interface_contacts.target\":3.963395118713379,\"target.interface_pae.target\":0.06609439104795456,\"target.iptm\":0.005863850004971027,\"target.iptm_loss.target\":0.09941361844539642,\"target.plddt_loss\":0.022284233942627907,\"target.ptm\":0.1824950873851776}}\nFOLD_PROGRESS {\"stage\":\"screen\",\"sequenceUpdates\":55,\"metrics\":{\"target.binder_contacts\":1.3277714252471924,\"target.binder_helicity\":-1.9255975484848022,\"target.binder_pae\":0.03150617331266403,\"target.interface_contacts.target\":3.842989206314087,\"target.interface_pae.target\":0.05933345481753349,\"target.iptm\":0.008963378146290779,\"target.iptm_loss.target\":0.0991036593914032,\"target.plddt_loss\":0.024955714121460915,\"target.ptm\":0.16092802584171295}}\nFOLD_PROGRESS {\"stage\":\"screen\",\"sequenceUpdates\":56,\"metrics\":{\"target.binder_contacts\":1.31861412525177,\"target.binder_helicity\":-2.0911359786987305,\"target.binder_pae\":0.029725462198257446,\"target.interface_contacts.target\":3.872152090072632,\"target.interface_pae.target\":0.06104244664311409,\"target.iptm\":0.007157936692237854,\"target.iptm_loss.target\":0.09928420931100845,\"target.plddt_loss\":0.022971294820308685,\"target.ptm\":0.17230597138404846}}\nFOLD_PROGRESS {\"stage\":\"screen\",\"sequenceUpdates\":57,\"metrics\":{\"target.binder_contacts\":1.2893662452697754,\"target.binder_helicity\":-2.027312994003296,\"target.binder_pae\":0.02816537581384182,\"target.interface_contacts.target\":3.972506523132324,\"target.interface_pae.target\":0.0624065063893795,\"target.iptm\":0.007593726273626089,\"target.iptm_loss.target\":0.09924062341451645,\"target.plddt_loss\":0.021847886964678764,\"target.ptm\":0.17226359248161316}}\nFOLD_PROGRESS {\"stage\":\"screen\",\"sequenceUpdates\":58,\"metrics\":{\"target.binder_contacts\":1.2213374376296997,\"target.binder_helicity\":-2.250344753265381,\"target.binder_pae\":0.02717002108693123,\"target.interface_contacts.target\":4.034512519836426,\"target.interface_pae.target\":0.06552921235561371,\"target.iptm\":0.006433294620364904,\"target.iptm_loss.target\":0.09935667365789413,\"target.plddt_loss\":0.01801844872534275,\"target.ptm\":0.17644545435905457}}\nFOLD_PROGRESS {\"stage\":\"screen\",\"sequenceUpdates\":59,\"metrics\":{\"target.binder_contacts\":1.3230061531066895,\"target.binder_helicity\":-1.9752062559127808,\"target.binder_pae\":0.02932571806013584,\"target.interface_contacts.target\":3.9001076221466064,\"target.interface_pae.target\":0.06296434253454208,\"target.iptm\":0.007448622025549412,\"target.iptm_loss.target\":0.09925513714551926,\"target.plddt_loss\":0.02086327038705349,\"target.ptm\":0.17828074097633362}}\nFOLD_PROGRESS {\"stage\":\"screen\",\"sequenceUpdates\":60,\"metrics\":{\"target.binder_contacts\":1.370235800743103,\"target.binder_helicity\":-2.0864522457122803,\"target.binder_pae\":0.03447457775473595,\"target.interface_contacts.target\":3.778109550476074,\"target.interface_pae.target\":0.05661732703447342,\"target.iptm\":0.007163413800299168,\"target.iptm_loss.target\":0.09928365796804428,\"target.plddt_loss\":0.02568776346743107,\"target.ptm\":0.16039742529392242}}\nFOLD_PROGRESS {\"stage\":\"screen\",\"sequenceUpdates\":61,\"metrics\":{\"target.binder_contacts\":1.3868210315704346,\"target.binder_helicity\":-2.0441315174102783,\"target.binder_pae\":0.03527459874749184,\"target.interface_contacts.target\":3.700777530670166,\"target.interface_pae.target\":0.05164658650755882,\"target.iptm\":0.01022630650550127,\"target.iptm_loss.target\":0.09897737205028534,\"target.plddt_loss\":0.028876468539237976,\"target.ptm\":0.158746138215065}}\nFOLD_PROGRESS {\"stage\":\"screen\",\"sequenceUpdates\":62,\"metrics\":{\"target.binder_contacts\":1.3357783555984497,\"target.binder_helicity\":-1.935859203338623,\"target.binder_pae\":0.03264116868376732,\"target.interface_contacts.target\":3.797401189804077,\"target.interface_pae.target\":0.05566868931055069,\"target.iptm\":0.00813619326800108,\"target.iptm_loss.target\":0.09918638318777084,\"target.plddt_loss\":0.026878586038947105,\"target.ptm\":0.1587691456079483}}\nFOLD_PROGRESS {\"stage\":\"screen\",\"sequenceUpdates\":63,\"metrics\":{\"target.binder_contacts\":1.343746304512024,\"target.binder_helicity\":-2.021476984024048,\"target.binder_pae\":0.033364467322826385,\"target.interface_contacts.target\":3.753324031829834,\"target.interface_pae.target\":0.05471140146255493,\"target.iptm\":0.008867770433425903,\"target.iptm_loss.target\":0.09911322593688965,\"target.plddt_loss\":0.026045680046081543,\"target.ptm\":0.15841922163963318}}\nFOLD_PROGRESS {\"stage\":\"screen\",\"sequenceUpdates\":64,\"metrics\":{\"target.binder_contacts\":1.27790367603302,\"target.binder_helicity\":-1.978871464729309,\"target.binder_pae\":0.03451886400580406,\"target.interface_contacts.target\":3.8887970447540283,\"target.interface_pae.target\":0.06348705291748047,\"target.iptm\":0.006226678378880024,\"target.iptm_loss.target\":0.0993773341178894,\"target.plddt_loss\":0.029947271570563316,\"target.ptm\":0.14561164379119873}}\nFOLD_PROGRESS {\"stage\":\"screen\",\"sequenceUpdates\":65,\"metrics\":{\"target.binder_contacts\":1.340083360671997,\"target.binder_helicity\":-1.9984945058822632,\"target.binder_pae\":0.03762300685048103,\"target.interface_contacts.target\":3.6876964569091797,\"target.interface_pae.target\":0.05379202589392662,\"target.iptm\":0.010170475579798222,\"target.iptm_loss.target\":0.09898295253515244,\"target.plddt_loss\":0.028056910261511803,\"target.ptm\":0.14057287573814392}}\nFOLD_PROGRESS {\"stage\":\"screen\",\"sequenceUpdates\":66,\"metrics\":{\"target.binder_contacts\":1.2516319751739502,\"target.binder_helicity\":-2.2348532676696777,\"target.binder_pae\":0.02791961468756199,\"target.interface_contacts.target\":3.6933069229125977,\"target.interface_pae.target\":0.051739078015089035,\"target.iptm\":0.009261328727006912,\"target.iptm_loss.target\":0.0990738719701767,\"target.plddt_loss\":0.023073812946677208,\"target.ptm\":0.15842796862125397}}\nFOLD_PROGRESS {\"stage\":\"screen\",\"sequenceUpdates\":67,\"metrics\":{\"target3.binder_contacts\":1.2014364004135132,\"target3.binder_helicity\":-2.17342209815979,\"target3.binder_pae\":0.02693992294371128,\"target3.iptm\":0.00684124743565917,\"target3.non_contact.target3\":1.5621665716171265,\"target3.plddt_loss\":0.0180014930665493,\"target3.ptm\":0.18590572476387024}}\nFOLD_PROGRESS {\"stage\":\"screen\",\"sequenceUpdates\":68,\"metrics\":{\"target2.binder_contacts\":1.354237675666809,\"target2.binder_helicity\":-1.9639579057693481,\"target2.binder_pae\":0.03575450927019119,\"target2.interface_contacts.target2\":3.9081692695617676,\"target2.interface_pae.target2\":0.0629008337855339,\"target2.iptm\":0.006946073845028877,\"target2.iptm_loss.target2\":0.09930539131164551,\"target2.plddt_loss\":0.026149317622184753,\"target2.ptm\":0.15976515412330627}}\nFOLD_PROGRESS {\"stage\":\"screen\",\"sequenceUpdates\":69,\"metrics\":{\"target2.binder_contacts\":1.3330529928207397,\"target2.binder_helicity\":-1.9250787496566772,\"target2.binder_pae\":0.03461683914065361,\"target2.interface_contacts.target2\":3.9280664920806885,\"target2.interface_pae.target2\":0.06410546600818634,\"target2.iptm\":0.007588018197566271,\"target2.iptm_loss.target2\":0.09924119710922241,\"target2.plddt_loss\":0.023379845544695854,\"target2.ptm\":0.15131041407585144}}\nFOLD_PROGRESS {\"stage\":\"screen\",\"sequenceUpdates\":70,\"metrics\":{\"target2.binder_contacts\":1.3690499067306519,\"target2.binder_helicity\":-1.747209072113037,\"target2.binder_pae\":0.0366775318980217,\"target2.interface_contacts.target2\":3.9023993015289307,\"target2.interface_pae.target2\":0.0635109692811966,\"target2.iptm\":0.00773713830858469,\"target2.iptm_loss.target2\":0.09922628849744797,\"target2.plddt_loss\":0.025875626131892204,\"target2.ptm\":0.1554214209318161}}\nFOLD_PROGRESS {\"stage\":\"screen\",\"sequenceUpdates\":71,\"metrics\":{\"target2.binder_contacts\":1.3075006008148193,\"target2.binder_helicity\":-1.9068257808685303,\"target2.binder_pae\":0.031375981867313385,\"target2.interface_contacts.target2\":3.7450103759765625,\"target2.interface_pae.target2\":0.05841490253806114,\"target2.iptm\":0.008340186439454556,\"target2.iptm_loss.target2\":0.09916598349809647,\"target2.plddt_loss\":0.02940468303859234,\"target2.ptm\":0.15870967507362366}}\nFOLD_PROGRESS {\"stage\":\"screen\",\"sequenceUpdates\":72,\"metrics\":{\"target2.binder_contacts\":1.3297786712646484,\"target2.binder_helicity\":-1.8035575151443481,\"target2.binder_pae\":0.03465128690004349,\"target2.interface_contacts.target2\":3.825016736984253,\"target2.interface_pae.target2\":0.0608564093708992,\"target2.iptm\":0.005388522055000067,\"target2.iptm_loss.target2\":0.0994611531496048,\"target2.plddt_loss\":0.0315314419567585,\"target2.ptm\":0.14355146884918213}}\nFOLD_PROGRESS {\"stage\":\"screen\",\"sequenceUpdates\":73,\"metrics\":{\"target2.binder_contacts\":1.3105934858322144,\"target2.binder_helicity\":-1.7629332542419434,\"target2.binder_pae\":0.03693651407957077,\"target2.interface_contacts.target2\":3.7784242630004883,\"target2.interface_pae.target2\":0.05699263885617256,\"target2.iptm\":0.0077936891466379166,\"target2.iptm_loss.target2\":0.0992206335067749,\"target2.plddt_loss\":0.031254854053258896,\"target2.ptm\":0.1433732509613037}}\nFOLD_PROGRESS {\"stage\":\"screen\",\"sequenceUpdates\":74,\"metrics\":{\"target2.binder_contacts\":1.3111733198165894,\"target2.binder_helicity\":-2.002774477005005,\"target2.binder_pae\":0.03222015127539635,\"target2.interface_contacts.target2\":3.776092529296875,\"target2.interface_pae.target2\":0.05784345418214798,\"target2.iptm\":0.00870500598102808,\"target2.iptm_loss.target2\":0.09912949800491333,\"target2.plddt_loss\":0.023505153134465218,\"target2.ptm\":0.15433113276958466}}\nFOLD_PROGRESS {\"stage\":\"screen\",\"sequenceUpdates\":75,\"metrics\":{\"target2.binder_contacts\":1.2877801656723022,\"target2.binder_helicity\":-2.021919012069702,\"target2.binder_pae\":0.033215224742889404,\"target2.interface_contacts.target2\":3.7487893104553223,\"target2.interface_pae.target2\":0.05784657225012779,\"target2.iptm\":0.007870000787079334,\"target2.iptm_loss.target2\":0.09921299666166306,\"target2.plddt_loss\":0.024470385164022446,\"target2.ptm\":0.1563846319913864}}\nFOLD_PROGRESS {\"stage\":\"screen\",\"sequenceUpdates\":76,\"metrics\":{\"target2.binder_contacts\":1.3210482597351074,\"target2.binder_helicity\":-2.0497395992279053,\"target2.binder_pae\":0.03139946237206459,\"target2.interface_contacts.target2\":3.7269628047943115,\"target2.interface_pae.target2\":0.057738300412893295,\"target2.iptm\":0.008580675348639488,\"target2.iptm_loss.target2\":0.0991419330239296,\"target2.plddt_loss\":0.028632372617721558,\"target2.ptm\":0.1515440195798874}}\nFOLD_PROGRESS {\"stage\":\"screen\",\"sequenceUpdates\":77,\"metrics\":{\"target2.binder_contacts\":1.3018922805786133,\"target2.binder_helicity\":-2.131074905395508,\"target2.binder_pae\":0.034373581409454346,\"target2.interface_contacts.target2\":3.6896169185638428,\"target2.interface_pae.target2\":0.05464661866426468,\"target2.iptm\":0.01041032187640667,\"target2.iptm_loss.target2\":0.09895896911621094,\"target2.plddt_loss\":0.027986321598291397,\"target2.ptm\":0.15856419503688812}}\nFOLD_PROGRESS {\"stage\":\"screen\",\"sequenceUpdates\":78,\"metrics\":{\"target2.binder_contacts\":1.3240805864334106,\"target2.binder_helicity\":-1.9141472578048706,\"target2.binder_pae\":0.034422148019075394,\"target2.interface_contacts.target2\":3.9241552352905273,\"target2.interface_pae.target2\":0.06635334342718124,\"target2.iptm\":0.0054425583221018314,\"target2.iptm_loss.target2\":0.09945574402809143,\"target2.plddt_loss\":0.026682695373892784,\"target2.ptm\":0.15024718642234802}}\nFOLD_PROGRESS {\"stage\":\"screen\",\"sequenceUpdates\":79,\"metrics\":{\"target2.binder_contacts\":1.350807547569275,\"target2.binder_helicity\":-2.1086764335632324,\"target2.binder_pae\":0.03219066932797432,\"target2.interface_contacts.target2\":3.902425527572632,\"target2.interface_pae.target2\":0.06443583220243454,\"target2.iptm\":0.005792380776256323,\"target2.iptm_loss.target2\":0.09942076355218887,\"target2.plddt_loss\":0.0246710404753685,\"target2.ptm\":0.15373843908309937}}\nFOLD_PROGRESS {\"stage\":\"screen\",\"sequenceUpdates\":80,\"metrics\":{\"target2.binder_contacts\":1.281293511390686,\"target2.binder_helicity\":-2.0932118892669678,\"target2.binder_pae\":0.030097296461462975,\"target2.interface_contacts.target2\":3.9440667629241943,\"target2.interface_pae.target2\":0.06433957070112228,\"target2.iptm\":0.006716408301144838,\"target2.iptm_loss.target2\":0.09932836145162582,\"target2.plddt_loss\":0.02370862476527691,\"target2.ptm\":0.15990515053272247}}\nFOLD_PROGRESS {\"stage\":\"screen\",\"sequenceUpdates\":81,\"metrics\":{\"target2.binder_contacts\":1.2747129201889038,\"target2.binder_helicity\":-2.2145273685455322,\"target2.binder_pae\":0.029399815946817398,\"target2.interface_contacts.target2\":4.073678493499756,\"target2.interface_pae.target2\":0.06875316798686981,\"target2.iptm\":0.006048885174095631,\"target2.iptm_loss.target2\":0.09939511865377426,\"target2.plddt_loss\":0.019480502232909203,\"target2.ptm\":0.17385779321193695}}\nFOLD_PROGRESS {\"stage\":\"screen\",\"sequenceUpdates\":82,\"metrics\":{\"target2.binder_contacts\":1.333014965057373,\"target2.binder_helicity\":-2.0676047801971436,\"target2.binder_pae\":0.030372416600584984,\"target2.interface_contacts.target2\":3.767995834350586,\"target2.interface_pae.target2\":0.056713175028562546,\"target2.iptm\":0.007215804420411587,\"target2.iptm_loss.target2\":0.09927842020988464,\"target2.plddt_loss\":0.024246852844953537,\"target2.ptm\":0.1546037197113037}}\nFOLD_PROGRESS {\"stage\":\"screen\",\"sequenceUpdates\":83,\"metrics\":{\"target2.binder_contacts\":1.3614212274551392,\"target2.binder_helicity\":-1.837601900100708,\"target2.binder_pae\":0.03960726037621498,\"target2.interface_contacts.target2\":3.745227098464966,\"target2.interface_pae.target2\":0.05553796887397766,\"target2.iptm\":0.009466332383453846,\"target2.iptm_loss.target2\":0.09905336797237396,\"target2.plddt_loss\":0.02877054177224636,\"target2.ptm\":0.13975201547145844}}\nFOLD_PROGRESS {\"stage\":\"screen\",\"sequenceUpdates\":84,\"metrics\":{\"target2.binder_contacts\":1.2616277933120728,\"target2.binder_helicity\":-2.0733892917633057,\"target2.binder_pae\":0.0296707134693861,\"target2.interface_contacts.target2\":3.7945265769958496,\"target2.interface_pae.target2\":0.05736462026834488,\"target2.iptm\":0.008999299257993698,\"target2.iptm_loss.target2\":0.09910007566213608,\"target2.plddt_loss\":0.025147942826151848,\"target2.ptm\":0.1542966663837433}}\nFOLD_PROGRESS {\"stage\":\"screen\",\"sequenceUpdates\":85,\"metrics\":{\"target2.binder_contacts\":1.3560802936553955,\"target2.binder_helicity\":-2.0178442001342773,\"target2.binder_pae\":0.03253459185361862,\"target2.interface_contacts.target2\":3.824608564376831,\"target2.interface_pae.target2\":0.05871843919157982,\"target2.iptm\":0.00860691536217928,\"target2.iptm_loss.target2\":0.09913931041955948,\"target2.plddt_loss\":0.02710949443280697,\"target2.ptm\":0.1646820306777954}}\nFOLD_PROGRESS {\"stage\":\"screen\",\"sequenceUpdates\":86,\"metrics\":{\"target2.binder_contacts\":1.369449257850647,\"target2.binder_helicity\":-1.7665770053863525,\"target2.binder_pae\":0.037054937332868576,\"target2.interface_contacts.target2\":3.8528835773468018,\"target2.interface_pae.target2\":0.06106162071228027,\"target2.iptm\":0.006321420893073082,\"target2.iptm_loss.target2\":0.09936785697937012,\"target2.plddt_loss\":0.029804160818457603,\"target2.ptm\":0.14425860345363617}}\nFOLD_PROGRESS {\"stage\":\"screen\",\"sequenceUpdates\":87,\"metrics\":{\"target2.binder_contacts\":1.2784231901168823,\"target2.binder_helicity\":-2.180860757827759,\"target2.binder_pae\":0.02815002016723156,\"target2.interface_contacts.target2\":3.8735218048095703,\"target2.interface_pae.target2\":0.06216422840952873,\"target2.iptm\":0.006083755753934383,\"target2.iptm_loss.target2\":0.0993916317820549,\"target2.plddt_loss\":0.024922173470258713,\"target2.ptm\":0.1604233682155609}}\nFOLD_PROGRESS {\"stage\":\"screen\",\"sequenceUpdates\":88,\"metrics\":{\"target3.binder_contacts\":1.283811330795288,\"target3.binder_helicity\":-1.9654346704483032,\"target3.binder_pae\":0.02890469692647457,\"target3.iptm\":0.009431254118680954,\"target3.non_contact.target3\":1.8459759950637817,\"target3.plddt_loss\":0.02257152833044529,\"target3.ptm\":0.17605087161064148}}\nFOLD_PROGRESS {\"stage\":\"screen\",\"sequenceUpdates\":89,\"metrics\":{\"target3.binder_contacts\":1.254523754119873,\"target3.binder_helicity\":-2.247337579727173,\"target3.binder_pae\":0.02613493613898754,\"target3.iptm\":0.007452257443219423,\"target3.non_contact.target3\":1.5087852478027344,\"target3.plddt_loss\":0.02026527374982834,\"target3.ptm\":0.17643073201179504}}\nFOLD_PROGRESS {\"stage\":\"screen\",\"sequenceUpdates\":90,\"metrics\":{\"target3.binder_contacts\":1.2816472053527832,\"target3.binder_helicity\":-1.9734079837799072,\"target3.binder_pae\":0.029275858774781227,\"target3.iptm\":0.006111800670623779,\"target3.non_contact.target3\":1.4472737312316895,\"target3.plddt_loss\":0.02025710977613926,\"target3.ptm\":0.16682052612304688}}\nFOLD_PROGRESS {\"stage\":\"screen\",\"sequenceUpdates\":91,\"metrics\":{\"target.binder_contacts\":1.3429129123687744,\"target.binder_helicity\":-2.054776906967163,\"target.binder_pae\":0.033262357115745544,\"target.interface_contacts.target\":3.869051694869995,\"target.interface_pae.target\":0.06105362996459007,\"target.iptm\":0.006800766568630934,\"target.iptm_loss.target\":0.0993199273943901,\"target.plddt_loss\":0.025721658021211624,\"target.ptm\":0.16807612776756287}}\nFOLD_PROGRESS {\"stage\":\"screen\",\"sequenceUpdates\":92,\"metrics\":{\"target.binder_contacts\":1.3233237266540527,\"target.binder_helicity\":-1.8672205209732056,\"target.binder_pae\":0.03221713379025459,\"target.interface_contacts.target\":3.919832944869995,\"target.interface_pae.target\":0.0642118975520134,\"target.iptm\":0.005674038082361221,\"target.iptm_loss.target\":0.09943259507417679,\"target.plddt_loss\":0.0224254559725523,\"target.ptm\":0.15753604471683502}}\nFOLD_PROGRESS {\"stage\":\"screen\",\"sequenceUpdates\":93,\"metrics\":{\"target.binder_contacts\":1.2080109119415283,\"target.binder_helicity\":-2.293574810028076,\"target.binder_pae\":0.029424449428915977,\"target.interface_contacts.target\":3.801562786102295,\"target.interface_pae.target\":0.05859619379043579,\"target.iptm\":0.007717583328485489,\"target.iptm_loss.target\":0.09922824054956436,\"target.plddt_loss\":0.024689791724085808,\"target.ptm\":0.17072364687919617}}\nFOLD_PROGRESS {\"stage\":\"screen\",\"sequenceUpdates\":94,\"metrics\":{\"target.binder_contacts\":1.287376880645752,\"target.binder_helicity\":-1.8406929969787598,\"target.binder_pae\":0.031299740076065063,\"target.interface_contacts.target\":3.915037155151367,\"target.interface_pae.target\":0.06416027992963791,\"target.iptm\":0.006147347390651703,\"target.iptm_loss.target\":0.09938526898622513,\"target.plddt_loss\":0.023967580869793892,\"target.ptm\":0.15227696299552917}}\nFOLD_PROGRESS {\"stage\":\"screen\",\"sequenceUpdates\":95,\"metrics\":{\"target.binder_contacts\":1.3709110021591187,\"target.binder_helicity\":-1.9752497673034668,\"target.binder_pae\":0.0339989960193634,\"target.interface_contacts.target\":3.8762853145599365,\"target.interface_pae.target\":0.06021928787231445,\"target.iptm\":0.006189406383782625,\"target.iptm_loss.target\":0.09938105940818787,\"target.plddt_loss\":0.028098586946725845,\"target.ptm\":0.15264181792736053}}\nFOLD_PROGRESS {\"stage\":\"screen\",\"sequenceUpdates\":96,\"metrics\":{\"target.binder_contacts\":1.3200130462646484,\"target.binder_helicity\":-2.1957054138183594,\"target.binder_pae\":0.03144071623682976,\"target.interface_contacts.target\":3.8319661617279053,\"target.interface_pae.target\":0.06121138855814934,\"target.iptm\":0.007610796019434929,\"target.iptm_loss.target\":0.09923892468214035,\"target.plddt_loss\":0.023199772462248802,\"target.ptm\":0.15718898177146912}}\nFOLD_PROGRESS {\"stage\":\"screen\",\"sequenceUpdates\":97,\"metrics\":{\"target.binder_contacts\":1.3519614934921265,\"target.binder_helicity\":-2.024644374847412,\"target.binder_pae\":0.03399950638413429,\"target.interface_contacts.target\":4.00085973739624,\"target.interface_pae.target\":0.06537698954343796,\"target.iptm\":0.004979564342647791,\"target.iptm_loss.target\":0.09950204938650131,\"target.plddt_loss\":0.026393666863441467,\"target.ptm\":0.15741248428821564}}\nFOLD_PROGRESS {\"stage\":\"screen\",\"sequenceUpdates\":98,\"metrics\":{\"target.binder_contacts\":1.3457788228988647,\"target.binder_helicity\":-1.9778246879577637,\"target.binder_pae\":0.032173994928598404,\"target.interface_contacts.target\":3.8995513916015625,\"target.interface_pae.target\":0.06131777912378311,\"target.iptm\":0.007758421823382378,\"target.iptm_loss.target\":0.09922415763139725,\"target.plddt_loss\":0.02406914159655571,\"target.ptm\":0.1658439338207245}}\nFOLD_PROGRESS {\"stage\":\"screen\",\"sequenceUpdates\":99,\"metrics\":{\"target.binder_contacts\":1.2840182781219482,\"target.binder_helicity\":-2.043797731399536,\"target.binder_pae\":0.03239176794886589,\"target.interface_contacts.target\":3.8990087509155273,\"target.interface_pae.target\":0.06220671534538269,\"target.iptm\":0.006434227339923382,\"target.iptm_loss.target\":0.09935658425092697,\"target.plddt_loss\":0.025511309504508972,\"target.ptm\":0.16207420825958252}}\nFOLD_PROGRESS {\"stage\":\"screen\",\"sequenceUpdates\":100,\"metrics\":{\"target.binder_contacts\":1.4406850337982178,\"target.binder_helicity\":-1.8803062438964844,\"target.binder_pae\":0.039930522441864014,\"target.interface_contacts.target\":3.8505799770355225,\"target.interface_pae.target\":0.058845121413469315,\"target.iptm\":0.006629349663853645,\"target.iptm_loss.target\":0.09933706372976303,\"target.plddt_loss\":0.026867209002375603,\"target.ptm\":0.14355069398880005}}\n  rejected at screen design stage  i_pTM.target=0.01    i_pTM.target2=0.01    i_pTM.target3=0.01    pLDDT.target=0.45    pLDDT.target2=0.62   due to [pLDDT.target]\n\ncampaign stopped: 1 trajectories ran and none were accepted, so the settings rather than the budget are what to change\n\ncampaign done: 0 accepted design(s) after 1 trajectory, ranked by i_pDAE\n"
+  }
+}

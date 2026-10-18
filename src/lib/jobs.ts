@@ -11,3 +11,20 @@ export function firstJobOutput(job:Job,records:Item[]){
  if(record?.kind==='sequence')return {kind:'sequence' as const,record};
  return null;
 }
+
+export function campaignResultMessage(result:any):string{
+ if(result.engine==='bindcraft2'){
+  if(result.state==='completed')return result.data?.outcome==='no_accepted_designs'?'Campaign finished. No candidate passed the original scientific filters.':'Campaign finished. Saved coordinate outputs are available in Research Library.';
+  if(result.state==='running')return 'Campaign is running. Observed optimizer updates appear below.';
+  if(result.state==='queued')return 'Campaign queued for calculation.';
+  if(result.state==='failed')return 'Campaign failed. Review the saved error and execution log.';
+  if(result.state==='cancelled')return 'Campaign cancelled.';
+  if(result.state==='imported')return 'Ranked coordinate outputs imported.';
+  return 'Campaign prepared. Original inputs and settings are saved.';
+ }
+ if(result.engine==='proteinmpnn')return 'ProteinMPNN job '+result.state+'.';
+ if(result.valid)return 'Configuration checked for preparation.';
+ if(result.state==='imported')return 'Ranked structures imported.';
+ if(result.state==='already_imported')return 'These ranked structures are already saved.';
+ return 'Compute diagnostics completed.';
+}

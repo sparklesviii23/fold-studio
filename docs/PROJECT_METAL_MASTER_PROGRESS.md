@@ -591,3 +591,46 @@ frontend fixture skipped. Full-target VHH CPU job
 `966989db-84d8-4e50-8f24-efaba599995b` is also active, with actual optimizer
 callbacks retained. New larger-CPU and multi-target source/UI require the next
 combined native build/relocation acceptance. Continue full roadmap work.
+
+### Model integrity and native workflow feedback — current checkpoint
+
+The combined native build from `ff6c2e8` passed its relocated three-state
+positive/negative technical pipeline in 118.603 s using only app-owned Python,
+source and weights. Exact state/output/sequence correspondence passed; no
+research records were imported from permissive diagnostic outputs. Native GUI
+preparation preserved explicit avoidance objective, weight 0.5, source chains,
+all input hashes and export bytes. Evidence: `packaged-multitarget-validation.json`
+and `native-multitarget-preparation.json` in reports. App seals passed afterward.
+
+The original-filter small three-state CPU campaign
+`1c1f58e4-9920-468c-8369-cada84b95a59` has finished with
+`no_accepted_designs`, zero imported outputs. This is scientific rejection,
+not a runtime error or evidence of biological specificity. Its full outcome and
+execution log are recorded in `reports/native-multitarget-cpu-outcome.json`.
+Do not restart it. The full-target original-filter VHH CPU campaign remains
+active; inspect the existing job before any recovery action.
+
+Local Compute now identifies the bundled Boltz runtime and avoids offering an
+unnecessary separate Python installation. `PredictionResources.tsx`,
+`boltz_resources.status`, `worker.prediction_resources` and the native allowlist
+provide fast model presence/partial-download status plus explicit publisher
+checksum verification without downloading, replacing or deserializing cache
+files. The real 2,286,561,469-byte checkpoint matched the independently published
+Git LFS SHA-256 (`reports/prediction-model-integrity-status.json`). Six synthetic
+file-integrity tests cover mismatch, incomplete and changed-during-check states.
+Chemical dictionary, affinity weights and prediction quality are outside this
+integrity check. A combined build/native UI acceptance is in progress.
+
+Campaign feedback now reports preparation, live computation, original-filter
+rejection, failure and imported results separately, even when a job retains its
+original preparation metadata. `src/lib/jobs.ts` and `DesignCampaigns.tsx`;
+frontend status regression test included. This is feedback only; scientific
+criteria and molecular rendering remain unchanged.
+
+Current integration checks: 212 Python and 69 frontend tests passed (one existing
+private frontend fixture skipped). The next scaffold investigation exercises the
+original paired scFv variable domains on an explicitly small technical target;
+its native controls remain blocked pending real execution and fixed-framework
+verification. The full hPDL1 target plus original scFv/Fab presets requires 416/608
+padded positions by the original upstream estimate, beyond currently validated
+native memory limits. Do not silently truncate these antibody domains.

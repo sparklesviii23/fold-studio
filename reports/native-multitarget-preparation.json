@@ -1,0 +1,229 @@
+{
+  "state": "passed",
+  "scope": "Actual native form preparation through Tauri IPC, exact original input snapshots/objective weights and project ZIP; no calculation or specificity validation claimed for this saved preparation.",
+  "app": "/Users/vii/Documents/FoldStudio-MetalPort/validation/Relocated Multi-Target Engine/FOLD STUDIO Metal Dev.app",
+  "jobId": "3753b49f-f4a7-43f5-9ec7-bfe2fe937433",
+  "stateAfterSave": "prepared",
+  "preparedTargets": [
+    {
+      "name": "target",
+      "file": "input.pdb",
+      "source": {
+        "structureId": "4294218e-6bf0-48f7-9c5b-dc97629d592f",
+        "projectId": "b4e0ca2f-61be-46a2-a8d4-b84f5c2ee519",
+        "sha256": "c152bef545f70158970e739878231fbe6ba92b6218a0ce39a84ec4b873b56c8d",
+        "format": "pdb",
+        "model": "1"
+      },
+      "residueMap": [
+        {
+          "id": "[\"A\",18,\"\"]",
+          "chain": "A",
+          "number": 18,
+          "aminoAcid": "A"
+        },
+        {
+          "id": "[\"A\",19,\"\"]",
+          "chain": "A",
+          "number": 19,
+          "aminoAcid": "F"
+        },
+        {
+          "id": "[\"A\",20,\"\"]",
+          "chain": "A",
+          "number": 20,
+          "aminoAcid": "T"
+        },
+        {
+          "id": "[\"A\",21,\"\"]",
+          "chain": "A",
+          "number": 21,
+          "aminoAcid": "V"
+        },
+        {
+          "id": "[\"A\",22,\"\"]",
+          "chain": "A",
+          "number": 22,
+          "aminoAcid": "T"
+        },
+        {
+          "id": "[\"A\",23,\"\"]",
+          "chain": "A",
+          "number": 23,
+          "aminoAcid": "V"
+        },
+        {
+          "id": "[\"A\",24,\"\"]",
+          "chain": "A",
+          "number": 24,
+          "aminoAcid": "P"
+        },
+        {
+          "id": "[\"A\",25,\"\"]",
+          "chain": "A",
+          "number": 25,
+          "aminoAcid": "K"
+        },
+        {
+          "id": "[\"A\",26,\"\"]",
+          "chain": "A",
+          "number": 26,
+          "aminoAcid": "D"
+        },
+        {
+          "id": "[\"A\",27,\"\"]",
+          "chain": "A",
+          "number": 27,
+          "aminoAcid": "L"
+        },
+        {
+          "id": "[\"A\",28,\"\"]",
+          "chain": "A",
+          "number": 28,
+          "aminoAcid": "Y"
+        },
+        {
+          "id": "[\"A\",29,\"\"]",
+          "chain": "A",
+          "number": 29,
+          "aminoAcid": "V"
+        }
+      ],
+      "objective": "target",
+      "weight": 1.0
+    },
+    {
+      "name": "target2",
+      "file": "target2.pdb",
+      "source": {
+        "structureId": "19610c84-fe25-4d6d-b1a9-64f9dff33d34",
+        "projectId": "b4e0ca2f-61be-46a2-a8d4-b84f5c2ee519",
+        "sha256": "52b62b9cde9f3afb730addf175b5ed0d357605fe6974063f79f492da768f8411",
+        "format": "pdb",
+        "model": "1"
+      },
+      "residueMap": [
+        {
+          "id": "[\"A\",32,\"\"]",
+          "chain": "A",
+          "number": 32,
+          "aminoAcid": "W"
+        },
+        {
+          "id": "[\"A\",33,\"\"]",
+          "chain": "A",
+          "number": 33,
+          "aminoAcid": "N"
+        },
+        {
+          "id": "[\"A\",34,\"\"]",
+          "chain": "A",
+          "number": 34,
+          "aminoAcid": "P"
+        },
+        {
+          "id": "[\"A\",35,\"\"]",
+          "chain": "A",
+          "number": 35,
+          "aminoAcid": "P"
+        },
+        {
+          "id": "[\"A\",36,\"\"]",
+          "chain": "A",
+          "number": 36,
+          "aminoAcid": "T"
+        },
+        {
+          "id": "[\"A\",37,\"\"]",
+          "chain": "A",
+          "number": 37,
+          "aminoAcid": "F"
+        },
+        {
+          "id": "[\"A\",38,\"\"]",
+          "chain": "A",
+          "number": 38,
+          "aminoAcid": "S"
+        },
+        {
+          "id": "[\"A\",39,\"\"]",
+          "chain": "A",
+          "number": 39,
+          "aminoAcid": "P"
+        },
+        {
+          "id": "[\"A\",40,\"\"]",
+          "chain": "A",
+          "number": 40,
+          "aminoAcid": "A"
+        },
+        {
+          "id": "[\"A\",41,\"\"]",
+          "chain": "A",
+          "number": 41,
+          "aminoAcid": "L"
+        },
+        {
+          "id": "[\"A\",42,\"\"]",
+          "chain": "A",
+          "number": 42,
+          "aminoAcid": "L"
+        },
+        {
+          "id": "[\"A\",43,\"\"]",
+          "chain": "A",
+          "number": 43,
+          "aminoAcid": "V"
+        }
+      ],
+      "objective": "detarget",
+      "weight": -0.5
+    }
+  ],
+  "config": {
+    "binder_lengths": [
+      12
+    ],
+    "aa_bias": {
+      "C": 0
+    },
+    "min_monomer_plddt_final": 0.7,
+    "filters": {
+      "Binder_RMSD": {
+        "threshold": 3.5,
+        "higher": false
+      }
+    },
+    "number_of_final_designs": 5,
+    "max_trajectories": 20,
+    "campaign_seed": 42,
+    "attention_backend": "stock",
+    "use_cueq": false,
+    "auto_multi_gpu": false,
+    "design_workers": 1,
+    "resume": false,
+    "targets": [
+      {
+        "name": "target",
+        "target_path": "input.pdb",
+        "chains": "A",
+        "hotspots": "",
+        "coldspots": ""
+      },
+      {
+        "name": "target2",
+        "target_path": "target2.pdb",
+        "chains": "A",
+        "hotspots": "",
+        "coldspots": "",
+        "objective": "detarget",
+        "weight": -0.5
+      }
+    ],
+    "project_folder": "output"
+  },
+  "projectArchiveInputChecksums": "passed",
+  "nativeObserved": "Prepared campaign saved; both chain choices, Avoid this target and the 0.5 weight were visible; explicit multi-target CPU launch control was present.",
+  "screenshot": "native-multitarget-preparation.png",
+  "signatureAfterPreparation": "passed"
+}

@@ -14,6 +14,29 @@ def file_digest(path):
 
 def model_pin():return json.loads(pathlib.Path(__file__).with_name('boltz-parameters.json').read_text())
 
+def status(cache,verify=False):
+ """Inspect without acquiring or replacing resources; hash only on explicit request."""
+ cache=pathlib.Path(cache);pin=model_pin();path=cache/pin['file'];partial=path.with_suffix('.partial')
+ result={'schemaVersion':1,'cache':str(cache),'pin':pin,'checkpoint':{'file':pin['file'],'state':'missing','bytes':0},'scope':'Structure-checkpoint file integrity only. Chemical-dictionary and affinity-weight completeness, inference execution and prediction accuracy are separate checks.'}
+ item=result['checkpoint']
+ if partial.is_file():item['partialBytes']=partial.stat().st_size
+ if not path.is_file():
+  if partial.is_file():item['state']='incomplete_download'
+  return result
+ before=path.stat();item['bytes']=before.st_size
+ with path.open('rb') as stream:header=stream.read(128)
+ if not before.st_size or header.startswith(b'version https://git-lfs.github.com/spec/v1'):
+  item['state']='placeholder';return result
+ if before.st_size!=pin['bytes']:
+  item['state']='size_mismatch';return result
+ item['state']='present_unverified'
+ if verify:
+  observed=file_digest(path);after=path.stat()
+  item['sha256']=observed
+  if (before.st_ino,before.st_size,before.st_mtime_ns)!=(after.st_ino,after.st_size,after.st_mtime_ns):item['state']='changed_during_check'
+  else:item['state']='verified' if observed==pin['sha256'] else 'checksum_mismatch'
+ return result
+
 def ensure_checkpoint(cache):
  """Acquire the pinned official checkpoint before any model deserialization."""
  cache=pathlib.Path(cache);cache.mkdir(parents=True,exist_ok=True);pin=model_pin();path=cache/pin['file']

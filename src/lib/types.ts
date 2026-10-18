@@ -4,7 +4,7 @@ export interface Project {id:string;name:string;notes:string;created:string;upda
 export interface Item {id:string;project_id:string;kind:string;name:string;data:any;created?:string}
 export interface Job {id:string;project_id:string;name:string;engine:'boltz2'|'colabfold'|'setup'|'proteinmpnn'|'bindcraft2';state:string;created:string;updated:string;data:any;log?:string}
 export interface Library {projects:Project[];records:Item[];jobs:Job[];settings:Record<string,any>}
-export interface Compute {chip:string;architecture:string;memoryGB:number|null;diskFreeGB:number;macOS:string;installed:boolean;mpsAvailable:boolean;version:string|null;torchVersion?:string;python:string;weightsDownloaded:boolean;validatedMPS?:false|{jobId:string;date:string};error?:string}
+export interface Compute {runtimeKind?:'bundled'|'configured'|'managed';chip:string;architecture:string;memoryGB:number|null;diskFreeGB:number;macOS:string;installed:boolean;mpsAvailable:boolean;version:string|null;torchVersion?:string;python:string;weightsDownloaded:boolean;validatedMPS?:false|{jobId:string;date:string};error?:string}
 export interface StructureEntry {id:string;source:string;type:string;url:string;coverage:string;method?:string;resolution?:string;confidenceKind?:string;metadata:any;accession?:string}
 export interface Residue {chain:string;authChain:string;label:number;auth:number;insertion:string;name:string;one:string;xyz:[number,number,number];bFactor:number;unit:number;index:number;sourcePosition?:number}
 export type Workspace='Home'|'Protein Explorer'|'Sequence Workbench'|'Structure Prediction'|'Molecular Viewer'|'Research Projects'|'Local Compute'|'Settings'|'Research Library'|'Molecular Architect'|'Molecular Arcade'|'Molecular Intelligence';

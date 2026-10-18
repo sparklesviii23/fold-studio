@@ -1,5 +1,5 @@
 import {describe,it,expect} from 'vitest';
-import {firstJobOutput,jobPresentation} from './jobs';
+import {campaignResultMessage,firstJobOutput,jobPresentation} from './jobs';
 import type {Item,Job} from './types';
 
 const job={id:'job',project_id:'project',engine:'proteinmpnn',state:'completed',data:{outputs:['output']}} as Job;
@@ -20,5 +20,11 @@ describe('Scientific result routing',()=>{
   expect(jobPresentation('proteinmpnn')).toEqual({label:'ProteinMPNN',location:'local'});
   expect(jobPresentation('bindcraft2')).toEqual({label:'BindCraft2',location:'local'});
   expect(jobPresentation('colabfold')).toEqual({label:'ColabFold',location:'cloud'});
+ });
+ it('distinguishes valid scientific rejection from runtime failure and preparation',()=>{
+  expect(campaignResultMessage({...job,engine:'bindcraft2',data:{preparation:{},outcome:'no_accepted_designs'}})).toContain('No candidate passed');
+  expect(campaignResultMessage({...job,engine:'bindcraft2',state:'running',data:{preparation:{}}})).toContain('running');
+  expect(campaignResultMessage({...job,engine:'bindcraft2',state:'failed',data:{preparation:{}}})).toContain('failed');
+  expect(campaignResultMessage({...job,engine:'bindcraft2',state:'prepared',data:{preparation:{}}})).toContain('prepared');
  });
 });
