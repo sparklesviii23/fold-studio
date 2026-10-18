@@ -1,0 +1,164 @@
+{
+  "state": "passed",
+  "scope": "Exact saved target-state/sequence correspondence and shared designed sequence across real quarantined upstream outputs. Permissive diagnostic filters; not biological specificity, design quality or default-filter acceptance.",
+  "case": "/Users/vii/Documents/FoldStudio-MetalPort/validation/diagnostic-negative-target-pipeline",
+  "modality": "peptide",
+  "backend": "cpu",
+  "researchAcceptance": false,
+  "generatedRecordsImported": 0,
+  "seconds": 51.57973991706967,
+  "checks": [
+    {
+      "file": "DIAGNOSTIC ONLY \u2014 permissive QA gates; no research acceptance_DIAGNOSTIC_peptide_l12_89316002a9104783_seq0_target.cif",
+      "state": "target",
+      "objective": "target",
+      "weight": 1.0,
+      "preparedSourceSha256": "c152bef545f70158970e739878231fbe6ba92b6218a0ce39a84ec4b873b56c8d",
+      "outputSha256": "8e8b8af5790c3e786e9be93eb0c58d88829ab280903909f1c8105d5d60207776",
+      "targetSequence": "AFTVTVPKDLYV",
+      "binderSequence": "TWLVPEDSWWVI"
+    },
+    {
+      "file": "DIAGNOSTIC ONLY \u2014 permissive QA gates; no research acceptance_DIAGNOSTIC_peptide_l12_89316002a9104783_seq0_target2.cif",
+      "state": "target2",
+      "objective": "target",
+      "weight": 1.0,
+      "preparedSourceSha256": "2a899d2315e3f8c758a7afbef9cfe4c20a0c07211b5733e7aaab4eb3639a6d08",
+      "outputSha256": "d0140b0d6a8863b4ca0b14a6a7178a1f7118063924a6f4c1250eed54d74c2cfc",
+      "targetSequence": "FTITAPKDLYVV",
+      "binderSequence": "TWLVPEDSWWVI"
+    },
+    {
+      "file": "DIAGNOSTIC ONLY \u2014 permissive QA gates; no research acceptance_DIAGNOSTIC_peptide_l12_89316002a9104783_seq0_target3.cif",
+      "state": "target3",
+      "objective": "detarget",
+      "weight": -0.5,
+      "preparedSourceSha256": "52b62b9cde9f3afb730addf175b5ed0d357605fe6974063f79f492da768f8411",
+      "outputSha256": "87674a248b9eb3f9a78f4f9ca03a1500a6d4b81e1ad9ac77bfc8287fff10fe44",
+      "targetSequence": "WNPPTFSPALLV",
+      "binderSequence": "TWLVPEDSWWVI"
+    }
+  ],
+  "runtime": {
+    "python": "3.12.14 (main, Aug 25 2026, 13:50:33) [Clang 22.1.3 ]",
+    "jax": "0.11.2",
+    "jaxlib": "0.11.2",
+    "architecture": "arm64",
+    "macOS": "26.4.1",
+    "devices": [
+      "cpu:0"
+    ],
+    "execution": "cpu",
+    "precision": "float32",
+    "executionSettingsSha256": "4f3fd8d5c282871aa8a31e3ca83eef996b68d3d5226a41a3726b0323452f4b71",
+    "runnerSha256": "1a9537db332cf6e82d808e2fa72e84f8537665ecef682aae08a5d5dd74a06fca",
+    "upstreamSource": {
+      "state": "present",
+      "revision": "c0ee638d11bc010817c2c97ee58ed5c323e664e2",
+      "manifestSha256": "8f06e409dac335261d2505361f4358e2b4df389b8f85a497967406d8c4af4277",
+      "license": "BindCraft2 Source-Available License (Hosting-Restricted)",
+      "modified": false
+    },
+    "precisionAdapterSha256": "a7699aa7c0669c3654b8d15f9114d66eeeedf29868896ef3318338e0127fdc65",
+    "exitCode": 0,
+    "state": "finished",
+    "totalSeconds": 48.066857875091955
+  },
+  "settings": {
+    "validation_model": "multimer",
+    "binder_lengths": [
+      12
+    ],
+    "aa_bias": {
+      "C": 0
+    },
+    "refine_steps": 3,
+    "weights_iptm_loss": 0.1,
+    "weights_compactness": 0.0,
+    "max_ipae_final": 0.33,
+    "filters": [],
+    "targets": [
+      {
+        "name": "target",
+        "target_path": "/Users/vii/Documents/FoldStudio-MetalPort/validation/diagnostic-negative-target-pipeline/PREPARATION_ONLY_LIBRARY/jobs/7c88be52-59d4-46df-9d73-6ef9b5c11a23/input.pdb",
+        "chains": "A",
+        "hotspots": "",
+        "coldspots": ""
+      },
+      {
+        "name": "target2",
+        "target_path": "/Users/vii/Documents/FoldStudio-MetalPort/validation/diagnostic-negative-target-pipeline/PREPARATION_ONLY_LIBRARY/jobs/7c88be52-59d4-46df-9d73-6ef9b5c11a23/target2.pdb",
+        "chains": "A",
+        "hotspots": "",
+        "coldspots": "",
+        "objective": "target",
+        "weight": 1.0
+      },
+      {
+        "name": "target3",
+        "target_path": "/Users/vii/Documents/FoldStudio-MetalPort/validation/diagnostic-negative-target-pipeline/PREPARATION_ONLY_LIBRARY/jobs/7c88be52-59d4-46df-9d73-6ef9b5c11a23/target3.pdb",
+        "chains": "A",
+        "hotspots": "",
+        "coldspots": "",
+        "objective": "detarget",
+        "weight": -0.5
+      }
+    ],
+    "campaign_name": "DIAGNOSTIC ONLY \u2014 permissive QA gates; no research acceptance",
+    "binder_name": "DIAGNOSTIC",
+    "campaign_seed": 2718,
+    "project_folder": "/Users/vii/Documents/FoldStudio-MetalPort/validation/diagnostic-negative-target-pipeline/QUARANTINED_OUTPUT",
+    "number_of_final_designs": 1,
+    "max_trajectories": 1,
+    "design_models": [
+      "model_1_multimer_v3"
+    ],
+    "validation_models": [
+      "model_2_multimer_v3"
+    ],
+    "design_recycles": 0,
+    "validation_recycles": 1,
+    "design_dropout": false,
+    "length_bucket_size": 1,
+    "attention_backend": "stock",
+    "use_cueq": false,
+    "auto_multi_gpu": false,
+    "design_workers": 1,
+    "autotune": false,
+    "resume": false,
+    "screen_steps": 3,
+    "anneal_steps": 3,
+    "harden_steps": 3,
+    "mutate_steps": 0,
+    "sequence_candidates": 2,
+    "kept_sequences": 1,
+    "enough_passing_sequences": 1,
+    "save_design_sequences": true,
+    "multitarget_steps": 1,
+    "multitarget_rounds_per_target": [],
+    "multitarget_swap_patience": 1,
+    "multitarget_warmup_patience": 1,
+    "max_detarget_rounds": 1,
+    "detarget_check_interval": 1,
+    "max_detarget_iptm": 1.0,
+    "max_detarget_interface_residues_final": 1000,
+    "min_plddt_screen": 0.0,
+    "min_iptm_screen": 0.0,
+    "max_detarget_iptm_screen": 1.0,
+    "min_plddt_refine": 0.0,
+    "min_iptm_refine": 0.0,
+    "max_detarget_iptm_refine": 1.0,
+    "min_plddt_anneal": 0.0,
+    "min_iptm_anneal": 0.0,
+    "max_detarget_iptm_anneal": 1.0,
+    "min_plddt_harden": 0.0,
+    "min_iptm_harden": 0.0,
+    "max_detarget_iptm_harden": 1.0,
+    "min_plddt_mutate": 0.0,
+    "min_iptm_mutate": 0.0,
+    "max_detarget_iptm_mutate": 1.0,
+    "min_plddt_final": 0.0,
+    "min_iptm_final": 0.0,
+    "max_detarget_iptm_final": 1.0
+  }
+}

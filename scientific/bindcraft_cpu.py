@@ -13,13 +13,17 @@ def execution_config(original,folder):
 
 def start(engine,p):
  if set(p)-{'id','projectId','profile'}:raise ValueError('Unsupported campaign launch fields.')
- profiles={'experimental-cpu-single-model':('cpu','upstream',False),'experimental-cpu-float32-single-model':('cpu','float32',False),'experimental-cpu-float32-scaffold':('cpu','float32',False),'experimental-metal-float32-single-model':('metal','float32',False),'experimental-cpu-float32-ensemble':('cpu','float32',True),'experimental-metal-float32-ensemble':('metal','float32',True)}
+ profiles={'experimental-cpu-single-model':('cpu','upstream',False),'experimental-cpu-float32-single-model':('cpu','float32',False),'experimental-cpu-float32-scaffold':('cpu','float32',False),'experimental-cpu-float32-multitarget':('cpu','float32',False),'experimental-metal-float32-single-model':('metal','float32',False),'experimental-cpu-float32-ensemble':('cpu','float32',True),'experimental-metal-float32-ensemble':('metal','float32',True)}
  if p.get('profile') not in profiles:raise ValueError('Native binder-design execution is blocked without an explicit experimental execution profile.')
  backend,precision,ensemble=profiles[p['profile']]
  s=engine.s;job=engine.campaign(p)
  if job['state']!='prepared':raise ValueError('Only a prepared, unexecuted campaign can start.')
  if s.active():raise ValueError('Another local compute job is active.')
- prep=job['data']['preparation'];limit=320 if p['profile']=='experimental-cpu-float32-scaffold' else 256
+ prep=job['data']['preparation']
+ state_count=len(prep['config']['targets']);multitarget=p['profile']=='experimental-cpu-float32-multitarget'
+ if state_count>1 and not multitarget:raise ValueError('Multiple targets require the explicit multi-target CPU profile; other profiles remain limited to one state.')
+ if multitarget and (not 2<=state_count<=3 or prep['modality'] not in ('binder','peptide')):raise ValueError('The multi-target CPU profile currently supports two or three observed target states with binder or linear-peptide designs.')
+ limit=320 if p['profile']=='experimental-cpu-float32-scaffold' else 256
  if limit==320 and not prep.get('scaffold'):raise ValueError('The larger CPU profile requires an original scaffold campaign.')
  count=sum(1 for r in prep['residueMap']);length=max(prep['config']['binder_lengths'])
  if not prep.get('scaffold') and count+length>256:raise ValueError('Initial experimental campaigns are limited to 256 total residues for memory validation.')
@@ -40,11 +44,8 @@ def start(engine,p):
  # Peptide presets judge a bound peptide with a held-out multimer, not an
  # unbound monomer. Retain this upstream scientific distinction.
  if fe.checksum(fe.canonical(original).encode())!=prep['settingsSha256']:raise ValueError('Prepared settings changed.')
- source=folder/original['targets'][0]['target_path']
- if fe.checksum(source.read_bytes())!=prep['source']['sha256']:raise ValueError('Prepared source changed.')
- if prep.get('scaffold'):
-  scaffold=prep['scaffold'];path=folder/scaffold['file']
-  if fe.checksum(path.read_bytes())!=scaffold['sha256']:raise ValueError('Prepared scaffold changed.')
+ from campaign_inputs import verify
+ verify(folder,prep)
  config,validation=execution_config(original,folder)
  selection={'designModels':config['design_models'],'validationModels':[validation]}
  if ensemble:
@@ -62,6 +63,9 @@ def start(engine,p):
   if weights[model]!=pins[model]:raise ValueError('AlphaFold checkpoint does not match the pinned official acquisition: '+model)
  from campaign_profile import resource_estimate
  estimate=resource_estimate(python,config,fe.UPSTREAM)
+ if multitarget:
+  estimate['aggregatePaddedResidues']=estimate['paddedResidues']*state_count
+  if estimate['aggregatePaddedResidues']>192:raise ValueError('The experimental multi-target CPU profile is limited to 192 aggregate padded residues across all states; inputs remain prepared.')
  if estimate['paddedResidues']>limit:raise ValueError('Campaign requires up to '+str(estimate['paddedResidues'])+' padded residues; this experimental profile limit is '+str(limit)+'. Prepare an explicitly smaller target or scaffold.')
  s.db.execute('BEGIN IMMEDIATE')
  if s.active():s.db.rollback();raise ValueError('Another local compute job is active.')
@@ -84,6 +88,8 @@ def run(s,id):
    env.update(metal_runtime.environment('ensemble' if data.get('modelEnsemble') else 'single'))
   settings=folder/'execution-settings.json'
   if data.get('executionSettingsSha256') and fe.checksum(fe.canonical(json.loads(settings.read_text())).encode())!=data['executionSettingsSha256']:raise ValueError('Execution settings changed after queueing.')
+  from campaign_inputs import verify
+  verify(folder,data['preparation'])
   proc=subprocess.run([data['runtime'],'-B',str(pathlib.Path(__file__).with_name('bindcraft_runner.py')),str(settings),data['parameters'],backend,data.get('precision','float32' if backend=='metal' else 'upstream'),'ensemble' if data.get('modelEnsemble') else 'single'],env=env,timeout=12*3600)
   if proc.returncode:raise RuntimeError('Upstream campaign failed with exit code '+str(proc.returncode)+'. Review execution.log.')
   if s.job(id)['state']=='cancelled':return

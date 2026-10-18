@@ -11,7 +11,7 @@ BASE=pathlib.Path(__file__).resolve().parents[1]
 UPSTREAM=BASE/'vendor'/'bindcraft2'
 PIN='c0ee638d11bc010817c2c97ee58ed5c323e664e2'
 ACTIONS={'fold_engine_status','fold_structure','fold_compute','bindcraft_validate','bindcraft_prepare','bindcraft_campaigns','bindcraft_import','bindcraft_start'}
-CONFIG_KEYS={'projectId','structureId','name','modality','targetChains','hotspots','coldspots','binderLengths','candidates','attempts','seed'}
+CONFIG_KEYS={'projectId','structureId','name','modality','targetChains','hotspots','coldspots','binderLengths','candidates','attempts','seed','additionalTargets'}
 SUPPORTED_MODALITIES=('binder','peptide','cyclic_peptide','VHH','ARP')
 SCAFFOLD_MODALITIES=('VHH','ARP')
 
@@ -44,7 +44,7 @@ class Engine:
         for path in sorted((UPSTREAM/'settings'/'modality').glob('*.json')):
             modalities.append({'name':path.stem,'description':json.loads(path.read_text()).get('description',''),'configuration':'tested' if path.stem in SUPPORTED_MODALITIES else 'not_started','execution':'experimental' if path.stem in SUPPORTED_MODALITIES else 'blocked'})
         return {'name':'FOLD SCIENTIFIC ENGINE','schemaVersion':1,'source':source_status(),'modalities':modalities,
-                'engines':[{'id':'bindcraft2','configuration':'implemented','resultImport':'implemented','execution':'experimental_cpu_and_metal','metalExecution':'experimental_float32_requires_pinned_runtime','modelEnsembles':'original_upstream_selection','profiles':['experimental-cpu-single-model','experimental-cpu-float32-single-model','experimental-cpu-float32-scaffold','experimental-metal-float32-single-model','experimental-cpu-float32-ensemble','experimental-metal-float32-ensemble']},
+                'engines':[{'id':'bindcraft2','configuration':'implemented','resultImport':'implemented','execution':'experimental_cpu_and_metal','metalExecution':'experimental_float32_requires_pinned_runtime','modelEnsembles':'original_upstream_selection','profiles':['experimental-cpu-single-model','experimental-cpu-float32-single-model','experimental-cpu-float32-scaffold','experimental-cpu-float32-multitarget','experimental-metal-float32-single-model','experimental-cpu-float32-ensemble','experimental-metal-float32-ensemble']},
                            {'id':'proteinmpnn','execution':'cpu','scope':'Fixed-backbone sequence redesign; mpnn_start/mpnn_jobs'}, {'id':'boltz2','adapter':'existing prediction_start'}, {'id':'chimerax','adapter':'existing chimerax_execute; separately installed runtime; command availability is not validation'}],
                 'commands':[{'name':x,'status':'implemented' if x!='bindcraft_start' else 'experimental'} for x in sorted(ACTIONS)],
                 'dataModel':'Existing structure records/assets, stable residue/atom identities from Molecular Intelligence; existing jobs table. No parallel coordinate store.'}
@@ -98,16 +98,20 @@ class Engine:
                 'targets':[{'name':'target','target_path':'input'+('.pdb' if shared['reference']['format']=='pdb' else '.cif'),'chains':','.join(chains),'hotspots':','.join(r['chain']+str(r['num']) for r in hot),'coldspots':','.join(r['chain']+str(r['num']) for r in cold)}],'project_folder':'output'}
         name=p.get('name','Design campaign')
         if not isinstance(name,str) or not name.strip() or len(name)>160:raise ValueError('Enter a campaign name of 1–160 characters.')
-        return {'schemaVersion':1,'name':name.strip(),'valid':True,'executionReady':False,'modality':modality,'scaffold':scaffold,'source':shared['reference'],'config':config,'residueMap':[{'id':r['id'],'chain':r['chain'],'number':r['num'],'aminoAcid':r['one']} for r in selected],
+        checked={'schemaVersion':1,'name':name.strip(),'valid':True,'executionReady':False,'modality':modality,'scaffold':scaffold,'source':shared['reference'],'config':config,'residueMap':[{'id':r['id'],'chain':r['chain'],'number':r['num'],'aminoAcid':r['one']} for r in selected],
                 'settingsSha256':checksum(canonical(config).encode()),'upstream':source_status(),'warnings':['Prepared configuration is not a completed design or a validated full-model Metal backend.','Hotspots use observed source numbering; no biological numbering conversion is inferred.','Memory feasibility has not been established for this target.']}
+        from campaign_inputs import extend
+        return extend(self,p,checked)
     def bindcraft_prepare(self,p):
         checked=self.bindcraft_validate(p);checked['upstream']=verify_source()
         record,path=self.lab.record(p['structureId']);job=self.s.job_new({'projectId':p['projectId'],'name':checked['name'],'preparation':checked,'outputs':[]},'bindcraft2','preparing')
         folder=self.s.root/'jobs'/job['id'];folder.mkdir(exist_ok=True)
         try:
-            raw=path.read_bytes()
-            if checksum(raw)!=checked['source']['sha256']:raise ValueError('Source changed during preparation.')
-            (folder/checked['config']['targets'][0]['target_path']).write_bytes(raw)
+            from campaign_inputs import snapshots
+            for target in snapshots(checked):
+                target_record,target_path=self.lab.record(target['source']['structureId']);raw=target_path.read_bytes()
+                if checksum(raw)!=target['source']['sha256']:raise ValueError('Source changed during preparation.')
+                (folder/target['file']).write_bytes(raw)
             if checked.get('scaffold'):
                 scaffold=checked['scaffold'];raw=(UPSTREAM/scaffold['source']).read_bytes()
                 if checksum(raw)!=scaffold['sha256']:raise ValueError('Scaffold changed during preparation.')
@@ -160,6 +164,14 @@ class Engine:
             matches=[row for row in rows if file.stem==row['design'] or file.stem.startswith(row['design']+'_')]
             if len(matches)!=1:raise ValueError('Cannot unambiguously associate ranked structure with a CSV design: '+file.name)
             prepared.append((file,raw,fmt,matches[0],len(st['atoms'])))
+        target_states={}
+        if native:
+            from campaign_inputs import ranked_target,snapshots
+            for file,raw,fmt,row,count in prepared:target_states[file.name]=ranked_target(job['data']['preparation'],file.name,row['design'])
+            expected={state['name'] for state in snapshots(job['data']['preparation'])}
+            for row in rows:
+                actual={target_states[file.name]['name'] for file,raw,fmt,matched,count in prepared if matched['design']==row['design']}
+                if actual!=expected:raise ValueError('Native ranked candidate is missing a prepared target-state coordinate output.')
         evidence={'metadata':metadata,'rankedRows':rows,'metadataSha256':checksum(meta_bytes),'rankedCsvSha256':checksum(table_bytes),'sourceRevision':metadata.get('revision'),'provenanceMatch':'external_unverified','note':'Externally generated predictions. Source provenance is retained; correspondence to prepared inputs is not asserted.'}
         if native:evidence.update(provenanceMatch=provenance_match,nativeRun=native,note=native['scope'],sourceRevision=PIN)
         folder=self.s.root/'jobs'/job['id'];folder.mkdir(exist_ok=True)
@@ -179,7 +191,7 @@ class Engine:
                 id=str(uuid.uuid4());asset=id+('.pdb' if fmt=='pdb' else '.cif');dest=self.s.root/'assets'/asset;dest.write_bytes(raw);created_assets.append(dest)
                 info={'asset':asset,'format':fmt,'sha256':checksum(raw),'source':'Imported external BindCraft2 ranked prediction','imported':mi.now(),'confidenceKind':None,'metadata':{'campaignId':job['id'],'sourceFilename':file.name,'rawMetrics':row,'upstreamRevision':metadata.get('revision'),'batchSha256':batch,'provenanceMatch':'external_unverified','atoms':count}}
                 if native:
-                    info['source']='Local BindCraft2 '+native['execution']+' ranked prediction';info['confidenceKind']='BindCraft2 AlphaFold2 pLDDT';info['metadata'].update(nativeRun=native,provenanceMatch=provenance_match,upstreamRevision=PIN,reportedCampaignRevision=metadata.get('revision'))
+                    info['source']='Local BindCraft2 '+native['execution']+' ranked prediction';info['confidenceKind']='BindCraft2 AlphaFold2 pLDDT';info['metadata'].update(nativeRun=native,nativeTargetState=target_states[file.name],provenanceMatch=provenance_match,upstreamRevision=PIN,reportedCampaignRevision=metadata.get('revision'))
                     roles=chain_roles(raw,mi.parse_structure(raw.decode(),fmt)) if fmt=='mmcif' else None
                     if roles:
                         info['metadata']['chainRoles']=roles;self.s.db.execute('INSERT INTO intelligence_assignments VALUES(?,?,?,?)',(id,job['project_id'],json.dumps(roles),mi.now()))

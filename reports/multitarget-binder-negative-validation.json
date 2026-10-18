@@ -1,0 +1,162 @@
+{
+  "state": "passed",
+  "scope": "Exact saved target-state/sequence correspondence and shared designed sequence across real quarantined upstream outputs. Permissive diagnostic filters; not biological specificity, design quality or default-filter acceptance.",
+  "case": "/Users/vii/Documents/FoldStudio-MetalPort/validation/diagnostic-binder-negative-target-pipeline",
+  "modality": "binder",
+  "backend": "cpu",
+  "researchAcceptance": false,
+  "generatedRecordsImported": 0,
+  "seconds": 68.44235979113728,
+  "checks": [
+    {
+      "file": "DIAGNOSTIC ONLY \u2014 permissive QA gates; no research acceptance_DIAGNOSTIC_peptide_l12_6ce096bddd69815d_seq0_target.cif",
+      "state": "target",
+      "objective": "target",
+      "weight": 1.0,
+      "preparedSourceSha256": "c152bef545f70158970e739878231fbe6ba92b6218a0ce39a84ec4b873b56c8d",
+      "outputSha256": "425a9c1710927ee890a6710275f78d60856abb2db8870e715a4707c982037101",
+      "targetSequence": "AFTVTVPKDLYV",
+      "binderSequence": "LLDGFIGAQTEN"
+    },
+    {
+      "file": "DIAGNOSTIC ONLY \u2014 permissive QA gates; no research acceptance_DIAGNOSTIC_peptide_l12_6ce096bddd69815d_seq0_target2.cif",
+      "state": "target2",
+      "objective": "target",
+      "weight": 1.0,
+      "preparedSourceSha256": "2a899d2315e3f8c758a7afbef9cfe4c20a0c07211b5733e7aaab4eb3639a6d08",
+      "outputSha256": "3d282699a2cf1251460a3890ed60260d3de6454aa82a972dc513fabf0389b7cf",
+      "targetSequence": "FTITAPKDLYVV",
+      "binderSequence": "LLDGFIGAQTEN"
+    },
+    {
+      "file": "DIAGNOSTIC ONLY \u2014 permissive QA gates; no research acceptance_DIAGNOSTIC_peptide_l12_6ce096bddd69815d_seq0_target3.cif",
+      "state": "target3",
+      "objective": "detarget",
+      "weight": -0.5,
+      "preparedSourceSha256": "52b62b9cde9f3afb730addf175b5ed0d357605fe6974063f79f492da768f8411",
+      "outputSha256": "4c70a163b5aa7bbf4308417a670546d0e6f87a325b62e15f12cd3ddfe961c53e",
+      "targetSequence": "WNPPTFSPALLV",
+      "binderSequence": "LLDGFIGAQTEN"
+    }
+  ],
+  "runtime": {
+    "python": "3.12.14 (main, Aug 25 2026, 13:50:33) [Clang 22.1.3 ]",
+    "jax": "0.11.2",
+    "jaxlib": "0.11.2",
+    "architecture": "arm64",
+    "macOS": "26.4.1",
+    "devices": [
+      "cpu:0"
+    ],
+    "execution": "cpu",
+    "precision": "float32",
+    "executionSettingsSha256": "986c357c3fd5ab6d59e97843558cdcf871c5e8d5b9bbafb701a93a96df9a21f5",
+    "runnerSha256": "1a9537db332cf6e82d808e2fa72e84f8537665ecef682aae08a5d5dd74a06fca",
+    "upstreamSource": {
+      "state": "present",
+      "revision": "c0ee638d11bc010817c2c97ee58ed5c323e664e2",
+      "manifestSha256": "8f06e409dac335261d2505361f4358e2b4df389b8f85a497967406d8c4af4277",
+      "license": "BindCraft2 Source-Available License (Hosting-Restricted)",
+      "modified": false
+    },
+    "precisionAdapterSha256": "a7699aa7c0669c3654b8d15f9114d66eeeedf29868896ef3318338e0127fdc65",
+    "exitCode": 0,
+    "state": "finished",
+    "totalSeconds": 64.8971344169695
+  },
+  "settings": {
+    "binder_lengths": [
+      12
+    ],
+    "aa_bias": {
+      "C": 0
+    },
+    "min_monomer_plddt_final": 0.0,
+    "filters": [],
+    "targets": [
+      {
+        "name": "target",
+        "target_path": "/Users/vii/Documents/FoldStudio-MetalPort/validation/diagnostic-binder-negative-target-pipeline/PREPARATION_ONLY_LIBRARY/jobs/9039c2cc-8868-49c1-a652-fe2744d81c65/input.pdb",
+        "chains": "A",
+        "hotspots": "",
+        "coldspots": ""
+      },
+      {
+        "name": "target2",
+        "target_path": "/Users/vii/Documents/FoldStudio-MetalPort/validation/diagnostic-binder-negative-target-pipeline/PREPARATION_ONLY_LIBRARY/jobs/9039c2cc-8868-49c1-a652-fe2744d81c65/target2.pdb",
+        "chains": "A",
+        "hotspots": "",
+        "coldspots": "",
+        "objective": "target",
+        "weight": 1.0
+      },
+      {
+        "name": "target3",
+        "target_path": "/Users/vii/Documents/FoldStudio-MetalPort/validation/diagnostic-binder-negative-target-pipeline/PREPARATION_ONLY_LIBRARY/jobs/9039c2cc-8868-49c1-a652-fe2744d81c65/target3.pdb",
+        "chains": "A",
+        "hotspots": "",
+        "coldspots": "",
+        "objective": "detarget",
+        "weight": -0.5
+      }
+    ],
+    "campaign_name": "DIAGNOSTIC ONLY \u2014 permissive QA gates; no research acceptance",
+    "binder_name": "DIAGNOSTIC",
+    "campaign_seed": 2718,
+    "project_folder": "/Users/vii/Documents/FoldStudio-MetalPort/validation/diagnostic-binder-negative-target-pipeline/QUARANTINED_OUTPUT",
+    "number_of_final_designs": 1,
+    "max_trajectories": 1,
+    "design_models": [
+      "model_1_multimer_v3"
+    ],
+    "validation_model": "monomer",
+    "validation_models": [
+      "model_1_ptm"
+    ],
+    "design_recycles": 0,
+    "validation_recycles": 1,
+    "design_dropout": false,
+    "length_bucket_size": 1,
+    "attention_backend": "stock",
+    "use_cueq": false,
+    "auto_multi_gpu": false,
+    "design_workers": 1,
+    "autotune": false,
+    "resume": false,
+    "screen_steps": 3,
+    "refine_steps": 3,
+    "anneal_steps": 3,
+    "harden_steps": 3,
+    "mutate_steps": 0,
+    "sequence_candidates": 2,
+    "kept_sequences": 1,
+    "enough_passing_sequences": 1,
+    "save_design_sequences": true,
+    "multitarget_steps": 1,
+    "multitarget_rounds_per_target": [],
+    "multitarget_swap_patience": 1,
+    "multitarget_warmup_patience": 1,
+    "max_detarget_rounds": 1,
+    "detarget_check_interval": 1,
+    "max_detarget_iptm": 1.0,
+    "max_detarget_interface_residues_final": 1000,
+    "min_plddt_screen": 0.0,
+    "min_iptm_screen": 0.0,
+    "max_detarget_iptm_screen": 1.0,
+    "min_plddt_refine": 0.0,
+    "min_iptm_refine": 0.0,
+    "max_detarget_iptm_refine": 1.0,
+    "min_plddt_anneal": 0.0,
+    "min_iptm_anneal": 0.0,
+    "max_detarget_iptm_anneal": 1.0,
+    "min_plddt_harden": 0.0,
+    "min_iptm_harden": 0.0,
+    "max_detarget_iptm_harden": 1.0,
+    "min_plddt_mutate": 0.0,
+    "min_iptm_mutate": 0.0,
+    "max_detarget_iptm_mutate": 1.0,
+    "min_plddt_final": 0.0,
+    "min_iptm_final": 0.0,
+    "max_detarget_iptm_final": 1.0
+  }
+}

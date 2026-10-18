@@ -32,7 +32,7 @@ validity. No top-level platform requirement is marked COMPLETE.
 | Genuine local BindCraft2 trajectory | IN DEVELOPMENT | `bindcraft_cpu.py`, `bindcraft_runner.py`; actual full-parameter CPU and Metal campaigns finished | Full single-model CPU/Metal campaigns correctly rejected candidates; original 5-design/2-held-out-model Metal ensemble produced one accepted computational prediction, not biological validation |
 | Binder and linear peptide generation | IN DEVELOPMENT | Configuration/import works | End-to-end actual generation, filtering, comparison, provenance |
 | Cyclic peptide, VHH, ARP, scFv, Fab and scaffold workflows | IN DEVELOPMENT | Cyclic original preset preparation and technical optimizer execution; other presets inventoried | Cyclic closure/reference checks in progress; VHH/scaffold adapters and end-to-end scientific validation remain |
-| Multitarget, detarget, fold switch, induced-fit and oligomers | NOT STARTED | Upstream source/presets retained | Constraint fidelity, actual generation and reference acceptance |
+| Multitarget, detarget, fold switch, induced-fit and oligomers | IN DEVELOPMENT | `campaign_inputs.py`; explicit multi-target snapshots, objectives, native target-state import links; small CPU workflows | Small positive/negative technical pipelines pass; original-filter small campaign running; large multi-target, scaffold combinations, fold switch, induced-fit and oligomers remain incomplete |
 | Candidate import and reproducibility | TESTED | Ranked importer, raw CSV/metadata and coordinate checksums; M2 sequence records | Folding validation and automatic full-trajectory import |
 | ChimeraX command architecture | IN DEVELOPMENT | Existing `observatory.py`, native inventory, console, capability audit | Exhaustive versioned command matrix and measured expansion; no universal claim |
 | Coloring, selection, styles, surfaces and camera | IMPLEMENTED | Existing native scene/command/viewer adapters | Expand operation-equivalence and supported-argument tests |
@@ -540,3 +540,54 @@ callbacks in `../validation/vhh-preparation/jobs/<id>/execution.log`; do not
 restart it. `reports/vhh-full-target-live-cpu-job.json`. Current native app build
 precedes the larger-CPU profile controls; those source additions need a later
 integration build. Continue remaining multitarget/scaffold/platform requirements.
+
+### Multi-target and negative-target shared workflow
+
+`campaign_inputs.py` adds up to three additional observed structures to campaign
+preparation. Every state reuses the same canonical-backbone/chain/site/project
+checks; keeps its own immutable coordinate snapshot, checksum and residue map;
+and records explicit target/detarget objective and signed upstream weight.
+Duplicate or contradictory coordinate/chain states are refused. All snapshots,
+including the scaffold, are rechecked before launch, again after queueing, and
+in native import receipts. Old single-target preparations remain compatible.
+
+`CampaignTarget.tsx` extends the existing design dialog with saved structure,
+chain, site, binding/avoidance and weight controls; no styles/viewer replacement.
+`bindcraft_provenance.py` retains all target inputs. Ranked native imports match
+the pinned original writer's exact state suffixes, require all target-state
+coordinate outputs for each candidate and retain the corresponding source state.
+The existing accepted full-ensemble binder idempotently reimported with the same
+record ID and unchanged coordinate hash after these changes.
+
+Real quarantined CPU AF2/ProteinMPNN/held-out folding pipelines passed for two
+positive peptide states (39.22 s), two positive plus one negative peptide state
+(51.58 s), and binder positive/negative states (68.44 s). A further binder case
+using original 32-residue bucketing passed (94.14 s). Exact input-target sequences
+and one shared designed sequence across every written state were independently
+verified against saved inputs. All cases use explicit permissive QA filters and
+small update budgets; their low-confidence results remain quarantined and zero
+generated records were imported. They establish real pathway execution, not
+scientific cross-reactivity, specificity or default-filter acceptance. Reports:
+`reports/multitarget-{positive-pair,negative-selection,binder-negative,binder-padded}-validation.json`.
+
+An initial diagnostic harness used an integer where original
+multitarget_rounds_per_target requires a stage-name list; upstream preflight
+refused it before computation. The corrected harness retains that failed case
+and supplies enough updates to visit every target. No vendored source changed.
+
+The explicit `experimental-cpu-float32-multitarget` profile supports only two or
+three binder/linear-peptide states and at most 192 aggregate padded positions.
+Metal, ensembles and multi-target scaffold combinations remain refused. The
+initial 128-position guard correctly refused the three-state native fixture;
+the 192 profile was enabled only after the actual original padded pipeline
+passed. The same prepared job was resumed, not duplicated. Native original-filter
+job `1c1f58e4-9920-468c-8369-cada84b95a59` now runs in
+`../validation/native-multitarget-cpu` on explicit 12-residue technical fragments.
+Original upstream scientific gates and stage budgets are retained. Inspect its
+existing receipts/logs; do not restart it.
+
+Latest integration: 206 Python and 68 frontend tests passed; one existing private
+frontend fixture skipped. Full-target VHH CPU job
+`966989db-84d8-4e50-8f24-efaba599995b` is also active, with actual optimizer
+callbacks retained. New larger-CPU and multi-target source/UI require the next
+combined native build/relocation acceptance. Continue full roadmap work.

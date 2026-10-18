@@ -1,0 +1,471 @@
+{
+  "scope": "Actual original-filter native three-state peptide campaign on explicit 12-residue technical fragments. This is a queued/running experiment, not an accepted design or biological specificity validation.",
+  "root": "/Users/vii/Documents/FoldStudio-MetalPort/validation/native-multitarget-cpu",
+  "job": {
+    "id": "1c1f58e4-9920-468c-8369-cada84b95a59",
+    "project_id": "b4e0ca2f-61be-46a2-a8d4-b84f5c2ee519",
+    "name": "Original filters \u00b7 small multi-state CPU case",
+    "engine": "bindcraft2",
+    "state": "queued",
+    "data": {
+      "projectId": "b4e0ca2f-61be-46a2-a8d4-b84f5c2ee519",
+      "name": "Original filters \u00b7 small multi-state CPU case",
+      "preparation": {
+        "schemaVersion": 1,
+        "name": "Original filters \u00b7 small multi-state CPU case",
+        "valid": true,
+        "executionReady": false,
+        "modality": "peptide",
+        "scaffold": null,
+        "source": {
+          "structureId": "4294218e-6bf0-48f7-9c5b-dc97629d592f",
+          "projectId": "b4e0ca2f-61be-46a2-a8d4-b84f5c2ee519",
+          "sha256": "c152bef545f70158970e739878231fbe6ba92b6218a0ce39a84ec4b873b56c8d",
+          "format": "pdb",
+          "model": "1"
+        },
+        "config": {
+          "validation_model": "multimer",
+          "binder_lengths": [
+            12
+          ],
+          "aa_bias": {
+            "C": 0
+          },
+          "refine_steps": 75,
+          "weights_iptm_loss": 0.1,
+          "weights_compactness": 0.0,
+          "max_ipae_final": 0.33,
+          "filters": {
+            "pTM": {
+              "threshold": null
+            },
+            "Unbound_Binder_pLDDT": {
+              "threshold": null
+            }
+          },
+          "number_of_final_designs": 1,
+          "max_trajectories": 1,
+          "campaign_seed": 42,
+          "attention_backend": "stock",
+          "use_cueq": false,
+          "auto_multi_gpu": false,
+          "design_workers": 1,
+          "resume": false,
+          "targets": [
+            {
+              "name": "target",
+              "target_path": "input.pdb",
+              "chains": "A",
+              "hotspots": "",
+              "coldspots": ""
+            },
+            {
+              "name": "target2",
+              "target_path": "target2.pdb",
+              "chains": "A",
+              "hotspots": "",
+              "coldspots": "",
+              "objective": "target",
+              "weight": 1.0
+            },
+            {
+              "name": "target3",
+              "target_path": "target3.pdb",
+              "chains": "A",
+              "hotspots": "",
+              "coldspots": "",
+              "objective": "detarget",
+              "weight": -0.5
+            }
+          ],
+          "project_folder": "output"
+        },
+        "residueMap": [
+          {
+            "id": "[\"A\",18,\"\"]",
+            "chain": "A",
+            "number": 18,
+            "aminoAcid": "A"
+          },
+          {
+            "id": "[\"A\",19,\"\"]",
+            "chain": "A",
+            "number": 19,
+            "aminoAcid": "F"
+          },
+          {
+            "id": "[\"A\",20,\"\"]",
+            "chain": "A",
+            "number": 20,
+            "aminoAcid": "T"
+          },
+          {
+            "id": "[\"A\",21,\"\"]",
+            "chain": "A",
+            "number": 21,
+            "aminoAcid": "V"
+          },
+          {
+            "id": "[\"A\",22,\"\"]",
+            "chain": "A",
+            "number": 22,
+            "aminoAcid": "T"
+          },
+          {
+            "id": "[\"A\",23,\"\"]",
+            "chain": "A",
+            "number": 23,
+            "aminoAcid": "V"
+          },
+          {
+            "id": "[\"A\",24,\"\"]",
+            "chain": "A",
+            "number": 24,
+            "aminoAcid": "P"
+          },
+          {
+            "id": "[\"A\",25,\"\"]",
+            "chain": "A",
+            "number": 25,
+            "aminoAcid": "K"
+          },
+          {
+            "id": "[\"A\",26,\"\"]",
+            "chain": "A",
+            "number": 26,
+            "aminoAcid": "D"
+          },
+          {
+            "id": "[\"A\",27,\"\"]",
+            "chain": "A",
+            "number": 27,
+            "aminoAcid": "L"
+          },
+          {
+            "id": "[\"A\",28,\"\"]",
+            "chain": "A",
+            "number": 28,
+            "aminoAcid": "Y"
+          },
+          {
+            "id": "[\"A\",29,\"\"]",
+            "chain": "A",
+            "number": 29,
+            "aminoAcid": "V"
+          }
+        ],
+        "settingsSha256": "c56da32613cd162f5eaa7419bfc10ee77b73bcd65f9c68c506936fc2a2f45c16",
+        "upstream": {
+          "state": "present",
+          "revision": "c0ee638d11bc010817c2c97ee58ed5c323e664e2",
+          "manifestSha256": "8f06e409dac335261d2505361f4358e2b4df389b8f85a497967406d8c4af4277",
+          "license": "BindCraft2 Source-Available License (Hosting-Restricted)",
+          "modified": false
+        },
+        "warnings": [
+          "Prepared configuration is not a completed design or a validated full-model Metal backend.",
+          "Hotspots use observed source numbering; no biological numbering conversion is inferred.",
+          "Memory feasibility has not been established for this target.",
+          "Multiple target states retain original upstream selection, weighting and rejection behavior. Preparation does not establish cross-reactivity or specificity."
+        ],
+        "targetSources": [
+          {
+            "name": "target",
+            "file": "input.pdb",
+            "source": {
+              "structureId": "4294218e-6bf0-48f7-9c5b-dc97629d592f",
+              "projectId": "b4e0ca2f-61be-46a2-a8d4-b84f5c2ee519",
+              "sha256": "c152bef545f70158970e739878231fbe6ba92b6218a0ce39a84ec4b873b56c8d",
+              "format": "pdb",
+              "model": "1"
+            },
+            "residueMap": [
+              {
+                "id": "[\"A\",18,\"\"]",
+                "chain": "A",
+                "number": 18,
+                "aminoAcid": "A"
+              },
+              {
+                "id": "[\"A\",19,\"\"]",
+                "chain": "A",
+                "number": 19,
+                "aminoAcid": "F"
+              },
+              {
+                "id": "[\"A\",20,\"\"]",
+                "chain": "A",
+                "number": 20,
+                "aminoAcid": "T"
+              },
+              {
+                "id": "[\"A\",21,\"\"]",
+                "chain": "A",
+                "number": 21,
+                "aminoAcid": "V"
+              },
+              {
+                "id": "[\"A\",22,\"\"]",
+                "chain": "A",
+                "number": 22,
+                "aminoAcid": "T"
+              },
+              {
+                "id": "[\"A\",23,\"\"]",
+                "chain": "A",
+                "number": 23,
+                "aminoAcid": "V"
+              },
+              {
+                "id": "[\"A\",24,\"\"]",
+                "chain": "A",
+                "number": 24,
+                "aminoAcid": "P"
+              },
+              {
+                "id": "[\"A\",25,\"\"]",
+                "chain": "A",
+                "number": 25,
+                "aminoAcid": "K"
+              },
+              {
+                "id": "[\"A\",26,\"\"]",
+                "chain": "A",
+                "number": 26,
+                "aminoAcid": "D"
+              },
+              {
+                "id": "[\"A\",27,\"\"]",
+                "chain": "A",
+                "number": 27,
+                "aminoAcid": "L"
+              },
+              {
+                "id": "[\"A\",28,\"\"]",
+                "chain": "A",
+                "number": 28,
+                "aminoAcid": "Y"
+              },
+              {
+                "id": "[\"A\",29,\"\"]",
+                "chain": "A",
+                "number": 29,
+                "aminoAcid": "V"
+              }
+            ],
+            "objective": "target",
+            "weight": 1.0
+          },
+          {
+            "name": "target2",
+            "file": "target2.pdb",
+            "source": {
+              "structureId": "694c9e8b-c6b0-4557-8f8c-9698393ea506",
+              "projectId": "b4e0ca2f-61be-46a2-a8d4-b84f5c2ee519",
+              "sha256": "2a899d2315e3f8c758a7afbef9cfe4c20a0c07211b5733e7aaab4eb3639a6d08",
+              "format": "pdb",
+              "model": "1"
+            },
+            "residueMap": [
+              {
+                "id": "[\"A\",1,\"\"]",
+                "chain": "A",
+                "number": 1,
+                "aminoAcid": "F"
+              },
+              {
+                "id": "[\"A\",2,\"\"]",
+                "chain": "A",
+                "number": 2,
+                "aminoAcid": "T"
+              },
+              {
+                "id": "[\"A\",3,\"\"]",
+                "chain": "A",
+                "number": 3,
+                "aminoAcid": "I"
+              },
+              {
+                "id": "[\"A\",4,\"\"]",
+                "chain": "A",
+                "number": 4,
+                "aminoAcid": "T"
+              },
+              {
+                "id": "[\"A\",5,\"\"]",
+                "chain": "A",
+                "number": 5,
+                "aminoAcid": "A"
+              },
+              {
+                "id": "[\"A\",6,\"\"]",
+                "chain": "A",
+                "number": 6,
+                "aminoAcid": "P"
+              },
+              {
+                "id": "[\"A\",7,\"\"]",
+                "chain": "A",
+                "number": 7,
+                "aminoAcid": "K"
+              },
+              {
+                "id": "[\"A\",8,\"\"]",
+                "chain": "A",
+                "number": 8,
+                "aminoAcid": "D"
+              },
+              {
+                "id": "[\"A\",9,\"\"]",
+                "chain": "A",
+                "number": 9,
+                "aminoAcid": "L"
+              },
+              {
+                "id": "[\"A\",10,\"\"]",
+                "chain": "A",
+                "number": 10,
+                "aminoAcid": "Y"
+              },
+              {
+                "id": "[\"A\",11,\"\"]",
+                "chain": "A",
+                "number": 11,
+                "aminoAcid": "V"
+              },
+              {
+                "id": "[\"A\",12,\"\"]",
+                "chain": "A",
+                "number": 12,
+                "aminoAcid": "V"
+              }
+            ],
+            "objective": "target",
+            "weight": 1.0
+          },
+          {
+            "name": "target3",
+            "file": "target3.pdb",
+            "source": {
+              "structureId": "19610c84-fe25-4d6d-b1a9-64f9dff33d34",
+              "projectId": "b4e0ca2f-61be-46a2-a8d4-b84f5c2ee519",
+              "sha256": "52b62b9cde9f3afb730addf175b5ed0d357605fe6974063f79f492da768f8411",
+              "format": "pdb",
+              "model": "1"
+            },
+            "residueMap": [
+              {
+                "id": "[\"A\",32,\"\"]",
+                "chain": "A",
+                "number": 32,
+                "aminoAcid": "W"
+              },
+              {
+                "id": "[\"A\",33,\"\"]",
+                "chain": "A",
+                "number": 33,
+                "aminoAcid": "N"
+              },
+              {
+                "id": "[\"A\",34,\"\"]",
+                "chain": "A",
+                "number": 34,
+                "aminoAcid": "P"
+              },
+              {
+                "id": "[\"A\",35,\"\"]",
+                "chain": "A",
+                "number": 35,
+                "aminoAcid": "P"
+              },
+              {
+                "id": "[\"A\",36,\"\"]",
+                "chain": "A",
+                "number": 36,
+                "aminoAcid": "T"
+              },
+              {
+                "id": "[\"A\",37,\"\"]",
+                "chain": "A",
+                "number": 37,
+                "aminoAcid": "F"
+              },
+              {
+                "id": "[\"A\",38,\"\"]",
+                "chain": "A",
+                "number": 38,
+                "aminoAcid": "S"
+              },
+              {
+                "id": "[\"A\",39,\"\"]",
+                "chain": "A",
+                "number": 39,
+                "aminoAcid": "P"
+              },
+              {
+                "id": "[\"A\",40,\"\"]",
+                "chain": "A",
+                "number": 40,
+                "aminoAcid": "A"
+              },
+              {
+                "id": "[\"A\",41,\"\"]",
+                "chain": "A",
+                "number": 41,
+                "aminoAcid": "L"
+              },
+              {
+                "id": "[\"A\",42,\"\"]",
+                "chain": "A",
+                "number": 42,
+                "aminoAcid": "L"
+              },
+              {
+                "id": "[\"A\",43,\"\"]",
+                "chain": "A",
+                "number": 43,
+                "aminoAcid": "V"
+              }
+            ],
+            "objective": "detarget",
+            "weight": -0.5
+          }
+        ]
+      },
+      "outputs": [],
+      "settingsFile": "settings.json",
+      "provenanceFile": "provenance.json",
+      "runtime": "/Users/vii/Documents/FoldStudio-MetalPort/runtimes/jax-cpu/bin/python",
+      "parameters": "/Users/vii/Documents/FoldStudio-MetalPort/models/alphafold",
+      "checkpointSha256": {
+        "model_1_multimer_v3": "611da8fc7478928f68de12e8b226260ef1f4ce62bcc29b008572e52f4f212959",
+        "model_2_multimer_v3": "51362b0844382ae0f5720c59b81dd13a43eea40fbf9995dd2573bdab88865378"
+      },
+      "profile": "experimental-cpu-float32-multitarget",
+      "execution": "cpu",
+      "precision": "float32",
+      "modelEnsemble": false,
+      "modelSelection": {
+        "designModels": [
+          "model_1_multimer_v3"
+        ],
+        "validationModels": [
+          "model_2_multimer_v3"
+        ]
+      },
+      "resourceEstimate": {
+        "paddedResidues": 64,
+        "aggregatePaddedResidues": 192
+      },
+      "paddedResidueLimit": 256,
+      "runtimeInfo": {},
+      "executionSettingsSha256": "66cd998bf524d0c22cebfacb7dfd2d00b340895db8ce00a82302f3bf35b8582c",
+      "pid": 79953,
+      "workerPath": "/Users/vii/Documents/FoldStudio-MetalPort/fold-studio/scientific/worker.py",
+      "logAsset": "/Users/vii/Documents/FoldStudio-MetalPort/validation/native-multitarget-cpu/jobs/1c1f58e4-9920-468c-8369-cada84b95a59/execution.log"
+    },
+    "created": "2026-10-18T12:11:18.988803+00:00",
+    "updated": "2026-10-18T12:15:25.676085+00:00"
+  }
+}

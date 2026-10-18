@@ -17,17 +17,15 @@ def native_receipt(service,job,root,metadata):
  if pathlib.Path(metadata.get('settings_path','')).resolve()!=settings_path.resolve():raise ValueError('Campaign metadata points to a different execution input.')
  source=fe.verify_source()
  if runtime.get('upstreamSource',{}).get('revision')!=fe.PIN or runtime['upstreamSource'].get('manifestSha256')!=source['manifestSha256']:raise ValueError('Native source receipt differs from the pinned scientific implementation.')
- preparation=data['preparation'];original=preparation['config'];input_path=folder/original['targets'][0]['target_path']
- if fe.checksum(input_path.read_bytes())!=preparation['source']['sha256']:raise ValueError('Native target snapshot changed.')
- if preparation.get('scaffold'):
-  scaffold=preparation['scaffold']
-  if fe.checksum((folder/scaffold['file']).read_bytes())!=scaffold['sha256']:raise ValueError('Native scaffold snapshot changed.')
+ preparation=data['preparation']
+ from campaign_inputs import verify
+ inputs=verify(folder,preparation,'Native target snapshot changed.','Native scaffold snapshot changed.')
  checkpoints=metadata.get('checkpoints',{})
  for model,expected in data.get('checkpointSha256',{}).items():
   values=[sha for name,sha in checkpoints.items() if pathlib.Path(name).name=='params_'+model+'.npz']
   if values!=[expected]:raise ValueError('Native campaign checkpoint receipt mismatch: '+model)
  if not data.get('checkpointSha256'):raise ValueError('No native model checkpoint pins were recorded.')
- return {'state':'native_receipts_verified','execution':data['execution'],'precision':data['precision'],'upstreamSource':source,'reportedCampaignRevision':metadata.get('revision'),'executionSettingsSha256':fe.checksum(raw),'runtimeReceiptSha256':fe.checksum(runtime_path.read_bytes()),'checkpointSha256':data['checkpointSha256'],'preparedSource':preparation['source'],'runtime':runtime,'scope':'Native execution/settings/source/checkpoint receipt correspondence. Upstream computational acceptance does not establish biological binding or inhibition.'}
+ return {'state':'native_receipts_verified','execution':data['execution'],'precision':data['precision'],'upstreamSource':source,'reportedCampaignRevision':metadata.get('revision'),'executionSettingsSha256':fe.checksum(raw),'runtimeReceiptSha256':fe.checksum(runtime_path.read_bytes()),'checkpointSha256':data['checkpointSha256'],'preparedSource':preparation['source'],'preparedTargets':inputs,'runtime':runtime,'scope':'Native execution/settings/source/checkpoint receipt correspondence. Upstream computational acceptance does not establish biological binding or inhibition.'}
 
 def chain_roles(raw,structure):
  values={};tokens=iter(fe.mi.cif_tokens(raw.decode()))
@@ -50,6 +48,8 @@ def enrich_existing(service,job,ids,receipt,folder):
    if not row:raise ValueError('Imported native output record is missing.')
    info=json.loads(row['data']);raw=(service.root/'assets'/info['asset']).read_bytes()
    if fe.checksum(raw)!=info['sha256']:raise ValueError('Imported native coordinate asset changed.')
+   from campaign_inputs import ranked_target
+   info['metadata']['nativeTargetState']=ranked_target(job['data']['preparation'],info['metadata']['sourceFilename'],info['metadata']['rawMetrics']['design'])
    info['source']='Local BindCraft2 '+receipt['execution']+' ranked prediction';info['confidenceKind']='BindCraft2 AlphaFold2 pLDDT';info['metadata'].update(provenanceMatch=receipt['state'],nativeRun=receipt,upstreamRevision=fe.PIN,reportedCampaignRevision=receipt.get('reportedCampaignRevision'))
    roles=chain_roles(raw,fe.mi.parse_structure(raw.decode(),info['format'])) if info['format']=='mmcif' else None
    if roles:
