@@ -1,0 +1,71 @@
+{
+  "state": "passed",
+  "scope": "Same-host relocated app-owned Metal runtime, pinned upstream source and trained monomer checkpoint; real full forward/backprop on 12-residue technical input. Not full campaign/biological validation or fresh-machine acceptance.",
+  "app": "/Users/vii/Documents/FoldStudio-MetalPort/validation/Relocated Metal Runtime/FOLD STUDIO Metal Dev.app",
+  "externalRuntimeEnvironmentRemoved": true,
+  "runtimeDiscovery": {
+    "state": "experimental",
+    "runtime": "/Users/vii/Documents/FoldStudio-MetalPort/validation/Relocated Metal Runtime/FOLD STUDIO Metal Dev.app/Contents/Resources/runtime-metal/bin/python3.12",
+    "versions": {
+      "jax": "0.11.2",
+      "jaxlib": "0.11.2",
+      "metaljax": "0.11.9"
+    },
+    "architecture": "arm64",
+    "memoryBytes": 25769803776,
+    "devices": [
+      {
+        "platform": "metal",
+        "kind": "Apple GPU"
+      }
+    ],
+    "precision": "float32",
+    "environment": {
+      "JAX_PLATFORMS": "metal",
+      "METALJAX_MEM_GOVERNOR": "1",
+      "METALJAX_MEM_BUDGET_MB": "6144",
+      "METALJAX_MEM_SYS_MB": "23552",
+      "METALJAX_LOOP_INFLIGHT_MB": "128",
+      "METALJAX_MATMUL_PRECISION": "highest",
+      "XLA_PYTHON_CLIENT_PREALLOCATE": "false",
+      "PYTHONDONTWRITEBYTECODE": "1"
+    }
+  },
+  "modelExecution": {
+    "scope": "Genuine full model technical input, not a validated binder",
+    "jax": "0.11.2",
+    "backend": "metal",
+    "precision": "float32",
+    "inputSha256": "eef962a16dfaa99f76690bea3e957027576842936f958a8d55667a692fa42b37",
+    "devices": [
+      "MetalDevice(id=0)"
+    ],
+    "seed": 2718,
+    "residues": 12,
+    "recycles": 0,
+    "targetResidues": 0,
+    "model": "model_1_ptm",
+    "parameterSha256": "5e564f79af5bcd54ccef6e2a6bb0ff01015d01650ebc41d4575e35f0de9ecc84",
+    "loadSeconds": 1.518690416123718,
+    "engineRoot": "/Users/vii/Documents/FoldStudio-MetalPort/validation/Relocated Metal Runtime/FOLD STUDIO Metal Dev.app/Contents/Resources",
+    "targetSha256": null,
+    "forwardSeconds": 9.206791959004477,
+    "coordinateShape": [
+      12,
+      37,
+      3
+    ],
+    "resolvedAtoms": 96,
+    "gradientSeconds": 7.97765191597864,
+    "loss": 0.25454413890838623,
+    "gradientShape": [
+      12,
+      20
+    ],
+    "gradientNorm": 0.07628575712442398,
+    "state": "executed_not_reference_validated",
+    "totalSeconds": 18.703652125084773,
+    "peakProcessRSSBytes": 1020723200
+  },
+  "signatureAfterInference": "passed"
+}

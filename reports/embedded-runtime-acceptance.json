@@ -1,7 +1,7 @@
 {
   "state": "passed",
-  "app": "/Users/vii/Documents/FoldStudio-MetalPort/validation/Relocated Runtime Fixed/FOLD STUDIO Metal Dev.app",
-  "scientificPython": "/Users/vii/Documents/FoldStudio-MetalPort/validation/Relocated Runtime Fixed/FOLD STUDIO Metal Dev.app/Contents/Resources/runtime/bin/python3.12",
+  "app": "/Users/vii/Documents/FoldStudio-MetalPort/validation/Relocated Metal Runtime/FOLD STUDIO Metal Dev.app",
+  "scientificPython": "/Users/vii/Documents/FoldStudio-MetalPort/validation/Relocated Metal Runtime/FOLD STUDIO Metal Dev.app/Contents/Resources/runtime/bin/python3.12",
   "externalRuntimeEnvironmentRemoved": true,
   "realProteinMPNNJob": "completed",
   "sourceResidues": 460,
@@ -9,23 +9,23 @@
   "modelParameterChecksums": "passed",
   "signatureAfterInference": "passed",
   "scope": "Relocated CPU scientific runtime and model resources; ChimeraX/Boltz are not bundled",
-  "jobId": "aa6d9b96-3305-40a8-b9b4-5fa607aedbfd",
+  "jobId": "b0cab19a-97b0-46ce-ba4d-b33bc1abc0e2",
   "resultSummary": {
     "execution": "cpu",
     "devices": [
       "cpu:0"
     ],
     "timing": {
-      "loadSeconds": 0.3625431661494076,
-      "inferenceIncludingCompilationSeconds": 1.4174427089747041,
-      "totalSeconds": 1.7799858751241118
+      "loadSeconds": 0.1695514579769224,
+      "inferenceIncludingCompilationSeconds": 0.9833654591348022,
+      "totalSeconds": 1.1529169171117246
     },
-    "peakProcessRSSBytes": 675545088,
+    "peakProcessRSSBytes": 691601408,
     "checkpointSha256": "58db738bbf867ca9b9290ce3a6581b94649f108683ac0e6a10de6b4aeeed30b4",
     "limitations": [
       "Fixed-backbone sequence redesign only; no new coordinates, folding validation or binding prediction.",
       "Scores are upstream sequence-model metrics, not affinity or experimental validation.",
-      "CPU execution; no Metal acceleration is claimed."
+      "Backend is reported explicitly; this output alone does not establish cross-backend parity."
     ]
   }
 }

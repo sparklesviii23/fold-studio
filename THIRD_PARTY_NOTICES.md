@@ -42,7 +42,7 @@ reinterpreted here. Nothing in this development milestone is uploaded or publish
 
 Subsequent to M1/M2, the native development build includes a CPython/JAX scientific
 runtime with original Python LICENSE, package license files and dist-info.
-Unchanged AlphaFold 2 parameter files (model_1_ptm, model_1_multimer_v3 and model_2_multimer_v3)
+Unchanged AlphaFold 2 parameter files (five multimer v3 models and two pTM models)
 are included with provenance and attribution in `models/alphafold/NOTICE.md`.
 The official AlphaFold repository identifies AF2 parameters as CC BY 4.0:
 https://github.com/google-deepmind/alphafold#model-parameters-license

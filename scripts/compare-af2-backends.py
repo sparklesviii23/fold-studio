@@ -15,6 +15,7 @@ for key in x.files:
  comparisons[key]={'shape':list(left.shape),'maxAbsError':float(np.max(np.abs(delta))),'rmsError':float(np.sqrt(np.mean(delta**2))),'relativeL2Error':float(np.linalg.norm(delta)/max(norm,1e-12)),'cosine':float(np.sum(left*right)/max(norm*other,1e-12))}
 # Explicit narrow acceptance thresholds; results beyond them remain failures.
 passed=comparisons['gradient']['relativeL2Error']<=.05 and comparisons['gradient']['cosine']>=.99 and comparisons['forwardPlddt']['maxAbsError']<=.01 and comparisons['forwardPositions']['rmsError']<=.1 and comparisons['gradientPositions']['rmsError']<=.1
+passed=passed and all(value['rmsError']<=.1 for key,value in comparisons.items() if 'Positions' in key)
 report={'scope':f"Full {c['model']}, {c['residues']}-residue designed input plus {c['targetResidues']} target residues, {c['recycles']} recycles, same trained checkpoint and seed. Narrow numerical backend comparison; not biological validation or full BindCraft parity.",'state':'passed' if passed else 'failed','comparisons':comparisons,'cpuTiming':c,'metalTiming':m,'thresholds':{'gradientRelativeL2':.05,'gradientCosineMin':.99,'plddtMaxAbs':.01,'coordinateRmsAngstrom':.1}}
 pathlib.Path(a.output).write_text(json.dumps(report,indent=2)+'\n');print(json.dumps({'state':report['state'],'comparisons':comparisons},indent=2))
 if not passed:raise SystemExit(1)

@@ -7,6 +7,10 @@ import json,os,pathlib,subprocess
 ENV={'JAX_PLATFORMS':'metal','METALJAX_MEM_GOVERNOR':'1','METALJAX_MEM_BUDGET_MB':'6144','METALJAX_MEM_SYS_MB':'23552','METALJAX_LOOP_INFLIGHT_MB':'128','METALJAX_MATMUL_PRECISION':'highest','XLA_PYTHON_CLIENT_PREALLOCATE':'false','PYTHONDONTWRITEBYTECODE':'1'}
 PINS={'jax':'0.11.2','jaxlib':'0.11.2','metaljax':'0.11.9'}
 
+def environment(profile='single'):
+ if profile not in ('single','ensemble'):raise ValueError('Unknown Metal resource profile.')
+ return {**ENV,'METALJAX_MEM_BUDGET_MB':'8192' if profile=='ensemble' else ENV['METALJAX_MEM_BUDGET_MB']}
+
 def runtime(service):
  import fold_engine as fe
  return os.path.abspath(os.path.expanduser(os.environ.get('FOLD_BINDCRAFT_METAL_PYTHON') or service.setting('bindcraftMetalPython') or str(fe.BASE/'runtime-metal/bin/python3.12')))

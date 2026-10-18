@@ -34,4 +34,7 @@ class MetalRuntimeGuards(unittest.TestCase):
   self.s.job_update(j['id'],'queued',{'runtime':os.sys.executable,'parameters':'/unused','execution':'metal','executionSettingsSha256':'invalid'})
   with patch.object(bindcraft_cpu.subprocess,'run') as run:bindcraft_cpu.run(self.s,j['id']);run.assert_not_called()
   self.assertEqual(self.s.job(j['id'])['state'],'failed');self.assertIn('settings changed',self.s.job(j['id'])['data']['error'])
+ def test_ensemble_envelope_keeps_governor_and_system_limit_enabled(self):
+  envelope=metal_runtime.environment('ensemble');self.assertEqual(envelope['METALJAX_MEM_GOVERNOR'],'1');self.assertEqual(envelope['METALJAX_MEM_BUDGET_MB'],'8192');self.assertEqual(envelope['METALJAX_MEM_SYS_MB'],metal_runtime.ENV['METALJAX_MEM_SYS_MB'])
+  with self.assertRaises(ValueError):metal_runtime.environment('unlimited')
 del Fixtures

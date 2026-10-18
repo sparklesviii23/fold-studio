@@ -53,4 +53,4 @@ class UpstreamProgress(unittest.TestCase):
   from bindcraft_cpu import progress_from_log
   log='=== trajectory 1 | first | accepted 0/1 ===\nFOLD_PROGRESS {"stage":"screen","sequenceUpdates":12,"metrics":{"iptm":0.4}}\n'
   p=progress_from_log(log);self.assertEqual(p['lastObservedUpdate']['sequenceUpdates'],12);self.assertIsNone(p['percent'])
-  p=progress_from_log(log+'=== trajectory 2 | second | accepted 0/1 ===\nFOLD_PROGRESS malformed\n');self.assertNotIn('lastObservedUpdate',p)
+  p=progress_from_log(log+'=== trajectory 2 | second | accepted 0/1 ===\nFOLD_PROGRESS malformed\nFOLD_PROGRESS []\n');self.assertNotIn('lastObservedUpdate',p)

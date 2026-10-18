@@ -239,3 +239,52 @@ Cyclic technical execution and CPU/Metal output comparison passed using the
 original `direction` cyclic offset mode. Both upstream closure measurements were
 1.5984154 Å. Arrays and reports are retained under `reports/cyclic-trajectory-*`.
 This diagnostic used permissive gates and is not an accepted research binder.
+
+### Packaged GPU acceptance and full-size results
+
+The native 2.55 GiB build was relocated and automatically discovered its own
+MetalJAX interpreter with development overrides removed. Genuine trained AF2
+forward/backprop executed from app-owned source/parameters and the app seal
+remained valid (`reports/embedded-metal-runtime-acceptance.json`). The CPU
+460-residue ProteinMPNN regression also passed after relocation.
+
+A complete diagnostic peptide path then executed inside the relocated app:
+original AF2 optimizers → negative ProteinMPNN redesign → held-out model_2
+multimer validation → real CIF/metric tables. Confidence/filter gates were
+explicitly permissive for technical coverage; all outputs remain quarantined,
+zero research records imported. This is not an accepted scientific binder.
+Report: `reports/embedded-diagnostic-pipeline-acceptance.json`. A validation
+harness bytecode write was discovered and corrected; the repeated final test
+verified signatures before and after the calculation.
+
+Both earlier 175-residue default-filter single-model campaigns finished with
+zero accepted designs, correctly rejected at anneal (CPU: pLDDT; Metal: i_pTM).
+The original CPU mixed-precision and Metal float32 trajectories are different
+precision profiles, not paired trajectory-parity evidence. Both outcomes, logs
+and summaries are preserved in `reports/bindcraft-fullsize-*-outcome.json`.
+A controlled 175-residue, one-recycle float32 full-model comparison separately
+passed: gradient relative L2 0.0042348 / cosine 0.9999919; all returned target and
+binder coordinate RMS differences <0.001 Å; pLDDT max error 7.2e-7.
+`reports/af2-175-metal-comparison.json` records thresholds and arrays.
+
+Seven official AF2 checkpoints are now pinned (5 multimer v3 + 2 pTM) for the
+original upstream model pools. Range extraction and local hashes retained; no
+provider-published checksum is claimed. `campaign_profile.py` asks the actual
+upstream selector for design/held-out pools, preserving original settings and
+filters. A tiny real three-design/two-held-out-model diagnostic pipeline completed
+on Metal (`reports/diagnostic-ensemble-pipeline-acceptance.json`); this establishes
+execution only. CPU float32 profiles and explicit original-ensemble profiles are
+now available in source. Full model scientific/modalities parity remains pending.
+
+A real full-ensemble hPDL1 job is running with the original upstream PD-1 interface
+hotspots A54,A56,A66,A115, original filters/stage budgets, seed 42, up to three
+attempts for one accepted prediction. Job `31e1b01b-1aa9-48e9-94df-b267adbf0a50`,
+root `../validation/bindcraft-ensemble-metal`. It uses a bounded experimental
+8 GiB process envelope for seven checkpoint residency, 23 GiB system bound and
+governor enabled on the 24 GiB host. Observed optimizer callbacks are appearing.
+Do not restart during recovery. `reports/bindcraft-live-ensemble-job.json`.
+
+172 Python + 64 frontend tests passed at this integration checkpoint (one existing
+private frontend fixture skipped). The last native build precedes ensemble UI/
+profiles and four additional checkpoint resources; rebuild/relocated acceptance
+for those changes remains necessary. Continue expanding scientific workflows.

@@ -1,0 +1,1000 @@
+{
+  "state": "technical_pipeline_completed",
+  "backend": "metal",
+  "diagnosticOnly": true,
+  "researchAcceptance": false,
+  "importedRecords": 0,
+  "seconds": 16.131572999991477,
+  "sourceSha256": "c152bef545f70158970e739878231fbe6ba92b6218a0ce39a84ec4b873b56c8d",
+  "settingsSha256": "8aa962ec91a69e91518fb5e09209ef4613d1aecc804fa364fd254a4de862798d",
+  "settings": {
+    "validation_model": "multimer",
+    "binder_lengths": [
+      12
+    ],
+    "aa_bias": {
+      "C": 0
+    },
+    "refine_steps": 1,
+    "weights_iptm_loss": 0.1,
+    "weights_compactness": 0.0,
+    "max_ipae_final": 0.33,
+    "filters": [],
+    "targets": [
+      {
+        "name": "diagnostic",
+        "target_path": "/Users/vii/Documents/FoldStudio-MetalPort/validation/diagnostic-ensemble-pipeline-parameters/DIAGNOSTIC_target_fragment.pdb",
+        "chains": "A"
+      }
+    ],
+    "campaign_name": "DIAGNOSTIC ONLY \u2014 permissive QA gates; no research acceptance",
+    "binder_name": "DIAGNOSTIC",
+    "campaign_seed": 2718,
+    "project_folder": "/Users/vii/Documents/FoldStudio-MetalPort/validation/diagnostic-ensemble-pipeline-parameters/QUARANTINED_OUTPUT",
+    "number_of_final_designs": 1,
+    "max_trajectories": 1,
+    "design_recycles": 0,
+    "validation_recycles": 1,
+    "design_dropout": false,
+    "length_bucket_size": 1,
+    "attention_backend": "stock",
+    "use_cueq": false,
+    "auto_multi_gpu": false,
+    "design_workers": 1,
+    "autotune": false,
+    "resume": false,
+    "screen_steps": 1,
+    "anneal_steps": 1,
+    "harden_steps": 1,
+    "mutate_steps": 0,
+    "sequence_candidates": 2,
+    "kept_sequences": 1,
+    "enough_passing_sequences": 1,
+    "save_design_sequences": true,
+    "min_plddt_screen": 0.0,
+    "min_iptm_screen": 0.0,
+    "min_plddt_refine": 0.0,
+    "min_iptm_refine": 0.0,
+    "min_plddt_anneal": 0.0,
+    "min_iptm_anneal": 0.0,
+    "min_plddt_harden": 0.0,
+    "min_iptm_harden": 0.0,
+    "min_plddt_mutate": 0.0,
+    "min_iptm_mutate": 0.0,
+    "min_plddt_final": 0.0,
+    "min_iptm_final": 0.0
+  },
+  "technicalStructures": {
+    "QUARANTINED_OUTPUT/3_Ranked/DIAGNOSTIC ONLY \u2014 permissive QA gates; no research acceptance_DIAGNOSTIC_peptide_l12_bfc88c5cdcb849ca_seq0.cif": "c807c027567972f4da14ea55b019d97f009a71c25328dcd878877ee30d97cc92"
+  },
+  "tables": {
+    "QUARANTINED_OUTPUT/summary.csv": [
+      {
+        "campaign": "QUARANTINED_OUTPUT",
+        "scope": "campaign",
+        "metric": "trajectories",
+        "samples": "1",
+        "mean": "1.0",
+        "std": "0.0",
+        "min": "1.0",
+        "max": "1.0"
+      },
+      {
+        "campaign": "QUARANTINED_OUTPUT",
+        "scope": "campaign",
+        "metric": "redesign_candidates",
+        "samples": "1",
+        "mean": "1.0",
+        "std": "0.0",
+        "min": "1.0",
+        "max": "1.0"
+      },
+      {
+        "campaign": "QUARANTINED_OUTPUT",
+        "scope": "campaign",
+        "metric": "accepted_designs",
+        "samples": "1",
+        "mean": "1.0",
+        "std": "0.0",
+        "min": "1.0",
+        "max": "1.0"
+      },
+      {
+        "campaign": "QUARANTINED_OUTPUT",
+        "scope": "campaign",
+        "metric": "terminated:completed",
+        "samples": "1",
+        "mean": "1.0",
+        "std": "0.0",
+        "min": "1.0",
+        "max": "1.0"
+      },
+      {
+        "campaign": "QUARANTINED_OUTPUT",
+        "scope": "accepted",
+        "metric": "i_pDAE",
+        "samples": "1",
+        "mean": "0.01",
+        "std": "0.0",
+        "min": "0.01",
+        "max": "0.01"
+      },
+      {
+        "campaign": "QUARANTINED_OUTPUT",
+        "scope": "accepted",
+        "metric": "i_pTM",
+        "samples": "1",
+        "mean": "0.02",
+        "std": "0.0",
+        "min": "0.02",
+        "max": "0.02"
+      },
+      {
+        "campaign": "QUARANTINED_OUTPUT",
+        "scope": "accepted",
+        "metric": "length",
+        "samples": "1",
+        "mean": "12.0",
+        "std": "0.0",
+        "min": "12.0",
+        "max": "12.0"
+      },
+      {
+        "campaign": "QUARANTINED_OUTPUT",
+        "scope": "accepted",
+        "metric": "pLDDT",
+        "samples": "1",
+        "mean": "0.46",
+        "std": "0.0",
+        "min": "0.46",
+        "max": "0.46"
+      },
+      {
+        "campaign": "QUARANTINED_OUTPUT",
+        "scope": "anneal",
+        "metric": "diagnostic.binder_contacts",
+        "samples": "1",
+        "mean": "2.1",
+        "std": "0.0",
+        "min": "2.1",
+        "max": "2.1"
+      },
+      {
+        "campaign": "QUARANTINED_OUTPUT",
+        "scope": "anneal",
+        "metric": "diagnostic.binder_helicity",
+        "samples": "1",
+        "mean": "-0.62",
+        "std": "0.0",
+        "min": "-0.62",
+        "max": "-0.62"
+      },
+      {
+        "campaign": "QUARANTINED_OUTPUT",
+        "scope": "anneal",
+        "metric": "diagnostic.binder_pae",
+        "samples": "1",
+        "mean": "0.11",
+        "std": "0.0",
+        "min": "0.11",
+        "max": "0.11"
+      },
+      {
+        "campaign": "QUARANTINED_OUTPUT",
+        "scope": "anneal",
+        "metric": "diagnostic.interface_contacts",
+        "samples": "1",
+        "mean": "3.8",
+        "std": "0.0",
+        "min": "3.8",
+        "max": "3.8"
+      },
+      {
+        "campaign": "QUARANTINED_OUTPUT",
+        "scope": "anneal",
+        "metric": "diagnostic.interface_pae",
+        "samples": "1",
+        "mean": "0.06",
+        "std": "0.0",
+        "min": "0.06",
+        "max": "0.06"
+      },
+      {
+        "campaign": "QUARANTINED_OUTPUT",
+        "scope": "anneal",
+        "metric": "diagnostic.iptm",
+        "samples": "1",
+        "mean": "0.01",
+        "std": "0.0",
+        "min": "0.01",
+        "max": "0.01"
+      },
+      {
+        "campaign": "QUARANTINED_OUTPUT",
+        "scope": "anneal",
+        "metric": "diagnostic.iptm_loss",
+        "samples": "1",
+        "mean": "0.1",
+        "std": "0.0",
+        "min": "0.1",
+        "max": "0.1"
+      },
+      {
+        "campaign": "QUARANTINED_OUTPUT",
+        "scope": "anneal",
+        "metric": "diagnostic.plddt_loss",
+        "samples": "1",
+        "mean": "0.06",
+        "std": "0.0",
+        "min": "0.06",
+        "max": "0.06"
+      },
+      {
+        "campaign": "QUARANTINED_OUTPUT",
+        "scope": "anneal",
+        "metric": "diagnostic.ptm",
+        "samples": "1",
+        "mean": "0.06",
+        "std": "0.0",
+        "min": "0.06",
+        "max": "0.06"
+      },
+      {
+        "campaign": "QUARANTINED_OUTPUT",
+        "scope": "candidate",
+        "metric": "i_pDAE",
+        "samples": "1",
+        "mean": "0.01",
+        "std": "0.0",
+        "min": "0.01",
+        "max": "0.01"
+      },
+      {
+        "campaign": "QUARANTINED_OUTPUT",
+        "scope": "candidate",
+        "metric": "i_pTM",
+        "samples": "1",
+        "mean": "0.02",
+        "std": "0.0",
+        "min": "0.02",
+        "max": "0.02"
+      },
+      {
+        "campaign": "QUARANTINED_OUTPUT",
+        "scope": "candidate",
+        "metric": "length",
+        "samples": "1",
+        "mean": "12.0",
+        "std": "0.0",
+        "min": "12.0",
+        "max": "12.0"
+      },
+      {
+        "campaign": "QUARANTINED_OUTPUT",
+        "scope": "candidate",
+        "metric": "pLDDT",
+        "samples": "1",
+        "mean": "0.46",
+        "std": "0.0",
+        "min": "0.46",
+        "max": "0.46"
+      },
+      {
+        "campaign": "QUARANTINED_OUTPUT",
+        "scope": "final",
+        "metric": "i_pDAE",
+        "samples": "1",
+        "mean": "0.01",
+        "std": "0.0",
+        "min": "0.01",
+        "max": "0.01"
+      },
+      {
+        "campaign": "QUARANTINED_OUTPUT",
+        "scope": "final",
+        "metric": "i_pTM",
+        "samples": "1",
+        "mean": "0.01",
+        "std": "0.0",
+        "min": "0.01",
+        "max": "0.01"
+      },
+      {
+        "campaign": "QUARANTINED_OUTPUT",
+        "scope": "final",
+        "metric": "length",
+        "samples": "1",
+        "mean": "12.0",
+        "std": "0.0",
+        "min": "12.0",
+        "max": "12.0"
+      },
+      {
+        "campaign": "QUARANTINED_OUTPUT",
+        "scope": "final",
+        "metric": "pLDDT",
+        "samples": "1",
+        "mean": "0.41",
+        "std": "0.0",
+        "min": "0.41",
+        "max": "0.41"
+      },
+      {
+        "campaign": "QUARANTINED_OUTPUT",
+        "scope": "final",
+        "metric": "trajectory",
+        "samples": "1",
+        "mean": "1.0",
+        "std": "0.0",
+        "min": "1.0",
+        "max": "1.0"
+      },
+      {
+        "campaign": "QUARANTINED_OUTPUT",
+        "scope": "harden",
+        "metric": "diagnostic.binder_contacts",
+        "samples": "1",
+        "mean": "2.1",
+        "std": "0.0",
+        "min": "2.1",
+        "max": "2.1"
+      },
+      {
+        "campaign": "QUARANTINED_OUTPUT",
+        "scope": "harden",
+        "metric": "diagnostic.binder_helicity",
+        "samples": "1",
+        "mean": "-0.52",
+        "std": "0.0",
+        "min": "-0.52",
+        "max": "-0.52"
+      },
+      {
+        "campaign": "QUARANTINED_OUTPUT",
+        "scope": "harden",
+        "metric": "diagnostic.binder_pae",
+        "samples": "1",
+        "mean": "0.1",
+        "std": "0.0",
+        "min": "0.1",
+        "max": "0.1"
+      },
+      {
+        "campaign": "QUARANTINED_OUTPUT",
+        "scope": "harden",
+        "metric": "diagnostic.interface_contacts",
+        "samples": "1",
+        "mean": "3.8",
+        "std": "0.0",
+        "min": "3.8",
+        "max": "3.8"
+      },
+      {
+        "campaign": "QUARANTINED_OUTPUT",
+        "scope": "harden",
+        "metric": "diagnostic.interface_pae",
+        "samples": "1",
+        "mean": "0.05",
+        "std": "0.0",
+        "min": "0.05",
+        "max": "0.05"
+      },
+      {
+        "campaign": "QUARANTINED_OUTPUT",
+        "scope": "harden",
+        "metric": "diagnostic.iptm",
+        "samples": "1",
+        "mean": "0.01",
+        "std": "0.0",
+        "min": "0.01",
+        "max": "0.01"
+      },
+      {
+        "campaign": "QUARANTINED_OUTPUT",
+        "scope": "harden",
+        "metric": "diagnostic.iptm_loss",
+        "samples": "1",
+        "mean": "0.1",
+        "std": "0.0",
+        "min": "0.1",
+        "max": "0.1"
+      },
+      {
+        "campaign": "QUARANTINED_OUTPUT",
+        "scope": "harden",
+        "metric": "diagnostic.plddt_loss",
+        "samples": "1",
+        "mean": "0.06",
+        "std": "0.0",
+        "min": "0.06",
+        "max": "0.06"
+      },
+      {
+        "campaign": "QUARANTINED_OUTPUT",
+        "scope": "harden",
+        "metric": "diagnostic.ptm",
+        "samples": "1",
+        "mean": "0.07",
+        "std": "0.0",
+        "min": "0.07",
+        "max": "0.07"
+      },
+      {
+        "campaign": "QUARANTINED_OUTPUT",
+        "scope": "refine",
+        "metric": "diagnostic.binder_contacts",
+        "samples": "1",
+        "mean": "2.2",
+        "std": "0.0",
+        "min": "2.2",
+        "max": "2.2"
+      },
+      {
+        "campaign": "QUARANTINED_OUTPUT",
+        "scope": "refine",
+        "metric": "diagnostic.binder_helicity",
+        "samples": "1",
+        "mean": "-0.61",
+        "std": "0.0",
+        "min": "-0.61",
+        "max": "-0.61"
+      },
+      {
+        "campaign": "QUARANTINED_OUTPUT",
+        "scope": "refine",
+        "metric": "diagnostic.binder_pae",
+        "samples": "1",
+        "mean": "0.12",
+        "std": "0.0",
+        "min": "0.12",
+        "max": "0.12"
+      },
+      {
+        "campaign": "QUARANTINED_OUTPUT",
+        "scope": "refine",
+        "metric": "diagnostic.interface_contacts",
+        "samples": "1",
+        "mean": "3.8",
+        "std": "0.0",
+        "min": "3.8",
+        "max": "3.8"
+      },
+      {
+        "campaign": "QUARANTINED_OUTPUT",
+        "scope": "refine",
+        "metric": "diagnostic.interface_pae",
+        "samples": "1",
+        "mean": "0.06",
+        "std": "0.0",
+        "min": "0.06",
+        "max": "0.06"
+      },
+      {
+        "campaign": "QUARANTINED_OUTPUT",
+        "scope": "refine",
+        "metric": "diagnostic.iptm",
+        "samples": "1",
+        "mean": "0.01",
+        "std": "0.0",
+        "min": "0.01",
+        "max": "0.01"
+      },
+      {
+        "campaign": "QUARANTINED_OUTPUT",
+        "scope": "refine",
+        "metric": "diagnostic.iptm_loss",
+        "samples": "1",
+        "mean": "0.1",
+        "std": "0.0",
+        "min": "0.1",
+        "max": "0.1"
+      },
+      {
+        "campaign": "QUARANTINED_OUTPUT",
+        "scope": "refine",
+        "metric": "diagnostic.plddt_loss",
+        "samples": "1",
+        "mean": "0.07",
+        "std": "0.0",
+        "min": "0.07",
+        "max": "0.07"
+      },
+      {
+        "campaign": "QUARANTINED_OUTPUT",
+        "scope": "refine",
+        "metric": "diagnostic.ptm",
+        "samples": "1",
+        "mean": "0.06",
+        "std": "0.0",
+        "min": "0.06",
+        "max": "0.06"
+      },
+      {
+        "campaign": "QUARANTINED_OUTPUT",
+        "scope": "screen",
+        "metric": "diagnostic.binder_contacts",
+        "samples": "1",
+        "mean": "2.2",
+        "std": "0.0",
+        "min": "2.2",
+        "max": "2.2"
+      },
+      {
+        "campaign": "QUARANTINED_OUTPUT",
+        "scope": "screen",
+        "metric": "diagnostic.binder_helicity",
+        "samples": "1",
+        "mean": "-0.47",
+        "std": "0.0",
+        "min": "-0.47",
+        "max": "-0.47"
+      },
+      {
+        "campaign": "QUARANTINED_OUTPUT",
+        "scope": "screen",
+        "metric": "diagnostic.binder_pae",
+        "samples": "1",
+        "mean": "0.1",
+        "std": "0.0",
+        "min": "0.1",
+        "max": "0.1"
+      },
+      {
+        "campaign": "QUARANTINED_OUTPUT",
+        "scope": "screen",
+        "metric": "diagnostic.interface_contacts",
+        "samples": "1",
+        "mean": "3.8",
+        "std": "0.0",
+        "min": "3.8",
+        "max": "3.8"
+      },
+      {
+        "campaign": "QUARANTINED_OUTPUT",
+        "scope": "screen",
+        "metric": "diagnostic.interface_pae",
+        "samples": "1",
+        "mean": "0.06",
+        "std": "0.0",
+        "min": "0.06",
+        "max": "0.06"
+      },
+      {
+        "campaign": "QUARANTINED_OUTPUT",
+        "scope": "screen",
+        "metric": "diagnostic.iptm",
+        "samples": "1",
+        "mean": "0.01",
+        "std": "0.0",
+        "min": "0.01",
+        "max": "0.01"
+      },
+      {
+        "campaign": "QUARANTINED_OUTPUT",
+        "scope": "screen",
+        "metric": "diagnostic.iptm_loss",
+        "samples": "1",
+        "mean": "0.1",
+        "std": "0.0",
+        "min": "0.1",
+        "max": "0.1"
+      },
+      {
+        "campaign": "QUARANTINED_OUTPUT",
+        "scope": "screen",
+        "metric": "diagnostic.plddt_loss",
+        "samples": "1",
+        "mean": "0.06",
+        "std": "0.0",
+        "min": "0.06",
+        "max": "0.06"
+      },
+      {
+        "campaign": "QUARANTINED_OUTPUT",
+        "scope": "screen",
+        "metric": "diagnostic.ptm",
+        "samples": "1",
+        "mean": "0.06",
+        "std": "0.0",
+        "min": "0.06",
+        "max": "0.06"
+      },
+      {
+        "campaign": "QUARANTINED_OUTPUT",
+        "scope": "trajectory",
+        "metric": "diagnostic.binder_contacts",
+        "samples": "1",
+        "mean": "2.2",
+        "std": "0.0",
+        "min": "2.2",
+        "max": "2.2"
+      },
+      {
+        "campaign": "QUARANTINED_OUTPUT",
+        "scope": "trajectory",
+        "metric": "diagnostic.binder_helicity",
+        "samples": "1",
+        "mean": "-0.55",
+        "std": "0.0",
+        "min": "-0.55",
+        "max": "-0.55"
+      },
+      {
+        "campaign": "QUARANTINED_OUTPUT",
+        "scope": "trajectory",
+        "metric": "diagnostic.binder_pae",
+        "samples": "1",
+        "mean": "0.11",
+        "std": "0.0",
+        "min": "0.11",
+        "max": "0.11"
+      },
+      {
+        "campaign": "QUARANTINED_OUTPUT",
+        "scope": "trajectory",
+        "metric": "diagnostic.interface_contacts",
+        "samples": "1",
+        "mean": "3.8",
+        "std": "0.0",
+        "min": "3.8",
+        "max": "3.8"
+      },
+      {
+        "campaign": "QUARANTINED_OUTPUT",
+        "scope": "trajectory",
+        "metric": "diagnostic.interface_pae",
+        "samples": "1",
+        "mean": "0.06",
+        "std": "0.0",
+        "min": "0.06",
+        "max": "0.06"
+      },
+      {
+        "campaign": "QUARANTINED_OUTPUT",
+        "scope": "trajectory",
+        "metric": "diagnostic.iptm",
+        "samples": "1",
+        "mean": "0.01",
+        "std": "0.0",
+        "min": "0.01",
+        "max": "0.01"
+      },
+      {
+        "campaign": "QUARANTINED_OUTPUT",
+        "scope": "trajectory",
+        "metric": "diagnostic.iptm_loss",
+        "samples": "1",
+        "mean": "0.1",
+        "std": "0.0",
+        "min": "0.1",
+        "max": "0.1"
+      },
+      {
+        "campaign": "QUARANTINED_OUTPUT",
+        "scope": "trajectory",
+        "metric": "diagnostic.plddt_loss",
+        "samples": "1",
+        "mean": "0.06",
+        "std": "0.0",
+        "min": "0.06",
+        "max": "0.06"
+      },
+      {
+        "campaign": "QUARANTINED_OUTPUT",
+        "scope": "trajectory",
+        "metric": "diagnostic.ptm",
+        "samples": "1",
+        "mean": "0.06",
+        "std": "0.0",
+        "min": "0.06",
+        "max": "0.06"
+      }
+    ],
+    "QUARANTINED_OUTPUT/1_Trajectories/!_Trajectories.csv": [
+      {
+        "trajectory": "1",
+        "design": "DIAGNOSTIC ONLY \u2014 permissive QA gates; no research acceptance_DIAGNOSTIC_peptide_l12_bfc88c5cdcb849ca",
+        "length": "12",
+        "Binder_Sequence": "RSSDWVAEQTVK",
+        "i_pDAE": "0.01",
+        "i_pTM": "0.01",
+        "pLDDT": "0.41",
+        "bindcraft_version": "BindCraft 2 (unreleased)",
+        "Timing": "worker=0;start=1792293613.64;design=5.48;compiled=1",
+        "hash": "bfc88c5cdcb849ca",
+        "terminated": "",
+        "autotuned": "",
+        "settings_core": "default"
+      }
+    ],
+    "QUARANTINED_OUTPUT/3_Ranked/!_Ranked.csv": [
+      {
+        "rank": "1",
+        "design": "DIAGNOSTIC ONLY \u2014 permissive QA gates; no research acceptance_DIAGNOSTIC_peptide_l12_bfc88c5cdcb849ca_seq0",
+        "length": "12",
+        "Binder_Sequence": "RSSDWVIELTKP",
+        "Interface_Binder_Residues": "W5,I7,E8,L9,T10,P12",
+        "Interface_Target_Residues": "A18,T20,V21,D26,L27",
+        "i_pDAE": "0.01",
+        "i_pTM": "0.02",
+        "pLDDT": "0.46",
+        "hash": "bfc88c5cdcb849ca",
+        "settings_core": "default"
+      }
+    ],
+    "QUARANTINED_OUTPUT/2_Refolded/!_Refolded.csv": [
+      {
+        "design": "DIAGNOSTIC ONLY \u2014 permissive QA gates; no research acceptance_DIAGNOSTIC_peptide_l12_bfc88c5cdcb849ca_candidate1",
+        "length": "12",
+        "outcome": "passed",
+        "Binder_Sequence": "RSSDWVIELTKP",
+        "Interface_Binder_Residues": "W5,I7,E8,L9,T10,P12",
+        "Interface_Target_Residues": "A18,T20,V21,D26,L27",
+        "i_pDAE": "0.01",
+        "i_pTM": "0.02",
+        "pLDDT": "0.46",
+        "bindcraft_version": "BindCraft 2 (unreleased)",
+        "Timing": "worker=0;start=1792293621.61;reprediction=1.82",
+        "failed_filters": "",
+        "hash": "bfc88c5cdcb849ca"
+      }
+    ],
+    "QUARANTINED_OUTPUT/1_Trajectories/DIAGNOSTIC ONLY \u2014 permissive QA gates; no research acceptance_DIAGNOSTIC_peptide_l12_bfc88c5cdcb849ca/DIAGNOSTIC ONLY \u2014 permissive QA gates; no research acceptance_DIAGNOSTIC_peptide_l12_bfc88c5cdcb849ca_losses.csv": [
+      {
+        "diagnostic.binder_contacts": "2.2",
+        "diagnostic.binder_helicity": "-0.47",
+        "diagnostic.binder_pae": "0.1",
+        "diagnostic.interface_contacts": "3.8",
+        "diagnostic.interface_pae": "0.06",
+        "diagnostic.iptm": "0.01",
+        "diagnostic.iptm_loss": "0.1",
+        "diagnostic.plddt_loss": "0.06",
+        "diagnostic.ptm": "0.06",
+        "phase": "screen",
+        "round": "1"
+      },
+      {
+        "diagnostic.binder_contacts": "2.2",
+        "diagnostic.binder_helicity": "-0.61",
+        "diagnostic.binder_pae": "0.12",
+        "diagnostic.interface_contacts": "3.8",
+        "diagnostic.interface_pae": "0.06",
+        "diagnostic.iptm": "0.01",
+        "diagnostic.iptm_loss": "0.1",
+        "diagnostic.plddt_loss": "0.07",
+        "diagnostic.ptm": "0.06",
+        "phase": "refine",
+        "round": "1"
+      },
+      {
+        "diagnostic.binder_contacts": "2.1",
+        "diagnostic.binder_helicity": "-0.62",
+        "diagnostic.binder_pae": "0.11",
+        "diagnostic.interface_contacts": "3.8",
+        "diagnostic.interface_pae": "0.06",
+        "diagnostic.iptm": "0.01",
+        "diagnostic.iptm_loss": "0.1",
+        "diagnostic.plddt_loss": "0.06",
+        "diagnostic.ptm": "0.06",
+        "phase": "anneal",
+        "round": "1"
+      },
+      {
+        "diagnostic.binder_contacts": "2.1",
+        "diagnostic.binder_helicity": "-0.52",
+        "diagnostic.binder_pae": "0.1",
+        "diagnostic.interface_contacts": "3.8",
+        "diagnostic.interface_pae": "0.05",
+        "diagnostic.iptm": "0.01",
+        "diagnostic.iptm_loss": "0.1",
+        "diagnostic.plddt_loss": "0.06",
+        "diagnostic.ptm": "0.07",
+        "phase": "harden",
+        "round": "1"
+      }
+    ]
+  },
+  "runtime": {
+    "python": "3.12.14 (main, Aug 25 2026, 13:50:33) [Clang 22.1.3 ]",
+    "jax": "0.11.2",
+    "jaxlib": "0.11.2",
+    "architecture": "arm64",
+    "macOS": "26.4.1",
+    "devices": [
+      "MetalDevice(id=0)"
+    ],
+    "execution": "metal",
+    "precision": "float32",
+    "executionSettingsSha256": "8aa962ec91a69e91518fb5e09209ef4613d1aecc804fa364fd254a4de862798d",
+    "runnerSha256": "2c83bb9dd1c172b53c26012f58a86b7211203ef11594531fbe896f0a0ff278f6",
+    "precisionAdapterSha256": "a7699aa7c0669c3654b8d15f9114d66eeeedf29868896ef3318338e0127fdc65",
+    "metaljax": "0.11.9",
+    "memoryEnvironment": {
+      "JAX_PLATFORMS": "metal",
+      "METALJAX_MEM_GOVERNOR": "1",
+      "METALJAX_MEM_BUDGET_MB": "6144",
+      "METALJAX_MEM_SYS_MB": "23552",
+      "METALJAX_LOOP_INFLIGHT_MB": "128",
+      "METALJAX_MATMUL_PRECISION": "highest",
+      "XLA_PYTHON_CLIENT_PREALLOCATE": "false",
+      "PYTHONDONTWRITEBYTECODE": "1"
+    },
+    "exitCode": 0,
+    "state": "finished",
+    "totalSeconds": 15.054213790921494
+  },
+  "limitations": [
+    "12 target + 12 designed residues; one update per design stage; one held-out multimer recycle.",
+    "QA confidence/filter gates explicitly permissive; output is not a scientifically accepted binder or binding validation.",
+    "No research-library import; all technical structures remain quarantined."
+  ],
+  "campaignMetadata": {
+    "checkpoints": {
+      "/Users/vii/Documents/FoldStudio-MetalPort/fold-studio/vendor/bindcraft2/bindcraft/weights/proteinmpnn/weights_negative/v_48_020.npz": "b166276f80a45cb3de24bceb3b47b2f47a60ff654660f09837cd775846411ad1",
+      "/Users/vii/Documents/FoldStudio-MetalPort/models/alphafold/params_model_1_multimer_v3.npz": "611da8fc7478928f68de12e8b226260ef1f4ce62bcc29b008572e52f4f212959",
+      "/Users/vii/Documents/FoldStudio-MetalPort/models/alphafold/params_model_2_multimer_v3.npz": "51362b0844382ae0f5720c59b81dd13a43eea40fbf9995dd2573bdab88865378",
+      "/Users/vii/Documents/FoldStudio-MetalPort/models/alphafold/params_model_3_multimer_v3.npz": "46d9bcad288edc7ad5a6362ee8e5f84307a69712e00e6c36b1ef9daf96ebc9ce",
+      "/Users/vii/Documents/FoldStudio-MetalPort/models/alphafold/params_model_4_multimer_v3.npz": "59bdabd2d69c07fe26b37882d544acbd1b9f89f196828f4220da49e0610b572c",
+      "/Users/vii/Documents/FoldStudio-MetalPort/models/alphafold/params_model_5_multimer_v3.npz": "917742be5a105d6b80f13f1f13f20459f27ec3fdcd34ea088b359f4502d6177f"
+    },
+    "metadata": {
+      "settings_core": "default"
+    },
+    "resolved": {
+      "binder_chains": [
+        "binder"
+      ],
+      "campaign_seed": 2718,
+      "cyclic_offset_mode": "direction",
+      "design_models": [
+        "model_1_multimer_v3",
+        "model_2_multimer_v3",
+        "model_5_multimer_v3"
+      ],
+      "design_stage_steps": {
+        "anneal": 1,
+        "harden": 1,
+        "mutate": 0,
+        "refine": 1,
+        "screen": 1
+      },
+      "length_bucket_size": 1,
+      "oligomer_tie": "symmetric",
+      "validation_model": "multimer",
+      "validation_models": [
+        "model_3_multimer_v3",
+        "model_4_multimer_v3"
+      ]
+    },
+    "revision": "989d3c2ca64033d7aa1b46b28c2b0c4735abc820-dirty",
+    "sampled_binder_lengths": "12",
+    "settings": {
+      "aa_bias": {
+        "C": 0
+      },
+      "anneal_steps": 1,
+      "archive_trajectories": false,
+      "attention_backend": "stock",
+      "auto_multi_gpu": false,
+      "autotune": false,
+      "betasheet_reopt_extra_anneal_steps": 0,
+      "betasheet_reopt_extra_refine_steps": 0,
+      "betasheet_reopt_trigger": 0.15,
+      "bigbang_initialization": false,
+      "binder_lengths": [
+        12
+      ],
+      "binder_name": "DIAGNOSTIC",
+      "campaign_name": "DIAGNOSTIC ONLY \u2014 permissive QA gates; no research acceptance",
+      "campaign_seed": 2718,
+      "design_dropout": false,
+      "design_recycles": 0,
+      "design_workers": 1,
+      "desperation": true,
+      "enough_passing_sequences": 1,
+      "filters": [],
+      "forced_targeting": false,
+      "harden_steps": 1,
+      "hash_design_names": true,
+      "initial_guess": false,
+      "kept_sequences": 1,
+      "length_bucket_size": 1,
+      "losses": {
+        "binder_contacts": {
+          "params": {
+            "chain": "binder",
+            "prediction_state": "complex"
+          }
+        },
+        "binder_helicity": {
+          "params": {
+            "chain": "binder",
+            "prediction_state": "complex"
+          }
+        },
+        "binder_pae": {
+          "params": {
+            "chain": "binder",
+            "prediction_state": "complex"
+          }
+        },
+        "compactness": {
+          "params": {
+            "chain": "binder",
+            "prediction_state": "complex"
+          }
+        },
+        "interface_contacts": {
+          "params": {
+            "contacts_per_residue": 2,
+            "cutoff": 20.0
+          }
+        },
+        "plddt_loss": {
+          "params": {
+            "chain": "binder",
+            "prediction_state": "complex"
+          }
+        }
+      },
+      "max_ipae_final": 0.33,
+      "max_trajectories": 1,
+      "min_iptm_anneal": 0.0,
+      "min_iptm_final": 0.0,
+      "min_iptm_harden": 0.0,
+      "min_iptm_mutate": 0.0,
+      "min_iptm_refine": 0.0,
+      "min_iptm_screen": 0.0,
+      "min_plddt_anneal": 0.0,
+      "min_plddt_final": 0.0,
+      "min_plddt_harden": 0.0,
+      "min_plddt_mutate": 0.0,
+      "min_plddt_refine": 0.0,
+      "min_plddt_screen": 0.0,
+      "mpnn_model": "v_48_020",
+      "mpnn_variant": "negative",
+      "mutate_steps": 0,
+      "number_of_final_designs": 1,
+      "project_folder": "/Users/vii/Documents/FoldStudio-MetalPort/validation/diagnostic-ensemble-pipeline-parameters/QUARANTINED_OUTPUT",
+      "redesign_interface": false,
+      "refine_steps": 1,
+      "relax_accepted_designs": false,
+      "resume": false,
+      "save_binder_monomers": true,
+      "save_design_animations": false,
+      "save_design_frames": false,
+      "save_design_sequences": true,
+      "save_failed_refolds": true,
+      "save_failed_trajectories": true,
+      "save_loss_plots": false,
+      "screen_steps": 1,
+      "sequence_candidates": 2,
+      "subbatch_size": "auto",
+      "target_flexibility": 0.0,
+      "targets": [
+        {
+          "chains": "A",
+          "name": "diagnostic",
+          "target_path": "/Users/vii/Documents/FoldStudio-MetalPort/validation/diagnostic-ensemble-pipeline-parameters/DIAGNOSTIC_target_fragment.pdb"
+        }
+      ],
+      "trajectory_only": false,
+      "use_cueq": false,
+      "validation_crop_flank": 5,
+      "validation_model": "multimer",
+      "validation_recycles": 1,
+      "weights_binder_contacts": 1.0,
+      "weights_binder_helicity": -0.3,
+      "weights_binder_pae": 0.4,
+      "weights_compactness": 0.0,
+      "weights_interface_contacts": 1.0,
+      "weights_interface_pae": 0.1,
+      "weights_iptm_loss": 0.1,
+      "weights_plddt_loss": 0.1
+    },
+    "settings_digest": "4236b5724275",
+    "settings_path": "/Users/vii/Documents/FoldStudio-MetalPort/validation/diagnostic-ensemble-pipeline-parameters/DIAGNOSTIC_settings.json",
+    "version": "BindCraft 2 (unreleased)"
+  },
+  "signatureAfterInference": "not_applicable"
+}

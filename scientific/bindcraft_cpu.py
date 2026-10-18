@@ -12,9 +12,9 @@ def execution_config(original,folder):
 
 def start(engine,p):
  if set(p)-{'id','projectId','profile'}:raise ValueError('Unsupported campaign launch fields.')
- profiles={'experimental-cpu-single-model':'cpu','experimental-metal-float32-single-model':'metal'}
+ profiles={'experimental-cpu-single-model':('cpu','upstream',False),'experimental-cpu-float32-single-model':('cpu','float32',False),'experimental-metal-float32-single-model':('metal','float32',False),'experimental-cpu-float32-ensemble':('cpu','float32',True),'experimental-metal-float32-ensemble':('metal','float32',True)}
  if p.get('profile') not in profiles:raise ValueError('Native binder-design execution is blocked without an explicit experimental execution profile.')
- backend=profiles[p['profile']]
+ backend,precision,ensemble=profiles[p['profile']]
  s=engine.s;job=engine.campaign(p)
  if job['state']!='prepared':raise ValueError('Only a prepared, unexecuted campaign can start.')
  prep=job['data']['preparation'];count=sum(1 for r in prep['residueMap']);length=max(prep['config']['binder_lengths'])
@@ -35,8 +35,14 @@ def start(engine,p):
  # Peptide presets judge a bound peptide with a held-out multimer, not an
  # unbound monomer. Retain this upstream scientific distinction.
  config,validation=execution_config(original,folder)
+ selection={'designModels':config['design_models'],'validationModels':[validation]}
+ if ensemble:
+  from campaign_profile import ensemble_models
+  selection=ensemble_models(python,original,fe.UPSTREAM)
+  config['design_models']=selection['designModels'];config['validation_models']=selection['validationModels'];config['validation_model']='multimer' if all(model.endswith('multimer_v3') for model in selection['validationModels']) else 'monomer'
  weights={}
- for model in ('model_1_multimer_v3',validation):
+ for model in (*selection['designModels'],*selection['validationModels']):
+  if model not in pins:raise ValueError('AlphaFold model has no reviewed checkpoint pin: '+model)
   path=parameters/('params_'+model+'.npz')
   if not path.is_file() or path.stat().st_size<100*1024**2:raise ValueError('Missing genuine AlphaFold checkpoint: '+model)
   weights[model]=hashlib.sha256(path.read_bytes()).hexdigest()
@@ -48,7 +54,7 @@ def start(engine,p):
  if s.active():s.db.rollback();raise ValueError('Another local compute job is active.')
  current=s.job(job['id'])
  if current['state']!='prepared':s.db.rollback();raise ValueError('Campaign state changed.')
- data={**current['data'],'runtime':python,'parameters':str(parameters),'checkpointSha256':weights,'profile':p['profile'],'execution':backend,'precision':'float32' if backend=='metal' else 'upstream','runtimeInfo':runtime_info,'executionSettingsSha256':fe.checksum(fe.canonical(config).encode()),'outputs':[]}
+ data={**current['data'],'runtime':python,'parameters':str(parameters),'checkpointSha256':weights,'profile':p['profile'],'execution':backend,'precision':precision,'modelEnsemble':ensemble,'modelSelection':selection,'runtimeInfo':runtime_info,'executionSettingsSha256':fe.checksum(fe.canonical(config).encode()),'outputs':[]}
  s.db.execute('UPDATE jobs SET state=?,data=?,updated=? WHERE id=?',('queued',json.dumps(data),fe.mi.now(),job['id']));s.db.commit()
  try:
   (folder/'execution-settings.json').write_text(json.dumps(config,indent=2));return s.spawn(s.job(job['id']),'--bindcraft-cpu-job')
@@ -62,17 +68,17 @@ def run(s,id):
   backend=data.get('execution','cpu');env={**os.environ,'JAX_PLATFORMS':backend,'PYTHONUNBUFFERED':'1','XLA_PYTHON_CLIENT_PREALLOCATE':'false','PYTHONDONTWRITEBYTECODE':'1'}
   if backend=='metal':
    import metal_runtime
-   env.update(metal_runtime.ENV)
+   env.update(metal_runtime.environment('ensemble' if data.get('modelEnsemble') else 'single'))
   settings=folder/'execution-settings.json'
   if data.get('executionSettingsSha256') and fe.checksum(fe.canonical(json.loads(settings.read_text())).encode())!=data['executionSettingsSha256']:raise ValueError('Execution settings changed after queueing.')
-  proc=subprocess.run([data['runtime'],'-B',str(pathlib.Path(__file__).with_name('bindcraft_runner.py')),str(settings),data['parameters'],backend],env=env,timeout=12*3600)
+  proc=subprocess.run([data['runtime'],'-B',str(pathlib.Path(__file__).with_name('bindcraft_runner.py')),str(settings),data['parameters'],backend,data.get('precision','float32' if backend=='metal' else 'upstream'),'ensemble' if data.get('modelEnsemble') else 'single'],env=env,timeout=12*3600)
   if proc.returncode:raise RuntimeError('Upstream campaign failed with exit code '+str(proc.returncode)+'. Review execution.log.')
   if s.job(id)['state']=='cancelled':return
   ranked=folder/'output/3_Ranked';files=list(ranked.glob('*.cif')) if ranked.exists() else []
   imported=[]
   if files:
    result=fe.Engine(s).bindcraft_import({'projectId':job['project_id'],'id':id,'directory':str(folder/'output')});imported=result['records']
-  s.job_update(id,'completed',{'outputs':imported,'stage':'completed','finished':fe.mi.now(),'acceptedStructureFiles':len(files),'outcome':'accepted_predictions' if files else 'no_accepted_designs','limitations':['Experimental '+backend+' single-model campaign; default scientific rejection criteria retained.','Predicted designs are not validated binding or inhibition.','Full modality and ensemble parity not established.']})
+  s.job_update(id,'completed',{'outputs':imported,'stage':'completed','finished':fe.mi.now(),'acceptedStructureFiles':len(files),'outcome':'accepted_predictions' if files else 'no_accepted_designs','limitations':['Experimental '+backend+' campaign; default scientific rejection criteria retained.','Predicted designs are not validated binding or inhibition.','Full modality and ensemble scientific parity not established.']})
  except Exception as error:
   if s.job(id)['state']!='cancelled':s.job_update(id,'failed',{'error':str(error),'finished':fe.mi.now()})
   print('BindCraft CPU error:',error,flush=True)
@@ -92,6 +98,7 @@ def progress_from_log(log):
   if not line.startswith('FOLD_PROGRESS '):continue
   try:
    observed=json.loads(line[len('FOLD_PROGRESS '):])
+   if not isinstance(observed,dict):continue
    if observed.get('stage') in ('screen','refine','anneal','harden','mutate') and type(observed.get('sequenceUpdates')) is int and observed['sequenceUpdates']>0:out['lastObservedUpdate']=observed
   except (ValueError,TypeError):pass
  return out
