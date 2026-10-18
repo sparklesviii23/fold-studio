@@ -8,11 +8,13 @@ def runtime(s):
  return os.environ.get('FOLD_BINDCRAFT_PYTHON') or s.setting('bindcraftPython') or str(bundled if bundled.is_file() else s.root/'engine/bindcraft/bin/python')
 
 def start(s,p):
- if set(p)-{'projectId','structureId','designChains','count','seed','temperature','variant'}:raise ValueError('Unsupported ProteinMPNN field.')
+ if set(p)-{'projectId','structureId','designChains','count','seed','temperature','variant','designResidues','tiedChains','omitAminoAcids','aminoAcidBias'}:raise ValueError('Unsupported ProteinMPNN field.')
  engine=fe.Engine(s);shared=engine.fold_structure(p);st=shared['structure'];chains=p.get('designChains')
  if not isinstance(chains,list) or not chains or any(not isinstance(ch,str) for ch in chains) or len(set(chains))!=len(chains):raise ValueError('Select distinct chains to redesign.')
  all_chains=[ch['id'] for ch in st['chains']]
  if set(chains)-set(all_chains):raise ValueError('Unknown redesign chain.')
+ from mpnn_constraints import prepare
+ constraints=prepare(st,chains,p)
  engine.bindcraft_validate({'projectId':p['projectId'],'structureId':p['structureId'],'targetChains':all_chains})
  if sum(len(ch['sequence']) for ch in st['chains'])>600:raise ValueError('Initial CPU workflow is limited to 600 total observed residues.')
  count=fe.integer(p.get('count',1),'Count',1,8);seed=fe.integer(p.get('seed',42),'Seed',0,2147483647);temperature=p.get('temperature',0.1)
@@ -24,7 +26,7 @@ def start(s,p):
  fe.verify_source();record,path=engine.lab.record(p['structureId'])
  s.db.execute('BEGIN IMMEDIATE')
  if s.active():s.db.rollback();raise ValueError('Another local compute job is active.')
- job=s.job_new({'projectId':p['projectId'],'name':'ProteinMPNN · '+record['name'],'source':shared['reference'],'count':count,'seed':seed,'temperature':temperature,'variant':variant,'designChains':chains,'upstreamRevision':fe.PIN,'runtime':python,'sequences':{ch['id']:ch['sequence'] for ch in st['chains']},'outputs':[]},'proteinmpnn','queued')
+ job=s.job_new({'projectId':p['projectId'],'name':'ProteinMPNN · '+record['name'],'source':shared['reference'],'count':count,'seed':seed,'temperature':temperature,'variant':variant,'designChains':chains,'constraints':constraints,'upstreamRevision':fe.PIN,'runtime':python,'sequences':{ch['id']:ch['sequence'] for ch in st['chains']},'outputs':[]},'proteinmpnn','queued')
  folder=s.root/'jobs'/job['id'];folder.mkdir(exist_ok=True)
  try:
   raw=path.read_bytes()
@@ -39,6 +41,7 @@ def run(s,id):
  try:
   s.job_update(id,'running',{'stage':'inference','started':fe.mi.now()})
   source=next(folder.glob('input.*'));request={'input':str(source),'sha256':data['source']['sha256'],**{k:data[k] for k in ('sequences','count','seed','temperature','variant','designChains')}}
+  if 'constraints' in data:request['constraints']=data['constraints']
   (folder/'request.json').write_text(json.dumps(request,indent=2))
   proc=subprocess.run([data['runtime'],'-B',str(pathlib.Path(__file__).with_name('mpnn_runner.py')),str(folder/'request.json'),str(folder/'result.json')],env={**os.environ,'JAX_PLATFORMS':'cpu','PYTHONUNBUFFERED':'1','XLA_PYTHON_CLIENT_PREALLOCATE':'false'},timeout=1800)
   if proc.returncode:raise RuntimeError('ProteinMPNN exited with code '+str(proc.returncode)+'. Review execution log.')
@@ -50,7 +53,7 @@ def run(s,id):
   for i,candidate in enumerate(result['candidates'],1):
    for ch in data['designChains']:
     sequence=candidate['chains'][ch];rid=fe.mi.uid();name=f'ProteinMPNN candidate {i} · chain {ch}'
-    meta={'sequence':sequence,'source':'Upstream ProteinMPNN fixed-backbone redesign','jobId':id,'structureId':data['source']['structureId'],'sourceSha256':data['source']['sha256'],'chain':ch,'metrics':candidate['metrics'],'seed':data['seed'],'checkpointSha256':result['checkpointSha256'],'upstreamRevision':fe.PIN,'validationStatus':'sequence_only_unvalidated_fold'}
+    meta={'sequence':sequence,'source':'Upstream ProteinMPNN fixed-backbone redesign','jobId':id,'structureId':data['source']['structureId'],'sourceSha256':data['source']['sha256'],'chain':ch,'constraints':data.get('constraints'),'metrics':candidate['metrics'],'seed':data['seed'],'checkpointSha256':result['checkpointSha256'],'upstreamRevision':fe.PIN,'validationStatus':'sequence_only_unvalidated_fold'}
     s.db.execute('INSERT INTO records VALUES(?,?,?,?,?,?)',(rid,job['project_id'],'sequence',name,json.dumps(meta),fe.mi.now()));records.append(rid);fasta.append(f'>candidate_{i}_chain_{ch}\n{sequence}')
   (folder/'sequences.fasta').write_text('\n'.join(fasta)+'\n')
   data.update(outputs=records,stage='completed',finished=fe.mi.now(),resultSummary={k:result[k] for k in ('execution','devices','timing','peakProcessRSSBytes','checkpointSha256','limitations')})

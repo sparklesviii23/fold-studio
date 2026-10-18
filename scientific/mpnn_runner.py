@@ -21,17 +21,29 @@ def execute(request,backend='cpu'):
  def sequence(p):return ''.join(AMINO_ACIDS[int(i)] for i in np.asarray(p.sequence).argmax(-1))
  if set(proteins)!=set(expected) or any(sequence(p)!=expected[ch] for ch,p in proteins.items()):raise ValueError('Upstream/source sequence correspondence differs.')
  before={ch:np.asarray(p.atoms).copy() for ch,p in proteins.items()}
- proteins={ch:p.replace(flags=jnp.full(p.flags.shape,int(ResidueFlags.DESIGN) if ch in request['designChains'] else 0,dtype=jnp.uint8)) for ch,p in proteins.items()}
+ constraints=request.get('constraints');masks={}
+ for ch,p in proteins.items():
+  if constraints:
+   positions=constraints['residues'][ch]
+   if len(positions)!=len(p) or [r['number'] for r in positions]!=np.asarray(p.residue_index).tolist() or ''.join(r['aminoAcid'] for r in positions)!=expected[ch]:raise ValueError('Source residue constraint correspondence differs.')
+   masks[ch]=np.asarray([r['design'] for r in positions],dtype=bool)
+   if ch not in request['designChains'] and masks[ch].any():raise ValueError('Fixed context cannot acquire design positions.')
+  else:masks[ch]=np.full(len(p),ch in request['designChains'],dtype=bool)
+ proteins={ch:p.replace(flags=jnp.asarray(masks[ch].astype(np.uint8)*int(ResidueFlags.DESIGN))) for ch,p in proteins.items()}
  weights=BASE/'vendor/bindcraft2/bindcraft/weights/proteinmpnn/weights_neutral'
  checkpoint=pathlib.Path(mpnn_variant_directory(str(weights),request['variant']))/'v_48_020.npz'
- model=ProteinMPNNSequenceModel(str(weights),variant=request['variant'],key=jax.random.PRNGKey(request['seed']),temperature=request['temperature'],length_bucket_size=1)
+ model=ProteinMPNNSequenceModel(str(weights),variant=request['variant'],key=jax.random.PRNGKey(request['seed']),temperature=request['temperature'],length_bucket_size=1,**({'multi_chain_binders':tuple(tuple(group) for group in constraints['tiedChains']),'omitted_amino_acids':constraints['omitAminoAcids'],'amino_acid_bias':constraints['aminoAcidBias']} if constraints else {}))
  loaded=time.perf_counter();print('Running full upstream encoder and autoregressive decoder; compilation may take time.',flush=True)
  predictions=model.predict_candidates({'source':proteins},candidate_count=request['count']);results=[]
  for prediction in predictions:
   output=prediction['source'];chains={ch:sequence(p) for ch,p in output.protein_complex.items()}
   for ch,p in output.protein_complex.items():
-   if ch not in request['designChains'] and chains[ch]!=expected[ch]:raise ValueError('Fixed context sequence changed.')
+   if any(actual!=original for actual,original,editable in zip(chains[ch],expected[ch],masks[ch]) if not editable):raise ValueError('Fixed source residue sequence changed.')
+   if constraints and any(aa in constraints['omitAminoAcids'] for aa,editable in zip(chains[ch],masks[ch]) if editable):raise ValueError('Omitted amino acid appeared at a redesigned residue.')
    if not np.array_equal(before[ch],np.asarray(p.atoms)):raise ValueError('Source coordinates changed.')
+  if constraints:
+   for group in constraints['tiedChains']:
+    if len({chains[ch] for ch in group})!=1:raise ValueError('Tied chain sequences differ.')
   metrics={k:float(v) for k,v in output.metrics.items()}
   if not all(np.isfinite(v) for v in metrics.values()):raise ValueError('Nonfinite model output.')
   results.append({'chains':chains,'metrics':metrics})

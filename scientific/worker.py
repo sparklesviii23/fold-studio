@@ -478,8 +478,8 @@ def execute_job(service,id):
         before_resources=fingerprints(service.root/'engine/models',p['chains'])
         command=[service.engine_python(),'-B','-c','from boltz.main import cli; cli()','predict',str(inputfile),'--accelerator','mps','--model','boltz2','--cache',str(service.root/'engine/models'),'--out_dir',str(folder/'output'),'--output_format','mmcif','--recycling_steps',str(p['recycles']),'--sampling_steps',str(p['steps']),'--diffusion_samples',str(p['samples']),'--max_parallel_samples','1','--num_workers','0','--seed',str(p['seed'])]
         if p['msa']=='server': command += ['--use_msa_server']
-        environment=dict(os.environ,PYTORCH_ENABLE_MPS_FALLBACK='1',PYTHONUNBUFFERED='1',OMP_NUM_THREADS='4',WANDB_MODE='disabled')
-        provenance={**p,'command':command,'environment':{k:environment[k] for k in ['PYTORCH_ENABLE_MPS_FALLBACK','OMP_NUM_THREADS','WANDB_MODE']},'inputYamlSha256':digest(inputfile.read_text())}
+        environment=dict(os.environ,PYTORCH_ENABLE_MPS_FALLBACK='1',PYTHONUNBUFFERED='1',OMP_NUM_THREADS='4',WANDB_MODE='disabled',NUMBA_CACHE_DIR=str(service.root/'engine/cache/numba'))
+        provenance={**p,'command':command,'environment':{k:environment[k] for k in ['PYTORCH_ENABLE_MPS_FALLBACK','OMP_NUM_THREADS','WANDB_MODE','NUMBA_CACHE_DIR']},'inputYamlSha256':digest(inputfile.read_text())}
         (folder/'provenance.json').write_text(json.dumps(provenance,indent=2)); print('Starting Boltz-2 MPS inference. No synthetic progress.\n'+json.dumps(command),flush=True)
         proc=subprocess.run(command,env=environment)
         if proc.returncode: raise RuntimeError('Boltz exited with code '+str(proc.returncode)+'. Review the execution log. Reduce sequence size for out-of-memory errors.')

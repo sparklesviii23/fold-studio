@@ -1,0 +1,8 @@
+{
+  "state": "failed",
+  "jobId": "020881e7-41c8-4c15-8b33-13dd81f85d83",
+  "inferenceState": "completed",
+  "app": "/Users/vii/Documents/FoldStudio-MetalPort/validation/Relocated Integrated Boltz/FOLD STUDIO Metal Dev.app",
+  "cause": "Numba cache=True wrote four .nbi/.nbc files under the signed runtime despite Python -B. Existing sealed resource hashes were unchanged; extra cache files invalidated the seal.",
+  "resolutionInProgress": "Set NUMBA_CACHE_DIR to library/engine/cache/numba before importing Boltz, record this environment in provenance, then repeat real inference in a newly sealed app copy. The failed QA copy is retained."
+}

@@ -24,4 +24,11 @@ class ScaffoldCampaignTests(unittest.TestCase):
    with self.assertRaisesRegex(ValueError,'Prepared scaffold changed'):self.s.dispatch('bindcraft_start',{'projectId':self.project['id'],'id':j['id'],'profile':'experimental-cpu-float32-single-model'})
    spawn.assert_not_called()
   self.assertEqual(self.s.job(j['id'])['state'],'prepared')
+ def test_arp_repeat_edits_and_framework_criteria_are_original(self):
+  config={**self.vhh_config(),'modality':'ARP'};job=self.s.dispatch('bindcraft_prepare',config)
+  prep=job['data']['preparation'];preset=json.loads((w.fold_engine.UPSTREAM/'settings/modality/ARP.json').read_text())
+  for key in ('mutate_positions','min_scaffold_sequence_retained_final','max_scaffold_framework_rmsd_final','aa_bias'):
+   self.assertEqual(prep['config'][key],preset[key])
+  self.assertEqual((self.s.root/'jobs'/job['id']/'scaffold.cif').read_bytes(),(w.fold_engine.UPSTREAM/'scaffolds/ARP.cif').read_bytes())
+  with self.assertRaisesRegex(ValueError,'repeat edit choices'):self.s.dispatch('bindcraft_prepare',{**config,'binderLengths':[30]})
 del Fixtures

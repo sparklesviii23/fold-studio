@@ -12,7 +12,8 @@ UPSTREAM=BASE/'vendor'/'bindcraft2'
 PIN='c0ee638d11bc010817c2c97ee58ed5c323e664e2'
 ACTIONS={'fold_engine_status','fold_structure','fold_compute','bindcraft_validate','bindcraft_prepare','bindcraft_campaigns','bindcraft_import','bindcraft_start'}
 CONFIG_KEYS={'projectId','structureId','name','modality','targetChains','hotspots','coldspots','binderLengths','candidates','attempts','seed'}
-SUPPORTED_MODALITIES=('binder','peptide','cyclic_peptide','VHH')
+SUPPORTED_MODALITIES=('binder','peptide','cyclic_peptide','VHH','ARP')
+SCAFFOLD_MODALITIES=('VHH','ARP')
 
 def canonical(value):return json.dumps(value,sort_keys=True,separators=(',',':'),allow_nan=False)
 def checksum(data):return hashlib.sha256(data).hexdigest()
@@ -59,7 +60,7 @@ class Engine:
         self.s.project(p['projectId']);shared=self.fold_structure(p);st=shared['structure']
         modality=p.get('modality','binder')
         if modality not in SUPPORTED_MODALITIES:raise ValueError('Other upstream modalities remain blocked until their constraints and execution are validated.')
-        if modality=='VHH' and 'binderLengths' in p:raise ValueError('VHH length follows the original scaffold CDR edit choices; free binder length bounds do not apply.')
+        if modality in SCAFFOLD_MODALITIES and 'binderLengths' in p:raise ValueError(modality+' length follows the original scaffold '+('CDR' if modality=='VHH' else 'repeat')+' edit choices; free binder length bounds do not apply.')
         chains=p.get('targetChains')
         if not isinstance(chains,list) or not chains or any(not isinstance(c,str) for c in chains) or len(chains)!=len(set(chains)):raise ValueError('Choose distinct target chains.')
         available={c['id']:c for c in st['chains']}
@@ -71,7 +72,7 @@ class Engine:
         if any(not r['polymer'] or r['one']=='X' or r['ins'] or r['num']<1 for r in selected):raise ValueError('Selected chains must contain canonical protein residues with positive numbering and no insertion codes. Prepare an explicit derived input for other cases.')
         for r in selected:
             if not {'N','CA','C','O'}.issubset(st['atoms'][i]['name'] for i in r['atoms']):raise ValueError('Selected target residues require complete N, CA, C, O backbone atoms.')
-        lengths=p.get('binderLengths',{'binder':[60,100],'peptide':[15,25],'cyclic_peptide':[7,16],'VHH':[60,100]}[modality])
+        lengths=p.get('binderLengths',{'binder':[60,100],'peptide':[15,25],'cyclic_peptide':[7,16],'VHH':[60,100],'ARP':[60,100]}[modality])
         if not isinstance(lengths,list) or len(lengths) not in (1,2):raise ValueError('Binder lengths must be [fixed] or [minimum, maximum].')
         for length in lengths:integer(length,'Binder length',5,500)
         if lengths!=sorted(lengths):raise ValueError('Binder length bounds must be ordered.')

@@ -28,7 +28,7 @@ validity. No top-level platform requirement is marked COMPLETE.
 | Metal-compatible AF2 execution | IN DEVELOPMENT | MetalJAX 0.11.9, `af2_native.py`, monomer/multimer/optimizer comparison reports | Float32 narrow comparisons pass; original Apple plugin incompatible; full-size 6 GiB campaign under validation, no whole-engine parity claim |
 | Metal attention | SCIENTIFICALLY VALIDATED | `metal_attention.py`, `reports/metal-attention.json` | Narrow float32 kernel parity only; no full-model validation implied |
 | ProteinMPNN fixed-backbone redesign | TESTED | `mpnn.py`, `mpnn_runner.py`, `reports/proteinmpnn-validation.json`, `packaged-mpnn.json` | Full-model exact upstream parity and seed repeatability on two cases; CPU; folding/binding not validated |
-| ProteinMPNN multistate/ties/residue constraints | NOT STARTED | Upstream retained | Add adapter configuration and reference tests |
+| ProteinMPNN multistate/ties/residue constraints | IN DEVELOPMENT | `mpnn_constraints.py`, `mpnn_runner.py`, explicit sites/ties/omissions/biases; exact trained-model decoder comparison | Shared workflow/export and packaged acceptance; multistate redesign still incomplete |
 | Genuine local BindCraft2 trajectory | IN DEVELOPMENT | `bindcraft_cpu.py`, `bindcraft_runner.py`; actual full-parameter CPU and Metal campaigns finished | Full single-model CPU/Metal campaigns correctly rejected candidates; original 5-design/2-held-out-model Metal ensemble produced one accepted computational prediction, not biological validation |
 | Binder and linear peptide generation | IN DEVELOPMENT | Configuration/import works | End-to-end actual generation, filtering, comparison, provenance |
 | Cyclic peptide, VHH, ARP, scFv, Fab and scaffold workflows | IN DEVELOPMENT | Cyclic original preset preparation and technical optimizer execution; other presets inventoried | Cyclic closure/reference checks in progress; VHH/scaffold adapters and end-to-end scientific validation remain |
@@ -428,3 +428,58 @@ remaining scaffold/multistate modalities and other unfinished platform requireme
 
 Integration checkpoint: 189 Python and 64 frontend tests passed; one existing
 private frontend fixture skipped. Native build with the third runtime is underway.
+
+### Boltz seal correction and ankyrin-repeat scaffold
+
+The first real bundled Boltz prediction completed but correctly failed the final
+seal check: Numba wrote four feature-compilation cache files inside the signed
+runtime despite Python -B. No original sealed file hashes changed. Failure
+evidence/copy is retained. `worker.py` now sets NUMBA_CACHE_DIR under the isolated
+application-data engine cache before import and records it in provenance. A
+process-boundary regression covers this setting. A new build and relocated copy
+then completed another actual 35-residue MPS prediction with the publisher-pinned
+checkpoint, saved coordinates/confidence and an unchanged valid app seal.
+`reports/embedded-boltz-runtime-acceptance.json`,
+`reports/embedded-boltz-first-seal-failure.json`. This is same-host packaging
+acceptance, not biological accuracy or fresh-machine validation.
+
+ARP now uses its original upstream scaffold, repeat edit choices and framework
+retention criteria through the shared preparation/runtime and existing design
+controls. Free length inputs are refused for scaffold formats. Real trained AF2
+CPU and Metal trajectories on an explicit 12-residue technical target completed
+one update per screen/refine/anneal/harden stage, keeping all 125 fixed framework
+residues unchanged in the 171-residue designed scaffold. Resolved coordinate RMS
+difference was 0.0000468644 Å; all predefined comparison checks passed. These
+permissive diagnostic gates establish constrained optimizer execution only, not
+a full-target or accepted research-quality ARP. The 256 padded-residue launch
+boundary still applies. `reports/arp-trajectory-metal-comparison.json`.
+
+### Explicit ProteinMPNN residue and chain constraints
+
+`mpnn_constraints.py` maps explicit shared residue IDs to immutable source
+positions, rejects contradictory fixed masks/chain ties, requires equal chain
+lengths and compatible fixed residues, validates amino-acid omissions and finite
+log-odds biases. `mpnn_runner.py` verifies exact upstream residue-number/sequence
+correspondence, applies original decoder options, and independently checks fixed
+residues, ties, omitted amino acids and unchanged coordinates on output. Whole
+chain redesign remains backward compatible. Existing controls now expose residue
+selection, corresponding-chain ties and optional amino-acid exclusions.
+
+Actual full trained-model execution on two duplicated 12-residue technical
+fragments exactly matched a separately constructed original decoder in sequences
+and scores, and repeated models with the same seed reproduced both candidates.
+The geometry is explicit algorithm QA, not a biological dimer or valid design.
+`reports/mpnn-constraints-validation.json`. Shared jobs/records/project exports
+retain the complete constraints and source snapshot. Packaged constrained-decoder
+acceptance and remaining multistate/full scaffold workflows continue.
+
+The ARP preparation check measured 224 padded residues for the technical fragment
+and 320 for full hPDL1; the latter launch was correctly refused while keeping the
+campaign prepared (`reports/arp-preparation-resources.json`). Do not silently
+crop the target or weaken scaffold constraints. Full 320-residue trained-model
+CPU/Metal memory/numerical validation is the next dependency for larger profiles.
+
+Shared constrained ProteinMPNN job `65510b0a-c2e8-4a8f-b1a7-f3cf75b2b306`
+completed and saved four sequence records matching direct inference; actual
+project ZIP retained exact source and complete constraints. Integration suite:
+195 Python and 64 frontend tests passed; one existing private fixture skipped.

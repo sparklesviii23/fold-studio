@@ -1,0 +1,43 @@
+{
+  "state": "passed",
+  "scope": "Original scaffold snapshot/resource checks; technical fragment is not full-target design acceptance. No target cropping or scaffold editing was performed.",
+  "cases": [
+    {
+      "case": "technical_12",
+      "jobId": "9c282942-b517-4e3b-8bfa-96f858a29237",
+      "paddedResidues": 224,
+      "source": {
+        "structureId": "a232e956-e11a-4863-916d-3d94e1203e73",
+        "projectId": "b4d69f0c-cad8-43fe-8eac-8f4621d99dac",
+        "sha256": "c152bef545f70158970e739878231fbe6ba92b6218a0ce39a84ec4b873b56c8d",
+        "format": "pdb",
+        "model": "1"
+      },
+      "scaffold": {
+        "file": "scaffold.cif",
+        "source": "scaffolds/ARP.cif",
+        "sha256": "26f5d297f3dee8aaed30ae6f9c79273b90a9c8555b6e369944397d3bfb8814dc",
+        "modality": "ARP"
+      }
+    },
+    {
+      "case": "full_hPDL1",
+      "jobId": "e34a6d8f-09ff-43af-8aa0-ee6f9745cd90",
+      "paddedResidues": 320,
+      "source": {
+        "structureId": "b0e46b26-c633-4231-8def-2a290fff7fce",
+        "projectId": "b4d69f0c-cad8-43fe-8eac-8f4621d99dac",
+        "sha256": "d3c95434dcadf26d005340b15bd92be61e101ed921478c26f2a5550f198e61f6",
+        "format": "pdb",
+        "model": "1"
+      },
+      "scaffold": {
+        "file": "scaffold.cif",
+        "source": "scaffolds/ARP.cif",
+        "sha256": "26f5d297f3dee8aaed30ae6f9c79273b90a9c8555b6e369944397d3bfb8814dc",
+        "modality": "ARP"
+      },
+      "actualLaunchRefusal": "Campaign requires up to 320 padded residues; the current experimental memory-validated limit is 256. Prepare an explicitly smaller target or scaffold."
+    }
+  ]
+}
