@@ -104,6 +104,24 @@
       "validationScope": "Known rigid transform plus single 5 \u00c5 C\u03b1 perturbation: all-pair RMSD residual agreement and pruning to 459 fitted pairs",
       "limitations": "Only the stated fixture, syntax and output assertions were tested. Other arguments and full visual equivalence remain unverified.",
       "evidenceCheck": "Native all-pair RMSD agrees with returned residuals"
+    },
+    {
+      "kind": "command",
+      "name": "hbonds",
+      "status": "Partial",
+      "functionalityTested": true,
+      "scientificOutputValidated": true,
+      "validationScope": "Artificial SER\u2013ALA geometry; wrapper agrees with original ChimeraX strict hbonds command; independent donor\u2013acceptor distance 2.8 \u00c5. Algorithm integration check, not biological validation.",
+      "limitations": "Only the stated artificial fixture, strict criteria, cross-partner selection and output/export assertions were tested. Other arguments and full visual equivalence remain unverified.",
+      "evidenceCheck": "Strict native donor/acceptor identity and 2.8 \u00c5 geometry; shared job and exports",
+      "evidenceReport": "native-hbonds-validation.json"
     }
-  ]
+  ],
+  "additionalReports": {
+    "native-hbonds-validation.json": {
+      "sha256": "d3fd873ed4ec8c8da47d6caae690092ce167cf68ad800c8ef9ac76c509708fec",
+      "state": "passed",
+      "scope": "Artificial SER\u2013ALA geometry; wrapper agrees with original ChimeraX strict hbonds command; independent donor\u2013acceptor distance 2.8 \u00c5. Algorithm integration check, not biological validation."
+    }
+  }
 }

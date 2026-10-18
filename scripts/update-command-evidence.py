@@ -17,10 +17,16 @@ evidence={'schemaVersion':1,'scope':'Scoped live acceptance on installed GUI-fre
 for name,(check,scope,scientific) in scopes.items():
  if check not in checks:raise SystemExit('Missing evidence: '+check)
  evidence['capabilities'].append({'kind':'command','name':name,'status':'Partial','functionalityTested':True,'scientificOutputValidated':scientific,'validationScope':scope,'limitations':'Only the stated fixture, syntax and output assertions were tested. Other arguments and full visual equivalence remain unverified.','evidenceCheck':check})
+native_report=ROOT/'reports/native-hbonds-validation.json'
+if native_report.exists():
+ native=json.loads(native_report.read_text())
+ if native.get('state')!='passed' or not native.get('pairs') or not native.get('sourceAssetUnchanged') or native.get('sharedAnalysisJob')!='completed':raise SystemExit('Native hydrogen-bond report is incomplete; evidence not promoted.')
+ evidence['additionalReports']={native_report.name:{'sha256':hashlib.sha256(native_report.read_bytes()).hexdigest(),'state':'passed','scope':native['scope']}}
+ evidence['capabilities'].append({'kind':'command','name':'hbonds','status':'Partial','functionalityTested':True,'scientificOutputValidated':True,'validationScope':native['scope'],'limitations':'Only the stated artificial fixture, strict criteria, cross-partner selection and output/export assertions were tested. Other arguments and full visual equivalence remain unverified.','evidenceCheck':'Strict native donor/acceptor identity and 2.8 Å geometry; shared job and exports','evidenceReport':native_report.name})
 (ROOT/'scientific/validation-evidence-current.json').write_text(json.dumps(evidence,indent=2)+'\n')
 baseline=json.loads((ROOT/'scientific/pinned-capabilities-1.12.json').read_text());by_name={r['name']:r for r in evidence['capabilities']}
 with open(ROOT/'docs/CHIMERAX_COMMAND_COMPATIBILITY.csv','w',newline='') as file:
  writer=csv.DictWriter(file,lineterminator='\n',fieldnames=['command','status','nativeFunctionTested','scientificOutputChecked','scope','source']);writer.writeheader()
  for row in sorted((r for r in baseline['capabilities'] if r['kind']=='command'),key=lambda r:r['name']):
   verified=by_name.get(row['name']);writer.writerow({'command':row['name'],'status':'TESTED (scoped)' if verified else 'NOT VALIDATED','nativeFunctionTested':bool(verified),'scientificOutputChecked':verified['scientificOutputValidated'] if verified else False,'scope':verified['validationScope'] if verified else 'Registered inventory only; no command-specific acceptance evidence','source':row.get('source','')})
-print(f'{len(by_name)} scoped command entries; {sum(r[2] for r in scopes.values())} numerical output checks; no complete parity claim')
+print(f"{len(by_name)} scoped command entries; {sum(r['scientificOutputValidated'] for r in evidence['capabilities'])} numerical output checks; no complete parity claim")

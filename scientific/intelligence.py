@@ -1,11 +1,11 @@
-"""Deterministic, versioned protein-interface analysis. No model/API dependency.
+"""Versioned protein-interface analysis, with optional native ChimeraX chemistry.
 Coordinates are never modified. All cutoffs, assumptions and unavailable metrics are persisted.
 """
 import collections, csv, datetime, hashlib, io, itertools, json, math, os, pathlib, random, re, subprocess, sys, uuid
 from peptides import TEMPLATES, BY_ONE
 from functools import lru_cache
 
-VERSION='1.0.0'
+VERSION='1.1.0'
 _CHILDREN=[]
 ACTIONS={'intelligence_inspect','intelligence_assign','intelligence_start','intelligence_tasks','intelligence_result','intelligence_cancel','intelligence_hotspots','intelligence_candidates','intelligence_candidate_save','intelligence_scramble','intelligence_compare','intelligence_export','intelligence_confidence_import','intelligence_screen','intelligence_resume','intelligence_evidence','intelligence_prioritize','intelligence_overlay','intelligence_auto','intelligence_register_chains','intelligence_prepare','intelligence_overlay_mix'}
 CODES={c['code']:c['one'] for c in TEMPLATES['components']}
@@ -614,10 +614,10 @@ class Lab:
   if kind=='json':return {'name':'fold-analysis-'+p['id']+'.json','text':json.dumps(result,indent=2,allow_nan=False)}
   if kind=='csv':
    if result.get('kind')=='comparison':raise ValueError('Export comparison as JSON or report.')
-   stream=io.StringIO();writer=csv.writer(stream);writer.writerow(['type','chain_a','residue_a','insertion_a','resname_a','atom_a','chain_b','residue_b','insertion_b','resname_b','atom_b','distance_A','overlap_A','source_sha256','contact_cutoff_A']);atoms=result['structure']['atoms']
-   for table in ('contacts','clashes','interactions'):
-    for row in result[table]:
-     a,b=atoms[row['a']],atoms[row['b']];writer.writerow([row.get('type',table),a['chain'],a['num'],a['ins'],a['resname'],a['name'],b['chain'],b['num'],b['ins'],b['resname'],b['name'],row['distance'],row.get('overlap',''),result['source']['sha256'],result['settings']['contact']])
+   stream=io.StringIO();writer=csv.writer(stream);writer.writerow(['type','chain_a','residue_a','insertion_a','resname_a','atom_a','chain_b','residue_b','insertion_b','resname_b','atom_b','distance_A','overlap_A','source_sha256','contact_cutoff_A','donor_atom_id','acceptor_atom_id','criterion']);atoms=result['structure']['atoms']
+   for table in ('contacts','clashes','interactions','nativeHydrogenBonds'):
+    for row in result.get(table,[]):
+     a,b=atoms[row['a']],atoms[row['b']];writer.writerow([row.get('type',table),a['chain'],a['num'],a['ins'],a['resname'],a['name'],b['chain'],b['num'],b['ins'],b['resname'],b['name'],row['distance'],row.get('overlap',''),result['source']['sha256'],result['settings']['contact'],row.get('donor',''),row.get('acceptor',''),row.get('criterion','')])
    return {'name':'fold-contacts-'+p['id']+'.csv','text':stream.getvalue()}
   if kind=='pdf':
    import base64
@@ -787,15 +787,25 @@ finally:
 '''
   if assignments is not None:
    opts=settings(analysis_settings or {});target=[c for c,a in assignments.items() if a.get('role')=='target'];peptide=[c for c,a in assignments.items() if a.get('role') in ('candidate','control')]
+   selected_keys=[(a['chain'],a['num'],a['ins'],a['name']) for a in st['atoms']]
    extra=f'''    from chimerax.clashes import find_clashes
     from chimerax.atomic import Atoms
-    target_atoms = Atoms([a for a in model.atoms if a.residue.chain_id in {target!r} and a.element.name not in ('H','D') and a.occupancy > 0])
-    peptide_atoms = Atoms([a for a in model.atoms if a.residue.chain_id in {peptide!r} and a.element.name not in ('H','D') and a.occupancy > 0])
+    def atom_key(a): return [a.residue.chain_id, int(a.residue.number), a.residue.insertion_code or '', a.name]
+    selected_keys = set({selected_keys!r})
+    selected_atoms = [a for a in model.atoms if tuple(atom_key(a)) in selected_keys and a.element.name not in ('H','D') and a.occupancy > 0]
+    target_atoms = Atoms([a for a in selected_atoms if a.residue.chain_id in {target!r}])
+    peptide_atoms = Atoms([a for a in selected_atoms if a.residue.chain_id in {peptide!r}])
     model.atoms.radii = model.atoms.default_radii
     clashes = find_clashes(session, target_atoms, restrict=peptide_atoms, clash_threshold={opts['clash']!r}, hbond_allowance={opts['hbAllowance']!r}, bond_separation=4, assumed_max_vdw=float(max(model.atoms.default_radii)))
-    def atom_key(a): return [a.residue.chain_id, int(a.residue.number), a.residue.insertion_code or '', a.name]
     result_pairs = [[atom_key(a), atom_key(b), float(overlap)] for a, neighbors in clashes.items() if a in target_atoms for b, overlap in neighbors.items() if b in peptide_atoms]
     print('FOLD_CLASHES:' + json.dumps(result_pairs))
+    from chimerax.hbonds import find_hbonds
+    from chimerax.geometry import distance
+    selected = Atoms(list(target_atoms) + list(peptide_atoms))
+    target_set, peptide_set = set(target_atoms), set(peptide_atoms)
+    hbonds = find_hbonds(session, [model], donors=selected, acceptors=selected, inter_model=False, dist_slop=0.0, angle_slop=0.0, cache_da=False, status=False)
+    hbond_pairs = [[atom_key(d), atom_key(a), float(distance(d.scene_coord,a.scene_coord))] for d,a in hbonds if (d in target_set and a in peptide_set) or (d in peptide_set and a in target_set)]
+    print('FOLD_HBONDS:' + json.dumps(hbond_pairs))
 '''
    code=code.replace('finally:\n',extra+'finally:\n')
   result=obs.request('/fold/python',payload={'code':code},timeout=120)
@@ -807,7 +817,7 @@ finally:
    key=(a['chain'],a['num'],a['ins'],a['name'])
    if key not in lookup or not 0.5<=lookup[key][0]<=4:raise ValueError('Native atom typing changed an observed atom identity.')
    a['vdw'],a['idatmType']=lookup[key]
-  pairs=[]
+  pairs=[];hbonds=[]
   if assignments is not None:
    line=next((line for line in result.get('stdout','').splitlines() if line.startswith('FOLD_CLASHES:')),None)
    if not line:raise ValueError('Native clash calculation returned no structured output.')
@@ -815,7 +825,15 @@ finally:
    for a,b,overlap in json.loads(line[len('FOLD_CLASHES:'):]):
     if tuple(a) not in ids or tuple(b) not in ids:raise ValueError('Native clash calculation returned a nonselected alternate/atom.')
     aa,bb=ids[tuple(a)],ids[tuple(b)];pairs.append({'a':aa['id'],'b':bb['id'],'residueA':aa['residue'],'residueB':bb['residue'],'distance':dist(aa['xyz'],bb['xyz']),'overlap':overlap,'severity':'severe' if overlap>=opts['severe'] else 'moderate'})
-  return {'method':'ChimeraX 1.12 Atoms.default_radii and clashes.find_clashes; fresh source model; four-bond exclusion; presentation radii ignored','sourceSha256':record['data']['sha256'],'hbondAllowance':(analysis_settings or {}).get('hbAllowance',0),'nativeClashes':pairs}
+   line=next((line for line in result.get('stdout','').splitlines() if line.startswith('FOLD_HBONDS:')),None)
+   if not line:raise ValueError('Native hydrogen-bond calculation returned no structured output.')
+   for donor,acceptor,distance in json.loads(line[len('FOLD_HBONDS:'):]):
+    if tuple(donor) not in ids or tuple(acceptor) not in ids:raise ValueError('Native hydrogen bond returned a nonselected atom identity.')
+    d,a=ids[tuple(donor)],ids[tuple(acceptor)]
+    if not math.isfinite(distance) or abs(dist(d['xyz'],a['xyz'])-distance)>1e-4:raise ValueError('Native hydrogen-bond coordinates differ from the saved source.')
+    aa,bb=(d,a) if assignments[d['chain']]['role']=='target' else (a,d)
+    hbonds.append({'a':aa['id'],'b':bb['id'],'donor':d['id'],'acceptor':a['id'],'residueA':aa['residue'],'residueB':bb['residue'],'distance':distance,'distanceType':'donor–acceptor','directAtomPair':True,'type':'ChimeraX strict hydrogen bond','status':'native chemical geometry','criterion':'Original ChimeraX find_hbonds with zero distance/angle slop; no hydrogens added or protonation assigned.'})
+  return {'method':'ChimeraX 1.12 Atoms.default_radii and clashes.find_clashes; fresh source model; four-bond exclusion; presentation radii ignored','sourceSha256':record['data']['sha256'],'hbondAllowance':(analysis_settings or {}).get('hbAllowance',0),'nativeClashes':pairs,'nativeHydrogenBonds':hbonds,'hydrogenBondMethod':{'engine':'ChimeraX 1.12 hbonds.find_hbonds','distanceSlopAngstrom':0.0,'angleSlopDegrees':0.0,'hydrogensAdded':False,'scope':'Cross-partner strict native chemical geometry; may infer donor geometry for missing H. Distinct from explicit-hydrogen screens; not energetic or experimental validation.'}}
 
 
  def intelligence_register_chains(self,p):
@@ -886,6 +904,7 @@ finally:
     r=analyze(st,p['assignments'],p['settings'],p.get('hotspots'),check,progress);r['confidence']=self.confidence(record,st);r['radii']=radii or {'method':'Elemental Bondi radii','hbondAllowance':0}
     if radii is not None:
      r['clashes']=sorted(radii.pop('nativeClashes'),key=lambda x:-x['overlap']);r['summary'].update(atomicClashes=len(r['clashes']),clashingResiduePairs=len({(c['residueA'],c['residueB']) for c in r['clashes']}),severeClashes=sum(c['severity']=='severe' for c in r['clashes']))
+     r['nativeHydrogenBonds']=radii.pop('nativeHydrogenBonds');r['summary']['nativeHydrogenBonds']=len(r['nativeHydrogenBonds']);r['limitations'].append(radii['hydrogenBondMethod']['scope'])
     cf=r['confidence']
     if cf['pae'] is not None and cf['tokenMap']:
      lookup={r['id']:r for r in st['residues']};target=[i for i,rid in enumerate(cf['tokenMap']) if p['assignments'].get(lookup[rid]['chain'],{}).get('role')=='target'];peptide=[i for i,rid in enumerate(cf['tokenMap']) if p['assignments'].get(lookup[rid]['chain'],{}).get('role') in ('candidate','control')]
@@ -991,6 +1010,7 @@ def report(r):
  if area['state']=='calculated':lines += [f"Isolated target SASA: {fmt(area['targetSasa'],' Å²')}; isolated peptide SASA: {fmt(area['peptideSasa'],' Å²')}; complex SASA: {fmt(area['complexSasa'],' Å²')}.",f"Total solvent-accessible area loss: {fmt(area['totalLoss'],' Å²')}. Conventional per-interface area (half the total loss): {fmt(area['interfaceArea'],' Å²')}."]
  else:lines += ['Surface area unavailable: '+area['reason']]
  types=collections.Counter((x['type'],x['status']) for x in r['interactions']);lines+=['','Chemical interaction records (atom-level unless ring centroids are specified):']+([f'- {kind}: {count} ({status})' for (kind,status),count in sorted(types.items())] or ['- None detected under the stated chemical/geometric criteria.'])
+ if 'nativeHydrogenBonds' in r:lines+=['',f"ChimeraX strict cross-partner hydrogen bonds: {len(r['nativeHydrogenBonds'])}. Original chemical geometry criteria, zero distance/angle slack; donor geometry may be inferred for missing H. Separate from explicit-hydrogen screens; no hydrogens or protonation were added. Full donor/acceptor identities and criteria are retained in JSON."]
  lines+=['','Closest measured contact atom pairs:']+[f"- {atom(x['a'])} ↔ {atom(x['b'])}: {x['distance']:.3f} Å" for x in r['contacts'][:10]]
  lines+=['','Largest steric overlaps:']+([f"- {atom(x['a'])} ↔ {atom(x['b'])}: distance {x['distance']:.3f} Å, overlap {x['overlap']:.3f} Å ({x['severity']})" for x in r['clashes'][:10]] or ['- No clashes under the saved criteria.'])
  lines+=['','## Prediction confidence','']

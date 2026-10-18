@@ -327,3 +327,28 @@ The 3.94 GiB app precedes VHH preparation/UI additions and the generalized padde
 resource check. Those source changes need a later integration rebuild/acceptance.
 The full-ensemble hPDL1 campaign remains active; inspect its observed callbacks
 before taking recovery action. Continue the next scientific requirement.
+
+### Native chemical hydrogen-bond integration
+
+`intelligence.py` analysis schema 1.1.0 calls original installed ChimeraX
+`hbonds.find_hbonds` with strict zero distance/angle slack on the explicitly
+selected cross-partner atoms. Results retain donor/acceptor identities, independent
+coordinate-distance checks, criteria and source hash in the shared analysis job.
+No hydrogens are added or protonation inferred by Fold. Native missing-H donor
+geometry can be inferred by the original algorithm and is explicitly distinguished
+from the existing explicit-hydrogen screens. Native clashes now use exactly the
+selected source atoms, avoiding accidentally including omitted waters.
+
+`MolecularIntelligence.tsx` adds a labeled table using the existing controls and
+viewer selection. JSON/CSV/Markdown exports preserve native chemistry and criteria.
+An actual native-command comparison on a clearly artificial SER–ALA test fixture
+returned the same donor/acceptor pair and independently verified 2.8 Å distance.
+Unselected water exclusion, temporary model cleanup, unchanged saved coordinates,
+shared background task, result persistence and three exports passed.
+`reports/native-hbonds-validation.json`; `scripts/validate-native-hbonds.py`.
+
+The measured command inventory now has 11 narrowly scoped tested commands out of
+591, three with fixture-level numerical checks. No comprehensive command/argument
+parity or biological validation is claimed. 176 Python + 64 frontend tests passed.
+Next native integration build includes VHH preparation, padded-resource checks and
+strict native chemistry; all further roadmap requirements remain active.
