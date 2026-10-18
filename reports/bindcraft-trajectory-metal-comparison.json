@@ -1,0 +1,402 @@
+{
+  "state": "passed",
+  "scope": "12-residue target fragment and 12-residue binder, one real optimizer update per screen/refine/anneal/harden stage, permissive diagnostic gates. No research-quality acceptance or full campaign parity claim.",
+  "thresholds": {
+    "resolvedCoordinateRmsAngstrom": 0.1,
+    "metricMaxAbs": 0.01,
+    "sequenceAndMask": "identical"
+  },
+  "checks": {
+    "technical_fragment__binder__atoms": {
+      "rmsError": 0.0,
+      "maxAbsError": 0.0,
+      "passed": true
+    },
+    "technical_fragment__binder__sequence": {
+      "rmsError": 0.0,
+      "maxAbsError": 0.0,
+      "passed": true
+    },
+    "technical_fragment__binder__mask": {
+      "rmsError": 0.0,
+      "maxAbsError": 0.0,
+      "passed": true
+    },
+    "technical_fragment__target_technical_fragment__atoms": {
+      "rmsError": 0.0018510902429971637,
+      "maxAbsError": 0.03125,
+      "passed": true
+    },
+    "technical_fragment__target_technical_fragment__sequence": {
+      "rmsError": 0.0,
+      "maxAbsError": 0.0,
+      "passed": true
+    },
+    "technical_fragment__target_technical_fragment__mask": {
+      "rmsError": 0.0,
+      "maxAbsError": 0.0,
+      "passed": true
+    },
+    "technical_fragment__metric__binder_contacts": {
+      "rmsError": 0.0,
+      "maxAbsError": 0.0,
+      "passed": true
+    },
+    "technical_fragment__metric__binder_helicity": {
+      "rmsError": 5.960464477539063e-08,
+      "maxAbsError": 5.960464477539063e-08,
+      "passed": true
+    },
+    "technical_fragment__metric__binder_pae": {
+      "rmsError": 2.9802322387695312e-08,
+      "maxAbsError": 2.9802322387695312e-08,
+      "passed": true
+    },
+    "technical_fragment__metric__compactness": {
+      "rmsError": 4.76837158203125e-07,
+      "maxAbsError": 4.76837158203125e-07,
+      "passed": true
+    },
+    "technical_fragment__metric__distogram": {
+      "rmsError": 2.792945583762181e-06,
+      "maxAbsError": 6.29425048828125e-05,
+      "passed": true
+    },
+    "technical_fragment__metric__experimentally_resolved_ca": {
+      "rmsError": 8.940696716308594e-08,
+      "maxAbsError": 2.384185791015625e-07,
+      "passed": true
+    },
+    "technical_fragment__metric__interface_contacts": {
+      "rmsError": 0.0,
+      "maxAbsError": 0.0,
+      "passed": true
+    },
+    "technical_fragment__metric__interface_pae": {
+      "rmsError": 7.450580596923828e-09,
+      "maxAbsError": 7.450580596923828e-09,
+      "passed": true
+    },
+    "technical_fragment__metric__iptm": {
+      "rmsError": 5.587935447692871e-09,
+      "maxAbsError": 5.587935447692871e-09,
+      "passed": true
+    },
+    "technical_fragment__metric__iptm_loss": {
+      "rmsError": 0.0,
+      "maxAbsError": 0.0,
+      "passed": true
+    },
+    "technical_fragment__metric__iptm_per_residue": {
+      "rmsError": 4.033865095090144e-09,
+      "maxAbsError": 9.313225746154785e-09,
+      "passed": true
+    },
+    "technical_fragment__metric__pae": {
+      "rmsError": 3.410710731145468e-06,
+      "maxAbsError": 1.1444091796875e-05,
+      "passed": true
+    },
+    "technical_fragment__metric__plddt": {
+      "rmsError": 1.4097160047608988e-07,
+      "maxAbsError": 3.5762786865234375e-07,
+      "passed": true
+    },
+    "technical_fragment__metric__plddt_loss": {
+      "rmsError": 7.450580596923828e-09,
+      "maxAbsError": 7.450580596923828e-09,
+      "passed": true
+    },
+    "technical_fragment__metric__ptm": {
+      "rmsError": 2.2351741790771484e-08,
+      "maxAbsError": 2.2351741790771484e-08,
+      "passed": true
+    }
+  },
+  "cpu": {
+    "state": "technical_execution_finished",
+    "failedStage": null,
+    "outputs": [
+      "technical_fragment.cif"
+    ],
+    "devices": [
+      "cpu:0"
+    ],
+    "upstreamRevision": "c0ee638d11bc010817c2c97ee58ed5c323e664e2",
+    "execution": "cpu",
+    "precision": "float32",
+    "diagnosticAllStages": true,
+    "seconds": 14.042493582936004,
+    "peakProcessRSSBytes": 2010742784,
+    "sourceSha256": "c152bef545f70158970e739878231fbe6ba92b6218a0ce39a84ec4b873b56c8d",
+    "settings": {
+      "mpnn_model": "v_48_020",
+      "mpnn_variant": "negative",
+      "validation_recycles": 3,
+      "validation_crop_flank": 5,
+      "autotune": false,
+      "attention_backend": "stock",
+      "use_cueq": false,
+      "subbatch_size": "auto",
+      "trajectory_only": false,
+      "resume": true,
+      "hash_design_names": true,
+      "relax_accepted_designs": false,
+      "archive_trajectories": false,
+      "save_failed_refolds": true,
+      "save_failed_trajectories": true,
+      "save_binder_monomers": true,
+      "save_design_animations": false,
+      "save_design_frames": false,
+      "save_design_sequences": true,
+      "save_loss_plots": false,
+      "betasheet_reopt_trigger": 0.15,
+      "betasheet_reopt_extra_refine_steps": 0,
+      "betasheet_reopt_extra_anneal_steps": 0,
+      "min_plddt_screen": 0.0,
+      "min_plddt_refine": 0.0,
+      "min_plddt_anneal": 0.0,
+      "min_plddt_harden": 0.0,
+      "min_plddt_final": 0.0,
+      "sequence_candidates": 10,
+      "kept_sequences": 1,
+      "enough_passing_sequences": 3,
+      "redesign_interface": false,
+      "design_dropout": false,
+      "forced_targeting": false,
+      "design_recycles": 0,
+      "target_flexibility": 0.0,
+      "bigbang_initialization": false,
+      "initial_guess": false,
+      "desperation": true,
+      "weights_plddt_loss": 0.1,
+      "weights_iptm_loss": 0.05,
+      "weights_interface_contacts": 1.0,
+      "weights_interface_pae": 0.1,
+      "weights_binder_contacts": 1.0,
+      "weights_binder_pae": 0.4,
+      "weights_binder_helicity": -0.3,
+      "weights_compactness": 0.5,
+      "losses": {
+        "plddt_loss": {
+          "params": {
+            "prediction_state": "complex",
+            "chain": "binder"
+          }
+        },
+        "binder_pae": {
+          "params": {
+            "prediction_state": "complex",
+            "chain": "binder"
+          }
+        },
+        "compactness": {
+          "params": {
+            "prediction_state": "complex",
+            "chain": "binder"
+          }
+        },
+        "binder_contacts": {
+          "params": {
+            "prediction_state": "complex",
+            "chain": "binder"
+          }
+        },
+        "binder_helicity": {
+          "params": {
+            "prediction_state": "complex",
+            "chain": "binder"
+          }
+        },
+        "interface_contacts": {
+          "params": {
+            "cutoff": 20.0,
+            "contacts_per_residue": 2
+          }
+        }
+      },
+      "filters": [],
+      "min_iptm_anneal": 0.0,
+      "min_iptm_harden": 0.0,
+      "min_iptm_mutate": 0.0,
+      "min_iptm_final": 0.0,
+      "min_plddt_mutate": 0.6,
+      "targets": [
+        {
+          "name": "technical_fragment",
+          "target_path": "/Users/vii/Documents/FoldStudio-MetalPort/validation/trajectory-f32-cpu-arrays/technical_target_fragment.pdb",
+          "chains": "A"
+        }
+      ],
+      "binder_lengths": [
+        12
+      ],
+      "campaign_seed": 2718,
+      "design_models": [
+        "model_1_multimer_v3"
+      ],
+      "validation_model": "monomer",
+      "validation_models": [
+        "model_1_ptm"
+      ],
+      "length_bucket_size": 1,
+      "screen_steps": 1,
+      "refine_steps": 1,
+      "anneal_steps": 1,
+      "harden_steps": 1,
+      "mutate_steps": 0,
+      "min_iptm_screen": 0.0,
+      "min_iptm_refine": 0.0
+    },
+    "limitations": [
+      "Technical target fragment and 12-residue binder only.",
+      "One update per stage; permissive diagnostic confidence gates. No claim of a valid binder, research-quality design or default campaign acceptance.",
+      "Backend execution and numerical agreement do not establish experimental binding/inhibition."
+    ]
+  },
+  "metal": {
+    "state": "technical_execution_finished",
+    "failedStage": null,
+    "outputs": [
+      "technical_fragment.cif"
+    ],
+    "devices": [
+      "MetalDevice(id=0)"
+    ],
+    "upstreamRevision": "c0ee638d11bc010817c2c97ee58ed5c323e664e2",
+    "execution": "metal",
+    "precision": "float32",
+    "diagnosticAllStages": true,
+    "seconds": 9.633342207875103,
+    "peakProcessRSSBytes": 1106395136,
+    "sourceSha256": "c152bef545f70158970e739878231fbe6ba92b6218a0ce39a84ec4b873b56c8d",
+    "settings": {
+      "mpnn_model": "v_48_020",
+      "mpnn_variant": "negative",
+      "validation_recycles": 3,
+      "validation_crop_flank": 5,
+      "autotune": false,
+      "attention_backend": "stock",
+      "use_cueq": false,
+      "subbatch_size": "auto",
+      "trajectory_only": false,
+      "resume": true,
+      "hash_design_names": true,
+      "relax_accepted_designs": false,
+      "archive_trajectories": false,
+      "save_failed_refolds": true,
+      "save_failed_trajectories": true,
+      "save_binder_monomers": true,
+      "save_design_animations": false,
+      "save_design_frames": false,
+      "save_design_sequences": true,
+      "save_loss_plots": false,
+      "betasheet_reopt_trigger": 0.15,
+      "betasheet_reopt_extra_refine_steps": 0,
+      "betasheet_reopt_extra_anneal_steps": 0,
+      "min_plddt_screen": 0.0,
+      "min_plddt_refine": 0.0,
+      "min_plddt_anneal": 0.0,
+      "min_plddt_harden": 0.0,
+      "min_plddt_final": 0.0,
+      "sequence_candidates": 10,
+      "kept_sequences": 1,
+      "enough_passing_sequences": 3,
+      "redesign_interface": false,
+      "design_dropout": false,
+      "forced_targeting": false,
+      "design_recycles": 0,
+      "target_flexibility": 0.0,
+      "bigbang_initialization": false,
+      "initial_guess": false,
+      "desperation": true,
+      "weights_plddt_loss": 0.1,
+      "weights_iptm_loss": 0.05,
+      "weights_interface_contacts": 1.0,
+      "weights_interface_pae": 0.1,
+      "weights_binder_contacts": 1.0,
+      "weights_binder_pae": 0.4,
+      "weights_binder_helicity": -0.3,
+      "weights_compactness": 0.5,
+      "losses": {
+        "plddt_loss": {
+          "params": {
+            "prediction_state": "complex",
+            "chain": "binder"
+          }
+        },
+        "binder_pae": {
+          "params": {
+            "prediction_state": "complex",
+            "chain": "binder"
+          }
+        },
+        "compactness": {
+          "params": {
+            "prediction_state": "complex",
+            "chain": "binder"
+          }
+        },
+        "binder_contacts": {
+          "params": {
+            "prediction_state": "complex",
+            "chain": "binder"
+          }
+        },
+        "binder_helicity": {
+          "params": {
+            "prediction_state": "complex",
+            "chain": "binder"
+          }
+        },
+        "interface_contacts": {
+          "params": {
+            "cutoff": 20.0,
+            "contacts_per_residue": 2
+          }
+        }
+      },
+      "filters": [],
+      "min_iptm_anneal": 0.0,
+      "min_iptm_harden": 0.0,
+      "min_iptm_mutate": 0.0,
+      "min_iptm_final": 0.0,
+      "min_plddt_mutate": 0.6,
+      "targets": [
+        {
+          "name": "technical_fragment",
+          "target_path": "/Users/vii/Documents/FoldStudio-MetalPort/validation/trajectory-f32-metal-arrays/technical_target_fragment.pdb",
+          "chains": "A"
+        }
+      ],
+      "binder_lengths": [
+        12
+      ],
+      "campaign_seed": 2718,
+      "design_models": [
+        "model_1_multimer_v3"
+      ],
+      "validation_model": "monomer",
+      "validation_models": [
+        "model_1_ptm"
+      ],
+      "length_bucket_size": 1,
+      "screen_steps": 1,
+      "refine_steps": 1,
+      "anneal_steps": 1,
+      "harden_steps": 1,
+      "mutate_steps": 0,
+      "min_iptm_screen": 0.0,
+      "min_iptm_refine": 0.0
+    },
+    "limitations": [
+      "Technical target fragment and 12-residue binder only.",
+      "One update per stage; permissive diagnostic confidence gates. No claim of a valid binder, research-quality design or default campaign acceptance.",
+      "Backend execution and numerical agreement do not establish experimental binding/inhibition."
+    ]
+  },
+  "artifactSha256": {
+    "../validation/trajectory-f32-cpu-arrays": "eec287ea40b13d426ae8e795d90b4d972bdb86b8066db4e8b11d80e9350a1da3",
+    "../validation/trajectory-f32-metal-arrays": "563dae263831c5eadbc319bfc75fe7997bdfc08be69584b4dde7049d0e61d6cb"
+  }
+}

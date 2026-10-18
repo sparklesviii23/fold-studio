@@ -1,0 +1,131 @@
+{
+  "scope": "Full model_1_multimer_v3, 12-residue designed input plus 12 target residues, 1 recycles, same trained checkpoint and seed. Narrow numerical backend comparison; not biological validation or full BindCraft parity.",
+  "state": "passed",
+  "comparisons": {
+    "gradient": {
+      "shape": [
+        12,
+        20
+      ],
+      "maxAbsError": 1.1957250535488129e-05,
+      "rmsError": 2.962707700286468e-06,
+      "relativeL2Error": 0.0008662437394799953,
+      "cosine": 0.9999996251394041
+    },
+    "inputSequence": {
+      "shape": [
+        12,
+        20
+      ],
+      "maxAbsError": 0.0,
+      "rmsError": 0.0,
+      "relativeL2Error": 0.0,
+      "cosine": 1.0000000000000002
+    },
+    "forwardPositions": {
+      "shape": [
+        12,
+        37,
+        3
+      ],
+      "maxAbsError": 0.0,
+      "rmsError": 0.0,
+      "relativeL2Error": 0.0,
+      "cosine": 1.0000000000000002
+    },
+    "gradientPositions": {
+      "shape": [
+        12,
+        37,
+        3
+      ],
+      "maxAbsError": 0.015625,
+      "rmsError": 0.00042812236277436796,
+      "relativeL2Error": 2.9243014341482287e-05,
+      "cosine": 0.9999999995729083
+    },
+    "forwardPlddt": {
+      "shape": [
+        24
+      ],
+      "maxAbsError": 5.364418029785156e-07,
+      "rmsError": 2.4530407239726677e-07,
+      "relativeL2Error": 4.862138724494113e-07,
+      "cosine": 0.9999999999998822
+    }
+  },
+  "cpuTiming": {
+    "scope": "Genuine full model technical input, not a validated binder",
+    "jax": "0.11.2",
+    "backend": "cpu",
+    "precision": "float32",
+    "inputSha256": "eef962a16dfaa99f76690bea3e957027576842936f958a8d55667a692fa42b37",
+    "devices": [
+      "cpu:0"
+    ],
+    "seed": 2718,
+    "residues": 12,
+    "recycles": 1,
+    "targetResidues": 12,
+    "model": "model_1_multimer_v3",
+    "parameterSha256": "611da8fc7478928f68de12e8b226260ef1f4ce62bcc29b008572e52f4f212959",
+    "loadSeconds": 0.6163343749940395,
+    "forwardSeconds": 6.5538770840503275,
+    "coordinateShape": [
+      12,
+      37,
+      3
+    ],
+    "resolvedAtoms": 96,
+    "gradientSeconds": 9.49025279097259,
+    "loss": 0.589468777179718,
+    "gradientShape": [
+      12,
+      20
+    ],
+    "gradientNorm": 0.05298516899347305,
+    "state": "executed_not_reference_validated",
+    "totalSeconds": 16.661048542009667,
+    "peakProcessRSSBytes": 1889452032
+  },
+  "metalTiming": {
+    "scope": "Genuine full model technical input, not a validated binder",
+    "jax": "0.11.2",
+    "backend": "metal",
+    "precision": "float32",
+    "inputSha256": "eef962a16dfaa99f76690bea3e957027576842936f958a8d55667a692fa42b37",
+    "devices": [
+      "MetalDevice(id=0)"
+    ],
+    "seed": 2718,
+    "residues": 12,
+    "recycles": 1,
+    "targetResidues": 12,
+    "model": "model_1_multimer_v3",
+    "parameterSha256": "611da8fc7478928f68de12e8b226260ef1f4ce62bcc29b008572e52f4f212959",
+    "loadSeconds": 1.5694887500721961,
+    "forwardSeconds": 4.2558619999326766,
+    "coordinateShape": [
+      12,
+      37,
+      3
+    ],
+    "resolvedAtoms": 96,
+    "gradientSeconds": 6.788912834133953,
+    "loss": 0.5894683599472046,
+    "gradientShape": [
+      12,
+      20
+    ],
+    "gradientNorm": 0.0529865063726902,
+    "state": "executed_not_reference_validated",
+    "totalSeconds": 12.615264584077522,
+    "peakProcessRSSBytes": 1173078016
+  },
+  "thresholds": {
+    "gradientRelativeL2": 0.05,
+    "gradientCosineMin": 0.99,
+    "plddtMaxAbs": 0.01,
+    "coordinateRmsAngstrom": 0.1
+  }
+}

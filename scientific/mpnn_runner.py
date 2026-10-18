@@ -6,12 +6,15 @@ sys.dont_write_bytecode=True
 BASE=pathlib.Path(__file__).resolve().parents[1]
 sys.path.insert(0,str(BASE/'vendor/bindcraft2'))
 
-def execute(request):
+def execute(request,backend='cpu'):
+ if backend not in ('cpu','metal'):raise ValueError('Unknown execution backend.')
+ os.environ['JAX_PLATFORMS']=backend
  import jax,jax.numpy as jnp,numpy as np
  from bindcraft.protein import Protein,ResidueFlags,AMINO_ACIDS
  from bindcraft.proteinmpnn import ProteinMPNNSequenceModel
  from bindcraft.model_weights import mpnn_variant_directory
- start=time.perf_counter();print('Loading source backbone and ProteinMPNN checkpoint on CPU.',flush=True)
+ start=time.perf_counter();print('Loading source backbone and ProteinMPNN checkpoint on '+backend+'.',flush=True)
+ if any(d.platform.lower()!=backend for d in jax.devices()):raise RuntimeError('Requested backend was not used.')
  path=pathlib.Path(request['input']);raw=path.read_bytes()
  if hashlib.sha256(raw).hexdigest()!=request['sha256']:raise ValueError('Input checksum changed.')
  proteins=Protein.from_structure(str(path));expected=request['sequences']
@@ -33,6 +36,6 @@ def execute(request):
   if not all(np.isfinite(v) for v in metrics.values()):raise ValueError('Nonfinite model output.')
   results.append({'chains':chains,'metrics':metrics})
  finish=time.perf_counter()
- return {'schemaVersion':1,'engine':'ProteinMPNN via pinned BindCraft2','execution':'cpu','devices':[str(d) for d in jax.devices()],'jax':jax.__version__,'checkpointSha256':hashlib.sha256(checkpoint.read_bytes()).hexdigest(),'sourceSha256':request['sha256'],'settings':request,'candidates':results,'timing':{'loadSeconds':loaded-start,'inferenceIncludingCompilationSeconds':finish-loaded,'totalSeconds':finish-start},'peakProcessRSSBytes':resource.getrusage(resource.RUSAGE_SELF).ru_maxrss,'limitations':['Fixed-backbone sequence redesign only; no new coordinates, folding validation or binding prediction.','Scores are upstream sequence-model metrics, not affinity or experimental validation.','CPU execution; no Metal acceleration is claimed.']}
+ return {'schemaVersion':1,'engine':'ProteinMPNN via pinned BindCraft2','execution':backend,'devices':[str(d) for d in jax.devices()],'jax':jax.__version__,'checkpointSha256':hashlib.sha256(checkpoint.read_bytes()).hexdigest(),'sourceSha256':request['sha256'],'settings':request,'candidates':results,'timing':{'loadSeconds':loaded-start,'inferenceIncludingCompilationSeconds':finish-loaded,'totalSeconds':finish-start},'peakProcessRSSBytes':resource.getrusage(resource.RUSAGE_SELF).ru_maxrss,'limitations':['Fixed-backbone sequence redesign only; no new coordinates, folding validation or binding prediction.','Scores are upstream sequence-model metrics, not affinity or experimental validation.','Backend is reported explicitly; this output alone does not establish cross-backend parity.']}
 if __name__=='__main__':
  request=json.loads(pathlib.Path(sys.argv[1]).read_text());result=execute(request);pathlib.Path(sys.argv[2]).write_text(json.dumps(result,indent=2,allow_nan=False));print('ProteinMPNN inference finished.',flush=True)

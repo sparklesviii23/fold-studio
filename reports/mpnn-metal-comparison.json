@@ -1,0 +1,142 @@
+{
+  "state": "passed",
+  "scope": "Two fixed-backbone ProteinMPNN sequences for one 460-residue ANGPTL3 source, negative checkpoint, identical seed/settings. Numerical/sample agreement only; no fold or binding validation.",
+  "thresholds": {
+    "sequence": "identical",
+    "scoreMaxAbsoluteError": 0.0001
+  },
+  "checks": [
+    {
+      "identicalSequences": true,
+      "metricAbsoluteErrors": {
+        "score": 1.1920928955078125e-07,
+        "seqid": 0.0
+      },
+      "passed": true
+    },
+    {
+      "identicalSequences": true,
+      "metricAbsoluteErrors": {
+        "score": 0.0,
+        "seqid": 2.9802322387695312e-08
+      },
+      "passed": true
+    }
+  ],
+  "cpu": {
+    "schemaVersion": 1,
+    "engine": "ProteinMPNN via pinned BindCraft2",
+    "execution": "cpu",
+    "devices": [
+      "cpu:0"
+    ],
+    "jax": "0.11.2",
+    "checkpointSha256": "b166276f80a45cb3de24bceb3b47b2f47a60ff654660f09837cd775846411ad1",
+    "sourceSha256": "df7611b8b9c1ad3dc4beab960d54b4f19197d61f5eccc6cdf62c67601dc86102",
+    "settings": {
+      "input": "/Users/vii/Documents/FoldStudio-MetalPort/validation/native-embedded-library/jobs/53cabb33-92ce-4fe0-b571-0bba36247120/input.cif",
+      "sha256": "df7611b8b9c1ad3dc4beab960d54b4f19197d61f5eccc6cdf62c67601dc86102",
+      "sequences": {
+        "A": "MFTIKLLLFIVPLVISSRIDQDNSSFDSLSPEPKSRFAMLDDVKILANGLLQLGHGLKDFVHKTKGQINDIFQKLNIFDQSFYDLSLQTSEIKEEEKELRRTTYKLQVKNEEVKNMSLELNSKLESLLEEKILLQQKVKYLEEQLTNLIQNQPETPEHPEVTSLKTFVEKQDNSIKDLLQTVEDQYKQLNQQHSQIKEIENQLRRTSIQEPTEISLSSKPRAPRTTPFLQLNEIRNVKHDGIPAECTTIYNRGEHTSGMYAIRPSNSQVFHVYCDVISGSPWTLIQHRIDGSQNFNETWENYKYGFGRLDGEFWLGLEKIYSIVKQSNYVLRIELEDWKDNKHYIEYSFYLGNHETNYTLHLVAITGNVPNAIPENKDLVFSTWDHKAKGHFNCPEGYSGGWWWHDECGENNLNGKYNKPRAKSKPERRRGLSWKSQNGRLYSIKSTKMLIHPTDSESFE"
+      },
+      "count": 2,
+      "seed": 42,
+      "temperature": 0.1,
+      "variant": "negative",
+      "designChains": [
+        "A"
+      ]
+    },
+    "candidates": [
+      {
+        "chains": {
+          "A": "AAELVLPIDLLLPDVEPVPVVVPLPPAPAPAPPVSPELPPEVVARLAAAAAALARALAELARALAAALAALAEAAAAAARAAAEAAAEAARKAEEAKKKAEEEAKKEEEKKRKEEEEKRRREEERRRREEEERRRREEEERRRREEERLRALPPVPLPPAAVRELEERRRREREEEERRKREEERRREEEERRRREEEEERRRKEEEEKEEEEEEEKPEEAKPEKKKKKKKKGKKEIPKDSIPKNCKEVYDRGEKESGIYTIKPEGSEPFEVRCKIIDGIPYTVIFHRKDGSVNFDVTAEQYEEGFGDLDGEFWLGLKRIYAIVKTGEYILKIELTDYNDNKYYIEYKFKLGGKEENYVLELKYIKGNIDEFIPQNTKLYFMTKDYKVEGLGDCPDTVKGGFWFDENCPDNNLTGEYLPPDAPTEEQKKSGVRYTDKNGKVYKIKEVEVLIYPIDKNNKK"
+        },
+        "metrics": {
+          "score": 1.102298378944397,
+          "seqid": 0.27826085686683655
+        }
+      },
+      {
+        "chains": {
+          "A": "KKELKILEEEKEEEEEEEEEEEELPLAPEPPLPEPETLPPEVLEKLKREEEKKKKEEEEKKKEEEKKEKEEEEKKAKEKKEEEEKKKKEEKEKEEEKKKKEEEERKKKEEEERRRREKEEEEKRKKKEEEEKKEKKKKEEEEKKKKKELEEIEEKPLPEEEIKKKKEEEEEKKKKEEEEKKKEEEKKKEEEKKKEEEEEKKKKEAEEKEEPEAPEPLPTPEEPPVPPPVPKPGDVEIPEDSIPRDCEEIYNRGEKESGIYTIKPKGSEPFKVYCEIIDGVPYTVIFHRKDGSVNFDVTWEQYENGFGSLDGEFWLGLNKIHDIVKEGDYILKIELVDYEGKKYWLEYSFTLGDKSENYVLELKYISGNIKPAYPENTKLYFQTKDKKVEGLGNCPDTVKGGFWFDENCPNNNLTGKFLEEDAPTEEEKKSGVRYVTKDGTEYKIKEVRLLIRRKSPDLEA"
+        },
+        "metrics": {
+          "score": 1.0845086574554443,
+          "seqid": 0.2956521511077881
+        }
+      }
+    ],
+    "timing": {
+      "loadSeconds": 0.2200421669986099,
+      "inferenceIncludingCompilationSeconds": 1.5028018748853356,
+      "totalSeconds": 1.7228440418839455
+    },
+    "peakProcessRSSBytes": 678739968,
+    "limitations": [
+      "Fixed-backbone sequence redesign only; no new coordinates, folding validation or binding prediction.",
+      "Scores are upstream sequence-model metrics, not affinity or experimental validation.",
+      "Backend is reported explicitly; this output alone does not establish cross-backend parity."
+    ]
+  },
+  "metal": {
+    "schemaVersion": 1,
+    "engine": "ProteinMPNN via pinned BindCraft2",
+    "execution": "metal",
+    "devices": [
+      "MetalDevice(id=0)"
+    ],
+    "jax": "0.11.2",
+    "checkpointSha256": "b166276f80a45cb3de24bceb3b47b2f47a60ff654660f09837cd775846411ad1",
+    "sourceSha256": "df7611b8b9c1ad3dc4beab960d54b4f19197d61f5eccc6cdf62c67601dc86102",
+    "settings": {
+      "input": "/Users/vii/Documents/FoldStudio-MetalPort/validation/native-embedded-library/jobs/53cabb33-92ce-4fe0-b571-0bba36247120/input.cif",
+      "sha256": "df7611b8b9c1ad3dc4beab960d54b4f19197d61f5eccc6cdf62c67601dc86102",
+      "sequences": {
+        "A": "MFTIKLLLFIVPLVISSRIDQDNSSFDSLSPEPKSRFAMLDDVKILANGLLQLGHGLKDFVHKTKGQINDIFQKLNIFDQSFYDLSLQTSEIKEEEKELRRTTYKLQVKNEEVKNMSLELNSKLESLLEEKILLQQKVKYLEEQLTNLIQNQPETPEHPEVTSLKTFVEKQDNSIKDLLQTVEDQYKQLNQQHSQIKEIENQLRRTSIQEPTEISLSSKPRAPRTTPFLQLNEIRNVKHDGIPAECTTIYNRGEHTSGMYAIRPSNSQVFHVYCDVISGSPWTLIQHRIDGSQNFNETWENYKYGFGRLDGEFWLGLEKIYSIVKQSNYVLRIELEDWKDNKHYIEYSFYLGNHETNYTLHLVAITGNVPNAIPENKDLVFSTWDHKAKGHFNCPEGYSGGWWWHDECGENNLNGKYNKPRAKSKPERRRGLSWKSQNGRLYSIKSTKMLIHPTDSESFE"
+      },
+      "count": 2,
+      "seed": 42,
+      "temperature": 0.1,
+      "variant": "negative",
+      "designChains": [
+        "A"
+      ]
+    },
+    "candidates": [
+      {
+        "chains": {
+          "A": "AAELVLPIDLLLPDVEPVPVVVPLPPAPAPAPPVSPELPPEVVARLAAAAAALARALAELARALAAALAALAEAAAAAARAAAEAAAEAARKAEEAKKKAEEEAKKEEEKKRKEEEEKRRREEERRRREEEERRRREEEERRRREEERLRALPPVPLPPAAVRELEERRRREREEEERRKREEERRREEEERRRREEEEERRRKEEEEKEEEEEEEKPEEAKPEKKKKKKKKGKKEIPKDSIPKNCKEVYDRGEKESGIYTIKPEGSEPFEVRCKIIDGIPYTVIFHRKDGSVNFDVTAEQYEEGFGDLDGEFWLGLKRIYAIVKTGEYILKIELTDYNDNKYYIEYKFKLGGKEENYVLELKYIKGNIDEFIPQNTKLYFMTKDYKVEGLGDCPDTVKGGFWFDENCPDNNLTGEYLPPDAPTEEQKKSGVRYTDKNGKVYKIKEVEVLIYPIDKNNKK"
+        },
+        "metrics": {
+          "score": 1.1022982597351074,
+          "seqid": 0.27826085686683655
+        }
+      },
+      {
+        "chains": {
+          "A": "KKELKILEEEKEEEEEEEEEEEELPLAPEPPLPEPETLPPEVLEKLKREEEKKKKEEEEKKKEEEKKEKEEEEKKAKEKKEEEEKKKKEEKEKEEEKKKKEEEERKKKEEEERRRREKEEEEKRKKKEEEEKKEKKKKEEEEKKKKKELEEIEEKPLPEEEIKKKKEEEEEKKKKEEEEKKKEEEKKKEEEKKKEEEEEKKKKEAEEKEEPEAPEPLPTPEEPPVPPPVPKPGDVEIPEDSIPRDCEEIYNRGEKESGIYTIKPKGSEPFKVYCEIIDGVPYTVIFHRKDGSVNFDVTWEQYENGFGSLDGEFWLGLNKIHDIVKEGDYILKIELVDYEGKKYWLEYSFTLGDKSENYVLELKYISGNIKPAYPENTKLYFQTKDKKVEGLGNCPDTVKGGFWFDENCPNNNLTGKFLEEDAPTEEEKKSGVRYVTKDGTEYKIKEVRLLIRRKSPDLEA"
+        },
+        "metrics": {
+          "score": 1.0845086574554443,
+          "seqid": 0.2956521809101105
+        }
+      }
+    ],
+    "timing": {
+      "loadSeconds": 0.5161488330923021,
+      "inferenceIncludingCompilationSeconds": 6.213384791975841,
+      "totalSeconds": 6.729533625068143
+    },
+    "peakProcessRSSBytes": 313131008,
+    "limitations": [
+      "Fixed-backbone sequence redesign only; no new coordinates, folding validation or binding prediction.",
+      "Scores are upstream sequence-model metrics, not affinity or experimental validation.",
+      "Backend is reported explicitly; this output alone does not establish cross-backend parity."
+    ]
+  },
+  "artifactSha256": {
+    "reports/mpnn-negative-cpu.json": "1902b4498513d0639409716f3c8667c39d7c014d2d55f64c456c7c0248fa9252",
+    "reports/mpnn-negative-metal.json": "b832a0129dfc5252a9812ab685cc54cbcda28546059c336cf0569b3b1425048a"
+  }
+}

@@ -23,15 +23,15 @@ validity. No top-level platform requirement is marked COMPLETE.
 | BindCraft2 pinned source/dependency inventory | TESTED | `vendor/bindcraft2-source.json`, `reports/bindcraft-audit.json` | Maintain pin and attribution; source presence is not feature parity |
 | Campaign configuration | TESTED | `fold_engine.py`; upstream input checks on hPDL1/ANGPTL3 | Other modalities/constraints, full upstream preflight and live campaign execution |
 | AF2 model parameters | TESTED | Bounded official archive member acquisition script | Load authentic checkpoint; record provenance; no synthetic parameters substituted |
-| AF2 complete forward and structure module | TESTED | Upstream `bindcraft/af2.py`; CPU execution being investigated | Actual trained-weight inference, reference comparison and artifacts |
-| AF2 loss, backpropagation and optimization | IN DEVELOPMENT | Upstream sequence_gradients pathway | Finite-difference/reference checks, optimizer trajectory, model recycling |
-| Metal-compatible AF2 execution | BLOCKED | `reports/jax-metal.json`: PJRT API mismatch; compatibility flag then StableHLO error | Alternative PJRT or full mathematically equivalent backend; single attention kernel is insufficient |
+| AF2 complete forward and structure module | TESTED | `validate-af2-full.py`; genuine monomer/multimer CPU and Metal forward reports | Narrow 12/24-residue cases; full-size campaign acceptance running |
+| AF2 loss, backpropagation and optimization | TESTED | `af2_native.py`; full-model monomer/multimer gradients, recycling and four real optimizer stages compared | Narrow float32 comparisons; upstream surrogate gradients require reference comparisons, not naive finite differences; full campaign acceptance pending |
+| Metal-compatible AF2 execution | IN DEVELOPMENT | MetalJAX 0.11.9, `af2_native.py`, monomer/multimer/optimizer comparison reports | Float32 narrow comparisons pass; original Apple plugin incompatible; full-size 6 GiB campaign under validation, no whole-engine parity claim |
 | Metal attention | SCIENTIFICALLY VALIDATED | `metal_attention.py`, `reports/metal-attention.json` | Narrow float32 kernel parity only; no full-model validation implied |
 | ProteinMPNN fixed-backbone redesign | TESTED | `mpnn.py`, `mpnn_runner.py`, `reports/proteinmpnn-validation.json`, `packaged-mpnn.json` | Full-model exact upstream parity and seed repeatability on two cases; CPU; folding/binding not validated |
 | ProteinMPNN multistate/ties/residue constraints | NOT STARTED | Upstream retained | Add adapter configuration and reference tests |
-| Genuine local BindCraft2 trajectory | IN DEVELOPMENT | `bindcraft_cpu.py`, `bindcraft_runner.py`; actual full-parameter CPU campaign running | Technical fragment optimization reached anneal and was correctly rejected by upstream i_pTM gate; default-filter full-size campaign acceptance still running. Metal remains blocked |
+| Genuine local BindCraft2 trajectory | IN DEVELOPMENT | `bindcraft_cpu.py`, `bindcraft_runner.py`; actual full-parameter CPU campaign running | Technical fragment optimization reached anneal and was correctly rejected by upstream i_pTM gate; default-filter full-size CPU and float32 Metal campaigns running; no accepted binder yet |
 | Binder and linear peptide generation | IN DEVELOPMENT | Configuration/import works | End-to-end actual generation, filtering, comparison, provenance |
-| Cyclic peptide, VHH, ARP, scFv, Fab and scaffold workflows | NOT STARTED | All upstream presets inventoried in M1 | Adapter, native computation, modality-specific validation |
+| Cyclic peptide, VHH, ARP, scFv, Fab and scaffold workflows | IN DEVELOPMENT | Cyclic original preset preparation and technical optimizer execution; other presets inventoried | Cyclic closure/reference checks in progress; VHH/scaffold adapters and end-to-end scientific validation remain |
 | Multitarget, detarget, fold switch, induced-fit and oligomers | NOT STARTED | Upstream source/presets retained | Constraint fidelity, actual generation and reference acceptance |
 | Candidate import and reproducibility | TESTED | Ranked importer, raw CSV/metadata and coordinate checksums; M2 sequence records | Folding validation and automatic full-trajectory import |
 | ChimeraX command architecture | IN DEVELOPMENT | Existing `observatory.py`, native inventory, console, capability audit | Exhaustive versioned command matrix and measured expansion; no universal claim |
@@ -53,7 +53,7 @@ validity. No top-level platform requirement is marked COMPLETE.
 | Publication figures | IMPLEMENTED | Existing PNG/SVG/PDF reports, native scene save | Publication QA, legends and reusable layouts |
 | Molecular Cinema / video | IN DEVELOPMENT | Existing pose crossfade of fixed structures | Camera keyframes, timeline, real video export; never label illustrative animation as dynamics |
 | Biological databases | IMPLEMENTED | Existing UniProt/PDB/AlphaFold DB retrieval | Domains/variants/interactions/Foldseek, retrieval provenance and validation |
-| Self-contained macOS runtime | IN DEVELOPMENT | Relocated CPython/JAX runtime imports and gradients pass; native app now being built with runtime and two AF2 checkpoints | Relocatable Python/native libraries, permitted ChimeraX embedding, first-run weight management |
+| Self-contained macOS runtime | IN DEVELOPMENT | Relocated CPython/JAX runtime imports and gradients pass; native app now being built with CPU runtime and AF2 checkpoints; Metal runtime staged with licenses | Relocatable Python/native libraries, permitted ChimeraX embedding, first-run weight management |
 | Signing, relocatability and data integrity | IN DEVELOPMENT | Existing signed builds and packaged IPC tests | Full standalone relocated launch, runtime dylibs and upgrade/data acceptance |
 | ANGPTL3–ANGPTL8–APOA5 complete research workflow | IN DEVELOPMENT | Existing MI analysis and genuine packaged ANGPTL3 ProteinMPNN redesign | Actual binder trajectory, generated complex, comparative analysis and report |
 
@@ -194,3 +194,48 @@ Next validation already running: real `model_1_multimer_v3`, 12-residue source
 target fragment + 12-residue designed chain, one recycle, full forward and
 backpropagation on CPU then Metal. See current `reports/af2-multimer-f32-*` logs.
 The production/bundled app still defaults to the tested CPU profile.
+
+### Float32 Metal execution path and modality correctness
+
+- Full multimer forward/backprop with one recycle passed the predefined CPU/Metal
+  comparison: gradient relative L2 0.0008662, cosine 0.9999996. Reports and arrays
+  are retained. These are 12 target + 12 designed residues, not large-complex parity.
+- Actual screen/refine/anneal/harden optimizer updates passed a separate CPU/Metal
+  output comparison. Diagnostic gates were explicitly permissive; no accepted
+  research-quality binder is claimed. Report: `bindcraft-trajectory-metal-comparison.json`.
+- Full upstream negative ProteinMPNN checkpoint produced identical two sequences
+  on the 460-residue ANGPTL3 source on CPU and Metal, score differences <=1.2e-7:
+  `reports/mpnn-metal-comparison.json`. No folding/binding validation implied.
+- Explicit `experimental-metal-float32-single-model` profile runs the original
+  campaign with float32 hidden execution and optimizer initialization, pinned
+  JAX/JAXlib 0.11.2 + MetalJAX 0.11.9, actual Metal device requirement, no CPU
+  fallback, memory governor enabled. Default CPU profile remains available.
+- The 175-residue campaign repeatedly stalled at the 4 GiB process cap. That
+  attempt was cancelled and retained as resource evidence, then retried with a
+  bounded 6 GiB cap on this 24 GiB Mac. Current GPU job:
+  `1e97164b-3ce0-4a2b-bfd6-4b507adf2d6b`, root `../validation/bindcraft-native-metal`.
+  CPU job `8a87bd72-ee6d-4289-89d0-5cb3f38320b9` remains running unchanged.
+  Inspect both before resuming; do not restart simply because no stage log appeared.
+- Peptide/cyclic profiles retain bound multimer validation instead of incorrectly
+  forcing the binder monomer path. Official `model_2_multimer_v3` checkpoint
+  acquired separately, local SHA pinned, distinct from design model_1_multimer_v3.
+  Original cyclic preset and cyclic offset mode now flow through preparation.
+- `campaign_progress.py` observes actual upstream recorder callbacks and emits
+  stage/update/metric events without changing optimizers or criteria. UI displays
+  observed updates, no guessed percentage. Existing running jobs predate this
+  observer; no update-level telemetry is claimed for them.
+- Separate relocatable MetalJAX runtime staged at `../runtime-build/python-metaljax`
+  and passed isolated import/device/gradient probe. App packaging acceptance for
+  this second runtime is next. CPU runtime/build remains the previously validated
+  baseline until the new app is built and tested.
+- Last complete integration suite: 165 Python + 64 frontend passed; three newer
+  peptide/progress tests also passed in the targeted 10-test campaign suite.
+
+Next: finish cyclic closure/backend checks, seal and relocate the app containing
+both runtimes, execute real GPU calculations from it, inspect full campaigns,
+then continue original modality and engine roadmap. No top-level completion.
+
+Cyclic technical execution and CPU/Metal output comparison passed using the
+original `direction` cyclic offset mode. Both upstream closure measurements were
+1.5984154 Å. Arrays and reports are retained under `reports/cyclic-trajectory-*`.
+This diagnostic used permissive gates and is not an accepted research binder.

@@ -27,7 +27,7 @@ license and copyright notices are retained in `vendor/bindcraft2/LICENSE` and
 `README_licensing_section.md`. It is not covered by Fold Studio's MIT license.
 AlphaFold/ColabDesign code, ProteinMPNN code and HyperMPNN parameters retain their
 upstream notices/terms. The per-file SHA-256 manifest is `vendor/bindcraft2-source.json`.
-No AlphaFold model parameters are included. Fold's experimental float32 PyTorch
+The M1 snapshot did not include AlphaFold model parameters. Fold's experimental float32 PyTorch
 attention adapter follows the upstream equations and is explicitly limited to
 kernel-level compatibility; it does not imply an official upstream association.
 
@@ -42,9 +42,16 @@ reinterpreted here. Nothing in this development milestone is uploaded or publish
 
 Subsequent to M1/M2, the native development build includes a CPython/JAX scientific
 runtime with original Python LICENSE, package license files and dist-info.
-Two unchanged AlphaFold 2 parameter files (model_1_ptm and model_1_multimer_v3)
+Unchanged AlphaFold 2 parameter files (model_1_ptm, model_1_multimer_v3 and model_2_multimer_v3)
 are included with provenance and attribution in `models/alphafold/NOTICE.md`.
 The official AlphaFold repository identifies AF2 parameters as CC BY 4.0:
 https://github.com/google-deepmind/alphafold#model-parameters-license
 https://creativecommons.org/licenses/by/4.0/
 ChimeraX remains separately installed; no ChimeraX binary is bundled.
+
+The experimental Metal runtime additionally includes MetalJAX 0.11.9 by the
+MetalJAX contributors (Apache-2.0), https://github.com/eterevsky/metaljax .
+Its bundled MLX implementation and all dependency licenses/dist-info are retained
+in runtime-metal. The adapter changes execution precision and initialization
+without modifying vendored BindCraft2 files. Exact tested package pins are in
+`reports/requirements-metaljax.txt`. No upstream endorsement is implied.

@@ -3,7 +3,7 @@ No system installs are modified. Output must be new. Original package licenses,
 dist-info and Python LICENSE remain present. Verify relocation before bundling.
 """
 import argparse,hashlib,json,pathlib,shutil,subprocess,sys,os
-p=argparse.ArgumentParser();p.add_argument('--python',required=True);p.add_argument('--output',required=True);p.add_argument('--resume',action='store_true');a=p.parse_args()
+p=argparse.ArgumentParser();p.add_argument('--python',required=True);p.add_argument('--output',required=True);p.add_argument('--resume',action='store_true');p.add_argument('--backend',choices=['cpu','metal'],default='cpu');a=p.parse_args()
 metadata=json.loads(subprocess.check_output([a.python,'-c','import sys,sysconfig,json;print(json.dumps({"base":sys.base_prefix,"site":sysconfig.get_path("purelib"),"version":sys.version.split()[0]}))'],text=True))
 base=pathlib.Path(metadata['base']);site=pathlib.Path(metadata['site']);dest=pathlib.Path(a.output).absolute()
 if dest.exists() and not a.resume:raise SystemExit('Runtime output must be new unless --resume is explicit.')
@@ -20,7 +20,12 @@ for file in dest.rglob('*'):
   if not sibling.is_file():raise RuntimeError('Missing internal symlink target: '+str(sibling))
   file.unlink();file.symlink_to(sibling.name)
 python=dest/'bin/python3.12'
-check=subprocess.run([str(python),'-I','-B','-c','import sys,jax,numpy,haiku,biotite,optax;print(sys.prefix);print(jax.__version__,jax.devices());print(jax.grad(lambda x:jax.numpy.sin(x))(1.0))'],text=True,capture_output=True,timeout=45)
+env={**os.environ,'JAX_PLATFORMS':a.backend,'PYTHONDONTWRITEBYTECODE':'1'}
+if a.backend=='metal':
+ sys.path.insert(0,str(pathlib.Path(__file__).resolve().parents[1]/'scientific'))
+ from metal_runtime import ENV
+ env.update(ENV)
+check=subprocess.run([str(python),'-I','-B','-c','import sys,jax,numpy,haiku,biotite,optax;print(sys.prefix);print(jax.__version__,jax.devices());print(jax.grad(lambda x:jax.numpy.sin(x))(1.0))'],text=True,capture_output=True,timeout=45,env=env)
 if check.returncode:raise RuntimeError(check.stderr)
-manifest={'schemaVersion':1,'pythonVersion':metadata['version'],'initialIsolatedProbe':check.stdout,'files':{str(f.relative_to(dest)):hashlib.sha256(f.read_bytes()).hexdigest() for f in dest.rglob('*') if f.is_file() and not f.is_symlink() and '__pycache__' not in f.parts}}
+manifest={'schemaVersion':1,'pythonVersion':metadata['version'],'backend':a.backend,'initialIsolatedProbe':check.stdout,'files':{str(f.relative_to(dest)):hashlib.sha256(f.read_bytes()).hexdigest() for f in dest.rglob('*') if f.is_file() and not f.is_symlink() and '__pycache__' not in f.parts}}
 (dest/'fold-runtime-manifest.json').write_text(json.dumps(manifest,indent=2)+'\n');print(check.stdout)

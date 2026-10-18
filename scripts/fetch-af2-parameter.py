@@ -5,9 +5,12 @@ it is not represented as an independently published provider checksum.
 import argparse,hashlib,json,pathlib,shutil,urllib.request
 URL='https://storage.googleapis.com/alphafold/alphafold_params_2022-12-06.tar'
 p=argparse.ArgumentParser();p.add_argument('--model',default='model_1_ptm');p.add_argument('--directory',required=True);a=p.parse_args()
-if a.model not in ('model_1_ptm','model_2_ptm','model_1_multimer_v3'):raise SystemExit('Model not enabled in this acquisition tool.')
+if a.model not in tuple(f'model_{n}_{suffix}' for suffix in ('ptm','multimer_v3') for n in range(1,6)):raise SystemExit('Model not enabled in this acquisition tool.')
 out=pathlib.Path(a.directory).expanduser().resolve();out.mkdir(parents=True,exist_ok=True);name='params_'+a.model+'.npz';dest=out/name
+if dest.exists():raise SystemExit('Parameter file already exists; refusing to overwrite a recorded checkpoint.')
 head=urllib.request.urlopen(urllib.request.Request(URL,method='HEAD'),timeout=30);etag=head.headers['ETag'];total=int(head.headers['Content-Length'])
+pins=json.loads((pathlib.Path(__file__).resolve().parents[1]/'scientific/af2-parameters.json').read_text())
+if pins['source']!=URL or pins['archiveETag']!=etag:raise RuntimeError('Official archive identity changed; acquisition requires a separately reviewed pin update.')
 def fetch(start,end):
  request=urllib.request.Request(URL,headers={'Range':f'bytes={start}-{end}','If-Match':etag})
  response=urllib.request.urlopen(request,timeout=60)

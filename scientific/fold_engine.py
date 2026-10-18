@@ -40,11 +40,11 @@ class Engine:
     def fold_engine_status(self,p):
         modalities=[]
         for path in sorted((UPSTREAM/'settings'/'modality').glob('*.json')):
-            modalities.append({'name':path.stem,'description':json.loads(path.read_text()).get('description',''),'configuration':'tested' if path.stem in ('binder','peptide') else 'not_started','execution':'blocked'})
+            modalities.append({'name':path.stem,'description':json.loads(path.read_text()).get('description',''),'configuration':'tested' if path.stem in ('binder','peptide','cyclic_peptide') else 'not_started','execution':'experimental' if path.stem in ('binder','peptide','cyclic_peptide') else 'blocked'})
         return {'name':'FOLD SCIENTIFIC ENGINE','schemaVersion':1,'source':source_status(),'modalities':modalities,
-                'engines':[{'id':'bindcraft2','configuration':'implemented','resultImport':'implemented','execution':'experimental_cpu_single_model','metalExecution':'blocked'},
+                'engines':[{'id':'bindcraft2','configuration':'implemented','resultImport':'implemented','execution':'experimental_cpu_single_model','metalExecution':'experimental_float32_requires_pinned_runtime'},
                            {'id':'proteinmpnn','execution':'cpu','scope':'Fixed-backbone sequence redesign; mpnn_start/mpnn_jobs'}, {'id':'boltz2','adapter':'existing prediction_start'}, {'id':'chimerax','adapter':'existing chimerax_execute; separately installed runtime; command availability is not validation'}],
-                'commands':[{'name':x,'status':'implemented' if x!='bindcraft_start' else 'blocked'} for x in sorted(ACTIONS)],
+                'commands':[{'name':x,'status':'implemented' if x!='bindcraft_start' else 'experimental'} for x in sorted(ACTIONS)],
                 'dataModel':'Existing structure records/assets, stable residue/atom identities from Molecular Intelligence; existing jobs table. No parallel coordinate store.'}
     def fold_compute(self,p):return fold_compute.diagnostic(self.s)
     def fold_structure(self,p):
@@ -57,7 +57,7 @@ class Engine:
         if unknown:raise ValueError('Unsupported campaign fields: '+', '.join(sorted(unknown)))
         self.s.project(p['projectId']);shared=self.fold_structure(p);st=shared['structure']
         modality=p.get('modality','binder')
-        if modality not in ('binder','peptide'):raise ValueError('This milestone validates binder and linear peptide configuration only; other upstream modalities remain blocked.')
+        if modality not in ('binder','peptide','cyclic_peptide'):raise ValueError('Other upstream modalities remain blocked until their constraints and execution are validated.')
         chains=p.get('targetChains')
         if not isinstance(chains,list) or not chains or any(not isinstance(c,str) for c in chains) or len(chains)!=len(set(chains)):raise ValueError('Choose distinct target chains.')
         available={c['id']:c for c in st['chains']}
@@ -69,7 +69,7 @@ class Engine:
         if any(not r['polymer'] or r['one']=='X' or r['ins'] or r['num']<1 for r in selected):raise ValueError('Selected chains must contain canonical protein residues with positive numbering and no insertion codes. Prepare an explicit derived input for other cases.')
         for r in selected:
             if not {'N','CA','C','O'}.issubset(st['atoms'][i]['name'] for i in r['atoms']):raise ValueError('Selected target residues require complete N, CA, C, O backbone atoms.')
-        lengths=p.get('binderLengths',[60,100] if modality=='binder' else [15,25])
+        lengths=p.get('binderLengths',{'binder':[60,100],'peptide':[15,25],'cyclic_peptide':[7,16]}[modality])
         if not isinstance(lengths,list) or len(lengths) not in (1,2):raise ValueError('Binder lengths must be [fixed] or [minimum, maximum].')
         for length in lengths:integer(length,'Binder length',5,500)
         if lengths!=sorted(lengths):raise ValueError('Binder length bounds must be ordered.')

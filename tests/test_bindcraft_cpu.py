@@ -1,5 +1,5 @@
 """CPU campaign launch guards; no mock model outputs presented as calculations."""
-import os,pathlib,unittest
+import json,os,pathlib,unittest
 from unittest.mock import patch
 from test_project_metal import ProjectMetalTests as Fixtures
 class CPUCampaignGuards(unittest.TestCase):
@@ -23,6 +23,18 @@ class CPUCampaignGuards(unittest.TestCase):
  def test_unsupported_launch_options_refused(self):
   j=self.prepared()
   with self.assertRaisesRegex(ValueError,'Unsupported'):self.s.dispatch('bindcraft_start',{'projectId':self.project['id'],'id':j['id'],'profile':'experimental-cpu-single-model','ignore_filters':True})
+ def test_peptides_retain_bound_held_out_validation_and_scientific_constraints(self):
+  from bindcraft_cpu import execution_config
+  for modality in ('peptide','cyclic_peptide'):
+   with self.subTest(modality=modality):
+    checked=self.s.dispatch('bindcraft_validate',{**self.config,'modality':modality})
+    original=checked['config'];config,model=execution_config(original,self.base)
+    self.assertEqual(config['validation_model'],'multimer');self.assertEqual(model,'model_2_multimer_v3');self.assertNotIn(model,config['design_models'])
+    self.assertEqual(original['filters'],config['filters']);self.assertEqual(original['binder_lengths'],config['binder_lengths'])
+    self.assertEqual(config.get('cyclize_peptide',False),modality=='cyclic_peptide')
+ def test_cyclic_preparation_retains_original_preset(self):
+  checked=self.s.dispatch('bindcraft_validate',{**self.config,'modality':'cyclic_peptide'})
+  self.assertTrue(checked['config']['cyclize_peptide']);self.assertIsNone(checked['config']['filters']['Unbound_Binder_pLDDT']['threshold']);self.assertIsNone(checked['config']['filters']['pTM']['threshold'])
 del Fixtures
 
 class UpstreamProgress(unittest.TestCase):
@@ -37,3 +49,8 @@ class UpstreamProgress(unittest.TestCase):
   from bindcraft_cpu import progress_from_log
   p=progress_from_log('=== trajectory 1 | design_a | accepted 0/1 ===\n passed screen design stage\n=== trajectory 2 | design_b | accepted 0/1 ===\n')
   self.assertEqual(p['trajectory'],2);self.assertNotIn('lastReportedStage',p)
+ def test_actual_optimizer_updates_are_scoped_to_the_current_trajectory(self):
+  from bindcraft_cpu import progress_from_log
+  log='=== trajectory 1 | first | accepted 0/1 ===\nFOLD_PROGRESS {"stage":"screen","sequenceUpdates":12,"metrics":{"iptm":0.4}}\n'
+  p=progress_from_log(log);self.assertEqual(p['lastObservedUpdate']['sequenceUpdates'],12);self.assertIsNone(p['percent'])
+  p=progress_from_log(log+'=== trajectory 2 | second | accepted 0/1 ===\nFOLD_PROGRESS malformed\n');self.assertNotIn('lastObservedUpdate',p)

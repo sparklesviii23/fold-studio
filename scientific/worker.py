@@ -91,7 +91,7 @@ class Service:
         row = self.db.execute('SELECT value FROM settings WHERE key=?',(key,)).fetchone()
         return json.loads(row[0]) if row else default
     def setting_set(self, p):
-        allowed = {'appearance','effects','onboarded','enginePython','sidebarWidth','interface','lastStructureId','bindcraftPython','af2Parameters'}
+        allowed = {'appearance','effects','onboarded','enginePython','sidebarWidth','interface','lastStructureId','bindcraftPython','bindcraftMetalPython','af2Parameters'}
         if p['key'] not in allowed: raise ValueError('Unknown preference.')
         if p['key']=='interface':
             v=p.get('value')

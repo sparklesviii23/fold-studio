@@ -29,6 +29,9 @@
     "gradientCosine": 0.9999994068191616,
     "scope": "12-residue monomer, zero recycles, identical float32 input and hidden precision"
   },
-  "productionDefault": "CPU; no unvalidated Metal job launch is enabled",
-  "next": "Multimer + one recycle full forward/backprop comparison in progress"
+  "productionDefault": "CPU; explicit experimental float32 Metal profile now available only with pinned runtime/device",
+  "next": "Full-size float32 campaign and relocated embedded Metal runtime acceptance in progress",
+  "multimerComparison": "af2-multimer-metaljax-comparison.json",
+  "optimizerComparison": "bindcraft-trajectory-metal-comparison.json",
+  "proteinMPNNComparison": "mpnn-metal-comparison.json"
 }
