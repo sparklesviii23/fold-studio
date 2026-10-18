@@ -1,11 +1,15 @@
 """Known Euclidean geometry through original ChimeraX and FOLD's ordered atom route.
 Artificial geometry only: neither a predicted nor an experimental molecule.
 """
-import argparse,hashlib,json,math,pathlib,signal,sys,time,os,re
+import argparse,hashlib,json,math,pathlib,signal,sys,time,os,re,subprocess
 sys.dont_write_bytecode=True
 ROOT=pathlib.Path(__file__).resolve().parents[1]
-p=argparse.ArgumentParser();p.add_argument('--directory',required=True);p.add_argument('--report',required=True);a=p.parse_args()
-sys.path.insert(0,str(ROOT/'scientific'))
+p=argparse.ArgumentParser();p.add_argument('--engine-root',default=str(ROOT));p.add_argument('--directory',required=True);p.add_argument('--report',required=True);a=p.parse_args()
+ENGINE=pathlib.Path(a.engine_root).resolve();sys.path.insert(0,str(ENGINE/'scientific'))
+app=ENGINE.parents[1] if ENGINE.name=='Resources' and ENGINE.parent.name=='Contents' else None
+def seal():
+ if app:subprocess.run(['/usr/bin/codesign','--verify','--deep','--strict',str(app)],check=True)
+seal()
 from worker import Service
 from observatory import Observatory
 folder=pathlib.Path(a.directory).resolve()
@@ -57,6 +61,8 @@ try:
  saved=obs.item(record['id']);asset=s.root/'assets'/saved['data']['asset']
  if hashlib.sha256(asset.read_bytes()).hexdigest()!=sha:raise AssertionError('Source asset changed.')
  report={'state':'passed','scope':'Artificial orthogonal coordinate fixture: distance, angle, signed and mirrored dihedrals agree with analytic values and original ChimeraX angle/torsion commands. No molecular quality or biological claim.','chimeraxVersion':obs.chimerax_status({}).get('version'),'results':results,'commands':commands,'duplicateAtomsRefused':True,'sourceSha256':sha,'sourceUnchanged':True,'nativeCoordinatesUnchanged':True}
+ seal()
+ report.update(engineRoot=str(ENGINE),signatureAfterMeasurement='passed' if app else 'not_applicable')
  pathlib.Path(a.report).write_text(json.dumps(report,indent=2)+'\n');print(json.dumps(report,indent=2))
 finally:
  if pid:

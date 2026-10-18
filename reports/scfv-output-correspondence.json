@@ -1,0 +1,49 @@
+{
+  "state": "passed",
+  "scope": "Saved quarantined scFv CPU pipeline. Two explicit variable-domain chains and original target retained; all 199 fixed positions unchanged through real ProteinMPNN redesign. No model rerun or research-record import.",
+  "originalScaffoldSha256": "e59e4919c7e64da44b32d63cd1e3a1def1a9a5086dce0e3ecdd8b4e0452d9956",
+  "outputs": [
+    {
+      "file": "/Users/vii/Documents/FoldStudio-MetalPort/validation/scfv-cpu-pipeline/QUARANTINED_OUTPUT/3_Ranked/DIAGNOSTIC ONLY \u2014 permissive QA gates; no research acceptance_DIAGNOSTIC_scaffold_l233_de4c21905e3bde01_seq0.cif",
+      "sha256": "4705cd9fe442eb09bb73685e018c450abaf938f8bc4606c97440d888f5b38b58",
+      "chainRoles": {
+        "B": {
+          "role": "candidate",
+          "identity": "BindCraft2 designed binder",
+          "assignmentSource": "Explicit _bindcraft CIF chain-role metadata"
+        },
+        "A": {
+          "role": "target",
+          "identity": "Prepared target",
+          "assignmentSource": "Explicit _bindcraft CIF chain-role metadata"
+        },
+        "C": {
+          "role": "candidate",
+          "identity": "BindCraft2 designed binder",
+          "assignmentSource": "Explicit _bindcraft CIF chain-role metadata"
+        }
+      },
+      "domains": [
+        {
+          "chain": "B",
+          "residues": 126,
+          "fixedFrameworkResidues": 100,
+          "fixedSequenceUnchanged": true
+        },
+        {
+          "chain": "C",
+          "residues": 107,
+          "fixedFrameworkResidues": 99,
+          "fixedSequenceUnchanged": true
+        }
+      ],
+      "targetSequenceUnchanged": true
+    }
+  ],
+  "limitations": [
+    "Permissive diagnostic filters; no original-filter antibody acceptance or binding claim.",
+    "Upstream raw ranking retains -inf where interface evidence is absent; no finite score is synthesized.",
+    "The unused binder-length metadata field is not a domain-length measurement. Actual chain lengths are reported above.",
+    "A VH\u2013VL linker is not designed."
+  ]
+}

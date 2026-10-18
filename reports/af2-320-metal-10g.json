@@ -1,0 +1,42 @@
+{
+  "scope": "Genuine 320-residue trained AF2 multimer forward completed; sequence backpropagation refused by the enabled memory governor. No complete CPU/Metal gradient parity and no app limit increase.",
+  "jax": "0.11.2",
+  "backend": "metal",
+  "precision": "float32",
+  "inputSha256": "5b3e9703cb433a2033f9703711dce53e9b8fa307a1b32414a447ec3a2a5aad2d",
+  "devices": [
+    "MetalDevice(id=0)"
+  ],
+  "seed": 2718,
+  "residues": 205,
+  "recycles": 1,
+  "subbatchSize": "auto",
+  "targetResidues": 115,
+  "model": "model_1_multimer_v3",
+  "parameterSha256": "611da8fc7478928f68de12e8b226260ef1f4ce62bcc29b008572e52f4f212959",
+  "loadSeconds": 1.5911104588303715,
+  "engineRoot": "/Users/vii/Documents/FoldStudio-MetalPort/fold-studio",
+  "targetSha256": "d3c95434dcadf26d005340b15bd92be61e101ed921478c26f2a5550f198e61f6",
+  "forwardSeconds": 45.788767457939684,
+  "coordinateShape": [
+    205,
+    37,
+    3
+  ],
+  "resolvedAtoms": 1751,
+  "state": "resource_exhausted",
+  "gradientState": "failed_before_completion",
+  "budgetGiB": 10,
+  "observedFootprintGiB": 10.2,
+  "reportedLiveMlxGiB": 9.5,
+  "reportedMachineFreeGiB": 0.3,
+  "reportedMachinePageCacheGiB": 1.2,
+  "error": "jax.errors.JaxRuntimeError: RESOURCE_EXHAUSTED: metaljax out of memory at flush: this process would hold 10.2 GB, over the 10.0 GB METALJAX_MEM_BUDGET_MB budget. Needed 0.0 GB more; the machine has 24.0 GB total, 0.3 GB free and 1.2 GB in the page cache, and this process holds 10.2 GB (9.5 GB in live MLX arrays, 0.0 GB in MLX's buffer cache, 0.8 GB other). Raise METALJAX_MEM_BUDGET_MB / METALJAX_MEM_SYS_MB to allow more (at the risk of paging the machine), or run a smaller model.",
+  "forwardCoordinateComparison": {
+    "state": "passed",
+    "atoms": 2672,
+    "coordinateRmsAngstrom": 0.0009118994194716779,
+    "maxAbsoluteAngstrom": 0.0625,
+    "scope": "Written forward coordinates only; no gradient or whole-campaign agreement claim."
+  }
+}

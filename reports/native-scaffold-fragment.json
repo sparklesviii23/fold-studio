@@ -1,0 +1,332 @@
+{
+  "state": "passed",
+  "scope": "Actual native form created a coordinate-preserving target fragment and saved original paired-domain campaign preparation. No model calculation launched through this UI test.",
+  "app": "/Users/vii/Documents/FoldStudio-MetalPort/validation/Relocated Paired Scaffold/FOLD STUDIO Metal Dev.app",
+  "sourceCommit": "db6b80f",
+  "libraryRoot": "/Users/vii/Documents/FoldStudio-MetalPort/validation/angptl3-target-fragment",
+  "sourceRecordId": "0d6f507a-500a-49fd-b1cf-cd256b724c03",
+  "sourceSha256": "df7611b8b9c1ad3dc4beab960d54b4f19197d61f5eccc6cdf62c67601dc86102",
+  "fragmentRecord": {
+    "id": "c07aff1b-fbca-448c-b148-60921962d101",
+    "project_id": "b25f5bc0-182b-40c5-8929-09297c3fad0b",
+    "kind": "structure",
+    "name": "ANGPTL3 A240\u2013251 \u00b7 native fragment QA",
+    "data": {
+      "asset": "4cd89fa4-1611-45d9-8f5e-c74e999dbe35.cif",
+      "format": "mmcif",
+      "sha256": "359be5ac29780b3eecdaf1e1310b731e383ff358c0f54b4d10495238773a74ee",
+      "source": "Explicit observed target fragment",
+      "accession": null,
+      "confidenceKind": "AlphaFold pLDDT",
+      "metadata": {
+        "derivedFrom": {
+          "id": "0d6f507a-500a-49fd-b1cf-cd256b724c03",
+          "sha256": "df7611b8b9c1ad3dc4beab960d54b4f19197d61f5eccc6cdf62c67601dc86102"
+        },
+        "fragment": {
+          "schemaVersion": 1,
+          "residueIds": [
+            "[\"A\",240,\"\"]",
+            "[\"A\",241,\"\"]",
+            "[\"A\",242,\"\"]",
+            "[\"A\",243,\"\"]",
+            "[\"A\",244,\"\"]",
+            "[\"A\",245,\"\"]",
+            "[\"A\",246,\"\"]",
+            "[\"A\",247,\"\"]",
+            "[\"A\",248,\"\"]",
+            "[\"A\",249,\"\"]",
+            "[\"A\",250,\"\"]",
+            "[\"A\",251,\"\"]"
+          ],
+          "ranges": [
+            {
+              "chain": "A",
+              "start": 240,
+              "end": 251
+            }
+          ],
+          "coordinatePreservation": "Exact parsed coordinate values and author residue identities retained.",
+          "sourceFormat": "mmcif",
+          "parentConfidenceTransferred": "Per-atom field with its existing confidence interpretation only. Parent PAE, pTM, ipTM and interface metrics are not copied.",
+          "limitations": [
+            "Explicit geometric fragment; removed protein context can change folding, surface exposure and binding.",
+            "Artificial termini are not capped or protonated; no atoms, residues or sequence positions are invented.",
+            "This selection does not establish a biological domain or mature-protein numbering."
+          ]
+        }
+      },
+      "imported": "2026-10-18T16:46:06.807573+00:00"
+    },
+    "created": "2026-10-18T16:46:06.808163+00:00"
+  },
+  "preparedJob": {
+    "id": "2f842ece-30ba-4e7e-9e54-43cea26f1477",
+    "project_id": "b25f5bc0-182b-40c5-8929-09297c3fad0b",
+    "name": "Native paired-domain preparation QA",
+    "engine": "bindcraft2",
+    "state": "prepared",
+    "data": {
+      "projectId": "b25f5bc0-182b-40c5-8929-09297c3fad0b",
+      "name": "Native paired-domain preparation QA",
+      "preparation": {
+        "schemaVersion": 1,
+        "name": "Native paired-domain preparation QA",
+        "valid": true,
+        "executionReady": false,
+        "modality": "scFv",
+        "scaffold": {
+          "file": "scaffold.cif",
+          "source": "scaffolds/scFv.cif",
+          "sha256": "e59e4919c7e64da44b32d63cd1e3a1def1a9a5086dce0e3ecdd8b4e0452d9956",
+          "modality": "scFv"
+        },
+        "source": {
+          "structureId": "c07aff1b-fbca-448c-b148-60921962d101",
+          "projectId": "b25f5bc0-182b-40c5-8929-09297c3fad0b",
+          "sha256": "359be5ac29780b3eecdaf1e1310b731e383ff358c0f54b4d10495238773a74ee",
+          "format": "mmcif",
+          "model": "1"
+        },
+        "config": {
+          "binder_scaffold": "scaffold.cif",
+          "mutate_positions": "L30-32,L91-94,L96,H31-33,H50,H52-55(4-6),H57,H59,H99-106(5-18),H72*",
+          "design_models": 3,
+          "validation_model": "multimer",
+          "min_scaffold_sequence_retained_final": 1.0,
+          "max_scaffold_framework_rmsd_final": 3.0,
+          "min_monomer_plddt_final": 0.7,
+          "aa_bias": {
+            "C": 0.0,
+            "F": 0.9,
+            "W": 0.3,
+            "Y": 0.9
+          },
+          "binder_lengths": [
+            60,
+            100
+          ],
+          "number_of_final_designs": 1,
+          "max_trajectories": 1,
+          "campaign_seed": 42,
+          "attention_backend": "stock",
+          "use_cueq": false,
+          "auto_multi_gpu": false,
+          "design_workers": 1,
+          "resume": false,
+          "targets": [
+            {
+              "name": "target",
+              "target_path": "input.cif",
+              "chains": "A",
+              "hotspots": "",
+              "coldspots": ""
+            }
+          ],
+          "project_folder": "output"
+        },
+        "residueMap": [
+          {
+            "id": "[\"A\",240,\"\"]",
+            "chain": "A",
+            "number": 240,
+            "aminoAcid": "D"
+          },
+          {
+            "id": "[\"A\",241,\"\"]",
+            "chain": "A",
+            "number": 241,
+            "aminoAcid": "G"
+          },
+          {
+            "id": "[\"A\",242,\"\"]",
+            "chain": "A",
+            "number": 242,
+            "aminoAcid": "I"
+          },
+          {
+            "id": "[\"A\",243,\"\"]",
+            "chain": "A",
+            "number": 243,
+            "aminoAcid": "P"
+          },
+          {
+            "id": "[\"A\",244,\"\"]",
+            "chain": "A",
+            "number": 244,
+            "aminoAcid": "A"
+          },
+          {
+            "id": "[\"A\",245,\"\"]",
+            "chain": "A",
+            "number": 245,
+            "aminoAcid": "E"
+          },
+          {
+            "id": "[\"A\",246,\"\"]",
+            "chain": "A",
+            "number": 246,
+            "aminoAcid": "C"
+          },
+          {
+            "id": "[\"A\",247,\"\"]",
+            "chain": "A",
+            "number": 247,
+            "aminoAcid": "T"
+          },
+          {
+            "id": "[\"A\",248,\"\"]",
+            "chain": "A",
+            "number": 248,
+            "aminoAcid": "T"
+          },
+          {
+            "id": "[\"A\",249,\"\"]",
+            "chain": "A",
+            "number": 249,
+            "aminoAcid": "I"
+          },
+          {
+            "id": "[\"A\",250,\"\"]",
+            "chain": "A",
+            "number": 250,
+            "aminoAcid": "Y"
+          },
+          {
+            "id": "[\"A\",251,\"\"]",
+            "chain": "A",
+            "number": 251,
+            "aminoAcid": "N"
+          }
+        ],
+        "settingsSha256": "38b37e7c15a11dc6cc6b73936c95f88bb4dfe2d9d1f7fe9629b03cfc7d1c146a",
+        "upstream": {
+          "state": "present",
+          "revision": "c0ee638d11bc010817c2c97ee58ed5c323e664e2",
+          "manifestSha256": "8f06e409dac335261d2505361f4358e2b4df389b8f85a497967406d8c4af4277",
+          "license": "BindCraft2 Source-Available License (Hosting-Restricted)",
+          "modified": false
+        },
+        "warnings": [
+          "Prepared configuration is not a completed design or a validated full-model Metal backend.",
+          "Hotspots use observed source numbering; no biological numbering conversion is inferred.",
+          "Memory feasibility has not been established for this target.",
+          "Original heavy and light variable domains are separate chains; no connecting linker is designed. Full target/scaffold memory feasibility must pass the selected profile before computation."
+        ],
+        "targetSources": [
+          {
+            "name": "target",
+            "file": "input.cif",
+            "source": {
+              "structureId": "c07aff1b-fbca-448c-b148-60921962d101",
+              "projectId": "b25f5bc0-182b-40c5-8929-09297c3fad0b",
+              "sha256": "359be5ac29780b3eecdaf1e1310b731e383ff358c0f54b4d10495238773a74ee",
+              "format": "mmcif",
+              "model": "1"
+            },
+            "residueMap": [
+              {
+                "id": "[\"A\",240,\"\"]",
+                "chain": "A",
+                "number": 240,
+                "aminoAcid": "D"
+              },
+              {
+                "id": "[\"A\",241,\"\"]",
+                "chain": "A",
+                "number": 241,
+                "aminoAcid": "G"
+              },
+              {
+                "id": "[\"A\",242,\"\"]",
+                "chain": "A",
+                "number": 242,
+                "aminoAcid": "I"
+              },
+              {
+                "id": "[\"A\",243,\"\"]",
+                "chain": "A",
+                "number": 243,
+                "aminoAcid": "P"
+              },
+              {
+                "id": "[\"A\",244,\"\"]",
+                "chain": "A",
+                "number": 244,
+                "aminoAcid": "A"
+              },
+              {
+                "id": "[\"A\",245,\"\"]",
+                "chain": "A",
+                "number": 245,
+                "aminoAcid": "E"
+              },
+              {
+                "id": "[\"A\",246,\"\"]",
+                "chain": "A",
+                "number": 246,
+                "aminoAcid": "C"
+              },
+              {
+                "id": "[\"A\",247,\"\"]",
+                "chain": "A",
+                "number": 247,
+                "aminoAcid": "T"
+              },
+              {
+                "id": "[\"A\",248,\"\"]",
+                "chain": "A",
+                "number": 248,
+                "aminoAcid": "T"
+              },
+              {
+                "id": "[\"A\",249,\"\"]",
+                "chain": "A",
+                "number": 249,
+                "aminoAcid": "I"
+              },
+              {
+                "id": "[\"A\",250,\"\"]",
+                "chain": "A",
+                "number": 250,
+                "aminoAcid": "Y"
+              },
+              {
+                "id": "[\"A\",251,\"\"]",
+                "chain": "A",
+                "number": 251,
+                "aminoAcid": "N"
+              }
+            ],
+            "objective": "target",
+            "weight": 1.0
+          }
+        ]
+      },
+      "outputs": [],
+      "settingsFile": "settings.json",
+      "provenanceFile": "provenance.json"
+    },
+    "created": "2026-10-18T16:48:04.325116+00:00",
+    "updated": "2026-10-18T16:48:04.327727+00:00"
+  },
+  "exactCoordinatesUnchanged": true,
+  "selectedResidues": 12,
+  "selectedAtoms": 89,
+  "authorNumbering": "A240\u2013251 preserved",
+  "originalAssetUnchanged": true,
+  "projectExportAssetAndScaffoldHashes": "passed",
+  "projectArchive": "/Users/vii/Documents/FoldStudio-MetalPort/validation/angptl3-target-fragment/native-fragment-project.zip",
+  "signatureAfterNativeUI": "passed",
+  "actualViewport": {
+    "state": "passed",
+    "atoms": 89,
+    "residues": 12,
+    "screenshot": "native-fragment-viewport.png"
+  },
+  "preparationScreenshot": "native-scaffold-fragment.png",
+  "initialViewportAttempt": {
+    "state": "failed_to_initialize_WebGL",
+    "resolution": "Later isolated relaunch initialized normally and rendered the exact fragment. Root cause not established; renderer code and materials unchanged."
+  }
+}

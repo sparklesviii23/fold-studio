@@ -1,0 +1,216 @@
+{
+  "state": "passed",
+  "scope": "Artificial orthogonal coordinate fixture: distance, angle, signed and mirrored dihedrals agree with analytic values and original ChimeraX angle/torsion commands. No molecular quality or biological claim.",
+  "chimeraxVersion": "1.12",
+  "results": [
+    {
+      "orderedAtoms": [
+        "N",
+        "O"
+      ],
+      "expected": 1.7320508075688772,
+      "result": {
+        "kind": "distance",
+        "value": 1.7320508075688772,
+        "unit": "\u00c5",
+        "method": "chimerax.geometry.distance",
+        "atoms": [
+          {
+            "key": "c76b00b8-dce3-4bff-a8be-a0d02750d517:atom:1",
+            "spec": "#1/A:1@N",
+            "xyz": [
+              1.0,
+              0.0,
+              0.0
+            ]
+          },
+          {
+            "key": "c76b00b8-dce3-4bff-a8be-a0d02750d517:atom:4",
+            "spec": "#1/A:1@O",
+            "xyz": [
+              0.0,
+              1.0,
+              1.0
+            ]
+          }
+        ],
+        "sessionId": "c76b00b8-dce3-4bff-a8be-a0d02750d517"
+      }
+    },
+    {
+      "orderedAtoms": [
+        "N",
+        "CA",
+        "C"
+      ],
+      "expected": 90.0,
+      "result": {
+        "kind": "angle",
+        "value": 90.0,
+        "unit": "degrees",
+        "method": "chimerax.geometry.angle",
+        "atoms": [
+          {
+            "key": "c76b00b8-dce3-4bff-a8be-a0d02750d517:atom:1",
+            "spec": "#1/A:1@N",
+            "xyz": [
+              1.0,
+              0.0,
+              0.0
+            ]
+          },
+          {
+            "key": "c76b00b8-dce3-4bff-a8be-a0d02750d517:atom:2",
+            "spec": "#1/A:1@CA",
+            "xyz": [
+              0.0,
+              0.0,
+              0.0
+            ]
+          },
+          {
+            "key": "c76b00b8-dce3-4bff-a8be-a0d02750d517:atom:3",
+            "spec": "#1/A:1@C",
+            "xyz": [
+              0.0,
+              1.0,
+              0.0
+            ]
+          }
+        ],
+        "sessionId": "c76b00b8-dce3-4bff-a8be-a0d02750d517"
+      }
+    },
+    {
+      "orderedAtoms": [
+        "N",
+        "CA",
+        "C",
+        "O"
+      ],
+      "expected": -90.0,
+      "result": {
+        "kind": "dihedral",
+        "value": -90.0,
+        "unit": "degrees",
+        "method": "chimerax.geometry.dihedral",
+        "atoms": [
+          {
+            "key": "c76b00b8-dce3-4bff-a8be-a0d02750d517:atom:1",
+            "spec": "#1/A:1@N",
+            "xyz": [
+              1.0,
+              0.0,
+              0.0
+            ]
+          },
+          {
+            "key": "c76b00b8-dce3-4bff-a8be-a0d02750d517:atom:2",
+            "spec": "#1/A:1@CA",
+            "xyz": [
+              0.0,
+              0.0,
+              0.0
+            ]
+          },
+          {
+            "key": "c76b00b8-dce3-4bff-a8be-a0d02750d517:atom:3",
+            "spec": "#1/A:1@C",
+            "xyz": [
+              0.0,
+              1.0,
+              0.0
+            ]
+          },
+          {
+            "key": "c76b00b8-dce3-4bff-a8be-a0d02750d517:atom:4",
+            "spec": "#1/A:1@O",
+            "xyz": [
+              0.0,
+              1.0,
+              1.0
+            ]
+          }
+        ],
+        "sessionId": "c76b00b8-dce3-4bff-a8be-a0d02750d517"
+      }
+    },
+    {
+      "orderedAtoms": [
+        "N",
+        "CA",
+        "C",
+        "CB"
+      ],
+      "expected": 90.0,
+      "result": {
+        "kind": "dihedral",
+        "value": 90.0,
+        "unit": "degrees",
+        "method": "chimerax.geometry.dihedral",
+        "atoms": [
+          {
+            "key": "c76b00b8-dce3-4bff-a8be-a0d02750d517:atom:1",
+            "spec": "#1/A:1@N",
+            "xyz": [
+              1.0,
+              0.0,
+              0.0
+            ]
+          },
+          {
+            "key": "c76b00b8-dce3-4bff-a8be-a0d02750d517:atom:2",
+            "spec": "#1/A:1@CA",
+            "xyz": [
+              0.0,
+              0.0,
+              0.0
+            ]
+          },
+          {
+            "key": "c76b00b8-dce3-4bff-a8be-a0d02750d517:atom:3",
+            "spec": "#1/A:1@C",
+            "xyz": [
+              0.0,
+              1.0,
+              0.0
+            ]
+          },
+          {
+            "key": "c76b00b8-dce3-4bff-a8be-a0d02750d517:atom:5",
+            "spec": "#1/A:1@CB",
+            "xyz": [
+              0.0,
+              1.0,
+              -1.0
+            ]
+          }
+        ],
+        "sessionId": "c76b00b8-dce3-4bff-a8be-a0d02750d517"
+      }
+    }
+  ],
+  "commands": [
+    {
+      "command": "angle #1/A:1@N,CA,C",
+      "value": 90.0,
+      "expected": 90.0
+    },
+    {
+      "command": "torsion #1/A:1@N,CA,C,O",
+      "value": -90.0,
+      "expected": -90.0
+    },
+    {
+      "command": "torsion #1/A:1@N,CA,C,CB",
+      "value": 90.0,
+      "expected": 90.0
+    }
+  ],
+  "duplicateAtomsRefused": true,
+  "sourceSha256": "5763e2b8adb72fdd4427d7a91018c4229ba95e80fe0650a8871add0291c4f91b",
+  "sourceUnchanged": true,
+  "nativeCoordinatesUnchanged": true,
+  "engineRoot": "/Users/vii/Documents/FoldStudio-MetalPort/validation/Relocated Paired Scaffold/FOLD STUDIO Metal Dev.app/Contents/Resources",
+  "signatureAfterMeasurement": "passed"
+}

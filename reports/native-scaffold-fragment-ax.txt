@@ -1,0 +1,153 @@
+Window: "FOLD STUDIO — The Molecular Observatory", App: FOLD STUDIO Metal Dev.
+0 standard window FOLD STUDIO — The Molecular Observatory, Secondary Actions: Raise
+	1 scroll area
+		2 HTML content Description: FOLD STUDIO · The Molecular Observatory, URL: tauri://localhost
+			3 container Molecular Architect design campaigns
+				4 button Close
+				5 text PROJECT METAL · DESIGN CAMPAIGNS
+				6 heading Prepare a reproducible design., Value: 2
+					7 text Prepare a reproducible design.
+				8 text BindCraft2 source is integrated. Full native design execution is still under validation. Preparation and ranked-result import are available.
+				9 container
+					10 text Campaign name
+					11 text field (settable) Campaign name, Value: Native paired-domain preparation QA
+				12 container
+					13 text Saved target structure
+					14 pop up button Saved target structure, Value: ANGPTL3 A240–251 · native fragment QA
+				15 container
+					16 text Design format
+					17 pop up button Design format, Value: Antibody variable domains · paired heavy and light chains
+				18 container Target chains · select explicitly
+					19 text Target chains · select explicitly
+					20 container
+						21 checkbox Chain A · 12 observed residues, Value: 1
+						22 text Chain  A  ·  12  observed residues
+				23 container (collapsed) Secondary Actions: Expand
+					24 summary Save a separate target fragment, Value: off
+						25 text Save a separate target fragment
+					26 stepper 0
+						27 unknown
+						28 unknown
+					29 stepper 0
+						30 unknown
+						31 unknown
+				32 button Add another target state
+				33 text Each target retains its own coordinates, chain choices and binding or avoidance objective. Small multi-target campaigns can use a separate experimental CPU profile. Preparation does not start a calculation.
+				34 container
+					35 text Primary-target hotspots · observed source numbering
+					36 list Design hotspots
+						37 text (selectable) A:240 ASP
+						38 text (selectable) A:241 GLY
+						39 text (selectable) A:242 ILE
+						40 text (selectable) A:243 PRO
+						41 text (selectable) A:244 ALA
+						42 text (selectable) A:245 GLU
+						43 text (selectable) A:246 CYS
+						44 text (selectable) A:247 THR
+						45 text (selectable) A:248 THR
+						46 text (selectable) A:249 ILE
+						47 text (selectable) A:250 TYR
+						48 text (selectable) A:251 ASN
+				49 container
+					50 text Coldspots
+					51 list Design coldspots
+						52 text (selectable) A:240 ASP
+						53 text (selectable) A:241 GLY
+						54 text (selectable) A:242 ILE
+						55 text (selectable) A:243 PRO
+						56 text (selectable) A:244 ALA
+						57 text (selectable) A:245 GLU
+						58 text (selectable) A:246 CYS
+						59 text (selectable) A:247 THR
+						60 text (selectable) A:248 THR
+						61 text (selectable) A:249 ILE
+						62 text (selectable) A:250 TYR
+						63 text (selectable) A:251 ASN
+				64 container
+					65 text Requested candidates
+					66 number field (settable) Requested candidates, Value: 01
+						67 stepper 0
+							68 unknown
+							69 unknown
+				70 container
+					71 text Maximum attempts
+					72 number field (settable) Maximum attempts, Value: 01
+						73 stepper 0
+							74 unknown
+							75 unknown
+				76 container
+					77 text Random seed
+					78 number field (settable) Random seed, Value: 42
+						79 stepper 0
+							80 unknown
+							81 unknown
+				82 container
+					83 text scFv  uses its pinned upstream scaffold and edit choices. Fixed framework and editable positions follow the original preset; length follows those edit choices.  The heavy and light domains are separate chains. A connecting linker is not designed. Small targets can use the larger CPU profile; the original full scaffold is retained.
+				84 button Check configuration
+				85 button Save prepared campaign
+				86 button Check compute backend
+				87 text Saved inputs retain source coordinates, settings, seed, residue mapping and upstream revision. No calculation or external upload starts when preparing a campaign.
+				88 text Campaign prepared. Original inputs and settings are saved.
+				89 summary prepared, Value: off
+					90 text prepared
+				91 heading ProteinMPNN · fixed-backbone sequence redesign, Value: 3
+					92 text ProteinMPNN · fixed-backbone sequence redesign
+				93 text Redesign the chains selected above while holding other chains fixed. Runs the authentic upstream model on CPU. Produces sequences, without predicting new structures or binding.
+				94 container
+					95 text Residues to redesign · leave empty for all selected chains
+					96 list ProteinMPNN design residues
+						97 text (selectable) A:240 ASP
+						98 text (selectable) A:241 GLY
+						99 text (selectable) A:242 ILE
+						100 text (selectable) A:243 PRO
+						101 text (selectable) A:244 ALA
+						102 text (selectable) A:245 GLU
+						103 text (selectable) A:246 CYS
+						104 text (selectable) A:247 THR
+						105 text (selectable) A:248 THR
+						106 text (selectable) A:249 ILE
+						107 text (selectable) A:250 TYR
+						108 text (selectable) A:251 ASN
+				109 container
+					110 checkbox (disabled) Value: 0, Tie corresponding positions across selected chains · requires equal lengths and compatible fixed residues
+					111 text Tie corresponding positions across selected chains · requires equal lengths and compatible fixed residues
+				112 container
+					113 text Exclude amino acids at redesigned positions
+					114 text field (settable) Exclude amino acids at redesigned positions, Placeholder: Optional one-letter codes, for example C
+				115 container
+					116 text ProteinMPNN sequences per chain
+					117 number field (settable) ProteinMPNN sequences per chain, Value: 2
+						118 stepper 0
+							119 unknown
+							120 unknown
+				121 button Redesign selected chains · 2 sequences per chain
+				122 heading Saved campaigns, Value: 3
+					123 text Saved campaigns
+				124 container
+					125 checkbox Use the original upstream model ensemble · more memory and compute, Value: 0
+					126 text Use the original upstream model ensemble · more memory and compute
+				127 container
+					128 text Native paired-domain preparation QA prepared  ·  0  imported structures Experimental campaigns retain the original scientific filters. Select a single model or the original upstream ensemble. CPU is available with the scientific runtime; Metal uses a separately verified float32 runtime. Check compute backend to enable Metal. Requires the design checkpoint plus a held-out validation checkpoint for the selected format.
+					129 button Start experimental CPU campaign · float32
+					130 text Larger original scaffolds can use a separate experimental CPU profile with a higher memory allowance. This profile uses one design model and one held-out validation model.
+					131 button Start larger scaffold campaign · CPU
+					132 button Import ranked results
+					133 summary Prepared settings & provenance, Value: off
+						134 text Prepared settings & provenance
+				135 container
+					136 text Design campaign prepared  ·  0  imported structures Experimental campaigns retain the original scientific filters. Select a single model or the original upstream ensemble. CPU is available with the scientific runtime; Metal uses a separately verified float32 runtime. Check compute backend to enable Metal. Requires the design checkpoint plus a held-out validation checkpoint for the selected format.
+					137 button Start experimental CPU campaign · float32
+					138 button Import ranked results
+					139 summary Prepared settings & provenance, Value: off
+						140 text Prepared settings & provenance
+				141 text Imported structures appear in Research Library and Molecular Intelligence. They remain computational predictions; upstream acceptance does not establish binding or inhibition.
+	142 close button
+	143 full screen button Help: this button also has an action to zoom the window, Secondary Actions: zoom the window
+	144 minimize button
+145 menu bar
+	146 FOLD STUDIO Metal Dev
+	147 File
+	148 Edit
+	149 View
+	150 Window
+	151 Help

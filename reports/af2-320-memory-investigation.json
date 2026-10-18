@@ -24,8 +24,20 @@
       "state": "resource_exhausted",
       "report": "af2-320-metal-subbatch4.json",
       "observedFootprintGiB": 8.8
+    },
+    {
+      "budgetGiB": 10,
+      "state": "resource_exhausted",
+      "report": "af2-320-metal-10g.json",
+      "observedFootprintGiB": 10.2,
+      "reportedMachineFreeGiB": 0.3,
+      "forwardCoordinateRmsAngstrom": 0.0009118994194716779
     }
   ],
-  "nextExperiment": "Full original VHH scaffold optimizer on CPU with the complete 115-residue target, before offering a separately labeled larger CPU-only experimental profile. Metal remains at its tested 256-residue boundary.",
-  "applicationResidueLimit": 256
+  "nextExperiment": "Investigate lower memory execution rather than increasing limits on this 24 GiB host with observed pressure. Continue independent CPU/shared workflow requirements.",
+  "applicationResidueLimit": {
+    "default": 256,
+    "largerScaffoldCpu": 320,
+    "largerMetal": "not enabled"
+  }
 }

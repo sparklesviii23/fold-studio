@@ -18,11 +18,11 @@ validity. No top-level platform requirement is marked COMPLETE.
 | Scientific engine registry | IMPLEMENTED | `fold_engine.py`; worker/Rust IPC allowlists | Versioned typed capability schemas, capability validation |
 | Shared viewer/sequence/command state | IN DEVELOPMENT | Existing native scene bridge, console, viewer selection and Molecular Intelligence | Formal invalidation, shared edits and undo/redo across all adapters |
 | Computational jobs and persistence | TESTED | `worker.py`, `mpnn.py`, `intelligence.py`; SQLite jobs; `test_mpnn.py` | Common priority/resource/cancel/recovery contract for every engine |
-| Model and dependency management | IN DEVELOPMENT | M1 source checksum manifest, M2 checkpoint digests; `scripts/fetch-af2-parameter.py` | Managed UI downloads, independent checksums where provided, recovery/unload/storage |
+| Model and dependency management | IN DEVELOPMENT | Official AF2 member pins; publisher Boltz pin, atomic acquisition and native integrity controls; `boltz_resources.py`, `PredictionResources.tsx` | Extend managed downloads/status to other weights, recovery/unload/storage |
 | Hardware/GPU resources | IN DEVELOPMENT | `fold_compute.py`; actual MPS diagnostic/attention evidence | Memory-aware scheduling, GPU allocation, peak-memory/throughput benchmarks |
 | BindCraft2 pinned source/dependency inventory | TESTED | `vendor/bindcraft2-source.json`, `reports/bindcraft-audit.json` | Maintain pin and attribution; source presence is not feature parity |
 | Campaign configuration | TESTED | `fold_engine.py`; upstream input checks on hPDL1/ANGPTL3 | Other modalities/constraints, full upstream preflight and live campaign execution |
-| AF2 model parameters | TESTED | Bounded official archive member acquisition script | Load authentic checkpoint; record provenance; no synthetic parameters substituted |
+| AF2 model parameters | TESTED | Seven authentic model checkpoints acquired as bounded official archive members, source/archive/checksum receipts; real models executed | AF2 digests are locally computed against official source, not independently published hashes; maintain provenance and attribution |
 | AF2 complete forward and structure module | TESTED | `validate-af2-full.py`; genuine monomer/multimer CPU and Metal forward reports | 12/24-residue and 175-residue comparisons; real full ensemble binder accepted; broader modality/reference acceptance remains |
 | AF2 loss, backpropagation and optimization | TESTED | `af2_native.py`; full-model monomer/multimer gradients, recycling and four real optimizer stages compared | Float32 model/optimizer comparisons and full ensemble campaign; upstream surrogate gradients require reference comparisons, not naive finite differences; broader coverage pending |
 | Metal-compatible AF2 execution | IN DEVELOPMENT | MetalJAX 0.11.9, `af2_native.py`, monomer/multimer/optimizer comparison reports | Float32 narrow comparisons pass; original Apple plugin incompatible; full-size 6 GiB campaign under validation, no whole-engine parity claim |
@@ -31,14 +31,14 @@ validity. No top-level platform requirement is marked COMPLETE.
 | ProteinMPNN multistate/ties/residue constraints | IN DEVELOPMENT | `mpnn_constraints.py`, `mpnn_runner.py`, explicit sites/ties/omissions/biases; exact trained-model decoder comparison | Shared workflow/export and packaged acceptance; multistate redesign still incomplete |
 | Genuine local BindCraft2 trajectory | IN DEVELOPMENT | `bindcraft_cpu.py`, `bindcraft_runner.py`; actual full-parameter CPU and Metal campaigns finished | Full single-model CPU/Metal campaigns correctly rejected candidates; original 5-design/2-held-out-model Metal ensemble produced one accepted computational prediction, not biological validation |
 | Binder and linear peptide generation | IN DEVELOPMENT | Configuration/import works | End-to-end actual generation, filtering, comparison, provenance |
-| Cyclic peptide, VHH, ARP, scFv, Fab and scaffold workflows | IN DEVELOPMENT | Cyclic original preset preparation and technical optimizer execution; other presets inventoried | Cyclic closure/reference checks in progress; VHH/scaffold adapters and end-to-end scientific validation remain |
-| Multitarget, detarget, fold switch, induced-fit and oligomers | IN DEVELOPMENT | `campaign_inputs.py`; explicit multi-target snapshots, objectives, native target-state import links; small CPU workflows | Small positive/negative technical pipelines pass; original-filter small campaign running; large multi-target, scaffold combinations, fold switch, induced-fit and oligomers remain incomplete |
+| Cyclic peptide, VHH, ARP, scFv, Fab and scaffold workflows | IN DEVELOPMENT | Original presets/snapshots; cyclic closure, VHH/ARP CPU/Metal narrow comparisons; paired scFv CPU stages with fixed frameworks preserved | Full-target VHH campaign and scFv full diagnostic pipeline active; Fab and broad scientific acceptance remain |
+| Multitarget, detarget, fold switch, induced-fit and oligomers | IN DEVELOPMENT | `campaign_inputs.py`; explicit multi-target snapshots, objectives, native target-state import links; small CPU workflows | Small positive/negative technical pipelines pass; original-filter small campaign finished with no accepted candidates; large multi-target, scaffold combinations, fold switch, induced-fit and oligomers remain incomplete |
 | Candidate import and reproducibility | TESTED | Ranked importer, raw CSV/metadata and coordinate checksums; M2 sequence records | Folding validation and automatic full-trajectory import |
 | ChimeraX command architecture | IN DEVELOPMENT | Existing `observatory.py`, native inventory, console, capability audit | Exhaustive versioned command matrix and measured expansion; no universal claim |
 | Coloring, selection, styles, surfaces and camera | IMPLEMENTED | Existing native scene/command/viewer adapters | Expand operation-equivalence and supported-argument tests |
 | Measurements, contacts, H bonds, alignment, RMSD | TESTED | Existing MI/ChimeraX implementations, 4.3 tests and reference checks | Broaden chemistry and command-specific scientific evidence |
 | Volumes, maps, trajectories, advanced editing | NOT STARTED | Some existing native commands may register | Verified unified state/render support and complete workflow tests |
-| Molecular Architect full workflow | IN DEVELOPMENT | Existing sequence editor plus campaign/redesign dialog | Visual hotspot capture, actual generation, folding validation, candidate comparison |
+| Molecular Architect full workflow | IN DEVELOPMENT | Shared campaign/redesign dialog, observed hotspot IDs, immutable inputs, exact target fragments, real sequence/campaign results | Broader modalities and design-specific comparative/scientific acceptance |
 | Protein Intelligence / X-Ray / interface explorer | IN DEVELOPMENT | Existing `MolecularIntelligence.tsx`, `intelligence.py` | Clearer evidence/UI, expanded chemistry and mutation analysis |
 | Structural Comparison Observatory | IMPLEMENTED | Existing aligned views, RMSD/contact comparison and confidence | More reference cases, mutation/campaign comparison and transparent ranking |
 | Boltz prediction | TESTED | Existing Boltz MPS pipeline and saved outputs | Broader end-to-end model acceptance and managed runtime packaging |
@@ -53,21 +53,28 @@ validity. No top-level platform requirement is marked COMPLETE.
 | Publication figures | IMPLEMENTED | Existing PNG/SVG/PDF reports, native scene save | Publication QA, legends and reusable layouts |
 | Molecular Cinema / video | IN DEVELOPMENT | Existing pose crossfade of fixed structures | Camera keyframes, timeline, real video export; never label illustrative animation as dynamics |
 | Biological databases | IMPLEMENTED | Existing UniProt/PDB/AlphaFold DB retrieval | Domains/variants/interactions/Foldseek, retrieval provenance and validation |
-| Self-contained macOS runtime | IN DEVELOPMENT | Relocated CPython/JAX runtime imports and gradients pass; native app now being built with CPU runtime and AF2 checkpoints; Metal runtime staged with licenses | Relocatable Python/native libraries, permitted ChimeraX embedding, first-run weight management |
+| Self-contained macOS runtime | IN DEVELOPMENT | Three included CPU-JAX/MetalJAX/Boltz runtimes; real relocated AF2/MPNN/Boltz execution and app seals pass; native bundled-runtime/model status | Permitted ChimeraX embedding, fresh-machine/upgrade acceptance, broader engines and first-run resources |
 | Signing, relocatability and data integrity | IN DEVELOPMENT | Existing signed builds and packaged IPC tests | Full standalone relocated launch, runtime dylibs and upgrade/data acceptance |
 | ANGPTL3–ANGPTL8–APOA5 complete research workflow | IN DEVELOPMENT | Existing MI analysis and genuine packaged ANGPTL3 ProteinMPNN redesign | Actual binder trajectory, generated complex, comparative analysis and report |
 
 ## Current execution loop
 
-1. Acquire only the required authentic AF2 parameter member, preserving provider
-   ETag and local SHA-256; avoid downloading/extracting a 5.6 GB archive with only
-   ~10 GiB disk free.
-2. Exercise the unchanged full AF2 CPU forward/gradient pathway on a tiny explicit
-   technical input. This is a CPU feasibility/reference route, not a Metal port.
-3. Use evidence to enable actual supported inference/optimization paths, then
-   continue the next actionable requirement. Do not stop because one check passes.
-4. Maintain recoverable commits and update this tracker. On context recovery,
-   inspect active processes/reports first; do not restart completed long work.
+1. Full-target VHH original-filter CPU job `966989db-84d8-4e50-8f24-efaba599995b`
+   finished with no accepted designs (original final i_pTM rejection). Do not
+   restart it. The paired-domain full technical pipeline also finished; outputs
+   stay quarantined because its QA gates were permissive.
+2. Native `db6b80f` build is sealed. Fragment creation and paired-domain preparation
+   passed through its actual forms; finish viewport/export acceptance and save
+   the final native screenshots. Packaged ordered geometry and seals passed.
+   A new bounded 10 GiB Metal experiment is running at
+   `../validation/af2-320-metal-10g`, now that earlier CPU campaigns finished.
+   It is a technical forward/gradient memory investigation; app limits stay
+   unchanged until numerical comparison and broader acceptance pass.
+3. Continue the full roadmap: broader modality/reference acceptance, native
+   ChimeraX command coverage, shared workflows, remaining scientific engines and
+   standalone runtime management. Respect current measured memory limits.
+4. Preserve recoverable commits and precise evidence. A build, commit or passing
+   check is a checkpoint, never completion of this assignment.
 
 ## Continuous execution checkpoint — after M2
 
@@ -709,3 +716,45 @@ Combined source checks pass: 229 Python and 69 frontend tests, plus TypeScript
 compilation; one existing private frontend fixture skipped. Native integration
 build now batches the verified geometry fix, paired-domain controls and target
 fragment workflow. UI and packaged source acceptance still need to finish.
+
+### Completed scaffold calculations and current Metal investigation
+
+The full-target original VHH CPU campaign completed all optimization stages but
+failed the original final i_pTM criterion (reported 0.66, pLDDT 0.90); it imported
+zero structures. `reports/vhh-full-target-cpu-outcome.json`. Do not relabel its
+rejection or silently weaken the filters. The paired scFv technical full pipeline
+finished in 764.946 s, with 126/107-residue domains and the original 12-residue
+target. Genuine MPNN held 199 framework residues, verified independently against
+the saved trajectory sequences and the exact written editable-site stamp.
+`reports/scfv-cpu-pipeline.json`, `scfv-output-correspondence.json`. Raw absent
+interface scores remain -inf/blank upstream; no score is synthesized. Diagnostic
+output is not original-filter acceptance, binding evidence or a designed linker.
+
+The native full-target scFv launch correctly refuses its 416 padded positions
+against the 320 CPU profile and leaves the full prepared input unchanged
+(`reports/scfv-native-resource-guard.json`). After earlier CPU jobs finished, a
+separate 10 GiB-governed Metal technical case is probing genuine 320-residue
+forward/backpropagation against the existing CPU reference. Existing failed
+6/8 GiB cases remain evidence; no app memory or residue limit was raised.
+
+Native combined `db6b80f` acceptance passed: actual form extracted ANGPTL3
+A240–251 (12 residues / 89 atoms), selected it as the new target and saved the
+original paired-domain scaffold campaign. Source/fragment coordinates, author
+numbers and project/scaffold export hashes all match. The existing viewer
+rendered the real fragment and synchronized its native scene; app seal passed.
+Evidence: `reports/native-scaffold-fragment.json`, `native-scaffold-fragment.png`
+and `native-fragment-viewport.png`. An earlier WebGL initialization attempt
+failed; isolated relaunch later initialized and rendered correctly. Root cause
+is not established; do not claim a renderer-code fix. Packaged angle/torsion
+checks also passed (`reports/packaged-ordered-measurements.json`). No native
+scFv campaign was started by the form acceptance; diagnostic model execution
+was separately recorded and quarantined.
+
+The governed 10 GiB larger Metal attempt completed forward inference. Its 2,672
+written atomic positions match the saved CPU forward output with coordinate RMS
+0.000912 Å (max component difference 0.0625 Å). Backpropagation then failed with
+RESOURCE_EXHAUSTED at 10.2 GiB process footprint / 9.5 GiB live MLX arrays and only
+0.3 GiB reported machine free memory. Preserve this partial result and failure;
+do not claim gradient parity or raise app limits. `reports/af2-320-metal-10g.json`
+and the updated memory investigation retain the evidence. Larger CPU scaffolds
+remain supported; larger Metal needs a lower-memory execution solution.
