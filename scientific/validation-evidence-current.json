@@ -225,6 +225,17 @@
       "limitations": "Only the stated ANGPTL3 fixture, syntax and scene assertions are tested. Other arguments, renderer appearance and full visual equivalence remain unverified.",
       "evidenceCheck": "surface #1",
       "evidenceReport": "native-scene-commands.json"
+    },
+    {
+      "kind": "command",
+      "name": "coordset",
+      "status": "Partial",
+      "functionalityTested": true,
+      "scientificOutputValidated": true,
+      "validationScope": "Artificial three-frame multi-MODEL PDB: original ChimeraX coordset commands preserve frame IDs, atom handles, exact coordinates, repeatable scene fingerprints and raw unfitted RMSD. Source/export retain every supplied frame. No simulation, time axis, force field, dynamics or biological validation claim.",
+      "limitations": "Only explicit single-frame switching on the stated artificial PDB is checked. Other arguments, continuous native playback, time interpretation, simulation and full visual equivalence remain unverified.",
+      "evidenceCheck": "Five native frame changes preserve analytic coordinates, IDs and atom handles",
+      "evidenceReport": "coordinate-ensemble.json"
     }
   ],
   "additionalReports": {
@@ -242,6 +253,11 @@
       "sha256": "a318a9fb04dd6fb4a8b182027382e40c924ffe79763776387f52405bfe093c5e",
       "state": "passed",
       "scope": "Installed ChimeraX commands reflected into the shared FOLD scene: author selection display, cartoons, alpha bytes, unfitted RMSD, explicit model rotation, camera zoom and genuine surface buffers. Narrow fixture/syntax checks; no complete command parity or visual equivalence claim."
+    },
+    "coordinate-ensemble.json": {
+      "sha256": "fa27176cbef3b9a1b0edaa121407f7b5aaa403a05fba2bcbbbcd3dffc2f518f5",
+      "state": "passed",
+      "scope": "Artificial three-frame multi-MODEL PDB: original ChimeraX coordset commands preserve frame IDs, atom handles, exact coordinates, repeatable scene fingerprints and raw unfitted RMSD. Source/export retain every supplied frame. No simulation, time axis, force field, dynamics or biological validation claim."
     }
   }
 }

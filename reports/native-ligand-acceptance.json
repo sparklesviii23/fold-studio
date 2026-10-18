@@ -1,0 +1,26 @@
+{
+  "state": "passed",
+  "scope": "Actual relocated native form submitted ethanol, completed real bundled RDKit job, saved a shared structure, exported exact SDF through macOS Save, and displayed connected ligand geometry after bond adapter correction. No docking or biological validation asserted.",
+  "app": "/Users/vii/Documents/FoldStudio-MetalPort/validation/Relocated Native Bond Fix/FOLD STUDIO Metal Dev.app",
+  "sourceCommit": "f7a9280",
+  "root": "/Users/vii/Documents/FoldStudio-MetalPort/validation/packaged-ligand-chemistry",
+  "jobId": "2fce5abc-3aa4-4d34-af01-5fc065a5ab0a",
+  "recordId": "922636c4-4b42-4d98-9442-02f7cfe8ce08",
+  "input": {
+    "name": "Native ligand form QA \u00b7 ethanol",
+    "smiles": "CCO",
+    "seed": 42,
+    "conformers": 3
+  },
+  "formula": "C2H6O",
+  "sourceSha256": "339017d9d5921b0465b88610d5880bbcefca784f2b94f3e0b235ae1935b1c356",
+  "sourceUnchanged": true,
+  "nativeSaveExportSha256": "bfc07cc65026f711f7bcc8fd96b5915333ba2118ca06480ead905a55e6d30a0e",
+  "signatureAfterNativeUse": "passed",
+  "visualEvidence": [
+    "native-ligand-form.png",
+    "native-ligand-before-bond-fix.png",
+    "native-ligand-bonds-fixed.png"
+  ],
+  "initialVisualDefect": "Explicit bond lengths were incorrectly supplied as 1e8; actual MolStar parser/structure test reproduces rejection, measured native lengths retain explicit bonds."
+}

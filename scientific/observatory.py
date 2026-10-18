@@ -245,10 +245,17 @@ class Observatory:
                 closed=self.chimerax_execute({**p,'command':'close #'+previous['id'],'confirmed':True})
                 if closed['state']!='completed':raise ValueError('The previous library model could not be closed safely.')
                 known.discard(previous['id'])
-        result=self.chimerax_execute({**p,'command':'open '+native_quote(path),'sourceSha256':record['data']['sha256'],'confirmed':True})
+        ensemble=record['data'].get('metadata',{}).get('coordinateEnsemble')
+        if ensemble:
+            from coordinate_ensemble import inspect
+            if inspect(path.read_bytes())!=ensemble:raise ValueError('Coordinate ensemble source or frame metadata changed.')
+        options=' coordsets true slider false missingCoordsets ignore' if ensemble else ''
+        result=self.chimerax_execute({**p,'command':'open '+native_quote(path)+options,'sourceSha256':record['data']['sha256'],'confirmed':True})
         if result['state']!='completed':return result
         models=[m for m in result['snapshot']['models'] if m['id'] not in known]
         mapped=[{'structureId':record['id'],'sourceSha256':record['data']['sha256'],'sessionId':before['sessionId'],'modelId':m['id'],'positionsSha256':m['positionsSha256']} for m in models if m['sourceSha256']==record['data']['sha256']]
+        if ensemble:
+            if len(models)!=1 or models[0]['coordsets']!=len(ensemble['frameIds']) or models[0]['atoms']!=ensemble['atomsPerFrame']:raise ValueError('Native ensemble frame or atom counts differ from the validated source.')
         self.s.db.execute('INSERT OR REPLACE INTO settings VALUES(?,?)',('chimeraxMapping',json.dumps([m for m in self.s.setting('chimeraxMapping',[]) if m['sessionId']==before['sessionId']]+mapped)));self.s.db.commit()
         if mapped:
             self.s.db.execute('INSERT OR REPLACE INTO settings VALUES(?,?)',('foldActiveModel',json.dumps(mapped[0])));self.s.db.commit()

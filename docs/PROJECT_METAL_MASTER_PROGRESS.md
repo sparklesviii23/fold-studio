@@ -37,7 +37,7 @@ validity. No top-level platform requirement is marked COMPLETE.
 | ChimeraX command architecture | IN DEVELOPMENT | Existing `observatory.py`, native inventory, console, capability audit | Exhaustive versioned command matrix and measured expansion; no universal claim |
 | Coloring, selection, styles, surfaces and camera | IMPLEMENTED | Existing native scene/command/viewer adapters | Expand operation-equivalence and supported-argument tests |
 | Measurements, contacts, H bonds, alignment, RMSD | TESTED | Existing MI/ChimeraX implementations, 4.3 tests and reference checks | Broaden chemistry and command-specific scientific evidence |
-| Volumes, maps, trajectories, advanced editing | NOT STARTED | Some existing native commands may register | Verified unified state/render support and complete workflow tests |
+| Volumes, maps, trajectories, advanced editing | IN DEVELOPMENT | Explicit coordinate-ensemble import, native frame controls, scoped scene/coordinate checks; existing native map surfaces | Native ensemble UI/viewport acceptance, broader formats and verified maps/editing remain |
 | Molecular Architect full workflow | IN DEVELOPMENT | Shared campaign/redesign dialog, observed hotspot IDs, immutable inputs, exact target fragments, real sequence/campaign results | Broader modalities and design-specific comparative/scientific acceptance |
 | Protein Intelligence / X-Ray / interface explorer | IN DEVELOPMENT | Existing `MolecularIntelligence.tsx`, `intelligence.py` | Clearer evidence/UI, expanded chemistry and mutation analysis |
 | Structural Comparison Observatory | IMPLEMENTED | Existing aligned views, RMSD/contact comparison and confidence | More reference cases, mutation/campaign comparison and transparent ranking |
@@ -908,3 +908,28 @@ unchanged. `scripts/validate-native-scene-commands.py`,
 already linked model, which correctly reused its identity; an explicitly separate
 private reference record now supplies the second RMSD model. Inventory evidence
 is now 21 scoped commands, eight numerical checks, never complete ChimeraX parity.
+
+### Native ligand fix accepted; supplied coordinate ensembles in development
+
+The relocated `f7a9280` viewer now visibly renders the native ethanol bonds.
+`reports/native-ligand-bonds-fixed.png`, `native-ligand-viewer-ax.txt` and
+`native-ligand-acceptance.json` retain actual form/job/export/viewport evidence.
+Original saved coordinates and exact native SDF export hashes agree; signature
+verification after native use passed. The new build was initially opened before
+Launch Services recognized the test process, producing a duplicate default dev
+window. That duplicate was closed before research actions; the private library
+was verified before form/export/viewer work. Original production data untouched.
+
+`coordinate_ensemble.py` validates explicit multi-MODEL PDB topology and metadata,
+retains all raw bytes, pins frame IDs and rejects unresolved/mismatched frames.
+The existing unified import/open architecture reads these as real native
+coordinate sets; no separate research state or viewer. Research Library offers
+an explicit import button. Existing trajectory controls now stop playback when
+models change and disable overlapping slider requests. Native real single-frame
+coordset commands preserve exact artificial coordinates, persistent atom handles,
+original nonconsecutive MODEL IDs and repeatable geometry fingerprints through
+five switches. Analytic raw RMSDs 0/3/2 Å agree; project ZIP preserves the full
+source. Eight contracts pass, 258 Python tests passed at the integration checkpoint,
+TypeScript compilation passes. Evidence registry now contains 22 scoped commands,
+nine numerical checks. No dynamics/time/force-field claim. Packaged/native ensemble
+import and frame controls remain next (`docs/COORDINATE_ENSEMBLES.md`).

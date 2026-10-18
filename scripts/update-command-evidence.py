@@ -49,6 +49,12 @@ if scene_report.exists():
   'surface':'Original molecular surface calculation returns nonempty finite native vertex buffers and valid indexed triangles through the FOLD scene adapter.'}
  for name,scope in scopes.items():
   evidence['capabilities'].append({'kind':'command','name':name,'status':'Partial','functionalityTested':True,'scientificOutputValidated':rows[name]['numerical'],'validationScope':scope,'limitations':'Only the stated ANGPTL3 fixture, syntax and scene assertions are tested. Other arguments, renderer appearance and full visual equivalence remain unverified.','evidenceCheck':rows[name]['command'],'evidenceReport':scene_report.name})
+ensemble_report=ROOT/'reports/coordinate-ensemble.json'
+if ensemble_report.exists():
+ ensemble=json.loads(ensemble_report.read_text());rows=ensemble.get('checks',[])
+ if ensemble.get('state')!='passed' or not ensemble.get('sourceUnchanged') or [row['frame'] for row in rows]!=[3,7,11,7,3] or any(row['maximumCoordinateErrorAngstrom']>1e-5 or abs(row['rmsdToFirstFrameAngstrom']-row['expectedRmsdAngstrom'])>1e-5 for row in rows):raise SystemExit('Coordinate ensemble evidence is incomplete; evidence not promoted.')
+ evidence.setdefault('additionalReports',{})[ensemble_report.name]={'sha256':hashlib.sha256(ensemble_report.read_bytes()).hexdigest(),'state':'passed','scope':ensemble['scope']}
+ evidence['capabilities'].append({'kind':'command','name':'coordset','status':'Partial','functionalityTested':True,'scientificOutputValidated':True,'validationScope':ensemble['scope'],'limitations':'Only explicit single-frame switching on the stated artificial PDB is checked. Other arguments, continuous native playback, time interpretation, simulation and full visual equivalence remain unverified.','evidenceCheck':'Five native frame changes preserve analytic coordinates, IDs and atom handles','evidenceReport':ensemble_report.name})
 (ROOT/'scientific/validation-evidence-current.json').write_text(json.dumps(evidence,indent=2)+'\n')
 baseline=json.loads((ROOT/'scientific/pinned-capabilities-1.12.json').read_text());by_name={r['name']:r for r in evidence['capabilities']}
 with open(ROOT/'docs/CHIMERAX_COMMAND_COMPATIBILITY.csv','w',newline='') as file:

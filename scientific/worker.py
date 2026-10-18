@@ -230,8 +230,14 @@ class Service:
         if not path.is_file() or path.stat().st_size>MAX_FILE: raise ValueError('Structure must be a file below 100 MB.')
         data=path.read_bytes()
         if not (b'_atom_site.' in data or b'ATOM  ' in data or b'HETATM' in data): raise ValueError('No atom coordinates found in this structure file.')
+        metadata=dict(p.get('metadata',{}))
+        if 'coordinateSets' in p and type(p['coordinateSets']) is not bool: raise ValueError('Coordinate ensemble import requires an explicit boolean option.')
+        if p.get('coordinateSets'):
+            if path.suffix.lower()!='.pdb': raise ValueError('Coordinate ensemble import currently requires a multi-MODEL PDB.')
+            from coordinate_ensemble import inspect
+            metadata['coordinateEnsemble']=inspect(data)
         target=self.root/'assets'/(uid()+path.suffix.lower()); target.write_bytes(data)
-        info={'asset':target.name,'format':'pdb' if path.suffix.lower()=='.pdb' else 'mmcif','sha256':hashlib.sha256(data).hexdigest(),'source':p.get('source','Imported local file'),'accession':p.get('accession'),'confidenceKind':p.get('confidenceKind'),'metadata':p.get('metadata',{}),'imported':now()}
+        info={'asset':target.name,'format':'pdb' if path.suffix.lower()=='.pdb' else 'mmcif','sha256':hashlib.sha256(data).hexdigest(),'source':p.get('source','Imported local coordinate ensemble' if p.get('coordinateSets') else 'Imported local file'),'accession':p.get('accession'),'confidenceKind':p.get('confidenceKind'),'metadata':metadata,'imported':now()}
         return self.record_save({'projectId':p['projectId'],'kind':'structure','name':p.get('name',path.name),'data':info})
     def asset_read(self,p):
         name=str(p['asset'])
