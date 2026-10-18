@@ -32,7 +32,8 @@ def probe(python, timeout=25):
 
 def diagnostic(service):
     # Development path supplied by launcher; never installed into another engine's env.
-    runtime=os.environ.get('FOLD_BINDCRAFT_PYTHON')
+    from mpnn import runtime as scientific_runtime
+    runtime=scientific_runtime(service)
     return {'name':'FOLD COMPUTE','schemaVersion':1,'host':{'architecture':platform.machine(),'macOS':platform.mac_ver()[0]},
             'bindcraftRuntime':probe(runtime), 'predictionRuntime':probe(service.engine_python()),
             'remote':{'enabled':False}, 'binderDesign':{'state':'experimental_cpu','metalState':'blocked','reason':'CPU single-model campaigns execute upstream algorithms; complete scientific/modalities acceptance is still in progress. JAX Metal remains incompatible.'},

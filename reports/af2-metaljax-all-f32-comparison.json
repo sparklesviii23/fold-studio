@@ -1,0 +1,129 @@
+{
+  "scope": "Full model_1_ptm, 12-residue technical input, zero recycles, same trained checkpoint and seed. Narrow numerical backend comparison; not biological validation or full BindCraft parity.",
+  "state": "passed",
+  "comparisons": {
+    "gradient": {
+      "shape": [
+        12,
+        20
+      ],
+      "maxAbsError": 2.6432564482092857e-05,
+      "rmsError": 5.365936003226291e-06,
+      "relativeL2Error": 0.0010897382861546334,
+      "cosine": 0.9999994068191616
+    },
+    "inputSequence": {
+      "shape": [
+        12,
+        20
+      ],
+      "maxAbsError": 0.0,
+      "rmsError": 0.0,
+      "relativeL2Error": 0.0,
+      "cosine": 1.0000000000000002
+    },
+    "forwardPositions": {
+      "shape": [
+        12,
+        37,
+        3
+      ],
+      "maxAbsError": 0.00390625,
+      "rmsError": 0.0001697191291567228,
+      "relativeL2Error": 5.923780815929287e-05,
+      "cosine": 0.999999998245561
+    },
+    "gradientPositions": {
+      "shape": [
+        12,
+        37,
+        3
+      ],
+      "maxAbsError": 0.00390625,
+      "rmsError": 0.00013878514701206885,
+      "relativeL2Error": 3.6787045801290744e-05,
+      "cosine": 0.999999999323801
+    },
+    "forwardPlddt": {
+      "shape": [
+        12
+      ],
+      "maxAbsError": 1.430511474609375e-06,
+      "rmsError": 6.931843369968538e-07,
+      "relativeL2Error": 1.0043631163310413e-06,
+      "cosine": 0.9999999999996705
+    }
+  },
+  "cpuTiming": {
+    "scope": "Genuine full model technical input, not a validated binder",
+    "jax": "0.11.2",
+    "backend": "cpu",
+    "precision": "float32",
+    "inputSha256": "eef962a16dfaa99f76690bea3e957027576842936f958a8d55667a692fa42b37",
+    "devices": [
+      "cpu:0"
+    ],
+    "seed": 2718,
+    "residues": 12,
+    "recycles": 0,
+    "model": "model_1_ptm",
+    "parameterSha256": "5e564f79af5bcd54ccef6e2a6bb0ff01015d01650ebc41d4575e35f0de9ecc84",
+    "loadSeconds": 0.5964656251017004,
+    "forwardSeconds": 3.142459375085309,
+    "coordinateShape": [
+      12,
+      37,
+      3
+    ],
+    "resolvedAtoms": 96,
+    "gradientSeconds": 6.136615499854088,
+    "loss": 0.25454404950141907,
+    "gradientShape": [
+      12,
+      20
+    ],
+    "gradientNorm": 0.07628319412469864,
+    "state": "executed_not_reference_validated",
+    "totalSeconds": 9.876124416012317,
+    "peakProcessRSSBytes": 1880948736
+  },
+  "metalTiming": {
+    "scope": "Genuine full model technical input, not a validated binder",
+    "jax": "0.11.2",
+    "backend": "metal",
+    "precision": "float32",
+    "inputSha256": "eef962a16dfaa99f76690bea3e957027576842936f958a8d55667a692fa42b37",
+    "devices": [
+      "MetalDevice(id=0)"
+    ],
+    "seed": 2718,
+    "residues": 12,
+    "recycles": 0,
+    "model": "model_1_ptm",
+    "parameterSha256": "5e564f79af5bcd54ccef6e2a6bb0ff01015d01650ebc41d4575e35f0de9ecc84",
+    "loadSeconds": 1.6400423340965062,
+    "forwardSeconds": 2.129365124972537,
+    "coordinateShape": [
+      12,
+      37,
+      3
+    ],
+    "resolvedAtoms": 96,
+    "gradientSeconds": 3.175189625006169,
+    "loss": 0.25454413890838623,
+    "gradientShape": [
+      12,
+      20
+    ],
+    "gradientNorm": 0.07628575712442398,
+    "state": "executed_not_reference_validated",
+    "totalSeconds": 6.945413125213236,
+    "peakProcessRSSBytes": 1021689856
+  },
+  "thresholds": {
+    "gradientRelativeL2": 0.05,
+    "gradientCosineMin": 0.99,
+    "plddtMaxAbs": 0.01,
+    "coordinateRmsAngstrom": 0.1
+  }
+}

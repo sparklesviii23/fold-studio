@@ -54,3 +54,16 @@ def run(s,id):
  except Exception as error:
   if s.job(id)['state']!='cancelled':s.job_update(id,'failed',{'error':str(error),'finished':fe.mi.now()})
   print('BindCraft CPU error:',error,flush=True)
+
+def progress_from_log(log):
+ """Report only explicitly emitted upstream events. Never invent percent/iteration progress."""
+ import re
+ trajectories=list(re.finditer(r'=== trajectory (\d+) \| ([^\n|]+) \| accepted (\d+)/(\d+) ===',log))
+ out={'source':'upstream execution log','percent':None}
+ if trajectories:
+  match=trajectories[-1];out.update(trajectory=int(match[1]),trajectoryName=match[2].strip(),acceptedAtTrajectoryStart=int(match[3]),requested=int(match[4]))
+  log=log[match.end():]
+ events=list(re.finditer(r'(passed|rejected at) (screen|refine|anneal|harden|mutate|final) design stage([^\n]*)',log))
+ if events:
+  event=events[-1];out.update(lastReportedStage=event[2],stageOutcome='passed' if event[1]=='passed' else 'rejected',stageDetails=event[3].strip())
+ return out

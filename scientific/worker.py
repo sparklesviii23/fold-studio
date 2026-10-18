@@ -326,6 +326,9 @@ class Service:
             with open(path,'rb') as f:
                 f.seek(max(0,path.stat().st_size-30000)); job['log']=f.read().decode('utf8','replace')
         else: job['log']=''
+        if job['engine']=='bindcraft2':
+            from bindcraft_cpu import progress_from_log
+            job['data']['executionProgress']=progress_from_log(job['log'])
         return job
     def job_cancel(self,p):
         job=self.job(p['id'])

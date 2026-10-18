@@ -1,3 +1,12 @@
+# Project Metal — continuous development
+
+The complete platform remains in development. Current source includes genuine
+AF2 CPU execution, experimental single-model CPU BindCraft campaigns, bundled
+CPython/JAX/ProteinMPNN and two AF2 checkpoints, plus scoped full-model Metal
+validation. Follow [the persistent master tracker](docs/PROJECT_METAL_MASTER_PROGRESS.md)
+for verified scope, active calculations and exact continuation points. Historical
+M1/M2 notes below describe earlier checkpoints, not the current completion state.
+
 ## Current continuation: M2
 
 Real upstream ProteinMPNN fixed-backbone sequence inference now runs through the

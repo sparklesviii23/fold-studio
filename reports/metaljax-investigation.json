@@ -1,0 +1,34 @@
+{
+  "repository": "https://github.com/eterevsky/metaljax",
+  "sourceRevision": "7546eb93aa60c6570efdca95836276d03fe70a94",
+  "package": "metaljax==0.11.9",
+  "license": "Apache-2.0",
+  "isolatedEnvironment": "../runtimes/jax-metaljax",
+  "boundedVector": {
+    "devices": [
+      "MetalDevice(id=0)"
+    ],
+    "forward": 3.083425998687744,
+    "gradient": [
+      1.3817732334136963,
+      0.07700371742248535,
+      -2.828857421875
+    ],
+    "maxGradientError": 5.986646911537719e-08,
+    "processBudgetMB": 256,
+    "systemBudgetMB": 22528
+  },
+  "originalApplePlugin": "Existing PJRT/StableHLO incompatibility remains; this is a different implementation.",
+  "defaultMemoryGovernor": "Initial attempts rejected at ~20.7 GB machine accounting vs 18 GB default; native memory_pressure reported 45% free. Tiny vector test used 256 MB process cap and 22 GiB system cap; full-model test uses 4 GiB process cap and 23 GiB system cap. Governor remains enabled.",
+  "mixedPrecisionFullModel": "Executed on Metal; numerical comparison failed.",
+  "float32ModelWithHalfInput": "Coordinates/confidence close; gradients failed relative-error/cosine thresholds.",
+  "allFloat32Experiment": {
+    "state": "passed_narrow_full_model_scope",
+    "report": "af2-metaljax-all-f32-comparison.json",
+    "gradientRelativeL2Error": 0.0010897382861546334,
+    "gradientCosine": 0.9999994068191616,
+    "scope": "12-residue monomer, zero recycles, identical float32 input and hidden precision"
+  },
+  "productionDefault": "CPU; no unvalidated Metal job launch is enabled",
+  "next": "Multimer + one recycle full forward/backprop comparison in progress"
+}

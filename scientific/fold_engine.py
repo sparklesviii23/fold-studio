@@ -107,7 +107,7 @@ class Engine:
         return self.s.job(job['id'])
     def bindcraft_campaigns(self,p):
         self.s.project(p['projectId'])
-        return [self.s.job(r['id']) for r in self.s.rows("SELECT id FROM jobs WHERE project_id=? AND engine='bindcraft2' ORDER BY created DESC",(p['projectId'],))]
+        return [self.s.job_read({'id':r['id']}) for r in self.s.rows("SELECT id FROM jobs WHERE project_id=? AND engine='bindcraft2' ORDER BY created DESC",(p['projectId'],))]
     def campaign(self,p):
         job=self.s.job(p['id'])
         if job['engine']!='bindcraft2' or job['project_id']!=p['projectId']:raise ValueError('Choose a design campaign in this project.')

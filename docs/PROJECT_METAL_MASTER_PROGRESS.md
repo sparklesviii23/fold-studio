@@ -150,3 +150,47 @@ and two numerical-output checks (distance and Matchmaker). Registration alone
 is NOT VALIDATED; whole-command argument coverage and complete rendering/UI
 parity remain unverified. This is preserved upstream command execution, not a
 superficial alternative parser.
+
+### Scientific progress reporting and runtime provenance
+
+CPU campaign progress now derives trajectory number, accepted count at trajectory
+start and last explicitly emitted stage outcome from upstream log events. No
+percentage or current iteration is invented while the upstream stage is silent.
+The live job receipt and list share the same observed state. Three parser tests
+cover empty logs, actual outcomes and invalidating a previous trajectory's stage.
+Campaign runner startup records actual Python/JAX/JAXlib, architecture/macOS,
+device and execution-settings hash in the job directory. The already-running
+acceptance predates this added startup artifact; do not claim it produced one.
+
+### New Metal backend investigation (not promoted to production)
+
+A different Apache-2.0 backend, `metaljax==0.11.9`, targets JAX 0.11.2 / PJRT
+0.115. Source inspected at `../upstream/metaljax`, revision recorded in
+`reports/metaljax-investigation.json`; isolated environment
+`../runtimes/jax-metaljax` leaves CPU and bundled runtimes unchanged. Its actual
+Metal forward/gradient vector test passed against analytic derivatives.
+
+Full trained monomer AF2 forward and backpropagation both EXECUTED through the
+Metal backend. Default mixed-precision output/gradients failed numerical
+comparison. Disabling hidden bfloat16 improved coordinates/confidence strongly
+but gradients still failed (float16 input/gradient accumulation is being isolated).
+Identical explicit float32 input logits and float32 hidden execution are now
+being tested. Preserve all failed comparison reports; no Metal design launch
+is enabled based on execution alone. The CPU default-filter hPDL1 campaign is
+still running and must not be restarted on context recovery.
+
+### Full-model Metal numerical result
+
+With identical float32 input logits and hidden float32 execution, complete
+trained `model_1_ptm` forward and backpropagation on Metal passed the predefined
+small-input numerical comparison against CPU: gradient relative L2 error
+0.0010897, cosine 0.9999994; confidence max absolute error 1.43e-6; coordinate
+RMS error ~0.000170 Å. Evidence: `reports/af2-metaljax-all-f32-comparison.json`.
+This is the full model on one 12-residue technical input with zero recycles,
+not an isolated attention kernel and not full BindCraft scientific acceptance.
+The half-input gradient failures remain retained.
+
+Next validation already running: real `model_1_multimer_v3`, 12-residue source
+target fragment + 12-residue designed chain, one recycle, full forward and
+backpropagation on CPU then Metal. See current `reports/af2-multimer-f32-*` logs.
+The production/bundled app still defaults to the tested CPU profile.
