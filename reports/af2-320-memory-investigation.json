@@ -1,0 +1,31 @@
+{
+  "state": "larger_profile_not_enabled",
+  "case": "Genuine 320-residue AF2 multimer forward/backpropagation, one recycle, float32, 205 controlled binder + 115 full hPDL1 target residues",
+  "cpu": {
+    "state": "executed_not_reference_validated",
+    "report": "af2-320-cpu.json"
+  },
+  "metalAttempts": [
+    {
+      "budgetGiB": 6,
+      "state": "resource_exhausted",
+      "report": "af2-320-metal-6g.json",
+      "observedFootprintGiB": 6.5
+    },
+    {
+      "budgetGiB": 8,
+      "state": "resource_exhausted",
+      "report": "af2-320-metal-8g.json",
+      "observedFootprintGiB": 8.3
+    },
+    {
+      "budgetGiB": 8,
+      "subbatchSize": 4,
+      "state": "resource_exhausted",
+      "report": "af2-320-metal-subbatch4.json",
+      "observedFootprintGiB": 8.8
+    }
+  ],
+  "nextExperiment": "Full original VHH scaffold optimizer on CPU with the complete 115-residue target, before offering a separately labeled larger CPU-only experimental profile. Metal remains at its tested 256-residue boundary.",
+  "applicationResidueLimit": 256
+}

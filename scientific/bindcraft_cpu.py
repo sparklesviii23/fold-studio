@@ -13,13 +13,15 @@ def execution_config(original,folder):
 
 def start(engine,p):
  if set(p)-{'id','projectId','profile'}:raise ValueError('Unsupported campaign launch fields.')
- profiles={'experimental-cpu-single-model':('cpu','upstream',False),'experimental-cpu-float32-single-model':('cpu','float32',False),'experimental-metal-float32-single-model':('metal','float32',False),'experimental-cpu-float32-ensemble':('cpu','float32',True),'experimental-metal-float32-ensemble':('metal','float32',True)}
+ profiles={'experimental-cpu-single-model':('cpu','upstream',False),'experimental-cpu-float32-single-model':('cpu','float32',False),'experimental-cpu-float32-scaffold':('cpu','float32',False),'experimental-metal-float32-single-model':('metal','float32',False),'experimental-cpu-float32-ensemble':('cpu','float32',True),'experimental-metal-float32-ensemble':('metal','float32',True)}
  if p.get('profile') not in profiles:raise ValueError('Native binder-design execution is blocked without an explicit experimental execution profile.')
  backend,precision,ensemble=profiles[p['profile']]
  s=engine.s;job=engine.campaign(p)
  if job['state']!='prepared':raise ValueError('Only a prepared, unexecuted campaign can start.')
  if s.active():raise ValueError('Another local compute job is active.')
- prep=job['data']['preparation'];count=sum(1 for r in prep['residueMap']);length=max(prep['config']['binder_lengths'])
+ prep=job['data']['preparation'];limit=320 if p['profile']=='experimental-cpu-float32-scaffold' else 256
+ if limit==320 and not prep.get('scaffold'):raise ValueError('The larger CPU profile requires an original scaffold campaign.')
+ count=sum(1 for r in prep['residueMap']);length=max(prep['config']['binder_lengths'])
  if not prep.get('scaffold') and count+length>256:raise ValueError('Initial experimental campaigns are limited to 256 total residues for memory validation.')
  python=os.path.abspath(os.path.expanduser(mpnn.runtime(s)))
  runtime_info={}
@@ -60,12 +62,12 @@ def start(engine,p):
   if weights[model]!=pins[model]:raise ValueError('AlphaFold checkpoint does not match the pinned official acquisition: '+model)
  from campaign_profile import resource_estimate
  estimate=resource_estimate(python,config,fe.UPSTREAM)
- if estimate['paddedResidues']>256:raise ValueError('Campaign requires up to '+str(estimate['paddedResidues'])+' padded residues; the current experimental memory-validated limit is 256. Prepare an explicitly smaller target or scaffold.')
+ if estimate['paddedResidues']>limit:raise ValueError('Campaign requires up to '+str(estimate['paddedResidues'])+' padded residues; this experimental profile limit is '+str(limit)+'. Prepare an explicitly smaller target or scaffold.')
  s.db.execute('BEGIN IMMEDIATE')
  if s.active():s.db.rollback();raise ValueError('Another local compute job is active.')
  current=s.job(job['id'])
  if current['state']!='prepared':s.db.rollback();raise ValueError('Campaign state changed.')
- data={**current['data'],'runtime':python,'parameters':str(parameters),'checkpointSha256':weights,'profile':p['profile'],'execution':backend,'precision':precision,'modelEnsemble':ensemble,'modelSelection':selection,'resourceEstimate':estimate,'runtimeInfo':runtime_info,'executionSettingsSha256':fe.checksum(fe.canonical(config).encode()),'outputs':[]}
+ data={**current['data'],'runtime':python,'parameters':str(parameters),'checkpointSha256':weights,'profile':p['profile'],'execution':backend,'precision':precision,'modelEnsemble':ensemble,'modelSelection':selection,'resourceEstimate':estimate,'paddedResidueLimit':limit,'runtimeInfo':runtime_info,'executionSettingsSha256':fe.checksum(fe.canonical(config).encode()),'outputs':[]}
  s.db.execute('UPDATE jobs SET state=?,data=?,updated=? WHERE id=?',('queued',json.dumps(data),fe.mi.now(),job['id']));s.db.commit()
  try:
   (folder/'execution-settings.json').write_text(json.dumps(config,indent=2));return s.spawn(s.job(job['id']),'--bindcraft-cpu-job')

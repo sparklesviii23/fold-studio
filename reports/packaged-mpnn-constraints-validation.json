@@ -1,0 +1,406 @@
+{
+  "state": "passed",
+  "scope": "Full trained upstream CPU ProteinMPNN constrained decoder parity on 24-residue technical geometry, not a design/folding/binding validation.",
+  "engineRoot": "/Users/vii/Documents/FoldStudio-MetalPort/validation/Relocated Constrained Engine/FOLD STUDIO Metal Dev.app/Contents/Resources",
+  "signatureAfterInference": "passed",
+  "source": "/Users/vii/Documents/FoldStudio-MetalPort/validation/packaged-mpnn-residue-ties/TECHNICAL_duplicated_fragments.pdb",
+  "sourceSha256": "a7a56ade9da5c2f9e6ca0a996ff17947739ed6742b9b9c4b0554a7859fd30871",
+  "constraints": {
+    "schemaVersion": 1,
+    "residues": {
+      "A": [
+        {
+          "id": "[\"A\",18,\"\"]",
+          "number": 18,
+          "aminoAcid": "A",
+          "design": true
+        },
+        {
+          "id": "[\"A\",19,\"\"]",
+          "number": 19,
+          "aminoAcid": "F",
+          "design": true
+        },
+        {
+          "id": "[\"A\",20,\"\"]",
+          "number": 20,
+          "aminoAcid": "T",
+          "design": true
+        },
+        {
+          "id": "[\"A\",21,\"\"]",
+          "number": 21,
+          "aminoAcid": "V",
+          "design": true
+        },
+        {
+          "id": "[\"A\",22,\"\"]",
+          "number": 22,
+          "aminoAcid": "T",
+          "design": true
+        },
+        {
+          "id": "[\"A\",23,\"\"]",
+          "number": 23,
+          "aminoAcid": "V",
+          "design": false
+        },
+        {
+          "id": "[\"A\",24,\"\"]",
+          "number": 24,
+          "aminoAcid": "P",
+          "design": false
+        },
+        {
+          "id": "[\"A\",25,\"\"]",
+          "number": 25,
+          "aminoAcid": "K",
+          "design": false
+        },
+        {
+          "id": "[\"A\",26,\"\"]",
+          "number": 26,
+          "aminoAcid": "D",
+          "design": false
+        },
+        {
+          "id": "[\"A\",27,\"\"]",
+          "number": 27,
+          "aminoAcid": "L",
+          "design": false
+        },
+        {
+          "id": "[\"A\",28,\"\"]",
+          "number": 28,
+          "aminoAcid": "Y",
+          "design": false
+        },
+        {
+          "id": "[\"A\",29,\"\"]",
+          "number": 29,
+          "aminoAcid": "V",
+          "design": false
+        }
+      ],
+      "B": [
+        {
+          "id": "[\"B\",18,\"\"]",
+          "number": 18,
+          "aminoAcid": "A",
+          "design": true
+        },
+        {
+          "id": "[\"B\",19,\"\"]",
+          "number": 19,
+          "aminoAcid": "F",
+          "design": true
+        },
+        {
+          "id": "[\"B\",20,\"\"]",
+          "number": 20,
+          "aminoAcid": "T",
+          "design": true
+        },
+        {
+          "id": "[\"B\",21,\"\"]",
+          "number": 21,
+          "aminoAcid": "V",
+          "design": true
+        },
+        {
+          "id": "[\"B\",22,\"\"]",
+          "number": 22,
+          "aminoAcid": "T",
+          "design": true
+        },
+        {
+          "id": "[\"B\",23,\"\"]",
+          "number": 23,
+          "aminoAcid": "V",
+          "design": false
+        },
+        {
+          "id": "[\"B\",24,\"\"]",
+          "number": 24,
+          "aminoAcid": "P",
+          "design": false
+        },
+        {
+          "id": "[\"B\",25,\"\"]",
+          "number": 25,
+          "aminoAcid": "K",
+          "design": false
+        },
+        {
+          "id": "[\"B\",26,\"\"]",
+          "number": 26,
+          "aminoAcid": "D",
+          "design": false
+        },
+        {
+          "id": "[\"B\",27,\"\"]",
+          "number": 27,
+          "aminoAcid": "L",
+          "design": false
+        },
+        {
+          "id": "[\"B\",28,\"\"]",
+          "number": 28,
+          "aminoAcid": "Y",
+          "design": false
+        },
+        {
+          "id": "[\"B\",29,\"\"]",
+          "number": 29,
+          "aminoAcid": "V",
+          "design": false
+        }
+      ]
+    },
+    "tiedChains": [
+      [
+        "A",
+        "B"
+      ]
+    ],
+    "omitAminoAcids": "C",
+    "aminoAcidBias": {
+      "Y": 0.5,
+      "W": -0.25
+    },
+    "mapping": "Observed source chain order and residue numbers verified against the upstream parser; ties use within-chain positions, not inferred homology."
+  },
+  "directUpstreamParity": "exact sequences and scores",
+  "freshModelRepeatability": "exact",
+  "fixedPositions": "unchanged",
+  "tiedSequences": "identical",
+  "omissions": "enforced only at editable sites",
+  "sharedJobId": "2a686b3e-e919-47a6-b268-910580d9a33f",
+  "savedSequenceRecords": 4,
+  "projectArchiveConstraintsAndSource": "passed",
+  "result": {
+    "schemaVersion": 1,
+    "engine": "ProteinMPNN via pinned BindCraft2",
+    "execution": "cpu",
+    "devices": [
+      "cpu:0"
+    ],
+    "jax": "0.11.2",
+    "checkpointSha256": "58db738bbf867ca9b9290ce3a6581b94649f108683ac0e6a10de6b4aeeed30b4",
+    "sourceSha256": "a7a56ade9da5c2f9e6ca0a996ff17947739ed6742b9b9c4b0554a7859fd30871",
+    "settings": {
+      "input": "/Users/vii/Documents/FoldStudio-MetalPort/validation/packaged-mpnn-residue-ties/TECHNICAL_duplicated_fragments.pdb",
+      "sha256": "a7a56ade9da5c2f9e6ca0a996ff17947739ed6742b9b9c4b0554a7859fd30871",
+      "sequences": {
+        "A": "AFTVTVPKDLYV",
+        "B": "AFTVTVPKDLYV"
+      },
+      "designChains": [
+        "A",
+        "B"
+      ],
+      "constraints": {
+        "schemaVersion": 1,
+        "residues": {
+          "A": [
+            {
+              "id": "[\"A\",18,\"\"]",
+              "number": 18,
+              "aminoAcid": "A",
+              "design": true
+            },
+            {
+              "id": "[\"A\",19,\"\"]",
+              "number": 19,
+              "aminoAcid": "F",
+              "design": true
+            },
+            {
+              "id": "[\"A\",20,\"\"]",
+              "number": 20,
+              "aminoAcid": "T",
+              "design": true
+            },
+            {
+              "id": "[\"A\",21,\"\"]",
+              "number": 21,
+              "aminoAcid": "V",
+              "design": true
+            },
+            {
+              "id": "[\"A\",22,\"\"]",
+              "number": 22,
+              "aminoAcid": "T",
+              "design": true
+            },
+            {
+              "id": "[\"A\",23,\"\"]",
+              "number": 23,
+              "aminoAcid": "V",
+              "design": false
+            },
+            {
+              "id": "[\"A\",24,\"\"]",
+              "number": 24,
+              "aminoAcid": "P",
+              "design": false
+            },
+            {
+              "id": "[\"A\",25,\"\"]",
+              "number": 25,
+              "aminoAcid": "K",
+              "design": false
+            },
+            {
+              "id": "[\"A\",26,\"\"]",
+              "number": 26,
+              "aminoAcid": "D",
+              "design": false
+            },
+            {
+              "id": "[\"A\",27,\"\"]",
+              "number": 27,
+              "aminoAcid": "L",
+              "design": false
+            },
+            {
+              "id": "[\"A\",28,\"\"]",
+              "number": 28,
+              "aminoAcid": "Y",
+              "design": false
+            },
+            {
+              "id": "[\"A\",29,\"\"]",
+              "number": 29,
+              "aminoAcid": "V",
+              "design": false
+            }
+          ],
+          "B": [
+            {
+              "id": "[\"B\",18,\"\"]",
+              "number": 18,
+              "aminoAcid": "A",
+              "design": true
+            },
+            {
+              "id": "[\"B\",19,\"\"]",
+              "number": 19,
+              "aminoAcid": "F",
+              "design": true
+            },
+            {
+              "id": "[\"B\",20,\"\"]",
+              "number": 20,
+              "aminoAcid": "T",
+              "design": true
+            },
+            {
+              "id": "[\"B\",21,\"\"]",
+              "number": 21,
+              "aminoAcid": "V",
+              "design": true
+            },
+            {
+              "id": "[\"B\",22,\"\"]",
+              "number": 22,
+              "aminoAcid": "T",
+              "design": true
+            },
+            {
+              "id": "[\"B\",23,\"\"]",
+              "number": 23,
+              "aminoAcid": "V",
+              "design": false
+            },
+            {
+              "id": "[\"B\",24,\"\"]",
+              "number": 24,
+              "aminoAcid": "P",
+              "design": false
+            },
+            {
+              "id": "[\"B\",25,\"\"]",
+              "number": 25,
+              "aminoAcid": "K",
+              "design": false
+            },
+            {
+              "id": "[\"B\",26,\"\"]",
+              "number": 26,
+              "aminoAcid": "D",
+              "design": false
+            },
+            {
+              "id": "[\"B\",27,\"\"]",
+              "number": 27,
+              "aminoAcid": "L",
+              "design": false
+            },
+            {
+              "id": "[\"B\",28,\"\"]",
+              "number": 28,
+              "aminoAcid": "Y",
+              "design": false
+            },
+            {
+              "id": "[\"B\",29,\"\"]",
+              "number": 29,
+              "aminoAcid": "V",
+              "design": false
+            }
+          ]
+        },
+        "tiedChains": [
+          [
+            "A",
+            "B"
+          ]
+        ],
+        "omitAminoAcids": "C",
+        "aminoAcidBias": {
+          "Y": 0.5,
+          "W": -0.25
+        },
+        "mapping": "Observed source chain order and residue numbers verified against the upstream parser; ties use within-chain positions, not inferred homology."
+      },
+      "count": 2,
+      "seed": 2718,
+      "temperature": 0.1,
+      "variant": "neutral"
+    },
+    "candidates": [
+      {
+        "chains": {
+          "A": "APTVTVPKDLYV",
+          "B": "APTVTVPKDLYV"
+        },
+        "metrics": {
+          "score": 2.3101344108581543,
+          "seqid": 0.9166666865348816
+        }
+      },
+      {
+        "chains": {
+          "A": "APTTTVPKDLYV",
+          "B": "APTTTVPKDLYV"
+        },
+        "metrics": {
+          "score": 2.26584792137146,
+          "seqid": 0.8333333730697632
+        }
+      }
+    ],
+    "timing": {
+      "loadSeconds": 0.10769350011833012,
+      "inferenceIncludingCompilationSeconds": 2.042123833904043,
+      "totalSeconds": 2.149817334022373
+    },
+    "peakProcessRSSBytes": 418152448,
+    "limitations": [
+      "Fixed-backbone sequence redesign only; no new coordinates, folding validation or binding prediction.",
+      "Scores are upstream sequence-model metrics, not affinity or experimental validation.",
+      "Backend is reported explicitly; this output alone does not establish cross-backend parity."
+    ]
+  }
+}

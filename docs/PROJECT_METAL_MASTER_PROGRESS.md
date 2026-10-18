@@ -483,3 +483,60 @@ Shared constrained ProteinMPNN job `65510b0a-c2e8-4a8f-b1a7-f3cf75b2b306`
 completed and saved four sequence records matching direct inference; actual
 project ZIP retained exact source and complete constraints. Integration suite:
 195 Python and 64 frontend tests passed; one existing private fixture skipped.
+
+### Packaged constraints and native job-routing correction
+
+The relocated 5.05 GiB app completed constrained ProteinMPNN using its own runtime,
+source and trained checkpoint with development overrides removed. Direct original
+decoder parity/repeatability passed, all four sequence records and full project
+archive constraints passed, and the final deep/strict app signature passed.
+`reports/packaged-mpnn-constraints-validation.json`.
+
+An actual native-button submission then reproduced an existing integration defect:
+the global job-completion handler treated every output as a coordinate structure.
+Sequence redesign therefore closed Architect, changed the viewer title to a
+sequence and reported a missing source. `src/lib/jobs.ts` now routes by saved
+record kind/project, `App.tsx` retains Architect on sequence completion and loads
+the workbench sequence without replacing the coordinate scene, and activity
+result buttons open sequences in Sequence Workbench. Coordinate loading rejects
+non-structure records. Home/history use accurate local ProteinMPNN/BindCraft2
+labels rather than the old ColabFold fallback. The Job type includes both engines.
+Four regression cases cover sequence/coordinate routing, unrelated/missing output
+refusal and accurate local/cloud labels. Native repeat acceptance is underway.
+
+The 320-residue full trained CPU forward/backpropagation executed (280.626 s,
+10.19 GB peak process RSS). Metal completed forward but the memory governor
+refused gradients at 6 GiB and 8 GiB process caps, respectively observing 6.5/8.3
+GiB demand. These are retained failures, not backend-parity passes. The app still
+limits campaigns to 256 padded residues. The next experiment uses the original
+upstream attention subbatching at an 8 GiB cap; it does not change model weights
+or scientific gates. `reports/af2-320-memory-investigation.json`.
+
+Native result-routing repeat passed: the actual app ran tied-chain redesigns,
+including precisely A18/B18 as the only editable sites, saved four sequences
+with all other positions unchanged, and kept Architect open. Its activity result
+button then opened the real 12-residue sequence in Sequence Workbench. The source
+coordinate record/hash stayed unchanged and the app seal passed. Evidence:
+`reports/native-mpnn-result-routing.json` and two paired screenshots.
+Integration checks: 195 Python and 68 frontend tests passed before the additional
+larger-CPU profile guard; targeted guard checks passed afterward.
+
+The original VHH scaffold with the complete 115-residue hPDL1 target completed
+four real diagnostic optimizer updates on CPU in 201.271 s (8.73 GB peak RSS),
+preserving all 88 fixed framework and 115 target sequence positions.
+`reports/vhh-full-target-cpu-trajectory.json`; raw arrays/CIF retained under
+`../validation/vhh-full-target-f32-cpu`. Diagnostic confidence gates do not imply
+research acceptance. Original upstream attention subbatching also exceeded the
+8 GiB Metal cap, so larger Metal campaigns remain unavailable.
+
+A separately labeled `experimental-cpu-float32-scaffold` profile now permits up
+to 320 padded positions only for original scaffold campaigns; other profiles keep
+256. Full trained 320-residue CPU execution and full-target VHH diagnostic stages
+provide resource evidence; complete default-filter campaign acceptance is still
+pending. The previously prepared full-target VHH job
+`966989db-84d8-4e50-8f24-efaba599995b` now runs under its original scientific
+criteria, one design model and a distinct held-out multimer. Inspect its live
+callbacks in `../validation/vhh-preparation/jobs/<id>/execution.log`; do not
+restart it. `reports/vhh-full-target-live-cpu-job.json`. Current native app build
+precedes the larger-CPU profile controls; those source additions need a later
+integration build. Continue remaining multitarget/scaffold/platform requirements.

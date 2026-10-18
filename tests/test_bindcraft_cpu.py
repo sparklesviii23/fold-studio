@@ -23,6 +23,12 @@ class CPUCampaignGuards(unittest.TestCase):
  def test_unsupported_launch_options_refused(self):
   j=self.prepared()
   with self.assertRaisesRegex(ValueError,'Unsupported'):self.s.dispatch('bindcraft_start',{'projectId':self.project['id'],'id':j['id'],'profile':'experimental-cpu-single-model','ignore_filters':True})
+ def test_larger_cpu_profile_cannot_expand_non_scaffold_campaigns(self):
+  j=self.prepared()
+  with patch.object(self.s,'spawn') as spawn:
+   with self.assertRaisesRegex(ValueError,'requires an original scaffold'):self.s.dispatch('bindcraft_start',{'projectId':self.project['id'],'id':j['id'],'profile':'experimental-cpu-float32-scaffold'})
+   spawn.assert_not_called()
+  self.assertEqual(self.s.job(j['id'])['state'],'prepared')
  def test_peptides_retain_bound_held_out_validation_and_scientific_constraints(self):
   from bindcraft_cpu import execution_config
   for modality in ('peptide','cyclic_peptide'):
