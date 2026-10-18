@@ -31,3 +31,10 @@ class MPNNTests(unittest.TestCase):
   interpreter=pathlib.Path(self.tmp.name)/'venv/bin/python';interpreter.parent.mkdir(parents=True);interpreter.symlink_to(os.sys.executable)
   with patch.dict(os.environ,{'FOLD_BINDCRAFT_PYTHON':str(interpreter)}),patch.object(self.s,'spawn',side_effect=lambda j,mode:j):job=self.s.dispatch('mpnn_start',self.p)
   self.assertEqual(job['data']['runtime'],str(interpreter))
+
+ def test_background_worker_cannot_modify_signed_runtime_bytecode(self):
+  from types import SimpleNamespace
+  job=self.s.job_new({'projectId':self.project['id'],'name':'Bytecode guard'},'proteinmpnn','queued')
+  with patch.object(w.subprocess,'Popen',return_value=SimpleNamespace(pid=987654)) as spawn:
+   self.s.spawn(job,'--mpnn-job')
+  command=spawn.call_args.args[0];self.assertEqual(command[1],'-B');self.assertEqual(spawn.call_args.kwargs['env']['PYTHONDONTWRITEBYTECODE'],'1')

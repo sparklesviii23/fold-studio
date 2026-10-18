@@ -37,3 +37,14 @@ The local installation's license is available at
 `Contents/share/docs/license.html`. A fully self-contained runtime distribution
 is a separate packaging milestone; existing user permissions are not revoked or
 reinterpreted here. Nothing in this development milestone is uploaded or published.
+
+## Current development runtime and AlphaFold 2 parameters
+
+Subsequent to M1/M2, the native development build includes a CPython/JAX scientific
+runtime with original Python LICENSE, package license files and dist-info.
+Two unchanged AlphaFold 2 parameter files (model_1_ptm and model_1_multimer_v3)
+are included with provenance and attribution in `models/alphafold/NOTICE.md`.
+The official AlphaFold repository identifies AF2 parameters as CC BY 4.0:
+https://github.com/google-deepmind/alphafold#model-parameters-license
+https://creativecommons.org/licenses/by/4.0/
+ChimeraX remains separately installed; no ChimeraX binary is bundled.

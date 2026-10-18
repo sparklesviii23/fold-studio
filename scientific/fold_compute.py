@@ -35,5 +35,5 @@ def diagnostic(service):
     runtime=os.environ.get('FOLD_BINDCRAFT_PYTHON')
     return {'name':'FOLD COMPUTE','schemaVersion':1,'host':{'architecture':platform.machine(),'macOS':platform.mac_ver()[0]},
             'bindcraftRuntime':probe(runtime), 'predictionRuntime':probe(service.engine_python()),
-            'remote':{'enabled':False}, 'binderDesign':{'state':'blocked','reason':'Full AlphaFold forward/backward and campaign execution have not been validated on this Apple Silicon backend. No campaign is launched.'},
+            'remote':{'enabled':False}, 'binderDesign':{'state':'experimental_cpu','metalState':'blocked','reason':'CPU single-model campaigns execute upstream algorithms; complete scientific/modalities acceptance is still in progress. JAX Metal remains incompatible.'},
             'metalAttention':{'state':'experimental','scope':'One float32 attention kernel; run validate-metal-attention.py for measured forward/gradient parity.'}}

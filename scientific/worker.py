@@ -91,7 +91,7 @@ class Service:
         row = self.db.execute('SELECT value FROM settings WHERE key=?',(key,)).fetchone()
         return json.loads(row[0]) if row else default
     def setting_set(self, p):
-        allowed = {'appearance','effects','onboarded','enginePython','sidebarWidth','interface','lastStructureId','bindcraftPython'}
+        allowed = {'appearance','effects','onboarded','enginePython','sidebarWidth','interface','lastStructureId','bindcraftPython','af2Parameters'}
         if p['key'] not in allowed: raise ValueError('Unknown preference.')
         if p['key']=='interface':
             v=p.get('value')
@@ -278,7 +278,7 @@ class Service:
         # Hardware detection is not an inference acceptance test.
         result['validatedMPS']=self.setting('validatedMPS',False)
         return result
-    def active(self): return self.db.execute("SELECT id FROM jobs WHERE engine IN ('boltz2','setup','proteinmpnn') AND state IN ('running','queued','installing') LIMIT 1").fetchone()
+    def active(self): return self.db.execute("SELECT id FROM jobs WHERE engine IN ('boltz2','setup','proteinmpnn','bindcraft2') AND state IN ('running','queued','installing') LIMIT 1").fetchone()
     def job_new(self,p,engine,state):
         self.project(p['projectId']); id,date=uid(),now()
         self.db.execute('INSERT INTO jobs VALUES(?,?,?,?,?,?,?,?)',(id,p['projectId'],p.get('name','Prediction'),engine,state,json.dumps(p),date,date)); self.db.commit()
@@ -293,7 +293,7 @@ class Service:
     def spawn(self,job,mode):
         folder=self.root/'jobs'/job['id']; folder.mkdir(exist_ok=True)
         with open(folder/'execution.log','ab',buffering=0) as log:
-            process=subprocess.Popen([sys.executable,str(pathlib.Path(__file__).resolve()),'--root',str(self.root),mode,job['id']],stdout=log,stderr=log,start_new_session=True,env=dict(os.environ,PYTHONUNBUFFERED='1'))
+            process=subprocess.Popen([sys.executable,'-B',str(pathlib.Path(__file__).resolve()),'--root',str(self.root),mode,job['id']],stdout=log,stderr=log,start_new_session=True,env=dict(os.environ,PYTHONUNBUFFERED='1',PYTHONDONTWRITEBYTECODE='1'))
         self.job_update(job['id'],self.job(job['id'])['state'],{'pid':process.pid,'workerPath':str(pathlib.Path(__file__).resolve()),'logAsset':str(folder/'execution.log')})
         return self.job(job['id'])
     def install_engine(self,p):
@@ -526,8 +526,11 @@ def install(service,id):
         service.job_update(id,'failed',{'error':str(error),'finished':now()}); print('SETUP ERROR:',error,flush=True); raise
 
 def main():
-    parser=argparse.ArgumentParser(); parser.add_argument('--root',required=True); parser.add_argument('--fixtures'); parser.add_argument('--run-job'); parser.add_argument('--install'); parser.add_argument('--serve',type=int); parser.add_argument('--intelligence-job'); parser.add_argument('--mpnn-job')
+    parser=argparse.ArgumentParser(); parser.add_argument('--root',required=True); parser.add_argument('--fixtures'); parser.add_argument('--run-job'); parser.add_argument('--install'); parser.add_argument('--serve',type=int); parser.add_argument('--intelligence-job'); parser.add_argument('--mpnn-job'); parser.add_argument('--bindcraft-cpu-job')
     args=parser.parse_args(); service=Service(args.root,args.fixtures)
+    if args.bindcraft_cpu_job:
+        import bindcraft_cpu
+        bindcraft_cpu.run(service,args.bindcraft_cpu_job); return
     if args.mpnn_job: mpnn.run(service,args.mpnn_job); return
     if args.intelligence_job: intelligence.Lab(service).run(args.intelligence_job); return
     if args.run_job: execute_job(service,args.run_job); return

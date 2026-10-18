@@ -42,7 +42,7 @@ class Engine:
         for path in sorted((UPSTREAM/'settings'/'modality').glob('*.json')):
             modalities.append({'name':path.stem,'description':json.loads(path.read_text()).get('description',''),'configuration':'tested' if path.stem in ('binder','peptide') else 'not_started','execution':'blocked'})
         return {'name':'FOLD SCIENTIFIC ENGINE','schemaVersion':1,'source':source_status(),'modalities':modalities,
-                'engines':[{'id':'bindcraft2','configuration':'implemented','resultImport':'implemented','execution':'blocked'},
+                'engines':[{'id':'bindcraft2','configuration':'implemented','resultImport':'implemented','execution':'experimental_cpu_single_model','metalExecution':'blocked'},
                            {'id':'proteinmpnn','execution':'cpu','scope':'Fixed-backbone sequence redesign; mpnn_start/mpnn_jobs'}, {'id':'boltz2','adapter':'existing prediction_start'}, {'id':'chimerax','adapter':'existing chimerax_execute; separately installed runtime; command availability is not validation'}],
                 'commands':[{'name':x,'status':'implemented' if x!='bindcraft_start' else 'blocked'} for x in sorted(ACTIONS)],
                 'dataModel':'Existing structure records/assets, stable residue/atom identities from Molecular Intelligence; existing jobs table. No parallel coordinate store.'}
@@ -114,7 +114,8 @@ class Engine:
         return job
     def bindcraft_start(self,p):
         self.campaign(p)
-        raise ValueError('Native binder-design execution is blocked: full AlphaFold forward/backward, model weights and end-to-end reference validation are not yet available. Preparing/importing campaigns works; no design was launched.')
+        import bindcraft_cpu
+        return bindcraft_cpu.start(self,p)
     def bindcraft_import(self,p):
         job=self.campaign(p);root=pathlib.Path(p['directory']).expanduser().resolve()
         if not root.is_dir():raise ValueError('Choose the upstream campaign result directory.')

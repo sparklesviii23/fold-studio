@@ -13,7 +13,8 @@ async fn scientific(app: tauri::AppHandle, action: String, payload: Value) -> Re
     let resources = app.path().resource_dir().map_err(|e|e.to_string())?;
     let development = std::path::PathBuf::from(env!("CARGO_MANIFEST_DIR")).parent().unwrap().to_path_buf();
     let base = if resources.join("scientific/worker.py").exists() { resources } else { development };
-    let python = std::env::var("FOLD_PYTHON").unwrap_or_else(|_| "/usr/bin/python3".into());
+    let bundled_python = base.join("runtime/bin/python3.12");
+    let python = std::env::var("FOLD_PYTHON").unwrap_or_else(|_| if bundled_python.is_file() { bundled_python.to_string_lossy().into_owned() } else { "/usr/bin/python3".into() });
     tauri::async_runtime::spawn_blocking(move || {
         let mut child = Command::new(python).arg("-B").env("FOLD_HOST_PID", std::process::id().to_string()).arg(base.join("scientific/worker.py")).arg("--root").arg(root).arg("--fixtures").arg(base.join("fixtures"))
             .stdin(Stdio::piped()).stdout(Stdio::piped()).stderr(Stdio::piped()).spawn().map_err(|e| format!("Python scientific service could not start: {e}"))?;

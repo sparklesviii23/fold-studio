@@ -4,7 +4,8 @@ import fold_engine as fe
 ACTIONS={'mpnn_start','mpnn_jobs'}
 
 def runtime(s):
- return os.environ.get('FOLD_BINDCRAFT_PYTHON') or s.setting('bindcraftPython') or str(s.root/'engine/bindcraft/bin/python')
+ bundled=fe.BASE/'runtime/bin/python3.12'
+ return os.environ.get('FOLD_BINDCRAFT_PYTHON') or s.setting('bindcraftPython') or str(bundled if bundled.is_file() else s.root/'engine/bindcraft/bin/python')
 
 def start(s,p):
  if set(p)-{'projectId','structureId','designChains','count','seed','temperature','variant'}:raise ValueError('Unsupported ProteinMPNN field.')
