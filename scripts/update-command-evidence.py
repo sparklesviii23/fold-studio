@@ -20,7 +20,7 @@ for name,(check,scope,scientific) in scopes.items():
 (ROOT/'scientific/validation-evidence-current.json').write_text(json.dumps(evidence,indent=2)+'\n')
 baseline=json.loads((ROOT/'scientific/pinned-capabilities-1.12.json').read_text());by_name={r['name']:r for r in evidence['capabilities']}
 with open(ROOT/'docs/CHIMERAX_COMMAND_COMPATIBILITY.csv','w',newline='') as file:
- writer=csv.DictWriter(file,fieldnames=['command','status','nativeFunctionTested','scientificOutputChecked','scope','source']);writer.writeheader()
+ writer=csv.DictWriter(file,lineterminator='\n',fieldnames=['command','status','nativeFunctionTested','scientificOutputChecked','scope','source']);writer.writeheader()
  for row in sorted((r for r in baseline['capabilities'] if r['kind']=='command'),key=lambda r:r['name']):
   verified=by_name.get(row['name']);writer.writerow({'command':row['name'],'status':'TESTED (scoped)' if verified else 'NOT VALIDATED','nativeFunctionTested':bool(verified),'scientificOutputChecked':verified['scientificOutputValidated'] if verified else False,'scope':verified['validationScope'] if verified else 'Registered inventory only; no command-specific acceptance evidence','source':row.get('source','')})
 print(f'{len(by_name)} scoped command entries; {sum(r[2] for r in scopes.values())} numerical output checks; no complete parity claim')
