@@ -125,3 +125,15 @@ as the end of the assignment.
 - 154 Python / 64 frontend tests currently pass; one existing private rotation
   fixture is skipped. The CPU launch guard tests cover explicit profile selection,
   absent parameters, invalid options and refusal to rerun completed jobs.
+
+### Native-window acceptance
+
+The app was launched with `FOLD_PYTHON`, `FOLD_BINDCRAFT_PYTHON`,
+`FOLD_AF2_PARAMETERS`, `PYTHONPATH` and `PYTHONHOME` removed, using its bundled
+interpreter selected by Rust. Native UI actions selected the bundled ANGPTL3
+reference and chain A and submitted real ProteinMPNN redesign. The UI showed
+completed and two saved sequences (~3.12 s model time under concurrent CPU load).
+Signature verification still passed after this native UI calculation. Original
+interface/navigation remain intact. Validation root: `../validation/native-embedded-library`.
+Polling now refreshes the displayed job receipt as well as the shared job list,
+so a submission's queued state cannot contradict its completed live state.
