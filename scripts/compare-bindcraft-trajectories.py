@@ -22,6 +22,6 @@ for key in x.files:
  elif key.endswith(('__mask','__sequence')):ok=np.array_equal(x[key],y[key])
  else:ok=maximum<=.01
  passed=passed and bool(ok);checks[key]={'rmsError':rms,'maxAbsError':maximum,'passed':bool(ok)}
-report={'state':'passed' if passed else 'failed','scope':'12-residue target fragment and 12-residue binder, one real optimizer update per screen/refine/anneal/harden stage, permissive diagnostic gates. No research-quality acceptance or full campaign parity claim.','thresholds':{'resolvedCoordinateRmsAngstrom':.1,'metricMaxAbs':.01,'sequenceAndMask':'identical'},'checks':checks,'cpu':c,'metal':m,'artifactSha256':{str(folder):hashlib.sha256((folder/'outputs.npz').read_bytes()).hexdigest() for folder in (cpu,metal)}}
+report={'state':'passed' if passed else 'failed','scope':'Technical target fragment and designed chains (lengths in source reports), one real optimizer update per screen/refine/anneal/harden stage, permissive diagnostic gates. No research-quality acceptance or full campaign parity claim.','thresholds':{'resolvedCoordinateRmsAngstrom':.1,'metricMaxAbs':.01,'sequenceAndMask':'identical'},'checks':checks,'cpu':c,'metal':m,'artifactSha256':{str(folder):hashlib.sha256((folder/'outputs.npz').read_bytes()).hexdigest() for folder in (cpu,metal)}}
 pathlib.Path(a.output).write_text(json.dumps(report,indent=2,allow_nan=False)+'\n');print(json.dumps({'state':report['state'],'checks':checks},indent=2))
 if not passed:raise SystemExit(1)

@@ -1,0 +1,34 @@
+{
+  "state": "prepared_and_original_estimator_executed",
+  "cases": [
+    {
+      "target": "technical fragment",
+      "jobId": "5a695aab-c694-41f0-9e38-e55929d36d35",
+      "scaffold": {
+        "file": "scaffold.cif",
+        "source": "scaffolds/VHH.cif",
+        "sha256": "0c36da12a5d9d47990bb454be89807cd24080dd85409f3013b3d0741817d235a",
+        "modality": "VHH"
+      },
+      "upstreamPaddedResidues": 192,
+      "withinCurrent256Limit": true
+    },
+    {
+      "target": "full hPDL1",
+      "jobId": "966989db-84d8-4e50-8f24-efaba599995b",
+      "scaffold": {
+        "file": "scaffold.cif",
+        "source": "scaffolds/VHH.cif",
+        "sha256": "0c36da12a5d9d47990bb454be89807cd24080dd85409f3013b3d0741817d235a",
+        "modality": "VHH"
+      },
+      "upstreamPaddedResidues": 288,
+      "withinCurrent256Limit": false,
+      "actualLaunchGuard": {
+        "error": "Campaign requires up to 288 padded residues; the current experimental memory-validated limit is 256. Prepare an explicitly smaller target or scaffold.",
+        "stateAfterRefusal": "prepared"
+      }
+    }
+  ],
+  "scope": "No campaign started; original scaffold/CDR input snapshot and authentic upstream maximum padded residue estimate."
+}

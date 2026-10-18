@@ -288,3 +288,42 @@ Do not restart during recovery. `reports/bindcraft-live-ensemble-job.json`.
 private frontend fixture skipped). The last native build precedes ensemble UI/
 profiles and four additional checkpoint resources; rebuild/relocated acceptance
 for those changes remains necessary. Continue expanding scientific workflows.
+
+### Ensemble app and VHH scaffold continuation
+
+The rebuilt 3.94 GiB app includes all seven pinned model files and both scientific
+runtimes. A relocated copy passed CPU redesign, full Metal forward/backprop, and
+a complete diagnostic three-design/two-held-out-model peptide pipeline with
+signature checks. `reports/embedded-ensemble-pipeline-acceptance.json` retains
+actual tables, runtime details and upstream checkpoint identities. Diagnostics
+remain quarantined, with no research acceptance or automatic import.
+
+VHH original scaffold execution now passes the CPU/Metal diagnostic optimizer
+comparison: 125-residue sampled scaffold plus 12-residue target, all 88 fixed
+sequence positions unchanged, resolved-coordinate RMS difference <=0.000324 Å.
+`reports/vhh-trajectory-metal-comparison.json` and source arrays retained. The
+earlier generic CPU log caption saying 12-residue binder was corrected in report
+metadata from unchanged saved arrays; raw execution log remains unchanged.
+
+`fold_engine.py` now prepares VHH with the original preset CDR edit choices,
+paratope conformations and framework-retention criteria. Scaffold coordinates are
+copied byte-for-byte to an immutable job input with a SHA pin; launch rechecks
+that pin. Free binder-length controls are refused for VHH because its scaffold
+edit choices determine length. `DesignCampaigns.tsx` exposes this format using
+the existing interface controls, without styling/viewer changes.
+
+`campaign_profile.resource_estimate` calls the original upstream maximum padded
+residue estimator, including variable scaffold lengths. All launches now enforce
+the 256 padded-residue experimental boundary. Real VHH preparation cases measured
+192 padded residues for the technical fragment and 288 for full hPDL1; actual
+launch of the latter was correctly refused while leaving the campaign prepared.
+No silent target crop occurs. Full-target VHH/scaffold quality acceptance and
+larger resource profiles remain incomplete. `reports/vhh-preparation-resources.json`.
+
+Four scaffold contract tests cover original presets, byte-identical snapshots,
+changed-input refusal and complete project ZIP provenance. Latest integration
+suite: 176 Python + 64 frontend tests passed (one existing private fixture skipped).
+The 3.94 GiB app precedes VHH preparation/UI additions and the generalized padded
+resource check. Those source changes need a later integration rebuild/acceptance.
+The full-ensemble hPDL1 campaign remains active; inspect its observed callbacks
+before taking recovery action. Continue the next scientific requirement.

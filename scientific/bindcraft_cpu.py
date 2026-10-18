@@ -8,6 +8,7 @@ def execution_config(original,folder):
  validation='model_2_multimer_v3' if original.get('validation_model')=='multimer' else 'model_1_ptm'
  config={**original,'project_folder':str(folder/'output'),'design_models':['model_1_multimer_v3'],'validation_model':'multimer' if validation.endswith('multimer_v3') else 'monomer','validation_models':[validation],'design_workers':1,'auto_multi_gpu':False,'attention_backend':'stock','use_cueq':False,'resume':False}
  config['targets']=[{**target,'target_path':str(folder/target['target_path'])} for target in original['targets']]
+ if original.get('binder_scaffold'):config['binder_scaffold']=str(folder/original['binder_scaffold'])
  return config,validation
 
 def start(engine,p):
@@ -17,14 +18,16 @@ def start(engine,p):
  backend,precision,ensemble=profiles[p['profile']]
  s=engine.s;job=engine.campaign(p)
  if job['state']!='prepared':raise ValueError('Only a prepared, unexecuted campaign can start.')
+ if s.active():raise ValueError('Another local compute job is active.')
  prep=job['data']['preparation'];count=sum(1 for r in prep['residueMap']);length=max(prep['config']['binder_lengths'])
- if count+length>256:raise ValueError('Initial experimental campaigns are limited to 256 total residues for memory validation.')
+ if not prep.get('scaffold') and count+length>256:raise ValueError('Initial experimental campaigns are limited to 256 total residues for memory validation.')
  python=os.path.abspath(os.path.expanduser(mpnn.runtime(s)))
  runtime_info={}
  if backend=='metal':
   import metal_runtime
   runtime_info=metal_runtime.probe(s)
   if runtime_info['state']!='experimental':raise ValueError(runtime_info['error'])
+  runtime_info['launchEnvironment']=metal_runtime.environment('ensemble' if ensemble else 'single')
   python=runtime_info['runtime']
  if not pathlib.Path(python).is_file():raise ValueError('Scientific Python runtime unavailable.')
  bundled=fe.BASE/'models/alphafold'
@@ -34,11 +37,19 @@ def start(engine,p):
  folder=s.root/'jobs'/job['id'];original=json.loads((folder/'settings.json').read_text())
  # Peptide presets judge a bound peptide with a held-out multimer, not an
  # unbound monomer. Retain this upstream scientific distinction.
+ if fe.checksum(fe.canonical(original).encode())!=prep['settingsSha256']:raise ValueError('Prepared settings changed.')
+ source=folder/original['targets'][0]['target_path']
+ if fe.checksum(source.read_bytes())!=prep['source']['sha256']:raise ValueError('Prepared source changed.')
+ if prep.get('scaffold'):
+  scaffold=prep['scaffold'];path=folder/scaffold['file']
+  if fe.checksum(path.read_bytes())!=scaffold['sha256']:raise ValueError('Prepared scaffold changed.')
  config,validation=execution_config(original,folder)
  selection={'designModels':config['design_models'],'validationModels':[validation]}
  if ensemble:
   from campaign_profile import ensemble_models
-  selection=ensemble_models(python,original,fe.UPSTREAM)
+  query={**original,'targets':config['targets']}
+  if config.get('binder_scaffold'):query['binder_scaffold']=config['binder_scaffold']
+  selection=ensemble_models(python,query,fe.UPSTREAM)
   config['design_models']=selection['designModels'];config['validation_models']=selection['validationModels'];config['validation_model']='multimer' if all(model.endswith('multimer_v3') for model in selection['validationModels']) else 'monomer'
  weights={}
  for model in (*selection['designModels'],*selection['validationModels']):
@@ -47,14 +58,14 @@ def start(engine,p):
   if not path.is_file() or path.stat().st_size<100*1024**2:raise ValueError('Missing genuine AlphaFold checkpoint: '+model)
   weights[model]=hashlib.sha256(path.read_bytes()).hexdigest()
   if weights[model]!=pins[model]:raise ValueError('AlphaFold checkpoint does not match the pinned official acquisition: '+model)
- if fe.checksum(fe.canonical(original).encode())!=prep['settingsSha256']:raise ValueError('Prepared settings changed.')
- source=folder/original['targets'][0]['target_path']
- if fe.checksum(source.read_bytes())!=prep['source']['sha256']:raise ValueError('Prepared source changed.')
+ from campaign_profile import resource_estimate
+ estimate=resource_estimate(python,config,fe.UPSTREAM)
+ if estimate['paddedResidues']>256:raise ValueError('Campaign requires up to '+str(estimate['paddedResidues'])+' padded residues; the current experimental memory-validated limit is 256. Prepare an explicitly smaller target or scaffold.')
  s.db.execute('BEGIN IMMEDIATE')
  if s.active():s.db.rollback();raise ValueError('Another local compute job is active.')
  current=s.job(job['id'])
  if current['state']!='prepared':s.db.rollback();raise ValueError('Campaign state changed.')
- data={**current['data'],'runtime':python,'parameters':str(parameters),'checkpointSha256':weights,'profile':p['profile'],'execution':backend,'precision':precision,'modelEnsemble':ensemble,'modelSelection':selection,'runtimeInfo':runtime_info,'executionSettingsSha256':fe.checksum(fe.canonical(config).encode()),'outputs':[]}
+ data={**current['data'],'runtime':python,'parameters':str(parameters),'checkpointSha256':weights,'profile':p['profile'],'execution':backend,'precision':precision,'modelEnsemble':ensemble,'modelSelection':selection,'resourceEstimate':estimate,'runtimeInfo':runtime_info,'executionSettingsSha256':fe.checksum(fe.canonical(config).encode()),'outputs':[]}
  s.db.execute('UPDATE jobs SET state=?,data=?,updated=? WHERE id=?',('queued',json.dumps(data),fe.mi.now(),job['id']));s.db.commit()
  try:
   (folder/'execution-settings.json').write_text(json.dumps(config,indent=2));return s.spawn(s.job(job['id']),'--bindcraft-cpu-job')

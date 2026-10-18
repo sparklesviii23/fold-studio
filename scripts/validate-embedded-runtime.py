@@ -13,8 +13,9 @@ while job['state'] in ('running','queued'):
 if job['state']!='completed':raise RuntimeError(json.dumps(job))
 assert pathlib.Path(job['data']['runtime']).is_relative_to(resources/'runtime')
 records=call('library')['records'];output=next(r for r in records if r['id']==job['data']['outputs'][0]);assert len(output['data']['sequence'])==460
-for name in ('model_1_ptm','model_1_multimer_v3'):
- params=resources/'models/alphafold'/('params_'+name+'.npz');provenance=json.loads(params.with_suffix('.provenance.json').read_text());assert hashlib.sha256(params.read_bytes()).hexdigest()==provenance['sha256']
+pins=json.loads((resources/'scientific/af2-parameters.json').read_text())['models']
+for name,expected in pins.items():
+ params=resources/'models/alphafold'/('params_'+name+'.npz');provenance=json.loads(params.with_suffix('.provenance.json').read_text());assert hashlib.sha256(params.read_bytes()).hexdigest()==provenance['sha256']==expected
 assert subprocess.run(['/usr/bin/codesign','--verify','--deep','--strict',str(app)],capture_output=True).returncode==0
 report={'state':'passed','app':str(app),'scientificPython':str(python),'externalRuntimeEnvironmentRemoved':True,'realProteinMPNNJob':'completed','sourceResidues':460,'savedSequences':1,'modelParameterChecksums':'passed','signatureAfterInference':'passed','scope':'Relocated CPU scientific runtime and model resources; ChimeraX/Boltz are not bundled','jobId':job['id'],'resultSummary':job['data']['resultSummary']}
 out=pathlib.Path(__file__).resolve().parents[1]/'reports/embedded-runtime-acceptance.json';out.write_text(json.dumps(report,indent=2)+'\n');print(json.dumps(report,indent=2))

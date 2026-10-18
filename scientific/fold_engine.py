@@ -12,6 +12,7 @@ UPSTREAM=BASE/'vendor'/'bindcraft2'
 PIN='c0ee638d11bc010817c2c97ee58ed5c323e664e2'
 ACTIONS={'fold_engine_status','fold_structure','fold_compute','bindcraft_validate','bindcraft_prepare','bindcraft_campaigns','bindcraft_import','bindcraft_start'}
 CONFIG_KEYS={'projectId','structureId','name','modality','targetChains','hotspots','coldspots','binderLengths','candidates','attempts','seed'}
+SUPPORTED_MODALITIES=('binder','peptide','cyclic_peptide','VHH')
 
 def canonical(value):return json.dumps(value,sort_keys=True,separators=(',',':'),allow_nan=False)
 def checksum(data):return hashlib.sha256(data).hexdigest()
@@ -40,7 +41,7 @@ class Engine:
     def fold_engine_status(self,p):
         modalities=[]
         for path in sorted((UPSTREAM/'settings'/'modality').glob('*.json')):
-            modalities.append({'name':path.stem,'description':json.loads(path.read_text()).get('description',''),'configuration':'tested' if path.stem in ('binder','peptide','cyclic_peptide') else 'not_started','execution':'experimental' if path.stem in ('binder','peptide','cyclic_peptide') else 'blocked'})
+            modalities.append({'name':path.stem,'description':json.loads(path.read_text()).get('description',''),'configuration':'tested' if path.stem in SUPPORTED_MODALITIES else 'not_started','execution':'experimental' if path.stem in SUPPORTED_MODALITIES else 'blocked'})
         return {'name':'FOLD SCIENTIFIC ENGINE','schemaVersion':1,'source':source_status(),'modalities':modalities,
                 'engines':[{'id':'bindcraft2','configuration':'implemented','resultImport':'implemented','execution':'experimental_cpu_and_metal','metalExecution':'experimental_float32_requires_pinned_runtime','modelEnsembles':'original_upstream_selection','profiles':['experimental-cpu-single-model','experimental-cpu-float32-single-model','experimental-metal-float32-single-model','experimental-cpu-float32-ensemble','experimental-metal-float32-ensemble']},
                            {'id':'proteinmpnn','execution':'cpu','scope':'Fixed-backbone sequence redesign; mpnn_start/mpnn_jobs'}, {'id':'boltz2','adapter':'existing prediction_start'}, {'id':'chimerax','adapter':'existing chimerax_execute; separately installed runtime; command availability is not validation'}],
@@ -57,7 +58,8 @@ class Engine:
         if unknown:raise ValueError('Unsupported campaign fields: '+', '.join(sorted(unknown)))
         self.s.project(p['projectId']);shared=self.fold_structure(p);st=shared['structure']
         modality=p.get('modality','binder')
-        if modality not in ('binder','peptide','cyclic_peptide'):raise ValueError('Other upstream modalities remain blocked until their constraints and execution are validated.')
+        if modality not in SUPPORTED_MODALITIES:raise ValueError('Other upstream modalities remain blocked until their constraints and execution are validated.')
+        if modality=='VHH' and 'binderLengths' in p:raise ValueError('VHH length follows the original scaffold CDR edit choices; free binder length bounds do not apply.')
         chains=p.get('targetChains')
         if not isinstance(chains,list) or not chains or any(not isinstance(c,str) for c in chains) or len(chains)!=len(set(chains)):raise ValueError('Choose distinct target chains.')
         available={c['id']:c for c in st['chains']}
@@ -69,7 +71,7 @@ class Engine:
         if any(not r['polymer'] or r['one']=='X' or r['ins'] or r['num']<1 for r in selected):raise ValueError('Selected chains must contain canonical protein residues with positive numbering and no insertion codes. Prepare an explicit derived input for other cases.')
         for r in selected:
             if not {'N','CA','C','O'}.issubset(st['atoms'][i]['name'] for i in r['atoms']):raise ValueError('Selected target residues require complete N, CA, C, O backbone atoms.')
-        lengths=p.get('binderLengths',{'binder':[60,100],'peptide':[15,25],'cyclic_peptide':[7,16]}[modality])
+        lengths=p.get('binderLengths',{'binder':[60,100],'peptide':[15,25],'cyclic_peptide':[7,16],'VHH':[60,100]}[modality])
         if not isinstance(lengths,list) or len(lengths) not in (1,2):raise ValueError('Binder lengths must be [fixed] or [minimum, maximum].')
         for length in lengths:integer(length,'Binder length',5,500)
         if lengths!=sorted(lengths):raise ValueError('Binder length bounds must be ordered.')
@@ -85,11 +87,17 @@ class Engine:
         if {r['id'] for r in hot}&{r['id'] for r in cold}:raise ValueError('A residue cannot be both a hotspot and a coldspot.')
         # Presets are upstream data, retained verbatim; never invent optimization defaults.
         preset=json.loads((UPSTREAM/'settings'/'modality'/(modality+'.json')).read_text());preset.pop('description',None)
+        scaffold=None
+        if preset.get('binder_scaffold'):
+            source=UPSTREAM/preset['binder_scaffold']
+            if not source.is_file() or not source.resolve().is_relative_to(UPSTREAM.resolve()):raise ValueError('Pinned scaffold asset is unavailable.')
+            scaffold={'file':'scaffold.cif','source':str(source.relative_to(UPSTREAM)),'sha256':checksum(source.read_bytes()),'modality':modality}
+            preset['binder_scaffold']=scaffold['file']
         config={**preset,'binder_lengths':lengths,'number_of_final_designs':candidates,'max_trajectories':attempts,'campaign_seed':seed,'attention_backend':'stock','use_cueq':False,'auto_multi_gpu':False,'design_workers':1,'resume':False,
                 'targets':[{'name':'target','target_path':'input'+('.pdb' if shared['reference']['format']=='pdb' else '.cif'),'chains':','.join(chains),'hotspots':','.join(r['chain']+str(r['num']) for r in hot),'coldspots':','.join(r['chain']+str(r['num']) for r in cold)}],'project_folder':'output'}
         name=p.get('name','Design campaign')
         if not isinstance(name,str) or not name.strip() or len(name)>160:raise ValueError('Enter a campaign name of 1–160 characters.')
-        return {'schemaVersion':1,'name':name.strip(),'valid':True,'executionReady':False,'source':shared['reference'],'config':config,'residueMap':[{'id':r['id'],'chain':r['chain'],'number':r['num'],'aminoAcid':r['one']} for r in selected],
+        return {'schemaVersion':1,'name':name.strip(),'valid':True,'executionReady':False,'modality':modality,'scaffold':scaffold,'source':shared['reference'],'config':config,'residueMap':[{'id':r['id'],'chain':r['chain'],'number':r['num'],'aminoAcid':r['one']} for r in selected],
                 'settingsSha256':checksum(canonical(config).encode()),'upstream':source_status(),'warnings':['Prepared configuration is not a completed design or a validated full-model Metal backend.','Hotspots use observed source numbering; no biological numbering conversion is inferred.','Memory feasibility has not been established for this target.']}
     def bindcraft_prepare(self,p):
         checked=self.bindcraft_validate(p);checked['upstream']=verify_source()
@@ -99,6 +107,10 @@ class Engine:
             raw=path.read_bytes()
             if checksum(raw)!=checked['source']['sha256']:raise ValueError('Source changed during preparation.')
             (folder/checked['config']['targets'][0]['target_path']).write_bytes(raw)
+            if checked.get('scaffold'):
+                scaffold=checked['scaffold'];raw=(UPSTREAM/scaffold['source']).read_bytes()
+                if checksum(raw)!=scaffold['sha256']:raise ValueError('Scaffold changed during preparation.')
+                (folder/scaffold['file']).write_bytes(raw)
             (folder/'settings.json').write_text(json.dumps(checked['config'],indent=2))
             (folder/'provenance.json').write_text(json.dumps(checked,indent=2))
             self.s.job_update(job['id'],'prepared',{'settingsFile':'settings.json','provenanceFile':'provenance.json'})

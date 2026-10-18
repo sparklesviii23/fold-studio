@@ -1,0 +1,177 @@
+{
+  "state": "technical_execution_finished",
+  "failedStage": null,
+  "outputs": [
+    "technical_fragment.cif"
+  ],
+  "devices": [
+    "MetalDevice(id=0)"
+  ],
+  "upstreamRevision": "c0ee638d11bc010817c2c97ee58ed5c323e664e2",
+  "execution": "metal",
+  "precision": "float32",
+  "diagnosticAllStages": true,
+  "modality": "VHH",
+  "fixedSequenceChecks": {
+    "technical_fragment__binder": {
+      "fixedResidues": 88,
+      "unchanged": true
+    },
+    "technical_fragment__target_technical_fragment": {
+      "fixedResidues": 12,
+      "unchanged": true
+    }
+  },
+  "chainLengths": {
+    "technical_fragment": {
+      "binder": 125,
+      "target_technical_fragment": 12
+    }
+  },
+  "cyclicOffsetMode": "direction",
+  "cyclicClosureDistanceAngstrom": {},
+  "seconds": 59.72716245800257,
+  "peakProcessRSSBytes": 770113536,
+  "sourceSha256": "c152bef545f70158970e739878231fbe6ba92b6218a0ce39a84ec4b873b56c8d",
+  "settings": {
+    "mpnn_model": "v_48_020",
+    "mpnn_variant": "negative",
+    "validation_recycles": 3,
+    "validation_crop_flank": 5,
+    "autotune": false,
+    "attention_backend": "stock",
+    "use_cueq": false,
+    "subbatch_size": "auto",
+    "trajectory_only": false,
+    "resume": true,
+    "hash_design_names": true,
+    "relax_accepted_designs": false,
+    "archive_trajectories": false,
+    "save_failed_refolds": true,
+    "save_failed_trajectories": true,
+    "save_binder_monomers": true,
+    "save_design_animations": false,
+    "save_design_frames": false,
+    "save_design_sequences": true,
+    "save_loss_plots": false,
+    "betasheet_reopt_trigger": 0.15,
+    "betasheet_reopt_extra_refine_steps": 0,
+    "betasheet_reopt_extra_anneal_steps": 0,
+    "min_plddt_screen": 0.0,
+    "min_plddt_refine": 0.0,
+    "min_plddt_anneal": 0.0,
+    "min_plddt_harden": 0.0,
+    "min_plddt_final": 0.0,
+    "sequence_candidates": 10,
+    "kept_sequences": 1,
+    "enough_passing_sequences": 3,
+    "redesign_interface": false,
+    "design_dropout": false,
+    "forced_targeting": false,
+    "design_recycles": 0,
+    "target_flexibility": 0.0,
+    "bigbang_initialization": false,
+    "initial_guess": false,
+    "desperation": true,
+    "weights_plddt_loss": 0.1,
+    "weights_iptm_loss": 0.05,
+    "weights_interface_contacts": 1.0,
+    "weights_interface_pae": 0.1,
+    "weights_binder_contacts": 1.0,
+    "weights_binder_pae": 0.4,
+    "weights_binder_helicity": -0.3,
+    "weights_compactness": 0.5,
+    "losses": {
+      "plddt_loss": {
+        "params": {
+          "prediction_state": "complex",
+          "chain": "binder"
+        }
+      },
+      "binder_pae": {
+        "params": {
+          "prediction_state": "complex",
+          "chain": "binder"
+        }
+      },
+      "compactness": {
+        "params": {
+          "prediction_state": "complex",
+          "chain": "binder"
+        }
+      },
+      "binder_contacts": {
+        "params": {
+          "prediction_state": "complex",
+          "chain": "binder"
+        }
+      },
+      "binder_helicity": {
+        "params": {
+          "prediction_state": "complex",
+          "chain": "binder"
+        }
+      },
+      "interface_contacts": {
+        "params": {
+          "cutoff": 20.0,
+          "contacts_per_residue": 2
+        }
+      }
+    },
+    "filters": [],
+    "min_iptm_anneal": 0.0,
+    "min_iptm_harden": 0.0,
+    "min_iptm_mutate": 0.0,
+    "min_iptm_final": 0.0,
+    "min_plddt_mutate": 0.6,
+    "binder_scaffold": "/Users/vii/Documents/FoldStudio-MetalPort/fold-studio/vendor/bindcraft2/scaffolds/VHH.cif",
+    "mutate_positions": "A27-33,A35*,A37*,A45*,A47*,A50*,A52-57(5-7),A59,A97-99*,A100-114(3-25),A115,A116",
+    "paratope_conformations": [
+      "extended",
+      "folded_back"
+    ],
+    "weights_binder_intra_coldspot": 1.0,
+    "weights_binder_coldspot": 1.0,
+    "design_models": [
+      "model_1_multimer_v3"
+    ],
+    "validation_model": "monomer",
+    "min_scaffold_sequence_retained_final": 1.0,
+    "min_monomer_plddt_final": 0.7,
+    "aa_bias": {
+      "C": 0.0,
+      "F": 0.9,
+      "W": 0.3,
+      "Y": 0.9
+    },
+    "targets": [
+      {
+        "name": "technical_fragment",
+        "target_path": "/Users/vii/Documents/FoldStudio-MetalPort/validation/vhh-trajectory-f32-metal/technical_target_fragment.pdb",
+        "chains": "A"
+      }
+    ],
+    "binder_lengths": [
+      12
+    ],
+    "campaign_seed": 2718,
+    "validation_models": [
+      "model_1_ptm"
+    ],
+    "length_bucket_size": 1,
+    "screen_steps": 1,
+    "refine_steps": 1,
+    "anneal_steps": 1,
+    "harden_steps": 1,
+    "mutate_steps": 0,
+    "max_off_paratope_contact_final": 0.2,
+    "min_iptm_screen": 0.0,
+    "min_iptm_refine": 0.0
+  },
+  "limitations": [
+    "Technical 12-residue target fragment with a 125-residue sampled VHH scaffold; no full-target campaign acceptance.",
+    "One update per stage; permissive diagnostic confidence gates. No claim of a valid binder, research-quality design or default campaign acceptance.",
+    "Backend execution and numerical agreement do not establish experimental binding/inhibition."
+  ]
+}

@@ -28,7 +28,7 @@ class ProjectMetalTests(unittest.TestCase):
         for key,value in [('targetChains',[]),('targetChains',['B']),('targetChains',['A','A']),('hotspots',['["A",2,""]']),('hotspots',['["A",1,""]']*2),('coldspots',['["A",1,""]'])]:
             with self.subTest(key=key,value=value),self.assertRaises(ValueError):self.engine.bindcraft_validate({**self.config,key:value})
     def test_unsupported_modality_does_not_fallback(self):
-        with self.assertRaisesRegex(ValueError,'modalities remain blocked'):self.engine.bindcraft_validate({**self.config,'modality':'VHH'})
+        with self.assertRaisesRegex(ValueError,'modalities remain blocked'):self.engine.bindcraft_validate({**self.config,'modality':'Fab'})
     def test_cross_project_structure_rejected(self):
         other=self.s.project_create({'name':'Other'})
         with self.assertRaisesRegex(ValueError,'another project'):self.engine.bindcraft_validate({**self.config,'projectId':other['id']})
@@ -61,7 +61,7 @@ class ProjectMetalTests(unittest.TestCase):
         with zipfile.ZipFile(out) as z:
             self.assertIn('jobs/'+j['id']+'/input.pdb',z.namelist());self.assertTrue(any(x.endswith('campaign_metadata.json') for x in z.namelist()));self.assertEqual(json.loads(z.read('project.json'))['jobs'][0]['engine'],'bindcraft2')
     def test_registry_reports_full_modality_inventory_without_execution_claim(self):
-        r=self.engine.fold_engine_status({});self.assertEqual(len(r['modalities']),12);self.assertEqual({x['name'] for x in r['modalities'] if x['execution']=='experimental'},{'binder','peptide','cyclic_peptide'});self.assertTrue(all(x['execution']=='blocked' for x in r['modalities'] if x['name'] not in ('binder','peptide','cyclic_peptide')));self.assertIn('VHH',{x['name'] for x in r['modalities']})
+        r=self.engine.fold_engine_status({});self.assertEqual(len(r['modalities']),12);self.assertEqual({x['name'] for x in r['modalities'] if x['execution']=='experimental'},{'binder','peptide','cyclic_peptide','VHH'});self.assertTrue(all(x['execution']=='blocked' for x in r['modalities'] if x['name'] not in ('binder','peptide','cyclic_peptide','VHH')));self.assertIn('VHH',{x['name'] for x in r['modalities']})
     def test_vendored_source_verified_and_license_retained(self):
         source=w.fold_engine.verify_source();self.assertEqual(source['revision'],w.fold_engine.PIN);self.assertIn('Hosting-Restricted',(w.fold_engine.UPSTREAM/'LICENSE').read_text())
     def test_probe_missing_runtime_is_unavailable(self):
