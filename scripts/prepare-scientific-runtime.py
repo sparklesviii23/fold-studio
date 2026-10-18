@@ -3,8 +3,9 @@ No system installs are modified. Output must be new. Original package licenses,
 dist-info and Python LICENSE remain present. Verify relocation before bundling.
 """
 import argparse,hashlib,json,pathlib,shutil,subprocess,sys,os
-p=argparse.ArgumentParser();p.add_argument('--python',required=True);p.add_argument('--output',required=True);p.add_argument('--resume',action='store_true');p.add_argument('--backend',choices=['cpu','metal','mps'],default='cpu');p.add_argument('--stack',choices=['jax','boltz'],default='jax');a=p.parse_args()
+p=argparse.ArgumentParser();p.add_argument('--python',required=True);p.add_argument('--output',required=True);p.add_argument('--resume',action='store_true');p.add_argument('--backend',choices=['cpu','metal','mps'],default='cpu');p.add_argument('--stack',choices=['jax','boltz','openmm'],default='jax');a=p.parse_args()
 if (a.stack=='boltz')!=(a.backend=='mps'):raise SystemExit('Boltz requires the explicit mps stack; JAX requires cpu or metal.')
+if a.stack=='openmm' and a.backend!='cpu':raise SystemExit('The OpenMM runtime is pinned to CPU/reference execution.')
 metadata=json.loads(subprocess.check_output([a.python,'-c','import sys,sysconfig,json;print(json.dumps({"base":sys.base_prefix,"site":sysconfig.get_path("purelib"),"version":sys.version.split()[0]}))'],text=True))
 base=pathlib.Path(metadata['base']);site=pathlib.Path(metadata['site']);dest=pathlib.Path(a.output).absolute()
 if dest.exists() and not a.resume:raise SystemExit('Runtime output must be new unless --resume is explicit.')
@@ -21,6 +22,12 @@ for file in dest.rglob('*'):
   if not sibling.is_file():raise RuntimeError('Missing internal symlink target: '+str(sibling))
   file.unlink();file.symlink_to(sibling.name)
 python=dest/'bin/python3.12'
+if a.stack=='openmm':
+ # This product subset includes the MIT CPU/reference platforms. Unmodified
+ # upstream GPU plugins stay in the development environment, not in the app.
+ for plugin in target.glob('OpenMM.libs/lib/plugins/*OpenCL.dylib'):plugin.unlink()
+ notices=pathlib.Path(__file__).resolve().parents[1]/'vendor/licenses/openmm'
+ shutil.copytree(notices,dest/'licenses/openmm',dirs_exist_ok=True)
 env={**os.environ,'JAX_PLATFORMS':a.backend,'PYTHONDONTWRITEBYTECODE':'1'}
 if a.backend=='metal':
  sys.path.insert(0,str(pathlib.Path(__file__).resolve().parents[1]/'scientific'))
@@ -28,6 +35,7 @@ if a.backend=='metal':
  env.update(ENV)
 code='import sys,jax,numpy,haiku,biotite,optax;print(sys.prefix);print(jax.__version__,jax.devices());print(jax.grad(lambda x:jax.numpy.sin(x))(1.0))'
 if a.stack=='boltz':code='import sys,torch,numpy,rdkit,importlib.metadata;from boltz.main import cli;print(sys.prefix);print(importlib.metadata.version("boltz-community"),torch.__version__);assert torch.backends.mps.is_available();x=torch.tensor([1.,2.],device="mps",requires_grad=True);x.square().sum().backward();assert torch.allclose(x.grad.cpu(),torch.tensor([2.,4.]));print("MPS forward/backward passed")'
+if a.stack=='openmm':code='import sys,openmm,numpy;print(sys.prefix);assert openmm.__version__=="8.6.1";platforms=[openmm.Platform.getPlatform(i).getName() for i in range(openmm.Platform.getNumPlatforms())];assert set(platforms)=={"CPU","Reference"};print(openmm.__version__,platforms);assert not openmm.Platform.getPluginLoadFailures()'
 check=subprocess.run([str(python),'-I','-B','-c',code],text=True,capture_output=True,timeout=45,env=env)
 if check.returncode:raise RuntimeError(check.stderr)
 manifest={'schemaVersion':1,'pythonVersion':metadata['version'],'stack':a.stack,'backend':a.backend,'initialIsolatedProbe':check.stdout,'files':{str(f.relative_to(dest)):hashlib.sha256(f.read_bytes()).hexdigest() for f in dest.rglob('*') if f.is_file() and not f.is_symlink() and '__pycache__' not in f.parts}}

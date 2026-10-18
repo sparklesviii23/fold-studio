@@ -45,7 +45,7 @@ validity. No top-level platform requirement is marked COMPLETE.
 | BoltzGen / RFdiffusion / additional generators | NOT STARTED | No new adapter | Source/license/runtime audit followed by real computation |
 | Drug Design Studio / RDKit / ligand preparation | IN DEVELOPMENT | `ligand.py`, `ligand_runner.py`, shared jobs/records, explicit graph + CIF/SDF; five small-molecule chemistry/interchange cases | Packaged runtime and native form/viewport acceptance pending; no docking, protonation enumeration or broader force-field validation |
 | AutoDock Vina / GNINA / screening / pharmacophores | NOT STARTED | No integrated adapter | Native engines, reference cases and scientifically justified scoring |
-| Dynamics Lab / OpenMM | NOT STARTED | No integrated simulation workflow | Force-field preparation, actual dynamics, trajectory state and RMSD/RMSF validation |
+| Dynamics Lab / OpenMM | IN DEVELOPMENT | `dynamics.py`, `dynamics_runner.py`, shared CPU pilots, genuine force-field/trajectory outputs, native panel | Packaged/native pilot acceptance, explicit solvent/general ligands, equilibrated sampling and RMSD/RMSF analysis |
 | Free-energy / OpenFE | NOT STARTED | No integrated adapter | Validated preparation/sampling/uncertainty and reproducibility |
 | Quantum chemistry / Psi4 | NOT STARTED | No integrated adapter | Feasible macOS engine, scientifically explicit methods and numerical checks |
 | Fold Intelligence assistant | IN DEVELOPMENT | Existing deterministic evidence explanations | Real structure-aware tool execution and grounded interpretation; no local LLM installed |
@@ -63,13 +63,13 @@ validity. No top-level platform requirement is marked COMPLETE.
    finished with no accepted designs (original final i_pTM rejection). Do not
    restart it. The paired-domain full technical pipeline also finished; outputs
    stay quarantined because its QA gates were permissive.
-2. Native fragment/viewer/export and repeat controls passed. The native original-
-   filter homodimer campaign finished with no accepted candidates; do not rerun.
-   The 10 GiB Metal experiment still refused the gradient on memory limits.
-   Current ligand preparation passes source chemistry, native atom/bond transport,
-   250 Python contracts and 71 frontend tests. Build and relocate the combined
-   app, then verify automatic bundled RDKit discovery and sealed execution.
-   Native ligand form/visual checks await an unlocked Mac.
+2. Native fragment, repeat, ligand form/export/connected viewport and coordinate-
+   ensemble import/slider/playback acceptance passed on relocated sealed builds.
+   Do not rerun completed model campaigns. The bounded 10 GiB Metal gradient
+   remains memory-blocked; limits stay unchanged. Source tests pass 258 Python
+   checks and 72 frontend checks, with no skipped visual fixture test now that
+   the bundled public ANGPTL3 reference supplies the full XYZ clipping sweep.
+   Next: relocated sealed OpenMM pilot and native form/trajectory acceptance.
 3. Continue the full roadmap: broader modality/reference acceptance, native
    ChimeraX command coverage, shared workflows, remaining scientific engines and
    standalone runtime management. Respect current measured memory limits.
@@ -933,3 +933,70 @@ source. Eight contracts pass, 258 Python tests passed at the integration checkpo
 TypeScript compilation passes. Evidence registry now contains 22 scoped commands,
 nine numerical checks. No dynamics/time/force-field claim. Packaged/native ensemble
 import and frame controls remain next (`docs/COORDINATE_ENSEMBLES.md`).
+
+### Coordinate ensemble native acceptance and portable clipping test
+
+Relocated sealed `59c3664` app passes actual native import, trajectory slider
+(frame 3) and ordered Play (3→7→11), with synchronized visual receipts and exact
+final coordinates. `reports/native-coordinate-ensemble.json`, two screenshots
+and AX trees. Source asset unchanged; seal passes after native playback. Separate
+app-owned Python/native acceptance also passes on five frame changes and exact
+raw project ZIP bytes (`packaged-coordinate-ensemble.json`). Backend validation
+is not substituted for the native form checks; both now have evidence.
+
+The old full-orbit clipping test skipped on checkouts lacking a private complex
+fixture. It now uses the actual bundled public ANGPTL3 mmCIF and real Mol* camera:
+360° about all XYZ axes, centered and offset selection pivots. All 72 frontend
+tests pass with no skips. This checks depth slabs for the stated reference, not
+rasterization or a new ANGPTL3–ANGPTL8 complex validation. Settings/about wording
+is being corrected to reflect local protein design, ligand preparation and
+supplied-coordinate playback rather than describing them as future work.
+
+OpenMM 8.6.1 official universal2 wheel acquired with publisher PyPI SHA-256,
+14,082,674 bytes. Pinned upstream revision b399af4725573963b46d6c1083fdcf7a37615857.
+Wheel omits license files; exact release license notices retained separately in
+`vendor/licenses/openmm` (MIT CPU/reference; GPU plugin LGPL and third-party
+notices). Isolated dependency/runtime audit is in progress. No OpenMM simulation,
+ForceField workflow, Metal backend or packaged OpenMM support claimed yet.
+
+### OpenMM short protein pilot — actual implementation and numerical evidence
+
+`dynamics.py`/`dynamics_runner.py` integrate original OpenMM 8.6.1 through the
+shared compute lock, jobs, cancellation, SQLite records and project archive.
+Strict 1–64-residue protein preflight, pinned input/runner hashes, standard pH-7
+hydrogens with original heavy atoms fixed during preparation, Amber ff14SB/OBC2,
+nonperiodic NoCutoff, bounded minimization, Langevin-middle 300 K / 1 fs / 1 per ps,
+HBond constraints. Original source is immutable; separately saved prepared,
+minimized and real multi-frame trajectory models have no prediction confidence.
+PDB interchange preserves heavy-atom identity with measured rounding ≤0.001 Å.
+Every frame has an explicit MODEL/step/ps map; complete System/Integrator/State XML,
+parameter-file hashes and execution logs are retained. No equilibration,
+stability, binding, free-energy or Metal claim.
+
+`openmm-protein-pilot.json`: 582 atoms / 35 residues, real 20 steps / 0.02 ps /
+five frames; analytic harmonic energy/forces and original Reference-versus-CPU
+force/energy comparisons at prepared and minimized coordinates pass. Two real
+common-job pipelines and exact project exports pass on PDB and mmCIF sources
+(`openmm-shared-workflow*.json`). Source fixture is the OpenMM test protein with
+water/chloride removed in a private QA derivative. Its blank author chain was
+explicitly named A in another QA copy to meet the documented initial input
+scope; original fixture unchanged. OpenMM PDBxFile writes occupancy 0 by default,
+correctly refused by preflight. A separate mmCIF transport retaining original PDB
+occupancies was used. Testing then exposed the reader convention '' vs ' ' for
+absent insertion codes; canonical blank normalization fixes interchange while
+preserving actual insertion IDs. Failed jobs/roots remain as diagnostic evidence.
+
+The runtime has been assembled separately with only CPU/Reference platforms;
+OpenCL plugins omitted from the product copy. ARM64 import/calculation and 42
+Mach-O dependency checks pass with no external absolute or missing loader links.
+Licenses/third-party notices remain; scientific credits include the Rice notice.
+macOS minimum is 14 for the pinned NumPy ARM64 wheel. Full relocated sealed
+OpenMM execution/native form acceptance is next. `DynamicsPilot.tsx` adds a
+collapsed form in the existing Trajectories panel with real runtime status,
+compute/cancel/history and saved-trajectory opening. No viewer/interface redesign.
+
+All 268 Python contracts and 73 frontend tests pass; TypeScript compilation passes.
+A shared cancellation regression now preserves a completed transaction/results
+when the worker finishes while cancellation locates its process. See
+`docs/DYNAMICS_PILOTS.md`. The entire Project Metal specification remains active
+and incomplete; this is a recoverable checkpoint before package acceptance.

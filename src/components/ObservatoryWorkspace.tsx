@@ -67,6 +67,8 @@ export default function ObservatoryWorkspace(p:Props){
    if(type==='saveScene'){await rpc('chimerax_session_save',{projectId:p.projectId,name:value});await refreshEntries();setMessage('Full native ChimeraX session saved to this project.');return;}
    if(type==='restoreScene'&&value.data.engine==='chimerax'){if(window.confirm('Restore this trusted saved native session and replace the current molecular session?')){const r=await rpc('chimerax_session_restore',{projectId:p.projectId,id:value.id,confirmed:true});if(r.state!=='completed')throw new Error(r.output?.error?.message??'Native restore failed.');}return;}
   }
+  if(type==='refreshLibrary')return p.onRefresh();
+  if(type==='openSavedStructure'){const library=await p.onRefresh();const record=library.records.find((r:Item)=>r.id===value&&r.kind==='structure'&&r.project_id===p.projectId);if(!record)throw new Error('Choose a saved coordinate result in this project.');return p.onOpen(record);}
   if(type==='scientificRPC')return rpc(value.action,value.payload);
   if(type==='getState')return {...view,pae:null};
   if(type==='error'){p.onError(value);return;}

@@ -5,6 +5,10 @@ import type {Item,Job} from './types';
 const job={id:'job',project_id:'project',engine:'proteinmpnn',state:'completed',data:{outputs:['output']}} as Job;
 const sequence={id:'output',project_id:'project',kind:'sequence',name:'Redesigned chain',data:{sequence:'ACD'}} as Item;
 describe('Scientific result routing',()=>{
+ it('labels genuine OpenMM pilots as local and routes saved trajectories as coordinates',()=>{
+  expect(jobPresentation('openmm')).toEqual({label:'OpenMM',location:'local'});
+  expect(firstJobOutput({...job,engine:'openmm'},[{...sequence,kind:'structure'}])?.kind).toBe('coordinates');
+ });
  it('keeps genuine sequence results out of the coordinate viewer',()=>{
   const output=firstJobOutput(job,[sequence]);expect(output?.kind).toBe('sequence');expect(output?.record).toBe(sequence);
  });

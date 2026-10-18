@@ -1,8 +1,12 @@
 """Actual native frame switching on explicitly artificial coordinate ensembles."""
-import argparse,hashlib,json,math,os,pathlib,signal,sys,time,zipfile
+import argparse,hashlib,json,math,os,pathlib,signal,subprocess,sys,time,zipfile
 sys.dont_write_bytecode=True
 ROOT=pathlib.Path(__file__).resolve().parents[1]
 p=argparse.ArgumentParser();p.add_argument('--engine-root',default=str(ROOT));p.add_argument('--directory',required=True);p.add_argument('--report',required=True);a=p.parse_args();ENGINE=pathlib.Path(a.engine_root).resolve();sys.path.insert(0,str(ENGINE/'scientific'))
+app=ENGINE.parents[1] if ENGINE.name=='Resources' and ENGINE.parent.name=='Contents' else None
+def seal():
+ if app:subprocess.run(['/usr/bin/codesign','--verify','--deep','--strict',str(app)],check=True)
+seal()
 from worker import Service
 from observatory import Observatory
 folder=pathlib.Path(a.directory).resolve()
@@ -45,6 +49,7 @@ try:
  with zipfile.ZipFile(archive) as z:
   if z.read('assets/'+asset.name)!=path.read_bytes():raise AssertionError('Project export lost original coordinate frames.')
  report={'state':'passed','scope':'Artificial three-frame multi-MODEL PDB: original ChimeraX coordset commands preserve frame IDs, atom handles, exact coordinates, repeatable scene fingerprints and raw unfitted RMSD. Source/export retain every supplied frame. No simulation, time axis, force field, dynamics or biological validation claim.','root':str(folder),'engineRoot':str(ENGINE),'recordId':record['id'],'sourceUnchanged':True,'sourceSha256':sha,'frameIds':[3,7,11],'checks':receipts,'projectExport':'exact complete original multi-frame PDB'}
+ seal();report['signatureAfterFrameSwitches']='passed' if app else 'not_applicable'
  pathlib.Path(a.report).write_text(json.dumps(report,indent=2)+'\n');print(json.dumps({'state':'passed','frames':[3,7,11],'switches':len(receipts)}))
 finally:
  if pid:

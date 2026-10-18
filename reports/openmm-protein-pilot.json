@@ -1,0 +1,211 @@
+{
+  "state": "passed",
+  "scope": "Original OpenMM 8.6.1 CPU/Reference force and energy checks on the bundled protein fixture with explicitly removed waters/chloride, Amber ff14SB/OBC2; independent analytic harmonic energy/forces. Real 20-step CPU protein pilot produces five frames, finite state and immutable source. Narrow numerical/integration evidence, not equilibrated sampling, biological stability, binding or a Metal backend.",
+  "root": "/Users/vii/Documents/FoldStudio-MetalPort/validation/openmm-protein-pilot",
+  "upstreamFixture": "/Users/vii/Documents/FoldStudio-MetalPort/runtimes/openmm-cpu/lib/python3.12/site-packages/openmm/app/data/test.pdb",
+  "upstreamFixtureSha256": "28063e62f8686dc0ec27c723a9d39bf29327874fcf4fd990090d22dc5f925470",
+  "derivedInputSha256": "4398057fc33ea22ce41618235725256a55c36c012125b7579f65aceb5bfea2a8",
+  "cpuReference": [
+    {
+      "file": "prepared.pdb",
+      "referenceEnergyKjMol": -2771.3371007629353,
+      "cpuEnergyKjMol": -2771.33459600443,
+      "absoluteEnergyErrorKjMol": 0.002504758505438076,
+      "maximumForceComponentErrorKjMolNm": 0.004804061042023022,
+      "forceComparison": {
+        "relativeTolerance": 0.0002,
+        "absoluteToleranceKjMolNm": 0.02
+      }
+    },
+    {
+      "file": "minimized.pdb",
+      "referenceEnergyKjMol": -4849.974843345953,
+      "cpuEnergyKjMol": -4849.972095200413,
+      "absoluteEnergyErrorKjMol": 0.002748145539953839,
+      "maximumForceComponentErrorKjMolNm": 0.003994852429564322,
+      "forceComparison": {
+        "relativeTolerance": 0.0002,
+        "absoluteToleranceKjMolNm": 0.02
+      }
+    }
+  ],
+  "analytic": [
+    {
+      "platform": "Reference",
+      "energyKjMol": 0.04999999999999995,
+      "forceKjMolNm": [
+        [
+          9.999999999999995,
+          0.0,
+          0.0
+        ],
+        [
+          -9.999999999999995,
+          0.0,
+          0.0
+        ]
+      ]
+    },
+    {
+      "platform": "CPU",
+      "energyKjMol": 0.04999999999999995,
+      "forceKjMolNm": [
+        [
+          9.999999999999995,
+          0.0,
+          0.0
+        ],
+        [
+          -9.999999999999995,
+          0.0,
+          0.0
+        ]
+      ]
+    }
+  ],
+  "pilot": {
+    "state": "completed_pilot",
+    "requestSha256": "9634e673486990de2f928b5c2f710b03279178e40b62c3e487794015ca0bf832",
+    "runnerSha256": "92b63fbdcd86c5dd16adcdfd3dcddeebb37265cc1ba7a78838fd806d32d2bad7",
+    "runtime": {
+      "openmm": "8.6.1",
+      "numpy": "2.5.4",
+      "platform": "CPU",
+      "properties": {
+        "Threads": "1",
+        "DeterministicForces": "true"
+      }
+    },
+    "inputSha256": "4398057fc33ea22ce41618235725256a55c36c012125b7579f65aceb5bfea2a8",
+    "atoms": 582,
+    "residues": 35,
+    "heavyAtomPreparationMaximumErrorAngstrom": 0.0,
+    "hydrogenVariants": [
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      "HIE",
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null
+    ],
+    "forceFieldFiles": {
+      "amber14/protein.ff14SB.xml": "d9f9779c09d67cd5f8bc657692f174ffab14c469dfd06d560ac1899fa7e976b8",
+      "implicit/obc2.xml": "d8449fe91218c3e158c12f283367666976b2626d07b52cc1dfd241e5c21c6c6d",
+      "hydrogens.xml": "413096cd3005ca5a638180e9cf623a8f6d574c81acf0e2c9d92b2bd26bb7658d",
+      "residues.xml": "fd04c626e845eaeaa1053ebc88ea525ff9f8fe6d035b36361111ab4b2ed5cdb0"
+    },
+    "method": {
+      "protein": "Amber ff14SB",
+      "solvent": "OBC2 implicit solvent",
+      "soluteDielectric": 1.0,
+      "solventDielectric": 78.5,
+      "protonation": "Original OpenMM addHydrogens pH 7; existing atoms retained",
+      "nonbonded": "NoCutoff",
+      "constraints": "HBonds",
+      "constraintTolerance": 1e-06,
+      "integrator": "LangevinMiddleIntegrator",
+      "temperatureK": 300.0,
+      "frictionPerPs": 1.0,
+      "timestepFs": 1.0,
+      "seed": 42,
+      "minimizationMaxIterations": 500,
+      "minimizationToleranceKjMolNm": 10.0
+    },
+    "initial": {
+      "step": 0,
+      "timePs": 0.0,
+      "potentialKjMol": -2771.33459600443,
+      "kineticKjMol": 0.0,
+      "forceRmsKjMolNm": 1399.9880564275877
+    },
+    "afterMinimization": {
+      "step": 0,
+      "timePs": 0.0,
+      "potentialKjMol": -4850.183385547129,
+      "kineticKjMol": 0.0,
+      "forceRmsKjMolNm": 91.68997693555987
+    },
+    "series": [
+      {
+        "step": 0,
+        "timePs": 0.0,
+        "potentialKjMol": -4850.183385547129,
+        "kineticKjMol": 1751.9931729396803,
+        "forceRmsKjMolNm": 91.68997693555987
+      },
+      {
+        "step": 5,
+        "timePs": 0.005,
+        "potentialKjMol": -3932.500004556995,
+        "kineticKjMol": 946.24366673743,
+        "forceRmsKjMolNm": 1146.006950838888
+      },
+      {
+        "step": 10,
+        "timePs": 0.010000000000000002,
+        "potentialKjMol": -4107.478128948664,
+        "kineticKjMol": 1003.0582366349553,
+        "forceRmsKjMolNm": 748.3318094138556
+      },
+      {
+        "step": 15,
+        "timePs": 0.015000000000000006,
+        "potentialKjMol": -3977.487925940637,
+        "kineticKjMol": 940.5103585541613,
+        "forceRmsKjMolNm": 1019.481313855263
+      },
+      {
+        "step": 20,
+        "timePs": 0.02000000000000001,
+        "potentialKjMol": -4080.868142940158,
+        "kineticKjMol": 1007.8075259525319,
+        "forceRmsKjMolNm": 729.187657190036
+      }
+    ],
+    "durationPs": 0.02000000000000001,
+    "artifacts": {
+      "prepared.pdb": "4398057fc33ea22ce41618235725256a55c36c012125b7579f65aceb5bfea2a8",
+      "minimized.pdb": "448c2c7884fee418a84553e3a10b4612b19f51d0081e2385c138bd1de6d37196",
+      "trajectory.pdb": "ce014451026907a3f9c9c9937e223148f28282b8c6ab63e234117dcab1b7938d",
+      "system.xml": "052fdca945ff54186a4a77b1590872dac0c26e7747b75d804aa12c352e7ceb42",
+      "integrator.xml": "f11ca136733bbc9a99ceaed00c1666a8a834f771c880fd7916c8d29565e37dec",
+      "final-state.xml": "f6825a632d0be3433045c59220cd8fb0c69bf8424d33f82c1adf43077ad6e8f4"
+    },
+    "seconds": 7.2601467908825725,
+    "limitations": [
+      "Short pilot, not equilibrated or validated sampling, stability, binding or free energy.",
+      "Implicit solvent and standard pH-7 hydrogen assumptions; no explicit water, salt or general ligand parameters.",
+      "Bounded local minimization does not establish a global minimum or independently certified convergence.",
+      "Exact trajectories are not promised across platforms or runtime versions."
+    ]
+  }
+}
