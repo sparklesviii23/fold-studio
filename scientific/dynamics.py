@@ -2,7 +2,7 @@
 import json,math,os,pathlib,re,subprocess
 import fold_engine as fe
 from coordinate_ensemble import inspect as inspect_ensemble
-ACTIONS={'dynamics_start','dynamics_jobs','dynamics_status','dynamics_analyze'}
+ACTIONS={'dynamics_start','dynamics_continue','dynamics_jobs','dynamics_status','dynamics_analyze'}
 def runtime(s):
  bundled=fe.BASE/'runtime-openmm/bin/python3.12'
  return os.path.abspath(os.path.expanduser(os.environ.get('FOLD_OPENMM_PYTHON') or s.setting('openmmPython') or str(bundled if bundled.is_file() else s.root/'engine/openmm/bin/python')))
@@ -33,24 +33,62 @@ def start(s,p):
   if fe.checksum(source)!=request['inputSha256']:raise ValueError('Dynamics source changed while queueing.')
   (folder/('input.pdb' if request['format']=='pdb' else 'input.cif')).write_bytes(source);(folder/'request.json').write_text(request_text);return s.spawn(job,'--dynamics-job')
  except Exception as error:s.job_update(job['id'],'failed',{'error':str(error)});raise
+
+def continue_pilot(s,p):
+ from dynamics_runner import checkpoint_host
+ if set(p)-{'projectId','parentJobId','name','steps','reportInterval'}:raise ValueError('Continuation inherits the saved system, integrator and random state; no changed methods or seed.')
+ s.project(p['projectId']);parent=s.job(p['parentJobId'])
+ if parent['project_id']!=p['projectId'] or parent['engine']!='openmm' or parent['state']!='completed':raise ValueError('Choose a completed OpenMM pilot in this project.')
+ folder=s.root/'jobs'/parent['id'];data=parent['data'];receipt_bytes=(folder/'result.json').read_bytes()
+ if fe.checksum(receipt_bytes)!=data.get('receiptSha256'):raise ValueError('Parent receipt checksum is absent or changed.')
+ receipt=json.loads(receipt_bytes)
+ if receipt.get('checkpointHost')!=checkpoint_host():raise ValueError('Checkpoint hardware/OS provenance is absent or differs; this pilot cannot be continued.')
+ if receipt.get('state')!='completed_pilot' or receipt['requestSha256']!=data['requestSha256'] or receipt['runnerSha256']!=data['runnerSha256'] or receipt['inputSha256']!=data['source']['sha256']:raise ValueError('Parent receipt differs from the saved pilot.')
+ if set(receipt['artifacts'])!={'prepared.pdb','minimized.pdb','trajectory.pdb','system.xml','integrator.xml','final-state.xml','checkpoint.chk'}:raise ValueError('Parent pilot has no complete checkpoint artifacts.')
+ fmt=data['request']['format'];files={**receipt['artifacts'],'result.json':fe.checksum((folder/'result.json').read_bytes()),'request.json':data['requestSha256'],('input.pdb' if fmt=='pdb' else 'input.cif'):data['source']['sha256']}
+ snapshots={name:(folder/name).read_bytes() for name in files}
+ if any(fe.checksum(raw)!=files[name] for name,raw in snapshots.items()):raise ValueError('Parent checkpoint, input or artifact checksum changed.')
+ name=p.get('name','Continuation · '+parent['name'])
+ if not isinstance(name,str) or not name.strip() or len(name)>200 or any(ord(c)<32 for c in name):raise ValueError('Enter a continuation name of 1–200 characters without control characters.')
+ values={key:fe.integer(p.get(key,default),key,lo,hi) for key,default,lo,hi in [('steps',1000,10,5000),('reportInterval',100,1,5000)]}
+ if values['steps']%values['reportInterval'] or values['steps']//values['reportInterval']>100:raise ValueError('The reporting interval must divide steps, with at most 100 saved intervals.')
+ python=runtime(s)
+ if not pathlib.Path(python).is_file():raise ValueError('The OpenMM scientific runtime is unavailable.')
+ request={**values,'mode':'continue','format':fmt,'inputSha256':data['source']['sha256'],'parentJobId':parent['id'],'restartFiles':files};text=fe.canonical(request);runner=pathlib.Path(__file__).with_name('dynamics_runner.py')
+ s.db.execute('BEGIN IMMEDIATE')
+ if s.active():s.db.rollback();raise ValueError('Another local compute job is active.')
+ job=s.job_new({'projectId':p['projectId'],'name':name.strip(),'source':data['source'],'parentJobId':parent['id'],'runtime':python,'request':request,'requestSha256':fe.checksum(text.encode()),'runnerSha256':fe.checksum(runner.read_bytes()),'outputs':[]},'openmm','queued');child=s.root/'jobs'/job['id'];child.mkdir(exist_ok=True)
+ try:
+  (child/'restart').mkdir()
+  for filename,raw in snapshots.items():(child/'restart'/filename).write_bytes(raw)
+  (child/('input.pdb' if fmt=='pdb' else 'input.cif')).write_bytes(snapshots['input.pdb' if fmt=='pdb' else 'input.cif']);(child/'request.json').write_text(text);return s.spawn(job,'--dynamics-job')
+ except Exception as error:s.job_update(job['id'],'failed',{'error':str(error)});raise
 def run(s,id):
  job=s.job(id);data=job['data'];folder=s.root/'jobs'/id;created=[];committed=False
  if job['engine']!='openmm' or job['state'] not in ('queued','running'):raise ValueError('Dynamics job cannot execute in this state.')
  try:
-  s.job_update(id,'running',{'started':fe.mi.now(),'stage':'system_preparation'});runner=pathlib.Path(__file__).with_name('dynamics_runner.py');request=folder/'request.json'
+  continuation=data['request'].get('mode')=='continue'
+  s.job_update(id,'running',{'started':fe.mi.now(),'stage':'checkpoint_restoration' if continuation else 'system_preparation'});runner=pathlib.Path(__file__).with_name('dynamics_runner.py');request=folder/'request.json'
   if fe.checksum(runner.read_bytes())!=data['runnerSha256'] or fe.checksum(request.read_bytes())!=data['requestSha256']:raise ValueError('Dynamics runner or saved input changed after queueing.')
   proc=subprocess.run([data['runtime'],'-I','-B',str(runner),str(request)],env={**os.environ,'OPENMM_CPU_THREADS':'1','PYTHONDONTWRITEBYTECODE':'1','PYTHONUNBUFFERED':'1'},timeout=1800)
   if proc.returncode:raise ValueError('OpenMM could not complete this pilot. Review the execution log for force-field templates, missing atoms or numerical errors.')
   if s.job(id)['state']=='cancelled':return
-  receipt=json.loads((folder/'result.json').read_text())
+  receipt_bytes=(folder/'result.json').read_bytes();receipt_sha=fe.checksum(receipt_bytes);receipt=json.loads(receipt_bytes)
   if receipt['state']!='completed_pilot' or receipt['requestSha256']!=data['requestSha256'] or receipt['runnerSha256']!=data['runnerSha256'] or receipt['inputSha256']!=data['source']['sha256']:raise ValueError('Dynamics execution receipt differs from queued inputs.')
   if fe.checksum(request.read_bytes())!=data['requestSha256'] or fe.checksum(runner.read_bytes())!=data['runnerSha256']:raise ValueError('Dynamics inputs changed during execution.')
   expected={'prepared.pdb','minimized.pdb','trajectory.pdb','system.xml','integrator.xml','final-state.xml','checkpoint.chk'}
   if set(receipt['artifacts'])!=expected or any(fe.checksum((folder/name).read_bytes())!=sha for name,sha in receipt['artifacts'].items()):raise ValueError('Dynamics artifact checksum changed.')
-  if len(receipt['series'])!=data['request']['steps']//data['request']['reportInterval']+1 or abs(receipt['durationPs']-data['request']['steps']*.001)>1e-7:raise ValueError('Dynamics frame count or physical duration differs from the saved request.')
+  start_time=receipt['series'][0]['timePs'];start_step=receipt['series'][0]['step']
+  if not math.isfinite(receipt['durationPs']) or receipt['durationPs']!=receipt['series'][-1]['timePs'] or len(receipt['series'])!=data['request']['steps']//data['request']['reportInterval']+1 or abs(receipt['durationPs']-start_time-data['request']['steps']*.001)>1e-7:raise ValueError('Dynamics frame count or physical duration differs from the saved request.')
+  if not continuation and (start_step!=0 or abs(start_time)>1e-12):raise ValueError('A new dynamics pilot must start at zero.')
+  if continuation:
+   saved=json.loads((folder/'restart/result.json').read_text());details=receipt.get('continuation',{})
+   if details.get('parentJobId')!=data['parentJobId'] or details.get('parentReceiptSha256')!=data['request']['restartFiles']['result.json'] or start_step!=saved['series'][-1]['step'] or abs(start_time-saved['series'][-1]['timePs'])>1e-12:raise ValueError('Continuation parent or initial physical state differs.')
+  if any(row['step']!=start_step+i*data['request']['reportInterval'] or abs(row['timePs']-start_time-i*data['request']['reportInterval']*.001)>1e-7 for i,row in enumerate(receipt['series'])):raise ValueError('Dynamics step/time correspondence differs.')
   if any(not all(math.isfinite(row[key]) for key in ('timePs','potentialKjMol','kineticKjMol','forceRmsKjMolNm')) for row in receipt['series']):raise ValueError('Dynamics returned nonfinite state.')
   records=[];date=fe.mi.now()
-  for name,label in [('trajectory.pdb','Short implicit-solvent trajectory'),('prepared.pdb','Prepared hydrogen model'),('minimized.pdb','Locally minimized model')]:
+  outputs=[('trajectory.pdb','Continued implicit-solvent trajectory')] if continuation else [('trajectory.pdb','Short implicit-solvent trajectory'),('prepared.pdb','Prepared hydrogen model'),('minimized.pdb','Locally minimized model')]
+  for name,label in outputs:
    raw=(folder/name).read_bytes();st=fe.mi.parse_structure(raw.decode(),'pdb')
    if len(st['atoms'])!=receipt['atoms']:raise ValueError('Dynamics coordinate atom count differs from the prepared system.')
    metadata={'jobId':id,'derivedFrom':data['source'],'dynamics':{'artifact':name,'receipt':receipt,'classification':'Short computational pilot; equilibrium and biological behavior unvalidated'}}
@@ -60,7 +98,8 @@ def run(s,id):
    asset=fe.mi.uid()+'.pdb';path=s.root/'assets'/asset;path.write_bytes(raw);created.append(path);rid=fe.mi.uid();info={'asset':asset,'format':'pdb','sha256':receipt['artifacts'][name],'source':'OpenMM 8.6.1 · Amber ff14SB / OBC2 · '+label,'confidenceKind':None,'metadata':metadata,'imported':date};records.append((rid,job['project_id'],'structure',job['name']+' · '+label,json.dumps(info),date))
   s.db.execute('BEGIN IMMEDIATE')
   if s.job(id)['state']=='cancelled':s.db.rollback();return
-  s.db.executemany('INSERT INTO records VALUES(?,?,?,?,?,?)',records);s.db.execute('UPDATE projects SET updated=? WHERE id=?',(date,job['project_id']));current=s.job(id)['data'];current.update(outputs=[r[0] for r in records],stage='completed',finished=date,resultSummary={'atoms':receipt['atoms'],'residues':receipt['residues'],'frames':len(receipt['series']),'durationPs':receipt['durationPs'],'method':receipt['method'],'runtime':receipt['runtime'],'limitations':receipt['limitations']});s.db.execute('UPDATE jobs SET state=?,data=?,updated=? WHERE id=?',('completed',json.dumps(current),date,id));s.db.commit();committed=True
+  if fe.checksum((folder/'result.json').read_bytes())!=receipt_sha:raise ValueError('Dynamics receipt changed during import.')
+  s.db.executemany('INSERT INTO records VALUES(?,?,?,?,?,?)',records);s.db.execute('UPDATE projects SET updated=? WHERE id=?',(date,job['project_id']));current=s.job(id)['data'];current.update(outputs=[r[0] for r in records],stage='completed',finished=date,receiptSha256=receipt_sha,resultSummary={'atoms':receipt['atoms'],'residues':receipt['residues'],'frames':len(receipt['series']),'startTimePs':start_time,'durationPs':receipt['durationPs'],'checkpointAvailable':bool(receipt.get('checkpointHost')),'method':receipt['method'],'runtime':receipt['runtime'],'limitations':receipt['limitations']});s.db.execute('UPDATE jobs SET state=?,data=?,updated=? WHERE id=?',('completed',json.dumps(current),date,id));s.db.commit();committed=True
  except Exception as error:
   s.db.rollback()
   if s.job(id)['state']!='cancelled':s.job_update(id,'failed',{'error':str(error),'finished':fe.mi.now()})
@@ -70,6 +109,7 @@ def run(s,id):
    for path in created:path.unlink(missing_ok=True)
 def dispatch(s,action,p):
  if action=='dynamics_start':return start(s,p)
+ if action=='dynamics_continue':return continue_pilot(s,p)
  if action=='dynamics_analyze':
   from trajectory_analysis import analyze
   return analyze(s,p)

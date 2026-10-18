@@ -34,7 +34,7 @@ continuous complete backbones, one coordinate model, resolved alternate
 locations, positive occupancy and one-character nonblank chain identifiers.
 Force-field template mismatches fail without publishing partial results. Water,
 ions, general ligands, arbitrary protonation/force fields and explicit-solvent
-simulation require further integration. Pilot duration is at most 5 ps; these
+simulation require further integration. Each new segment is at most 5 ps; these
 short runs establish neither equilibration nor biological stability, binding or
 free energy. Exact trajectories are not promised across runtime/platform changes.
 
@@ -84,3 +84,32 @@ time restored exactly on this machine, followed by two independent matching
 five-step CPU continuations. It does not establish portability across platforms,
 hardware or OpenMM versions. Native analysis form and relocated checkpoint
 acceptance are tracked separately in the master progress file.
+
+## Continue a saved checkpoint
+
+Completed pilots created with hardware provenance offer **Continue checkpoint**
+in the same Trajectories panel. Select the number of additional steps above.
+The action creates a new experiment with a byte-pinned parent snapshot, inherited
+System/Integrator and internal integration/random state. It does not prepare
+hydrogens again, minimize again, reset velocities, change the seed, or reset time.
+Only the new trajectory is imported; inherited preparation files remain in its
+reproducibility archive. Absolute step counts and physical times carry through
+subsequent continuations and saved motion measurements. Parent jobs and outputs
+remain unchanged. The child uses the shared compute lock and cancellation.
+
+The parent receipt is pinned in the job database; original source, request and
+all seven artifacts must still match. Runtime version, NumPy, CPU platform,
+properties, hardware model/processor and OS release must match. Before stepping,
+the loaded checkpoint must match the saved final positions, velocities and time
+within 1e-12 in native nm / nm per ps / ps units, and the exact absolute step.
+Older pilots without receipt/hardware provenance retain their original outputs
+but cannot be continued through this control. No portable State-XML fallback is
+silently substituted. See the [upstream checkpoint contract](https://docs.openmm.org/latest/api-python/generated/openmm.app.simulation.Simulation.html).
+
+`openmm-continuation-workflow.json` records a real 20-step parent followed by
+20-step and 10-step shared-job continuations. Both final states exactly match an
+independently continued original OpenMM CPU context on this machine. Source and
+parent bytes remain unchanged, absolute steps reach 50 / 0.05 ps, all snapshot
+and result bytes survive project ZIP export, and deliberately corrupting a
+private checkpoint causes failure with no research outputs. This validates a
+narrow same-platform continuation workflow, not general determinism or sampling.

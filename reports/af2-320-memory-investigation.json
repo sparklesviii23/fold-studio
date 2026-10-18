@@ -32,9 +32,19 @@
       "observedFootprintGiB": 10.2,
       "reportedMachineFreeGiB": 0.3,
       "forwardCoordinateRmsAngstrom": 0.0009118994194716779
+    },
+    {
+      "budgetGiB": 8,
+      "standaloneForwardExecuted": false,
+      "compileCacheSize": 1,
+      "upstreamRematerialization": true,
+      "state": "resource_exhausted",
+      "report": "af2-320-metal-gradient-only.json",
+      "observedFootprintGiB": 8.8,
+      "reportedMachineFreeGiB": 0.3
     }
   ],
-  "nextExperiment": "Investigate lower memory execution rather than increasing limits on this 24 GiB host with observed pressure. Continue independent CPU/shared workflow requirements.",
+  "nextExperiment": "Removing the retained standalone prediction executable did not resolve the live-array peak. Larger Metal profile remains disabled; further work needs liveness/allocation or recomputation changes with original full-gradient numerical validation, not a higher cap.",
   "applicationResidueLimit": {
     "default": 256,
     "largerScaffoldCpu": 320,

@@ -1053,3 +1053,36 @@ continued contexts. This does not yet expose shared-job checkpoint continuation.
 The next memory experiment computes the full 320-residue AF2 gradient directly
 without retaining a separate standalone prediction executable, with the governor
 still enabled at 8 GiB. No production resource limit or model behavior changed.
+
+### Shared checkpoint continuation; bounded AF2 memory result
+
+`dynamics_continue` now forks a completed pilot through the common job queue.
+`dynamics.py` pins the parent receipt, original input and seven artifacts;
+`dynamics_runner.py` restores the original binary checkpoint with strict host/OS/
+runtime provenance and checks the recorded final state before any step. No
+repreparation, minimization, reseeding, velocity or time reset occurs. A separate
+trajectory and continuation receipt retain absolute times, parent/checkpoint
+identities and exact snapshot bytes. Chained continuation, cancellation, source/
+parent preservation, corruption refusal and project ZIP export are covered.
+The native existing pilot panel offers continuation with the chosen additional
+step count; older pilots lacking provenance remain preserved and unavailable
+for this action. `docs/DYNAMICS_PILOTS.md` documents the contract.
+
+Actual 35-residue 20-step parent followed by 20- and 10-step continuations matches
+an independently restored and continued original OpenMM CPU context with zero
+measured position, velocity, time and potential-energy difference at both stops.
+`openmm-continuation-workflow.json`. A deliberately corrupted private snapshot
+fails with no partial records; parent untouched. This is narrow numerical and
+workflow evidence, not equilibrium or biological validation. 282 Python and
+73 frontend tests pass; TypeScript passes. Relocated/native continuation acceptance
+is next; no previous completed model campaign was rerun.
+
+The 320-residue full AF2 gradient still exceeds the enabled 8 GiB governor when
+computed directly without first running or retaining a standalone prediction
+executable. Upstream rematerialization remains enabled, compiled cache size one.
+The actual Metal failure reports 8.8 GB process footprint / 8.4 GB live MLX arrays
+and 0.3 GB machine free. `af2-320-metal-gradient-only.json` and updated memory
+investigation retain this negative result; no CPU fallback or model/precision/
+filter change. Larger Metal profiles remain disabled. Further progress requires
+validated allocation/liveness or recomputation work; increasing limits is not
+supported by this experiment.

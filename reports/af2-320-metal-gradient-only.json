@@ -1,0 +1,29 @@
+{
+  "seed": 2718,
+  "residues": 205,
+  "recycles": 1,
+  "model": "model_1_multimer_v3",
+  "precision": "float32",
+  "parameterSha256": "611da8fc7478928f68de12e8b226260ef1f4ce62bcc29b008572e52f4f212959",
+  "inputSha256": "5b3e9703cb433a2033f9703711dce53e9b8fa307a1b32414a447ec3a2a5aad2d",
+  "targetResidues": 115,
+  "targetSha256": "d3c95434dcadf26d005340b15bd92be61e101ed921478c26f2a5550f198e61f6",
+  "state": "resource_exhausted",
+  "backend": "metal",
+  "jax": "0.11.2",
+  "devices": [
+    "MetalDevice(id=0)"
+  ],
+  "sourceRevision": "c0ee638d11bc010817c2c97ee58ed5c323e664e2",
+  "reference": "/Users/vii/Documents/FoldStudio-MetalPort/fold-studio/reports/af2-320-cpu.json",
+  "referenceSha256": "61fbdeb9b07ed71909e7c5b8d0214015d388abda0e42b7c73ab0b67a119ebf7c",
+  "standaloneForwardExecuted": false,
+  "gradientIncludesFullForward": true,
+  "useRemat": true,
+  "compileCacheSize": 1,
+  "budgetMiB": 8192,
+  "scope": "Genuine full trained-model sequence gradient, with no separately retained standalone-prediction executable. Resource experiment and narrow CPU comparison only; not a design trajectory or biological validation.",
+  "error": "RESOURCE_EXHAUSTED: metaljax out of memory at flush: this process would hold 8.8 GB, over the 8.0 GB METALJAX_MEM_BUDGET_MB budget. Needed 0.0 GB more; the machine has 24.0 GB total, 0.3 GB free and 1.5 GB in the page cache, and this process holds 8.8 GB (8.4 GB in live MLX arrays, 0.0 GB in MLX's buffer cache, 0.4 GB other). Raise METALJAX_MEM_BUDGET_MB / METALJAX_MEM_SYS_MB to allow more (at the risk of paging the machine), or run a smaller model.",
+  "totalSeconds": 49.663406499894336,
+  "peakProcessRSSBytes": 1032404992
+}
