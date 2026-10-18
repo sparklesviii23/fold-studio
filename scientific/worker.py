@@ -12,6 +12,7 @@ import molecular_graph
 import intelligence
 import fold_engine
 import mpnn
+import ligand
 
 AA = 'ACDEFGHIKLMNPQRSTVWY'
 MAX_FILE = 100 * 1024 * 1024
@@ -283,7 +284,7 @@ class Service:
         # Hardware detection is not an inference acceptance test.
         result['validatedMPS']=self.setting('validatedMPS',False)
         return result
-    def active(self): return self.db.execute("SELECT id FROM jobs WHERE engine IN ('boltz2','setup','proteinmpnn','bindcraft2') AND state IN ('running','queued','installing') LIMIT 1").fetchone()
+    def active(self): return self.db.execute("SELECT id FROM jobs WHERE engine IN ('boltz2','setup','proteinmpnn','bindcraft2','rdkit') AND state IN ('running','queued','installing') LIMIT 1").fetchone()
     def job_new(self,p,engine,state):
         self.project(p['projectId']); id,date=uid(),now()
         self.db.execute('INSERT INTO jobs VALUES(?,?,?,?,?,?,?,?)',(id,p['projectId'],p.get('name','Prediction'),engine,state,json.dumps(p),date,date)); self.db.commit()
@@ -293,13 +294,23 @@ class Service:
         if not row: raise ValueError('Unknown job.')
         result=dict(row); result['data']=json.loads(result['data']); return result
     def job_update(self,id,state,extra=None):
+        if not self.db.in_transaction: self.db.execute('BEGIN IMMEDIATE')
         job=self.job(id); job['data'].update(extra or {})
         self.db.execute('UPDATE jobs SET state=?,data=?,updated=? WHERE id=?',(state,json.dumps(job['data']),now(),id)); self.db.commit()
+    def job_metadata(self,id,extra):
+        # A short worker can finish before Popen returns. Attaching its PID must
+        # neither restore an earlier state nor overwrite its completed results.
+        self.db.execute('BEGIN IMMEDIATE')
+        try:
+            job=self.job(id); job['data'].update(extra)
+            self.db.execute('UPDATE jobs SET data=?,updated=? WHERE id=?',(json.dumps(job['data']),now(),id)); self.db.commit()
+        except Exception:
+            self.db.rollback(); raise
     def spawn(self,job,mode):
         folder=self.root/'jobs'/job['id']; folder.mkdir(exist_ok=True)
         with open(folder/'execution.log','ab',buffering=0) as log:
             process=subprocess.Popen([sys.executable,'-B',str(pathlib.Path(__file__).resolve()),'--root',str(self.root),mode,job['id']],stdout=log,stderr=log,start_new_session=True,env=dict(os.environ,PYTHONUNBUFFERED='1',PYTHONDONTWRITEBYTECODE='1'))
-        self.job_update(job['id'],self.job(job['id'])['state'],{'pid':process.pid,'workerPath':str(pathlib.Path(__file__).resolve()),'logAsset':str(folder/'execution.log')})
+        self.job_metadata(job['id'],{'pid':process.pid,'workerPath':str(pathlib.Path(__file__).resolve()),'logAsset':str(folder/'execution.log')})
         return self.job(job['id'])
     def install_engine(self,p):
         if self.active(): raise ValueError('One local process at a time. Wait for the current job or cancel it.')
@@ -404,36 +415,54 @@ class Service:
             data['molecularIntelligence'][table]=[{**r,'data':json.loads(r['data'])} for r in self.rows('SELECT * FROM '+table+' WHERE project_id=?',(p['id'],))]
         path=pathlib.Path(p['path'])
         if path.suffix.lower()!='.zip': raise ValueError('Project exports use .zip.')
-        with zipfile.ZipFile(path,'w',zipfile.ZIP_DEFLATED) as z:
-            z.writestr('project.json',json.dumps(data,indent=2))
-            for task in data['molecularIntelligence']['intelligence_tasks']:
-                if task['result'] and pathlib.Path(task['result']).name==task['result']:
-                    result=lab.root/task['result']
-                    if result.is_file():z.write(result,'intelligence/'+result.name)
-            for confidence in data['molecularIntelligence']['intelligence_confidence']:
-                for source in confidence['data'].get('sources',[]):
-                    if re.fullmatch('[a-f0-9]{64}',str(source.get('sha256',''))):
-                        file=lab.root/('confidence-'+source['sha256']+'.json')
-                        if file.is_file():z.write(file,'intelligence/'+file.name)
-            for record in data['records']:
-                if record['kind']=='structure':
-                    asset=record['data']['asset']; z.write(self.root/'assets'/asset,'assets/'+asset)
-            for entry in data['researchViews']:
-                if entry['kind']=='scene' and entry['data'].get('engine')=='chimerax':
-                    asset=entry['data']['asset']
-                    if pathlib.Path(asset).name!=asset:raise ValueError('Invalid native session asset.')
-                    source=self.root/'assets'/asset
-                    if hashlib.sha256(source.read_bytes()).hexdigest()!=entry['data']['sha256']:raise ValueError('A saved native session checksum changed.')
-                    z.write(source,'assets/'+asset)
-            for job in data['jobs']:
-                folder=self.root/'jobs'/job['id']
-                if folder.exists():
-                    for file in folder.rglob('*'):
-                        if file.is_file() and file.stat().st_size<=MAX_FILE: z.write(file,'jobs/'+job['id']+'/'+str(file.relative_to(folder)))
+        assets={}
+        def add_asset(name,expected):
+            if not isinstance(name,str) or pathlib.Path(name).name!=name or not re.fullmatch('[a-f0-9]{64}',str(expected)):raise ValueError('Invalid saved research asset or integrity receipt.')
+            source=self.root/'assets'/name
+            if source.is_symlink() or not source.is_file() or source.stat().st_size>MAX_FILE:raise ValueError('Saved research asset is missing or exceeds the archive limit: '+name)
+            if name in assets and assets[name][1]!=expected:raise ValueError('Conflicting saved asset integrity receipts.')
+            assets[name]=(source,expected)
+        for record in data['records']:
+            if record['kind']=='structure':
+                add_asset(record['data']['asset'],record['data']['sha256'])
+                ligand=record['data'].get('metadata',{}).get('ligand',{})
+                if ligand.get('sdfAsset'):add_asset(ligand['sdfAsset'],ligand['sdfSha256'])
+        for entry in data['researchViews']:
+            if entry['kind']=='scene' and entry['data'].get('engine')=='chimerax':add_asset(entry['data']['asset'],entry['data']['sha256'])
+        temporary=path.with_name('.'+path.name+'.'+uid()+'.tmp')
+        try:
+            with zipfile.ZipFile(temporary,'w',zipfile.ZIP_DEFLATED) as z:
+                data['assetManifest']=[]
+                for name,(source,expected) in assets.items():
+                    digest=hashlib.sha256();size=0
+                    with source.open('rb') as original,z.open('assets/'+name,'w') as saved:
+                        while block:=original.read(1024**2):
+                            size+=len(block)
+                            if size>MAX_FILE:raise ValueError('Saved research asset grew beyond the archive limit.')
+                            digest.update(block);saved.write(block)
+                    if digest.hexdigest()!=expected:raise ValueError('A saved research asset checksum changed: '+name)
+                    data['assetManifest'].append({'file':'assets/'+name,'sha256':expected,'bytes':size})
+                for task in data['molecularIntelligence']['intelligence_tasks']:
+                    if task['result'] and pathlib.Path(task['result']).name==task['result']:
+                        result=lab.root/task['result']
+                        if result.is_file():z.write(result,'intelligence/'+result.name)
+                for confidence in data['molecularIntelligence']['intelligence_confidence']:
+                    for source in confidence['data'].get('sources',[]):
+                        if re.fullmatch('[a-f0-9]{64}',str(source.get('sha256',''))):
+                            file=lab.root/('confidence-'+source['sha256']+'.json')
+                            if file.is_file():z.write(file,'intelligence/'+file.name)
+                for job in data['jobs']:
+                    folder=self.root/'jobs'/job['id']
+                    if folder.exists():
+                        for file in folder.rglob('*'):
+                            if file.is_file() and file.stat().st_size<=MAX_FILE:z.write(file,'jobs/'+job['id']+'/'+str(file.relative_to(folder)))
+                z.writestr('project.json',json.dumps(data,indent=2))
+            temporary.replace(path)
+        finally:temporary.unlink(missing_ok=True)
         return str(path)
     def export_file(self,p):
         path=pathlib.Path(p['path'])
-        if path.suffix.lower() not in ['.json','.fasta','.fa','.png','.svg','.pdb','.cif','.mmcif','.txt','.py','.cxc','.pdf','.csv','.md']: raise ValueError('Unsupported export format.')
+        if path.suffix.lower() not in ['.json','.fasta','.fa','.png','.svg','.pdb','.cif','.mmcif','.txt','.py','.cxc','.pdf','.csv','.md','.sdf']: raise ValueError('Unsupported export format.')
         if p.get('asset'):
             asset=str(p['asset'])
             if pathlib.Path(asset).name!=asset: raise ValueError('Invalid asset identifier.')
@@ -453,6 +482,7 @@ class Service:
         return True
     def dispatch(self,action,p):
         if action not in ACTIONS: raise ValueError('Unsupported scientific action.')
+        if action in ligand.ACTIONS: return ligand.dispatch(self,action,p)
         if action in mpnn.ACTIONS: return mpnn.dispatch(self,action,p)
         if action in fold_engine.ACTIONS: return fold_engine.Engine(self).dispatch(action,p)
         if action in intelligence.ACTIONS: return intelligence.Lab(self).dispatch(action,p)
@@ -463,7 +493,7 @@ class Service:
 
 ACTIONS={'record_update','record_remove','record_restore','library','setting_set','project_create','project_update','project_delete','record_save','sequence_save','mutate','fasta_parse','fasta_import','uniprot_search','uniprot_get','structures','structure_download','import_structure','asset_read','compute','install_engine','prediction_start','prediction_resources','job_read','job_cancel','cloud_prepare','cloud_opened','cloud_import','export_project','export_file','reconcile'}
 
-ACTIONS |= mpnn.ACTIONS | fold_engine.ACTIONS | OBSERVATORY_ACTIONS | PEPTIDE_ACTIONS | molecular_graph.ACTIONS | intelligence.ACTIONS
+ACTIONS |= ligand.ACTIONS | mpnn.ACTIONS | fold_engine.ACTIONS | OBSERVATORY_ACTIONS | PEPTIDE_ACTIONS | molecular_graph.ACTIONS | intelligence.ACTIONS
 
 def execute_job(service,id):
     job=service.job(id); p=job['data']; folder=service.root/'jobs'/id
@@ -539,11 +569,12 @@ def install(service,id):
         service.job_update(id,'failed',{'error':str(error),'finished':now()}); print('SETUP ERROR:',error,flush=True); raise
 
 def main():
-    parser=argparse.ArgumentParser(); parser.add_argument('--root',required=True); parser.add_argument('--fixtures'); parser.add_argument('--run-job'); parser.add_argument('--install'); parser.add_argument('--serve',type=int); parser.add_argument('--intelligence-job'); parser.add_argument('--mpnn-job'); parser.add_argument('--bindcraft-cpu-job')
+    parser=argparse.ArgumentParser(); parser.add_argument('--root',required=True); parser.add_argument('--fixtures'); parser.add_argument('--run-job'); parser.add_argument('--install'); parser.add_argument('--serve',type=int); parser.add_argument('--intelligence-job'); parser.add_argument('--mpnn-job'); parser.add_argument('--bindcraft-cpu-job'); parser.add_argument('--ligand-job')
     args=parser.parse_args(); service=Service(args.root,args.fixtures)
     if args.bindcraft_cpu_job:
         import bindcraft_cpu
         bindcraft_cpu.run(service,args.bindcraft_cpu_job); return
+    if args.ligand_job: ligand.run(service,args.ligand_job); return
     if args.mpnn_job: mpnn.run(service,args.mpnn_job); return
     if args.intelligence_job: intelligence.Lab(service).run(args.intelligence_job); return
     if args.run_job: execute_job(service,args.run_job); return

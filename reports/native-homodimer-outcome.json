@@ -1,0 +1,285 @@
+{
+  "scope": "Real native prepare/start buttons executed original-filter 12+12-residue two-copy binder against a 12-residue technical target using bundled CPU runtime and model files. Original screen rejected the trajectory; no accepted output or biological claim.",
+  "app": "/Users/vii/Documents/FoldStudio-MetalPort/validation/Relocated Repeat Oligomer/FOLD STUDIO Metal Dev.app",
+  "sourceCommit": "e917fc6",
+  "root": "/Users/vii/Documents/FoldStudio-MetalPort/validation/native-multitarget-cpu",
+  "job": {
+    "id": "546062e5-be0a-4da6-b410-b6acb2367373",
+    "project_id": "b4e0ca2f-61be-46a2-a8d4-b84f5c2ee519",
+    "name": "Native original-filter homodimer QA",
+    "engine": "bindcraft2",
+    "state": "completed",
+    "data": {
+      "projectId": "b4e0ca2f-61be-46a2-a8d4-b84f5c2ee519",
+      "name": "Native original-filter homodimer QA",
+      "preparation": {
+        "schemaVersion": 1,
+        "name": "Native original-filter homodimer QA",
+        "valid": true,
+        "executionReady": false,
+        "modality": "homo_oligomer",
+        "scaffold": null,
+        "source": {
+          "structureId": "4294218e-6bf0-48f7-9c5b-dc97629d592f",
+          "projectId": "b4e0ca2f-61be-46a2-a8d4-b84f5c2ee519",
+          "sha256": "c152bef545f70158970e739878231fbe6ba92b6218a0ce39a84ec4b873b56c8d",
+          "format": "pdb",
+          "model": "1"
+        },
+        "config": {
+          "copies": 2,
+          "binder_lengths": [
+            12
+          ],
+          "min_monomer_plddt_final": 0.7,
+          "filters": {
+            "Binder_RMSD": {
+              "threshold": 3.5,
+              "higher": false
+            }
+          },
+          "number_of_final_designs": 1,
+          "max_trajectories": 1,
+          "campaign_seed": 42,
+          "attention_backend": "stock",
+          "use_cueq": false,
+          "auto_multi_gpu": false,
+          "design_workers": 1,
+          "resume": false,
+          "targets": [
+            {
+              "name": "target",
+              "target_path": "input.pdb",
+              "chains": "A",
+              "hotspots": "",
+              "coldspots": ""
+            }
+          ],
+          "project_folder": "output"
+        },
+        "residueMap": [
+          {
+            "id": "[\"A\",18,\"\"]",
+            "chain": "A",
+            "number": 18,
+            "aminoAcid": "A"
+          },
+          {
+            "id": "[\"A\",19,\"\"]",
+            "chain": "A",
+            "number": 19,
+            "aminoAcid": "F"
+          },
+          {
+            "id": "[\"A\",20,\"\"]",
+            "chain": "A",
+            "number": 20,
+            "aminoAcid": "T"
+          },
+          {
+            "id": "[\"A\",21,\"\"]",
+            "chain": "A",
+            "number": 21,
+            "aminoAcid": "V"
+          },
+          {
+            "id": "[\"A\",22,\"\"]",
+            "chain": "A",
+            "number": 22,
+            "aminoAcid": "T"
+          },
+          {
+            "id": "[\"A\",23,\"\"]",
+            "chain": "A",
+            "number": 23,
+            "aminoAcid": "V"
+          },
+          {
+            "id": "[\"A\",24,\"\"]",
+            "chain": "A",
+            "number": 24,
+            "aminoAcid": "P"
+          },
+          {
+            "id": "[\"A\",25,\"\"]",
+            "chain": "A",
+            "number": 25,
+            "aminoAcid": "K"
+          },
+          {
+            "id": "[\"A\",26,\"\"]",
+            "chain": "A",
+            "number": 26,
+            "aminoAcid": "D"
+          },
+          {
+            "id": "[\"A\",27,\"\"]",
+            "chain": "A",
+            "number": 27,
+            "aminoAcid": "L"
+          },
+          {
+            "id": "[\"A\",28,\"\"]",
+            "chain": "A",
+            "number": 28,
+            "aminoAcid": "Y"
+          },
+          {
+            "id": "[\"A\",29,\"\"]",
+            "chain": "A",
+            "number": 29,
+            "aminoAcid": "V"
+          }
+        ],
+        "settingsSha256": "6cdb53566ee4c426f7c8c1c68df0229abf8286b95a839d16f00e656b508fdbeb",
+        "upstream": {
+          "state": "present",
+          "revision": "c0ee638d11bc010817c2c97ee58ed5c323e664e2",
+          "manifestSha256": "8f06e409dac335261d2505361f4358e2b4df389b8f85a497967406d8c4af4277",
+          "license": "BindCraft2 Source-Available License (Hosting-Restricted)",
+          "modified": false
+        },
+        "warnings": [
+          "Prepared configuration is not a completed design or a validated full-model Metal backend.",
+          "Hotspots use observed source numbering; no biological numbering conversion is inferred.",
+          "Memory feasibility has not been established for this target.",
+          "Two identical binder-chain copies follow the original symmetric tying preset. Length bounds are per chain; memory estimates include both copies and the target."
+        ],
+        "targetSources": [
+          {
+            "name": "target",
+            "file": "input.pdb",
+            "source": {
+              "structureId": "4294218e-6bf0-48f7-9c5b-dc97629d592f",
+              "projectId": "b4e0ca2f-61be-46a2-a8d4-b84f5c2ee519",
+              "sha256": "c152bef545f70158970e739878231fbe6ba92b6218a0ce39a84ec4b873b56c8d",
+              "format": "pdb",
+              "model": "1"
+            },
+            "residueMap": [
+              {
+                "id": "[\"A\",18,\"\"]",
+                "chain": "A",
+                "number": 18,
+                "aminoAcid": "A"
+              },
+              {
+                "id": "[\"A\",19,\"\"]",
+                "chain": "A",
+                "number": 19,
+                "aminoAcid": "F"
+              },
+              {
+                "id": "[\"A\",20,\"\"]",
+                "chain": "A",
+                "number": 20,
+                "aminoAcid": "T"
+              },
+              {
+                "id": "[\"A\",21,\"\"]",
+                "chain": "A",
+                "number": 21,
+                "aminoAcid": "V"
+              },
+              {
+                "id": "[\"A\",22,\"\"]",
+                "chain": "A",
+                "number": 22,
+                "aminoAcid": "T"
+              },
+              {
+                "id": "[\"A\",23,\"\"]",
+                "chain": "A",
+                "number": 23,
+                "aminoAcid": "V"
+              },
+              {
+                "id": "[\"A\",24,\"\"]",
+                "chain": "A",
+                "number": 24,
+                "aminoAcid": "P"
+              },
+              {
+                "id": "[\"A\",25,\"\"]",
+                "chain": "A",
+                "number": 25,
+                "aminoAcid": "K"
+              },
+              {
+                "id": "[\"A\",26,\"\"]",
+                "chain": "A",
+                "number": 26,
+                "aminoAcid": "D"
+              },
+              {
+                "id": "[\"A\",27,\"\"]",
+                "chain": "A",
+                "number": 27,
+                "aminoAcid": "L"
+              },
+              {
+                "id": "[\"A\",28,\"\"]",
+                "chain": "A",
+                "number": 28,
+                "aminoAcid": "Y"
+              },
+              {
+                "id": "[\"A\",29,\"\"]",
+                "chain": "A",
+                "number": 29,
+                "aminoAcid": "V"
+              }
+            ],
+            "objective": "target",
+            "weight": 1.0
+          }
+        ]
+      },
+      "outputs": [],
+      "settingsFile": "settings.json",
+      "provenanceFile": "provenance.json",
+      "runtime": "/Users/vii/Documents/FoldStudio-MetalPort/validation/Relocated Repeat Oligomer/FOLD STUDIO Metal Dev.app/Contents/Resources/runtime/bin/python3.12",
+      "parameters": "/Users/vii/Documents/FoldStudio-MetalPort/validation/Relocated Repeat Oligomer/FOLD STUDIO Metal Dev.app/Contents/Resources/models/alphafold",
+      "checkpointSha256": {
+        "model_1_multimer_v3": "611da8fc7478928f68de12e8b226260ef1f4ce62bcc29b008572e52f4f212959",
+        "model_2_multimer_v3": "51362b0844382ae0f5720c59b81dd13a43eea40fbf9995dd2573bdab88865378"
+      },
+      "profile": "experimental-cpu-float32-single-model",
+      "execution": "cpu",
+      "precision": "float32",
+      "modelEnsemble": false,
+      "modelSelection": {
+        "designModels": [
+          "model_1_multimer_v3"
+        ],
+        "validationModels": [
+          "model_2_multimer_v3"
+        ]
+      },
+      "resourceEstimate": {
+        "paddedResidues": 96
+      },
+      "paddedResidueLimit": 256,
+      "runtimeInfo": {},
+      "executionSettingsSha256": "6b81883da3c2ced2b33dc63b7f4b21847f67154bcabda39e436ed080b7c4e728",
+      "pid": 347,
+      "workerPath": "/Users/vii/Documents/FoldStudio-MetalPort/validation/Relocated Repeat Oligomer/FOLD STUDIO Metal Dev.app/Contents/Resources/scientific/worker.py",
+      "logAsset": "/Users/vii/Documents/FoldStudio-MetalPort/validation/native-multitarget-cpu/jobs/546062e5-be0a-4da6-b410-b6acb2367373/execution.log",
+      "started": "2026-10-18T17:12:02.394470+00:00",
+      "stage": "completed",
+      "finished": "2026-10-18T17:15:37.140646+00:00",
+      "acceptedStructureFiles": 0,
+      "outcome": "no_accepted_designs",
+      "limitations": [
+        "Experimental cpu campaign; default scientific rejection criteria retained.",
+        "Predicted designs are not validated binding or inhibition.",
+        "Full modality and ensemble scientific parity not established."
+      ]
+    },
+    "created": "2026-10-18T17:11:29.131607+00:00",
+    "updated": "2026-10-18T17:15:37.140799+00:00"
+  },
+  "signatureAfterCalculation": "passed",
+  "finalNativeScreenshot": "not captured: Mac locked",
+  "log": "Scientific runtime: {\"python\": \"3.12.14 (main, Aug 25 2026, 13:50:33) [Clang 22.1.3 ]\", \"jax\": \"0.11.2\", \"jaxlib\": \"0.11.2\", \"architecture\": \"arm64\", \"macOS\": \"26.4.1\", \"devices\": [\"cpu:0\"], \"execution\": \"cpu\", \"precision\": \"float32\", \"executionSettingsSha256\": \"64f9b5eb62608e2002e6e2536162fe681f2a89d65c5b23444eb7416967070ceb\", \"runnerSha256\": \"1a9537db332cf6e82d808e2fa72e84f8537665ecef682aae08a5d5dd74a06fca\", \"upstreamSource\": {\"state\": \"present\", \"revision\": \"c0ee638d11bc010817c2c97ee58ed5c323e664e2\", \"manifestSha256\": \"8f06e409dac335261d2505361f4358e2b4df389b8f85a497967406d8c4af4277\", \"license\": \"BindCraft2 Source-Available License (Hosting-Restricted)\", \"modified\": false}, \"precisionAdapterSha256\": \"a7699aa7c0669c3654b8d15f9114d66eeeedf29868896ef3318338e0127fdc65\"}\ncampaign preflight: design model_1_multimer_v3 | validation model_2_multimer_v3 | redesign negative/v_48_020 | targets target | output /Users/vii/Documents/FoldStudio-MetalPort/validation/native-multitarget-cpu/jobs/546062e5-be0a-4da6-b410-b6acb2367373/output\ncampaign metadata: BindCraft 2 (unreleased) | settings /Users/vii/Documents/FoldStudio-MetalPort/validation/native-multitarget-cpu/jobs/546062e5-be0a-4da6-b410-b6acb2367373/execution-settings.json | written /Users/vii/Documents/FoldStudio-MetalPort/validation/native-multitarget-cpu/jobs/546062e5-be0a-4da6-b410-b6acb2367373/output/campaign_metadata.json\nBindCraft 2 (unreleased)\ncampaign output\nbinder length 12 | multi-chain binder of 2 chains, symmetric tie\ntarget target (target) | 12 residues\nlosses binder_contacts=1.0 binder_helicity=-0.3 binder_pae=0.4 compactness=0.5 interface_contacts=1.0 interface_pae=0.1 iptm_loss=0.05 plddt_loss=0.1\nfilters Backbone_Clashes <= 0, Binder_RMSD <= 3.5, Interface_Residues >= 7, Unbound_Binder_pLDDT >= 0.7, i_pAE <= 0.35, i_pTM >= 0.7, pTM >= 0.55\nresults /Users/vii/Documents/FoldStudio-MetalPort/validation/native-multitarget-cpu/jobs/546062e5-be0a-4da6-b410-b6acb2367373/output | 3_Ranked/!_Ranked.csv rewritten as each design is accepted | summary.csv written when the campaign ends\n\n=== trajectory 1 | design_l24_929e6111f41e58fa | accepted 0/1 ===\nFOLD_PROGRESS {\"stage\":\"screen\",\"sequenceUpdates\":1,\"metrics\":{\"target.binder_contacts\":2.174258232116699,\"target.binder_helicity\":-0.5148628354072571,\"target.binder_pae\":0.10579276084899902,\"target.compactness\":0.704321026802063,\"target.interface_contacts\":3.9277255535125732,\"target.interface_pae\":0.05673309788107872,\"target.iptm\":0.025614602491259575,\"target.iptm_loss\":0.048719268292188644,\"target.plddt_loss\":0.0608745701611042,\"target.ptm\":0.1048012524843216}}\nFOLD_PROGRESS {\"stage\":\"screen\",\"sequenceUpdates\":2,\"metrics\":{\"target.binder_contacts\":2.4333338737487793,\"target.binder_helicity\":-0.5487125515937805,\"target.binder_pae\":0.09469665586948395,\"target.compactness\":1.0589282512664795,\"target.interface_contacts\":3.882964611053467,\"target.interface_pae\":0.056695617735385895,\"target.iptm\":0.028889339417219162,\"target.iptm_loss\":0.048555534332990646,\"target.plddt_loss\":0.06204765662550926,\"target.ptm\":0.10292705148458481}}\nFOLD_PROGRESS {\"stage\":\"screen\",\"sequenceUpdates\":3,\"metrics\":{\"target.binder_contacts\":2.126246452331543,\"target.binder_helicity\":-0.5520823001861572,\"target.binder_pae\":0.10740607231855392,\"target.compactness\":0.32559502124786377,\"target.interface_contacts\":3.948513984680176,\"target.interface_pae\":0.06289874762296677,\"target.iptm\":0.01765720173716545,\"target.iptm_loss\":0.04911714047193527,\"target.plddt_loss\":0.06362352520227432,\"target.ptm\":0.08436460793018341}}\nFOLD_PROGRESS {\"stage\":\"screen\",\"sequenceUpdates\":4,\"metrics\":{\"target.binder_contacts\":2.0386078357696533,\"target.binder_helicity\":-0.6604523062705994,\"target.binder_pae\":0.11082400381565094,\"target.compactness\":1.1438581943511963,\"target.interface_contacts\":3.9429781436920166,\"target.interface_pae\":0.05752941966056824,\"target.iptm\":0.022505370900034904,\"target.iptm_loss\":0.04887473210692406,\"target.plddt_loss\":0.0640111044049263,\"target.ptm\":0.0931706354022026}}\nFOLD_PROGRESS {\"stage\":\"screen\",\"sequenceUpdates\":5,\"metrics\":{\"target.binder_contacts\":1.9993609189987183,\"target.binder_helicity\":-0.6438778042793274,\"target.binder_pae\":0.10921013355255127,\"target.compactness\":0.5781149864196777,\"target.interface_contacts\":3.903939962387085,\"target.interface_pae\":0.057276587933301926,\"target.iptm\":0.02379531040787697,\"target.iptm_loss\":0.048810236155986786,\"target.plddt_loss\":0.06293706595897675,\"target.ptm\":0.09356258809566498}}\nFOLD_PROGRESS {\"stage\":\"screen\",\"sequenceUpdates\":6,\"metrics\":{\"target.binder_contacts\":1.9838942289352417,\"target.binder_helicity\":-0.5990499258041382,\"target.binder_pae\":0.10971083492040634,\"target.compactness\":0.6585811376571655,\"target.interface_contacts\":3.947962999343872,\"target.interface_pae\":0.059701573103666306,\"target.iptm\":0.019786130636930466,\"target.iptm_loss\":0.04901069402694702,\"target.plddt_loss\":0.06378518790006638,\"target.ptm\":0.0920725166797638}}\nFOLD_PROGRESS {\"stage\":\"screen\",\"sequenceUpdates\":7,\"metrics\":{\"target.binder_contacts\":1.996516227722168,\"target.binder_helicity\":-0.5887213945388794,\"target.binder_pae\":0.10995431244373322,\"target.compactness\":0.6300874948501587,\"target.interface_contacts\":3.913097381591797,\"target.interface_pae\":0.05857829377055168,\"target.iptm\":0.022354822605848312,\"target.iptm_loss\":0.04888225719332695,\"target.plddt_loss\":0.06472167372703552,\"target.ptm\":0.10330500453710556}}\nFOLD_PROGRESS {\"stage\":\"screen\",\"sequenceUpdates\":8,\"metrics\":{\"target.binder_contacts\":1.9355273246765137,\"target.binder_helicity\":-0.6359213590621948,\"target.binder_pae\":0.10540761798620224,\"target.compactness\":0.16125717759132385,\"target.interface_contacts\":3.8818418979644775,\"target.interface_pae\":0.05679666996002197,\"target.iptm\":0.02304130420088768,\"target.iptm_loss\":0.04884793609380722,\"target.plddt_loss\":0.06516039371490479,\"target.ptm\":0.09807206690311432}}\nFOLD_PROGRESS {\"stage\":\"screen\",\"sequenceUpdates\":9,\"metrics\":{\"target.binder_contacts\":1.9875134229660034,\"target.binder_helicity\":-0.7157566547393799,\"target.binder_pae\":0.10424249619245529,\"target.compactness\":0.32866573333740234,\"target.interface_contacts\":3.8370378017425537,\"target.interface_pae\":0.0543145053088665,\"target.iptm\":0.027948923408985138,\"target.iptm_loss\":0.04860255494713783,\"target.plddt_loss\":0.06264479458332062,\"target.ptm\":0.11301420629024506}}\nFOLD_PROGRESS {\"stage\":\"screen\",\"sequenceUpdates\":10,\"metrics\":{\"target.binder_contacts\":1.8603935241699219,\"target.binder_helicity\":-0.6941982507705688,\"target.binder_pae\":0.09693540632724762,\"target.compactness\":-0.16518206894397736,\"target.interface_contacts\":3.8913168907165527,\"target.interface_pae\":0.05647930130362511,\"target.iptm\":0.02397075667977333,\"target.iptm_loss\":0.04880146309733391,\"target.plddt_loss\":0.06027473881840706,\"target.ptm\":0.10561272501945496}}\nFOLD_PROGRESS {\"stage\":\"screen\",\"sequenceUpdates\":11,\"metrics\":{\"target.binder_contacts\":1.837740421295166,\"target.binder_helicity\":-0.7990515828132629,\"target.binder_pae\":0.09639541804790497,\"target.compactness\":-0.0807698518037796,\"target.interface_contacts\":3.841876745223999,\"target.interface_pae\":0.05460280179977417,\"target.iptm\":0.028627905994653702,\"target.iptm_loss\":0.04856860265135765,\"target.plddt_loss\":0.05917279049754143,\"target.ptm\":0.10097767412662506}}\nFOLD_PROGRESS {\"stage\":\"screen\",\"sequenceUpdates\":12,\"metrics\":{\"target.binder_contacts\":1.9170894622802734,\"target.binder_helicity\":-0.683518648147583,\"target.binder_pae\":0.10312900692224503,\"target.compactness\":0.07828662544488907,\"target.interface_contacts\":3.8703081607818604,\"target.interface_pae\":0.05534953624010086,\"target.iptm\":0.026700187474489212,\"target.iptm_loss\":0.048664990812540054,\"target.plddt_loss\":0.06338059157133102,\"target.ptm\":0.11087316274642944}}\nFOLD_PROGRESS {\"stage\":\"screen\",\"sequenceUpdates\":13,\"metrics\":{\"target.binder_contacts\":1.8700673580169678,\"target.binder_helicity\":-0.6701648831367493,\"target.binder_pae\":0.09897494316101074,\"target.compactness\":-0.1851312220096588,\"target.interface_contacts\":3.8792901039123535,\"target.interface_pae\":0.05726608261466026,\"target.iptm\":0.025276683270931244,\"target.iptm_loss\":0.04873616620898247,\"target.plddt_loss\":0.06169043108820915,\"target.ptm\":0.10606451332569122}}\nFOLD_PROGRESS {\"stage\":\"screen\",\"sequenceUpdates\":14,\"metrics\":{\"target.binder_contacts\":2.018505573272705,\"target.binder_helicity\":-0.6483601927757263,\"target.binder_pae\":0.11096449196338654,\"target.compactness\":0.47978007793426514,\"target.interface_contacts\":3.8806099891662598,\"target.interface_pae\":0.056803543120622635,\"target.iptm\":0.020155536010861397,\"target.iptm_loss\":0.04899222403764725,\"target.plddt_loss\":0.06444361805915833,\"target.ptm\":0.0918700322508812}}\nFOLD_PROGRESS {\"stage\":\"screen\",\"sequenceUpdates\":15,\"metrics\":{\"target.binder_contacts\":2.101621389389038,\"target.binder_helicity\":-0.6654045581817627,\"target.binder_pae\":0.10866277664899826,\"target.compactness\":0.9818476438522339,\"target.interface_contacts\":3.864285945892334,\"target.interface_pae\":0.055852215737104416,\"target.iptm\":0.022711824625730515,\"target.iptm_loss\":0.04886440932750702,\"target.plddt_loss\":0.06340434402227402,\"target.ptm\":0.1035894900560379}}\nFOLD_PROGRESS {\"stage\":\"screen\",\"sequenceUpdates\":16,\"metrics\":{\"target.binder_contacts\":2.062180280685425,\"target.binder_helicity\":-0.6339912414550781,\"target.binder_pae\":0.11320405453443527,\"target.compactness\":0.29371151328086853,\"target.interface_contacts\":3.9008607864379883,\"target.interface_pae\":0.05798777937889099,\"target.iptm\":0.02158259227871895,\"target.iptm_loss\":0.04892086982727051,\"target.plddt_loss\":0.06529714167118073,\"target.ptm\":0.1019885390996933}}\nFOLD_PROGRESS {\"stage\":\"screen\",\"sequenceUpdates\":17,\"metrics\":{\"target.binder_contacts\":2.1228296756744385,\"target.binder_helicity\":-0.7223992943763733,\"target.binder_pae\":0.11112263053655624,\"target.compactness\":0.9656000137329102,\"target.interface_contacts\":3.8529927730560303,\"target.interface_pae\":0.05617981031537056,\"target.iptm\":0.025467872619628906,\"target.iptm_loss\":0.048726607114076614,\"target.plddt_loss\":0.06212816387414932,\"target.ptm\":0.10353965312242508}}\nFOLD_PROGRESS {\"stage\":\"screen\",\"sequenceUpdates\":18,\"metrics\":{\"target.binder_contacts\":2.0145273208618164,\"target.binder_helicity\":-0.6530176401138306,\"target.binder_pae\":0.10835011303424835,\"target.compactness\":0.36517906188964844,\"target.interface_contacts\":3.8534011840820312,\"target.interface_pae\":0.05489666014909744,\"target.iptm\":0.023434452712535858,\"target.iptm_loss\":0.04882827773690224,\"target.plddt_loss\":0.06401427835226059,\"target.ptm\":0.09954802691936493}}\nFOLD_PROGRESS {\"stage\":\"screen\",\"sequenceUpdates\":19,\"metrics\":{\"target.binder_contacts\":1.9536402225494385,\"target.binder_helicity\":-0.6809701323509216,\"target.binder_pae\":0.1046316847205162,\"target.compactness\":0.11092148721218109,\"target.interface_contacts\":3.8586924076080322,\"target.interface_pae\":0.05580480769276619,\"target.iptm\":0.026020672172307968,\"target.iptm_loss\":0.048698969185352325,\"target.plddt_loss\":0.062348343431949615,\"target.ptm\":0.10437319427728653}}\nFOLD_PROGRESS {\"stage\":\"screen\",\"sequenceUpdates\":20,\"metrics\":{\"target.binder_contacts\":1.9716455936431885,\"target.binder_helicity\":-0.7827550172805786,\"target.binder_pae\":0.1075546070933342,\"target.compactness\":0.14810681343078613,\"target.interface_contacts\":3.9008350372314453,\"target.interface_pae\":0.058596521615982056,\"target.iptm\":0.024115191772580147,\"target.iptm_loss\":0.04879423975944519,\"target.plddt_loss\":0.063559889793396,\"target.ptm\":0.09675419330596924}}\nFOLD_PROGRESS {\"stage\":\"screen\",\"sequenceUpdates\":21,\"metrics\":{\"target.binder_contacts\":2.0029120445251465,\"target.binder_helicity\":-0.7413095235824585,\"target.binder_pae\":0.10419521480798721,\"target.compactness\":0.19572913646697998,\"target.interface_contacts\":3.8566970825195312,\"target.interface_pae\":0.055565088987350464,\"target.iptm\":0.023796824738383293,\"target.iptm_loss\":0.04881016165018082,\"target.plddt_loss\":0.06311269849538803,\"target.ptm\":0.09324820339679718}}\nFOLD_PROGRESS {\"stage\":\"screen\",\"sequenceUpdates\":22,\"metrics\":{\"target.binder_contacts\":1.9875667095184326,\"target.binder_helicity\":-0.8034080266952515,\"target.binder_pae\":0.10038542747497559,\"target.compactness\":0.21574604511260986,\"target.interface_contacts\":3.8748037815093994,\"target.interface_pae\":0.05718180537223816,\"target.iptm\":0.024453330785036087,\"target.iptm_loss\":0.04877733439207077,\"target.plddt_loss\":0.06273186206817627,\"target.ptm\":0.10414563119411469}}\nFOLD_PROGRESS {\"stage\":\"screen\",\"sequenceUpdates\":23,\"metrics\":{\"target.binder_contacts\":2.011444568634033,\"target.binder_helicity\":-0.8169655203819275,\"target.binder_pae\":0.10384314507246017,\"target.compactness\":0.06908547133207321,\"target.interface_contacts\":3.8717613220214844,\"target.interface_pae\":0.05504791811108589,\"target.iptm\":0.02388801984488964,\"target.iptm_loss\":0.0488056018948555,\"target.plddt_loss\":0.06362013518810272,\"target.ptm\":0.09276869893074036}}\nFOLD_PROGRESS {\"stage\":\"screen\",\"sequenceUpdates\":24,\"metrics\":{\"target.binder_contacts\":2.01436185836792,\"target.binder_helicity\":-0.7917867302894592,\"target.binder_pae\":0.10361074656248093,\"target.compactness\":0.19003677368164062,\"target.interface_contacts\":3.931436777114868,\"target.interface_pae\":0.05903854966163635,\"target.iptm\":0.021763162687420845,\"target.iptm_loss\":0.048911843448877335,\"target.plddt_loss\":0.06338988244533539,\"target.ptm\":0.0944439023733139}}\nFOLD_PROGRESS {\"stage\":\"screen\",\"sequenceUpdates\":25,\"metrics\":{\"target.binder_contacts\":1.9897016286849976,\"target.binder_helicity\":-0.8086881041526794,\"target.binder_pae\":0.09935589879751205,\"target.compactness\":-0.04720691218972206,\"target.interface_contacts\":3.9448139667510986,\"target.interface_pae\":0.058837395161390305,\"target.iptm\":0.021173939108848572,\"target.iptm_loss\":0.04894130304455757,\"target.plddt_loss\":0.06119086220860481,\"target.ptm\":0.0958346426486969}}\nFOLD_PROGRESS {\"stage\":\"screen\",\"sequenceUpdates\":26,\"metrics\":{\"target.binder_contacts\":2.106135845184326,\"target.binder_helicity\":-0.8065151572227478,\"target.binder_pae\":0.09929396957159042,\"target.compactness\":0.009808190166950226,\"target.interface_contacts\":3.921804666519165,\"target.interface_pae\":0.059000082314014435,\"target.iptm\":0.02122407779097557,\"target.iptm_loss\":0.04893879592418671,\"target.plddt_loss\":0.06206474453210831,\"target.ptm\":0.09258122742176056}}\nFOLD_PROGRESS {\"stage\":\"screen\",\"sequenceUpdates\":27,\"metrics\":{\"target.binder_contacts\":1.9657326936721802,\"target.binder_helicity\":-0.8138672113418579,\"target.binder_pae\":0.0980244055390358,\"target.compactness\":-0.1305537223815918,\"target.interface_contacts\":3.9268808364868164,\"target.interface_pae\":0.0567624531686306,\"target.iptm\":0.022464793175458908,\"target.iptm_loss\":0.04887675866484642,\"target.plddt_loss\":0.06133975461125374,\"target.ptm\":0.09848179668188095}}\nFOLD_PROGRESS {\"stage\":\"screen\",\"sequenceUpdates\":28,\"metrics\":{\"target.binder_contacts\":1.9317967891693115,\"target.binder_helicity\":-0.802661657333374,\"target.binder_pae\":0.0978357344865799,\"target.compactness\":-0.28794533014297485,\"target.interface_contacts\":3.9159843921661377,\"target.interface_pae\":0.05670192465186119,\"target.iptm\":0.02322823740541935,\"target.iptm_loss\":0.04883858934044838,\"target.plddt_loss\":0.06164568290114403,\"target.ptm\":0.10528112947940826}}\nFOLD_PROGRESS {\"stage\":\"screen\",\"sequenceUpdates\":29,\"metrics\":{\"target.binder_contacts\":1.9434268474578857,\"target.binder_helicity\":-0.7683099508285522,\"target.binder_pae\":0.09936640411615372,\"target.compactness\":0.053135134279727936,\"target.interface_contacts\":3.9493391513824463,\"target.interface_pae\":0.058913905173540115,\"target.iptm\":0.022104110568761826,\"target.iptm_loss\":0.04889479652047157,\"target.plddt_loss\":0.06210659071803093,\"target.ptm\":0.09314009547233582}}\nFOLD_PROGRESS {\"stage\":\"screen\",\"sequenceUpdates\":30,\"metrics\":{\"target.binder_contacts\":1.920838713645935,\"target.binder_helicity\":-0.784044086933136,\"target.binder_pae\":0.09711305052042007,\"target.compactness\":-0.039714422076940536,\"target.interface_contacts\":3.9158823490142822,\"target.interface_pae\":0.05751369148492813,\"target.iptm\":0.022238511592149734,\"target.iptm_loss\":0.04888807609677315,\"target.plddt_loss\":0.06170554831624031,\"target.ptm\":0.0965578705072403}}\nFOLD_PROGRESS {\"stage\":\"screen\",\"sequenceUpdates\":31,\"metrics\":{\"target.binder_contacts\":1.8684691190719604,\"target.binder_helicity\":-0.7609939575195312,\"target.binder_pae\":0.09348292648792267,\"target.compactness\":-0.1093551442027092,\"target.interface_contacts\":3.9277515411376953,\"target.interface_pae\":0.05733056738972664,\"target.iptm\":0.024905860424041748,\"target.iptm_loss\":0.04875470697879791,\"target.plddt_loss\":0.060916345566511154,\"target.ptm\":0.09885811805725098}}\nFOLD_PROGRESS {\"stage\":\"screen\",\"sequenceUpdates\":32,\"metrics\":{\"target.binder_contacts\":1.8818836212158203,\"target.binder_helicity\":-0.8203191161155701,\"target.binder_pae\":0.09414158761501312,\"target.compactness\":-0.061163078993558884,\"target.interface_contacts\":3.9151456356048584,\"target.interface_pae\":0.05636688694357872,\"target.iptm\":0.025911832228302956,\"target.iptm_loss\":0.04870441183447838,\"target.plddt_loss\":0.059552472084760666,\"target.ptm\":0.10532209277153015}}\nFOLD_PROGRESS {\"stage\":\"screen\",\"sequenceUpdates\":33,\"metrics\":{\"target.binder_contacts\":1.9458099603652954,\"target.binder_helicity\":-0.7958434224128723,\"target.binder_pae\":0.09956879913806915,\"target.compactness\":0.018279187381267548,\"target.interface_contacts\":3.8998219966888428,\"target.interface_pae\":0.05669553950428963,\"target.iptm\":0.025419168174266815,\"target.iptm_loss\":0.04872904345393181,\"target.plddt_loss\":0.06092580035328865,\"target.ptm\":0.10768590867519379}}\nFOLD_PROGRESS {\"stage\":\"screen\",\"sequenceUpdates\":34,\"metrics\":{\"target.binder_contacts\":1.9567939043045044,\"target.binder_helicity\":-0.7330895662307739,\"target.binder_pae\":0.09879560023546219,\"target.compactness\":-0.10845166444778442,\"target.interface_contacts\":3.955941915512085,\"target.interface_pae\":0.058895010501146317,\"target.iptm\":0.021255504339933395,\"target.iptm_loss\":0.048937227576971054,\"target.plddt_loss\":0.06121079996228218,\"target.ptm\":0.09178297221660614}}\nFOLD_PROGRESS {\"stage\":\"screen\",\"sequenceUpdates\":35,\"metrics\":{\"target.binder_contacts\":1.8627351522445679,\"target.binder_helicity\":-0.8084043860435486,\"target.binder_pae\":0.0923277959227562,\"target.compactness\":0.07543189078569412,\"target.interface_contacts\":3.8799169063568115,\"target.interface_pae\":0.05859924480319023,\"target.iptm\":0.022744666785001755,\"target.iptm_loss\":0.0488627664744854,\"target.plddt_loss\":0.058956243097782135,\"target.ptm\":0.10593666136264801}}\nFOLD_PROGRESS {\"stage\":\"screen\",\"sequenceUpdates\":36,\"metrics\":{\"target.binder_contacts\":1.9682213068008423,\"target.binder_helicity\":-0.7280704975128174,\"target.binder_pae\":0.10150475800037384,\"target.compactness\":-0.23268809914588928,\"target.interface_contacts\":3.96626615524292,\"target.interface_pae\":0.0631248876452446,\"target.iptm\":0.02364228665828705,\"target.iptm_loss\":0.04881788417696953,\"target.plddt_loss\":0.06410074979066849,\"target.ptm\":0.09703092277050018}}\nFOLD_PROGRESS {\"stage\":\"screen\",\"sequenceUpdates\":37,\"metrics\":{\"target.binder_contacts\":1.9727818965911865,\"target.binder_helicity\":-0.7682570815086365,\"target.binder_pae\":0.1013408675789833,\"target.compactness\":0.13932669162750244,\"target.interface_contacts\":4.025279521942139,\"target.interface_pae\":0.06195588782429695,\"target.iptm\":0.019700001925230026,\"target.iptm_loss\":0.04901500046253204,\"target.plddt_loss\":0.06075088307261467,\"target.ptm\":0.09743651747703552}}\nFOLD_PROGRESS {\"stage\":\"screen\",\"sequenceUpdates\":38,\"metrics\":{\"target.binder_contacts\":1.9066418409347534,\"target.binder_helicity\":-0.7826085686683655,\"target.binder_pae\":0.09361236542463303,\"target.compactness\":-0.20430569350719452,\"target.interface_contacts\":4.07299280166626,\"target.interface_pae\":0.06564094871282578,\"target.iptm\":0.01874852180480957,\"target.iptm_loss\":0.0490625761449337,\"target.plddt_loss\":0.06089554354548454,\"target.ptm\":0.09518925845623016}}\nFOLD_PROGRESS {\"stage\":\"screen\",\"sequenceUpdates\":39,\"metrics\":{\"target.binder_contacts\":1.931236743927002,\"target.binder_helicity\":-0.7961731553077698,\"target.binder_pae\":0.09487682580947876,\"target.compactness\":-0.0015965183265507221,\"target.interface_contacts\":3.8841021060943604,\"target.interface_pae\":0.05591860041022301,\"target.iptm\":0.026423564180731773,\"target.iptm_loss\":0.04867882281541824,\"target.plddt_loss\":0.06071185693144798,\"target.ptm\":0.09910842776298523}}\nFOLD_PROGRESS {\"stage\":\"screen\",\"sequenceUpdates\":40,\"metrics\":{\"target.binder_contacts\":1.6359797716140747,\"target.binder_helicity\":-1.0697213411331177,\"target.binder_pae\":0.06569185107946396,\"target.compactness\":-0.13560481369495392,\"target.interface_contacts\":3.874516725540161,\"target.interface_pae\":0.055738676339387894,\"target.iptm\":0.025655128061771393,\"target.iptm_loss\":0.04871724173426628,\"target.plddt_loss\":0.04960135743021965,\"target.ptm\":0.14268013834953308}}\nFOLD_PROGRESS {\"stage\":\"screen\",\"sequenceUpdates\":41,\"metrics\":{\"target.binder_contacts\":1.696151852607727,\"target.binder_helicity\":-1.0873901844024658,\"target.binder_pae\":0.06855245679616928,\"target.compactness\":-0.07181163877248764,\"target.interface_contacts\":3.906402111053467,\"target.interface_pae\":0.05617392063140869,\"target.iptm\":0.022681910544633865,\"target.iptm_loss\":0.048865906894207,\"target.plddt_loss\":0.05025484785437584,\"target.ptm\":0.13615457713603973}}\nFOLD_PROGRESS {\"stage\":\"screen\",\"sequenceUpdates\":42,\"metrics\":{\"target.binder_contacts\":1.619678020477295,\"target.binder_helicity\":-1.0009939670562744,\"target.binder_pae\":0.06843044608831406,\"target.compactness\":-0.11113215982913971,\"target.interface_contacts\":3.868411064147949,\"target.interface_pae\":0.056580640375614166,\"target.iptm\":0.021960031241178513,\"target.iptm_loss\":0.0489020012319088,\"target.plddt_loss\":0.05305759981274605,\"target.ptm\":0.14045941829681396}}\nFOLD_PROGRESS {\"stage\":\"screen\",\"sequenceUpdates\":43,\"metrics\":{\"target.binder_contacts\":1.4893072843551636,\"target.binder_helicity\":-1.1132365465164185,\"target.binder_pae\":0.05587681755423546,\"target.compactness\":-0.04517240822315216,\"target.interface_contacts\":3.8828604221343994,\"target.interface_pae\":0.05498078465461731,\"target.iptm\":0.023428181186318398,\"target.iptm_loss\":0.04882859066128731,\"target.plddt_loss\":0.04373537749052048,\"target.ptm\":0.17089582979679108}}\nFOLD_PROGRESS {\"stage\":\"screen\",\"sequenceUpdates\":44,\"metrics\":{\"target.binder_contacts\":1.7986730337142944,\"target.binder_helicity\":-0.9140956401824951,\"target.binder_pae\":0.08314348012208939,\"target.compactness\":-0.19331511855125427,\"target.interface_contacts\":3.888202428817749,\"target.interface_pae\":0.05527079105377197,\"target.iptm\":0.023227395489811897,\"target.iptm_loss\":0.04883863031864166,\"target.plddt_loss\":0.0549987368285656,\"target.ptm\":0.10815465450286865}}\nFOLD_PROGRESS {\"stage\":\"screen\",\"sequenceUpdates\":45,\"metrics\":{\"target.binder_contacts\":1.5119366645812988,\"target.binder_helicity\":-1.2234549522399902,\"target.binder_pae\":0.05335291102528572,\"target.compactness\":-0.12881100177764893,\"target.interface_contacts\":3.8499233722686768,\"target.interface_pae\":0.054029352962970734,\"target.iptm\":0.028115373104810715,\"target.iptm_loss\":0.04859423264861107,\"target.plddt_loss\":0.04738747328519821,\"target.ptm\":0.17231683433055878}}\nFOLD_PROGRESS {\"stage\":\"screen\",\"sequenceUpdates\":46,\"metrics\":{\"target.binder_contacts\":1.5373080968856812,\"target.binder_helicity\":-1.1898009777069092,\"target.binder_pae\":0.05765119194984436,\"target.compactness\":-0.07383087277412415,\"target.interface_contacts\":3.8605241775512695,\"target.interface_pae\":0.05033618211746216,\"target.iptm\":0.03805404156446457,\"target.iptm_loss\":0.04809729754924774,\"target.plddt_loss\":0.04568324238061905,\"target.ptm\":0.1666458398103714}}\nFOLD_PROGRESS {\"stage\":\"screen\",\"sequenceUpdates\":47,\"metrics\":{\"target.binder_contacts\":1.5958956480026245,\"target.binder_helicity\":-1.1799851655960083,\"target.binder_pae\":0.05868254974484444,\"target.compactness\":-0.07716649770736694,\"target.interface_contacts\":3.8773224353790283,\"target.interface_pae\":0.0559658408164978,\"target.iptm\":0.025947205722332,\"target.iptm_loss\":0.04870263859629631,\"target.plddt_loss\":0.047033749520778656,\"target.ptm\":0.16698254644870758}}\nFOLD_PROGRESS {\"stage\":\"screen\",\"sequenceUpdates\":48,\"metrics\":{\"target.binder_contacts\":1.6113613843917847,\"target.binder_helicity\":-1.0973362922668457,\"target.binder_pae\":0.0610591284930706,\"target.compactness\":-0.052892014384269714,\"target.interface_contacts\":3.8308181762695312,\"target.interface_pae\":0.05129016190767288,\"target.iptm\":0.028985172510147095,\"target.iptm_loss\":0.048550743609666824,\"target.plddt_loss\":0.04725218936800957,\"target.ptm\":0.15625005960464478}}\nFOLD_PROGRESS {\"stage\":\"screen\",\"sequenceUpdates\":49,\"metrics\":{\"target.binder_contacts\":1.6136760711669922,\"target.binder_helicity\":-1.0833711624145508,\"target.binder_pae\":0.0672137662768364,\"target.compactness\":-0.13510629534721375,\"target.interface_contacts\":3.8257815837860107,\"target.interface_pae\":0.052629973739385605,\"target.iptm\":0.025698469951748848,\"target.iptm_loss\":0.048715077340602875,\"target.plddt_loss\":0.04859522357583046,\"target.ptm\":0.14297012984752655}}\nFOLD_PROGRESS {\"stage\":\"screen\",\"sequenceUpdates\":50,\"metrics\":{\"target.binder_contacts\":1.5773845911026,\"target.binder_helicity\":-1.1352031230926514,\"target.binder_pae\":0.05815892294049263,\"target.compactness\":-0.10832932591438293,\"target.interface_contacts\":3.8071696758270264,\"target.interface_pae\":0.050761859863996506,\"target.iptm\":0.03305302560329437,\"target.iptm_loss\":0.0483473502099514,\"target.plddt_loss\":0.04488397762179375,\"target.ptm\":0.16284099221229553}}\n  rejected at screen design stage  i_pTM=0.03    pLDDT=0.54   due to [pLDDT]\n\ncampaign stopped: 1 trajectories ran and none were accepted, so the settings rather than the budget are what to change\n\ncampaign done: 0 accepted design(s) after 1 trajectory, ranked by i_pDAE\n"
+}

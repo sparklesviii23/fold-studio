@@ -43,7 +43,7 @@ validity. No top-level platform requirement is marked COMPLETE.
 | Structural Comparison Observatory | IMPLEMENTED | Existing aligned views, RMSD/contact comparison and confidence | More reference cases, mutation/campaign comparison and transparent ranking |
 | Boltz prediction | TESTED | Existing Boltz MPS pipeline and saved outputs | Broader end-to-end model acceptance and managed runtime packaging |
 | BoltzGen / RFdiffusion / additional generators | NOT STARTED | No new adapter | Source/license/runtime audit followed by real computation |
-| Drug Design Studio / RDKit / ligand preparation | NOT STARTED | RDKit exists in separate Boltz environment only | Shared ligand model, validated preparation/editing and exports |
+| Drug Design Studio / RDKit / ligand preparation | IN DEVELOPMENT | `ligand.py`, `ligand_runner.py`, shared jobs/records, explicit graph + CIF/SDF; five small-molecule chemistry/interchange cases | Packaged runtime and native form/viewport acceptance pending; no docking, protonation enumeration or broader force-field validation |
 | AutoDock Vina / GNINA / screening / pharmacophores | NOT STARTED | No integrated adapter | Native engines, reference cases and scientifically justified scoring |
 | Dynamics Lab / OpenMM | NOT STARTED | No integrated simulation workflow | Force-field preparation, actual dynamics, trajectory state and RMSD/RMSF validation |
 | Free-energy / OpenFE | NOT STARTED | No integrated adapter | Validated preparation/sampling/uncertainty and reproducibility |
@@ -63,13 +63,13 @@ validity. No top-level platform requirement is marked COMPLETE.
    finished with no accepted designs (original final i_pTM rejection). Do not
    restart it. The paired-domain full technical pipeline also finished; outputs
    stay quarantined because its QA gates were permissive.
-2. Native `db6b80f` build is sealed. Fragment creation and paired-domain preparation
-   passed through its actual forms; finish viewport/export acceptance and save
-   the final native screenshots. Packaged ordered geometry and seals passed.
-   The bounded 10 GiB Metal experiment finished with a correct scoped forward
-   comparison and a governed gradient memory refusal. App limits stay unchanged.
-   Next native build verifies auditable repeat-run controls; no model rerun is
-   needed solely for UI/input-copy acceptance.
+2. Native fragment/viewer/export and repeat controls passed. The native original-
+   filter homodimer campaign finished with no accepted candidates; do not rerun.
+   The 10 GiB Metal experiment still refused the gradient on memory limits.
+   Current ligand preparation passes source chemistry, native atom/bond transport,
+   250 Python contracts and 69 frontend tests. Build and relocate the combined
+   app, then verify automatic bundled RDKit discovery and sealed execution.
+   Native ligand form/visual checks await an unlocked Mac.
 3. Continue the full roadmap: broader modality/reference acceptance, native
    ChimeraX command coverage, shared workflows, remaining scientific engines and
    standalone runtime management. Respect current measured memory limits.
@@ -816,3 +816,69 @@ target sequence is retained. `reports/homodimer-cpu-metal-comparison.json`,
 symmetry, physical oligomerization or binding is validated. Native integration
 remains next. Current source checks: 240 Python and 69 frontend tests plus
 TypeScript passed (one existing private frontend fixture skipped).
+
+### Native repeat and original-filter homodimer acceptance
+
+The actual `e917fc6` native repeat button saved three byte-identical target
+snapshots, changed only campaign_seed 42→43, and left the completed parent
+scientific rejection intact. New child `2d203664-74d8-42b8-b537-a32ba775ad6f`
+is prepared, with no calculation started (`reports/native-campaign-repeat.json`
+and `.png`). The native homodimer form then prepared and started job
+`546062e5-be0a-4da6-b410-b6acb2367373` using only app-owned CPU runtime/source/
+weights. Original 96-position padded execution retained the full original
+scientific filters and held-out model_2_multimer_v3. It completed with no accepted
+designs; zero structures imported, signature passed. `native-homodimer-outcome.json`.
+A final native screenshot could not be captured because the Mac locked; no UI
+completion screenshot is claimed. Do not restart these completed calculations.
+
+### Ligand preparation — genuine RDKit integration in development
+
+`ligand_runner.py` uses the included RDKit 2026.09.1 (wheel metadata 2026.9.1):
+ETKDGv3, explicit seed, one CPU thread, MMFF94s, up to eight conformers, strict
+convergence and finite-energy checks. Specified charge/3D stereochemistry and
+SDF chemical graph are retained; no protonation, neutralization, salt stripping,
+tautomer or docking inference. Coordinate transport has an exact atom map;
+SDF's decimal rounding is checked within 0.0001 Å. Unsupported isotope/radical
+transport, disconnected input, unassigned potential stereo and missing MMFF
+parameters are refused. Native ligand records preserve chemical graph, original
+SMILES, methods, runtime, input/output hashes and SDF assets in the common
+SQLite/jobs/export model. Existing compute lock, cancellation and reconciliation
+are reused; no parallel research database or molecular viewer is added.
+
+`LigandPreparation.tsx` adds a collapsed preparation form to the existing campaign
+panel; Research Library adds checksum-checked SDF export. Engine/job labels and
+native IPC/resources include RDKit. Seven workflow contracts cover bounded input,
+compute lock, cancellation, input tampering, export hashes/projects and native
+registration. Real small-molecule chemistry/round-trip/repeatability acceptance
+is in progress. An early export test exposed the missing SDF extension in the
+shared export allowlist; corrected there. The initial coverage fixture assumed
+Zn2+ lacked MMFF parameters, but the original library supports that ion; the
+negative coverage test now uses Xe after directly checking its absent parameters.
+No force-field behavior was changed to fit that incorrect test expectation.
+Mac is locked; native ligand form/viewport acceptance remains pending.
+
+The chemistry checks now pass on ethanol, benzene, explicitly chiral alanine,
+methylammonium and an explicitly specified alkene. Formula/charge/explicit-H
+counts, geometry-derived stereochemistry, same-seed coordinates/energy and SDF
+round trips agree with recorded inputs. Invalid connectivity, unspecified stereo,
+missing MMFF coverage and unsupported isotopic transport are refused without a
+saved ligand. `reports/ligand-chemistry-acceptance.json`. Existing completed cases
+were resumed to test archive changes, with no calculation resubmitted.
+
+Project ZIP testing exposed that extra SDF assets were omitted by the old
+single-coordinate-asset exporter. The shared exporter now includes coordinate,
+ligand-SDF and saved native-session assets with streamed SHA-256 verification and
+an asset manifest. It builds a temporary archive and atomically replaces the
+requested destination only after success; failed integrity checks preserve any
+existing archive. Tests cover both coordinate and SDF corruption. The original
+source/assets remain unchanged. Eight ligand workflow contracts pass; native
+RDK atom/bond transport checks pass on the saved cases, independent of screen
+unlock. Full packaged ligand acceptance and native UI remain next.
+
+Shared job bookkeeping now attaches process metadata in a write transaction
+without rewriting state. A fast completed worker cannot be resurrected as queued
+by the parent's PID attachment; completed output metadata is retained. State
+updates also acquire the write lock before reading JSON. Two regression checks
+cover this behavior and rollback on invalid metadata; all 250 Python tests pass.
+The frontend suite passes 69 tests (one existing visual test skipped) and TypeScript
+compilation passes. Packaged chemistry remains the next integration check.

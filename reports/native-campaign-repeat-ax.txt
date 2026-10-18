@@ -1,0 +1,129 @@
+Window: "FOLD STUDIO — The Molecular Observatory", App: FOLD STUDIO Metal Dev.
+0 standard window FOLD STUDIO — The Molecular Observatory, Secondary Actions: Raise
+	1 scroll area
+		2 HTML content Description: FOLD STUDIO · The Molecular Observatory, URL: tauri://localhost
+			3 container Molecular Architect design campaigns
+				4 button Close
+				5 text PROJECT METAL · DESIGN CAMPAIGNS
+				6 heading Prepare a reproducible design., Value: 2
+					7 text Prepare a reproducible design.
+				8 text BindCraft2 source is integrated. Full native design execution is still under validation. Preparation and ranked-result import are available.
+				9 container
+					10 text Campaign name
+					11 text field (settable) Campaign name, Value: Design campaign
+				12 container
+					13 text Saved target structure
+					14 pop up button Saved target structure, Value: Choose a library structure
+				15 container
+					16 text Design format
+					17 pop up button Design format, Value: Miniprotein binder
+				18 button Add another target state
+				19 text Each target retains its own coordinates, chain choices and binding or avoidance objective. Small multi-target campaigns can use a separate experimental CPU profile. Preparation does not start a calculation.
+				20 container
+					21 text Primary-target hotspots · observed source numbering
+					22 container Design hotspots
+				23 container
+					24 text Coldspots
+					25 container Design coldspots
+				26 container
+					27 text Minimum length
+					28 number field (settable) Minimum length, Value: 60
+						29 stepper 0
+							30 unknown
+							31 unknown
+				32 container
+					33 text Maximum length
+					34 number field (settable) Maximum length, Value: 100
+						35 stepper 0
+							36 unknown
+							37 unknown
+				38 container
+					39 text Requested candidates
+					40 number field (settable) Requested candidates, Value: 5
+						41 stepper 0
+							42 unknown
+							43 unknown
+				44 container
+					45 text Maximum attempts
+					46 number field (settable) Maximum attempts, Value: 20
+						47 stepper 0
+							48 unknown
+							49 unknown
+				50 container
+					51 text Random seed
+					52 number field (settable) Random seed, Value: 42
+						53 stepper 0
+							54 unknown
+							55 unknown
+				56 button (disabled) Check configuration
+				57 button (disabled) Save prepared campaign
+				58 button Check compute backend
+				59 text Saved inputs retain source coordinates, settings, seed, residue mapping and upstream revision. No calculation or external upload starts when preparing a campaign.
+				60 text Campaign prepared. Original inputs and settings are saved.
+				61 summary prepared, Value: off
+					62 text prepared
+				63 heading ProteinMPNN · fixed-backbone sequence redesign, Value: 3
+					64 text ProteinMPNN · fixed-backbone sequence redesign
+				65 text Redesign the chains selected above while holding other chains fixed. Runs the authentic upstream model on CPU. Produces sequences, without predicting new structures or binding.
+				66 container
+					67 text Residues to redesign · leave empty for all selected chains
+					68 container ProteinMPNN design residues
+				69 container
+					70 checkbox (disabled) Value: 0, Tie corresponding positions across selected chains · requires equal lengths and compatible fixed residues
+					71 text Tie corresponding positions across selected chains · requires equal lengths and compatible fixed residues
+				72 container
+					73 text Exclude amino acids at redesigned positions
+					74 text field (settable) Exclude amino acids at redesigned positions, Placeholder: Optional one-letter codes, for example C
+				75 container
+					76 text ProteinMPNN sequences per chain
+					77 number field (settable) ProteinMPNN sequences per chain, Value: 2
+						78 stepper 0
+							79 unknown
+							80 unknown
+				81 button (disabled) Redesign selected chains · 2 sequences per chain
+				82 heading Saved campaigns, Value: 3
+					83 text Saved campaigns
+				84 container
+					85 checkbox Use the original upstream model ensemble · more memory and compute, Value: 0
+					86 text Use the original upstream model ensemble · more memory and compute
+				87 container
+					88 text Original filters · small multi-state CPU case · repeat prepared  ·  0  imported structures All target snapshots are saved. The experimental multi-target CPU profile supports small two- or three-state binder and linear-peptide campaigns with the original scientific filters.
+					89 button Start experimental multi-target campaign · CPU
+					90 button Import ranked results
+					91 summary Prepared settings & provenance, Value: off
+						92 text Prepared settings & provenance
+				93 container
+					94 text Native target-state preparation QA prepared  ·  0  imported structures All target snapshots are saved. The experimental multi-target CPU profile supports small two- or three-state binder and linear-peptide campaigns with the original scientific filters.
+					95 button Start experimental multi-target campaign · CPU
+					96 button Import ranked results
+					97 summary Prepared settings & provenance, Value: off
+						98 text Prepared settings & provenance
+				99 container
+					100 text Original filters · small multi-state CPU case completed  ·  0  imported structures Campaign finished. No candidate passed the original scientific filters. Latest optimizer update:  screen  ·  100
+					101 container (expanded) Secondary Actions: Collapse
+						102 summary Prepare another run, Value: on
+							103 text Prepare another run
+						104 container
+							105 text Repeat-run random seed
+							106 number field (settable) Repeat-run random seed, Value: 43
+								107 stepper 0
+									108 unknown
+									109 unknown
+						110 text Keeps the original target and scaffold files, selections and scientific filters. The seed change is recorded. This saves inputs; choose an execution backend afterward.
+						111 button Save repeat-run inputs
+					112 button Import ranked results
+					113 summary Prepared settings & provenance, Value: off
+						114 text Prepared settings & provenance
+				115 text Imported structures appear in Research Library and Molecular Intelligence. They remain computational predictions; upstream acceptance does not establish binding or inhibition.
+	116 close button
+	117 full screen button Help: this button also has an action to zoom the window, Secondary Actions: zoom the window
+	118 minimize button
+119 menu bar
+	120 FOLD STUDIO Metal Dev
+	121 File
+	122 Edit
+	123 View
+	124 Window
+	125 Help
+
+The focused UI element is 3 container Molecular Architect design campaigns

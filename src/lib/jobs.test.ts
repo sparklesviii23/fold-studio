@@ -19,6 +19,7 @@ describe('Scientific result routing',()=>{
  it('labels local scientific jobs and cloud notebook jobs accurately',()=>{
   expect(jobPresentation('proteinmpnn')).toEqual({label:'ProteinMPNN',location:'local'});
   expect(jobPresentation('bindcraft2')).toEqual({label:'BindCraft2',location:'local'});
+  expect(jobPresentation('rdkit')).toEqual({label:'RDKit',location:'local'});
   expect(jobPresentation('colabfold')).toEqual({label:'ColabFold',location:'cloud'});
  });
  it('distinguishes valid scientific rejection from runtime failure and preparation',()=>{

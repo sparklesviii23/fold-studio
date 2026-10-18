@@ -1,0 +1,416 @@
+{
+  "state": "passed",
+  "automaticBundledRuntime": false,
+  "signatureAfterCalculation": "not_applicable",
+  "scope": "Real pinned RDKit calculations through common jobs/library. Formula, charge, explicit-H count, 3D stereochemistry, same-seed repeatability, coordinate/SDF transport and project export verified on small molecules. This is technical integration evidence, not independent force-field accuracy, docking or biological validation.",
+  "engineRoot": "/Users/vii/Documents/FoldStudio-MetalPort/fold-studio",
+  "root": "/Users/vii/Documents/FoldStudio-MetalPort/validation/ligand-chemistry-acceptance-coverage",
+  "cases": [
+    {
+      "jobId": "0122e7bd-994e-454e-b3d2-14c494456f84",
+      "recordId": "f6b6edfe-3df8-46e8-9c5e-f3c871e5579c",
+      "input": "CCO",
+      "formula": "C2H6O",
+      "formalCharge": 0,
+      "atoms": 9,
+      "energyKcalMol": -1.336857064001857,
+      "sdfCoordinateMaxErrorAngstrom": 6.866882318971988e-05,
+      "method": {
+        "embedding": "RDKit ETKDGv3",
+        "forceField": "MMFF94s",
+        "maxIterations": 500,
+        "threads": 1,
+        "seed": 42,
+        "stereochemistryFrom3D": "verified"
+      },
+      "runtime": {
+        "rdkit": "2026.09.1",
+        "python": "3.12.14 (main, Aug 25 2026, 13:50:33) [Clang 22.1.3 ]",
+        "architecture": "arm64"
+      },
+      "coordinates": [
+        [
+          -0.8641596223986039,
+          0.26523049914381813,
+          -0.024753792126171778
+        ],
+        [
+          0.4255583223573153,
+          -0.5100501625598031,
+          -0.1967777601498853
+        ],
+        [
+          1.3788862871426928,
+          -0.08589283694491925,
+          0.7666334803851804
+        ],
+        [
+          -1.6151438828821354,
+          -0.061558171110594855,
+          -0.7493937868520656
+        ],
+        [
+          -1.2638790244731792,
+          0.12878972402863512,
+          0.9854534845610721
+        ],
+        [
+          -0.6911547747601559,
+          1.3384037106827036,
+          -0.15639838222274582
+        ],
+        [
+          0.25055139301142787,
+          -1.5805005392800433,
+          -0.05516634127455234
+        ],
+        [
+          0.8446010649160969,
+          -0.3580921661288895,
+          -1.1960774662156841
+        ],
+        [
+          1.5347402370865513,
+          0.863669942169095,
+          0.6264805638948576
+        ]
+      ],
+      "coordinateAsset": "90298e7f-8579-48b9-ac89-bbf092caf48b.cif",
+      "sdfAsset": "cc374f18-7592-44a8-8f1a-343fe11ad325.sdf"
+    },
+    {
+      "jobId": "ac6e55aa-1ca5-4dcc-866d-fb05adeb1856",
+      "recordId": "46e1d93f-5d70-4ea5-b8a5-3da676e1b8c1",
+      "input": "c1ccccc1",
+      "formula": "C6H6",
+      "formalCharge": 0,
+      "atoms": 12,
+      "energyKcalMol": 16.22696680058125,
+      "sdfCoordinateMaxErrorAngstrom": 6.061729689784365e-05,
+      "method": {
+        "embedding": "RDKit ETKDGv3",
+        "forceField": "MMFF94s",
+        "maxIterations": 500,
+        "threads": 1,
+        "seed": 42,
+        "stereochemistryFrom3D": "verified"
+      },
+      "runtime": {
+        "rdkit": "2026.09.1",
+        "python": "3.12.14 (main, Aug 25 2026, 13:50:33) [Clang 22.1.3 ]",
+        "architecture": "arm64"
+      },
+      "coordinates": [
+        [
+          0.8105034922640287,
+          -1.1350977204146744,
+          0.01327154390448878
+        ],
+        [
+          1.3881697724810935,
+          0.1339316711512029,
+          -0.024216075162788883
+        ],
+        [
+          0.5776662620845646,
+          1.2690295604631796,
+          -0.03748583436681028
+        ],
+        [
+          -0.8105034541389609,
+          1.1350980020829529,
+          -0.013268310313350544
+        ],
+        [
+          -1.3881698687554243,
+          -0.13393153392627896,
+          0.02421608237703402
+        ],
+        [
+          -0.5776662410356526,
+          -1.2690294008765501,
+          0.03748772023045769
+        ],
+        [
+          1.4419788068407027,
+          -2.0194698695282622,
+          0.02361112890379494
+        ],
+        [
+          2.4697138848319353,
+          0.23827940535496855,
+          -0.04308438780917784
+        ],
+        [
+          1.0277345107147717,
+          2.2577496156062824,
+          -0.0666953979648496
+        ],
+        [
+          -1.4419788009787706,
+          2.0194700599287625,
+          -0.023609436024583746
+        ],
+        [
+          -2.469714077329986,
+          -0.23828005886287296,
+          0.043078034712702606
+        ],
+        [
+          -1.0277342869782733,
+          -2.2577497309787202,
+          0.0666949315130855
+        ]
+      ],
+      "coordinateAsset": "5cc2eb27-8848-4bf4-bbef-cd571038c2da.cif",
+      "sdfAsset": "81dd6054-aff4-41bf-8b4d-b5ca64a239d5.sdf"
+    },
+    {
+      "jobId": "a4b0cc00-a2e1-49a2-8d45-d649b9d31b5c",
+      "recordId": "2d6420b4-bc2f-4a1c-afc8-eca7d917c1d8",
+      "input": "C[C@H](N)C(=O)O",
+      "formula": "C3H7NO2",
+      "formalCharge": 0,
+      "atoms": 13,
+      "energyKcalMol": 20.51551269818855,
+      "sdfCoordinateMaxErrorAngstrom": 6.650160198868087e-05,
+      "method": {
+        "embedding": "RDKit ETKDGv3",
+        "forceField": "MMFF94s",
+        "maxIterations": 500,
+        "threads": 1,
+        "seed": 42,
+        "stereochemistryFrom3D": "verified"
+      },
+      "runtime": {
+        "rdkit": "2026.09.1",
+        "python": "3.12.14 (main, Aug 25 2026, 13:50:33) [Clang 22.1.3 ]",
+        "architecture": "arm64"
+      },
+      "coordinates": [
+        [
+          -1.2342124776779393,
+          -0.6994377392794748,
+          -0.3339087290387615
+        ],
+        [
+          -0.24572247508512296,
+          0.13134106938161552,
+          0.47264630538804686
+        ],
+        [
+          -0.6104850898743476,
+          1.5621819870811273,
+          0.3639154161137397
+        ],
+        [
+          1.1872982206589047,
+          -0.08867828748595936,
+          -0.02283176912424009
+        ],
+        [
+          1.9465314485165557,
+          0.7695500609533287,
+          -0.44831585328922924
+        ],
+        [
+          1.5970182677609892,
+          -1.3681570151804654,
+          0.0800277880591809
+        ],
+        [
+          -1.1745782550970727,
+          -0.4675618417932848,
+          -1.4035767903835514
+        ],
+        [
+          -2.262949459643717,
+          -0.5222978949805223,
+          -0.001541328256079062
+        ],
+        [
+          -1.0296720104535977,
+          -1.769634454836507,
+          -0.22075048320890317
+        ],
+        [
+          -0.2834631250626355,
+          -0.14856973117768063,
+          1.5307990432649226
+        ],
+        [
+          -0.516382983130831,
+          1.8439912339019824,
+          -0.6143344195215115
+        ],
+        [
+          0.10659154395854956,
+          2.1077996195517907,
+          0.8477805161272034
+        ],
+        [
+          2.5200263951302446,
+          -1.3505270061359578,
+          -0.24990969613083608
+        ]
+      ],
+      "coordinateAsset": "29f25851-8f6f-4a16-8d45-daaa32fcab56.cif",
+      "sdfAsset": "345a0f95-7b3e-4e22-bedb-5d4251053196.sdf"
+    },
+    {
+      "jobId": "1a2a29f1-4e98-4a93-9ec3-bd8a521a06ef",
+      "recordId": "7cb5ec6a-2e66-4758-8770-4820a63887b7",
+      "input": "C[NH3+]",
+      "formula": "CH6N+",
+      "formalCharge": 1,
+      "atoms": 8,
+      "energyKcalMol": 0.3710354834386168,
+      "sdfCoordinateMaxErrorAngstrom": 6.961608380558607e-05,
+      "method": {
+        "embedding": "RDKit ETKDGv3",
+        "forceField": "MMFF94s",
+        "maxIterations": 500,
+        "threads": 1,
+        "seed": 42,
+        "stereochemistryFrom3D": "verified"
+      },
+      "runtime": {
+        "rdkit": "2026.09.1",
+        "python": "3.12.14 (main, Aug 25 2026, 13:50:33) [Clang 22.1.3 ]",
+        "architecture": "arm64"
+      },
+      "coordinates": [
+        [
+          -0.7482225801423924,
+          0.04733927933358022,
+          0.07168905637392084
+        ],
+        [
+          0.7178064076878621,
+          -0.04541526996283221,
+          -0.06877478315974407
+        ],
+        [
+          -1.0239249396144492,
+          -0.42697846245500465,
+          1.0154252354679085
+        ],
+        [
+          -1.0175110403060776,
+          1.1052197751373547,
+          0.07059629419623563
+        ],
+        [
+          -1.198456122366306,
+          -0.4732567813487881,
+          -0.7755993205108208
+        ],
+        [
+          1.0384566602723153,
+          0.38750802270998363,
+          -0.9449045718840792
+        ],
+        [
+          1.1993052010666148,
+          0.4301578339058192,
+          0.7057132193070139
+        ],
+        [
+          1.0325464134024116,
+          -1.0245743973201116,
+          -0.07414512979042202
+        ]
+      ],
+      "coordinateAsset": "248f255a-6389-4d4c-a7dd-224ef94af67d.cif",
+      "sdfAsset": "868ae19f-061b-4327-a405-9f30b835e2de.sdf"
+    },
+    {
+      "jobId": "911d23d8-3df3-4933-92a6-d009b4ab342d",
+      "recordId": "0c5af3b2-27ae-49dc-b887-874b5f13e8e5",
+      "input": "F/C=C/F",
+      "formula": "C2H2F2",
+      "formalCharge": 0,
+      "atoms": 6,
+      "energyKcalMol": 0.5056966354927619,
+      "sdfCoordinateMaxErrorAngstrom": 5.174058053575028e-05,
+      "method": {
+        "embedding": "RDKit ETKDGv3",
+        "forceField": "MMFF94s",
+        "maxIterations": 500,
+        "threads": 1,
+        "seed": 42,
+        "stereochemistryFrom3D": "verified"
+      },
+      "runtime": {
+        "rdkit": "2026.09.1",
+        "python": "3.12.14 (main, Aug 25 2026, 13:50:33) [Clang 22.1.3 ]",
+        "architecture": "arm64"
+      },
+      "coordinates": [
+        [
+          -1.6381604568615444,
+          -0.7086828486927986,
+          0.012171432717007661
+        ],
+        [
+          -0.6358179661748755,
+          0.18787063292153935,
+          -0.0026823698132384033
+        ],
+        [
+          0.6358178964108246,
+          -0.18787064486579988,
+          0.0026823691045942573
+        ],
+        [
+          1.6381603696958973,
+          0.7086829002865094,
+          -0.012171467098475027
+        ],
+        [
+          -1.0039855559216588,
+          1.2022958712224299,
+          -0.01872495470151117
+        ],
+        [
+          1.0039857128513607,
+          -1.2022959108718807,
+          0.018724989791617092
+        ]
+      ],
+      "coordinateAsset": "02a06fe7-26cf-4598-8033-ee980b7a41d7.cif",
+      "sdfAsset": "4b2b5816-f9f0-40a1-bbc2-7b7071309727.sdf"
+    }
+  ],
+  "sameSeedRepeatability": "exact saved coordinates and energy",
+  "refusedInputs": [
+    {
+      "jobId": "8b96bfa2-6b5f-47c6-b300-cf6408e12a00",
+      "input": "CCO.O",
+      "state": "refused",
+      "error": "RDKit could not prepare this molecule. Review the actual execution log for stereochemistry, connectivity or force-field errors."
+    },
+    {
+      "jobId": "ee071067-15c0-4663-9018-73379a749164",
+      "input": "CC(O)C(=O)O",
+      "state": "refused",
+      "error": "RDKit could not prepare this molecule. Review the actual execution log for stereochemistry, connectivity or force-field errors."
+    },
+    {
+      "jobId": "86960be6-c426-4d12-826e-7edcfbe27427",
+      "input": "[Xe]",
+      "state": "refused",
+      "error": "RDKit could not prepare this molecule. Review the actual execution log for stereochemistry, connectivity or force-field errors."
+    },
+    {
+      "jobId": "68552f8a-2551-45b0-a21e-973ebf1c5cfe",
+      "input": "[13CH3]CO",
+      "state": "refused",
+      "error": "RDKit could not prepare this molecule. Review the actual execution log for stereochemistry, connectivity or force-field errors."
+    }
+  ],
+  "projectExport": "all coordinate and SDF hashes matched",
+  "resumedSavedCases": true,
+  "projectArchive": "/Users/vii/Documents/FoldStudio-MetalPort/validation/ligand-chemistry-acceptance-coverage/ligand-project.zip",
+  "sourceLicense": "RDKit BSD-3-Clause, retained with the bundled runtime"
+}
