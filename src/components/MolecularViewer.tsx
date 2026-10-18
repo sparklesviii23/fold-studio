@@ -5,8 +5,8 @@ import {DefaultPluginSpec} from 'molstar/lib/mol-plugin/spec';
 import {Structure,StructureElement,StructureProperties as P,Unit} from 'molstar/lib/mol-model/structure';
 import {MolScriptBuilder as MS} from 'molstar/lib/mol-script/language/builder';
 import {OrderedSet} from 'molstar/lib/mol-data/int';
-import {Column} from 'molstar/lib/mol-data/db';
 import {IndexPairBonds} from 'molstar/lib/mol-model-formats/structure/property/bonds/index-pair';
+import {nativeBondPairs} from '../lib/engineBonds';
 import {Color} from 'molstar/lib/mol-util/color';
 import {ParamDefinition as PD} from 'molstar/lib/mol-util/param-definition';
 import {StateTransforms} from 'molstar/lib/mol-plugin-state/transforms';
@@ -94,7 +94,7 @@ export default forwardRef<ViewerHandle,Props>(function MolecularViewer(props,ref
      if(!l||l.geometry!==m.geometry||l.native.instance!==m.instance){
       if(l){await p.state.data.build().delete(l.root.ref).commit();nativeModels.current.delete(l.structure.models[0]);loaded.current.delete(m.id);}
       const root=await p.builders.data.rawData({data:m.cif,label:m.name+' · #'+m.id});const trajectory=await p.builders.structure.parseTrajectory(root,'mmcif');const model=await p.builders.structure.createModel(trajectory);const value=model.obj!.data;
-      const bonds=m.bonds.filter(b=>b.shown);IndexPairBonds.Provider.set(value,IndexPairBonds.fromData({pairs:{indexA:Column.ofIntArray(Int32Array.from(bonds.map(b=>b.a))),indexB:Column.ofIntArray(Int32Array.from(bonds.map(b=>b.b))),distance:Column.ofFloatArray(Float32Array.from(bonds.map(()=>1e8)))},count:m.atoms.length},{cacheable:false}));
+      IndexPairBonds.Provider.set(value,nativeBondPairs(m));
       nativeModels.current.set(value,m);const state=await p.builders.structure.createStructure(model);const structure=state.obj!.data;
       let count=0;for(const unit of structure.units){if(!Unit.isAtomic(unit))continue;const location=StructureElement.Location.create(structure,unit);for(let ai=0;ai<unit.elements.length;ai++){const element=unit.elements[ai];location.element=element;const a=nativeAt(location);if(!a||a.atom!==P.atom.label_atom_id(location)||a.residue!==P.residue.auth_seq_id(location)||a.chain!==P.chain.auth_asym_id(location))throw new Error('The presentation parser changed a native atom identity.');const error=Math.hypot(P.atom.x(location)-a.xyz[0],P.atom.y(location)-a.xyz[1],P.atom.z(location)-a.xyz[2]);if(error>0.001)throw new Error('Presentation coordinates differ from the scientific engine by more than 0.001 Å.');count++;}}
       if(count!==m.atoms.length)throw new Error('The presentation atom count does not match the scientific model.');

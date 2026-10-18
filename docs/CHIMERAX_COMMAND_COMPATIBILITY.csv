@@ -63,7 +63,7 @@ bumps report,NOT VALIDATED,False,False,Registered inventory only; no command-spe
 buttonpanel,NOT VALIDATED,False,False,Registered inventory only; no command-specific acceptance evidence,ChimeraX-ButtonPanel
 cage,NOT VALIDATED,False,False,Registered inventory only; no command-specific acceptance evidence,ChimeraX-CageBuilder
 camera,NOT VALIDATED,False,False,Registered inventory only; no command-specific acceptance evidence,ChimeraX-StdCommands
-cartoon,NOT VALIDATED,False,False,Registered inventory only; no command-specific acceptance evidence,ChimeraX-StdCommands
+cartoon,TESTED (scoped),True,False,Only author-chain A residues 20–30 have native ribbon flags enabled.,ChimeraX-StdCommands
 cartoon byattribute,NOT VALIDATED,False,False,Registered inventory only; no command-specific acceptance evidence,ChimeraX-StdCommands
 cartoon byattribute off,NOT VALIDATED,False,False,Registered inventory only; no command-specific acceptance evidence,ChimeraX-StdCommands
 cartoon byattribute on,NOT VALIDATED,False,False,Registered inventory only; no command-specific acceptance evidence,ChimeraX-StdCommands
@@ -182,7 +182,7 @@ graphics triangles,NOT VALIDATED,False,False,Registered inventory only; no comma
 hbonds,TESTED (scoped),True,True,"Artificial SER–ALA geometry; wrapper agrees with original ChimeraX strict hbonds command; independent donor–acceptor distance 2.8 Å. Algorithm integration check, not biological validation.",ChimeraX-Hbonds
 hbonds delete,NOT VALIDATED,False,False,Registered inventory only; no command-specific acceptance evidence,ChimeraX-Hbonds
 help,NOT VALIDATED,False,False,Registered inventory only; no command-specific acceptance evidence,ChimeraX-Help
-hide,NOT VALIDATED,False,False,Registered inventory only; no command-specific acceptance evidence,ChimeraX-StdCommands
+hide,TESTED (scoped),True,False,Atom visibility flags after hiding the complete ANGPTL3 reference model.,ChimeraX-StdCommands
 hkcage,NOT VALIDATED,False,False,Registered inventory only; no command-specific acceptance evidence,ChimeraX-HKCage
 info,NOT VALIDATED,False,False,Registered inventory only; no command-specific acceptance evidence,ChimeraX-ListInfo
 info atomattr,NOT VALIDATED,False,False,Registered inventory only; no command-specific acceptance evidence,ChimeraX-ListInfo
@@ -342,7 +342,7 @@ rename,NOT VALIDATED,False,False,Registered inventory only; no command-specific 
 renumber,NOT VALIDATED,False,False,Registered inventory only; no command-specific acceptance evidence,ChimeraX-RenumberResidues
 resfit,NOT VALIDATED,False,False,Registered inventory only; no command-specific acceptance evidence,ChimeraX-ResidueFit
 ribbon,NOT VALIDATED,False,False,Registered inventory only; no command-specific acceptance evidence,ChimeraX-Core
-rmsd,NOT VALIDATED,False,False,Registered inventory only; no command-specific acceptance evidence,ChimeraX-StdCommands
+rmsd,TESTED (scoped),True,True,460 Cα pairs in reference copies separated by an exact 3 Å translation: unfitted RMSD equals 3 Å. Unequal atom counts refused.,ChimeraX-StdCommands
 rna model,NOT VALIDATED,False,False,Registered inventory only; no command-specific acceptance evidence,ChimeraX-RNALayout
 rna path,NOT VALIDATED,False,False,Registered inventory only; no command-specific acceptance evidence,ChimeraX-RNALayout
 rock,NOT VALIDATED,False,False,Registered inventory only; no command-specific acceptance evidence,ChimeraX-StdCommands
@@ -398,7 +398,7 @@ shape ribbon,NOT VALIDATED,False,False,Registered inventory only; no command-spe
 shape sphere,NOT VALIDATED,False,False,Registered inventory only; no command-specific acceptance evidence,ChimeraX-Shape
 shape triangle,NOT VALIDATED,False,False,Registered inventory only; no command-specific acceptance evidence,ChimeraX-Shape
 shape tube,NOT VALIDATED,False,False,Registered inventory only; no command-specific acceptance evidence,ChimeraX-Shape
-show,NOT VALIDATED,False,False,Registered inventory only; no command-specific acceptance evidence,ChimeraX-StdCommands
+show,TESTED (scoped),True,False,Only observed author-chain A residue 20 atoms shown after hiding the full reference model.,ChimeraX-StdCommands
 similarstructures blast,NOT VALIDATED,False,False,Registered inventory only; no command-specific acceptance evidence,ChimeraX-SimilarStructures
 similarstructures close,NOT VALIDATED,False,False,Registered inventory only; no command-specific acceptance evidence,ChimeraX-SimilarStructures
 similarstructures cluster,NOT VALIDATED,False,False,Registered inventory only; no command-specific acceptance evidence,ChimeraX-SimilarStructures
@@ -423,7 +423,7 @@ stop,NOT VALIDATED,False,False,Registered inventory only; no command-specific ac
 struts,NOT VALIDATED,False,False,Registered inventory only; no command-specific acceptance evidence,ChimeraX-Struts
 struts delete,NOT VALIDATED,False,False,Registered inventory only; no command-specific acceptance evidence,ChimeraX-Struts
 style,TESTED (scoped),True,False,Native selected-atom stick style; complete representation parity unverified,ChimeraX-StdCommands
-surface,NOT VALIDATED,False,False,Registered inventory only; no command-specific acceptance evidence,ChimeraX-Surface
+surface,TESTED (scoped),True,False,Original molecular surface calculation returns nonempty finite native vertex buffers and valid indexed triangles through the FOLD scene adapter.,ChimeraX-Surface
 surface cap,NOT VALIDATED,False,False,Registered inventory only; no command-specific acceptance evidence,ChimeraX-Surface
 surface check,NOT VALIDATED,False,False,Registered inventory only; no command-specific acceptance evidence,ChimeraX-Surface
 surface close,NOT VALIDATED,False,False,Registered inventory only; no command-specific acceptance evidence,ChimeraX-Surface
@@ -462,9 +462,9 @@ toolshed updates,NOT VALIDATED,False,False,Registered inventory only; no command
 toolshed url,NOT VALIDATED,False,False,Registered inventory only; no command-specific acceptance evidence,ChimeraX-Core
 topography,NOT VALIDATED,False,False,Registered inventory only; no command-specific acceptance evidence,ChimeraX-Topography
 torsion,TESTED (scoped),True,True,Artificial mirrored atom quadruples: ordered native measurements and original torsion command agree with analytic -90/+90 degrees. Coordinates and source file unchanged.,ChimeraX-BondRot
-transparency,NOT VALIDATED,False,False,Registered inventory only; no command-specific acceptance evidence,ChimeraX-StdCommands
+transparency,TESTED (scoped),True,False,50 percent atom transparency yields alpha byte 128 on residue 20 and preserves other alpha bytes at 255.,ChimeraX-StdCommands
 tug,NOT VALIDATED,False,False,Registered inventory only; no command-specific acceptance evidence,ChimeraX-Tug
-turn,NOT VALIDATED,False,False,Registered inventory only; no command-specific acceptance evidence,ChimeraX-StdCommands
+turn,TESTED (scoped),True,True,Explicit 90 degree model rotation around the origin agrees with analytic transformed coordinates within 0.0001 Å.,ChimeraX-StdCommands
 ui autostart,NOT VALIDATED,False,False,Registered inventory only; no command-specific acceptance evidence,ChimeraX-UI
 ui dockable,NOT VALIDATED,False,False,Registered inventory only; no command-specific acceptance evidence,ChimeraX-UI
 ui favorite,NOT VALIDATED,False,False,Registered inventory only; no command-specific acceptance evidence,ChimeraX-UI
@@ -562,7 +562,7 @@ xr roomCamera,NOT VALIDATED,False,False,Registered inventory only; no command-sp
 zone,NOT VALIDATED,False,False,Registered inventory only; no command-specific acceptance evidence,ChimeraX-Zone
 zone clear,NOT VALIDATED,False,False,Registered inventory only; no command-specific acceptance evidence,ChimeraX-Zone
 zone setting,NOT VALIDATED,False,False,Registered inventory only; no command-specific acceptance evidence,ChimeraX-Zone
-zoom,NOT VALIDATED,False,False,Registered inventory only; no command-specific acceptance evidence,ChimeraX-StdCommands
+zoom,TESTED (scoped),True,True,Camera zoom factor 2 halves the perspective target distance or orthographic field width within 0.00001.,ChimeraX-StdCommands
 ~2dlabels,NOT VALIDATED,False,False,Registered inventory only; no command-specific acceptance evidence,ChimeraX-Core
 ~alias,NOT VALIDATED,False,False,Registered inventory only; no command-specific acceptance evidence,ChimeraX-Core
 ~aniso,NOT VALIDATED,False,False,Registered inventory only; no command-specific acceptance evidence,ChimeraX-Aniso

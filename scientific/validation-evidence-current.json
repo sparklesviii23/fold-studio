@@ -137,6 +137,94 @@
       "limitations": "Only the stated artificial geometry and measurement syntax are checked. Other arguments, setting bond angles/torsions and biological interpretation remain unverified.",
       "evidenceCheck": "Analytic orthogonal geometry, native measurement route and original command comparison",
       "evidenceReport": "native-ordered-measurements.json"
+    },
+    {
+      "kind": "command",
+      "name": "hide",
+      "status": "Partial",
+      "functionalityTested": true,
+      "scientificOutputValidated": false,
+      "validationScope": "Atom visibility flags after hiding the complete ANGPTL3 reference model.",
+      "limitations": "Only the stated ANGPTL3 fixture, syntax and scene assertions are tested. Other arguments, renderer appearance and full visual equivalence remain unverified.",
+      "evidenceCheck": "hide #1 atoms",
+      "evidenceReport": "native-scene-commands.json"
+    },
+    {
+      "kind": "command",
+      "name": "show",
+      "status": "Partial",
+      "functionalityTested": true,
+      "scientificOutputValidated": false,
+      "validationScope": "Only observed author-chain A residue 20 atoms shown after hiding the full reference model.",
+      "limitations": "Only the stated ANGPTL3 fixture, syntax and scene assertions are tested. Other arguments, renderer appearance and full visual equivalence remain unverified.",
+      "evidenceCheck": "show #1/A:20 atoms",
+      "evidenceReport": "native-scene-commands.json"
+    },
+    {
+      "kind": "command",
+      "name": "cartoon",
+      "status": "Partial",
+      "functionalityTested": true,
+      "scientificOutputValidated": false,
+      "validationScope": "Only author-chain A residues 20\u201330 have native ribbon flags enabled.",
+      "limitations": "Only the stated ANGPTL3 fixture, syntax and scene assertions are tested. Other arguments, renderer appearance and full visual equivalence remain unverified.",
+      "evidenceCheck": "cartoon #1/A:20-30",
+      "evidenceReport": "native-scene-commands.json"
+    },
+    {
+      "kind": "command",
+      "name": "transparency",
+      "status": "Partial",
+      "functionalityTested": true,
+      "scientificOutputValidated": false,
+      "validationScope": "50 percent atom transparency yields alpha byte 128 on residue 20 and preserves other alpha bytes at 255.",
+      "limitations": "Only the stated ANGPTL3 fixture, syntax and scene assertions are tested. Other arguments, renderer appearance and full visual equivalence remain unverified.",
+      "evidenceCheck": "transparency #1/A:20 50 target a",
+      "evidenceReport": "native-scene-commands.json"
+    },
+    {
+      "kind": "command",
+      "name": "rmsd",
+      "status": "Partial",
+      "functionalityTested": true,
+      "scientificOutputValidated": true,
+      "validationScope": "460 C\u03b1 pairs in reference copies separated by an exact 3 \u00c5 translation: unfitted RMSD equals 3 \u00c5. Unequal atom counts refused.",
+      "limitations": "Only the stated ANGPTL3 fixture, syntax and scene assertions are tested. Other arguments, renderer appearance and full visual equivalence remain unverified.",
+      "evidenceCheck": "rmsd #2/A@CA to #1/A@CA",
+      "evidenceReport": "native-scene-commands.json"
+    },
+    {
+      "kind": "command",
+      "name": "turn",
+      "status": "Partial",
+      "functionalityTested": true,
+      "scientificOutputValidated": true,
+      "validationScope": "Explicit 90 degree model rotation around the origin agrees with analytic transformed coordinates within 0.0001 \u00c5.",
+      "limitations": "Only the stated ANGPTL3 fixture, syntax and scene assertions are tested. Other arguments, renderer appearance and full visual equivalence remain unverified.",
+      "evidenceCheck": "turn z 90 center 0,0,0 coordinateSystem #1 models #1",
+      "evidenceReport": "native-scene-commands.json"
+    },
+    {
+      "kind": "command",
+      "name": "zoom",
+      "status": "Partial",
+      "functionalityTested": true,
+      "scientificOutputValidated": true,
+      "validationScope": "Camera zoom factor 2 halves the perspective target distance or orthographic field width within 0.00001.",
+      "limitations": "Only the stated ANGPTL3 fixture, syntax and scene assertions are tested. Other arguments, renderer appearance and full visual equivalence remain unverified.",
+      "evidenceCheck": "zoom 2",
+      "evidenceReport": "native-scene-commands.json"
+    },
+    {
+      "kind": "command",
+      "name": "surface",
+      "status": "Partial",
+      "functionalityTested": true,
+      "scientificOutputValidated": false,
+      "validationScope": "Original molecular surface calculation returns nonempty finite native vertex buffers and valid indexed triangles through the FOLD scene adapter.",
+      "limitations": "Only the stated ANGPTL3 fixture, syntax and scene assertions are tested. Other arguments, renderer appearance and full visual equivalence remain unverified.",
+      "evidenceCheck": "surface #1",
+      "evidenceReport": "native-scene-commands.json"
     }
   ],
   "additionalReports": {
@@ -149,6 +237,11 @@
       "sha256": "c13897cb89d84a6604168ba19e69caf31fb7556078af536367327c594bd8e943",
       "state": "passed",
       "scope": "Artificial orthogonal coordinate fixture: distance, angle, signed and mirrored dihedrals agree with analytic values and original ChimeraX angle/torsion commands. No molecular quality or biological claim."
+    },
+    "native-scene-commands.json": {
+      "sha256": "a318a9fb04dd6fb4a8b182027382e40c924ffe79763776387f52405bfe093c5e",
+      "state": "passed",
+      "scope": "Installed ChimeraX commands reflected into the shared FOLD scene: author selection display, cartoons, alpha bytes, unfitted RMSD, explicit model rotation, camera zoom and genuine surface buffers. Narrow fixture/syntax checks; no complete command parity or visual equivalence claim."
     }
   }
 }

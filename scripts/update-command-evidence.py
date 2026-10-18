@@ -32,6 +32,23 @@ if measurement_report.exists():
   commands=[row for row in measured['commands'] if row['command'].split()[0]==name]
   if len(commands)!=(1 if name=='angle' else 2) or any(abs(row['value']-row['expected'])>1e-6 for row in commands):raise SystemExit('Missing or mismatched original command measurements: '+name)
   evidence['capabilities'].append({'kind':'command','name':name,'status':'Partial','functionalityTested':True,'scientificOutputValidated':True,'validationScope':scope,'limitations':'Only the stated artificial geometry and measurement syntax are checked. Other arguments, setting bond angles/torsions and biological interpretation remain unverified.','evidenceCheck':'Analytic orthogonal geometry, native measurement route and original command comparison','evidenceReport':measurement_report.name})
+scene_report=ROOT/'reports/native-scene-commands.json'
+if scene_report.exists():
+ scene=json.loads(scene_report.read_text());rows={row['name']:row for row in scene.get('checks',[])}
+ expected={'hide','show','cartoon','transparency','rmsd','rmsd unequal sets refused','turn','zoom','surface','source assets unchanged'}
+ if scene.get('state')!='passed' or not scene.get('sourceUnchanged') or set(rows)!=expected or not all(row['passed'] for row in rows.values()):raise SystemExit('Scene command evidence is incomplete; evidence not promoted.')
+ evidence.setdefault('additionalReports',{})[scene_report.name]={'sha256':hashlib.sha256(scene_report.read_bytes()).hexdigest(),'state':'passed','scope':scene['scope']}
+ scopes={
+  'hide':'Atom visibility flags after hiding the complete ANGPTL3 reference model.',
+  'show':'Only observed author-chain A residue 20 atoms shown after hiding the full reference model.',
+  'cartoon':'Only author-chain A residues 20–30 have native ribbon flags enabled.',
+  'transparency':'50 percent atom transparency yields alpha byte 128 on residue 20 and preserves other alpha bytes at 255.',
+  'rmsd':'460 Cα pairs in reference copies separated by an exact 3 Å translation: unfitted RMSD equals 3 Å. Unequal atom counts refused.',
+  'turn':'Explicit 90 degree model rotation around the origin agrees with analytic transformed coordinates within 0.0001 Å.',
+  'zoom':'Camera zoom factor 2 halves the perspective target distance or orthographic field width within 0.00001.',
+  'surface':'Original molecular surface calculation returns nonempty finite native vertex buffers and valid indexed triangles through the FOLD scene adapter.'}
+ for name,scope in scopes.items():
+  evidence['capabilities'].append({'kind':'command','name':name,'status':'Partial','functionalityTested':True,'scientificOutputValidated':rows[name]['numerical'],'validationScope':scope,'limitations':'Only the stated ANGPTL3 fixture, syntax and scene assertions are tested. Other arguments, renderer appearance and full visual equivalence remain unverified.','evidenceCheck':rows[name]['command'],'evidenceReport':scene_report.name})
 (ROOT/'scientific/validation-evidence-current.json').write_text(json.dumps(evidence,indent=2)+'\n')
 baseline=json.loads((ROOT/'scientific/pinned-capabilities-1.12.json').read_text());by_name={r['name']:r for r in evidence['capabilities']}
 with open(ROOT/'docs/CHIMERAX_COMMAND_COMPATIBILITY.csv','w',newline='') as file:

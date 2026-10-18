@@ -1,0 +1,196 @@
+{
+  "state": "passed",
+  "scope": "Installed ChimeraX commands reflected into the shared FOLD scene: author selection display, cartoons, alpha bytes, unfitted RMSD, explicit model rotation, camera zoom and genuine surface buffers. Narrow fixture/syntax checks; no complete command parity or visual equivalence claim.",
+  "chimeraxVersion": "1.12",
+  "sourceUnchanged": true,
+  "checks": [
+    {
+      "name": "hide",
+      "command": "hide #1 atoms",
+      "passed": true,
+      "details": null,
+      "numerical": false
+    },
+    {
+      "name": "show",
+      "command": "show #1/A:20 atoms",
+      "passed": true,
+      "details": {
+        "visibleAtoms": 8
+      },
+      "numerical": false
+    },
+    {
+      "name": "cartoon",
+      "command": "cartoon #1/A:20-30",
+      "passed": true,
+      "details": {
+        "enabledResidues": [
+          20,
+          21,
+          22,
+          23,
+          24,
+          25,
+          26,
+          27,
+          28,
+          29,
+          30
+        ]
+      },
+      "numerical": false
+    },
+    {
+      "name": "transparency",
+      "command": "transparency #1/A:20 50 target a",
+      "passed": true,
+      "details": {
+        "selectedAlphaBytes": [
+          128
+        ]
+      },
+      "numerical": false
+    },
+    {
+      "name": "rmsd",
+      "command": "rmsd #2/A@CA to #1/A@CA",
+      "passed": true,
+      "details": {
+        "expectedAngstrom": 3.0,
+        "observedAngstrom": 3.0,
+        "atomPairs": 460
+      },
+      "numerical": true
+    },
+    {
+      "name": "rmsd unequal sets refused",
+      "command": "rmsd",
+      "passed": true,
+      "details": null,
+      "numerical": false
+    },
+    {
+      "name": "turn",
+      "command": "turn z 90 center 0,0,0 coordinateSystem #1 models #1",
+      "passed": true,
+      "details": {
+        "maximumCoordinateErrorAngstrom": 1.0048591735576161e-14
+      },
+      "numerical": true
+    },
+    {
+      "name": "zoom",
+      "command": "zoom 2",
+      "passed": true,
+      "details": {
+        "before": {
+          "name": "mono",
+          "matrix": [
+            [
+              1.0,
+              0.0,
+              0.0,
+              0.0
+            ],
+            [
+              0.0,
+              1.0,
+              0.0,
+              0.0
+            ],
+            [
+              0.0,
+              0.0,
+              1.0,
+              200.0
+            ]
+          ],
+          "position": [
+            0.0,
+            0.0,
+            200.0
+          ],
+          "direction": [
+            -0.0,
+            -0.0,
+            -1.0
+          ],
+          "target": [
+            0.0,
+            0.0,
+            0.0
+          ],
+          "fieldOfView": 30.0,
+          "fieldWidth": null
+        },
+        "after": {
+          "name": "mono",
+          "matrix": [
+            [
+              1.0,
+              0.0,
+              0.0,
+              0.0
+            ],
+            [
+              0.0,
+              1.0,
+              0.0,
+              0.0
+            ],
+            [
+              0.0,
+              0.0,
+              1.0,
+              100.0
+            ]
+          ],
+          "position": [
+            0.0,
+            0.0,
+            100.0
+          ],
+          "direction": [
+            -0.0,
+            -0.0,
+            -1.0
+          ],
+          "target": [
+            0.0,
+            0.0,
+            0.0
+          ],
+          "fieldOfView": 30.0,
+          "fieldWidth": null
+        },
+        "error": 0.0
+      },
+      "numerical": true
+    },
+    {
+      "name": "surface",
+      "command": "surface #1",
+      "passed": true,
+      "details": {
+        "meshes": [
+          {
+            "id": "1.1",
+            "vertices": 417297,
+            "triangles": 594726
+          }
+        ]
+      },
+      "numerical": false
+    },
+    {
+      "name": "source assets unchanged",
+      "command": "all tested commands",
+      "passed": true,
+      "details": {
+        "sha256": "df7611b8b9c1ad3dc4beab960d54b4f19197d61f5eccc6cdf62c67601dc86102"
+      },
+      "numerical": false
+    }
+  ]
+}

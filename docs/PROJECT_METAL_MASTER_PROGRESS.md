@@ -67,7 +67,7 @@ validity. No top-level platform requirement is marked COMPLETE.
    filter homodimer campaign finished with no accepted candidates; do not rerun.
    The 10 GiB Metal experiment still refused the gradient on memory limits.
    Current ligand preparation passes source chemistry, native atom/bond transport,
-   250 Python contracts and 69 frontend tests. Build and relocate the combined
+   250 Python contracts and 71 frontend tests. Build and relocate the combined
    app, then verify automatic bundled RDKit discovery and sealed execution.
    Native ligand form/visual checks await an unlocked Mac.
 3. Continue the full roadmap: broader modality/reference acceptance, native
@@ -882,3 +882,29 @@ updates also acquire the write lock before reading JSON. Two regression checks
 cover this behavior and rollback on invalid metadata; all 250 Python tests pass.
 The frontend suite passes 69 tests (one existing visual test skipped) and TypeScript
 compilation passes. Packaged chemistry remains the next integration check.
+
+### Packaged RDKit and expanded native command acceptance
+
+Relocated `f2527f7` app executes all five chemistry cases plus same-seed repeat
+and four refusals using automatic bundled runtime discovery, no configured Python
+override. All coordinate/SDF project archive hashes match and the app signature
+passes after calculations (`reports/packaged-ligand-chemistry.json`). With the Mac
+unlocked, the actual native ligand form prepared ethanol and the native save
+dialog exported its exact SDF. Initial viewport inspection caught missing bonds:
+the renderer adapter supplied 1e8 as each expected bond length. Mol* checks that
+field against real coordinates within 0.3 Å, so it rejected every bond. The adapter
+now supplies measured lengths only for native displayed bond pairs. A test using
+the actual Mol* CIF parser and structure graph fails with the original placeholder
+and passes with the fix; it also refuses to infer absent or hidden bonds. The
+original geometry/materials/viewer remain in place. Rebuilt viewport acceptance
+is pending; the initial missing-bond screenshot is retained as evidence.
+
+Eight further original ChimeraX commands pass scoped native scene checks:
+show/hide author-residue atoms, cartoon flags, transparency alpha, unfitted 3 Å
+RMSD (unequal counts refused), analytic 90° model rotation, camera zoom factor 2,
+and original native molecular surface vertex/index buffers. Source assets stay
+unchanged. `scripts/validate-native-scene-commands.py`,
+`reports/native-scene-commands.json`. The earlier fixture tried to reopen an
+already linked model, which correctly reused its identity; an explicitly separate
+private reference record now supplies the second RMSD model. Inventory evidence
+is now 21 scoped commands, eight numerical checks, never complete ChimeraX parity.

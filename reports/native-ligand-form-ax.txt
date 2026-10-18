@@ -1,0 +1,141 @@
+Window: "FOLD STUDIO — The Molecular Observatory", App: FOLD STUDIO Metal Dev.
+0 standard window FOLD STUDIO — The Molecular Observatory, Secondary Actions: Raise
+	1 scroll area
+		2 HTML content Description: FOLD STUDIO · The Molecular Observatory, URL: tauri://localhost
+			3 container Molecular Architect design campaigns
+				4 button Close
+				5 text PROJECT METAL · DESIGN CAMPAIGNS
+				6 heading Prepare a reproducible design., Value: 2
+					7 text Prepare a reproducible design.
+				8 text BindCraft2 source is integrated. Full native design execution is still under validation. Preparation and ranked-result import are available.
+				9 container
+					10 text Campaign name
+					11 text field (settable) Campaign name, Value: Design campaign
+				12 container
+					13 text Saved target structure
+					14 pop up button Saved target structure, Value: Choose a library structure
+				15 container
+					16 text Design format
+					17 pop up button Design format, Value: Miniprotein binder
+				18 button Add another target state
+				19 text Each target retains its own coordinates, chain choices and binding or avoidance objective. Small multi-target campaigns can use a separate experimental CPU profile. Preparation does not start a calculation.
+				20 container
+					21 text Primary-target hotspots · observed source numbering
+					22 container Design hotspots
+				23 container
+					24 text Coldspots
+					25 container Design coldspots
+				26 container
+					27 text Minimum length
+					28 number field (settable) Minimum length, Value: 60
+						29 stepper 0
+							30 unknown
+							31 unknown
+				32 container
+					33 text Maximum length
+					34 number field (settable) Maximum length, Value: 100
+						35 stepper 0
+							36 unknown
+							37 unknown
+				38 container
+					39 text Requested candidates
+					40 number field (settable) Requested candidates, Value: 5
+						41 stepper 0
+							42 unknown
+							43 unknown
+				44 container
+					45 text Maximum attempts
+					46 number field (settable) Maximum attempts, Value: 20
+						47 stepper 0
+							48 unknown
+							49 unknown
+				50 container
+					51 text Random seed
+					52 number field (settable) Random seed, Value: 42
+						53 stepper 0
+							54 unknown
+							55 unknown
+				56 button (disabled) Check configuration
+				57 button (disabled) Save prepared campaign
+				58 button Check compute backend
+				59 text Saved inputs retain source coordinates, settings, seed, residue mapping and upstream revision. No calculation or external upload starts when preparing a campaign.
+				60 container (expanded) Secondary Actions: Collapse
+					61 summary Prepare a small molecule · RDKit, Value: on
+						62 text Prepare a small molecule · RDKit
+					63 text Generate a local 3D conformer with ETKDGv3 and MMFF94s. Specified formal charges and stereochemistry are retained; protonation, tautomers and binding require separate research.
+					64 container
+						65 text Ligand name
+						66 text field (settable) Ligand name, Value: Native ligand form QA · ethanol
+					67 container
+						68 text Single connected isomeric SMILES
+						69 text entry area (settable) Single connected isomeric SMILES, Value: [text entry area], Placeholder: For example, CCO for ethanol
+							70 text (settable) CCO
+					71 container
+						72 text Conformers to sample
+						73 pop up button Conformers to sample, Value: 3
+					74 container
+						75 text Ligand random seed
+						76 number field (settable) Ligand random seed, Value: 42
+							77 stepper 0
+								78 unknown
+								79 unknown
+					80 button Prepare ligand locally
+					81 container
+						82 text Native ligand form QA · ethanol completed  · C2H6O · formal charge 0 Conformer saved in Research Library with its chemical graph, SDF and provenance. Molecular-mechanics energy is not a binding free energy.
+					83 container
+						84 text Isotopic transport scope · technical QA failed RDKit could not prepare this molecule. Review the actual execution log for stereochemistry, connectivity or force-field errors.
+					85 container
+						86 text Unsupported force-field coverage · technical QA failed RDKit could not prepare this molecule. Review the actual execution log for stereochemistry, connectivity or force-field errors.
+					87 container
+						88 text Unspecified stereochemistry · technical QA failed RDKit could not prepare this molecule. Review the actual execution log for stereochemistry, connectivity or force-field errors.
+					89 container
+						90 text Disconnected input · technical QA failed RDKit could not prepare this molecule. Review the actual execution log for stereochemistry, connectivity or force-field errors.
+					91 container
+						92 text Ethanol repeat · technical QA completed  · C2H6O · formal charge 0 Conformer saved in Research Library with its chemical graph, SDF and provenance. Molecular-mechanics energy is not a binding free energy.
+					93 container
+						94 text Explicit alkene stereochemistry · technical QA completed  · C2H2F2 · formal charge 0 Conformer saved in Research Library with its chemical graph, SDF and provenance. Molecular-mechanics energy is not a binding free energy.
+					95 container
+						96 text Explicit methylammonium charge · technical QA completed  · CH6N+ · formal charge 1 Conformer saved in Research Library with its chemical graph, SDF and provenance. Molecular-mechanics energy is not a binding free energy.
+					97 container
+						98 text Explicit alanine stereochemistry · technical QA completed  · C3H7NO2 · formal charge 0 Conformer saved in Research Library with its chemical graph, SDF and provenance. Molecular-mechanics energy is not a binding free energy.
+					99 container
+						100 text Benzene · technical QA completed  · C6H6 · formal charge 0 Conformer saved in Research Library with its chemical graph, SDF and provenance. Molecular-mechanics energy is not a binding free energy.
+					101 container
+						102 text Ethanol · technical QA completed  · C2H6O · formal charge 0 Conformer saved in Research Library with its chemical graph, SDF and provenance. Molecular-mechanics energy is not a binding free energy.
+				103 heading ProteinMPNN · fixed-backbone sequence redesign, Value: 3
+					104 text ProteinMPNN · fixed-backbone sequence redesign
+				105 text Redesign the chains selected above while holding other chains fixed. Runs the authentic upstream model on CPU. Produces sequences, without predicting new structures or binding.
+				106 container
+					107 text Residues to redesign · leave empty for all selected chains
+					108 container ProteinMPNN design residues
+				109 container
+					110 checkbox (disabled) Value: 0, Tie corresponding positions across selected chains · requires equal lengths and compatible fixed residues
+					111 text Tie corresponding positions across selected chains · requires equal lengths and compatible fixed residues
+				112 container
+					113 text Exclude amino acids at redesigned positions
+					114 text field (settable) Exclude amino acids at redesigned positions, Placeholder: Optional one-letter codes, for example C
+				115 container
+					116 text ProteinMPNN sequences per chain
+					117 number field (settable) ProteinMPNN sequences per chain, Value: 2
+						118 stepper 0
+							119 unknown
+							120 unknown
+				121 button (disabled) Redesign selected chains · 2 sequences per chain
+				122 heading Saved campaigns, Value: 3
+					123 text Saved campaigns
+				124 container
+					125 checkbox Use the original upstream model ensemble · more memory and compute, Value: 0
+					126 text Use the original upstream model ensemble · more memory and compute
+				127 text Imported structures appear in Research Library and Molecular Intelligence. They remain computational predictions; upstream acceptance does not establish binding or inhibition.
+	128 close button
+	129 full screen button Help: this button also has an action to zoom the window, Secondary Actions: zoom the window
+	130 minimize button
+131 menu bar
+	132 FOLD STUDIO Metal Dev
+	133 File
+	134 Edit
+	135 View
+	136 Window
+	137 Help
+
+The focused UI element is 3 container Molecular Architect design campaigns
