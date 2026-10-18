@@ -23,6 +23,15 @@ if native_report.exists():
  if native.get('state')!='passed' or not native.get('pairs') or not native.get('sourceAssetUnchanged') or native.get('sharedAnalysisJob')!='completed':raise SystemExit('Native hydrogen-bond report is incomplete; evidence not promoted.')
  evidence['additionalReports']={native_report.name:{'sha256':hashlib.sha256(native_report.read_bytes()).hexdigest(),'state':'passed','scope':native['scope']}}
  evidence['capabilities'].append({'kind':'command','name':'hbonds','status':'Partial','functionalityTested':True,'scientificOutputValidated':True,'validationScope':native['scope'],'limitations':'Only the stated artificial fixture, strict criteria, cross-partner selection and output/export assertions were tested. Other arguments and full visual equivalence remain unverified.','evidenceCheck':'Strict native donor/acceptor identity and 2.8 Å geometry; shared job and exports','evidenceReport':native_report.name})
+measurement_report=ROOT/'reports/native-ordered-measurements.json'
+if measurement_report.exists():
+ measured=json.loads(measurement_report.read_text())
+ if measured.get('state')!='passed' or not measured.get('sourceUnchanged') or not measured.get('nativeCoordinatesUnchanged') or not measured.get('duplicateAtomsRefused') or len(measured.get('commands',[]))!=3 or len(measured.get('results',[]))!=4:raise SystemExit('Ordered measurement evidence is incomplete; evidence not promoted.')
+ evidence.setdefault('additionalReports',{})[measurement_report.name]={'sha256':hashlib.sha256(measurement_report.read_bytes()).hexdigest(),'state':'passed','scope':measured['scope']}
+ for name,scope in [('angle','Artificial orthogonal atom triple: ordered native measurement and original angle command agree with analytic 90 degrees.'),('torsion','Artificial mirrored atom quadruples: ordered native measurements and original torsion command agree with analytic -90/+90 degrees. Coordinates and source file unchanged.')]:
+  commands=[row for row in measured['commands'] if row['command'].split()[0]==name]
+  if len(commands)!=(1 if name=='angle' else 2) or any(abs(row['value']-row['expected'])>1e-6 for row in commands):raise SystemExit('Missing or mismatched original command measurements: '+name)
+  evidence['capabilities'].append({'kind':'command','name':name,'status':'Partial','functionalityTested':True,'scientificOutputValidated':True,'validationScope':scope,'limitations':'Only the stated artificial geometry and measurement syntax are checked. Other arguments, setting bond angles/torsions and biological interpretation remain unverified.','evidenceCheck':'Analytic orthogonal geometry, native measurement route and original command comparison','evidenceReport':measurement_report.name})
 (ROOT/'scientific/validation-evidence-current.json').write_text(json.dumps(evidence,indent=2)+'\n')
 baseline=json.loads((ROOT/'scientific/pinned-capabilities-1.12.json').read_text());by_name={r['name']:r for r in evidence['capabilities']}
 with open(ROOT/'docs/CHIMERAX_COMMAND_COMPATIBILITY.csv','w',newline='') as file:

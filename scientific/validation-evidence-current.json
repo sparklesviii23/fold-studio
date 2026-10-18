@@ -115,6 +115,28 @@
       "limitations": "Only the stated artificial fixture, strict criteria, cross-partner selection and output/export assertions were tested. Other arguments and full visual equivalence remain unverified.",
       "evidenceCheck": "Strict native donor/acceptor identity and 2.8 \u00c5 geometry; shared job and exports",
       "evidenceReport": "native-hbonds-validation.json"
+    },
+    {
+      "kind": "command",
+      "name": "angle",
+      "status": "Partial",
+      "functionalityTested": true,
+      "scientificOutputValidated": true,
+      "validationScope": "Artificial orthogonal atom triple: ordered native measurement and original angle command agree with analytic 90 degrees.",
+      "limitations": "Only the stated artificial geometry and measurement syntax are checked. Other arguments, setting bond angles/torsions and biological interpretation remain unverified.",
+      "evidenceCheck": "Analytic orthogonal geometry, native measurement route and original command comparison",
+      "evidenceReport": "native-ordered-measurements.json"
+    },
+    {
+      "kind": "command",
+      "name": "torsion",
+      "status": "Partial",
+      "functionalityTested": true,
+      "scientificOutputValidated": true,
+      "validationScope": "Artificial mirrored atom quadruples: ordered native measurements and original torsion command agree with analytic -90/+90 degrees. Coordinates and source file unchanged.",
+      "limitations": "Only the stated artificial geometry and measurement syntax are checked. Other arguments, setting bond angles/torsions and biological interpretation remain unverified.",
+      "evidenceCheck": "Analytic orthogonal geometry, native measurement route and original command comparison",
+      "evidenceReport": "native-ordered-measurements.json"
     }
   ],
   "additionalReports": {
@@ -122,6 +144,11 @@
       "sha256": "d3fd873ed4ec8c8da47d6caae690092ce167cf68ad800c8ef9ac76c509708fec",
       "state": "passed",
       "scope": "Artificial SER\u2013ALA geometry; wrapper agrees with original ChimeraX strict hbonds command; independent donor\u2013acceptor distance 2.8 \u00c5. Algorithm integration check, not biological validation."
+    },
+    "native-ordered-measurements.json": {
+      "sha256": "c13897cb89d84a6604168ba19e69caf31fb7556078af536367327c594bd8e943",
+      "state": "passed",
+      "scope": "Artificial orthogonal coordinate fixture: distance, angle, signed and mirrored dihedrals agree with analytic values and original ChimeraX angle/torsion commands. No molecular quality or biological claim."
     }
   }
 }

@@ -198,11 +198,21 @@ class SceneBridge:
     def measure(self,p):
         if not self.atoms:self.scene()
         keys=p.get('keys',[])
-        if not 2<=len(keys)<=4 or any(k not in self.atoms or self.atoms[k].deleted for k in keys):raise ValueError('Choose 2–4 current native atoms.')
-        points=[self.atoms[k].scene_coord for k in keys]
+        if not isinstance(keys,list) or not 2<=len(keys)<=4 or any(not isinstance(k,str) or k not in self.atoms or self.atoms[k].deleted for k in keys):raise ValueError('Choose 2–4 current native atoms.')
+        if len(set(keys))!=len(keys):raise ValueError('Choose distinct atoms in measurement order.')
+        points=[np.asarray(self.atoms[k].scene_coord,dtype=float) for k in keys]
+        if any(point.shape!=(3,) or not np.isfinite(point).all() for point in points):raise ValueError('Measurement coordinates must be finite three-dimensional points.')
+        if len(points)>=3:
+            bonds=np.diff(np.asarray(points),axis=0);lengths=np.linalg.norm(bonds,axis=1)
+            if np.any(lengths<=1e-12):raise ValueError('An angle or dihedral is undefined for coincident consecutive atoms.')
+            if len(points)==4:
+                directions=bonds/lengths[:,None]
+                if any(np.linalg.norm(np.cross(directions[i],directions[i+1]))<=1e-12 for i in (0,1)):raise ValueError('A dihedral is undefined when three consecutive atoms are collinear.')
         from chimerax.geometry import distance,angle,dihedral
         function={2:distance,3:angle,4:dihedral}[len(points)]
-        return {'kind':{2:'distance',3:'angle',4:'dihedral'}[len(points)],'value':float(function(*points)),
+        value=float(function(*points))
+        if not math.isfinite(value):raise ValueError('The native engine returned a non-finite measurement.')
+        return {'kind':{2:'distance',3:'angle',4:'dihedral'}[len(points)],'value':value,
             'unit':'Å' if len(points)==2 else 'degrees','method':'chimerax.geometry.'+function.__name__,
             'atoms':[{'key':key,'spec':self.atoms[key].string(style='command',omit_structure=False),'xyz':list(map(float,point))} for key,point in zip(keys,points)],'sessionId':self.identity}
     def python(self,p):

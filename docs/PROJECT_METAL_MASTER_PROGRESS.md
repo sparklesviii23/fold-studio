@@ -634,3 +634,38 @@ its native controls remain blocked pending real execution and fixed-framework
 verification. The full hPDL1 target plus original scFv/Fab presets requires 416/608
 padded positions by the original upstream estimate, beyond currently validated
 native memory limits. Do not silently truncate these antibody domains.
+
+### Ordered native geometry and relocated model controls
+
+The relocated `857f167` app's native Local Compute panel correctly distinguishes
+bundled runtime availability, cached models, completed inference and publisher
+file integrity. The actual Verify button hashed the real 2.29 GB checkpoint,
+showed publisher verification and preserved the app signature. Evidence:
+`reports/native-model-integrity.json`, `.png` and `-ax.txt`. This build precedes
+the following scene measurement change; do not claim that change is packaged yet.
+
+`scene_bridge.SceneBridge.measure` now refuses duplicate/stale atom handles,
+nonfinite points, zero-length angle bonds and collinear torsion planes instead
+of reporting misleading numerical angles. Distinct coincident distance and a
+straight 180-degree bond angle remain valid. Ordered atom identities, scene
+coordinates and signed native calculation remain unchanged. Six contract tests
+pass. `scripts/validate-native-measurements.py` independently checks analytic
+sqrt(3) Å distance, 90-degree angle and mirrored -90/+90-degree torsions against
+actual native functions plus original angle/torsion commands. Source and native
+coordinates remain unchanged (`reports/native-ordered-measurements.json`).
+Earlier harness failures are retained in the validation directories: field-name
+mismatch, reversed analytic sign, and an incorrect assumption that the native
+four-atom angle command means dihedral. Original source inspection established
+that angle measures two bond vectors, while torsion measures signed dihedrals;
+the corrected harness explicitly uses torsion. No engine math was changed to
+match a mistaken expectation. Command inventory now has 13 narrowly tested
+entries, five with scoped numerical evidence; no comprehensive parity claim.
+
+Native campaign feedback acceptance also passed on the saved original-filter
+three-state job: the completed card shows zero imported structures and explicitly
+says no candidate passed the original scientific filters. No calculation was
+restarted. `reports/native-campaign-outcome.json` / `.png` / `-ax.txt`.
+Integration ran 218 Python checks; only two command-evidence inventory expectations
+needed updating for the two newly measured commands; those targeted checks now
+pass with exact live-report hash linkage. The existing frontend suite was already
+verified for the unchanged UI at 69 passing checks.
