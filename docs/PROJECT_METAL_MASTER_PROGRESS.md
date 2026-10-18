@@ -66,10 +66,10 @@ validity. No top-level platform requirement is marked COMPLETE.
 2. Native `db6b80f` build is sealed. Fragment creation and paired-domain preparation
    passed through its actual forms; finish viewport/export acceptance and save
    the final native screenshots. Packaged ordered geometry and seals passed.
-   A new bounded 10 GiB Metal experiment is running at
-   `../validation/af2-320-metal-10g`, now that earlier CPU campaigns finished.
-   It is a technical forward/gradient memory investigation; app limits stay
-   unchanged until numerical comparison and broader acceptance pass.
+   The bounded 10 GiB Metal experiment finished with a correct scoped forward
+   comparison and a governed gradient memory refusal. App limits stay unchanged.
+   Next native build verifies auditable repeat-run controls; no model rerun is
+   needed solely for UI/input-copy acceptance.
 3. Continue the full roadmap: broader modality/reference acceptance, native
    ChimeraX command coverage, shared workflows, remaining scientific engines and
    standalone runtime management. Respect current measured memory limits.
@@ -758,3 +758,61 @@ RESOURCE_EXHAUSTED at 10.2 GiB process footprint / 9.5 GiB live MLX arrays and o
 do not claim gradient parity or raise app limits. `reports/af2-320-metal-10g.json`
 and the updated memory investigation retain the evidence. Larger CPU scaffolds
 remain supported; larger Metal needs a lower-memory execution solution.
+
+### Auditable campaign repeats
+
+`campaign_repeat.py`, `Engine.bindcraft_repeat`, native IPC and
+`CampaignRepeat.tsx` allow a completed, rejected, failed, cancelled or imported
+campaign to prepare another run from its immutable saved inputs. This does not
+execute a calculation. A repeat records its parent campaign and original/new
+seed; only an explicitly supplied seed changes scientific settings. Source pin,
+settings, every target snapshot and any scaffold are verified before copying;
+original results/errors remain unchanged. The new prepared card offers the
+existing explicit backend choices, so a failed Metal run can be retried on CPU
+without rebuilding scientific selections or weakening filters. Seven contracts
+cover exact inputs, seed-only changes, multi-target/scaffold export, tampering,
+project/revision guards and absence of a compute spawn. Native UI acceptance is
+next; no repeat calculation is automatically scheduled.
+
+Combined repeat workflow checks: 236 Python and 69 frontend tests plus TypeScript
+compilation passed. The next build also normalizes campaign numeric fields on
+blur (removing observed leading zeros) and requires fragment end points to exist
+in the source. Scientific settings and coordinates remain unchanged.
+
+### Original two-copy oligomer workflow
+
+The next original BindCraft2 preset, `homo_oligomer`, now prepares two identical
+binder-chain copies with length bounds explicitly per copy. It retains original
+filters and symmetric sequence tying; other copy-count/symmetry overrides remain
+refused. Resource checks count both copies. Inspection also found that native
+single-model selection had only checked an explicit validation_model field;
+upstream chooses held-out multimer by default for multiple binder chains. The
+adapter now preserves that original rule and rejects an invalid explicit pool.
+Four contracts cover exact preset fields, held-out pool choice, both-copy memory
+counting and unsupported overrides. A small original algorithm trajectory has
+executed on CPU; CPU full diagnostic pipeline and narrow Metal trajectory are
+being checked before native integration acceptance. No biological oligomer,
+symmetry or binding validation is asserted from a technical case.
+
+Trajectory harness correction: the direct diagnostic model constructor now
+passes original symmetric multi-chain groups and amino-acid biases, matching the
+production campaign constructor. Earlier direct trajectory CPU/Metal comparisons
+used matching backend inputs but omitted those constructor options; treat those
+as narrow, identically configured model/optimizer comparisons, not complete
+original campaign policy equivalence. Fixed-framework checks remain observations
+of those runs. Production `bindcraft_runner → launch_campaign` always used the
+original constructor; its full scFv and original-filter binder/VHH campaign
+receipts are unaffected. New paired-copy CPU/Metal checks explicitly record and
+compare modelPolicy. Earlier harness outputs remain retained separately.
+
+The corrected-policy 12+12-residue homodimer / 12-residue target completed all
+four real optimizer stages on CPU and Metal. Sequences and masks are identical;
+maximum resolved-coordinate RMS across chains is 0.001851 Å. The full CPU
+optimization → actual tied ProteinMPNN → held-out multimer pipeline completed in
+19.940 s; both output binder chains have the same 12-residue sequence and the
+target sequence is retained. `reports/homodimer-cpu-metal-comparison.json`,
+`homodimer-cpu-trajectory.json`, `homodimer-metal-trajectory.json` and
+`homodimer-cpu-pipeline.json`. Gates are explicitly diagnostic; no biological
+symmetry, physical oligomerization or binding is validated. Native integration
+remains next. Current source checks: 240 Python and 69 frontend tests plus
+TypeScript passed (one existing private frontend fixture skipped).

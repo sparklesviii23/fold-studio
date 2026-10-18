@@ -5,7 +5,10 @@ import mpnn
 
 def execution_config(original,folder):
  """Choose an explicit single-model arm while retaining modality-specific checks."""
- validation='model_2_multimer_v3' if original.get('validation_model')=='multimer' else 'model_1_ptm'
+ validation_kind=original.get('validation_model')
+ if validation_kind is None:validation_kind='multimer' if original.get('binder_scaffold') or int(original.get('copies',1))>1 else 'monomer'
+ if validation_kind not in ('monomer','multimer'):raise ValueError('Unknown upstream validation-model pool.')
+ validation='model_2_multimer_v3' if validation_kind=='multimer' else 'model_1_ptm'
  config={**original,'project_folder':str(folder/'output'),'design_models':['model_1_multimer_v3'],'validation_model':'multimer' if validation.endswith('multimer_v3') else 'monomer','validation_models':[validation],'design_workers':1,'auto_multi_gpu':False,'attention_backend':'stock','use_cueq':False,'resume':False}
  config['targets']=[{**target,'target_path':str(folder/target['target_path'])} for target in original['targets']]
  if original.get('binder_scaffold'):config['binder_scaffold']=str(folder/original['binder_scaffold'])
@@ -26,7 +29,7 @@ def start(engine,p):
  limit=320 if p['profile']=='experimental-cpu-float32-scaffold' else 256
  if limit==320 and not prep.get('scaffold'):raise ValueError('The larger CPU profile requires an original scaffold campaign.')
  count=sum(1 for r in prep['residueMap']);length=max(prep['config']['binder_lengths'])
- if not prep.get('scaffold') and count+length>256:raise ValueError('Initial experimental campaigns are limited to 256 total residues for memory validation.')
+ if not prep.get('scaffold') and count+length*prep['config'].get('copies',1)>256:raise ValueError('Initial experimental campaigns are limited to 256 total residues for memory validation.')
  python=os.path.abspath(os.path.expanduser(mpnn.runtime(s)))
  runtime_info={}
  if backend=='metal':

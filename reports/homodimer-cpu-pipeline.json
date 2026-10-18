@@ -1,0 +1,943 @@
+{
+  "state": "technical_pipeline_completed",
+  "backend": "cpu",
+  "engineRoot": "/Users/vii/Documents/FoldStudio-MetalPort/fold-studio",
+  "interpreter": "/Users/vii/Documents/FoldStudio-MetalPort/runtimes/jax-cpu/bin/python",
+  "signatureAfterInference": "not_applicable",
+  "externalRuntimeEnvironmentRemoved": true,
+  "targetMode": "single",
+  "modality": "homo_oligomer",
+  "preparedInputs": null,
+  "diagnosticOnly": true,
+  "researchAcceptance": false,
+  "importedRecords": 0,
+  "seconds": 19.93952158303,
+  "sourceSha256": "c152bef545f70158970e739878231fbe6ba92b6218a0ce39a84ec4b873b56c8d",
+  "settingsSha256": "451cb85876537b05b9be1b84f792ec1a9ccff07bbb8f27d59b1f0faba3218d32",
+  "settings": {
+    "copies": 2,
+    "binder_lengths": [
+      12
+    ],
+    "min_monomer_plddt_final": 0.0,
+    "filters": [],
+    "targets": [
+      {
+        "name": "diagnostic",
+        "target_path": "/Users/vii/Documents/FoldStudio-MetalPort/validation/homodimer-cpu-pipeline/DIAGNOSTIC_target_fragment.pdb",
+        "chains": "A"
+      }
+    ],
+    "campaign_name": "DIAGNOSTIC ONLY \u2014 permissive QA gates; no research acceptance",
+    "binder_name": "DIAGNOSTIC",
+    "campaign_seed": 2718,
+    "project_folder": "/Users/vii/Documents/FoldStudio-MetalPort/validation/homodimer-cpu-pipeline/QUARANTINED_OUTPUT",
+    "number_of_final_designs": 1,
+    "max_trajectories": 1,
+    "design_models": [
+      "model_1_multimer_v3"
+    ],
+    "validation_model": "multimer",
+    "validation_models": [
+      "model_2_multimer_v3"
+    ],
+    "design_recycles": 0,
+    "validation_recycles": 1,
+    "design_dropout": false,
+    "length_bucket_size": 1,
+    "attention_backend": "stock",
+    "use_cueq": false,
+    "auto_multi_gpu": false,
+    "design_workers": 1,
+    "autotune": false,
+    "resume": false,
+    "screen_steps": 1,
+    "refine_steps": 1,
+    "anneal_steps": 1,
+    "harden_steps": 1,
+    "mutate_steps": 0,
+    "sequence_candidates": 2,
+    "kept_sequences": 1,
+    "enough_passing_sequences": 1,
+    "save_design_sequences": true,
+    "min_plddt_screen": 0.0,
+    "min_iptm_screen": 0.0,
+    "min_plddt_refine": 0.0,
+    "min_iptm_refine": 0.0,
+    "min_plddt_anneal": 0.0,
+    "min_iptm_anneal": 0.0,
+    "min_plddt_harden": 0.0,
+    "min_iptm_harden": 0.0,
+    "min_plddt_mutate": 0.0,
+    "min_iptm_mutate": 0.0,
+    "min_plddt_final": 0.0,
+    "min_iptm_final": 0.0
+  },
+  "technicalStructures": {
+    "QUARANTINED_OUTPUT/3_Ranked/DIAGNOSTIC ONLY \u2014 permissive QA gates; no research acceptance_DIAGNOSTIC_oligomer_l24_4260f033bac4aa84_seq0.cif": "d9dbcf5da74fe4de6a2a8dc7c79fcb6f0553b86220543a808a0598e14964c975"
+  },
+  "tables": {
+    "QUARANTINED_OUTPUT/summary.csv": [
+      {
+        "campaign": "QUARANTINED_OUTPUT",
+        "scope": "campaign",
+        "metric": "trajectories",
+        "samples": "1",
+        "mean": "1.0",
+        "std": "0.0",
+        "min": "1.0",
+        "max": "1.0"
+      },
+      {
+        "campaign": "QUARANTINED_OUTPUT",
+        "scope": "campaign",
+        "metric": "redesign_candidates",
+        "samples": "1",
+        "mean": "1.0",
+        "std": "0.0",
+        "min": "1.0",
+        "max": "1.0"
+      },
+      {
+        "campaign": "QUARANTINED_OUTPUT",
+        "scope": "campaign",
+        "metric": "accepted_designs",
+        "samples": "1",
+        "mean": "1.0",
+        "std": "0.0",
+        "min": "1.0",
+        "max": "1.0"
+      },
+      {
+        "campaign": "QUARANTINED_OUTPUT",
+        "scope": "campaign",
+        "metric": "terminated:completed",
+        "samples": "1",
+        "mean": "1.0",
+        "std": "0.0",
+        "min": "1.0",
+        "max": "1.0"
+      },
+      {
+        "campaign": "QUARANTINED_OUTPUT",
+        "scope": "accepted",
+        "metric": "Protomer_Identity_Fraction",
+        "samples": "1",
+        "mean": "1.0",
+        "std": "0.0",
+        "min": "1.0",
+        "max": "1.0"
+      },
+      {
+        "campaign": "QUARANTINED_OUTPUT",
+        "scope": "accepted",
+        "metric": "i_pDAE",
+        "samples": "1",
+        "mean": "0.0",
+        "std": "0.0",
+        "min": "0.0",
+        "max": "0.0"
+      },
+      {
+        "campaign": "QUARANTINED_OUTPUT",
+        "scope": "accepted",
+        "metric": "i_pTM",
+        "samples": "1",
+        "mean": "0.03",
+        "std": "0.0",
+        "min": "0.03",
+        "max": "0.03"
+      },
+      {
+        "campaign": "QUARANTINED_OUTPUT",
+        "scope": "accepted",
+        "metric": "length",
+        "samples": "1",
+        "mean": "12.0",
+        "std": "0.0",
+        "min": "12.0",
+        "max": "12.0"
+      },
+      {
+        "campaign": "QUARANTINED_OUTPUT",
+        "scope": "accepted",
+        "metric": "pLDDT",
+        "samples": "1",
+        "mean": "0.34",
+        "std": "0.0",
+        "min": "0.34",
+        "max": "0.34"
+      },
+      {
+        "campaign": "QUARANTINED_OUTPUT",
+        "scope": "anneal",
+        "metric": "diagnostic.binder_contacts",
+        "samples": "1",
+        "mean": "2.3",
+        "std": "0.0",
+        "min": "2.3",
+        "max": "2.3"
+      },
+      {
+        "campaign": "QUARANTINED_OUTPUT",
+        "scope": "anneal",
+        "metric": "diagnostic.binder_helicity",
+        "samples": "1",
+        "mean": "-0.62",
+        "std": "0.0",
+        "min": "-0.62",
+        "max": "-0.62"
+      },
+      {
+        "campaign": "QUARANTINED_OUTPUT",
+        "scope": "anneal",
+        "metric": "diagnostic.binder_pae",
+        "samples": "1",
+        "mean": "0.11",
+        "std": "0.0",
+        "min": "0.11",
+        "max": "0.11"
+      },
+      {
+        "campaign": "QUARANTINED_OUTPUT",
+        "scope": "anneal",
+        "metric": "diagnostic.compactness",
+        "samples": "1",
+        "mean": "1.0",
+        "std": "0.0",
+        "min": "1.0",
+        "max": "1.0"
+      },
+      {
+        "campaign": "QUARANTINED_OUTPUT",
+        "scope": "anneal",
+        "metric": "diagnostic.interface_contacts",
+        "samples": "1",
+        "mean": "3.9",
+        "std": "0.0",
+        "min": "3.9",
+        "max": "3.9"
+      },
+      {
+        "campaign": "QUARANTINED_OUTPUT",
+        "scope": "anneal",
+        "metric": "diagnostic.interface_pae",
+        "samples": "1",
+        "mean": "0.06",
+        "std": "0.0",
+        "min": "0.06",
+        "max": "0.06"
+      },
+      {
+        "campaign": "QUARANTINED_OUTPUT",
+        "scope": "anneal",
+        "metric": "diagnostic.iptm",
+        "samples": "1",
+        "mean": "0.02",
+        "std": "0.0",
+        "min": "0.02",
+        "max": "0.02"
+      },
+      {
+        "campaign": "QUARANTINED_OUTPUT",
+        "scope": "anneal",
+        "metric": "diagnostic.iptm_loss",
+        "samples": "1",
+        "mean": "0.05",
+        "std": "0.0",
+        "min": "0.05",
+        "max": "0.05"
+      },
+      {
+        "campaign": "QUARANTINED_OUTPUT",
+        "scope": "anneal",
+        "metric": "diagnostic.plddt_loss",
+        "samples": "1",
+        "mean": "0.07",
+        "std": "0.0",
+        "min": "0.07",
+        "max": "0.07"
+      },
+      {
+        "campaign": "QUARANTINED_OUTPUT",
+        "scope": "anneal",
+        "metric": "diagnostic.ptm",
+        "samples": "1",
+        "mean": "0.13",
+        "std": "0.0",
+        "min": "0.13",
+        "max": "0.13"
+      },
+      {
+        "campaign": "QUARANTINED_OUTPUT",
+        "scope": "candidate",
+        "metric": "Protomer_Identity_Fraction",
+        "samples": "1",
+        "mean": "1.0",
+        "std": "0.0",
+        "min": "1.0",
+        "max": "1.0"
+      },
+      {
+        "campaign": "QUARANTINED_OUTPUT",
+        "scope": "candidate",
+        "metric": "i_pDAE",
+        "samples": "1",
+        "mean": "0.0",
+        "std": "0.0",
+        "min": "0.0",
+        "max": "0.0"
+      },
+      {
+        "campaign": "QUARANTINED_OUTPUT",
+        "scope": "candidate",
+        "metric": "i_pTM",
+        "samples": "1",
+        "mean": "0.03",
+        "std": "0.0",
+        "min": "0.03",
+        "max": "0.03"
+      },
+      {
+        "campaign": "QUARANTINED_OUTPUT",
+        "scope": "candidate",
+        "metric": "length",
+        "samples": "1",
+        "mean": "12.0",
+        "std": "0.0",
+        "min": "12.0",
+        "max": "12.0"
+      },
+      {
+        "campaign": "QUARANTINED_OUTPUT",
+        "scope": "candidate",
+        "metric": "pLDDT",
+        "samples": "1",
+        "mean": "0.34",
+        "std": "0.0",
+        "min": "0.34",
+        "max": "0.34"
+      },
+      {
+        "campaign": "QUARANTINED_OUTPUT",
+        "scope": "final",
+        "metric": "i_pDAE",
+        "samples": "1",
+        "mean": "0.01",
+        "std": "0.0",
+        "min": "0.01",
+        "max": "0.01"
+      },
+      {
+        "campaign": "QUARANTINED_OUTPUT",
+        "scope": "final",
+        "metric": "i_pTM",
+        "samples": "1",
+        "mean": "0.02",
+        "std": "0.0",
+        "min": "0.02",
+        "max": "0.02"
+      },
+      {
+        "campaign": "QUARANTINED_OUTPUT",
+        "scope": "final",
+        "metric": "length",
+        "samples": "1",
+        "mean": "24.0",
+        "std": "0.0",
+        "min": "24.0",
+        "max": "24.0"
+      },
+      {
+        "campaign": "QUARANTINED_OUTPUT",
+        "scope": "final",
+        "metric": "pLDDT",
+        "samples": "1",
+        "mean": "0.33",
+        "std": "0.0",
+        "min": "0.33",
+        "max": "0.33"
+      },
+      {
+        "campaign": "QUARANTINED_OUTPUT",
+        "scope": "final",
+        "metric": "trajectory",
+        "samples": "1",
+        "mean": "1.0",
+        "std": "0.0",
+        "min": "1.0",
+        "max": "1.0"
+      },
+      {
+        "campaign": "QUARANTINED_OUTPUT",
+        "scope": "harden",
+        "metric": "diagnostic.binder_contacts",
+        "samples": "1",
+        "mean": "2.3",
+        "std": "0.0",
+        "min": "2.3",
+        "max": "2.3"
+      },
+      {
+        "campaign": "QUARANTINED_OUTPUT",
+        "scope": "harden",
+        "metric": "diagnostic.binder_helicity",
+        "samples": "1",
+        "mean": "-0.64",
+        "std": "0.0",
+        "min": "-0.64",
+        "max": "-0.64"
+      },
+      {
+        "campaign": "QUARANTINED_OUTPUT",
+        "scope": "harden",
+        "metric": "diagnostic.binder_pae",
+        "samples": "1",
+        "mean": "0.11",
+        "std": "0.0",
+        "min": "0.11",
+        "max": "0.11"
+      },
+      {
+        "campaign": "QUARANTINED_OUTPUT",
+        "scope": "harden",
+        "metric": "diagnostic.compactness",
+        "samples": "1",
+        "mean": "1.4",
+        "std": "0.0",
+        "min": "1.4",
+        "max": "1.4"
+      },
+      {
+        "campaign": "QUARANTINED_OUTPUT",
+        "scope": "harden",
+        "metric": "diagnostic.interface_contacts",
+        "samples": "1",
+        "mean": "3.9",
+        "std": "0.0",
+        "min": "3.9",
+        "max": "3.9"
+      },
+      {
+        "campaign": "QUARANTINED_OUTPUT",
+        "scope": "harden",
+        "metric": "diagnostic.interface_pae",
+        "samples": "1",
+        "mean": "0.06",
+        "std": "0.0",
+        "min": "0.06",
+        "max": "0.06"
+      },
+      {
+        "campaign": "QUARANTINED_OUTPUT",
+        "scope": "harden",
+        "metric": "diagnostic.iptm",
+        "samples": "1",
+        "mean": "0.02",
+        "std": "0.0",
+        "min": "0.02",
+        "max": "0.02"
+      },
+      {
+        "campaign": "QUARANTINED_OUTPUT",
+        "scope": "harden",
+        "metric": "diagnostic.iptm_loss",
+        "samples": "1",
+        "mean": "0.05",
+        "std": "0.0",
+        "min": "0.05",
+        "max": "0.05"
+      },
+      {
+        "campaign": "QUARANTINED_OUTPUT",
+        "scope": "harden",
+        "metric": "diagnostic.plddt_loss",
+        "samples": "1",
+        "mean": "0.07",
+        "std": "0.0",
+        "min": "0.07",
+        "max": "0.07"
+      },
+      {
+        "campaign": "QUARANTINED_OUTPUT",
+        "scope": "harden",
+        "metric": "diagnostic.ptm",
+        "samples": "1",
+        "mean": "0.12",
+        "std": "0.0",
+        "min": "0.12",
+        "max": "0.12"
+      },
+      {
+        "campaign": "QUARANTINED_OUTPUT",
+        "scope": "refine",
+        "metric": "diagnostic.binder_contacts",
+        "samples": "1",
+        "mean": "2.4",
+        "std": "0.0",
+        "min": "2.4",
+        "max": "2.4"
+      },
+      {
+        "campaign": "QUARANTINED_OUTPUT",
+        "scope": "refine",
+        "metric": "diagnostic.binder_helicity",
+        "samples": "1",
+        "mean": "-0.53",
+        "std": "0.0",
+        "min": "-0.53",
+        "max": "-0.53"
+      },
+      {
+        "campaign": "QUARANTINED_OUTPUT",
+        "scope": "refine",
+        "metric": "diagnostic.binder_pae",
+        "samples": "1",
+        "mean": "0.11",
+        "std": "0.0",
+        "min": "0.11",
+        "max": "0.11"
+      },
+      {
+        "campaign": "QUARANTINED_OUTPUT",
+        "scope": "refine",
+        "metric": "diagnostic.compactness",
+        "samples": "1",
+        "mean": "1.0",
+        "std": "0.0",
+        "min": "1.0",
+        "max": "1.0"
+      },
+      {
+        "campaign": "QUARANTINED_OUTPUT",
+        "scope": "refine",
+        "metric": "diagnostic.interface_contacts",
+        "samples": "1",
+        "mean": "3.9",
+        "std": "0.0",
+        "min": "3.9",
+        "max": "3.9"
+      },
+      {
+        "campaign": "QUARANTINED_OUTPUT",
+        "scope": "refine",
+        "metric": "diagnostic.interface_pae",
+        "samples": "1",
+        "mean": "0.06",
+        "std": "0.0",
+        "min": "0.06",
+        "max": "0.06"
+      },
+      {
+        "campaign": "QUARANTINED_OUTPUT",
+        "scope": "refine",
+        "metric": "diagnostic.iptm",
+        "samples": "1",
+        "mean": "0.02",
+        "std": "0.0",
+        "min": "0.02",
+        "max": "0.02"
+      },
+      {
+        "campaign": "QUARANTINED_OUTPUT",
+        "scope": "refine",
+        "metric": "diagnostic.iptm_loss",
+        "samples": "1",
+        "mean": "0.05",
+        "std": "0.0",
+        "min": "0.05",
+        "max": "0.05"
+      },
+      {
+        "campaign": "QUARANTINED_OUTPUT",
+        "scope": "refine",
+        "metric": "diagnostic.plddt_loss",
+        "samples": "1",
+        "mean": "0.07",
+        "std": "0.0",
+        "min": "0.07",
+        "max": "0.07"
+      },
+      {
+        "campaign": "QUARANTINED_OUTPUT",
+        "scope": "refine",
+        "metric": "diagnostic.ptm",
+        "samples": "1",
+        "mean": "0.12",
+        "std": "0.0",
+        "min": "0.12",
+        "max": "0.12"
+      },
+      {
+        "campaign": "QUARANTINED_OUTPUT",
+        "scope": "screen",
+        "metric": "diagnostic.binder_contacts",
+        "samples": "1",
+        "mean": "2.4",
+        "std": "0.0",
+        "min": "2.4",
+        "max": "2.4"
+      },
+      {
+        "campaign": "QUARANTINED_OUTPUT",
+        "scope": "screen",
+        "metric": "diagnostic.binder_helicity",
+        "samples": "1",
+        "mean": "-0.54",
+        "std": "0.0",
+        "min": "-0.54",
+        "max": "-0.54"
+      },
+      {
+        "campaign": "QUARANTINED_OUTPUT",
+        "scope": "screen",
+        "metric": "diagnostic.binder_pae",
+        "samples": "1",
+        "mean": "0.11",
+        "std": "0.0",
+        "min": "0.11",
+        "max": "0.11"
+      },
+      {
+        "campaign": "QUARANTINED_OUTPUT",
+        "scope": "screen",
+        "metric": "diagnostic.compactness",
+        "samples": "1",
+        "mean": "1.0",
+        "std": "0.0",
+        "min": "1.0",
+        "max": "1.0"
+      },
+      {
+        "campaign": "QUARANTINED_OUTPUT",
+        "scope": "screen",
+        "metric": "diagnostic.interface_contacts",
+        "samples": "1",
+        "mean": "3.9",
+        "std": "0.0",
+        "min": "3.9",
+        "max": "3.9"
+      },
+      {
+        "campaign": "QUARANTINED_OUTPUT",
+        "scope": "screen",
+        "metric": "diagnostic.interface_pae",
+        "samples": "1",
+        "mean": "0.06",
+        "std": "0.0",
+        "min": "0.06",
+        "max": "0.06"
+      },
+      {
+        "campaign": "QUARANTINED_OUTPUT",
+        "scope": "screen",
+        "metric": "diagnostic.iptm",
+        "samples": "1",
+        "mean": "0.02",
+        "std": "0.0",
+        "min": "0.02",
+        "max": "0.02"
+      },
+      {
+        "campaign": "QUARANTINED_OUTPUT",
+        "scope": "screen",
+        "metric": "diagnostic.iptm_loss",
+        "samples": "1",
+        "mean": "0.05",
+        "std": "0.0",
+        "min": "0.05",
+        "max": "0.05"
+      },
+      {
+        "campaign": "QUARANTINED_OUTPUT",
+        "scope": "screen",
+        "metric": "diagnostic.plddt_loss",
+        "samples": "1",
+        "mean": "0.07",
+        "std": "0.0",
+        "min": "0.07",
+        "max": "0.07"
+      },
+      {
+        "campaign": "QUARANTINED_OUTPUT",
+        "scope": "screen",
+        "metric": "diagnostic.ptm",
+        "samples": "1",
+        "mean": "0.12",
+        "std": "0.0",
+        "min": "0.12",
+        "max": "0.12"
+      },
+      {
+        "campaign": "QUARANTINED_OUTPUT",
+        "scope": "trajectory",
+        "metric": "diagnostic.binder_contacts",
+        "samples": "1",
+        "mean": "2.3",
+        "std": "0.0",
+        "min": "2.3",
+        "max": "2.3"
+      },
+      {
+        "campaign": "QUARANTINED_OUTPUT",
+        "scope": "trajectory",
+        "metric": "diagnostic.binder_helicity",
+        "samples": "1",
+        "mean": "-0.58",
+        "std": "0.0",
+        "min": "-0.58",
+        "max": "-0.58"
+      },
+      {
+        "campaign": "QUARANTINED_OUTPUT",
+        "scope": "trajectory",
+        "metric": "diagnostic.binder_pae",
+        "samples": "1",
+        "mean": "0.11",
+        "std": "0.0",
+        "min": "0.11",
+        "max": "0.11"
+      },
+      {
+        "campaign": "QUARANTINED_OUTPUT",
+        "scope": "trajectory",
+        "metric": "diagnostic.compactness",
+        "samples": "1",
+        "mean": "1.1",
+        "std": "0.0",
+        "min": "1.1",
+        "max": "1.1"
+      },
+      {
+        "campaign": "QUARANTINED_OUTPUT",
+        "scope": "trajectory",
+        "metric": "diagnostic.interface_contacts",
+        "samples": "1",
+        "mean": "3.9",
+        "std": "0.0",
+        "min": "3.9",
+        "max": "3.9"
+      },
+      {
+        "campaign": "QUARANTINED_OUTPUT",
+        "scope": "trajectory",
+        "metric": "diagnostic.interface_pae",
+        "samples": "1",
+        "mean": "0.06",
+        "std": "0.0",
+        "min": "0.06",
+        "max": "0.06"
+      },
+      {
+        "campaign": "QUARANTINED_OUTPUT",
+        "scope": "trajectory",
+        "metric": "diagnostic.iptm",
+        "samples": "1",
+        "mean": "0.02",
+        "std": "0.0",
+        "min": "0.02",
+        "max": "0.02"
+      },
+      {
+        "campaign": "QUARANTINED_OUTPUT",
+        "scope": "trajectory",
+        "metric": "diagnostic.iptm_loss",
+        "samples": "1",
+        "mean": "0.05",
+        "std": "0.0",
+        "min": "0.05",
+        "max": "0.05"
+      },
+      {
+        "campaign": "QUARANTINED_OUTPUT",
+        "scope": "trajectory",
+        "metric": "diagnostic.plddt_loss",
+        "samples": "1",
+        "mean": "0.07",
+        "std": "0.0",
+        "min": "0.07",
+        "max": "0.07"
+      },
+      {
+        "campaign": "QUARANTINED_OUTPUT",
+        "scope": "trajectory",
+        "metric": "diagnostic.ptm",
+        "samples": "1",
+        "mean": "0.12",
+        "std": "0.0",
+        "min": "0.12",
+        "max": "0.12"
+      }
+    ],
+    "QUARANTINED_OUTPUT/1_Trajectories/!_Trajectories.csv": [
+      {
+        "trajectory": "1",
+        "design": "DIAGNOSTIC ONLY \u2014 permissive QA gates; no research acceptance_DIAGNOSTIC_oligomer_l24_4260f033bac4aa84",
+        "length": "24",
+        "Binder_Sequence": "RSSDWVAEQTVK/RSSDWVAEQTVK",
+        "i_pDAE": "0.01",
+        "i_pTM": "0.02",
+        "pLDDT": "0.33",
+        "bindcraft_version": "BindCraft 2 (unreleased)",
+        "Timing": "worker=0;start=1792342870.61;design=11.4;compiled=1",
+        "hash": "4260f033bac4aa84",
+        "terminated": "",
+        "autotuned": "",
+        "settings_core": "default"
+      }
+    ],
+    "QUARANTINED_OUTPUT/3_Ranked/!_Ranked.csv": [
+      {
+        "rank": "1",
+        "design": "DIAGNOSTIC ONLY \u2014 permissive QA gates; no research acceptance_DIAGNOSTIC_oligomer_l24_4260f033bac4aa84_seq0",
+        "length": "12",
+        "Binder_Sequence": "RSSDWVAEQTVK/RSSDWVAEQTVK",
+        "Interface_Binder_Residues": "S2/S2,S3,D4,V6",
+        "Interface_Target_Residues": "K25,D26",
+        "i_pDAE": "0.0",
+        "i_pTM": "0.03",
+        "pLDDT": "0.34",
+        "Protomer_Identity_Fraction": "1.0",
+        "hash": "4260f033bac4aa84",
+        "settings_core": "default"
+      }
+    ],
+    "QUARANTINED_OUTPUT/2_Refolded/!_Refolded.csv": [
+      {
+        "design": "DIAGNOSTIC ONLY \u2014 permissive QA gates; no research acceptance_DIAGNOSTIC_oligomer_l24_4260f033bac4aa84_candidate1",
+        "length": "12",
+        "outcome": "passed",
+        "Binder_Sequence": "RSSDWVAEQTVK/RSSDWVAEQTVK",
+        "Interface_Binder_Residues": "S2/S2,S3,D4,V6",
+        "Interface_Target_Residues": "K25,D26",
+        "i_pDAE": "0.0",
+        "i_pTM": "0.03",
+        "pLDDT": "0.34",
+        "bindcraft_version": "BindCraft 2 (unreleased)",
+        "Protomer_Identity_Fraction": "1.0",
+        "Timing": "worker=0;start=1792342883.19;reprediction=3.95",
+        "failed_filters": "",
+        "hash": "4260f033bac4aa84"
+      }
+    ],
+    "QUARANTINED_OUTPUT/1_Trajectories/DIAGNOSTIC ONLY \u2014 permissive QA gates; no research acceptance_DIAGNOSTIC_oligomer_l24_4260f033bac4aa84/DIAGNOSTIC ONLY \u2014 permissive QA gates; no research acceptance_DIAGNOSTIC_oligomer_l24_4260f033bac4aa84_losses.csv": [
+      {
+        "diagnostic.binder_contacts": "2.4",
+        "diagnostic.binder_helicity": "-0.54",
+        "diagnostic.binder_pae": "0.11",
+        "diagnostic.compactness": "1.0",
+        "diagnostic.interface_contacts": "3.9",
+        "diagnostic.interface_pae": "0.06",
+        "diagnostic.iptm": "0.02",
+        "diagnostic.iptm_loss": "0.05",
+        "diagnostic.plddt_loss": "0.07",
+        "diagnostic.ptm": "0.12",
+        "phase": "screen",
+        "round": "1"
+      },
+      {
+        "diagnostic.binder_contacts": "2.4",
+        "diagnostic.binder_helicity": "-0.53",
+        "diagnostic.binder_pae": "0.11",
+        "diagnostic.compactness": "1.0",
+        "diagnostic.interface_contacts": "3.9",
+        "diagnostic.interface_pae": "0.06",
+        "diagnostic.iptm": "0.02",
+        "diagnostic.iptm_loss": "0.05",
+        "diagnostic.plddt_loss": "0.07",
+        "diagnostic.ptm": "0.12",
+        "phase": "refine",
+        "round": "1"
+      },
+      {
+        "diagnostic.binder_contacts": "2.3",
+        "diagnostic.binder_helicity": "-0.62",
+        "diagnostic.binder_pae": "0.11",
+        "diagnostic.compactness": "1.0",
+        "diagnostic.interface_contacts": "3.9",
+        "diagnostic.interface_pae": "0.06",
+        "diagnostic.iptm": "0.02",
+        "diagnostic.iptm_loss": "0.05",
+        "diagnostic.plddt_loss": "0.07",
+        "diagnostic.ptm": "0.13",
+        "phase": "anneal",
+        "round": "1"
+      },
+      {
+        "diagnostic.binder_contacts": "2.3",
+        "diagnostic.binder_helicity": "-0.64",
+        "diagnostic.binder_pae": "0.11",
+        "diagnostic.compactness": "1.4",
+        "diagnostic.interface_contacts": "3.9",
+        "diagnostic.interface_pae": "0.06",
+        "diagnostic.iptm": "0.02",
+        "diagnostic.iptm_loss": "0.05",
+        "diagnostic.plddt_loss": "0.07",
+        "diagnostic.ptm": "0.12",
+        "phase": "harden",
+        "round": "1"
+      }
+    ]
+  },
+  "runtime": {
+    "python": "3.12.14 (main, Aug 25 2026, 13:50:33) [Clang 22.1.3 ]",
+    "jax": "0.11.2",
+    "jaxlib": "0.11.2",
+    "architecture": "arm64",
+    "macOS": "26.4.1",
+    "devices": [
+      "cpu:0"
+    ],
+    "execution": "cpu",
+    "precision": "float32",
+    "executionSettingsSha256": "451cb85876537b05b9be1b84f792ec1a9ccff07bbb8f27d59b1f0faba3218d32",
+    "runnerSha256": "1a9537db332cf6e82d808e2fa72e84f8537665ecef682aae08a5d5dd74a06fca",
+    "upstreamSource": {
+      "state": "present",
+      "revision": "c0ee638d11bc010817c2c97ee58ed5c323e664e2",
+      "manifestSha256": "8f06e409dac335261d2505361f4358e2b4df389b8f85a497967406d8c4af4277",
+      "license": "BindCraft2 Source-Available License (Hosting-Restricted)",
+      "modified": false
+    },
+    "precisionAdapterSha256": "a7699aa7c0669c3654b8d15f9114d66eeeedf29868896ef3318338e0127fdc65",
+    "exitCode": 0,
+    "state": "finished",
+    "totalSeconds": 17.91731054103002
+  },
+  "limitations": [
+    "12 residues per target; paired-scaffold chains follow their complete original framework/CDR preset, other formats use 12 designed residues. Exact diagnostic update budgets saved in settings; one held-out multimer recycle.",
+    "Multi-target technical cases give each stage at least as many updates as target states and bound swap/warmup/negative-selection rounds; production preparation does not change original budgets.",
+    "QA confidence/filter gates explicitly permissive; output is not a scientifically accepted binder or binding validation.",
+    "No generated-output research-library import; input records are preparation-only and all technical output structures remain quarantined."
+  ],
+  "outputCorrespondence": {
+    "state": "passed",
+    "outputs": [
+      {
+        "file": "QUARANTINED_OUTPUT/3_Ranked/DIAGNOSTIC ONLY \u2014 permissive QA gates; no research acceptance_DIAGNOSTIC_oligomer_l24_4260f033bac4aa84_seq0.cif",
+        "sha256": "d9dbcf5da74fe4de6a2a8dc7c79fcb6f0553b86220543a808a0598e14964c975",
+        "chainRoles": {
+          "C": {
+            "role": "candidate",
+            "identity": "BindCraft2 designed binder",
+            "assignmentSource": "Explicit _bindcraft CIF chain-role metadata"
+          },
+          "B": {
+            "role": "candidate",
+            "identity": "BindCraft2 designed binder",
+            "assignmentSource": "Explicit _bindcraft CIF chain-role metadata"
+          },
+          "A": {
+            "role": "target",
+            "identity": "Prepared target",
+            "assignmentSource": "Explicit _bindcraft CIF chain-role metadata"
+          }
+        },
+        "identicalRedesignedSequence": "RSSDWVAEQTVK",
+        "lengthPerCopy": 12,
+        "targetSequenceUnchanged": true
+      }
+    ],
+    "scope": "Two actual identical redesigned chains and retained target in saved technical outputs. Sequence tying is not validation of physical symmetry or binding."
+  }
+}

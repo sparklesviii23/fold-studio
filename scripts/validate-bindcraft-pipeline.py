@@ -4,9 +4,9 @@ Ranked files here are technical outputs, never accepted scientific binders.
 """
 import argparse,csv,hashlib,json,os,pathlib,subprocess,sys,time
 sys.dont_write_bytecode=True
-p=argparse.ArgumentParser();p.add_argument('--engine-root',required=True);p.add_argument('--python',required=True);p.add_argument('--directory',required=True);p.add_argument('--backend',choices=['cpu','metal'],required=True);p.add_argument('--ensemble',action='store_true');p.add_argument('--parameters');p.add_argument('--length-bucket-size',type=int,choices=[1,32],default=1);p.add_argument('--modality',choices=['binder','peptide','scFv'],default='peptide');p.add_argument('--timeout',type=int,default=600);p.add_argument('--target-mode',choices=['single','positive_pair','negative_control'],default='single');a=p.parse_args()
+p=argparse.ArgumentParser();p.add_argument('--engine-root',required=True);p.add_argument('--python',required=True);p.add_argument('--directory',required=True);p.add_argument('--backend',choices=['cpu','metal'],required=True);p.add_argument('--ensemble',action='store_true');p.add_argument('--parameters');p.add_argument('--length-bucket-size',type=int,choices=[1,32],default=1);p.add_argument('--modality',choices=['binder','peptide','scFv','homo_oligomer'],default='peptide');p.add_argument('--timeout',type=int,default=600);p.add_argument('--target-mode',choices=['single','positive_pair','negative_control'],default='single');a=p.parse_args()
 if not 60<=a.timeout<=3600:raise ValueError('Diagnostic timeout must be 60–3600 seconds.')
-if a.modality=='scFv' and a.target_mode!='single':raise ValueError('Paired-scaffold multi-target execution remains blocked pending separate validation.')
+if a.modality in ('scFv','homo_oligomer') and a.target_mode!='single':raise ValueError('Paired-scaffold multi-target execution remains blocked pending separate validation.')
 root=pathlib.Path(a.engine_root).resolve();folder=pathlib.Path(a.directory).resolve()
 app=root.parents[1] if root.name=='Resources' and root.parent.name=='Contents' else None
 def verify_seal():
@@ -24,6 +24,7 @@ for line in source.read_text().splitlines():
 target=folder/'DIAGNOSTIC_target_fragment.pdb';target.write_text('\n'.join(kept)+'\nEND\n')
 preset=root/('vendor/bindcraft2/settings/modality/'+a.modality+'.json');config=json.loads(preset.read_text());config.pop('description',None)
 config.update(targets=[{'name':'diagnostic','target_path':str(target),'chains':'A'}],campaign_name='DIAGNOSTIC ONLY — permissive QA gates; no research acceptance',binder_name='DIAGNOSTIC',binder_lengths=[12],campaign_seed=2718,project_folder=str(folder/'QUARANTINED_OUTPUT'),number_of_final_designs=1,max_trajectories=1,design_models=['model_1_multimer_v3'],validation_model='multimer',validation_models=['model_2_multimer_v3'],design_recycles=0,validation_recycles=1,design_dropout=False,length_bucket_size=a.length_bucket_size,attention_backend='stock',use_cueq=False,auto_multi_gpu=False,design_workers=1,autotune=False,resume=False,filters=[],screen_steps=1,refine_steps=1,anneal_steps=1,harden_steps=1,mutate_steps=0,sequence_candidates=2,kept_sequences=1,enough_passing_sequences=1,save_design_sequences=True)
+if a.modality=='homo_oligomer':config.update(min_monomer_plddt_final=0.)
 if a.modality=='binder':config.update(validation_model='monomer',validation_models=['model_1_ptm'],min_monomer_plddt_final=0.)
 prepared_inputs=None
 if a.target_mode!='single' or a.modality=='scFv':

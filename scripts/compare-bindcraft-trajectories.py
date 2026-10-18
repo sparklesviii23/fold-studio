@@ -4,6 +4,7 @@ import numpy as np
 p=argparse.ArgumentParser();p.add_argument('--cpu',required=True);p.add_argument('--metal',required=True);p.add_argument('--output',required=True);a=p.parse_args()
 cpu=pathlib.Path(a.cpu);metal=pathlib.Path(a.metal)
 c=json.loads((cpu/'result.json').read_text());m=json.loads((metal/'result.json').read_text())
+if c.get('modelPolicy')!=m.get('modelPolicy'):raise ValueError('Original model construction policies differ.')
 for key in ('upstreamRevision','precision','sourceSha256','diagnosticAllStages'):
  if c[key]!=m[key]:raise ValueError('Input profile mismatch: '+key)
 for key in c['settings']:

@@ -1,0 +1,495 @@
+{
+  "state": "passed",
+  "scope": "Technical target fragment and designed chains (lengths in source reports), one real optimizer update per screen/refine/anneal/harden stage, permissive diagnostic gates. No research-quality acceptance or full campaign parity claim.",
+  "thresholds": {
+    "resolvedCoordinateRmsAngstrom": 0.1,
+    "metricMaxAbs": 0.01,
+    "sequenceAndMask": "identical"
+  },
+  "checks": {
+    "technical_fragment__binder_0__atoms": {
+      "rmsError": 0.0,
+      "maxAbsError": 0.0,
+      "passed": true
+    },
+    "technical_fragment__binder_0__sequence": {
+      "rmsError": 0.0,
+      "maxAbsError": 0.0,
+      "passed": true
+    },
+    "technical_fragment__binder_0__mask": {
+      "rmsError": 0.0,
+      "maxAbsError": 0.0,
+      "passed": true
+    },
+    "technical_fragment__binder_1__atoms": {
+      "rmsError": 0.0,
+      "maxAbsError": 0.0,
+      "passed": true
+    },
+    "technical_fragment__binder_1__sequence": {
+      "rmsError": 0.0,
+      "maxAbsError": 0.0,
+      "passed": true
+    },
+    "technical_fragment__binder_1__mask": {
+      "rmsError": 0.0,
+      "maxAbsError": 0.0,
+      "passed": true
+    },
+    "technical_fragment__target_technical_fragment__atoms": {
+      "rmsError": 0.0018510902429971637,
+      "maxAbsError": 0.03125,
+      "passed": true
+    },
+    "technical_fragment__target_technical_fragment__sequence": {
+      "rmsError": 0.0,
+      "maxAbsError": 0.0,
+      "passed": true
+    },
+    "technical_fragment__target_technical_fragment__mask": {
+      "rmsError": 0.0,
+      "maxAbsError": 0.0,
+      "passed": true
+    },
+    "technical_fragment__metric__binder_contacts": {
+      "rmsError": 2.384185791015625e-07,
+      "maxAbsError": 2.384185791015625e-07,
+      "passed": true
+    },
+    "technical_fragment__metric__binder_helicity": {
+      "rmsError": 1.7881393432617188e-07,
+      "maxAbsError": 1.7881393432617188e-07,
+      "passed": true
+    },
+    "technical_fragment__metric__binder_pae": {
+      "rmsError": 0.0,
+      "maxAbsError": 0.0,
+      "passed": true
+    },
+    "technical_fragment__metric__compactness": {
+      "rmsError": 2.384185791015625e-07,
+      "maxAbsError": 2.384185791015625e-07,
+      "passed": true
+    },
+    "technical_fragment__metric__distogram": {
+      "rmsError": 2.6968542322822644e-06,
+      "maxAbsError": 5.340576171875e-05,
+      "passed": true
+    },
+    "technical_fragment__metric__experimentally_resolved_ca": {
+      "rmsError": 3.9736429850260414e-08,
+      "maxAbsError": 1.1920928955078125e-07,
+      "passed": true
+    },
+    "technical_fragment__metric__interface_contacts": {
+      "rmsError": 4.76837158203125e-07,
+      "maxAbsError": 4.76837158203125e-07,
+      "passed": true
+    },
+    "technical_fragment__metric__interface_pae": {
+      "rmsError": 1.1175870895385742e-08,
+      "maxAbsError": 1.1175870895385742e-08,
+      "passed": true
+    },
+    "technical_fragment__metric__iptm": {
+      "rmsError": 5.587935447692871e-09,
+      "maxAbsError": 5.587935447692871e-09,
+      "passed": true
+    },
+    "technical_fragment__metric__iptm_loss": {
+      "rmsError": 0.0,
+      "maxAbsError": 0.0,
+      "passed": true
+    },
+    "technical_fragment__metric__iptm_per_residue": {
+      "rmsError": 8.580756039101166e-09,
+      "maxAbsError": 1.6763806343078613e-08,
+      "passed": true
+    },
+    "technical_fragment__metric__pae": {
+      "rmsError": 3.881994974654879e-06,
+      "maxAbsError": 1.52587890625e-05,
+      "passed": true
+    },
+    "technical_fragment__metric__plddt": {
+      "rmsError": 2.2483806406967392e-07,
+      "maxAbsError": 6.556510925292969e-07,
+      "passed": true
+    },
+    "technical_fragment__metric__plddt_loss": {
+      "rmsError": 7.450580596923828e-09,
+      "maxAbsError": 7.450580596923828e-09,
+      "passed": true
+    },
+    "technical_fragment__metric__ptm": {
+      "rmsError": 2.9802322387695312e-08,
+      "maxAbsError": 2.9802322387695312e-08,
+      "passed": true
+    }
+  },
+  "cpu": {
+    "state": "technical_execution_finished",
+    "failedStage": null,
+    "outputs": [
+      "technical_fragment.cif"
+    ],
+    "devices": [
+      "cpu:0"
+    ],
+    "upstreamRevision": "c0ee638d11bc010817c2c97ee58ed5c323e664e2",
+    "execution": "cpu",
+    "precision": "float32",
+    "diagnosticAllStages": true,
+    "modelPolicy": {
+      "multiChainBinders": [
+        [
+          "binder_0",
+          "binder_1"
+        ]
+      ],
+      "aminoAcidBias": {}
+    },
+    "modality": "homo_oligomer",
+    "targetResidues": 12,
+    "fixedSequenceChecks": {
+      "technical_fragment__binder_0": {
+        "fixedResidues": 0,
+        "unchanged": true
+      },
+      "technical_fragment__binder_1": {
+        "fixedResidues": 0,
+        "unchanged": true
+      },
+      "technical_fragment__target_technical_fragment": {
+        "fixedResidues": 12,
+        "unchanged": true
+      }
+    },
+    "chainLengths": {
+      "technical_fragment": {
+        "binder_0": 12,
+        "binder_1": 12,
+        "target_technical_fragment": 12
+      }
+    },
+    "cyclicOffsetMode": "direction",
+    "cyclicClosureDistanceAngstrom": {},
+    "seconds": 13.310533333104104,
+    "peakProcessRSSBytes": 2065629184,
+    "sourceSha256": "c152bef545f70158970e739878231fbe6ba92b6218a0ce39a84ec4b873b56c8d",
+    "settings": {
+      "mpnn_model": "v_48_020",
+      "mpnn_variant": "negative",
+      "validation_recycles": 3,
+      "validation_crop_flank": 5,
+      "autotune": false,
+      "attention_backend": "stock",
+      "use_cueq": false,
+      "subbatch_size": "auto",
+      "trajectory_only": false,
+      "resume": true,
+      "hash_design_names": true,
+      "relax_accepted_designs": false,
+      "archive_trajectories": false,
+      "save_failed_refolds": true,
+      "save_failed_trajectories": true,
+      "save_binder_monomers": true,
+      "save_design_animations": false,
+      "save_design_frames": false,
+      "save_design_sequences": true,
+      "save_loss_plots": false,
+      "betasheet_reopt_trigger": 0.15,
+      "betasheet_reopt_extra_refine_steps": 0,
+      "betasheet_reopt_extra_anneal_steps": 0,
+      "min_plddt_screen": 0.0,
+      "min_plddt_refine": 0.0,
+      "min_plddt_anneal": 0.0,
+      "min_plddt_harden": 0.0,
+      "min_plddt_final": 0.0,
+      "sequence_candidates": 10,
+      "kept_sequences": 1,
+      "enough_passing_sequences": 3,
+      "redesign_interface": false,
+      "design_dropout": false,
+      "forced_targeting": false,
+      "design_recycles": 0,
+      "target_flexibility": 0.0,
+      "bigbang_initialization": false,
+      "initial_guess": false,
+      "desperation": true,
+      "weights_plddt_loss": 0.1,
+      "weights_iptm_loss": 0.05,
+      "weights_interface_contacts": 1.0,
+      "weights_interface_pae": 0.1,
+      "weights_binder_contacts": 1.0,
+      "weights_binder_pae": 0.4,
+      "weights_binder_helicity": -0.3,
+      "weights_compactness": 0.5,
+      "losses": {
+        "plddt_loss": {
+          "params": {
+            "prediction_state": "complex",
+            "chain": "binder"
+          }
+        },
+        "binder_pae": {
+          "params": {
+            "prediction_state": "complex",
+            "chain": "binder",
+            "per_protomer": true
+          }
+        },
+        "compactness": {
+          "params": {
+            "prediction_state": "complex",
+            "chain": "binder",
+            "per_protomer": true
+          }
+        },
+        "binder_contacts": {
+          "params": {
+            "prediction_state": "complex",
+            "chain": "binder",
+            "per_protomer": true
+          }
+        },
+        "binder_helicity": {
+          "params": {
+            "prediction_state": "complex",
+            "chain": "binder"
+          }
+        },
+        "interface_contacts": {
+          "params": {
+            "cutoff": 20.0,
+            "contacts_per_residue": 2
+          }
+        }
+      },
+      "filters": [],
+      "min_iptm_anneal": 0.0,
+      "min_iptm_harden": 0.0,
+      "min_iptm_mutate": 0.0,
+      "min_iptm_final": 0.0,
+      "min_plddt_mutate": 0.6,
+      "copies": 2,
+      "binder_lengths": [
+        12
+      ],
+      "min_monomer_plddt_final": 0.7,
+      "targets": [
+        {
+          "name": "technical_fragment",
+          "target_path": "/Users/vii/Documents/FoldStudio-MetalPort/validation/homodimer-model-policy-cpu/technical_target_fragment.pdb",
+          "chains": "A"
+        }
+      ],
+      "campaign_seed": 2718,
+      "design_models": [
+        "model_1_multimer_v3"
+      ],
+      "validation_model": "monomer",
+      "validation_models": [
+        "model_1_ptm"
+      ],
+      "length_bucket_size": 1,
+      "screen_steps": 1,
+      "refine_steps": 1,
+      "anneal_steps": 1,
+      "harden_steps": 1,
+      "mutate_steps": 0,
+      "min_iptm_screen": 0.0,
+      "min_iptm_refine": 0.0
+    },
+    "limitations": [
+      "Technical optimizer case with 12 explicitly selected hPDL1 target residues; designed-chain lengths are recorded. No default-filter acceptance.",
+      "One update per stage; permissive diagnostic confidence gates. No claim of a valid binder, research-quality design or default campaign acceptance.",
+      "Backend execution and numerical agreement do not establish experimental binding/inhibition."
+    ]
+  },
+  "metal": {
+    "state": "technical_execution_finished",
+    "failedStage": null,
+    "outputs": [
+      "technical_fragment.cif"
+    ],
+    "devices": [
+      "MetalDevice(id=0)"
+    ],
+    "upstreamRevision": "c0ee638d11bc010817c2c97ee58ed5c323e664e2",
+    "execution": "metal",
+    "precision": "float32",
+    "diagnosticAllStages": true,
+    "modelPolicy": {
+      "multiChainBinders": [
+        [
+          "binder_0",
+          "binder_1"
+        ]
+      ],
+      "aminoAcidBias": {}
+    },
+    "modality": "homo_oligomer",
+    "targetResidues": 12,
+    "fixedSequenceChecks": {
+      "technical_fragment__binder_0": {
+        "fixedResidues": 0,
+        "unchanged": true
+      },
+      "technical_fragment__binder_1": {
+        "fixedResidues": 0,
+        "unchanged": true
+      },
+      "technical_fragment__target_technical_fragment": {
+        "fixedResidues": 12,
+        "unchanged": true
+      }
+    },
+    "chainLengths": {
+      "technical_fragment": {
+        "binder_0": 12,
+        "binder_1": 12,
+        "target_technical_fragment": 12
+      }
+    },
+    "cyclicOffsetMode": "direction",
+    "cyclicClosureDistanceAngstrom": {},
+    "seconds": 14.243311292026192,
+    "peakProcessRSSBytes": 1148076032,
+    "sourceSha256": "c152bef545f70158970e739878231fbe6ba92b6218a0ce39a84ec4b873b56c8d",
+    "settings": {
+      "mpnn_model": "v_48_020",
+      "mpnn_variant": "negative",
+      "validation_recycles": 3,
+      "validation_crop_flank": 5,
+      "autotune": false,
+      "attention_backend": "stock",
+      "use_cueq": false,
+      "subbatch_size": "auto",
+      "trajectory_only": false,
+      "resume": true,
+      "hash_design_names": true,
+      "relax_accepted_designs": false,
+      "archive_trajectories": false,
+      "save_failed_refolds": true,
+      "save_failed_trajectories": true,
+      "save_binder_monomers": true,
+      "save_design_animations": false,
+      "save_design_frames": false,
+      "save_design_sequences": true,
+      "save_loss_plots": false,
+      "betasheet_reopt_trigger": 0.15,
+      "betasheet_reopt_extra_refine_steps": 0,
+      "betasheet_reopt_extra_anneal_steps": 0,
+      "min_plddt_screen": 0.0,
+      "min_plddt_refine": 0.0,
+      "min_plddt_anneal": 0.0,
+      "min_plddt_harden": 0.0,
+      "min_plddt_final": 0.0,
+      "sequence_candidates": 10,
+      "kept_sequences": 1,
+      "enough_passing_sequences": 3,
+      "redesign_interface": false,
+      "design_dropout": false,
+      "forced_targeting": false,
+      "design_recycles": 0,
+      "target_flexibility": 0.0,
+      "bigbang_initialization": false,
+      "initial_guess": false,
+      "desperation": true,
+      "weights_plddt_loss": 0.1,
+      "weights_iptm_loss": 0.05,
+      "weights_interface_contacts": 1.0,
+      "weights_interface_pae": 0.1,
+      "weights_binder_contacts": 1.0,
+      "weights_binder_pae": 0.4,
+      "weights_binder_helicity": -0.3,
+      "weights_compactness": 0.5,
+      "losses": {
+        "plddt_loss": {
+          "params": {
+            "prediction_state": "complex",
+            "chain": "binder"
+          }
+        },
+        "binder_pae": {
+          "params": {
+            "prediction_state": "complex",
+            "chain": "binder",
+            "per_protomer": true
+          }
+        },
+        "compactness": {
+          "params": {
+            "prediction_state": "complex",
+            "chain": "binder",
+            "per_protomer": true
+          }
+        },
+        "binder_contacts": {
+          "params": {
+            "prediction_state": "complex",
+            "chain": "binder",
+            "per_protomer": true
+          }
+        },
+        "binder_helicity": {
+          "params": {
+            "prediction_state": "complex",
+            "chain": "binder"
+          }
+        },
+        "interface_contacts": {
+          "params": {
+            "cutoff": 20.0,
+            "contacts_per_residue": 2
+          }
+        }
+      },
+      "filters": [],
+      "min_iptm_anneal": 0.0,
+      "min_iptm_harden": 0.0,
+      "min_iptm_mutate": 0.0,
+      "min_iptm_final": 0.0,
+      "min_plddt_mutate": 0.6,
+      "copies": 2,
+      "binder_lengths": [
+        12
+      ],
+      "min_monomer_plddt_final": 0.7,
+      "targets": [
+        {
+          "name": "technical_fragment",
+          "target_path": "/Users/vii/Documents/FoldStudio-MetalPort/validation/homodimer-model-policy-metal/technical_target_fragment.pdb",
+          "chains": "A"
+        }
+      ],
+      "campaign_seed": 2718,
+      "design_models": [
+        "model_1_multimer_v3"
+      ],
+      "validation_model": "monomer",
+      "validation_models": [
+        "model_1_ptm"
+      ],
+      "length_bucket_size": 1,
+      "screen_steps": 1,
+      "refine_steps": 1,
+      "anneal_steps": 1,
+      "harden_steps": 1,
+      "mutate_steps": 0,
+      "min_iptm_screen": 0.0,
+      "min_iptm_refine": 0.0
+    },
+    "limitations": [
+      "Technical optimizer case with 12 explicitly selected hPDL1 target residues; designed-chain lengths are recorded. No default-filter acceptance.",
+      "One update per stage; permissive diagnostic confidence gates. No claim of a valid binder, research-quality design or default campaign acceptance.",
+      "Backend execution and numerical agreement do not establish experimental binding/inhibition."
+    ]
+  },
+  "artifactSha256": {
+    "../validation/homodimer-model-policy-cpu": "5f99a503a731b02794a74b3c6fac401599517bddf1b3ef9412647ef961fedc61",
+    "../validation/homodimer-model-policy-metal": "059c084c86eca25bd9a2609b5b25ee4e13bc5f0ad341f1f1197609592390f932"
+  }
+}
