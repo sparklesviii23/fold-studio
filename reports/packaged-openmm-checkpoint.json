@@ -1,0 +1,209 @@
+{
+  "state": "passed",
+  "scope": "Real OpenMM protein preparation/minimization/20-step pilot through shared queue, library, immutable parent, frame/time mapping and exact coordinate/System/Integrator/State project export. Narrow integration evidence; not equilibrium, stability, binding or free-energy validation.",
+  "root": "/Users/vii/Documents/FoldStudio-MetalPort/validation/packaged-openmm-checkpoint",
+  "engineRoot": "/Users/vii/Documents/FoldStudio-MetalPort/validation/Relocated Motion Engine/FOLD STUDIO Metal Dev.app/Contents/Resources",
+  "automaticBundledRuntime": true,
+  "signatureAfterCalculation": "passed",
+  "jobId": "a4283c6c-d5e6-4292-a729-c107609717de",
+  "inputRecordId": "610dbfbf-7a62-4791-a1b6-022e246bfc2b",
+  "outputRecordIds": [
+    "3c5acd91-21a3-428a-aca2-c01403327d1b",
+    "07ac5d94-920b-4661-b525-48646f512807",
+    "5f4ad08d-638d-49b9-8e15-f80952b8778b"
+  ],
+  "sourceSha256": "e774437a03e82933046ff06510f3fb5b0f309aecc8ab96cb280f3b3990160211",
+  "sourceUnchanged": true,
+  "summary": {
+    "atoms": 582,
+    "residues": 35,
+    "frames": 5,
+    "durationPs": 0.02000000000000001,
+    "method": {
+      "protein": "Amber ff14SB",
+      "solvent": "OBC2 implicit solvent",
+      "soluteDielectric": 1.0,
+      "solventDielectric": 78.5,
+      "protonation": "Original OpenMM addHydrogens pH 7; existing atoms retained",
+      "nonbonded": "NoCutoff",
+      "constraints": "HBonds",
+      "constraintTolerance": 1e-06,
+      "integrator": "LangevinMiddleIntegrator",
+      "temperatureK": 300.0,
+      "frictionPerPs": 1.0,
+      "timestepFs": 1.0,
+      "seed": 42,
+      "minimizationMaxIterations": 500,
+      "minimizationToleranceKjMolNm": 10.0
+    },
+    "runtime": {
+      "openmm": "8.6.1",
+      "numpy": "2.5.4",
+      "platform": "CPU",
+      "properties": {
+        "Threads": "1",
+        "DeterministicForces": "true"
+      }
+    },
+    "limitations": [
+      "Short pilot, not equilibrated or validated sampling, stability, binding or free energy.",
+      "Implicit solvent and standard pH-7 hydrogen assumptions; no explicit water, salt or general ligand parameters.",
+      "Bounded local minimization does not establish a global minimum or independently certified convergence.",
+      "Exact trajectories are not promised across platforms or runtime versions."
+    ]
+  },
+  "receipt": {
+    "state": "completed_pilot",
+    "requestSha256": "36c9545f756b1345853f60804e67f0efc1e383eabca41f128fc02b11f266ea18",
+    "runnerSha256": "0a179a5bdd008f48b8589a14ca1c40a70656b4ee6f24b5d1d56e62e82898ad7c",
+    "runtime": {
+      "openmm": "8.6.1",
+      "numpy": "2.5.4",
+      "platform": "CPU",
+      "properties": {
+        "Threads": "1",
+        "DeterministicForces": "true"
+      }
+    },
+    "inputSha256": "e774437a03e82933046ff06510f3fb5b0f309aecc8ab96cb280f3b3990160211",
+    "atoms": 582,
+    "residues": 35,
+    "heavyAtomPreparationMaximumErrorAngstrom": 0.0,
+    "hydrogenVariants": [
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      "HIE",
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null
+    ],
+    "forceFieldFiles": {
+      "amber14/protein.ff14SB.xml": "d9f9779c09d67cd5f8bc657692f174ffab14c469dfd06d560ac1899fa7e976b8",
+      "implicit/obc2.xml": "d8449fe91218c3e158c12f283367666976b2626d07b52cc1dfd241e5c21c6c6d",
+      "hydrogens.xml": "413096cd3005ca5a638180e9cf623a8f6d574c81acf0e2c9d92b2bd26bb7658d",
+      "residues.xml": "fd04c626e845eaeaa1053ebc88ea525ff9f8fe6d035b36361111ab4b2ed5cdb0"
+    },
+    "method": {
+      "protein": "Amber ff14SB",
+      "solvent": "OBC2 implicit solvent",
+      "soluteDielectric": 1.0,
+      "solventDielectric": 78.5,
+      "protonation": "Original OpenMM addHydrogens pH 7; existing atoms retained",
+      "nonbonded": "NoCutoff",
+      "constraints": "HBonds",
+      "constraintTolerance": 1e-06,
+      "integrator": "LangevinMiddleIntegrator",
+      "temperatureK": 300.0,
+      "frictionPerPs": 1.0,
+      "timestepFs": 1.0,
+      "seed": 42,
+      "minimizationMaxIterations": 500,
+      "minimizationToleranceKjMolNm": 10.0
+    },
+    "initial": {
+      "step": 0,
+      "timePs": 0.0,
+      "potentialKjMol": -2771.33459600443,
+      "kineticKjMol": 0.0,
+      "forceRmsKjMolNm": 1399.9880564275877
+    },
+    "afterMinimization": {
+      "step": 0,
+      "timePs": 0.0,
+      "potentialKjMol": -4850.183385547129,
+      "kineticKjMol": 0.0,
+      "forceRmsKjMolNm": 91.68997693555987
+    },
+    "series": [
+      {
+        "step": 0,
+        "timePs": 0.0,
+        "potentialKjMol": -4850.183385547129,
+        "kineticKjMol": 1751.9931729396803,
+        "forceRmsKjMolNm": 91.68997693555987,
+        "frameId": 1
+      },
+      {
+        "step": 5,
+        "timePs": 0.005,
+        "potentialKjMol": -3932.500004556995,
+        "kineticKjMol": 946.24366673743,
+        "forceRmsKjMolNm": 1146.006950838888,
+        "frameId": 2
+      },
+      {
+        "step": 10,
+        "timePs": 0.010000000000000002,
+        "potentialKjMol": -4107.478128948664,
+        "kineticKjMol": 1003.0582366349553,
+        "forceRmsKjMolNm": 748.3318094138556,
+        "frameId": 3
+      },
+      {
+        "step": 15,
+        "timePs": 0.015000000000000006,
+        "potentialKjMol": -3977.487925940637,
+        "kineticKjMol": 940.5103585541613,
+        "forceRmsKjMolNm": 1019.481313855263,
+        "frameId": 4
+      },
+      {
+        "step": 20,
+        "timePs": 0.02000000000000001,
+        "potentialKjMol": -4080.868142940158,
+        "kineticKjMol": 1007.8075259525319,
+        "forceRmsKjMolNm": 729.187657190036,
+        "frameId": 5
+      }
+    ],
+    "durationPs": 0.02000000000000001,
+    "artifacts": {
+      "prepared.pdb": "75ff31196469a75cabc854862ac268f967c77d22697466711a3d7fffa9f3cdae",
+      "minimized.pdb": "e8727fcd012c311d2e9855aa4273eb04c463b852f74e9ee69bdc6c8b404495c2",
+      "trajectory.pdb": "4d6d8e5e25079e12525e982fba96932e8e7fb7b57981c52f3227976048de2b27",
+      "system.xml": "052fdca945ff54186a4a77b1590872dac0c26e7747b75d804aa12c352e7ceb42",
+      "integrator.xml": "f11ca136733bbc9a99ceaed00c1666a8a834f771c880fd7916c8d29565e37dec",
+      "final-state.xml": "f6825a632d0be3433045c59220cd8fb0c69bf8424d33f82c1adf43077ad6e8f4",
+      "checkpoint.chk": "2585aa7dbebe65e48c29a0c3d8701e0e5920c48c346edb0e37ded237045c2898"
+    },
+    "seconds": 5.688351707998663,
+    "limitations": [
+      "Short pilot, not equilibrated or validated sampling, stability, binding or free energy.",
+      "Implicit solvent and standard pH-7 hydrogen assumptions; no explicit water, salt or general ligand parameters.",
+      "Bounded local minimization does not establish a global minimum or independently certified convergence.",
+      "Exact trajectories are not promised across platforms or runtime versions."
+    ],
+    "preparedPdbHeavyAtomRoundingMaximumErrorAngstrom": 0.0,
+    "checkpointScope": "Original OpenMM checkpoint including internal integration/random state; restart requires matching OpenMM version, platform and compatible hardware."
+  },
+  "archive": "/Users/vii/Documents/FoldStudio-MetalPort/validation/packaged-openmm-checkpoint/openmm-project.zip"
+}

@@ -238,3 +238,10 @@ to{opacity:1;transform:translateY(0)}
 .glass-panel-header{height:auto;min-height:3rem;flex-wrap:wrap;padding-top:8px;padding-bottom:8px}
 .glass-panel-header strong{flex:1;min-width:0;white-space:normal}
 .glass-panel-actions{flex-basis:100%;justify-content:flex-end;flex-wrap:wrap}
+
+/* Keep measured values legible within the existing floating trajectory panel. */
+.motion-metrics-table{width:100%;border-collapse:collapse;font-variant-numeric:tabular-nums;font-size:var(--font-meta);margin:8px 0 16px}
+.motion-metrics-table th,.motion-metrics-table td{text-align:left;padding:7px 10px;border-bottom:1px solid #6a89aa25;white-space:nowrap}
+.motion-metrics-table th{font-weight:500;color:#9eb8d8}
+.motion-metrics-table th:first-child,.motion-metrics-table td:first-child{padding-left:0}
+.motion-metrics-table th:last-child,.motion-metrics-table td:last-child{text-align:right;padding-right:0}

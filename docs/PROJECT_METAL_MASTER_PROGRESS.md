@@ -53,7 +53,7 @@ validity. No top-level platform requirement is marked COMPLETE.
 | Publication figures | IMPLEMENTED | Existing PNG/SVG/PDF reports, native scene save | Publication QA, legends and reusable layouts |
 | Molecular Cinema / video | IN DEVELOPMENT | Existing pose crossfade of fixed structures | Camera keyframes, timeline, real video export; never label illustrative animation as dynamics |
 | Biological databases | IMPLEMENTED | Existing UniProt/PDB/AlphaFold DB retrieval | Domains/variants/interactions/Foldseek, retrieval provenance and validation |
-| Self-contained macOS runtime | IN DEVELOPMENT | Three included CPU-JAX/MetalJAX/Boltz runtimes; real relocated AF2/MPNN/Boltz execution and app seals pass; native bundled-runtime/model status | Permitted ChimeraX embedding, fresh-machine/upgrade acceptance, broader engines and first-run resources |
+| Self-contained macOS runtime | IN DEVELOPMENT | Four included CPU-JAX/MetalJAX/Boltz/OpenMM runtimes; real relocated AF2/MPNN/Boltz execution and app seals pass; native bundled-runtime/model status | Permitted ChimeraX embedding, fresh-machine/upgrade acceptance, broader engines and first-run resources |
 | Signing, relocatability and data integrity | IN DEVELOPMENT | Existing signed builds and packaged IPC tests | Full standalone relocated launch, runtime dylibs and upgrade/data acceptance |
 | ANGPTL3–ANGPTL8–APOA5 complete research workflow | IN DEVELOPMENT | Existing MI analysis and genuine packaged ANGPTL3 ProteinMPNN redesign | Actual binder trajectory, generated complex, comparative analysis and report |
 
@@ -69,7 +69,7 @@ validity. No top-level platform requirement is marked COMPLETE.
    remains memory-blocked; limits stay unchanged. Source tests pass 258 Python
    checks and 72 frontend checks, with no skipped visual fixture test now that
    the bundled public ANGPTL3 reference supplies the full XYZ clipping sweep.
-   Next: relocated sealed motion-analysis and checkpoint acceptance, native analysis/export controls.
+   Relocated sealed motion/checkpoint acceptance and native analysis/export controls now pass; see latest checkpoint below. Next: bounded gradient-only AF2 memory experiment and shared checkpoint continuation.
 3. Continue the full roadmap: broader modality/reference acceptance, native
    ChimeraX command coverage, shared workflows, remaining scientific engines and
    standalone runtime management. Respect current measured memory limits.
@@ -1034,3 +1034,22 @@ No cross-version/platform/hardware restart claim. Existing completed `077dc19`
 outputs retain their original six-artifact receipts; later jobs add a seventh
 checkpoint artifact with a new runner hash. All 277 Python tests pass; 73 frontend
 tests and TypeScript pass. Next integration build includes motion/checkpoints.
+
+### Relocated motion/checkpoint acceptance
+
+Sealed `f7caaae` app discovers the bundled OpenMM runtime after relocation.
+Saved motion measurement agrees with the original ChimeraX reference, preserving
+the existing 11-frame / 35-Cα / 0.1 ps native pilot without rerunning dynamics.
+Native fitted measurement, displayed numerical tables and complete JSON export
+pass (`native-motion-acceptance.json`, screenshot and AX tree). Source and
+analysis identity match the stored research entry; JSON floating transport differs
+by at most 2.78e-17 Å, within the explicit 1e-12 tolerance. App signature remains
+valid. Numerical table headings received scoped spacing for readability.
+
+`packaged-openmm-checkpoint.json` and `packaged-openmm-checkpoint-restoration.json`
+verify the relocated runtime's seven-artifact export and exact same-platform
+checkpoint restoration, followed by zero measured difference in two independently
+continued contexts. This does not yet expose shared-job checkpoint continuation.
+The next memory experiment computes the full 320-residue AF2 gradient directly
+without retaining a separate standalone prediction executable, with the governor
+still enabled at 8 GiB. No production resource limit or model behavior changed.
