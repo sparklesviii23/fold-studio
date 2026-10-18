@@ -11,6 +11,7 @@ from peptides import Peptides, ACTIONS as PEPTIDE_ACTIONS
 import molecular_graph
 import intelligence
 import fold_engine
+import mpnn
 
 AA = 'ACDEFGHIKLMNPQRSTVWY'
 MAX_FILE = 100 * 1024 * 1024
@@ -90,7 +91,7 @@ class Service:
         row = self.db.execute('SELECT value FROM settings WHERE key=?',(key,)).fetchone()
         return json.loads(row[0]) if row else default
     def setting_set(self, p):
-        allowed = {'appearance','effects','onboarded','enginePython','sidebarWidth','interface','lastStructureId'}
+        allowed = {'appearance','effects','onboarded','enginePython','sidebarWidth','interface','lastStructureId','bindcraftPython'}
         if p['key'] not in allowed: raise ValueError('Unknown preference.')
         if p['key']=='interface':
             v=p.get('value')
@@ -277,7 +278,7 @@ class Service:
         # Hardware detection is not an inference acceptance test.
         result['validatedMPS']=self.setting('validatedMPS',False)
         return result
-    def active(self): return self.db.execute("SELECT id FROM jobs WHERE engine IN ('boltz2','setup') AND state IN ('running','queued','installing') LIMIT 1").fetchone()
+    def active(self): return self.db.execute("SELECT id FROM jobs WHERE engine IN ('boltz2','setup','proteinmpnn') AND state IN ('running','queued','installing') LIMIT 1").fetchone()
     def job_new(self,p,engine,state):
         self.project(p['projectId']); id,date=uid(),now()
         self.db.execute('INSERT INTO jobs VALUES(?,?,?,?,?,?,?,?)',(id,p['projectId'],p.get('name','Prediction'),engine,state,json.dumps(p),date,date)); self.db.commit()
@@ -444,6 +445,7 @@ class Service:
         return True
     def dispatch(self,action,p):
         if action not in ACTIONS: raise ValueError('Unsupported scientific action.')
+        if action in mpnn.ACTIONS: return mpnn.dispatch(self,action,p)
         if action in fold_engine.ACTIONS: return fold_engine.Engine(self).dispatch(action,p)
         if action in intelligence.ACTIONS: return intelligence.Lab(self).dispatch(action,p)
         if action in OBSERVATORY_ACTIONS: return Observatory(self).dispatch(action,p)
@@ -453,7 +455,7 @@ class Service:
 
 ACTIONS={'record_update','record_remove','record_restore','library','setting_set','project_create','project_update','project_delete','record_save','sequence_save','mutate','fasta_parse','fasta_import','uniprot_search','uniprot_get','structures','structure_download','import_structure','asset_read','compute','install_engine','prediction_start','job_read','job_cancel','cloud_prepare','cloud_opened','cloud_import','export_project','export_file','reconcile'}
 
-ACTIONS |= fold_engine.ACTIONS | OBSERVATORY_ACTIONS | PEPTIDE_ACTIONS | molecular_graph.ACTIONS | intelligence.ACTIONS
+ACTIONS |= mpnn.ACTIONS | fold_engine.ACTIONS | OBSERVATORY_ACTIONS | PEPTIDE_ACTIONS | molecular_graph.ACTIONS | intelligence.ACTIONS
 
 def execute_job(service,id):
     job=service.job(id); p=job['data']; folder=service.root/'jobs'/id
@@ -524,8 +526,9 @@ def install(service,id):
         service.job_update(id,'failed',{'error':str(error),'finished':now()}); print('SETUP ERROR:',error,flush=True); raise
 
 def main():
-    parser=argparse.ArgumentParser(); parser.add_argument('--root',required=True); parser.add_argument('--fixtures'); parser.add_argument('--run-job'); parser.add_argument('--install'); parser.add_argument('--serve',type=int); parser.add_argument('--intelligence-job')
+    parser=argparse.ArgumentParser(); parser.add_argument('--root',required=True); parser.add_argument('--fixtures'); parser.add_argument('--run-job'); parser.add_argument('--install'); parser.add_argument('--serve',type=int); parser.add_argument('--intelligence-job'); parser.add_argument('--mpnn-job')
     args=parser.parse_args(); service=Service(args.root,args.fixtures)
+    if args.mpnn_job: mpnn.run(service,args.mpnn_job); return
     if args.intelligence_job: intelligence.Lab(service).run(args.intelligence_job); return
     if args.run_job: execute_job(service,args.run_job); return
     if args.install: install(service,args.install); return

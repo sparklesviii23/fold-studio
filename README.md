@@ -1,3 +1,8 @@
+## Current continuation: M2
+
+Real upstream ProteinMPNN fixed-backbone sequence inference now runs through the
+shared jobs/library on Apple Silicon CPU. See [M2 results and limitations](docs/PROJECT_METAL_M2.md).
+
 # Project Metal development branch
 
 This isolated development build preserves Fold Studio 4.3 and adds versioned

@@ -43,7 +43,7 @@ class Engine:
             modalities.append({'name':path.stem,'description':json.loads(path.read_text()).get('description',''),'configuration':'tested' if path.stem in ('binder','peptide') else 'not_started','execution':'blocked'})
         return {'name':'FOLD SCIENTIFIC ENGINE','schemaVersion':1,'source':source_status(),'modalities':modalities,
                 'engines':[{'id':'bindcraft2','configuration':'implemented','resultImport':'implemented','execution':'blocked'},
-                           {'id':'boltz2','adapter':'existing prediction_start'}, {'id':'chimerax','adapter':'existing chimerax_execute; separately installed runtime; command availability is not validation'}],
+                           {'id':'proteinmpnn','execution':'cpu','scope':'Fixed-backbone sequence redesign; mpnn_start/mpnn_jobs'}, {'id':'boltz2','adapter':'existing prediction_start'}, {'id':'chimerax','adapter':'existing chimerax_execute; separately installed runtime; command availability is not validation'}],
                 'commands':[{'name':x,'status':'implemented' if x!='bindcraft_start' else 'blocked'} for x in sorted(ACTIONS)],
                 'dataModel':'Existing structure records/assets, stable residue/atom identities from Molecular Intelligence; existing jobs table. No parallel coordinate store.'}
     def fold_compute(self,p):return fold_compute.diagnostic(self.s)

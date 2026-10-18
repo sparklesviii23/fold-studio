@@ -1,0 +1,92 @@
+{
+  "scope": "Full-model upstream ProteinMPNN integration parity on CPU; not binding/structure prediction validation",
+  "cases": [
+    {
+      "fixture": "hPDL1.pdb",
+      "variant": "neutral",
+      "designChains": [
+        "A"
+      ],
+      "fixedContextChains": [],
+      "residues": 115,
+      "candidates": [
+        {
+          "chains": {
+            "A": "GFTVTTPSSSYTVKEGEDLTIECLFPTEEKLDLSKLEVKWKKGNEEIILYKNGKEKEKTKESLFSKRASLLKEKLKNGIASLKITNVKLEDAGVYTCTVTYNGSDSVNITVTVTS"
+          },
+          "metrics": {
+            "score": 0.9501996040344238,
+            "seqid": 0.46956518292427063
+          }
+        },
+        {
+          "chains": {
+            "A": "SFTVTVPSDEYVVKEGEDLEITCNFPTSSTLDESKLTVEWYKGNTLIILYENGKEKKQTKKSLFSKRASLLKEELKNGKAVLKIKNVKKEDAGTYKCKVTYNGSDSKEIKVKVET"
+          },
+          "metrics": {
+            "score": 0.8977514505386353,
+            "seqid": 0.43478259444236755
+          }
+        }
+      ],
+      "checkpointSha256": "58db738bbf867ca9b9290ce3a6581b94649f108683ac0e6a10de6b4aeeed30b4",
+      "timing": {
+        "loadSeconds": 0.08005362492986023,
+        "inferenceIncludingCompilationSeconds": 0.9390392091590911,
+        "totalSeconds": 1.0190928340889513
+      },
+      "peakProcessRSSBytes": 520585216,
+      "devices": [
+        "cpu:0"
+      ],
+      "directUpstreamParity": "exact",
+      "freshModelRepeatability": "exact"
+    },
+    {
+      "fixture": "hIL2R_beta_gamma.pdb",
+      "variant": "negative",
+      "designChains": [
+        "A"
+      ],
+      "fixedContextChains": [
+        "B"
+      ],
+      "residues": 387,
+      "candidates": [
+        {
+          "chains": {
+            "A": "STFTCYSDTTSTISCTFSPSEMRVVATPTNKPWSVSAELVKSGPNTYTAVLQLGKPNEQMVDSNTVINLQVLEKEGDGWKVLASLNFNPYENIKLPAPVNLRVVSVGATSATISWELGNVSSDFGNDLEFQARLIKPGETWEQAPTLLFNHLKTSLTLLNLEPGTEYQFRVRCRVTKGSNTVWSDWSTPLSFRTLP",
+            "B": "PLPEVQCFVFNVEYMNCTWQSSSEPQPTNLTLHYWYKNSDNDKVQKCSHYLFSEEITSGCQLQKKEIHLYQTFVVQLQDPREPRRQATQMLKLQNLVIPWAPENLTLHKLSESQLELNWNNRFLNHCLEHLVQYRTDWDHSWTEQSVDYRHKFSLPSVDGQKRYTFRVRSRFNPLCGSAQHWSEWSHPIHW"
+          },
+          "metrics": {
+            "score": 1.2785686254501343,
+            "seqid": 0.6925064921379089
+          }
+        },
+        {
+          "chains": {
+            "A": "SSFTCYYDSCSRISCTFSPSEMRVVAIPSSKDYSASCVLTPVGPNTYSGVLVLGEPNEQMVTSDDVLHLLVLQREGGGWKVLAELDFKPYEHLQLPAPINLRVDSVGSTSATISWSLGNLSSDFGNDVEFQARLITPGKTLEEAPVLNIDQLQLSITLLNLKPNTTYGFQVRVKPLKGSNTIWSDWSDILEFKTLP",
+            "B": "PLPEVQCFVFNVEYMNCTWQSSSEPQPTNLTLHYWYKNSDNDKVQKCSHYLFSEEITSGCQLQKKEIHLYQTFVVQLQDPREPRRQATQMLKLQNLVIPWAPENLTLHKLSESQLELNWNNRFLNHCLEHLVQYRTDWDHSWTEQSVDYRHKFSLPSVDGQKRYTFRVRSRFNPLCGSAQHWSEWSHPIHW"
+          },
+          "metrics": {
+            "score": 1.2813756465911865,
+            "seqid": 0.7235142588615417
+          }
+        }
+      ],
+      "checkpointSha256": "b166276f80a45cb3de24bceb3b47b2f47a60ff654660f09837cd775846411ad1",
+      "timing": {
+        "loadSeconds": 0.07619562488980591,
+        "inferenceIncludingCompilationSeconds": 1.2652222921606153,
+        "totalSeconds": 1.3414179170504212
+      },
+      "peakProcessRSSBytes": 770949120,
+      "devices": [
+        "cpu:0"
+      ],
+      "directUpstreamParity": "exact",
+      "freshModelRepeatability": "exact"
+    }
+  ],
+  "state": "passed"
+}

@@ -1,0 +1,30 @@
+{
+  "state": "passed",
+  "fixture": "Bundled ANGPTL3 AlphaFold DB reference",
+  "residuesPerOutput": 460,
+  "savedSequenceRecords": 2,
+  "sourceCoordinatesUnchanged": true,
+  "archiveContainsRawEvidence": true,
+  "signature": "passed",
+  "execution": "cpu",
+  "upstreamRevision": "c0ee638d11bc010817c2c97ee58ed5c323e664e2",
+  "resultSummary": {
+    "execution": "cpu",
+    "devices": [
+      "cpu:0"
+    ],
+    "timing": {
+      "loadSeconds": 0.2185612500179559,
+      "inferenceIncludingCompilationSeconds": 1.2007135830353945,
+      "totalSeconds": 1.4192748330533504
+    },
+    "peakProcessRSSBytes": 673054720,
+    "checkpointSha256": "58db738bbf867ca9b9290ce3a6581b94649f108683ac0e6a10de6b4aeeed30b4",
+    "limitations": [
+      "Fixed-backbone sequence redesign only; no new coordinates, folding validation or binding prediction.",
+      "Scores are upstream sequence-model metrics, not affinity or experimental validation.",
+      "CPU execution; no Metal acceleration is claimed."
+    ]
+  },
+  "jobId": "7177cb72-6c9d-4f9a-995b-a35aed1f6b3e"
+}
