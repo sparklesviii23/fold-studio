@@ -10,10 +10,10 @@ import fold_compute
 BASE=pathlib.Path(__file__).resolve().parents[1]
 UPSTREAM=BASE/'vendor'/'bindcraft2'
 PIN='c0ee638d11bc010817c2c97ee58ed5c323e664e2'
-ACTIONS={'fold_engine_status','fold_structure','fold_compute','bindcraft_validate','bindcraft_prepare','bindcraft_campaigns','bindcraft_import','bindcraft_start'}
+ACTIONS={'fold_fragment','fold_engine_status','fold_structure','fold_compute','bindcraft_validate','bindcraft_prepare','bindcraft_campaigns','bindcraft_import','bindcraft_start'}
 CONFIG_KEYS={'projectId','structureId','name','modality','targetChains','hotspots','coldspots','binderLengths','candidates','attempts','seed','additionalTargets'}
-SUPPORTED_MODALITIES=('binder','peptide','cyclic_peptide','VHH','ARP')
-SCAFFOLD_MODALITIES=('VHH','ARP')
+SUPPORTED_MODALITIES=('binder','peptide','cyclic_peptide','VHH','ARP','scFv')
+SCAFFOLD_MODALITIES=('VHH','ARP','scFv')
 
 def canonical(value):return json.dumps(value,sort_keys=True,separators=(',',':'),allow_nan=False)
 def checksum(data):return hashlib.sha256(data).hexdigest()
@@ -48,6 +48,9 @@ class Engine:
                            {'id':'proteinmpnn','execution':'cpu','scope':'Fixed-backbone sequence redesign; mpnn_start/mpnn_jobs'}, {'id':'boltz2','adapter':'existing prediction_start'}, {'id':'chimerax','adapter':'existing chimerax_execute; separately installed runtime; command availability is not validation'}],
                 'commands':[{'name':x,'status':'implemented' if x!='bindcraft_start' else 'experimental'} for x in sorted(ACTIONS)],
                 'dataModel':'Existing structure records/assets, stable residue/atom identities from Molecular Intelligence; existing jobs table. No parallel coordinate store.'}
+    def fold_fragment(self,p):
+        from target_fragment import create
+        return create(self,p)
     def fold_compute(self,p):return fold_compute.diagnostic(self.s)
     def fold_structure(self,p):
         record,path=self.lab.record(p['structureId'])
@@ -60,7 +63,7 @@ class Engine:
         self.s.project(p['projectId']);shared=self.fold_structure(p);st=shared['structure']
         modality=p.get('modality','binder')
         if modality not in SUPPORTED_MODALITIES:raise ValueError('Other upstream modalities remain blocked until their constraints and execution are validated.')
-        if modality in SCAFFOLD_MODALITIES and 'binderLengths' in p:raise ValueError(modality+' length follows the original scaffold '+('CDR' if modality=='VHH' else 'repeat')+' edit choices; free binder length bounds do not apply.')
+        if modality in SCAFFOLD_MODALITIES and 'binderLengths' in p:raise ValueError(modality+' length follows the original scaffold '+('repeat' if modality=='ARP' else 'CDR')+' edit choices; free binder length bounds do not apply.')
         chains=p.get('targetChains')
         if not isinstance(chains,list) or not chains or any(not isinstance(c,str) for c in chains) or len(chains)!=len(set(chains)):raise ValueError('Choose distinct target chains.')
         available={c['id']:c for c in st['chains']}
@@ -72,7 +75,7 @@ class Engine:
         if any(not r['polymer'] or r['one']=='X' or r['ins'] or r['num']<1 for r in selected):raise ValueError('Selected chains must contain canonical protein residues with positive numbering and no insertion codes. Prepare an explicit derived input for other cases.')
         for r in selected:
             if not {'N','CA','C','O'}.issubset(st['atoms'][i]['name'] for i in r['atoms']):raise ValueError('Selected target residues require complete N, CA, C, O backbone atoms.')
-        lengths=p.get('binderLengths',{'binder':[60,100],'peptide':[15,25],'cyclic_peptide':[7,16],'VHH':[60,100],'ARP':[60,100]}[modality])
+        lengths=p.get('binderLengths',{'peptide':[15,25],'cyclic_peptide':[7,16]}.get(modality,[60,100]))
         if not isinstance(lengths,list) or len(lengths) not in (1,2):raise ValueError('Binder lengths must be [fixed] or [minimum, maximum].')
         for length in lengths:integer(length,'Binder length',5,500)
         if lengths!=sorted(lengths):raise ValueError('Binder length bounds must be ordered.')
@@ -100,6 +103,7 @@ class Engine:
         if not isinstance(name,str) or not name.strip() or len(name)>160:raise ValueError('Enter a campaign name of 1–160 characters.')
         checked={'schemaVersion':1,'name':name.strip(),'valid':True,'executionReady':False,'modality':modality,'scaffold':scaffold,'source':shared['reference'],'config':config,'residueMap':[{'id':r['id'],'chain':r['chain'],'number':r['num'],'aminoAcid':r['one']} for r in selected],
                 'settingsSha256':checksum(canonical(config).encode()),'upstream':source_status(),'warnings':['Prepared configuration is not a completed design or a validated full-model Metal backend.','Hotspots use observed source numbering; no biological numbering conversion is inferred.','Memory feasibility has not been established for this target.']}
+        if modality=='scFv':checked['warnings'].append('Original heavy and light variable domains are separate chains; no connecting linker is designed. Full target/scaffold memory feasibility must pass the selected profile before computation.')
         from campaign_inputs import extend
         return extend(self,p,checked)
     def bindcraft_prepare(self,p):

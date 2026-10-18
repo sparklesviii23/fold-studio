@@ -669,3 +669,43 @@ Integration ran 218 Python checks; only two command-evidence inventory expectati
 needed updating for the two newly measured commands; those targeted checks now
 pass with exact live-report hash linkage. The existing frontend suite was already
 verified for the unchanged UI at 69 passing checks.
+
+### Paired antibody domains and explicit observed target fragments
+
+The original scFv heavy/light variable-domain scaffold completed four genuine
+float32 CPU optimizer stages on a 12-residue technical target in 603.968 s
+(7.26 GB peak process RSS). All 100 + 99 fixed framework positions and all 12
+target positions remained unchanged; output chain lengths are 123/107/12.
+`reports/scfv-cpu-trajectory.json`. These permissive diagnostic gates establish
+execution and framework retention only, not original-filter antibody acceptance.
+The native preparation/UI now includes scFv, preserving complete upstream
+frameworks, CDR choices and held-out multimer validation; no VH–VL linker is
+designed. Original padded resource estimates require 320 positions even with the
+small target, so use the separately validated larger CPU profile. Full-target
+scFv (416) and Fab (608; 512 even with the small target) exceed tested limits;
+Fab remains blocked. Full scFv optimization → MPNN → held-out AF2 diagnostic
+pipeline is active at `../validation/scfv-cpu-pipeline`; inspect it before any
+recovery action and do not claim it has completed.
+
+`target_fragment.py`, `Engine.fold_fragment`, native IPC and `TargetFragment.tsx`
+add explicit target-segment extraction to the existing campaign panel. A new
+structure retains exact parsed coordinates, atom identities, author numbering,
+occupancies and the original per-atom confidence interpretation. Parent PAE,
+pTM/ipTM and interface metrics are not copied. Original files remain unchanged.
+Segments must be continuous canonical backbone-complete observed residues with
+resolved occupancies and no ambiguous model/numbering/alternate conformers.
+No sequence completion, artificial joins, added atoms, capping or inferred domain
+identity. Every selection/source hash and removed-context limitation is recorded.
+Seven contracts cover exact CIF precision, malformed selections, source integrity,
+project boundaries, chain roles and project archive hashes.
+
+Actual bundled ANGPTL3 reference residues 240–300 produced a separate 61-residue,
+487-atom input with exact coordinates/author IDs and passed original-preset binder
+preparation. Both original and derived asset hashes survived project export.
+`reports/angptl3-target-fragment.json`. This is input preparation, with no folding,
+binding or domain-boundary validation. Native UI acceptance/build remains pending.
+
+Combined source checks pass: 229 Python and 69 frontend tests, plus TypeScript
+compilation; one existing private frontend fixture skipped. Native integration
+build now batches the verified geometry fix, paired-domain controls and target
+fragment workflow. UI and packaged source acceptance still need to finish.

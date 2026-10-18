@@ -32,3 +32,32 @@ class ScaffoldCampaignTests(unittest.TestCase):
   self.assertEqual((self.s.root/'jobs'/job['id']/'scaffold.cif').read_bytes(),(w.fold_engine.UPSTREAM/'scaffolds/ARP.cif').read_bytes())
   with self.assertRaisesRegex(ValueError,'repeat edit choices'):self.s.dispatch('bindcraft_prepare',{**config,'binderLengths':[30]})
 del Fixtures
+
+class PairedVariableDomainContracts(unittest.TestCase):
+ def setUp(self):
+  from test_project_metal import ProjectMetalTests
+  ProjectMetalTests.setUp(self)
+ def tearDown(self):
+  from test_project_metal import ProjectMetalTests
+  ProjectMetalTests.tearDown(self)
+ def paired_config(self):return {**{k:v for k,v in self.config.items() if k!='binderLengths'},'modality':'scFv'}
+ def test_original_paired_framework_and_cdr_constraints_are_preserved(self):
+  config=self.paired_config();job=self.s.dispatch('bindcraft_prepare',config);prep=job['data']['preparation'];folder=self.s.root/'jobs'/job['id']
+  preset=json.loads((w.fold_engine.UPSTREAM/'settings/modality/scFv.json').read_text())
+  for key,value in preset.items():
+   if key not in ('description','binder_scaffold'):self.assertEqual(prep['config'][key],value)
+  raw=(folder/'scaffold.cif').read_bytes();self.assertEqual(raw,(w.fold_engine.UPSTREAM/'scaffolds/scFv.cif').read_bytes())
+  parsed=w.fold_engine.mi.parse_structure(raw.decode(),'mmcif');self.assertEqual({c['id'] for c in parsed['chains']},{'H','L'});self.assertEqual(sorted(len(c['sequence']) for c in parsed['chains']),[107,119])
+  self.assertIn('no connecting linker', ' '.join(prep['warnings']));self.assertFalse(prep['executionReady'])
+ def test_free_length_limits_cannot_resize_or_replace_either_domain(self):
+  with self.assertRaisesRegex(ValueError,'CDR edit choices'):self.s.dispatch('bindcraft_prepare',{**self.paired_config(),'binderLengths':[15,20]})
+ def test_held_out_multimer_and_original_scaffold_rejection_criteria_survive_launch(self):
+  from bindcraft_cpu import execution_config
+  job=self.s.dispatch('bindcraft_prepare',self.paired_config());original=job['data']['preparation']['config'];folder=self.s.root/'jobs'/job['id'];actual,held_out=execution_config(original,folder)
+  self.assertEqual(held_out,'model_2_multimer_v3');self.assertNotIn(held_out,actual['design_models'])
+  for key in ('mutate_positions','min_scaffold_sequence_retained_final','max_scaffold_framework_rmsd_final','min_monomer_plddt_final','aa_bias'):self.assertEqual(actual[key],original[key])
+  self.assertEqual(actual['binder_scaffold'],str(folder/'scaffold.cif'))
+ def test_export_retains_complete_paired_scaffold_and_source_receipts(self):
+  job=self.s.dispatch('bindcraft_prepare',self.paired_config());archive=self.base/'paired-scaffold.zip';self.s.export_project({'id':self.project['id'],'path':str(archive)})
+  with zipfile.ZipFile(archive) as z:
+   prefix='jobs/'+job['id']+'/';self.assertEqual(z.read(prefix+'scaffold.cif'),(w.fold_engine.UPSTREAM/'scaffolds/scFv.cif').read_bytes());self.assertEqual(json.loads(z.read(prefix+'provenance.json'))['scaffold']['modality'],'scFv')
