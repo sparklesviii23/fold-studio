@@ -147,6 +147,9 @@ class Engine:
         if sum(f.stat().st_size for f in files)>250*1024**2:raise ValueError('Coordinate import exceeds 250 MB total.')
         metadata=json.loads(meta_bytes)
         if not isinstance(metadata,dict) or not isinstance(metadata.get('settings'),dict):raise ValueError('Invalid upstream campaign metadata.')
+        from bindcraft_provenance import native_receipt,chain_roles,enrich_existing
+        native=native_receipt(self.s,job,root,metadata)
+        provenance_match='native_receipts_verified' if native else 'external_unverified'
         rows=list(csv.DictReader(io.StringIO(table_bytes.decode('utf-8-sig'))))
         if not rows or len(rows)>10000 or any(not row.get('design') for row in rows):raise ValueError('Ranked table requires nonempty design identities.')
         # Snapshot everything before writes; retain raw metric units/columns without guessing semantics.
@@ -157,26 +160,35 @@ class Engine:
             if len(matches)!=1:raise ValueError('Cannot unambiguously associate ranked structure with a CSV design: '+file.name)
             prepared.append((file,raw,fmt,matches[0],len(st['atoms'])))
         evidence={'metadata':metadata,'rankedRows':rows,'metadataSha256':checksum(meta_bytes),'rankedCsvSha256':checksum(table_bytes),'sourceRevision':metadata.get('revision'),'provenanceMatch':'external_unverified','note':'Externally generated predictions. Source provenance is retained; correspondence to prepared inputs is not asserted.'}
+        if native:evidence.update(provenanceMatch=provenance_match,nativeRun=native,note=native['scope'],sourceRevision=PIN)
         folder=self.s.root/'jobs'/job['id'];folder.mkdir(exist_ok=True)
         batch=checksum(meta_bytes+b'\0'+table_bytes+b'\0'+b''.join(raw for _,raw,_,_,_ in prepared));evidence['batchSha256']=batch
         existing=job['data'].get('imports',[])
-        if any(x['batchSha256']==batch for x in existing):return {'state':'already_imported','records':next(x['outputs'] for x in existing if x['batchSha256']==batch), 'batchSha256':batch}
+        if any(x['batchSha256']==batch for x in existing):
+            prior=next(x for x in existing if x['batchSha256']==batch);enrich_existing(self.s,job,prior['outputs'],native,folder/prior['evidenceFolder'])
+            return {'state':'already_imported','records':prior['outputs'],'batchSha256':batch,'provenanceMatch':provenance_match}
         saved=[];created_assets=[]
         try:
             self.s.db.execute('BEGIN IMMEDIATE')
             current=self.s.job(job['id']);existing=current['data'].get('imports',[])
             if any(x['batchSha256']==batch for x in existing):
-                self.s.db.rollback();return {'state':'already_imported','records':next(x['outputs'] for x in existing if x['batchSha256']==batch),'batchSha256':batch}
+                self.s.db.rollback();prior=next(x for x in existing if x['batchSha256']==batch);enrich_existing(self.s,job,prior['outputs'],native,folder/prior['evidenceFolder']);return {'state':'already_imported','records':prior['outputs'],'batchSha256':batch,'provenanceMatch':provenance_match}
             job=current
             for file,raw,fmt,row,count in prepared:
                 id=str(uuid.uuid4());asset=id+('.pdb' if fmt=='pdb' else '.cif');dest=self.s.root/'assets'/asset;dest.write_bytes(raw);created_assets.append(dest)
                 info={'asset':asset,'format':fmt,'sha256':checksum(raw),'source':'Imported external BindCraft2 ranked prediction','imported':mi.now(),'confidenceKind':None,'metadata':{'campaignId':job['id'],'sourceFilename':file.name,'rawMetrics':row,'upstreamRevision':metadata.get('revision'),'batchSha256':batch,'provenanceMatch':'external_unverified','atoms':count}}
+                if native:
+                    info['source']='Local BindCraft2 '+native['execution']+' ranked prediction';info['confidenceKind']='BindCraft2 AlphaFold2 pLDDT';info['metadata'].update(nativeRun=native,provenanceMatch=provenance_match,upstreamRevision=PIN,reportedCampaignRevision=metadata.get('revision'))
+                    roles=chain_roles(raw,mi.parse_structure(raw.decode(),fmt)) if fmt=='mmcif' else None
+                    if roles:
+                        info['metadata']['chainRoles']=roles;self.s.db.execute('INSERT INTO intelligence_assignments VALUES(?,?,?,?)',(id,job['project_id'],json.dumps(roles),mi.now()))
                 name=file.stem[:200];self.s.db.execute('INSERT INTO records VALUES(?,?,?,?,?,?)',(id,job['project_id'],'structure',name,json.dumps(info),mi.now()));saved.append(id)
             raw_folder=folder/('import-'+batch);raw_folder.mkdir(exist_ok=True);(raw_folder/'campaign_metadata.json').write_bytes(meta_bytes);(raw_folder/'!_Ranked.csv').write_bytes(table_bytes);(raw_folder/'manifest.json').write_text(json.dumps(evidence,indent=2))
+            if native:(raw_folder/'native-verification.json').write_text(json.dumps(native,indent=2))
             data={**job['data'],'outputs':job['data'].get('outputs',[])+saved,'imports':existing+[{'batchSha256':batch,'evidenceFolder':raw_folder.name,'outputs':saved, 'imported':mi.now()}]}
             self.s.db.execute('UPDATE jobs SET state=?,data=?,updated=? WHERE id=?',('imported',json.dumps(data),mi.now(),job['id']));self.s.db.commit()
         except Exception:
             self.s.db.rollback()
             for path in created_assets:path.unlink(missing_ok=True)
             raise
-        return {'state':'imported','records':saved,'batchSha256':batch,'provenanceMatch':'external_unverified'}
+        return {'state':'imported','records':saved,'batchSha256':batch,'provenanceMatch':provenance_match}

@@ -23,13 +23,13 @@ validity. No top-level platform requirement is marked COMPLETE.
 | BindCraft2 pinned source/dependency inventory | TESTED | `vendor/bindcraft2-source.json`, `reports/bindcraft-audit.json` | Maintain pin and attribution; source presence is not feature parity |
 | Campaign configuration | TESTED | `fold_engine.py`; upstream input checks on hPDL1/ANGPTL3 | Other modalities/constraints, full upstream preflight and live campaign execution |
 | AF2 model parameters | TESTED | Bounded official archive member acquisition script | Load authentic checkpoint; record provenance; no synthetic parameters substituted |
-| AF2 complete forward and structure module | TESTED | `validate-af2-full.py`; genuine monomer/multimer CPU and Metal forward reports | Narrow 12/24-residue cases; full-size campaign acceptance running |
-| AF2 loss, backpropagation and optimization | TESTED | `af2_native.py`; full-model monomer/multimer gradients, recycling and four real optimizer stages compared | Narrow float32 comparisons; upstream surrogate gradients require reference comparisons, not naive finite differences; full campaign acceptance pending |
+| AF2 complete forward and structure module | TESTED | `validate-af2-full.py`; genuine monomer/multimer CPU and Metal forward reports | 12/24-residue and 175-residue comparisons; real full ensemble binder accepted; broader modality/reference acceptance remains |
+| AF2 loss, backpropagation and optimization | TESTED | `af2_native.py`; full-model monomer/multimer gradients, recycling and four real optimizer stages compared | Float32 model/optimizer comparisons and full ensemble campaign; upstream surrogate gradients require reference comparisons, not naive finite differences; broader coverage pending |
 | Metal-compatible AF2 execution | IN DEVELOPMENT | MetalJAX 0.11.9, `af2_native.py`, monomer/multimer/optimizer comparison reports | Float32 narrow comparisons pass; original Apple plugin incompatible; full-size 6 GiB campaign under validation, no whole-engine parity claim |
 | Metal attention | SCIENTIFICALLY VALIDATED | `metal_attention.py`, `reports/metal-attention.json` | Narrow float32 kernel parity only; no full-model validation implied |
 | ProteinMPNN fixed-backbone redesign | TESTED | `mpnn.py`, `mpnn_runner.py`, `reports/proteinmpnn-validation.json`, `packaged-mpnn.json` | Full-model exact upstream parity and seed repeatability on two cases; CPU; folding/binding not validated |
 | ProteinMPNN multistate/ties/residue constraints | NOT STARTED | Upstream retained | Add adapter configuration and reference tests |
-| Genuine local BindCraft2 trajectory | IN DEVELOPMENT | `bindcraft_cpu.py`, `bindcraft_runner.py`; actual full-parameter CPU campaign running | Technical fragment optimization reached anneal and was correctly rejected by upstream i_pTM gate; default-filter full-size CPU and float32 Metal campaigns running; no accepted binder yet |
+| Genuine local BindCraft2 trajectory | IN DEVELOPMENT | `bindcraft_cpu.py`, `bindcraft_runner.py`; actual full-parameter CPU and Metal campaigns finished | Full single-model CPU/Metal campaigns correctly rejected candidates; original 5-design/2-held-out-model Metal ensemble produced one accepted computational prediction, not biological validation |
 | Binder and linear peptide generation | IN DEVELOPMENT | Configuration/import works | End-to-end actual generation, filtering, comparison, provenance |
 | Cyclic peptide, VHH, ARP, scFv, Fab and scaffold workflows | IN DEVELOPMENT | Cyclic original preset preparation and technical optimizer execution; other presets inventoried | Cyclic closure/reference checks in progress; VHH/scaffold adapters and end-to-end scientific validation remain |
 | Multitarget, detarget, fold switch, induced-fit and oligomers | NOT STARTED | Upstream source/presets retained | Constraint fidelity, actual generation and reference acceptance |
@@ -352,3 +352,79 @@ The measured command inventory now has 11 narrowly scoped tested commands out of
 parity or biological validation is claimed. 176 Python + 64 frontend tests passed.
 Next native integration build includes VHH preparation, padded-resource checks and
 strict native chemistry; all further roadmap requirements remain active.
+
+### Latest native-window and Boltz packaging work
+
+The 3.94 GiB scaffold/chemistry app was relocated using APFS copies and passed
+full Metal forward/backprop plus strict native hydrogen-bond analysis through its
+own bundled Python/source, with signatures intact afterward. The native window
+was opened in an isolated QA library: VHH selection correctly hides free-length
+controls and compute diagnostics reported its app-owned Metal backend. Screenshot:
+`reports/native-scaffold-controls.png`; native analysis evidence:
+`reports/packaged-native-hbonds-validation.json`. Original user data were not used.
+
+A third runtime is now staged from the existing tested Boltz environment
+(Boltz Community 2.10.12 / PyTorch 2.14.1), retaining Python/dependency licenses.
+The native-library audit distinguished library install IDs from dependencies and
+found 18 genuine absolute OpenMP links into the old development directory. Only
+the owned staging copy was relinked to its identical internal libomp, then signed.
+The repaired audit reports 490 Mach-O files, zero external absolute dependencies
+and zero missing loader-relative dependencies. @rpath entries remain candidate
+checks and are not blanket proof of loader resolution. The relocated runtime
+actually passed Boltz imports, MPS forward/backprop, compiled scikit-learn fitting
+and RDKit 3D embedding. Full packaged Boltz inference remains pending.
+
+Source now discovers runtime-boltz automatically and uses explicit -B flags on
+compute/inference children. Model cache remains managed in application data;
+first use can acquire needed resources internally without a manual tool install.
+The confidence model is pinned to publisher repository commit
+55fa4a71318b7fc4cd8431b85bc3cf7449803d1b and Git LFS SHA-256
+090e82ac8c92f5e943fa1b39e7410a44027bea7243c0bbb3caa67a77fc1428e1.
+The existing local 2,286,561,469-byte checkpoint matches that independently
+published checksum. Pin source: https://huggingface.co/boltz-community/boltz-2/commit/55fa4a71318b7fc4cd8431b85bc3cf7449803d1b .
+
+`boltz_resources.py` acquires/verifies that exact model before deserialization,
+records actual checkpoint/available canonical CCD hashes, and refuses unexpected
+resource changes during a calculation. Downloaded empty/LFS placeholders are
+handled separately from usable existing caches. Unused affinity weights and the
+whole extracted chemical dictionary are not asserted as independently verified.
+Boltz runtime/resource source changes need a native build and real packaged
+inference acceptance; do not describe the full platform as standalone yet.
+The full ensemble hPDL1 research job remains active under original criteria.
+
+### Full original-ensemble binder and shared-library acceptance
+
+The full 115-residue hPDL1 target / 60-residue binder campaign completed locally
+on Metal in 2251.546 seconds, retaining the original five multimer-v3 design
+models, two held-out pTM validation models and all original scientific gates.
+Job `31e1b01b-1aa9-48e9-94df-b267adbf0a50` accepted its first trajectory and
+imported one ranked prediction, `298e17cc-d2c9-4fd1-a8b7-3a358af240b8`, into
+the isolated validation library. Raw upstream i_pTM 0.82, pLDDT 0.91 and binder
+RMSD 0.35 Å are preserved with their upstream scale/definitions. This is a
+computationally accepted design, not demonstrated binding or inhibition.
+`reports/bindcraft-ensemble-outcome.json` retains the actual job and metrics.
+
+`bindcraft_provenance.py` verifies exact job/output/settings/runtime, immutable
+target/scaffold, source-manifest and checkpoint receipt correspondence before
+labeling an import native. External results stay unverified. Explicit upstream
+CIF target/binder chain IDs become shared chain roles; user edits are preserved.
+Existing imports can be enriched idempotently without modifying coordinate assets
+or creating duplicates. Original and reported campaign revisions are separately
+labeled. True upstream pLDDT encoded in B factors is recognized on a 0–100 scale.
+
+The generated complex then completed shared Molecular Intelligence analysis,
+including installed ChimeraX strict hydrogen bonds, with its original coordinates
+unchanged: 161 heavy-atom contact pairs at 4 Å, per-interface sampled SASA
+873.952 Å² and three strict native hydrogen bonds under the saved criteria.
+The independent analysis also identifies severe side-chain overlaps; upstream
+acceptance is not represented as clash-free geometry. Full original PAE is not
+available and no matrix was inferred. Integration/analysis receipts are
+`reports/native-binder-library-integration.json`,
+`reports/native-binder-interface-analysis.json` and the paired Markdown report.
+
+Earlier entries reporting this ensemble job active are historical checkpoints;
+it has completed and must not be restarted. Continue standalone Boltz acceptance,
+remaining scaffold/multistate modalities and other unfinished platform requirements.
+
+Integration checkpoint: 189 Python and 64 frontend tests passed; one existing
+private frontend fixture skipped. Native build with the third runtime is underway.

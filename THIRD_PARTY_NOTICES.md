@@ -55,3 +55,12 @@ Its bundled MLX implementation and all dependency licenses/dist-info are retaine
 in runtime-metal. The adapter changes execution precision and initialization
 without modifying vendored BindCraft2 files. Exact tested package pins are in
 `reports/requirements-metaljax.txt`. No upstream endorsement is implied.
+
+The next development package stages the existing tested Boltz Community 2.10.12
+and PyTorch 2.14.1 runtime, preserving their dependency licenses. Eighteen
+scikit-learn extension OpenMP dependency paths are made relative within the
+private runtime copy; original environments and numerical library algorithms
+remain unchanged. Boltz confidence model provenance is pinned to the publisher
+repository Git LFS object in `scientific/boltz-parameters.json`. Model and chemical
+resources remain in managed application data, rather than being part of the
+source repository.

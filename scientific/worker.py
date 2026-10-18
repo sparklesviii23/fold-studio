@@ -258,7 +258,8 @@ class Service:
         if path.suffix.lower() not in ['.fa','.fasta','.txt'] or path.stat().st_size>1024**2: raise ValueError('Choose a FASTA file below 1 MB.')
         return parse_fasta(path.read_text())
     def engine_python(self):
-        return self.setting('enginePython') or str(self.root/'engine/venv/bin/python')
+        bundled=pathlib.Path(__file__).resolve().parents[1]/'runtime-boltz/bin/python3.12'
+        return self.setting('enginePython') or str(bundled if bundled.is_file() else self.root/'engine/venv/bin/python')
     def compute(self,p):
         return self.compute_for(self.engine_python())
     def compute_for(self,python):
@@ -271,7 +272,7 @@ class Service:
         py=pathlib.Path(python)
         if not py.is_file(): return result
         try:
-            proc=subprocess.run([str(py),'-c','import json,torch,importlib.metadata; print(json.dumps(dict(installed=True,version=importlib.metadata.version("boltz-community"),mpsAvailable=torch.backends.mps.is_available(),mpsBuilt=torch.backends.mps.is_built(),torchVersion=torch.__version__)))'],capture_output=True,text=True,timeout=45)
+            proc=subprocess.run([str(py),'-B','-c','import json,torch,importlib.metadata; print(json.dumps(dict(installed=True,version=importlib.metadata.version("boltz-community"),mpsAvailable=torch.backends.mps.is_available(),mpsBuilt=torch.backends.mps.is_built(),torchVersion=torch.__version__)))'],capture_output=True,text=True,timeout=45)
             if proc.returncode==0: result.update(json.loads(proc.stdout.strip().splitlines()[-1]))
             else: result['error']=proc.stderr[-3000:]
         except Exception as error: result['error']=str(error)
@@ -472,13 +473,18 @@ def execute_job(service,id):
             lines += ['  - protein:','      id: '+chr(65+i),'      sequence: '+chain['sequence']]
             if p['msa']=='single': lines += ['      msa: empty']
         inputfile=folder/'input.yaml'; inputfile.write_text('\n'.join(lines)+'\n')
-        command=[service.engine_python(),'-c','from boltz.main import cli; cli()','predict',str(inputfile),'--accelerator','mps','--model','boltz2','--cache',str(service.root/'engine/models'),'--out_dir',str(folder/'output'),'--output_format','mmcif','--recycling_steps',str(p['recycles']),'--sampling_steps',str(p['steps']),'--diffusion_samples',str(p['samples']),'--max_parallel_samples','1','--num_workers','0','--seed',str(p['seed'])]
+        from boltz_resources import fingerprints,receipt,ensure_checkpoint
+        checkpoint_pin=ensure_checkpoint(service.root/'engine/models')
+        before_resources=fingerprints(service.root/'engine/models',p['chains'])
+        command=[service.engine_python(),'-B','-c','from boltz.main import cli; cli()','predict',str(inputfile),'--accelerator','mps','--model','boltz2','--cache',str(service.root/'engine/models'),'--out_dir',str(folder/'output'),'--output_format','mmcif','--recycling_steps',str(p['recycles']),'--sampling_steps',str(p['steps']),'--diffusion_samples',str(p['samples']),'--max_parallel_samples','1','--num_workers','0','--seed',str(p['seed'])]
         if p['msa']=='server': command += ['--use_msa_server']
         environment=dict(os.environ,PYTORCH_ENABLE_MPS_FALLBACK='1',PYTHONUNBUFFERED='1',OMP_NUM_THREADS='4',WANDB_MODE='disabled')
         provenance={**p,'command':command,'environment':{k:environment[k] for k in ['PYTORCH_ENABLE_MPS_FALLBACK','OMP_NUM_THREADS','WANDB_MODE']},'inputYamlSha256':digest(inputfile.read_text())}
         (folder/'provenance.json').write_text(json.dumps(provenance,indent=2)); print('Starting Boltz-2 MPS inference. No synthetic progress.\n'+json.dumps(command),flush=True)
         proc=subprocess.run(command,env=environment)
         if proc.returncode: raise RuntimeError('Boltz exited with code '+str(proc.returncode)+'. Review the execution log. Reduce sequence size for out-of-memory errors.')
+        provenance['modelResources']=receipt(before_resources,fingerprints(service.root/'engine/models',p['chains']),checkpoint_pin)
+        (folder/'provenance.json').write_text(json.dumps(provenance,indent=2))
         outputdir=folder/'output'/('boltz_results_'+inputfile.stem)/'predictions'
         outputs=[]; metrics=[]
         for file in sorted(outputdir.rglob('*')):

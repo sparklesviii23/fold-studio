@@ -1,11 +1,18 @@
 """Live native H-bond wrapper/command equivalence on an explicit artificial QA fixture."""
-import argparse,hashlib,json,pathlib,signal,sys,time
+import argparse,hashlib,json,pathlib,signal,sys,time,subprocess
+sys.dont_write_bytecode=True
 ROOT=pathlib.Path(__file__).resolve().parents[1]
-p=argparse.ArgumentParser();p.add_argument('--directory',required=True);p.add_argument('--engine-root',default=str(ROOT));a=p.parse_args();ENGINE=pathlib.Path(a.engine_root).resolve();sys.path.insert(0,str(ENGINE/'scientific'))
+p=argparse.ArgumentParser();p.add_argument('--directory',required=True);p.add_argument('--engine-root',default=str(ROOT));p.add_argument('--report');a=p.parse_args();ENGINE=pathlib.Path(a.engine_root).resolve();sys.path.insert(0,str(ENGINE/'scientific'))
 from worker import Service
 from observatory import Observatory
 import intelligence as mi
 folder=pathlib.Path(a.directory).resolve()
+app=ENGINE.parents[1] if ENGINE.name=='Resources' and ENGINE.parent.name=='Contents' else None
+def verify_seal():
+ if app:
+  checked=subprocess.run(['/usr/bin/codesign','--verify','--deep','--strict',str(app)],capture_output=True,text=True)
+  if checked.returncode:raise RuntimeError('App signature check failed: '+checked.stderr)
+verify_seal()
 if folder.exists():raise SystemExit('Choose a new disposable validation directory.')
 s=Service(folder);obs=Observatory(s);pid=None
 def atom(i,name,res,ch,xyz,element):return f'ATOM  {i:5d} {name:>4s} {res:>3s} {ch}{(2 if res=='HOH' else 1):4d}    {xyz[0]:8.3f}{xyz[1]:8.3f}{xyz[2]:8.3f}{1.:6.2f}{0.:6.2f}          {element:>2s}\n'
@@ -46,7 +53,9 @@ try:
  assert json.loads(lab.intelligence_export({'id':task['id'],'format':'json'})['text'])['nativeHydrogenBonds']==bonds
  assert hashlib.sha256(asset.read_bytes()).hexdigest()==original
  report={'state':'passed','scope':'Artificial SER–ALA geometry; wrapper agrees with original ChimeraX strict hbonds command; independent donor–acceptor distance 2.8 Å. Algorithm integration check, not biological validation.','engineRoot':str(ENGINE),'command':command,'pairs':actual,'sourceSha256':original,'nativeHydrogenBondMethod':result['hydrogenBondMethod'],'unselectedWaterExcluded':True,'temporaryModelCleanup':'passed','sourceAssetUnchanged':True,'sharedAnalysisJob':'completed','analysisId':task['id'],'exports':['JSON','CSV','Markdown']}
- (ROOT/'reports/native-hbonds-validation.json').write_text(json.dumps(report,indent=2)+'\n');print(json.dumps(report,indent=2))
+ verify_seal()
+ if app:report['signatureAfterAnalysis']='passed'
+ (pathlib.Path(a.report) if a.report else ROOT/'reports/native-hbonds-validation.json').write_text(json.dumps(report,indent=2)+'\n');print(json.dumps(report,indent=2))
 finally:
  if pid:
   try:__import__('os').kill(pid,signal.SIGTERM)

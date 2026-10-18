@@ -1,0 +1,870 @@
+{
+  "job": {
+    "id": "31e1b01b-1aa9-48e9-94df-b267adbf0a50",
+    "project_id": "fb8323a4-ca5d-410b-846d-083fb2de0c05",
+    "name": "hPDL1 \u00b7 full model ensemble \u00b7 original filters",
+    "engine": "bindcraft2",
+    "state": "completed",
+    "data": {
+      "projectId": "fb8323a4-ca5d-410b-846d-083fb2de0c05",
+      "name": "hPDL1 \u00b7 full model ensemble \u00b7 original filters",
+      "preparation": {
+        "schemaVersion": 1,
+        "name": "hPDL1 \u00b7 full model ensemble \u00b7 original filters",
+        "valid": true,
+        "executionReady": false,
+        "source": {
+          "structureId": "b26d17b6-8f09-4025-8b07-ee7af9afa240",
+          "projectId": "fb8323a4-ca5d-410b-846d-083fb2de0c05",
+          "sha256": "d3c95434dcadf26d005340b15bd92be61e101ed921478c26f2a5550f198e61f6",
+          "format": "pdb",
+          "model": "1"
+        },
+        "config": {
+          "binder_lengths": [
+            60
+          ],
+          "aa_bias": {
+            "C": 0
+          },
+          "min_monomer_plddt_final": 0.7,
+          "filters": {
+            "Binder_RMSD": {
+              "threshold": 3.5,
+              "higher": false
+            }
+          },
+          "number_of_final_designs": 1,
+          "max_trajectories": 3,
+          "campaign_seed": 42,
+          "attention_backend": "stock",
+          "use_cueq": false,
+          "auto_multi_gpu": false,
+          "design_workers": 1,
+          "resume": false,
+          "targets": [
+            {
+              "name": "target",
+              "target_path": "input.pdb",
+              "chains": "A",
+              "hotspots": "A54,A56,A66,A115",
+              "coldspots": ""
+            }
+          ],
+          "project_folder": "output"
+        },
+        "residueMap": [
+          {
+            "id": "[\"A\",18,\"\"]",
+            "chain": "A",
+            "number": 18,
+            "aminoAcid": "A"
+          },
+          {
+            "id": "[\"A\",19,\"\"]",
+            "chain": "A",
+            "number": 19,
+            "aminoAcid": "F"
+          },
+          {
+            "id": "[\"A\",20,\"\"]",
+            "chain": "A",
+            "number": 20,
+            "aminoAcid": "T"
+          },
+          {
+            "id": "[\"A\",21,\"\"]",
+            "chain": "A",
+            "number": 21,
+            "aminoAcid": "V"
+          },
+          {
+            "id": "[\"A\",22,\"\"]",
+            "chain": "A",
+            "number": 22,
+            "aminoAcid": "T"
+          },
+          {
+            "id": "[\"A\",23,\"\"]",
+            "chain": "A",
+            "number": 23,
+            "aminoAcid": "V"
+          },
+          {
+            "id": "[\"A\",24,\"\"]",
+            "chain": "A",
+            "number": 24,
+            "aminoAcid": "P"
+          },
+          {
+            "id": "[\"A\",25,\"\"]",
+            "chain": "A",
+            "number": 25,
+            "aminoAcid": "K"
+          },
+          {
+            "id": "[\"A\",26,\"\"]",
+            "chain": "A",
+            "number": 26,
+            "aminoAcid": "D"
+          },
+          {
+            "id": "[\"A\",27,\"\"]",
+            "chain": "A",
+            "number": 27,
+            "aminoAcid": "L"
+          },
+          {
+            "id": "[\"A\",28,\"\"]",
+            "chain": "A",
+            "number": 28,
+            "aminoAcid": "Y"
+          },
+          {
+            "id": "[\"A\",29,\"\"]",
+            "chain": "A",
+            "number": 29,
+            "aminoAcid": "V"
+          },
+          {
+            "id": "[\"A\",30,\"\"]",
+            "chain": "A",
+            "number": 30,
+            "aminoAcid": "V"
+          },
+          {
+            "id": "[\"A\",31,\"\"]",
+            "chain": "A",
+            "number": 31,
+            "aminoAcid": "E"
+          },
+          {
+            "id": "[\"A\",32,\"\"]",
+            "chain": "A",
+            "number": 32,
+            "aminoAcid": "Y"
+          },
+          {
+            "id": "[\"A\",33,\"\"]",
+            "chain": "A",
+            "number": 33,
+            "aminoAcid": "G"
+          },
+          {
+            "id": "[\"A\",34,\"\"]",
+            "chain": "A",
+            "number": 34,
+            "aminoAcid": "S"
+          },
+          {
+            "id": "[\"A\",35,\"\"]",
+            "chain": "A",
+            "number": 35,
+            "aminoAcid": "N"
+          },
+          {
+            "id": "[\"A\",36,\"\"]",
+            "chain": "A",
+            "number": 36,
+            "aminoAcid": "M"
+          },
+          {
+            "id": "[\"A\",37,\"\"]",
+            "chain": "A",
+            "number": 37,
+            "aminoAcid": "T"
+          },
+          {
+            "id": "[\"A\",38,\"\"]",
+            "chain": "A",
+            "number": 38,
+            "aminoAcid": "I"
+          },
+          {
+            "id": "[\"A\",39,\"\"]",
+            "chain": "A",
+            "number": 39,
+            "aminoAcid": "E"
+          },
+          {
+            "id": "[\"A\",40,\"\"]",
+            "chain": "A",
+            "number": 40,
+            "aminoAcid": "C"
+          },
+          {
+            "id": "[\"A\",41,\"\"]",
+            "chain": "A",
+            "number": 41,
+            "aminoAcid": "K"
+          },
+          {
+            "id": "[\"A\",42,\"\"]",
+            "chain": "A",
+            "number": 42,
+            "aminoAcid": "F"
+          },
+          {
+            "id": "[\"A\",43,\"\"]",
+            "chain": "A",
+            "number": 43,
+            "aminoAcid": "P"
+          },
+          {
+            "id": "[\"A\",44,\"\"]",
+            "chain": "A",
+            "number": 44,
+            "aminoAcid": "V"
+          },
+          {
+            "id": "[\"A\",45,\"\"]",
+            "chain": "A",
+            "number": 45,
+            "aminoAcid": "E"
+          },
+          {
+            "id": "[\"A\",46,\"\"]",
+            "chain": "A",
+            "number": 46,
+            "aminoAcid": "K"
+          },
+          {
+            "id": "[\"A\",47,\"\"]",
+            "chain": "A",
+            "number": 47,
+            "aminoAcid": "Q"
+          },
+          {
+            "id": "[\"A\",48,\"\"]",
+            "chain": "A",
+            "number": 48,
+            "aminoAcid": "L"
+          },
+          {
+            "id": "[\"A\",49,\"\"]",
+            "chain": "A",
+            "number": 49,
+            "aminoAcid": "D"
+          },
+          {
+            "id": "[\"A\",50,\"\"]",
+            "chain": "A",
+            "number": 50,
+            "aminoAcid": "L"
+          },
+          {
+            "id": "[\"A\",51,\"\"]",
+            "chain": "A",
+            "number": 51,
+            "aminoAcid": "A"
+          },
+          {
+            "id": "[\"A\",52,\"\"]",
+            "chain": "A",
+            "number": 52,
+            "aminoAcid": "A"
+          },
+          {
+            "id": "[\"A\",53,\"\"]",
+            "chain": "A",
+            "number": 53,
+            "aminoAcid": "L"
+          },
+          {
+            "id": "[\"A\",54,\"\"]",
+            "chain": "A",
+            "number": 54,
+            "aminoAcid": "I"
+          },
+          {
+            "id": "[\"A\",55,\"\"]",
+            "chain": "A",
+            "number": 55,
+            "aminoAcid": "V"
+          },
+          {
+            "id": "[\"A\",56,\"\"]",
+            "chain": "A",
+            "number": 56,
+            "aminoAcid": "Y"
+          },
+          {
+            "id": "[\"A\",57,\"\"]",
+            "chain": "A",
+            "number": 57,
+            "aminoAcid": "W"
+          },
+          {
+            "id": "[\"A\",58,\"\"]",
+            "chain": "A",
+            "number": 58,
+            "aminoAcid": "E"
+          },
+          {
+            "id": "[\"A\",59,\"\"]",
+            "chain": "A",
+            "number": 59,
+            "aminoAcid": "M"
+          },
+          {
+            "id": "[\"A\",60,\"\"]",
+            "chain": "A",
+            "number": 60,
+            "aminoAcid": "E"
+          },
+          {
+            "id": "[\"A\",61,\"\"]",
+            "chain": "A",
+            "number": 61,
+            "aminoAcid": "D"
+          },
+          {
+            "id": "[\"A\",62,\"\"]",
+            "chain": "A",
+            "number": 62,
+            "aminoAcid": "K"
+          },
+          {
+            "id": "[\"A\",63,\"\"]",
+            "chain": "A",
+            "number": 63,
+            "aminoAcid": "N"
+          },
+          {
+            "id": "[\"A\",64,\"\"]",
+            "chain": "A",
+            "number": 64,
+            "aminoAcid": "I"
+          },
+          {
+            "id": "[\"A\",65,\"\"]",
+            "chain": "A",
+            "number": 65,
+            "aminoAcid": "I"
+          },
+          {
+            "id": "[\"A\",66,\"\"]",
+            "chain": "A",
+            "number": 66,
+            "aminoAcid": "Q"
+          },
+          {
+            "id": "[\"A\",67,\"\"]",
+            "chain": "A",
+            "number": 67,
+            "aminoAcid": "F"
+          },
+          {
+            "id": "[\"A\",68,\"\"]",
+            "chain": "A",
+            "number": 68,
+            "aminoAcid": "V"
+          },
+          {
+            "id": "[\"A\",69,\"\"]",
+            "chain": "A",
+            "number": 69,
+            "aminoAcid": "H"
+          },
+          {
+            "id": "[\"A\",70,\"\"]",
+            "chain": "A",
+            "number": 70,
+            "aminoAcid": "G"
+          },
+          {
+            "id": "[\"A\",71,\"\"]",
+            "chain": "A",
+            "number": 71,
+            "aminoAcid": "E"
+          },
+          {
+            "id": "[\"A\",72,\"\"]",
+            "chain": "A",
+            "number": 72,
+            "aminoAcid": "E"
+          },
+          {
+            "id": "[\"A\",73,\"\"]",
+            "chain": "A",
+            "number": 73,
+            "aminoAcid": "D"
+          },
+          {
+            "id": "[\"A\",74,\"\"]",
+            "chain": "A",
+            "number": 74,
+            "aminoAcid": "L"
+          },
+          {
+            "id": "[\"A\",75,\"\"]",
+            "chain": "A",
+            "number": 75,
+            "aminoAcid": "K"
+          },
+          {
+            "id": "[\"A\",76,\"\"]",
+            "chain": "A",
+            "number": 76,
+            "aminoAcid": "V"
+          },
+          {
+            "id": "[\"A\",77,\"\"]",
+            "chain": "A",
+            "number": 77,
+            "aminoAcid": "Q"
+          },
+          {
+            "id": "[\"A\",78,\"\"]",
+            "chain": "A",
+            "number": 78,
+            "aminoAcid": "H"
+          },
+          {
+            "id": "[\"A\",79,\"\"]",
+            "chain": "A",
+            "number": 79,
+            "aminoAcid": "S"
+          },
+          {
+            "id": "[\"A\",80,\"\"]",
+            "chain": "A",
+            "number": 80,
+            "aminoAcid": "S"
+          },
+          {
+            "id": "[\"A\",81,\"\"]",
+            "chain": "A",
+            "number": 81,
+            "aminoAcid": "Y"
+          },
+          {
+            "id": "[\"A\",82,\"\"]",
+            "chain": "A",
+            "number": 82,
+            "aminoAcid": "R"
+          },
+          {
+            "id": "[\"A\",83,\"\"]",
+            "chain": "A",
+            "number": 83,
+            "aminoAcid": "Q"
+          },
+          {
+            "id": "[\"A\",84,\"\"]",
+            "chain": "A",
+            "number": 84,
+            "aminoAcid": "R"
+          },
+          {
+            "id": "[\"A\",85,\"\"]",
+            "chain": "A",
+            "number": 85,
+            "aminoAcid": "A"
+          },
+          {
+            "id": "[\"A\",86,\"\"]",
+            "chain": "A",
+            "number": 86,
+            "aminoAcid": "R"
+          },
+          {
+            "id": "[\"A\",87,\"\"]",
+            "chain": "A",
+            "number": 87,
+            "aminoAcid": "L"
+          },
+          {
+            "id": "[\"A\",88,\"\"]",
+            "chain": "A",
+            "number": 88,
+            "aminoAcid": "L"
+          },
+          {
+            "id": "[\"A\",89,\"\"]",
+            "chain": "A",
+            "number": 89,
+            "aminoAcid": "K"
+          },
+          {
+            "id": "[\"A\",90,\"\"]",
+            "chain": "A",
+            "number": 90,
+            "aminoAcid": "D"
+          },
+          {
+            "id": "[\"A\",91,\"\"]",
+            "chain": "A",
+            "number": 91,
+            "aminoAcid": "Q"
+          },
+          {
+            "id": "[\"A\",92,\"\"]",
+            "chain": "A",
+            "number": 92,
+            "aminoAcid": "L"
+          },
+          {
+            "id": "[\"A\",93,\"\"]",
+            "chain": "A",
+            "number": 93,
+            "aminoAcid": "S"
+          },
+          {
+            "id": "[\"A\",94,\"\"]",
+            "chain": "A",
+            "number": 94,
+            "aminoAcid": "L"
+          },
+          {
+            "id": "[\"A\",95,\"\"]",
+            "chain": "A",
+            "number": 95,
+            "aminoAcid": "G"
+          },
+          {
+            "id": "[\"A\",96,\"\"]",
+            "chain": "A",
+            "number": 96,
+            "aminoAcid": "N"
+          },
+          {
+            "id": "[\"A\",97,\"\"]",
+            "chain": "A",
+            "number": 97,
+            "aminoAcid": "A"
+          },
+          {
+            "id": "[\"A\",98,\"\"]",
+            "chain": "A",
+            "number": 98,
+            "aminoAcid": "A"
+          },
+          {
+            "id": "[\"A\",99,\"\"]",
+            "chain": "A",
+            "number": 99,
+            "aminoAcid": "L"
+          },
+          {
+            "id": "[\"A\",100,\"\"]",
+            "chain": "A",
+            "number": 100,
+            "aminoAcid": "Q"
+          },
+          {
+            "id": "[\"A\",101,\"\"]",
+            "chain": "A",
+            "number": 101,
+            "aminoAcid": "I"
+          },
+          {
+            "id": "[\"A\",102,\"\"]",
+            "chain": "A",
+            "number": 102,
+            "aminoAcid": "T"
+          },
+          {
+            "id": "[\"A\",103,\"\"]",
+            "chain": "A",
+            "number": 103,
+            "aminoAcid": "D"
+          },
+          {
+            "id": "[\"A\",104,\"\"]",
+            "chain": "A",
+            "number": 104,
+            "aminoAcid": "V"
+          },
+          {
+            "id": "[\"A\",105,\"\"]",
+            "chain": "A",
+            "number": 105,
+            "aminoAcid": "K"
+          },
+          {
+            "id": "[\"A\",106,\"\"]",
+            "chain": "A",
+            "number": 106,
+            "aminoAcid": "L"
+          },
+          {
+            "id": "[\"A\",107,\"\"]",
+            "chain": "A",
+            "number": 107,
+            "aminoAcid": "Q"
+          },
+          {
+            "id": "[\"A\",108,\"\"]",
+            "chain": "A",
+            "number": 108,
+            "aminoAcid": "D"
+          },
+          {
+            "id": "[\"A\",109,\"\"]",
+            "chain": "A",
+            "number": 109,
+            "aminoAcid": "A"
+          },
+          {
+            "id": "[\"A\",110,\"\"]",
+            "chain": "A",
+            "number": 110,
+            "aminoAcid": "G"
+          },
+          {
+            "id": "[\"A\",111,\"\"]",
+            "chain": "A",
+            "number": 111,
+            "aminoAcid": "V"
+          },
+          {
+            "id": "[\"A\",112,\"\"]",
+            "chain": "A",
+            "number": 112,
+            "aminoAcid": "Y"
+          },
+          {
+            "id": "[\"A\",113,\"\"]",
+            "chain": "A",
+            "number": 113,
+            "aminoAcid": "R"
+          },
+          {
+            "id": "[\"A\",114,\"\"]",
+            "chain": "A",
+            "number": 114,
+            "aminoAcid": "C"
+          },
+          {
+            "id": "[\"A\",115,\"\"]",
+            "chain": "A",
+            "number": 115,
+            "aminoAcid": "M"
+          },
+          {
+            "id": "[\"A\",116,\"\"]",
+            "chain": "A",
+            "number": 116,
+            "aminoAcid": "I"
+          },
+          {
+            "id": "[\"A\",117,\"\"]",
+            "chain": "A",
+            "number": 117,
+            "aminoAcid": "S"
+          },
+          {
+            "id": "[\"A\",118,\"\"]",
+            "chain": "A",
+            "number": 118,
+            "aminoAcid": "Y"
+          },
+          {
+            "id": "[\"A\",119,\"\"]",
+            "chain": "A",
+            "number": 119,
+            "aminoAcid": "G"
+          },
+          {
+            "id": "[\"A\",120,\"\"]",
+            "chain": "A",
+            "number": 120,
+            "aminoAcid": "G"
+          },
+          {
+            "id": "[\"A\",121,\"\"]",
+            "chain": "A",
+            "number": 121,
+            "aminoAcid": "A"
+          },
+          {
+            "id": "[\"A\",122,\"\"]",
+            "chain": "A",
+            "number": 122,
+            "aminoAcid": "D"
+          },
+          {
+            "id": "[\"A\",123,\"\"]",
+            "chain": "A",
+            "number": 123,
+            "aminoAcid": "Y"
+          },
+          {
+            "id": "[\"A\",124,\"\"]",
+            "chain": "A",
+            "number": 124,
+            "aminoAcid": "K"
+          },
+          {
+            "id": "[\"A\",125,\"\"]",
+            "chain": "A",
+            "number": 125,
+            "aminoAcid": "R"
+          },
+          {
+            "id": "[\"A\",126,\"\"]",
+            "chain": "A",
+            "number": 126,
+            "aminoAcid": "I"
+          },
+          {
+            "id": "[\"A\",127,\"\"]",
+            "chain": "A",
+            "number": 127,
+            "aminoAcid": "T"
+          },
+          {
+            "id": "[\"A\",128,\"\"]",
+            "chain": "A",
+            "number": 128,
+            "aminoAcid": "V"
+          },
+          {
+            "id": "[\"A\",129,\"\"]",
+            "chain": "A",
+            "number": 129,
+            "aminoAcid": "K"
+          },
+          {
+            "id": "[\"A\",130,\"\"]",
+            "chain": "A",
+            "number": 130,
+            "aminoAcid": "V"
+          },
+          {
+            "id": "[\"A\",131,\"\"]",
+            "chain": "A",
+            "number": 131,
+            "aminoAcid": "N"
+          },
+          {
+            "id": "[\"A\",132,\"\"]",
+            "chain": "A",
+            "number": 132,
+            "aminoAcid": "A"
+          }
+        ],
+        "settingsSha256": "c1b809c9ac1ca71722765624ac74e308561890c5dbed93c5486f7711b16f32f9",
+        "upstream": {
+          "state": "present",
+          "revision": "c0ee638d11bc010817c2c97ee58ed5c323e664e2",
+          "manifestSha256": "8f06e409dac335261d2505361f4358e2b4df389b8f85a497967406d8c4af4277",
+          "license": "BindCraft2 Source-Available License (Hosting-Restricted)",
+          "modified": false
+        },
+        "warnings": [
+          "Prepared configuration is not a completed design or a validated full-model Metal backend.",
+          "Hotspots use observed source numbering; no biological numbering conversion is inferred.",
+          "Memory feasibility has not been established for this target."
+        ]
+      },
+      "outputs": [
+        "298e17cc-d2c9-4fd1-a8b7-3a358af240b8"
+      ],
+      "settingsFile": "settings.json",
+      "provenanceFile": "provenance.json",
+      "runtime": "/Users/vii/Documents/FoldStudio-MetalPort/runtimes/jax-metaljax/bin/python",
+      "parameters": "/Users/vii/Documents/FoldStudio-MetalPort/models/alphafold",
+      "checkpointSha256": {
+        "model_1_multimer_v3": "611da8fc7478928f68de12e8b226260ef1f4ce62bcc29b008572e52f4f212959",
+        "model_2_multimer_v3": "51362b0844382ae0f5720c59b81dd13a43eea40fbf9995dd2573bdab88865378",
+        "model_3_multimer_v3": "46d9bcad288edc7ad5a6362ee8e5f84307a69712e00e6c36b1ef9daf96ebc9ce",
+        "model_4_multimer_v3": "59bdabd2d69c07fe26b37882d544acbd1b9f89f196828f4220da49e0610b572c",
+        "model_5_multimer_v3": "917742be5a105d6b80f13f1f13f20459f27ec3fdcd34ea088b359f4502d6177f",
+        "model_1_ptm": "5e564f79af5bcd54ccef6e2a6bb0ff01015d01650ebc41d4575e35f0de9ecc84",
+        "model_2_ptm": "23645d9a82c4af2ed54cd48a7b3c1c2575dc6aa9fe931adb4d7203ca5f0dc398"
+      },
+      "profile": "experimental-metal-float32-ensemble",
+      "execution": "metal",
+      "precision": "float32",
+      "modelEnsemble": true,
+      "modelSelection": {
+        "designModels": [
+          "model_1_multimer_v3",
+          "model_2_multimer_v3",
+          "model_3_multimer_v3",
+          "model_4_multimer_v3",
+          "model_5_multimer_v3"
+        ],
+        "validationModels": [
+          "model_1_ptm",
+          "model_2_ptm"
+        ],
+        "validationPoolExhausted": false
+      },
+      "runtimeInfo": {
+        "state": "experimental",
+        "runtime": "/Users/vii/Documents/FoldStudio-MetalPort/runtimes/jax-metaljax/bin/python",
+        "versions": {
+          "jax": "0.11.2",
+          "jaxlib": "0.11.2",
+          "metaljax": "0.11.9"
+        },
+        "architecture": "arm64",
+        "memoryBytes": 25769803776,
+        "devices": [
+          {
+            "platform": "metal",
+            "kind": "Apple GPU"
+          }
+        ],
+        "precision": "float32",
+        "environment": {
+          "JAX_PLATFORMS": "metal",
+          "METALJAX_MEM_GOVERNOR": "1",
+          "METALJAX_MEM_BUDGET_MB": "6144",
+          "METALJAX_MEM_SYS_MB": "23552",
+          "METALJAX_LOOP_INFLIGHT_MB": "128",
+          "METALJAX_MATMUL_PRECISION": "highest",
+          "XLA_PYTHON_CLIENT_PREALLOCATE": "false",
+          "PYTHONDONTWRITEBYTECODE": "1"
+        }
+      },
+      "executionSettingsSha256": "f797266deb63b17c236a38150a1a59ea7c7dcb6ca009c84e05c9a5c7ffb5cd18",
+      "pid": 51142,
+      "workerPath": "/Users/vii/Documents/FoldStudio-MetalPort/fold-studio/scientific/worker.py",
+      "logAsset": "/Users/vii/Documents/FoldStudio-MetalPort/validation/bindcraft-ensemble-metal/jobs/31e1b01b-1aa9-48e9-94df-b267adbf0a50/execution.log",
+      "started": "2026-10-18T03:21:47.643410+00:00",
+      "stage": "completed",
+      "imports": [
+        {
+          "batchSha256": "07569ad0e23116ab28e2a29adaf5a850ffe8188e31910c7a96a821bd688d3ba9",
+          "evidenceFolder": "import-07569ad0e23116ab28e2a29adaf5a850ffe8188e31910c7a96a821bd688d3ba9",
+          "outputs": [
+            "298e17cc-d2c9-4fd1-a8b7-3a358af240b8"
+          ],
+          "imported": "2026-10-18T03:59:20.684775+00:00"
+        }
+      ],
+      "finished": "2026-10-18T03:59:20.685201+00:00",
+      "acceptedStructureFiles": 1,
+      "outcome": "accepted_predictions",
+      "limitations": [
+        "Experimental metal campaign; default scientific rejection criteria retained.",
+        "Predicted designs are not validated binding or inhibition.",
+        "Full modality and ensemble scientific parity not established."
+      ],
+      "executionProgress": {
+        "source": "upstream execution log",
+        "percent": null,
+        "lastReportedStage": "mutate",
+        "stageOutcome": "passed",
+        "stageDetails": "i_pTM=0.87    pLDDT=0.94",
+        "lastObservedUpdate": {
+          "stage": "mutate",
+          "sequenceUpdates": 15,
+          "metrics": {
+            "target.iptm": 0.8305474519729614,
+            "target.ptm": 0.8634974360466003
+          }
+        }
+      }
+    },
+    "created": "2026-10-18T03:21:44.540599+00:00",
+    "updated": "2026-10-18T03:59:20.685318+00:00",
+    "log": "target.iptm_loss\":0.012607413344085217,\"target.plddt_loss\":0.009485348127782345,\"target.ptm\":0.8288825750350952}}\nFOLD_PROGRESS {\"stage\":\"refine\",\"sequenceUpdates\":19,\"metrics\":{\"target.binder_contacts\":1.6936099529266357,\"target.binder_helicity\":-0.465353399515152,\"target.binder_pae\":0.03453664854168892,\"target.compactness\":0.36229562759399414,\"target.interface_contacts\":2.4361484050750732,\"target.interface_pae\":0.02440504916012287,\"target.iptm\":0.6450479626655579,\"target.iptm_loss\":0.017747601494193077,\"target.plddt_loss\":0.014145574532449245,\"target.ptm\":0.7916855812072754}}\nFOLD_PROGRESS {\"stage\":\"refine\",\"sequenceUpdates\":20,\"metrics\":{\"target.binder_contacts\":1.477957010269165,\"target.binder_helicity\":-0.5065592527389526,\"target.binder_pae\":0.030166154727339745,\"target.compactness\":0.2962827682495117,\"target.interface_contacts\":1.5424559116363525,\"target.interface_pae\":0.01639196276664734,\"target.iptm\":0.8273752331733704,\"target.iptm_loss\":0.008631238713860512,\"target.plddt_loss\":0.00751522509381175,\"target.ptm\":0.8633941411972046}}\nFOLD_PROGRESS {\"stage\":\"refine\",\"sequenceUpdates\":21,\"metrics\":{\"target.binder_contacts\":1.5152417421340942,\"target.binder_helicity\":-0.5008025765419006,\"target.binder_pae\":0.029517266899347305,\"target.compactness\":0.29723262786865234,\"target.interface_contacts\":1.657114028930664,\"target.interface_pae\":0.016567690297961235,\"target.iptm\":0.8138372898101807,\"target.iptm_loss\":0.009308136068284512,\"target.plddt_loss\":0.008036945015192032,\"target.ptm\":0.8602127432823181}}\nFOLD_PROGRESS {\"stage\":\"refine\",\"sequenceUpdates\":22,\"metrics\":{\"target.binder_contacts\":1.4082343578338623,\"target.binder_helicity\":-0.5340360403060913,\"target.binder_pae\":0.028020096942782402,\"target.compactness\":0.30057430267333984,\"target.interface_contacts\":1.4755308628082275,\"target.interface_pae\":0.01602148450911045,\"target.iptm\":0.8510758876800537,\"target.iptm_loss\":0.007446205709129572,\"target.plddt_loss\":0.006432042922824621,\"target.ptm\":0.8699814677238464}}\nFOLD_PROGRESS {\"stage\":\"refine\",\"sequenceUpdates\":23,\"metrics\":{\"target.binder_contacts\":1.5218074321746826,\"target.binder_helicity\":-0.4576447308063507,\"target.binder_pae\":0.030009225010871887,\"target.compactness\":0.31170654296875,\"target.interface_contacts\":1.7645443677902222,\"target.interface_pae\":0.018594099208712578,\"target.iptm\":0.8002951145172119,\"target.iptm_loss\":0.009985244832932949,\"target.plddt_loss\":0.008742280304431915,\"target.ptm\":0.848870038986206}}\nFOLD_PROGRESS {\"stage\":\"refine\",\"sequenceUpdates\":24,\"metrics\":{\"target.binder_contacts\":1.4405776262283325,\"target.binder_helicity\":-0.49559399485588074,\"target.binder_pae\":0.027094993740320206,\"target.compactness\":0.315521240234375,\"target.interface_contacts\":1.543992042541504,\"target.interface_pae\":0.01644749939441681,\"target.iptm\":0.8440222144126892,\"target.iptm_loss\":0.007798889186233282,\"target.plddt_loss\":0.007108401041477919,\"target.ptm\":0.8639432191848755}}\nFOLD_PROGRESS {\"stage\":\"refine\",\"sequenceUpdates\":25,\"metrics\":{\"target.binder_contacts\":1.863816261291504,\"target.binder_helicity\":-0.3703978657722473,\"target.binder_pae\":0.04352695494890213,\"target.compactness\":0.33155059814453125,\"target.interface_contacts\":3.422724962234497,\"target.interface_pae\":0.04879668354988098,\"target.iptm\":0.2994999289512634,\"target.iptm_loss\":0.03502500429749489,\"target.plddt_loss\":0.023233195766806602,\"target.ptm\":0.6689023971557617}}\n  passed refine design stage  i_pTM=0.85    pLDDT=0.94  \nFOLD_PROGRESS {\"stage\":\"anneal\",\"sequenceUpdates\":1,\"metrics\":{\"target.binder_contacts\":1.3912971019744873,\"target.binder_helicity\":-0.5159718990325928,\"target.binder_pae\":0.027485975995659828,\"target.compactness\":0.28743839263916016,\"target.interface_contacts\":1.467883586883545,\"target.interface_pae\":0.015488012693822384,\"target.iptm\":0.8507291078567505,\"target.iptm_loss\":0.007463544607162476,\"target.plddt_loss\":0.006837788969278336,\"target.ptm\":0.8727641105651855}}\nFOLD_PROGRESS {\"stage\":\"anneal\",\"sequenceUpdates\":2,\"metrics\":{\"target.binder_contacts\":1.5232386589050293,\"target.binder_helicity\":-0.45160752534866333,\"target.binder_pae\":0.029431430622935295,\"target.compactness\":0.28876447677612305,\"target.interface_contacts\":1.564385175704956,\"target.interface_pae\":0.016979439184069633,\"target.iptm\":0.8377412557601929,\"target.iptm_loss\":0.008112937211990356,\"target.plddt_loss\":0.007677037268877029,\"target.ptm\":0.8610224723815918}}\nFOLD_PROGRESS {\"stage\":\"anneal\",\"sequenceUpdates\":3,\"metrics\":{\"target.binder_contacts\":1.5035178661346436,\"target.binder_helicity\":-0.4868912696838379,\"target.binder_pae\":0.031022733077406883,\"target.compactness\":0.3541221618652344,\"target.interface_contacts\":1.555616021156311,\"target.interface_pae\":0.016191944479942322,\"target.iptm\":0.8283137083053589,\"target.iptm_loss\":0.008584314957261086,\"target.plddt_loss\":0.008195818401873112,\"target.ptm\":0.86402827501297}}\nFOLD_PROGRESS {\"stage\":\"anneal\",\"sequenceUpdates\":4,\"metrics\":{\"target.binder_contacts\":1.394532561302185,\"target.binder_helicity\":-0.49347737431526184,\"target.binder_pae\":0.027414608746767044,\"target.compactness\":0.3119239807128906,\"target.interface_contacts\":1.479374647140503,\"target.interface_pae\":0.016208786517381668,\"target.iptm\":0.8486666679382324,\"target.iptm_loss\":0.007566666696220636,\"target.plddt_loss\":0.006267649587243795,\"target.ptm\":0.8669304847717285}}\nFOLD_PROGRESS {\"stage\":\"anneal\",\"sequenceUpdates\":5,\"metrics\":{\"target.binder_contacts\":1.9868979454040527,\"target.binder_helicity\":-0.3949412703514099,\"target.binder_pae\":0.0510631799697876,\"target.compactness\":0.35128355026245117,\"target.interface_contacts\":1.7602609395980835,\"target.interface_pae\":0.021726781502366066,\"target.iptm\":0.7719845175743103,\"target.iptm_loss\":0.011400774121284485,\"target.plddt_loss\":0.015563078224658966,\"target.ptm\":0.8409181237220764}}\nFOLD_PROGRESS {\"stage\":\"anneal\",\"sequenceUpdates\":6,\"metrics\":{\"target.binder_contacts\":1.430517554283142,\"target.binder_helicity\":-0.5396219491958618,\"target.binder_pae\":0.029067782685160637,\"target.compactness\":0.3504161834716797,\"target.interface_contacts\":1.4609867334365845,\"target.interface_pae\":0.015075570903718472,\"target.iptm\":0.849382758140564,\"target.iptm_loss\":0.007530861999839544,\"target.plddt_loss\":0.006946346256881952,\"target.ptm\":0.8729708194732666}}\nFOLD_PROGRESS {\"stage\":\"anneal\",\"sequenceUpdates\":7,\"metrics\":{\"target.binder_contacts\":1.4405044317245483,\"target.binder_helicity\":-0.514898419380188,\"target.binder_pae\":0.02875942550599575,\"target.compactness\":0.2935194969177246,\"target.interface_contacts\":1.4420323371887207,\"target.interface_pae\":0.016029255464673042,\"target.iptm\":0.8517113924026489,\"target.iptm_loss\":0.007414430379867554,\"target.plddt_loss\":0.006861745845526457,\"target.ptm\":0.8685559034347534}}\nFOLD_PROGRESS {\"stage\":\"anneal\",\"sequenceUpdates\":8,\"metrics\":{\"target.binder_contacts\":1.453360915184021,\"target.binder_helicity\":-0.5366700291633606,\"target.binder_pae\":0.028685176745057106,\"target.compactness\":0.2824282646179199,\"target.interface_contacts\":1.696254014968872,\"target.interface_pae\":0.01681148074567318,\"target.iptm\":0.8014928698539734,\"target.iptm_loss\":0.009925357066094875,\"target.plddt_loss\":0.007770018186420202,\"target.ptm\":0.8578059673309326}}\nFOLD_PROGRESS {\"stage\":\"anneal\",\"sequenceUpdates\":9,\"metrics\":{\"target.binder_contacts\":1.8566406965255737,\"target.binder_helicity\":-0.39887118339538574,\"target.binder_pae\":0.04148435220122337,\"target.compactness\":0.3276219367980957,\"target.interface_contacts\":1.8520573377609253,\"target.interface_pae\":0.021338114514946938,\"target.iptm\":0.7576463222503662,\"target.iptm_loss\":0.01211768388748169,\"target.plddt_loss\":0.012718756683170795,\"target.ptm\":0.8343703746795654}}\nFOLD_PROGRESS {\"stage\":\"anneal\",\"sequenceUpdates\":10,\"metrics\":{\"target.binder_contacts\":1.5396409034729004,\"target.binder_helicity\":-0.4570336937904358,\"target.binder_pae\":0.0320599190890789,\"target.compactness\":0.2703065872192383,\"target.interface_contacts\":1.4700355529785156,\"target.interface_pae\":0.01581508107483387,\"target.iptm\":0.843637228012085,\"target.iptm_loss\":0.007818139158189297,\"target.plddt_loss\":0.008100930601358414,\"target.ptm\":0.872498631477356}}\nFOLD_PROGRESS {\"stage\":\"anneal\",\"sequenceUpdates\":11,\"metrics\":{\"target.binder_contacts\":2.528916597366333,\"target.binder_helicity\":-0.36811918020248413,\"target.binder_pae\":0.07737410068511963,\"target.compactness\":0.23063230514526367,\"target.interface_contacts\":3.6677303314208984,\"target.interface_pae\":0.05877053737640381,\"target.iptm\":0.2240067571401596,\"target.iptm_loss\":0.03879966214299202,\"target.plddt_loss\":0.034500084817409515,\"target.ptm\":0.647663950920105}}\nFOLD_PROGRESS {\"stage\":\"anneal\",\"sequenceUpdates\":12,\"metrics\":{\"target.binder_contacts\":1.383107304573059,\"target.binder_helicity\":-0.5246513485908508,\"target.binder_pae\":0.02678839862346649,\"target.compactness\":0.26692628860473633,\"target.interface_contacts\":1.460753083229065,\"target.interface_pae\":0.01581139676272869,\"target.iptm\":0.8546741008758545,\"target.iptm_loss\":0.00726629514247179,\"target.plddt_loss\":0.006343801971524954,\"target.ptm\":0.8713154792785645}}\nFOLD_PROGRESS {\"stage\":\"anneal\",\"sequenceUpdates\":13,\"metrics\":{\"target.binder_contacts\":1.3066846132278442,\"target.binder_helicity\":-0.565277636051178,\"target.binder_pae\":0.025986015796661377,\"target.compactness\":0.2918882369995117,\"target.interface_contacts\":1.40940260887146,\"target.interface_pae\":0.015200241468846798,\"target.iptm\":0.8614698648452759,\"target.iptm_loss\":0.006926506757736206,\"target.plddt_loss\":0.00562404515221715,\"target.ptm\":0.8768048882484436}}\nFOLD_PROGRESS {\"stage\":\"anneal\",\"sequenceUpdates\":14,\"metrics\":{\"target.binder_contacts\":1.3984224796295166,\"target.binder_helicity\":-0.5413203239440918,\"target.binder_pae\":0.026868974789977074,\"target.compactness\":0.29248619079589844,\"target.interface_contacts\":1.6286097764968872,\"target.interface_pae\":0.0171493012458086,\"target.iptm\":0.8107713460922241,\"target.iptm_loss\":0.009461432695388794,\"target.plddt_loss\":0.006589916534721851,\"target.ptm\":0.8543340563774109}}\nFOLD_PROGRESS {\"stage\":\"anneal\",\"sequenceUpdates\":15,\"metrics\":{\"target.binder_contacts\":1.4308089017868042,\"target.binder_helicity\":-0.506475031375885,\"target.binder_pae\":0.028049249202013016,\"target.compactness\":0.32895851135253906,\"target.interface_contacts\":1.6610732078552246,\"target.interface_pae\":0.0175472404807806,\"target.iptm\":0.8024908304214478,\"target.iptm_loss\":0.009875458665192127,\"target.plddt_loss\":0.00761037552729249,\"target.ptm\":0.8495389223098755}}\nFOLD_PROGRESS {\"stage\":\"anneal\",\"sequenceUpdates\":16,\"metrics\":{\"target.binder_contacts\":1.3668937683105469,\"target.binder_helicity\":-0.5294784903526306,\"target.binder_pae\":0.02613416127860546,\"target.compactness\":0.27220582962036133,\"target.interface_contacts\":1.5258769989013672,\"target.interface_pae\":0.016397079452872276,\"target.iptm\":0.8400893211364746,\"target.iptm_loss\":0.007995533756911755,\"target.plddt_loss\":0.006160129327327013,\"target.ptm\":0.8603138327598572}}\nFOLD_PROGRESS {\"stage\":\"anneal\",\"sequenceUpdates\":17,\"metrics\":{\"target.binder_contacts\":1.7088638544082642,\"target.binder_helicity\":-0.4410816729068756,\"target.binder_pae\":0.0347418449819088,\"target.compactness\":0.30089282989501953,\"target.interface_contacts\":1.6806656122207642,\"target.interface_pae\":0.018091566860675812,\"target.iptm\":0.810468316078186,\"target.iptm_loss\":0.009476584382355213,\"target.plddt_loss\":0.010085634887218475,\"target.ptm\":0.8573220372200012}}\nFOLD_PROGRESS {\"stage\":\"anneal\",\"sequenceUpdates\":18,\"metrics\":{\"target.binder_contacts\":1.4368929862976074,\"target.binder_helicity\":-0.49547818303108215,\"target.binder_pae\":0.0277847982943058,\"target.compactness\":0.2796635627746582,\"target.interface_contacts\":1.9117144346237183,\"target.interface_pae\":0.020100770518183708,\"target.iptm\":0.7418062686920166,\"target.iptm_loss\":0.012909687124192715,\"target.plddt_loss\":0.008545179851353168,\"target.ptm\":0.8279951214790344}}\nFOLD_PROGRESS {\"stage\":\"anneal\",\"sequenceUpdates\":19,\"metrics\":{\"target.binder_contacts\":1.4256359338760376,\"target.binder_helicity\":-0.5257648229598999,\"target.binder_pae\":0.027591675519943237,\"target.compactness\":0.26460695266723633,\"target.interface_contacts\":1.7468894720077515,\"target.interface_pae\":0.018275223672389984,\"target.iptm\":0.7928881645202637,\"target.iptm_loss\":0.010355591773986816,\"target.plddt_loss\":0.007198266219347715,\"target.ptm\":0.845380961894989}}\nFOLD_PROGRESS {\"stage\":\"anneal\",\"sequenceUpdates\":20,\"metrics\":{\"target.binder_contacts\":1.4115285873413086,\"target.binder_helicity\":-0.5289894938468933,\"target.binder_pae\":0.027028227224946022,\"target.compactness\":0.3152766227722168,\"target.interface_contacts\":1.5821019411087036,\"target.interface_pae\":0.016230590641498566,\"target.iptm\":0.8470646739006042,\"target.iptm_loss\":0.0076467664912343025,\"target.plddt_loss\":0.006467889994382858,\"target.ptm\":0.8667224049568176}}\nFOLD_PROGRESS {\"stage\":\"anneal\",\"sequenceUpdates\":21,\"metrics\":{\"target.binder_contacts\":1.4116827249526978,\"target.binder_helicity\":-0.5101634860038757,\"target.binder_pae\":0.027265792712569237,\"target.compactness\":0.2777061462402344,\"target.interface_contacts\":1.6788665056228638,\"target.interface_pae\":0.017319196835160255,\"target.iptm\":0.815536618232727,\"target.iptm_loss\":0.009223169647157192,\"target.plddt_loss\":0.006745420396327972,\"target.ptm\":0.8448269367218018}}\nFOLD_PROGRESS {\"stage\":\"anneal\",\"sequenceUpdates\":22,\"metrics\":{\"target.binder_contacts\":1.4457319974899292,\"target.binder_helicity\":-0.5067165493965149,\"target.binder_pae\":0.02781117893755436,\"target.compactness\":0.30481576919555664,\"target.interface_contacts\":1.6286226511001587,\"target.interface_pae\":0.017005441710352898,\"target.iptm\":0.8167084455490112,\"target.iptm_loss\":0.009164578281342983,\"target.plddt_loss\":0.007414886262267828,\"target.ptm\":0.8601759672164917}}\nFOLD_PROGRESS {\"stage\":\"anneal\",\"sequenceUpdates\":23,\"metrics\":{\"target.binder_contacts\":1.4250890016555786,\"target.binder_helicity\":-0.5497251152992249,\"target.binder_pae\":0.028402486816048622,\"target.compactness\":0.32090139389038086,\"target.interface_contacts\":1.4312223196029663,\"target.interface_pae\":0.015754248946905136,\"target.iptm\":0.8594369292259216,\"target.iptm_loss\":0.007028153631836176,\"target.plddt_loss\":0.006180421449244022,\"target.ptm\":0.8748978972434998}}\nFOLD_PROGRESS {\"stage\":\"anneal\",\"sequenceUpdates\":24,\"metrics\":{\"target.binder_contacts\":1.3312163352966309,\"target.binder_helicity\":-0.5581145286560059,\"target.binder_pae\":0.027609316632151604,\"target.compactness\":0.29389142990112305,\"target.interface_contacts\":1.4048001766204834,\"target.interface_pae\":0.015662679448723793,\"target.iptm\":0.8592474460601807,\"target.iptm_loss\":0.007037627976387739,\"target.plddt_loss\":0.006028567906469107,\"target.ptm\":0.8750993013381958}}\nFOLD_PROGRESS {\"stage\":\"anneal\",\"sequenceUpdates\":25,\"metrics\":{\"target.binder_contacts\":1.7399388551712036,\"target.binder_helicity\":-0.41258466243743896,\"target.binder_pae\":0.0401594303548336,\"target.compactness\":0.3882899284362793,\"target.interface_contacts\":1.8590644598007202,\"target.interface_pae\":0.020325807854533195,\"target.iptm\":0.7736901044845581,\"target.iptm_loss\":0.011315494775772095,\"target.plddt_loss\":0.011513886973261833,\"target.ptm\":0.8414658308029175}}\nFOLD_PROGRESS {\"stage\":\"anneal\",\"sequenceUpdates\":26,\"metrics\":{\"target.binder_contacts\":1.404839038848877,\"target.binder_helicity\":-0.5189824104309082,\"target.binder_pae\":0.028028050437569618,\"target.compactness\":0.2930936813354492,\"target.interface_contacts\":1.4268059730529785,\"target.interface_pae\":0.015628235414624214,\"target.iptm\":0.8529521226882935,\"target.iptm_loss\":0.007352394051849842,\"target.plddt_loss\":0.006795787718147039,\"target.ptm\":0.8717780113220215}}\nFOLD_PROGRESS {\"stage\":\"anneal\",\"sequenceUpdates\":27,\"metrics\":{\"target.binder_contacts\":1.490062952041626,\"target.binder_helicity\":-0.48571956157684326,\"target.binder_pae\":0.028369296342134476,\"target.compactness\":0.27316761016845703,\"target.interface_contacts\":1.7179691791534424,\"target.interface_pae\":0.018368294462561607,\"target.iptm\":0.7981509566307068,\"target.iptm_loss\":0.01009245216846466,\"target.plddt_loss\":0.0077531845308840275,\"target.ptm\":0.844937801361084}}\nFOLD_PROGRESS {\"stage\":\"anneal\",\"sequenceUpdates\":28,\"metrics\":{\"target.binder_contacts\":1.7912623882293701,\"target.binder_helicity\":-0.42107367515563965,\"target.binder_pae\":0.04326053336262703,\"target.compactness\":0.34114694595336914,\"target.interface_contacts\":1.883326530456543,\"target.interface_pae\":0.02201383374631405,\"target.iptm\":0.7371148467063904,\"target.iptm_loss\":0.013144257478415966,\"target.plddt_loss\":0.012716914527118206,\"target.ptm\":0.8303156495094299}}\nFOLD_PROGRESS {\"stage\":\"anneal\",\"sequenceUpdates\":29,\"metrics\":{\"target.binder_contacts\":1.421112298965454,\"target.binder_helicity\":-0.5287899374961853,\"target.binder_pae\":0.028764057904481888,\"target.compactness\":0.2887282371520996,\"target.interface_contacts\":1.6906472444534302,\"target.interface_pae\":0.018229790031909943,\"target.iptm\":0.7887260913848877,\"target.iptm_loss\":0.010563695803284645,\"target.plddt_loss\":0.00801777746528387,\"target.ptm\":0.8453060388565063}}\nFOLD_PROGRESS {\"stage\":\"anneal\",\"sequenceUpdates\":30,\"metrics\":{\"target.binder_contacts\":2.131429672241211,\"target.binder_helicity\":-0.3719225525856018,\"target.binder_pae\":0.06223425269126892,\"target.compactness\":0.3089118003845215,\"target.interface_contacts\":1.893202781677246,\"target.interface_pae\":0.024668438360095024,\"target.iptm\":0.7750409841537476,\"target.iptm_loss\":0.011247950606048107,\"target.plddt_loss\":0.019512049853801727,\"target.ptm\":0.826886773109436}}\nFOLD_PROGRESS {\"stage\":\"anneal\",\"sequenceUpdates\":31,\"metrics\":{\"target.binder_contacts\":1.4414007663726807,\"target.binder_helicity\":-0.514159619808197,\"target.binder_pae\":0.029596036300063133,\"target.compactness\":0.28732919692993164,\"target.interface_contacts\":1.5963340997695923,\"target.interface_pae\":0.016761763021349907,\"target.iptm\":0.8271808624267578,\"target.iptm_loss\":0.008640957064926624,\"target.plddt_loss\":0.007540617138147354,\"target.ptm\":0.8623399138450623}}\nFOLD_PROGRESS {\"stage\":\"anneal\",\"sequenceUpdates\":32,\"metrics\":{\"target.binder_contacts\":1.429092288017273,\"target.binder_helicity\":-0.5279969573020935,\"target.binder_pae\":0.028982123360037804,\"target.compactness\":0.3180570602416992,\"target.interface_contacts\":1.5543533563613892,\"target.interface_pae\":0.016789672896265984,\"target.iptm\":0.8332083225250244,\"target.iptm_loss\":0.00833958387374878,\"target.plddt_loss\":0.00720985746011138,\"target.ptm\":0.8629842400550842}}\nFOLD_PROGRESS {\"stage\":\"anneal\",\"sequenceUpdates\":33,\"metrics\":{\"target.binder_contacts\":1.3703092336654663,\"target.binder_helicity\":-0.5440547466278076,\"target.binder_pae\":0.027707744389772415,\"target.compactness\":0.28868818283081055,\"target.interface_contacts\":1.5059583187103271,\"target.interface_pae\":0.016106553375720978,\"target.iptm\":0.8393481969833374,\"target.iptm_loss\":0.00803259015083313,\"target.plddt_loss\":0.006364033557474613,\"target.ptm\":0.8669993281364441}}\nFOLD_PROGRESS {\"stage\":\"anneal\",\"sequenceUpdates\":34,\"metrics\":{\"target.binder_contacts\":1.4825948476791382,\"target.binder_helicity\":-0.4974355399608612,\"target.binder_pae\":0.02867095172405243,\"target.compactness\":0.303922176361084,\"target.interface_contacts\":1.59552800655365,\"target.interface_pae\":0.016884012147784233,\"target.iptm\":0.8292140960693359,\"target.iptm_loss\":0.008539295755326748,\"target.plddt_loss\":0.007349495775997639,\"target.ptm\":0.8591129779815674}}\nFOLD_PROGRESS {\"stage\":\"anneal\",\"sequenceUpdates\":35,\"metrics\":{\"target.binder_contacts\":1.4499157667160034,\"target.binder_helicity\":-0.5205269455909729,\"target.binder_pae\":0.028127208352088928,\"target.compactness\":0.29610395431518555,\"target.interface_contacts\":1.6310597658157349,\"target.interface_pae\":0.016909219324588776,\"target.iptm\":0.8181536197662354,\"target.iptm_loss\":0.009092318825423717,\"target.plddt_loss\":0.006892494857311249,\"target.ptm\":0.8587098121643066}}\nFOLD_PROGRESS {\"stage\":\"anneal\",\"sequenceUpdates\":36,\"metrics\":{\"target.binder_contacts\":1.4898216724395752,\"target.binder_helicity\":-0.4710831046104431,\"target.binder_pae\":0.030886996537446976,\"target.compactness\":0.3549666404724121,\"target.interface_contacts\":1.4803152084350586,\"target.interface_pae\":0.016230855137109756,\"target.iptm\":0.8421239852905273,\"target.iptm_loss\":0.007893800735473633,\"target.plddt_loss\":0.007848783396184444,\"target.ptm\":0.872732937335968}}\nFOLD_PROGRESS {\"stage\":\"anneal\",\"sequenceUpdates\":37,\"metrics\":{\"target.binder_contacts\":1.5694994926452637,\"target.binder_helicity\":-0.46001365780830383,\"target.binder_pae\":0.03276814892888069,\"target.compactness\":0.34125757217407227,\"target.interface_contacts\":1.680727481842041,\"target.interface_pae\":0.01817084290087223,\"target.iptm\":0.8146601915359497,\"target.iptm_loss\":0.009266990236938,\"target.plddt_loss\":0.0083245150744915,\"target.ptm\":0.8534408807754517}}\nFOLD_PROGRESS {\"stage\":\"anneal\",\"sequenceUpdates\":38,\"metrics\":{\"target.binder_contacts\":1.4808746576309204,\"target.binder_helicity\":-0.4925466477870941,\"target.binder_pae\":0.028856409713625908,\"target.compactness\":0.32425355911254883,\"target.interface_contacts\":1.6938725709915161,\"target.interface_pae\":0.01743435487151146,\"target.iptm\":0.8135068416595459,\"target.iptm_loss\":0.00932465773075819,\"target.plddt_loss\":0.007518497761338949,\"target.ptm\":0.8551288843154907}}\nFOLD_PROGRESS {\"stage\":\"anneal\",\"sequenceUpdates\":39,\"metrics\":{\"target.binder_contacts\":1.522456169128418,\"target.binder_helicity\":-0.4754151999950409,\"target.binder_pae\":0.02993215061724186,\"target.compactness\":0.32337379455566406,\"target.interface_contacts\":1.892703652381897,\"target.interface_pae\":0.019364407286047935,\"target.iptm\":0.7644476890563965,\"target.iptm_loss\":0.01177761610597372,\"target.plddt_loss\":0.008531973697245121,\"target.ptm\":0.8268172740936279}}\nFOLD_PROGRESS {\"stage\":\"anneal\",\"sequenceUpdates\":40,\"metrics\":{\"target.binder_contacts\":1.4606740474700928,\"target.binder_helicity\":-0.4791232943534851,\"target.binder_pae\":0.028515974059700966,\"target.compactness\":0.28423547744750977,\"target.interface_contacts\":1.7439637184143066,\"target.interface_pae\":0.01788295805454254,\"target.iptm\":0.8027193546295166,\"target.iptm_loss\":0.00986403226852417,\"target.plddt_loss\":0.007379440125077963,\"target.ptm\":0.8521684408187866}}\nFOLD_PROGRESS {\"stage\":\"anneal\",\"sequenceUpdates\":41,\"metrics\":{\"target.binder_contacts\":1.5357086658477783,\"target.binder_helicity\":-0.47058653831481934,\"target.binder_pae\":0.03176766261458397,\"target.compactness\":0.3545083999633789,\"target.interface_contacts\":1.5409523248672485,\"target.interface_pae\":0.01609756238758564,\"target.iptm\":0.8358325362205505,\"target.iptm_loss\":0.008208373561501503,\"target.plddt_loss\":0.00799072626978159,\"target.ptm\":0.870542049407959}}\nFOLD_PROGRESS {\"stage\":\"anneal\",\"sequenceUpdates\":42,\"metrics\":{\"target.binder_contacts\":1.3887799978256226,\"target.binder_helicity\":-0.5106686949729919,\"target.binder_pae\":0.026954665780067444,\"target.compactness\":0.3112306594848633,\"target.interface_contacts\":1.5237455368041992,\"target.interface_pae\":0.01622539944946766,\"target.iptm\":0.8423929214477539,\"target.iptm_loss\":0.007880354300141335,\"target.plddt_loss\":0.006141285412013531,\"target.ptm\":0.8638620376586914}}\nFOLD_PROGRESS {\"stage\":\"anneal\",\"sequenceUpdates\":43,\"metrics\":{\"target.binder_contacts\":1.421015977859497,\"target.binder_helicity\":-0.5198564529418945,\"target.binder_pae\":0.027700647711753845,\"target.compactness\":0.28623199462890625,\"target.interface_contacts\":1.6139596700668335,\"target.interface_pae\":0.016951996833086014,\"target.iptm\":0.8171898722648621,\"target.iptm_loss\":0.009140506386756897,\"target.plddt_loss\":0.006751505192369223,\"target.ptm\":0.8539649844169617}}\nFOLD_PROGRESS {\"stage\":\"anneal\",\"sequenceUpdates\":44,\"metrics\":{\"target.binder_contacts\":3.002537250518799,\"target.binder_helicity\":-0.2802705466747284,\"target.binder_pae\":0.09801971167325974,\"target.compactness\":0.22179555892944336,\"target.interface_contacts\":3.5129635334014893,\"target.interface_pae\":0.053300559520721436,\"target.iptm\":0.3013763427734375,\"target.iptm_loss\":0.034931182861328125,\"target.plddt_loss\":0.03942045941948891,\"target.ptm\":0.673190712928772}}\nFOLD_PROGRESS {\"stage\":\"anneal\",\"sequenceUpdates\":45,\"metrics\":{\"target.binder_contacts\":1.4440706968307495,\"target.binder_helicity\":-0.4942294657230377,\"target.binder_pae\":0.029572395607829094,\"target.compactness\":0.3594856262207031,\"target.interface_contacts\":1.4798288345336914,\"target.interface_pae\":0.015661349520087242,\"target.iptm\":0.8450378775596619,\"target.iptm_loss\":0.007748106028884649,\"target.plddt_loss\":0.006982267834246159,\"target.ptm\":0.8695006370544434}}\n  passed anneal design stage  i_pTM=0.86    pLDDT=0.94  \nFOLD_PROGRESS {\"stage\":\"harden\",\"sequenceUpdates\":1,\"metrics\":{\"target.binder_contacts\":1.332859754562378,\"target.binder_helicity\":-0.5251834392547607,\"target.binder_pae\":0.0261576808989048,\"target.compactness\":0.2984647750854492,\"target.interface_contacts\":1.3860338926315308,\"target.interface_pae\":0.014540374279022217,\"target.iptm\":0.8655251264572144,\"target.iptm_loss\":0.006723743863403797,\"target.plddt_loss\":0.006475681904703379,\"target.ptm\":0.882050096988678}}\nFOLD_PROGRESS {\"stage\":\"harden\",\"sequenceUpdates\":2,\"metrics\":{\"target.binder_contacts\":1.351407766342163,\"target.binder_helicity\":-0.5158704519271851,\"target.binder_pae\":0.025948574766516685,\"target.compactness\":0.3065371513366699,\"target.interface_contacts\":1.4075931310653687,\"target.interface_pae\":0.01570480316877365,\"target.iptm\":0.8625994920730591,\"target.iptm_loss\":0.0068700253032147884,\"target.plddt_loss\":0.0066408137790858746,\"target.ptm\":0.8738642334938049}}\nFOLD_PROGRESS {\"stage\":\"harden\",\"sequenceUpdates\":3,\"metrics\":{\"target.binder_contacts\":1.351407766342163,\"target.binder_helicity\":-0.5158704519271851,\"target.binder_pae\":0.025948574766516685,\"target.compactness\":0.3065371513366699,\"target.interface_contacts\":1.4075931310653687,\"target.interface_pae\":0.01570480316877365,\"target.iptm\":0.8625994920730591,\"target.iptm_loss\":0.0068700253032147884,\"target.plddt_loss\":0.0066408137790858746,\"target.ptm\":0.8738642334938049}}\nFOLD_PROGRESS {\"stage\":\"harden\",\"sequenceUpdates\":4,\"metrics\":{\"target.binder_contacts\":1.3415952920913696,\"target.binder_helicity\":-0.537838876247406,\"target.binder_pae\":0.02558167651295662,\"target.compactness\":0.2956223487854004,\"target.interface_contacts\":1.4439573287963867,\"target.interface_pae\":0.01550311129540205,\"target.iptm\":0.8555880188941956,\"target.iptm_loss\":0.0072205993346869946,\"target.plddt_loss\":0.0060552447102963924,\"target.ptm\":0.8705000877380371}}\nFOLD_PROGRESS {\"stage\":\"harden\",\"sequenceUpdates\":5,\"metrics\":{\"target.binder_contacts\":1.3415952920913696,\"target.binder_helicity\":-0.537838876247406,\"target.binder_pae\":0.02558167651295662,\"target.compactness\":0.2956223487854004,\"target.interface_contacts\":1.4439573287963867,\"target.interface_pae\":0.01550311129540205,\"target.iptm\":0.8555880188941956,\"target.iptm_loss\":0.0072205993346869946,\"target.plddt_loss\":0.0060552447102963924,\"target.ptm\":0.8705000877380371}}\n  passed harden design stage  i_pTM=0.87    pLDDT=0.94  \nFOLD_PROGRESS {\"stage\":\"mutate\",\"sequenceUpdates\":1,\"metrics\":{\"target.iptm\":0.8655251264572144,\"target.ptm\":0.8820501565933228}}\nFOLD_PROGRESS {\"stage\":\"mutate\",\"sequenceUpdates\":2,\"metrics\":{\"target.iptm\":0.8693658113479614,\"target.ptm\":0.8758207559585571}}\nFOLD_PROGRESS {\"stage\":\"mutate\",\"sequenceUpdates\":3,\"metrics\":{\"target.iptm\":0.8431270122528076,\"target.ptm\":0.8739780187606812}}\nFOLD_PROGRESS {\"stage\":\"mutate\",\"sequenceUpdates\":4,\"metrics\":{\"target.iptm\":0.8635459542274475,\"target.ptm\":0.8825206160545349}}\nFOLD_PROGRESS {\"stage\":\"mutate\",\"sequenceUpdates\":5,\"metrics\":{\"target.iptm\":0.8509708642959595,\"target.ptm\":0.877314567565918}}\nFOLD_PROGRESS {\"stage\":\"mutate\",\"sequenceUpdates\":6,\"metrics\":{\"target.iptm\":0.8440834879875183,\"target.ptm\":0.8657563924789429}}\nFOLD_PROGRESS {\"stage\":\"mutate\",\"sequenceUpdates\":7,\"metrics\":{\"target.iptm\":0.8479019403457642,\"target.ptm\":0.8653758764266968}}\nFOLD_PROGRESS {\"stage\":\"mutate\",\"sequenceUpdates\":8,\"metrics\":{\"target.iptm\":0.7837689518928528,\"target.ptm\":0.8448063135147095}}\nFOLD_PROGRESS {\"stage\":\"mutate\",\"sequenceUpdates\":9,\"metrics\":{\"target.iptm\":0.8680359125137329,\"target.ptm\":0.8752307891845703}}\nFOLD_PROGRESS {\"stage\":\"mutate\",\"sequenceUpdates\":10,\"metrics\":{\"target.iptm\":0.796567440032959,\"target.ptm\":0.8565171957015991}}\nFOLD_PROGRESS {\"stage\":\"mutate\",\"sequenceUpdates\":11,\"metrics\":{\"target.iptm\":0.8553350567817688,\"target.ptm\":0.8782932162284851}}\nFOLD_PROGRESS {\"stage\":\"mutate\",\"sequenceUpdates\":12,\"metrics\":{\"target.iptm\":0.848090410232544,\"target.ptm\":0.8673888444900513}}\nFOLD_PROGRESS {\"stage\":\"mutate\",\"sequenceUpdates\":13,\"metrics\":{\"target.iptm\":0.8633477687835693,\"target.ptm\":0.882502019405365}}\nFOLD_PROGRESS {\"stage\":\"mutate\",\"sequenceUpdates\":14,\"metrics\":{\"target.iptm\":0.8519592881202698,\"target.ptm\":0.868003785610199}}\nFOLD_PROGRESS {\"stage\":\"mutate\",\"sequenceUpdates\":15,\"metrics\":{\"target.iptm\":0.8305474519729614,\"target.ptm\":0.8634974360466003}}\n  passed mutate design stage  i_pTM=0.87    pLDDT=0.94  \n  binder hallucination successful\n  binder optimization, 10 MPNN redesigns\n   1/10  ACCEPTED  Binder_RMSD=0.48    Hotspot_Contact_Fraction=1.0     Interface_Residues=19   Off_Epitope_Contact_Fraction=0.0     Target_pLDDT=0.92    i_pAE=0.18    i_pTM=0.83    pLDDT=0.91    pTM=0.87  \n   2/10  ACCEPTED  Binder_RMSD=0.35    Hotspot_Contact_Fraction=1.0     Interface_Residues=17   Off_Epitope_Contact_Fraction=0.0     Target_pLDDT=0.92    i_pAE=0.18    i_pTM=0.82    pLDDT=0.91    pTM=0.86  \n   3/10  ACCEPTED  Binder_RMSD=0.37    Hotspot_Contact_Fraction=1.0     Interface_Residues=18   Off_Epitope_Contact_Fraction=0.0     Target_pLDDT=0.92    i_pAE=0.17    i_pTM=0.83    pLDDT=0.92    pTM=0.86  \n  3 of 10 redesigns passed, keeping the best 1 by i_pDAE: candidate 2 (0.41)\n\ncampaign done: 1 accepted design(s) after 1 trajectory, ranked by i_pDAE\n"
+  },
+  "scope": "Genuine full-ensemble benchmark, original filters and source hotspots; upstream acceptance is computational, not experimental binding/inhibition.",
+  "rankedCsv": "rank,design,length,Binder_Sequence,Interface_Binder_Residues,Interface_Target_Residues,i_pDAE,i_pTM,pLDDT,pTM,i_pAE,Unbound_Binder_pLDDT,Target_pLDDT,Interface_Residues,Hotspot_Contact_Fraction,Binder_RMSD,Off_Epitope_Contact_Fraction,Backbone_Clashes,All_Atom_Clashes,Interface_BuriedArea,Interface_BuriedArea_Fraction,Surface_Hydrophobicity,Interface_Hydrophobicity,Binder_Helix_Fraction,Binder_BetaSheet_Fraction,Binder_Loop_Fraction,SS_pLDDT,Interface_Helix_Fraction,Interface_BetaSheet_Fraction,Interface_Loop_Fraction,Target_RMSD,Epitope_Residues_Contacted,Binder_Disulfides,Binder_Mass_kDa,Binder_pI,Binder_Net_Charge,Binder_Cysteines,Binder_Extinction,Binder_Free_Cysteines,hash,settings_core\n1,design_l60_7eeb451168a769ef_seq0,60,MEKEKEIEKRMWINIIKGLPERVSEEKKEELIKYVEEQYKTGTFDRNEVSAKIHAELAKV,\"E4,I7,R10,M11,W12,N14,I15,G18,L19,E21,R22,R46,N47,S50,I53,H54,L57\",\"A51,A52,L53,I54,Y56,E58,E60,D61,Q66,V68,H69,D73,K75,R113,M115,S117,G120,A121,D122,Y123,R125\",0.41,0.82,0.91,0.86,0.18,0.9,0.92,17.0,1.0,0.35,0.0,0.0,10.0,881.3,0.19,0.24,0.41,0.8,0.0,0.2,0.92,0.82,0.0,0.18,0.68,21.0,0.0,7.2,5.8,-0.97,0.0,8480.0,0.0,7eeb451168a769ef,default\n"
+}

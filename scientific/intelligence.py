@@ -428,7 +428,7 @@ class Lab:
   row=self.s.db.execute('SELECT data FROM intelligence_confidence WHERE structure_id=?',(record['id'],)).fetchone()
   if row:
    data=json.loads(row[0]);out.update(data)
-  elif record['data'].get('confidenceKind') in ('Boltz-2 pLDDT','AlphaFold pLDDT','ColabFold pLDDT'):
+  elif record['data'].get('confidenceKind') in ('Boltz-2 pLDDT','AlphaFold pLDDT','ColabFold pLDDT','BindCraft2 AlphaFold2 pLDDT'):
    residues=st['residues'];values=[]
    for r in residues:
     ca=next((st['atoms'][i] for i in r['atoms'] if st['atoms'][i]['name']=='CA'),None);values.append(ca['bfactor'] if ca else None)
