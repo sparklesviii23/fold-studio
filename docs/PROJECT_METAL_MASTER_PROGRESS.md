@@ -45,7 +45,7 @@ validity. No top-level platform requirement is marked COMPLETE.
 | BoltzGen / RFdiffusion / additional generators | NOT STARTED | No new adapter | Source/license/runtime audit followed by real computation |
 | Drug Design Studio / RDKit / ligand preparation | IN DEVELOPMENT | `ligand.py`, `ligand_runner.py`, shared jobs/records, explicit graph + CIF/SDF; five small-molecule chemistry/interchange cases | Packaged runtime and native form/viewport acceptance pending; no docking, protonation enumeration or broader force-field validation |
 | AutoDock Vina / GNINA / screening / pharmacophores | NOT STARTED | No integrated adapter | Native engines, reference cases and scientifically justified scoring |
-| Dynamics Lab / OpenMM | IN DEVELOPMENT | `dynamics.py`, `dynamics_runner.py`, shared CPU pilots, genuine force-field/trajectory outputs, native panel | Packaged/native pilot acceptance, explicit solvent/general ligands, equilibrated sampling and RMSD/RMSF analysis |
+| Dynamics Lab / OpenMM | IN DEVELOPMENT | `dynamics.py`, `dynamics_runner.py`, shared CPU pilots, genuine force-field/trajectory outputs, native panel | Packaged/native pilot acceptance, explicit solvent/general ligands, equilibrated sampling and broader RMSD/RMSF scientific acceptance |
 | Free-energy / OpenFE | NOT STARTED | No integrated adapter | Validated preparation/sampling/uncertainty and reproducibility |
 | Quantum chemistry / Psi4 | NOT STARTED | No integrated adapter | Feasible macOS engine, scientifically explicit methods and numerical checks |
 | Fold Intelligence assistant | IN DEVELOPMENT | Existing deterministic evidence explanations | Real structure-aware tool execution and grounded interpretation; no local LLM installed |
@@ -69,7 +69,7 @@ validity. No top-level platform requirement is marked COMPLETE.
    remains memory-blocked; limits stay unchanged. Source tests pass 258 Python
    checks and 72 frontend checks, with no skipped visual fixture test now that
    the bundled public ANGPTL3 reference supplies the full XYZ clipping sweep.
-   Next: relocated sealed OpenMM pilot and native form/trajectory acceptance.
+   Next: relocated sealed motion-analysis and checkpoint acceptance, native analysis/export controls.
 3. Continue the full roadmap: broader modality/reference acceptance, native
    ChimeraX command coverage, shared workflows, remaining scientific engines and
    standalone runtime management. Respect current measured memory limits.
@@ -1000,3 +1000,37 @@ A shared cancellation regression now preserves a completed transaction/results
 when the worker finishes while cancellation locates its process. See
 `docs/DYNAMICS_PILOTS.md`. The entire Project Metal specification remains active
 and incomplete; this is a recoverable checkpoint before package acceptance.
+
+### OpenMM packaged/native acceptance; motion and checkpoint implementation
+
+Relocated sealed `077dc19` app discovers its own fourth scientific runtime and
+completes the actual 20-step protein pilot/import/export workflow with no runtime
+setting override (`packaged-openmm-workflow.json`). Actual native form then ran
+100 steps / 0.1 ps on the same immutable 35-residue saved source, saved three
+outputs and opened all eleven frames in the existing viewer. Separate native
+cancellation job stopped before publishing outputs; original worker no longer
+running. Source unchanged and app seal passes after native use.
+`native-openmm-acceptance.json`, native screenshot and AX tree. Completed parent
+jobs must not be resubmitted merely for further renderer/analysis acceptance.
+
+`trajectory_metrics.py` and `trajectory_analysis.py` now implement saved Cα
+RMSD/RMSF through a bounded isolated calculation and the shared research history.
+Source/runner hashes, exact atom/frame correspondence, optional proper rigid fit,
+population-moment convention and no inferred physical times. Shared write
+reservation prevents overlap with active local jobs. Five analytic geometry and
+four actual child-process/persistence contracts pass. On the existing real native
+pilot, raw metrics match original ChimeraX directly and fitted RMSD/RMSF differ
+by at most 9.5e-13 / 1.8e-15 Å (`trajectory-motion-reference.json`). This is narrow
+numerical agreement, not biological flexibility or equilibrium validation. A
+collapsed native panel exposes fitting, per-frame RMSD, per-residue RMSF and
+complete JSON export. Native/packaged motion acceptance remains next.
+
+Pilots now also save original OpenMM binary checkpoints with internal stochastic
+integration state. Updated common-job workflow, exact archive bytes and same-
+platform restoration pass (`openmm-checkpoint-workflow.json`,
+`openmm-checkpoint-restoration.json`): positions/velocities/time restored exactly,
+then two independent contexts have zero measured differences after five steps.
+No cross-version/platform/hardware restart claim. Existing completed `077dc19`
+outputs retain their original six-artifact receipts; later jobs add a seventh
+checkpoint artifact with a new runner hash. All 277 Python tests pass; 73 frontend
+tests and TypeScript pass. Next integration build includes motion/checkpoints.

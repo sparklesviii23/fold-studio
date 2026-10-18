@@ -2,7 +2,7 @@
 import json,math,os,pathlib,re,subprocess
 import fold_engine as fe
 from coordinate_ensemble import inspect as inspect_ensemble
-ACTIONS={'dynamics_start','dynamics_jobs','dynamics_status'}
+ACTIONS={'dynamics_start','dynamics_jobs','dynamics_status','dynamics_analyze'}
 def runtime(s):
  bundled=fe.BASE/'runtime-openmm/bin/python3.12'
  return os.path.abspath(os.path.expanduser(os.environ.get('FOLD_OPENMM_PYTHON') or s.setting('openmmPython') or str(bundled if bundled.is_file() else s.root/'engine/openmm/bin/python')))
@@ -45,7 +45,7 @@ def run(s,id):
   receipt=json.loads((folder/'result.json').read_text())
   if receipt['state']!='completed_pilot' or receipt['requestSha256']!=data['requestSha256'] or receipt['runnerSha256']!=data['runnerSha256'] or receipt['inputSha256']!=data['source']['sha256']:raise ValueError('Dynamics execution receipt differs from queued inputs.')
   if fe.checksum(request.read_bytes())!=data['requestSha256'] or fe.checksum(runner.read_bytes())!=data['runnerSha256']:raise ValueError('Dynamics inputs changed during execution.')
-  expected={'prepared.pdb','minimized.pdb','trajectory.pdb','system.xml','integrator.xml','final-state.xml'}
+  expected={'prepared.pdb','minimized.pdb','trajectory.pdb','system.xml','integrator.xml','final-state.xml','checkpoint.chk'}
   if set(receipt['artifacts'])!=expected or any(fe.checksum((folder/name).read_bytes())!=sha for name,sha in receipt['artifacts'].items()):raise ValueError('Dynamics artifact checksum changed.')
   if len(receipt['series'])!=data['request']['steps']//data['request']['reportInterval']+1 or abs(receipt['durationPs']-data['request']['steps']*.001)>1e-7:raise ValueError('Dynamics frame count or physical duration differs from the saved request.')
   if any(not all(math.isfinite(row[key]) for key in ('timePs','potentialKjMol','kineticKjMol','forceRmsKjMolNm')) for row in receipt['series']):raise ValueError('Dynamics returned nonfinite state.')
@@ -70,6 +70,9 @@ def run(s,id):
    for path in created:path.unlink(missing_ok=True)
 def dispatch(s,action,p):
  if action=='dynamics_start':return start(s,p)
+ if action=='dynamics_analyze':
+  from trajectory_analysis import analyze
+  return analyze(s,p)
  if action=='dynamics_status':
   if p:raise ValueError('Runtime inspection takes no input fields.')
   python=runtime(s);result={'state':'unavailable','python':python,'backend':'CPU','scope':'Short implicit-solvent protein pilot; no Metal backend'}
