@@ -1,0 +1,331 @@
+{
+  "date": "2026-10-18",
+  "checks": [
+    {
+      "name": "Genuine installed interpreter connected",
+      "passed": true,
+      "details": {
+        "version": "1.12",
+        "startupSeconds": 1.1
+      }
+    },
+    {
+      "name": "Live command discovery",
+      "passed": true,
+      "details": {
+        "count": 581,
+        "fingerprint": "5b14b9d0120c80327d803ed626772c4a589454f72b1f1937262e63f4c7d21e11"
+      }
+    },
+    {
+      "name": "Unauthenticated command request rejected",
+      "passed": true,
+      "details": null
+    },
+    {
+      "name": "Browser-origin command request rejected",
+      "passed": true,
+      "details": null
+    },
+    {
+      "name": "Exact source checksum and model mapping",
+      "passed": true,
+      "details": {
+        "mapping": [
+          {
+            "structureId": "cc9ee858-14b3-4db2-ae64-6068cffb0327",
+            "sourceSha256": "df7611b8b9c1ad3dc4beab960d54b4f19197d61f5eccc6cdf62c67601dc86102",
+            "sessionId": "e9840d7b-edee-4b74-817d-429c66cdbc86",
+            "modelId": "1",
+            "positionsSha256": "2d7f0c2387e3a800c2845064fea761f50a6e07e469acf389d03abb7d455529e5"
+          }
+        ]
+      }
+    },
+    {
+      "name": "Native: version",
+      "passed": true,
+      "details": {
+        "latencyMs": 1.2,
+        "output": {
+          "json values": [
+            null
+          ],
+          "python values": [
+            null
+          ],
+          "log messages": {
+            "note": [
+              "Executing: version\n",
+              "UCSF ChimeraX version: 1.12 (2026-06-12)\n",
+              "\u00a9 2016-2026 Regents of the University of California.  All rights reserved.\n"
+            ],
+            "warning": [],
+            "error": [],
+            "bug": []
+          },
+          "error": null
+        }
+      }
+    },
+    {
+      "name": "Native: select #1/A:20@CA",
+      "passed": true,
+      "details": {
+        "latencyMs": 16.6,
+        "output": {
+          "json values": [
+            null
+          ],
+          "python values": [
+            "1 atom, 1 residue, 1 model"
+          ],
+          "log messages": {
+            "note": [
+              "Executing: select #1/A:20@CA\n",
+              "1 atom, 1 residue, 1 model selected\n"
+            ],
+            "warning": [],
+            "error": [],
+            "bug": []
+          },
+          "error": null
+        }
+      }
+    },
+    {
+      "name": "Native: color sel orange",
+      "passed": true,
+      "details": {
+        "latencyMs": 26.7,
+        "output": {
+          "json values": [
+            null
+          ],
+          "python values": [
+            null
+          ],
+          "log messages": {
+            "note": [
+              "Executing: color sel orange\n"
+            ],
+            "warning": [],
+            "error": [],
+            "bug": []
+          },
+          "error": null
+        }
+      }
+    },
+    {
+      "name": "Native: style sel stick",
+      "passed": true,
+      "details": {
+        "latencyMs": 2.7,
+        "output": {
+          "json values": [
+            null
+          ],
+          "python values": [
+            null
+          ],
+          "log messages": {
+            "note": [
+              "Executing: style sel stick\n",
+              "Changed 1 atom style\n"
+            ],
+            "warning": [],
+            "error": [],
+            "bug": []
+          },
+          "error": null
+        }
+      }
+    },
+    {
+      "name": "Native: info atoms #1/A:20",
+      "passed": true,
+      "details": {
+        "latencyMs": 4.1,
+        "output": {
+          "json values": [
+            "[{\"spec\": \"/A:20@N\", \"attribute\": \"idatm_type\", \"present\": true, \"value\": \"Npl\"}, {\"spec\": \"/A:20@CA\", \"attribute\": \"idatm_type\", \"present\": true, \"value\": \"C3\"}, {\"spec\": \"/A:20@C\", \"attribute\": \"idatm_type\", \"present\": true, \"value\": \"C2\"}, {\"spec\": \"/A:20@CB\", \"attribute\": \"idatm_type\", \"present\": true, \"value\": \"C3\"}, {\"spec\": \"/A:20@O\", \"attribute\": \"idatm_type\", \"present\": true, \"value\": \"O2\"}, {\"spec\": \"/A:20@CG\", \"attribute\": \"idatm_type\", \"present\": true, \"value\": \"Cac\"}, {\"spec\": \"/A:20@OD1\", \"attribute\": \"idatm_type\", \"present\": true, \"value\": \"O2-\"}, {\"spec\": \"/A:20@OD2\", \"attribute\": \"idatm_type\", \"present\": true, \"value\": \"O2-\"}]"
+          ],
+          "python values": [
+            null
+          ],
+          "log messages": {
+            "note": [
+              "Executing: info atoms #1/A:20\n",
+              "atom id /A:20@N idatm_type Npl\natom id /A:20@CA idatm_type C3\natom id /A:20@C idatm_type C2\natom id /A:20@CB idatm_type C3\natom id /A:20@O idatm_type O2\natom id /A:20@CG idatm_type Cac\natom id /A:20@OD1 idatm_type O2-\natom id /A:20@OD2 idatm_type O2-\n"
+            ],
+            "warning": [],
+            "error": [],
+            "bug": []
+          },
+          "error": null
+        }
+      }
+    },
+    {
+      "name": "Real C\u03b1 distance",
+      "passed": true,
+      "details": {
+        "valueAngstrom": 3.790880372683898
+      }
+    },
+    {
+      "name": "Native unknown-command error preserved",
+      "passed": true,
+      "details": {
+        "type": "UserError",
+        "message": "Unknown command: foldCommandThatDoesNotExist"
+      }
+    },
+    {
+      "name": "Installed build bundle command executes",
+      "passed": true,
+      "details": null
+    },
+    {
+      "name": "Native mmCIF transfer creates a separate asset",
+      "passed": true,
+      "details": {
+        "newStructureId": "b39654a3-974d-4aac-a8fa-a7db629c46a8",
+        "sha256": "880d6bf9295530040f240ec19acaad404e087134bf1f697356eb7fb5d03577f6"
+      }
+    },
+    {
+      "name": "Local identity sends native selection",
+      "passed": true,
+      "details": null
+    },
+    {
+      "name": "Changed native coordinates invalidate mapping fingerprint",
+      "passed": true,
+      "details": null
+    },
+    {
+      "name": "Synchronization refuses changed coordinates",
+      "passed": true,
+      "details": null
+    },
+    {
+      "name": "Measured all-pair C\u03b1 superposition executes",
+      "passed": true,
+      "details": {
+        "rmsdAngstrom": 0.23269294555138811,
+        "pairs": 460,
+        "command": "matchmaker #4/A@CA to #1/A@CA cutoffDistance none showAlignment false"
+      }
+    },
+    {
+      "name": "Native all-pair RMSD agrees with returned residuals",
+      "passed": true,
+      "details": {
+        "native": 0.23269294555138811,
+        "recomputed": 0.23269294555168307
+      }
+    },
+    {
+      "name": "Pruning separates fit and all-aligned RMSD",
+      "passed": true,
+      "details": {
+        "fitRmsd": 0.0,
+        "fullRmsd": 0.23312620206007992,
+        "fitPairs": 459
+      }
+    },
+    {
+      "name": "Outlier residue correspondence is explicit",
+      "passed": true,
+      "details": {
+        "lastPair": {
+          "moving": {
+            "chain": "A",
+            "residue": 460,
+            "insertion": "",
+            "residueName": "GLU",
+            "atom": "CA",
+            "element": "C",
+            "serial": 3780,
+            "altLoc": "",
+            "xyz": [
+              -6.609999999999992,
+              -27.27100000000003,
+              22.412
+            ],
+            "color": [
+              144,
+              238,
+              144,
+              255
+            ],
+            "ribbonColor": [
+              144,
+              238,
+              144,
+              255
+            ],
+            "spec": "#4/A:460@CA",
+            "bFactor": 0.0,
+            "occupancy": 1.0
+          },
+          "reference": {
+            "chain": "A",
+            "residue": 460,
+            "insertion": "",
+            "residueName": "GLU",
+            "atom": "CA",
+            "element": "C",
+            "serial": 3780,
+            "altLoc": "",
+            "xyz": [
+              -6.61,
+              -22.271,
+              22.412
+            ],
+            "color": [
+              210,
+              180,
+              140,
+              255
+            ],
+            "ribbonColor": [
+              210,
+              180,
+              140,
+              255
+            ],
+            "spec": "#1/A:460@CA",
+            "bFactor": 29.059999465942383,
+            "occupancy": 1.0
+          },
+          "distanceAngstrom": 5.000000000000028,
+          "usedInFit": false
+        }
+      }
+    },
+    {
+      "name": "Measured comparisons persist with both source fingerprints",
+      "passed": true,
+      "details": null
+    },
+    {
+      "name": "Superposition preserves both saved coordinate assets",
+      "passed": true,
+      "details": null
+    },
+    {
+      "name": "Aligned export retains measured comparison provenance",
+      "passed": true,
+      "details": null
+    },
+    {
+      "name": "Aligned import refuses stale native fit coordinates",
+      "passed": true,
+      "details": null
+    }
+  ],
+  "passed": true
+}

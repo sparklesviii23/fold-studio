@@ -1,0 +1,109 @@
+{
+  "schemaVersion": 1,
+  "scope": "Scoped live acceptance on installed GUI-free ChimeraX 1.12; not comprehensive command or GUI equivalence",
+  "reportSha256": "b1d0d6144fd51bc989e5407f77d28f505f71542deb6d6952117e2800c8f9f2f2",
+  "checksPassed": 25,
+  "completeParityVerified": false,
+  "capabilities": [
+    {
+      "kind": "command",
+      "name": "version",
+      "status": "Partial",
+      "functionalityTested": true,
+      "scientificOutputValidated": false,
+      "validationScope": "Installed interpreter version query",
+      "limitations": "Only the stated fixture, syntax and output assertions were tested. Other arguments and full visual equivalence remain unverified.",
+      "evidenceCheck": "Native: version"
+    },
+    {
+      "kind": "command",
+      "name": "select",
+      "status": "Partial",
+      "functionalityTested": true,
+      "scientificOutputValidated": false,
+      "validationScope": "Exact model/author-chain/residue/atom selection and native selection reflection",
+      "limitations": "Only the stated fixture, syntax and output assertions were tested. Other arguments and full visual equivalence remain unverified.",
+      "evidenceCheck": "Native: select #1/A:20@CA"
+    },
+    {
+      "kind": "command",
+      "name": "color",
+      "status": "Partial",
+      "functionalityTested": true,
+      "scientificOutputValidated": false,
+      "validationScope": "Native selected-atom orange coloring; broad palette/visual material parity unverified",
+      "limitations": "Only the stated fixture, syntax and output assertions were tested. Other arguments and full visual equivalence remain unverified.",
+      "evidenceCheck": "Native: color sel orange"
+    },
+    {
+      "kind": "command",
+      "name": "style",
+      "status": "Partial",
+      "functionalityTested": true,
+      "scientificOutputValidated": false,
+      "validationScope": "Native selected-atom stick style; complete representation parity unverified",
+      "limitations": "Only the stated fixture, syntax and output assertions were tested. Other arguments and full visual equivalence remain unverified.",
+      "evidenceCheck": "Native: style sel stick"
+    },
+    {
+      "kind": "command",
+      "name": "info atoms",
+      "status": "Partial",
+      "functionalityTested": true,
+      "scientificOutputValidated": false,
+      "validationScope": "Selected author-residue atom information",
+      "limitations": "Only the stated fixture, syntax and output assertions were tested. Other arguments and full visual equivalence remain unverified.",
+      "evidenceCheck": "Native: info atoms #1/A:20"
+    },
+    {
+      "kind": "command",
+      "name": "distance",
+      "status": "Partial",
+      "functionalityTested": true,
+      "scientificOutputValidated": true,
+      "validationScope": "Two observed C\u03b1 atoms: native value agrees with expected 3.7908803727 \u00c5 within 1e-5 \u00c5",
+      "limitations": "Only the stated fixture, syntax and output assertions were tested. Other arguments and full visual equivalence remain unverified.",
+      "evidenceCheck": "Real C\u03b1 distance"
+    },
+    {
+      "kind": "command",
+      "name": "build start",
+      "status": "Partial",
+      "functionalityTested": true,
+      "scientificOutputValidated": false,
+      "validationScope": "Canonical ACDE peptide creation with explicit torsions; structure quality/activity unvalidated",
+      "limitations": "Only the stated fixture, syntax and output assertions were tested. Other arguments and full visual equivalence remain unverified.",
+      "evidenceCheck": "Installed build bundle command executes"
+    },
+    {
+      "kind": "command",
+      "name": "move",
+      "status": "Partial",
+      "functionalityTested": true,
+      "scientificOutputValidated": false,
+      "validationScope": "1 \u00c5 x translation invalidates coordinate correspondence and stale selection is refused",
+      "limitations": "Only the stated fixture, syntax and output assertions were tested. Other arguments and full visual equivalence remain unverified.",
+      "evidenceCheck": "Changed native coordinates invalidate mapping fingerprint"
+    },
+    {
+      "kind": "command",
+      "name": "open",
+      "status": "Partial",
+      "functionalityTested": true,
+      "scientificOutputValidated": false,
+      "validationScope": "Bundled ANGPTL3 mmCIF source import with source/model mapping",
+      "limitations": "Only the stated fixture, syntax and output assertions were tested. Other arguments and full visual equivalence remain unverified.",
+      "evidenceCheck": "Exact source checksum and model mapping"
+    },
+    {
+      "kind": "command",
+      "name": "matchmaker",
+      "status": "Partial",
+      "functionalityTested": true,
+      "scientificOutputValidated": true,
+      "validationScope": "Known rigid transform plus single 5 \u00c5 C\u03b1 perturbation: all-pair RMSD residual agreement and pruning to 459 fitted pairs",
+      "limitations": "Only the stated fixture, syntax and output assertions were tested. Other arguments and full visual equivalence remain unverified.",
+      "evidenceCheck": "Native all-pair RMSD agrees with returned residuals"
+    }
+  ]
+}

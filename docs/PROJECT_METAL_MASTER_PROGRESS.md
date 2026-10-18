@@ -137,3 +137,16 @@ Signature verification still passed after this native UI calculation. Original
 interface/navigation remain intact. Validation root: `../validation/native-embedded-library`.
 Polling now refreshes the displayed job receipt as well as the shared job list,
 so a submission's queued state cannot contradict its completed live state.
+
+### Scoped command compatibility evidence
+
+The live ChimeraX regression suite passed all 25 checks when driven by the
+bundled Python runtime. `reports/chimerax-current-acceptance.json` retains
+assertions; `scripts/update-command-evidence.py` promotes only named passing
+checks into `scientific/validation-evidence-current.json`. The capability
+audit consumes this scoped evidence. `docs/CHIMERAX_COMMAND_COMPATIBILITY.csv`
+accounts for all 591 pinned commands, with ten narrowly tested command entries
+and two numerical-output checks (distance and Matchmaker). Registration alone
+is NOT VALIDATED; whole-command argument coverage and complete rendering/UI
+parity remain unverified. This is preserved upstream command execution, not a
+superficial alternative parser.

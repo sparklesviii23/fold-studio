@@ -4,7 +4,8 @@ import pathlib, json
 def assess(current):
     baseline=json.loads((pathlib.Path(__file__).parent/'pinned-capabilities-1.12.json').read_text())
     live={(r['kind'],r['name']):r for r in current['capabilities']}
-    evidence_path=pathlib.Path(__file__).parent/'validation-evidence-4.2.json'
+    evidence_path=pathlib.Path(__file__).parent/'validation-evidence-current.json'
+    if not evidence_path.exists():evidence_path=pathlib.Path(__file__).parent/'validation-evidence-4.2.json'
     evidence=json.loads(evidence_path.read_text()) if evidence_path.exists() else {'capabilities':[]}
     verified={(r['kind'],r['name']):r for r in evidence['capabilities']}
     rows=[]
