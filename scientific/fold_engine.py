@@ -11,7 +11,7 @@ BASE=pathlib.Path(__file__).resolve().parents[1]
 UPSTREAM=BASE/'vendor'/'bindcraft2'
 PIN='c0ee638d11bc010817c2c97ee58ed5c323e664e2'
 ACTIONS={'bindcraft_results','bindcraft_review','bindcraft_resume','bindcraft_repeat','fold_fragment','fold_engine_status','fold_structure','fold_compute','bindcraft_validate','bindcraft_prepare','bindcraft_campaigns','bindcraft_import','bindcraft_start'}
-CONFIG_KEYS={'projectId','structureId','name','modality','targetChains','hotspots','coldspots','binderLengths','candidates','attempts','seed','additionalTargets'}
+CONFIG_KEYS={'properties','projectId','structureId','name','modality','targetChains','hotspots','coldspots','binderLengths','candidates','attempts','seed','additionalTargets'}
 SUPPORTED_MODALITIES=('binder','peptide','cyclic_peptide','VHH','ARP','scFv','homo_oligomer')
 SCAFFOLD_MODALITIES=('VHH','ARP','scFv')
 
@@ -44,6 +44,7 @@ class Engine:
         for path in sorted((UPSTREAM/'settings'/'modality').glob('*.json')):
             modalities.append({'name':path.stem,'description':json.loads(path.read_text()).get('description',''),'configuration':'tested' if path.stem in SUPPORTED_MODALITIES else 'not_started','execution':'experimental' if path.stem in SUPPORTED_MODALITIES else 'blocked'})
         return {'name':'FOLD SCIENTIFIC ENGINE','schemaVersion':1,'source':source_status(),'modalities':modalities,
+                'properties':__import__('campaign_profile').property_catalog(UPSTREAM),
                 'engines':[{'id':'bindcraft2','configuration':'implemented','resultImport':'implemented','execution':'experimental_cpu_and_metal','metalExecution':'experimental_float32_requires_pinned_runtime','modelEnsembles':'original_upstream_selection','profiles':['experimental-cpu-single-model','experimental-cpu-float32-single-model','experimental-cpu-float32-scaffold','experimental-cpu-float32-multitarget','experimental-metal-float32-single-model','experimental-cpu-float32-ensemble','experimental-metal-float32-ensemble']},
                            {'id':'openmm','execution':'cpu','scope':'Short Amber ff14SB/OBC2 protein pilot; not equilibrated sampling or Metal execution'}, {'id':'rdkit','execution':'cpu','scope':'Ligand ETKDGv3/MMFF94s preparation; not docking or biological activity validation'}, {'id':'proteinmpnn','execution':'cpu','scope':'Fixed-backbone sequence redesign; mpnn_start/mpnn_jobs'}, {'id':'boltz2','adapter':'existing prediction_start'}, {'id':'chimerax','adapter':'existing chimerax_execute; separately installed runtime; command availability is not validation'}],
                 'commands':[{'name':x,'status':'implemented' if x!='bindcraft_start' else 'experimental'} for x in sorted(ACTIONS)],
@@ -91,6 +92,9 @@ class Engine:
         if {r['id'] for r in hot}&{r['id'] for r in cold}:raise ValueError('A residue cannot be both a hotspot and a coldspot.')
         # Presets are upstream data, retained verbatim; never invent optimization defaults.
         preset=json.loads((UPSTREAM/'settings'/'modality'/(modality+'.json')).read_text());preset.pop('description',None)
+        from campaign_profile import property_preset
+        resolved,properties=property_preset(self.s,modality,p.get('properties',[]),UPSTREAM)
+        if resolved is not None:preset=resolved
         scaffold=None
         if preset.get('binder_scaffold'):
             source=UPSTREAM/preset['binder_scaffold']
@@ -103,10 +107,15 @@ class Engine:
         if not isinstance(name,str) or not name.strip() or len(name)>160:raise ValueError('Enter a campaign name of 1–160 characters.')
         checked={'schemaVersion':1,'name':name.strip(),'valid':True,'executionReady':False,'modality':modality,'scaffold':scaffold,'source':shared['reference'],'config':config,'residueMap':[{'id':r['id'],'chain':r['chain'],'number':r['num'],'aminoAcid':r['one']} for r in selected],
                 'settingsSha256':checksum(canonical(config).encode()),'upstream':source_status(),'warnings':['Prepared configuration is not a completed design or a validated full-model Metal backend.','Hotspots use observed source numbering; no biological numbering conversion is inferred.','Memory feasibility has not been established for this target.']}
+        if properties:checked['propertyPresets']=properties;checked['warnings'].append('Original property presets change scientific objectives and filters. Their preparation is not modality or biological validation.')
         if modality=='homo_oligomer':checked['warnings'].append('Two identical binder-chain copies follow the original symmetric tying preset. Length bounds are per chain; memory estimates include both copies and the target.')
         if modality=='scFv':checked['warnings'].append('Original heavy and light variable domains are separate chains; no connecting linker is designed. Full target/scaffold memory feasibility must pass the selected profile before computation.')
         from campaign_inputs import extend
-        return extend(self,p,checked)
+        checked=extend(self,p,checked)
+        if properties:
+            from campaign_profile import property_conflicts
+            property_conflicts(self.s,checked['config'],UPSTREAM,checked.get('scaffold'))
+        return checked
     def bindcraft_prepare(self,p):
         checked=self.bindcraft_validate(p);checked['upstream']=verify_source()
         record,path=self.lab.record(p['structureId']);job=self.s.job_new({'projectId':p['projectId'],'name':checked['name'],'preparation':checked,'outputs':[]},'bindcraft2','preparing')

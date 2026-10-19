@@ -1,0 +1,1041 @@
+{
+  "schemaVersion": 1,
+  "upstreamRevision": "c0ee638d11bc010817c2c97ee58ed5c323e664e2",
+  "statusDefinitions": {
+    "VERIFIED": "Evidence verifies only the explicit stated case/scope, not universal or biological acceptance.",
+    "INTEGRATED": "Authentic source is connected at the stated scope; further validation or option exposure remains.",
+    "BLOCKED": "Specific current resource or compatibility limitation.",
+    "UNAVAILABLE": "Not connected/usable through the current native adapter."
+  },
+  "fullPortComplete": false,
+  "modalities": [
+    {
+      "name": "ARP",
+      "status": "INTEGRATED",
+      "scope": "Experimental adapter and original preset connected; broad original-filter scientific acceptance not established.",
+      "source": "vendor/bindcraft2/settings/modality/ARP.json",
+      "sha256": "f1b268ce3a591a0ea71f94dcfb48010f58e1872f784a4a37da58ca3e51beb3ac"
+    },
+    {
+      "name": "Fab",
+      "status": "BLOCKED",
+      "scope": "Original full scaffold exceeds measured 320-residue CPU profile; adapter not enabled, source retained.",
+      "source": "vendor/bindcraft2/settings/modality/Fab.json",
+      "sha256": "c3f07b56b251f1994c372071aef1a1c39d0a430ab0c229cce0e27215f7a79d4b"
+    },
+    {
+      "name": "VHH",
+      "status": "INTEGRATED",
+      "scope": "Experimental adapter and original preset connected; broad original-filter scientific acceptance not established.",
+      "source": "vendor/bindcraft2/settings/modality/VHH.json",
+      "sha256": "a6806551d9ddf6df41dfba59dab5648dd310ab3ed7efdae584b6257ccd5f0226"
+    },
+    {
+      "name": "binder",
+      "status": "VERIFIED",
+      "scope": "Narrow genuine 175-residue hPDL1 ensemble execution with original filters; full native packaged repetition active.",
+      "source": "vendor/bindcraft2/settings/modality/binder.json",
+      "sha256": "6bf615fb45e4b312fac84be39173c45b7ed65169d440e992485922bc9efcd50a"
+    },
+    {
+      "name": "cyclic_peptide",
+      "status": "INTEGRATED",
+      "scope": "Experimental adapter and original preset connected; broad original-filter scientific acceptance not established.",
+      "source": "vendor/bindcraft2/settings/modality/cyclic_peptide.json",
+      "sha256": "9641ae5cb2ffce054f564d6c10ca28aea1abb68af1a7e1d09cb26435c4037ddd"
+    },
+    {
+      "name": "fold_switch",
+      "status": "UNAVAILABLE",
+      "scope": "Original source/preset retained; native application adapter not enabled or verified.",
+      "source": "vendor/bindcraft2/settings/modality/fold_switch.json",
+      "sha256": "7db5a06582df9d2a96145b64c5ca764465e81d63052b093765a05ea6e83e9fbf"
+    },
+    {
+      "name": "homo_oligomer",
+      "status": "INTEGRATED",
+      "scope": "Experimental adapter and original preset connected; broad original-filter scientific acceptance not established.",
+      "source": "vendor/bindcraft2/settings/modality/homo_oligomer.json",
+      "sha256": "71ccfe37a01fd108c6b69819811ad32b33ac30eaea2d5ea384aa0f66c43821a0"
+    },
+    {
+      "name": "induced_fit",
+      "status": "UNAVAILABLE",
+      "scope": "Original source/preset retained; native application adapter not enabled or verified.",
+      "source": "vendor/bindcraft2/settings/modality/induced_fit.json",
+      "sha256": "75872ebd027827118f82c939300cae691015df778401c2dab46fd3e5dc43905d"
+    },
+    {
+      "name": "large_binder",
+      "status": "UNAVAILABLE",
+      "scope": "Original source/preset retained; native application adapter not enabled or verified.",
+      "source": "vendor/bindcraft2/settings/modality/large_binder.json",
+      "sha256": "70f4bd93c4bb13326f6715bc529d4c9232ba5d71bda59716efcd90ff7bbcadfb"
+    },
+    {
+      "name": "multidomain",
+      "status": "UNAVAILABLE",
+      "scope": "Original source/preset retained; native application adapter not enabled or verified.",
+      "source": "vendor/bindcraft2/settings/modality/multidomain.json",
+      "sha256": "bc5e6d3960b94fb8ea52460bef8a245371981341355d2805699a284dcaba2b4a"
+    },
+    {
+      "name": "peptide",
+      "status": "INTEGRATED",
+      "scope": "Experimental adapter and original preset connected; broad original-filter scientific acceptance not established.",
+      "source": "vendor/bindcraft2/settings/modality/peptide.json",
+      "sha256": "474a4e97a633e4933a37c190247676bbb5b0e6521c81492960e8a14177781341"
+    },
+    {
+      "name": "scFv",
+      "status": "INTEGRATED",
+      "scope": "Experimental adapter and original preset connected; broad original-filter scientific acceptance not established.",
+      "source": "vendor/bindcraft2/settings/modality/scFv.json",
+      "sha256": "6f470a75f1993b14296f5e48eb078fe6546ac50d4d79a746129d8050ac76b1de"
+    }
+  ],
+  "properties": [
+    {
+      "name": "bigbang",
+      "status": "INTEGRATED",
+      "scope": "Actual original precedence and input/feature preflight tested; no full property-specific gradient/design or biological validation claim.",
+      "source": "vendor/bindcraft2/settings/property/bigbang.json",
+      "sha256": "aedc7572bbb3b69420187c89a985d75035027be5b7ffccf129065a4825d1d0ee",
+      "evidence": "reports/bindcraft-property-presets.json"
+    },
+    {
+      "name": "disulfide_staple",
+      "status": "INTEGRATED",
+      "scope": "Actual original precedence and input/feature preflight tested; no full property-specific gradient/design or biological validation claim.",
+      "source": "vendor/bindcraft2/settings/property/disulfide_staple.json",
+      "sha256": "80508e75ae48abe4ab8c5fc9f12d7e28f8782a3c86689926bd6701686baf137c",
+      "evidence": "reports/bindcraft-property-presets.json"
+    },
+    {
+      "name": "forced_targeting",
+      "status": "INTEGRATED",
+      "scope": "Actual original precedence and input/feature preflight tested; no full property-specific gradient/design or biological validation claim.",
+      "source": "vendor/bindcraft2/settings/property/forced_targeting.json",
+      "sha256": "d2fbf6ccd469cf77ca035e47bae161f7ae408d58ab4e3e3282c50208bc7a96b2",
+      "evidence": "reports/bindcraft-property-presets.json"
+    },
+    {
+      "name": "humanize",
+      "status": "INTEGRATED",
+      "scope": "Actual original precedence and input/feature preflight tested; no full property-specific gradient/design or biological validation claim.",
+      "source": "vendor/bindcraft2/settings/property/humanize.json",
+      "sha256": "2a2b41628e1bd30705054ac9c2896df651c58b187884b81072d5c012c621c2da",
+      "evidence": "reports/bindcraft-property-presets.json"
+    },
+    {
+      "name": "initial_guess",
+      "status": "INTEGRATED",
+      "scope": "Actual original precedence and input/feature preflight tested; no full property-specific gradient/design or biological validation claim.",
+      "source": "vendor/bindcraft2/settings/property/initial_guess.json",
+      "sha256": "7ec55a4217c755be6da07fdd811090352abe983efb71512ca4ae54352b6700d1",
+      "evidence": "reports/bindcraft-property-presets.json"
+    },
+    {
+      "name": "mixed_topology",
+      "status": "INTEGRATED",
+      "scope": "Actual original precedence and input/feature preflight tested; no full property-specific gradient/design or biological validation claim.",
+      "source": "vendor/bindcraft2/settings/property/mixed_topology.json",
+      "sha256": "91c772032dc2cdfb931d90aba5d7f6cf0e808ddcae874f4c58676ce9ae0b72f8",
+      "evidence": "reports/bindcraft-property-presets.json"
+    },
+    {
+      "name": "protease_stable",
+      "status": "INTEGRATED",
+      "scope": "Actual original precedence and input/feature preflight tested; no full property-specific gradient/design or biological validation claim.",
+      "source": "vendor/bindcraft2/settings/property/protease_stable.json",
+      "sha256": "0ad9af9cf28edc10aa3b9402f7b15d38bb0617107d6e09e84ca2907616dfc073",
+      "evidence": "reports/bindcraft-property-presets.json"
+    },
+    {
+      "name": "termini_accessible",
+      "status": "INTEGRATED",
+      "scope": "Actual original precedence and input/feature preflight tested; no full property-specific gradient/design or biological validation claim.",
+      "source": "vendor/bindcraft2/settings/property/termini_accessible.json",
+      "sha256": "7b929f6bcaf563545450c24a667c8ff57f8f6e477f521411bc3c05e2643fa600",
+      "evidence": "reports/bindcraft-property-presets.json"
+    },
+    {
+      "name": "termini_together",
+      "status": "INTEGRATED",
+      "scope": "Actual original precedence and input/feature preflight tested; no full property-specific gradient/design or biological validation claim.",
+      "source": "vendor/bindcraft2/settings/property/termini_together.json",
+      "sha256": "c88bebb6377677b112f8da05c0aee3a732ab2537241cec5820a90c19c4eb39e5",
+      "evidence": "reports/bindcraft-property-presets.json"
+    }
+  ],
+  "features": [
+    {
+      "name": "single observed target",
+      "status": "VERIFIED",
+      "scope": "Source-pinned target and authentic accepted hPDL1 case."
+    },
+    {
+      "name": "multiple targets and off-target avoidance",
+      "status": "INTEGRATED",
+      "scope": "Small two/three-state CPU workflows and actual original-filter rejected campaign; larger states bounded."
+    },
+    {
+      "name": "target chain assemblies, hotspots and coldspots",
+      "status": "INTEGRATED",
+      "scope": "Observed chain/residue identifiers retained and validated; broader assembly acceptance pending."
+    },
+    {
+      "name": "disordered or sequence-only targets",
+      "status": "UNAVAILABLE",
+      "scope": "Current native input adapter requires observed canonical structure coordinates."
+    },
+    {
+      "name": "authentic differentiable AF2 and trajectory stages",
+      "status": "VERIFIED",
+      "scope": "Narrow CPU/Metal forward/gradient/stage comparisons and full ensemble computation; not all sizes/modalities."
+    },
+    {
+      "name": "ProteinMPNN automatic redesign",
+      "status": "VERIFIED",
+      "scope": "Genuine generated backbone enters unchanged upstream MPNN and held-out AF2 in accepted reference case."
+    },
+    {
+      "name": "independent AF2 refolding and original filters",
+      "status": "VERIFIED",
+      "scope": "Real held-out model predictions and original acceptance on hPDL1; no experimental binding claim."
+    },
+    {
+      "name": "upstream filter/rank commands",
+      "status": "VERIFIED",
+      "scope": "Actual native/bundled original functions match direct pinned source on saved 1/3/1 case; missing filters disclosed."
+    },
+    {
+      "name": "campaign recovery",
+      "status": "VERIFIED",
+      "scope": "Actual source and relocated-runtime interruption/resume with original claimed-attempt semantics; native control integration pending."
+    },
+    {
+      "name": "autotuning and desperation",
+      "status": "INTEGRATED",
+      "scope": "Original upstream implementation executes through campaign; broad transitions/overrides not independently validated."
+    },
+    {
+      "name": "offline bundled core runtimes and models",
+      "status": "INTEGRATED",
+      "scope": "Owned CPU/Metal interpreters and genuine model checkpoints used in relocated app; full native accepted vertical slice active."
+    },
+    {
+      "name": "all settings/preset hierarchies",
+      "status": "INTEGRATED",
+      "scope": "Core defaults and modality/property hierarchy resolved by upstream; explicit core/target-profile selection and unrestricted overrides remain unavailable."
+    }
+  ],
+  "campaignSettings": [
+    {
+      "name": "aa_bias",
+      "status": "INTEGRATED",
+      "exposure": "original_upstream_default_or_preset_only",
+      "limitation": "Not an unrestricted user override; full option parity is incomplete."
+    },
+    {
+      "name": "archive_trajectories",
+      "status": "INTEGRATED",
+      "exposure": "original_upstream_default_or_preset_only",
+      "limitation": "Not an unrestricted user override; full option parity is incomplete."
+    },
+    {
+      "name": "attention_backend",
+      "status": "INTEGRATED",
+      "exposure": "explicit_native_policy",
+      "limitation": "Not an unrestricted user override; full option parity is incomplete."
+    },
+    {
+      "name": "auto_multi_gpu",
+      "status": "INTEGRATED",
+      "exposure": "explicit_native_policy",
+      "limitation": "Not an unrestricted user override; full option parity is incomplete."
+    },
+    {
+      "name": "autotune",
+      "status": "INTEGRATED",
+      "exposure": "original_upstream_default_or_preset_only",
+      "limitation": "Not an unrestricted user override; full option parity is incomplete."
+    },
+    {
+      "name": "autotune_loss_weights",
+      "status": "INTEGRATED",
+      "exposure": "original_upstream_default_or_preset_only",
+      "limitation": "Not an unrestricted user override; full option parity is incomplete."
+    },
+    {
+      "name": "betasheet_reopt_extra_anneal_steps",
+      "status": "INTEGRATED",
+      "exposure": "original_upstream_default_or_preset_only",
+      "limitation": "Not an unrestricted user override; full option parity is incomplete."
+    },
+    {
+      "name": "betasheet_reopt_extra_refine_steps",
+      "status": "INTEGRATED",
+      "exposure": "original_upstream_default_or_preset_only",
+      "limitation": "Not an unrestricted user override; full option parity is incomplete."
+    },
+    {
+      "name": "betasheet_reopt_recycles",
+      "status": "INTEGRATED",
+      "exposure": "original_upstream_default_or_preset_only",
+      "limitation": "Not an unrestricted user override; full option parity is incomplete."
+    },
+    {
+      "name": "betasheet_reopt_trigger",
+      "status": "INTEGRATED",
+      "exposure": "original_upstream_default_or_preset_only",
+      "limitation": "Not an unrestricted user override; full option parity is incomplete."
+    },
+    {
+      "name": "binder_chain",
+      "status": "INTEGRATED",
+      "exposure": "original_upstream_default_or_preset_only",
+      "limitation": "Not an unrestricted user override; full option parity is incomplete."
+    },
+    {
+      "name": "binder_lengths",
+      "status": "INTEGRATED",
+      "exposure": "native_control",
+      "limitation": null
+    },
+    {
+      "name": "binder_name",
+      "status": "INTEGRATED",
+      "exposure": "original_upstream_default_or_preset_only",
+      "limitation": "Not an unrestricted user override; full option parity is incomplete."
+    },
+    {
+      "name": "binder_scaffold",
+      "status": "INTEGRATED",
+      "exposure": "original_upstream_default_or_preset_only",
+      "limitation": "Not an unrestricted user override; full option parity is incomplete."
+    },
+    {
+      "name": "binder_shapes",
+      "status": "INTEGRATED",
+      "exposure": "original_upstream_default_or_preset_only",
+      "limitation": "Not an unrestricted user override; full option parity is incomplete."
+    },
+    {
+      "name": "campaign_name",
+      "status": "INTEGRATED",
+      "exposure": "original_upstream_default_or_preset_only",
+      "limitation": "Not an unrestricted user override; full option parity is incomplete."
+    },
+    {
+      "name": "campaign_seed",
+      "status": "INTEGRATED",
+      "exposure": "native_control",
+      "limitation": null
+    },
+    {
+      "name": "compile_next_length",
+      "status": "INTEGRATED",
+      "exposure": "original_upstream_default_or_preset_only",
+      "limitation": "Not an unrestricted user override; full option parity is incomplete."
+    },
+    {
+      "name": "copies",
+      "status": "INTEGRATED",
+      "exposure": "original_upstream_default_or_preset_only",
+      "limitation": "Not an unrestricted user override; full option parity is incomplete."
+    },
+    {
+      "name": "crop_fasta_sequence",
+      "status": "INTEGRATED",
+      "exposure": "original_upstream_default_or_preset_only",
+      "limitation": "Not an unrestricted user override; full option parity is incomplete."
+    },
+    {
+      "name": "cyclic_offset_mode",
+      "status": "INTEGRATED",
+      "exposure": "original_upstream_default_or_preset_only",
+      "limitation": "Not an unrestricted user override; full option parity is incomplete."
+    },
+    {
+      "name": "cyclize_peptide",
+      "status": "INTEGRATED",
+      "exposure": "original_upstream_default_or_preset_only",
+      "limitation": "Not an unrestricted user override; full option parity is incomplete."
+    },
+    {
+      "name": "design_dropout",
+      "status": "INTEGRATED",
+      "exposure": "original_upstream_default_or_preset_only",
+      "limitation": "Not an unrestricted user override; full option parity is incomplete."
+    },
+    {
+      "name": "design_models",
+      "status": "INTEGRATED",
+      "exposure": "original_upstream_default_or_preset_only",
+      "limitation": "Not an unrestricted user override; full option parity is incomplete."
+    },
+    {
+      "name": "design_recycles",
+      "status": "INTEGRATED",
+      "exposure": "original_upstream_default_or_preset_only",
+      "limitation": "Not an unrestricted user override; full option parity is incomplete."
+    },
+    {
+      "name": "design_workers",
+      "status": "INTEGRATED",
+      "exposure": "explicit_native_policy",
+      "limitation": "Not an unrestricted user override; full option parity is incomplete."
+    },
+    {
+      "name": "desperation",
+      "status": "INTEGRATED",
+      "exposure": "original_upstream_default_or_preset_only",
+      "limitation": "Not an unrestricted user override; full option parity is incomplete."
+    },
+    {
+      "name": "desperation_trajectories",
+      "status": "INTEGRATED",
+      "exposure": "original_upstream_default_or_preset_only",
+      "limitation": "Not an unrestricted user override; full option parity is incomplete."
+    },
+    {
+      "name": "detarget_check_interval",
+      "status": "INTEGRATED",
+      "exposure": "original_upstream_default_or_preset_only",
+      "limitation": "Not an unrestricted user override; full option parity is incomplete."
+    },
+    {
+      "name": "domain_linker_fix_cut",
+      "status": "INTEGRATED",
+      "exposure": "original_upstream_default_or_preset_only",
+      "limitation": "Not an unrestricted user override; full option parity is incomplete."
+    },
+    {
+      "name": "enough_passing_sequences",
+      "status": "INTEGRATED",
+      "exposure": "original_upstream_default_or_preset_only",
+      "limitation": "Not an unrestricted user override; full option parity is incomplete."
+    },
+    {
+      "name": "filters",
+      "status": "INTEGRATED",
+      "exposure": "original_upstream_default_or_preset_only",
+      "limitation": "Not an unrestricted user override; full option parity is incomplete."
+    },
+    {
+      "name": "forced_targeting",
+      "status": "INTEGRATED",
+      "exposure": "original_upstream_default_or_preset_only",
+      "limitation": "Not an unrestricted user override; full option parity is incomplete."
+    },
+    {
+      "name": "forced_targeting_shell",
+      "status": "INTEGRATED",
+      "exposure": "original_upstream_default_or_preset_only",
+      "limitation": "Not an unrestricted user override; full option parity is incomplete."
+    },
+    {
+      "name": "gpu_ids",
+      "status": "INTEGRATED",
+      "exposure": "original_upstream_default_or_preset_only",
+      "limitation": "Not an unrestricted user override; full option parity is incomplete."
+    },
+    {
+      "name": "hash_design_names",
+      "status": "INTEGRATED",
+      "exposure": "original_upstream_default_or_preset_only",
+      "limitation": "Not an unrestricted user override; full option parity is incomplete."
+    },
+    {
+      "name": "idr_crop_count",
+      "status": "INTEGRATED",
+      "exposure": "original_upstream_default_or_preset_only",
+      "limitation": "Not an unrestricted user override; full option parity is incomplete."
+    },
+    {
+      "name": "induced_fit_monomer_adaptive",
+      "status": "INTEGRATED",
+      "exposure": "original_upstream_default_or_preset_only",
+      "limitation": "Not an unrestricted user override; full option parity is incomplete."
+    },
+    {
+      "name": "induced_fit_monomer_chunk",
+      "status": "INTEGRATED",
+      "exposure": "original_upstream_default_or_preset_only",
+      "limitation": "Not an unrestricted user override; full option parity is incomplete."
+    },
+    {
+      "name": "induced_fit_monomer_plddt",
+      "status": "INTEGRATED",
+      "exposure": "original_upstream_default_or_preset_only",
+      "limitation": "Not an unrestricted user override; full option parity is incomplete."
+    },
+    {
+      "name": "induced_fit_monomer_steps",
+      "status": "INTEGRATED",
+      "exposure": "original_upstream_default_or_preset_only",
+      "limitation": "Not an unrestricted user override; full option parity is incomplete."
+    },
+    {
+      "name": "induced_fit_mpnn_designed_share",
+      "status": "INTEGRATED",
+      "exposure": "original_upstream_default_or_preset_only",
+      "limitation": "Not an unrestricted user override; full option parity is incomplete."
+    },
+    {
+      "name": "induced_fit_mpnn_shell",
+      "status": "INTEGRATED",
+      "exposure": "original_upstream_default_or_preset_only",
+      "limitation": "Not an unrestricted user override; full option parity is incomplete."
+    },
+    {
+      "name": "induced_fit_mpnn_threshold",
+      "status": "INTEGRATED",
+      "exposure": "original_upstream_default_or_preset_only",
+      "limitation": "Not an unrestricted user override; full option parity is incomplete."
+    },
+    {
+      "name": "induced_fit_steps",
+      "status": "INTEGRATED",
+      "exposure": "original_upstream_default_or_preset_only",
+      "limitation": "Not an unrestricted user override; full option parity is incomplete."
+    },
+    {
+      "name": "initial_guess",
+      "status": "INTEGRATED",
+      "exposure": "original_upstream_default_or_preset_only",
+      "limitation": "Not an unrestricted user override; full option parity is incomplete."
+    },
+    {
+      "name": "kept_sequences",
+      "status": "INTEGRATED",
+      "exposure": "original_upstream_default_or_preset_only",
+      "limitation": "Not an unrestricted user override; full option parity is incomplete."
+    },
+    {
+      "name": "length_bucket_size",
+      "status": "INTEGRATED",
+      "exposure": "original_upstream_default_or_preset_only",
+      "limitation": "Not an unrestricted user override; full option parity is incomplete."
+    },
+    {
+      "name": "losses",
+      "status": "INTEGRATED",
+      "exposure": "original_upstream_default_or_preset_only",
+      "limitation": "Not an unrestricted user override; full option parity is incomplete."
+    },
+    {
+      "name": "max_binder_chain_breaks_final",
+      "status": "INTEGRATED",
+      "exposure": "original_upstream_default_or_preset_only",
+      "limitation": "Not an unrestricted user override; full option parity is incomplete."
+    },
+    {
+      "name": "max_binder_free_cysteines_final",
+      "status": "INTEGRATED",
+      "exposure": "original_upstream_default_or_preset_only",
+      "limitation": "Not an unrestricted user override; full option parity is incomplete."
+    },
+    {
+      "name": "max_coldspot_contact_final",
+      "status": "INTEGRATED",
+      "exposure": "original_upstream_default_or_preset_only",
+      "limitation": "Not an unrestricted user override; full option parity is incomplete."
+    },
+    {
+      "name": "max_cyclic_closure_distance_final",
+      "status": "INTEGRATED",
+      "exposure": "original_upstream_default_or_preset_only",
+      "limitation": "Not an unrestricted user override; full option parity is incomplete."
+    },
+    {
+      "name": "max_detarget_interface_residues_final",
+      "status": "INTEGRATED",
+      "exposure": "original_upstream_default_or_preset_only",
+      "limitation": "Not an unrestricted user override; full option parity is incomplete."
+    },
+    {
+      "name": "max_detarget_iptm",
+      "status": "INTEGRATED",
+      "exposure": "original_upstream_default_or_preset_only",
+      "limitation": "Not an unrestricted user override; full option parity is incomplete."
+    },
+    {
+      "name": "max_detarget_rounds",
+      "status": "INTEGRATED",
+      "exposure": "original_upstream_default_or_preset_only",
+      "limitation": "Not an unrestricted user override; full option parity is incomplete."
+    },
+    {
+      "name": "max_exposed_loop_fraction_final",
+      "status": "INTEGRATED",
+      "exposure": "original_upstream_default_or_preset_only",
+      "limitation": "Not an unrestricted user override; full option parity is incomplete."
+    },
+    {
+      "name": "max_helix_fraction_final",
+      "status": "INTEGRATED",
+      "exposure": "original_upstream_default_or_preset_only",
+      "limitation": "Not an unrestricted user override; full option parity is incomplete."
+    },
+    {
+      "name": "max_induced_fit_tm_final",
+      "status": "INTEGRATED",
+      "exposure": "original_upstream_default_or_preset_only",
+      "limitation": "Not an unrestricted user override; full option parity is incomplete."
+    },
+    {
+      "name": "max_interdomain_contact_final",
+      "status": "INTEGRATED",
+      "exposure": "original_upstream_default_or_preset_only",
+      "limitation": "Not an unrestricted user override; full option parity is incomplete."
+    },
+    {
+      "name": "max_mhc_anchor_score_final",
+      "status": "INTEGRATED",
+      "exposure": "original_upstream_default_or_preset_only",
+      "limitation": "Not an unrestricted user override; full option parity is incomplete."
+    },
+    {
+      "name": "max_off_epitope_contact_final",
+      "status": "INTEGRATED",
+      "exposure": "original_upstream_default_or_preset_only",
+      "limitation": "Not an unrestricted user override; full option parity is incomplete."
+    },
+    {
+      "name": "max_off_paratope_contact_final",
+      "status": "INTEGRATED",
+      "exposure": "original_upstream_default_or_preset_only",
+      "limitation": "Not an unrestricted user override; full option parity is incomplete."
+    },
+    {
+      "name": "max_oligomer_symmetry_rmsd_final",
+      "status": "INTEGRATED",
+      "exposure": "original_upstream_default_or_preset_only",
+      "limitation": "Not an unrestricted user override; full option parity is incomplete."
+    },
+    {
+      "name": "max_protease_site_score_final",
+      "status": "INTEGRATED",
+      "exposure": "original_upstream_default_or_preset_only",
+      "limitation": "Not an unrestricted user override; full option parity is incomplete."
+    },
+    {
+      "name": "max_scaffold_framework_rmsd_final",
+      "status": "INTEGRATED",
+      "exposure": "original_upstream_default_or_preset_only",
+      "limitation": "Not an unrestricted user override; full option parity is incomplete."
+    },
+    {
+      "name": "max_surface_hydrophobicity_final",
+      "status": "INTEGRATED",
+      "exposure": "original_upstream_default_or_preset_only",
+      "limitation": "Not an unrestricted user override; full option parity is incomplete."
+    },
+    {
+      "name": "max_termini_distance_final",
+      "status": "INTEGRATED",
+      "exposure": "original_upstream_default_or_preset_only",
+      "limitation": "Not an unrestricted user override; full option parity is incomplete."
+    },
+    {
+      "name": "max_terminus_exposure_final",
+      "status": "INTEGRATED",
+      "exposure": "original_upstream_default_or_preset_only",
+      "limitation": "Not an unrestricted user override; full option parity is incomplete."
+    },
+    {
+      "name": "max_trajectories",
+      "status": "INTEGRATED",
+      "exposure": "native_control",
+      "limitation": null
+    },
+    {
+      "name": "max_workers_per_gpu",
+      "status": "INTEGRATED",
+      "exposure": "original_upstream_default_or_preset_only",
+      "limitation": "Not an unrestricted user override; full option parity is incomplete."
+    },
+    {
+      "name": "min_binder_disulfides_final",
+      "status": "INTEGRATED",
+      "exposure": "original_upstream_default_or_preset_only",
+      "limitation": "Not an unrestricted user override; full option parity is incomplete."
+    },
+    {
+      "name": "min_domain_separation_ratio_final",
+      "status": "INTEGRATED",
+      "exposure": "original_upstream_default_or_preset_only",
+      "limitation": "Not an unrestricted user override; full option parity is incomplete."
+    },
+    {
+      "name": "min_epitope_residues_contacted_final",
+      "status": "INTEGRATED",
+      "exposure": "original_upstream_default_or_preset_only",
+      "limitation": "Not an unrestricted user override; full option parity is incomplete."
+    },
+    {
+      "name": "min_framework_packing_final",
+      "status": "INTEGRATED",
+      "exposure": "original_upstream_default_or_preset_only",
+      "limitation": "Not an unrestricted user override; full option parity is incomplete."
+    },
+    {
+      "name": "min_hotspot_contact_final",
+      "status": "INTEGRATED",
+      "exposure": "original_upstream_default_or_preset_only",
+      "limitation": "Not an unrestricted user override; full option parity is incomplete."
+    },
+    {
+      "name": "min_induced_fit_interface_rmsd_final",
+      "status": "INTEGRATED",
+      "exposure": "original_upstream_default_or_preset_only",
+      "limitation": "Not an unrestricted user override; full option parity is incomplete."
+    },
+    {
+      "name": "min_interface_buried_area_final",
+      "status": "INTEGRATED",
+      "exposure": "original_upstream_default_or_preset_only",
+      "limitation": "Not an unrestricted user override; full option parity is incomplete."
+    },
+    {
+      "name": "min_receptor_chains_contacted_final",
+      "status": "INTEGRATED",
+      "exposure": "original_upstream_default_or_preset_only",
+      "limitation": "Not an unrestricted user override; full option parity is incomplete."
+    },
+    {
+      "name": "min_scaffold_sequence_retained_final",
+      "status": "INTEGRATED",
+      "exposure": "original_upstream_default_or_preset_only",
+      "limitation": "Not an unrestricted user override; full option parity is incomplete."
+    },
+    {
+      "name": "min_target_crop_length_final",
+      "status": "INTEGRATED",
+      "exposure": "original_upstream_default_or_preset_only",
+      "limitation": "Not an unrestricted user override; full option parity is incomplete."
+    },
+    {
+      "name": "min_target_plddt_final",
+      "status": "INTEGRATED",
+      "exposure": "original_upstream_default_or_preset_only",
+      "limitation": "Not an unrestricted user override; full option parity is incomplete."
+    },
+    {
+      "name": "min_termini_away_cosine_final",
+      "status": "INTEGRATED",
+      "exposure": "original_upstream_default_or_preset_only",
+      "limitation": "Not an unrestricted user override; full option parity is incomplete."
+    },
+    {
+      "name": "mpnn_fix_linker",
+      "status": "INTEGRATED",
+      "exposure": "original_upstream_default_or_preset_only",
+      "limitation": "Not an unrestricted user override; full option parity is incomplete."
+    },
+    {
+      "name": "mpnn_model",
+      "status": "INTEGRATED",
+      "exposure": "original_upstream_default_or_preset_only",
+      "limitation": "Not an unrestricted user override; full option parity is incomplete."
+    },
+    {
+      "name": "mpnn_variant",
+      "status": "INTEGRATED",
+      "exposure": "original_upstream_default_or_preset_only",
+      "limitation": "Not an unrestricted user override; full option parity is incomplete."
+    },
+    {
+      "name": "multitarget_best_round",
+      "status": "INTEGRATED",
+      "exposure": "original_upstream_default_or_preset_only",
+      "limitation": "Not an unrestricted user override; full option parity is incomplete."
+    },
+    {
+      "name": "multitarget_cumulative_filter",
+      "status": "INTEGRATED",
+      "exposure": "original_upstream_default_or_preset_only",
+      "limitation": "Not an unrestricted user override; full option parity is incomplete."
+    },
+    {
+      "name": "multitarget_filter_models",
+      "status": "INTEGRATED",
+      "exposure": "original_upstream_default_or_preset_only",
+      "limitation": "Not an unrestricted user override; full option parity is incomplete."
+    },
+    {
+      "name": "multitarget_merged_gradient_budget",
+      "status": "INTEGRATED",
+      "exposure": "original_upstream_default_or_preset_only",
+      "limitation": "Not an unrestricted user override; full option parity is incomplete."
+    },
+    {
+      "name": "multitarget_merged_gradients",
+      "status": "INTEGRATED",
+      "exposure": "original_upstream_default_or_preset_only",
+      "limitation": "Not an unrestricted user override; full option parity is incomplete."
+    },
+    {
+      "name": "multitarget_rounds_per_target",
+      "status": "INTEGRATED",
+      "exposure": "original_upstream_default_or_preset_only",
+      "limitation": "Not an unrestricted user override; full option parity is incomplete."
+    },
+    {
+      "name": "multitarget_steps",
+      "status": "INTEGRATED",
+      "exposure": "original_upstream_default_or_preset_only",
+      "limitation": "Not an unrestricted user override; full option parity is incomplete."
+    },
+    {
+      "name": "multitarget_swap_patience",
+      "status": "INTEGRATED",
+      "exposure": "original_upstream_default_or_preset_only",
+      "limitation": "Not an unrestricted user override; full option parity is incomplete."
+    },
+    {
+      "name": "multitarget_swap_threshold",
+      "status": "INTEGRATED",
+      "exposure": "original_upstream_default_or_preset_only",
+      "limitation": "Not an unrestricted user override; full option parity is incomplete."
+    },
+    {
+      "name": "multitarget_tied_redesign",
+      "status": "INTEGRATED",
+      "exposure": "original_upstream_default_or_preset_only",
+      "limitation": "Not an unrestricted user override; full option parity is incomplete."
+    },
+    {
+      "name": "multitarget_warmup_patience",
+      "status": "INTEGRATED",
+      "exposure": "original_upstream_default_or_preset_only",
+      "limitation": "Not an unrestricted user override; full option parity is incomplete."
+    },
+    {
+      "name": "mutate_positions",
+      "status": "INTEGRATED",
+      "exposure": "original_upstream_default_or_preset_only",
+      "limitation": "Not an unrestricted user override; full option parity is incomplete."
+    },
+    {
+      "name": "number_of_final_designs",
+      "status": "INTEGRATED",
+      "exposure": "native_control",
+      "limitation": null
+    },
+    {
+      "name": "oligomer_tie",
+      "status": "INTEGRATED",
+      "exposure": "original_upstream_default_or_preset_only",
+      "limitation": "Not an unrestricted user override; full option parity is incomplete."
+    },
+    {
+      "name": "parameter_sweep",
+      "status": "INTEGRATED",
+      "exposure": "original_upstream_default_or_preset_only",
+      "limitation": "Not an unrestricted user override; full option parity is incomplete."
+    },
+    {
+      "name": "project_folder",
+      "status": "INTEGRATED",
+      "exposure": "explicit_native_policy",
+      "limitation": "Not an unrestricted user override; full option parity is incomplete."
+    },
+    {
+      "name": "redesign_interface",
+      "status": "INTEGRATED",
+      "exposure": "original_upstream_default_or_preset_only",
+      "limitation": "Not an unrestricted user override; full option parity is incomplete."
+    },
+    {
+      "name": "relax_accepted_designs",
+      "status": "INTEGRATED",
+      "exposure": "original_upstream_default_or_preset_only",
+      "limitation": "Not an unrestricted user override; full option parity is incomplete."
+    },
+    {
+      "name": "relax_learning_rate",
+      "status": "INTEGRATED",
+      "exposure": "original_upstream_default_or_preset_only",
+      "limitation": "Not an unrestricted user override; full option parity is incomplete."
+    },
+    {
+      "name": "relax_min_sep",
+      "status": "INTEGRATED",
+      "exposure": "original_upstream_default_or_preset_only",
+      "limitation": "Not an unrestricted user override; full option parity is incomplete."
+    },
+    {
+      "name": "relax_overlap_tol",
+      "status": "INTEGRATED",
+      "exposure": "original_upstream_default_or_preset_only",
+      "limitation": "Not an unrestricted user override; full option parity is incomplete."
+    },
+    {
+      "name": "relax_restraint_backbone",
+      "status": "INTEGRATED",
+      "exposure": "original_upstream_default_or_preset_only",
+      "limitation": "Not an unrestricted user override; full option parity is incomplete."
+    },
+    {
+      "name": "relax_restraint_sidechain",
+      "status": "INTEGRATED",
+      "exposure": "original_upstream_default_or_preset_only",
+      "limitation": "Not an unrestricted user override; full option parity is incomplete."
+    },
+    {
+      "name": "relax_steps",
+      "status": "INTEGRATED",
+      "exposure": "original_upstream_default_or_preset_only",
+      "limitation": "Not an unrestricted user override; full option parity is incomplete."
+    },
+    {
+      "name": "relax_weight_bond",
+      "status": "INTEGRATED",
+      "exposure": "original_upstream_default_or_preset_only",
+      "limitation": "Not an unrestricted user override; full option parity is incomplete."
+    },
+    {
+      "name": "relax_weight_clash",
+      "status": "INTEGRATED",
+      "exposure": "original_upstream_default_or_preset_only",
+      "limitation": "Not an unrestricted user override; full option parity is incomplete."
+    },
+    {
+      "name": "resume",
+      "status": "INTEGRATED",
+      "exposure": "native_control",
+      "limitation": null
+    },
+    {
+      "name": "save_binder_monomers",
+      "status": "INTEGRATED",
+      "exposure": "original_upstream_default_or_preset_only",
+      "limitation": "Not an unrestricted user override; full option parity is incomplete."
+    },
+    {
+      "name": "save_design_animations",
+      "status": "INTEGRATED",
+      "exposure": "original_upstream_default_or_preset_only",
+      "limitation": "Not an unrestricted user override; full option parity is incomplete."
+    },
+    {
+      "name": "save_design_frames",
+      "status": "INTEGRATED",
+      "exposure": "original_upstream_default_or_preset_only",
+      "limitation": "Not an unrestricted user override; full option parity is incomplete."
+    },
+    {
+      "name": "save_design_sequences",
+      "status": "INTEGRATED",
+      "exposure": "original_upstream_default_or_preset_only",
+      "limitation": "Not an unrestricted user override; full option parity is incomplete."
+    },
+    {
+      "name": "save_design_trajectory",
+      "status": "INTEGRATED",
+      "exposure": "original_upstream_default_or_preset_only",
+      "limitation": "Not an unrestricted user override; full option parity is incomplete."
+    },
+    {
+      "name": "save_failed_refolds",
+      "status": "INTEGRATED",
+      "exposure": "original_upstream_default_or_preset_only",
+      "limitation": "Not an unrestricted user override; full option parity is incomplete."
+    },
+    {
+      "name": "save_failed_trajectories",
+      "status": "INTEGRATED",
+      "exposure": "original_upstream_default_or_preset_only",
+      "limitation": "Not an unrestricted user override; full option parity is incomplete."
+    },
+    {
+      "name": "save_loss_plots",
+      "status": "INTEGRATED",
+      "exposure": "original_upstream_default_or_preset_only",
+      "limitation": "Not an unrestricted user override; full option parity is incomplete."
+    },
+    {
+      "name": "sequence_candidates",
+      "status": "INTEGRATED",
+      "exposure": "original_upstream_default_or_preset_only",
+      "limitation": "Not an unrestricted user override; full option parity is incomplete."
+    },
+    {
+      "name": "sparse_output",
+      "status": "INTEGRATED",
+      "exposure": "original_upstream_default_or_preset_only",
+      "limitation": "Not an unrestricted user override; full option parity is incomplete."
+    },
+    {
+      "name": "subbatch_size",
+      "status": "INTEGRATED",
+      "exposure": "original_upstream_default_or_preset_only",
+      "limitation": "Not an unrestricted user override; full option parity is incomplete."
+    },
+    {
+      "name": "target_chain",
+      "status": "INTEGRATED",
+      "exposure": "original_upstream_default_or_preset_only",
+      "limitation": "Not an unrestricted user override; full option parity is incomplete."
+    },
+    {
+      "name": "targets",
+      "status": "INTEGRATED",
+      "exposure": "native_control",
+      "limitation": null
+    },
+    {
+      "name": "trajectory_only",
+      "status": "INTEGRATED",
+      "exposure": "original_upstream_default_or_preset_only",
+      "limitation": "Not an unrestricted user override; full option parity is incomplete."
+    },
+    {
+      "name": "use_cueq",
+      "status": "INTEGRATED",
+      "exposure": "explicit_native_policy",
+      "limitation": "Not an unrestricted user override; full option parity is incomplete."
+    },
+    {
+      "name": "validation_crop_flank",
+      "status": "INTEGRATED",
+      "exposure": "original_upstream_default_or_preset_only",
+      "limitation": "Not an unrestricted user override; full option parity is incomplete."
+    },
+    {
+      "name": "validation_model",
+      "status": "INTEGRATED",
+      "exposure": "original_upstream_default_or_preset_only",
+      "limitation": "Not an unrestricted user override; full option parity is incomplete."
+    },
+    {
+      "name": "validation_models",
+      "status": "INTEGRATED",
+      "exposure": "original_upstream_default_or_preset_only",
+      "limitation": "Not an unrestricted user override; full option parity is incomplete."
+    },
+    {
+      "name": "validation_recycles",
+      "status": "INTEGRATED",
+      "exposure": "original_upstream_default_or_preset_only",
+      "limitation": "Not an unrestricted user override; full option parity is incomplete."
+    },
+    {
+      "name": "worker_launch_stagger",
+      "status": "INTEGRATED",
+      "exposure": "original_upstream_default_or_preset_only",
+      "limitation": "Not an unrestricted user override; full option parity is incomplete."
+    },
+    {
+      "name": "workers_per_gpu",
+      "status": "INTEGRATED",
+      "exposure": "original_upstream_default_or_preset_only",
+      "limitation": "Not an unrestricted user override; full option parity is incomplete."
+    }
+  ],
+  "sourceSettingsSha256": "d88f87212929bfc7a8ae186189eab70a527d04aa2d89f5d6adee1f6af4993cfa",
+  "note": "Generated from every shipped modality/property preset and explicit CAMPAIGN_SETTING_NAMES. Other dynamically registered losses/metric parameters and CLI flags still require inventory expansion; this is not a full parity claim."
+}

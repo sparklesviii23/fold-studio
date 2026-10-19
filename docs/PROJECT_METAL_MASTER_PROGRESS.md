@@ -1135,3 +1135,40 @@ is preserved. No model inference was rerun for this review. Source/parent output
 and raw metric values remain unchanged. 295 Python tests pass; frontend copy
 assertion was updated to the equivalent scoped execution disclosure. Native
 packaged recovery/review controls are the next acceptance step.
+
+### Original property presets and native packaged vertical slice
+
+Native `097a912` reads the genuine prior 1/3/1 trajectory/refold/accepted case and
+executes original upstream ranking/filtering with its own bundled CPU runtime.
+Native buttons create recorded reviews and show actual results; original
+acceptance remains unchanged (`packaged-bindcraft-review.json`,
+`native-bindcraft-review.json`, screenshot/AX). The relocated runtime also runs a
+new actual 24-residue two-attempt cancellation/recovery case: interrupted claimed
+trajectory 1 stays spent and trajectory 2 executes under original filters
+(`packaged-bindcraft-recovery.json`). No CPU/runtime development override.
+
+To close the full native packaged acceptance gap, one bounded original-ensemble
+repeat was launched through native controls: job
+`ce12298c-739e-47d3-bb9c-91794ff80ec5`, isolated root
+`../validation/bindcraft-campaign-review`. Five original design multimers, two
+held-out monomers, seed 42, full hPDL1 115 + binder 60, request one accepted design,
+maximum three attempts. Interpreter, all checkpoints and source belong to the
+relocated app; no inference fallback. Genuine Metal optimizer events are being
+emitted. `native-bindcraft-ensemble-job.json` and screenshot record launch, not
+completion. Do not duplicate, cancel or restart this acceptance computation.
+
+Additive property controls now call original `campaign_over_presets`; they do not
+merge property values behind explicit already-expanded modality overrides. All
+nine property presets, a combined selection and VHH/humanize exactly match
+original resolution and pass original input/feature preflight. VHH/mixed-topology
+is refused by original conflict logic before creating a job. Preset hashes and
+selection are retained. These are configuration/input checks, not property-
+specific gradient, generation or biological validation. Default no-property
+preparations remain identical. `bindcraft-property-presets.json`.
+
+300 Python tests, 73 frontend tests and TypeScript pass. Property source/UI changes
+are not in the active `097a912` bundle yet; packaging is deferred while the real
+full ensemble calculation runs. `BINDCRAFT_FEATURE_PARITY.json` inventories every
+shipped modality/property and explicit campaign-setting name with scope/status.
+Full option/modality parity remains incomplete, including dynamic loss/metric
+parameters and unavailable native modality/sequence-target routes.

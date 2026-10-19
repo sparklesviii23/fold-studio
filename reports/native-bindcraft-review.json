@@ -1,0 +1,46 @@
+{
+  "state": "passed",
+  "scope": "Native Molecular Architect reads genuine saved 1 trajectory / 3 refolded candidates / 1 accepted design, then actual native rank/filter buttons create separate recorded upstream reviews. Original acceptance is retained; missing filter readings disclosed. No prediction rerun.",
+  "app": "/Users/vii/Documents/FoldStudio-MetalPort/validation/Relocated BindCraft Recovery Engine/FOLD STUDIO Metal Dev.app",
+  "sourceCommit": "097a912",
+  "root": "/Users/vii/Documents/FoldStudio-MetalPort/validation/bindcraft-campaign-review",
+  "nativeReviews": [
+    {
+      "analysisId": "c057068c-07b3-46b1-a04d-f04800e762a5",
+      "operation": "filter",
+      "table": "candidates",
+      "rows": 3,
+      "sourceUnchanged": true,
+      "report": [
+        "  Backbone_Clashes                 <= 0         keeps    3 of 3",
+        "  Binder_RMSD                      <= 3.5       keeps    3 of 3",
+        "  Epitope_Residues_Contacted       >= 0         keeps    3 of 3",
+        "  Hotspot_Contact_Fraction         >= 0         keeps    3 of 3",
+        "  Interface_BuriedArea             >= 0         keeps    3 of 3",
+        "  Interface_BuriedArea_Fraction    >= 0         keeps    3 of 3",
+        "  Interface_Residues               >= 7         keeps    3 of 3",
+        "  Off_Epitope_Contact_Fraction     <= 1         keeps    3 of 3",
+        "  SS_pLDDT                         >= 0         keeps    3 of 3",
+        "  Target_pLDDT                     >= 0         keeps    3 of 3",
+        "  Unbound_Binder_pLDDT             >= 0.7       keeps    3 of 3",
+        "  i_pAE                            <= 0.35      keeps    3 of 3",
+        "  i_pTM                            >= 0.7       keeps    3 of 3",
+        "  pTM                              >= 0.55      keeps    3 of 3",
+        "  every threshold together                      keeps    3 of 3",
+        "  not recorded in 2_Refolded, so not reapplied: Receptor_Chains_Contacted"
+      ]
+    },
+    {
+      "analysisId": "ab3eb711-e9cc-42b1-a0bc-55352a642a09",
+      "operation": "rank",
+      "table": "candidates",
+      "rows": 3,
+      "sourceUnchanged": true,
+      "report": null
+    }
+  ],
+  "visualEvidence": [
+    "native-bindcraft-review.png",
+    "native-bindcraft-review-ax.txt"
+  ]
+}

@@ -1,0 +1,71 @@
+{
+  "schemaVersion": 1,
+  "updatedUtc": "2026-10-19T05:11:02.167999+00:00",
+  "branch": "project-metal/apple-silicon-engine",
+  "implementationCommit": "097a912",
+  "scope": "Project Metal Omega: complete authentic local BindCraft2 integration. No new Vina, OpenMM or interface redesign work.",
+  "upstreamRevision": "c0ee638d11bc010817c2c97ee58ed5c323e664e2",
+  "verified": {
+    "backendTests": 300,
+    "frontendTests": 73,
+    "typescript": "passed",
+    "corePipeline": "Real 175-residue hPDL1 ensemble design + ProteinMPNN + held-out AF2 + original filters; one accepted computational prediction, no biological claim.",
+    "campaignRecovery": "Actual CPU cancellation at claimed trajectory 2; original budget continues with rows 1,3,4 and no accepted designs.",
+    "filterRank": "Shared operations exactly match original upstream functions on existing authentic 1/3/1 trajectory/refold/accepted case.",
+    "propertyPresets": "9 original presets + combination + VHH/humanize resolution/preflight; VHH/mixed topology refusal before saving. No property generation validation."
+  },
+  "evidence": [
+    "reports/bindcraft-ensemble-outcome.json",
+    "reports/bindcraft-campaign-recovery.json",
+    "reports/bindcraft-campaign-review.json",
+    "reports/af2-320-metal-gradient-only.json"
+  ],
+  "runtime": {
+    "cpu": "../runtimes/jax-cpu/bin/python",
+    "metal": "../runtimes/jax-metaljax/bin/python",
+    "jax": "0.11.2",
+    "metaljax": "0.11.9",
+    "precisionPolicy": "Explicit float32 on Metal; no CPU fallback",
+    "models": "../models/alphafold"
+  },
+  "knownFailure": {
+    "case": "320-residue full trained AF2 sequence gradient, 205 binder +115 hPDL1, one recycle",
+    "error": "RESOURCE_EXHAUSTED: 8.8 GB footprint / 8.4 GB live MLX arrays exceeds enabled 8 GiB governor; machine free 0.3 GB.",
+    "lastChange": "No standalone prediction executable retained; max compiled cache 1; upstream rematerialization enabled. Still fails.",
+    "policy": "No larger Metal profile enabled; retain safe caps.",
+    "reproduce": "METALJAX_MEM_GOVERNOR=1 METALJAX_MEM_BUDGET_MB=8192 METALJAX_MEM_SYS_MB=23552 METALJAX_LOOP_INFLIGHT_MB=128 METALJAX_MATMUL_PRECISION=highest ../runtimes/jax-metaljax/bin/python -B scripts/validate-af2-gradient-memory.py --parameters ../models/alphafold --target vendor/bindcraft2/settings/target/structures/hPDL1.pdb --reference reports/af2-320-cpu.json --output <new-output.json>"
+  },
+  "activeComputationalTest": {
+    "jobId": "ce12298c-739e-47d3-bb9c-91794ff80ec5",
+    "root": "/Users/vii/Documents/FoldStudio-MetalPort/validation/bindcraft-campaign-review",
+    "app": "/Users/vii/Documents/FoldStudio-MetalPort/validation/Relocated BindCraft Recovery Engine/FOLD STUDIO Metal Dev.app",
+    "workerPid": 20977,
+    "backend": "metal",
+    "profile": "experimental-metal-float32-ensemble",
+    "state": "running",
+    "maximumAttempts": 3,
+    "report": "reports/native-bindcraft-ensemble-job.json",
+    "instruction": "Do not cancel, duplicate or restart this real native final acceptance. Inspect its existing job/log/output. Do not run another high-memory AlphaFold process concurrently."
+  },
+  "activeBuild": null,
+  "latestVerifiedApp": "/Users/vii/Documents/FoldStudio-MetalPort/validation/Relocated BindCraft Recovery Engine/FOLD STUDIO Metal Dev.app (097a912; native review and packaged recovery passed; full ensemble acceptance active)",
+  "immediateNext": [
+    "Inspect the running native packaged ensemble without restarting it; eventually verify actual MPNN/refolding/filter/rank outputs and signature.",
+    "Finish property tests/receipts and commit the additive preset controls.",
+    "Expand remaining upstream modalities/options with original settings hierarchy and explicit resource guards; implement accurate feature parity inventory."
+  ],
+  "limitations": [
+    "No complete upstream modality/option parity claim.",
+    "Large Metal gradients remain memory limited.",
+    "Current new recovery/review native packaged acceptance pending.",
+    "Do not rerun prior accepted/VHH/homodimer/multitarget finished campaigns merely to inspect results."
+  ],
+  "nextPropertyIntegrationFinding": {
+    "upstreamAuthority": "bindcraft.settings.campaign_over_presets / requested_preset_names / read_preset",
+    "precedence": "core profiles, modality, alphabetically selected property presets, target presets, explicit campaign overrides",
+    "implementationConstraint": "Do not merge property flags on top of already-expanded modality settings: explicit modality fields would otherwise override property presets. Resolve the real upstream hierarchy in the pinned CPU runtime and retain selection/provenance.",
+    "safety": "Validate requested property names against shipped source, preserve scientific thresholds, use upstream feature/input preflight before queueing, keep default no-properties behavior unchanged.",
+    "catalog": "settings/property contains 9 presets (initial_guess, protease_stable, mixed_topology, termini_accessible, disulfide_staple, termini_together, humanize, bigbang, forced_targeting). No property code has been changed yet."
+  },
+  "uncommittedWork": "Property controls and original compatibility/preflight resolution ready for checkpoint; not yet in active native bundle."
+}

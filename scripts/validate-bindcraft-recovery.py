@@ -1,18 +1,22 @@
 """Real upstream campaign interruption/next-trajectory recovery; no filter changes."""
 import argparse,csv,hashlib,json,os,pathlib,subprocess,sys,time
 sys.dont_write_bytecode=True
-ROOT=pathlib.Path(__file__).resolve().parents[1];sys.path.insert(0,str(ROOT/'scientific'))
-from worker import Service
-p=argparse.ArgumentParser();p.add_argument('--directory',required=True);p.add_argument('--python',required=True);p.add_argument('--parameters',required=True);p.add_argument('--report',required=True);a=p.parse_args();root=pathlib.Path(a.directory).resolve()
+REPOSITORY=pathlib.Path(__file__).resolve().parents[1]
+p=argparse.ArgumentParser();p.add_argument('--directory',required=True);p.add_argument('--python',required=True);p.add_argument('--parameters',required=True);p.add_argument('--report',required=True);p.add_argument('--engine-root');p.add_argument('--attempts',type=int,default=4);p.add_argument('--cancel-after-updates',type=int);a=p.parse_args();ROOT=pathlib.Path(a.engine_root).resolve() if a.engine_root else REPOSITORY;sys.path.insert(0,str(ROOT/'scientific'));from worker import Service
+root=pathlib.Path(a.directory).resolve()
 if root.exists():raise SystemExit('Use a new isolated campaign recovery root.')
 s=Service(root);s.setting_set({'key':'bindcraftPython','value':os.path.abspath(a.python)});s.setting_set({'key':'af2Parameters','value':str(pathlib.Path(a.parameters).resolve())});project=s.project_create({'name':'Authentic BindCraft2 recovery QA'});source=ROOT/'vendor/bindcraft2/settings/target/structures/hPDL1.pdb';source_sha=hashlib.sha256(source.read_bytes()).hexdigest();record=s.import_structure({'projectId':project['id'],'path':str(source),'name':'Official hPDL1 reference · original source'});shared=s.dispatch('fold_structure',{'projectId':project['id'],'structureId':record['id']});fragment=s.dispatch('fold_fragment',{'projectId':project['id'],'structureId':record['id'],'residues':[r['id'] for r in shared['structure']['residues'] if r['chain']=='A'][:12],'name':'Explicit 12-residue reference fragment · technical recovery QA only'});print('Fragment result',fragment,flush=True)
 if 'record' in fragment:fragment=fragment['record']
-job=s.dispatch('bindcraft_prepare',{'projectId':project['id'],'structureId':fragment['id'],'name':'Real interrupted 24-residue campaign · recovery QA','modality':'binder','targetChains':['A'],'hotspots':[],'coldspots':[],'binderLengths':[12],'candidates':1,'attempts':4,'seed':2718});folder=root/'jobs'/job['id'];state={'state':'running','scope':'Bounded genuine upstream CPU campaign on explicit 12-residue official-target derivative and 12-residue binder. Original loss/stage/filter settings; tests recovery, not biological design quality.','root':str(root),'projectId':project['id'],'jobId':job['id'],'sourceSha256':source_sha};report=pathlib.Path(a.report);report.write_text(json.dumps(state,indent=2)+'\n');job=s.dispatch('bindcraft_start',{'projectId':project['id'],'id':job['id'],'profile':'experimental-cpu-float32-single-model'});deadline=time.monotonic()+1200
+job=s.dispatch('bindcraft_prepare',{'projectId':project['id'],'structureId':fragment['id'],'name':'Real interrupted 24-residue campaign · recovery QA','modality':'binder','targetChains':['A'],'hotspots':[],'coldspots':[],'binderLengths':[12],'candidates':1,'attempts':a.attempts,'seed':2718});folder=root/'jobs'/job['id'];state={'state':'running','scope':'Bounded genuine upstream CPU campaign on explicit 12-residue official-target derivative and 12-residue binder. Original loss/stage/filter settings; tests recovery, not biological design quality.','root':str(root),'engineRoot':str(ROOT),'projectId':project['id'],'jobId':job['id'],'sourceSha256':source_sha};report=pathlib.Path(a.report);report.write_text(json.dumps(state,indent=2)+'\n');job=s.dispatch('bindcraft_start',{'projectId':project['id'],'id':job['id'],'profile':'experimental-cpu-float32-single-model'});deadline=time.monotonic()+1200
 try:
  table=folder/'output/1_Trajectories/!_Trajectories.csv'
  while True:
   current=s.job(job['id'])
-  if table.is_file() and list(csv.DictReader(table.open())):break
+  if a.cancel_after_updates:
+   from bindcraft_cpu import progress_from_log
+   log=folder/'execution.log';observed=progress_from_log(log.read_text() if log.is_file() else '')
+   if observed.get('lastObservedUpdate',{}).get('sequenceUpdates',0)>=a.cancel_after_updates:break
+  elif table.is_file() and list(csv.DictReader(table.open())):break
   if current['state'] not in ('queued','running'):raise ValueError('Campaign ended before the interruption acceptance point; inspect without rerunning.')
   if time.monotonic()>deadline:raise TimeoutError('Inspect active job before further action.')
   time.sleep(.1)
