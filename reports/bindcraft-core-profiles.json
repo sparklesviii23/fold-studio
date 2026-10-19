@@ -1,0 +1,49 @@
+{
+  "state": "passed",
+  "scope": "Original benchmark/core -> modality -> properties -> explicit native fields precedence and real input/feature preflight. Configuration/state validation only; no new neural model computation.",
+  "root": "/Users/vii/Documents/FoldStudio-MetalPort/validation/bindcraft-core-profiles",
+  "sourceUnchanged": true,
+  "sourceSha256": "d3c95434dcadf26d005340b15bd92be61e101ed921478c26f2a5550f198e61f6",
+  "cases": [
+    {
+      "modality": "binder",
+      "properties": [],
+      "jobId": "a5d94fe8-148d-4a1f-96e0-eff1849f17a8",
+      "originalHierarchyMatches": true,
+      "explicitSeed": 42,
+      "coreReceipt": [
+        {
+          "name": "benchmark",
+          "description": "A reproducible run for comparing changes: one fixed seed, no adaptive tuning or desperation",
+          "source": "settings/core/benchmark.json",
+          "sha256": "8b5685b6e52812829aba55acf691ee3a719279204a88ee184268a921cd53d357"
+        }
+      ],
+      "estimate": {
+        "paddedResidues": 192
+      },
+      "state": "prepared_not_executed"
+    },
+    {
+      "modality": "VHH",
+      "properties": [
+        "humanize"
+      ],
+      "jobId": "6edf0955-052b-4133-9e35-55f5308e9e0d",
+      "originalHierarchyMatches": true,
+      "explicitSeed": 42,
+      "coreReceipt": [
+        {
+          "name": "benchmark",
+          "description": "A reproducible run for comparing changes: one fixed seed, no adaptive tuning or desperation",
+          "source": "settings/core/benchmark.json",
+          "sha256": "8b5685b6e52812829aba55acf691ee3a719279204a88ee184268a921cd53d357"
+        }
+      ],
+      "estimate": {
+        "paddedResidues": 288
+      },
+      "state": "prepared_not_executed"
+    }
+  ]
+}

@@ -16,13 +16,16 @@ def execution_config(original,folder):
 
 def start(engine,p,recovery=None):
  if set(p)-{'id','projectId','profile'}:raise ValueError('Unsupported campaign launch fields.')
- profiles={'experimental-cpu-single-model':('cpu','upstream',False),'experimental-cpu-float32-single-model':('cpu','float32',False),'experimental-cpu-float32-scaffold':('cpu','float32',False),'experimental-cpu-float32-320':('cpu','float32',False),'experimental-cpu-float32-multitarget':('cpu','float32',False),'experimental-metal-float32-single-model':('metal','float32',False),'experimental-cpu-float32-ensemble':('cpu','float32',True),'experimental-metal-float32-ensemble':('metal','float32',True)}
+ profiles={'experimental-cpu-single-model':('cpu','upstream',False),'experimental-cpu-float32-single-model':('cpu','float32',False),'experimental-cpu-float32-scaffold':('cpu','float32',False),'experimental-cpu-float32-320':('cpu','float32',False),'experimental-cpu-float32-conformational':('cpu','float32',False),'experimental-cpu-float32-multitarget':('cpu','float32',False),'experimental-metal-float32-single-model':('metal','float32',False),'experimental-cpu-float32-ensemble':('cpu','float32',True),'experimental-metal-float32-ensemble':('metal','float32',True)}
  if p.get('profile') not in profiles:raise ValueError('Native binder-design execution is blocked without an explicit experimental execution profile.')
  backend,precision,ensemble=profiles[p['profile']]
  s=engine.s;job=engine.campaign(p)
  if job['state']!=('prepared' if recovery is None else recovery['job']['state']):raise ValueError('Only a prepared, unexecuted campaign can start.')
  if s.active():raise ValueError('Another local compute job is active.')
  prep=job['data']['preparation']
+ conformational=prep['modality'] in ('induced_fit','fold_switch');conformation_profile=p['profile']=='experimental-cpu-float32-conformational'
+ if conformational!=conformation_profile:raise ValueError('Conformational modes require their separate bounded CPU profile; that profile requires an induced-fit or fold-switch campaign.')
+ if conformational and (len(prep['config']['targets'])!=1 or prep.get('scaffold') or prep['config'].get('copies',1)!=1 or len(set(prep['config']['binder_lengths']))!=1):raise ValueError('The experimental conformational CPU profile requires one observed target, one binder copy and a fixed binder length.')
  state_count=len(prep['config']['targets']);multitarget=p['profile']=='experimental-cpu-float32-multitarget'
  if state_count>1 and not multitarget:raise ValueError('Multiple targets require the explicit multi-target CPU profile; other profiles remain limited to one state.')
  if multitarget and (not 2<=state_count<=3 or prep['modality'] not in ('binder','peptide')):raise ValueError('The multi-target CPU profile currently supports two or three observed target states with binder or linear-peptide designs.')
@@ -82,6 +85,9 @@ def start(engine,p,recovery=None):
  if recovery is not None and weights!=recovery['job']['data'].get('checkpointSha256'):raise ValueError('Model checkpoints differ from the original execution; recovery refused.')
  from campaign_profile import resource_estimate
  estimate=resource_estimate(python,config,fe.UPSTREAM)
+ if conformational:
+  from campaign_profile import conformational_resources
+  estimate=conformational_resources(estimate)
  if multitarget:
   estimate['aggregatePaddedResidues']=estimate['paddedResidues']*state_count
   if estimate['aggregatePaddedResidues']>192:raise ValueError('The experimental multi-target CPU profile is limited to 192 aggregate padded residues across all states; inputs remain prepared.')

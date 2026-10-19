@@ -46,10 +46,11 @@
     },
     {
       "name": "fold_switch",
-      "status": "UNAVAILABLE",
-      "scope": "Original source/preset retained; native application adapter not enabled or verified.",
+      "status": "INTEGRATED",
+      "scope": "Authentic implicit binder preset, conformation schedule, losses and acceptance thresholds connected. Experimental fixed-length CPU profile limited to 192 aggregate padded residues over bound/unbound states; no full conformational model trajectory verified.",
       "source": "vendor/bindcraft2/settings/modality/fold_switch.json",
-      "sha256": "7db5a06582df9d2a96145b64c5ca764465e81d63052b093765a05ea6e83e9fbf"
+      "sha256": "7db5a06582df9d2a96145b64c5ca764465e81d63052b093765a05ea6e83e9fbf",
+      "evidence": "reports/bindcraft-conformational-presets.json"
     },
     {
       "name": "homo_oligomer",
@@ -60,10 +61,11 @@
     },
     {
       "name": "induced_fit",
-      "status": "UNAVAILABLE",
-      "scope": "Original source/preset retained; native application adapter not enabled or verified.",
+      "status": "INTEGRATED",
+      "scope": "Authentic implicit binder preset, conformation schedule, losses and acceptance thresholds connected. Experimental fixed-length CPU profile limited to 192 aggregate padded residues over bound/unbound states; no full conformational model trajectory verified.",
       "source": "vendor/bindcraft2/settings/modality/induced_fit.json",
-      "sha256": "75872ebd027827118f82c939300cae691015df778401c2dab46fd3e5dc43905d"
+      "sha256": "75872ebd027827118f82c939300cae691015df778401c2dab46fd3e5dc43905d",
+      "evidence": "reports/bindcraft-conformational-presets.json"
     },
     {
       "name": "large_binder",
@@ -1039,5 +1041,13 @@
     }
   ],
   "sourceSettingsSha256": "d88f87212929bfc7a8ae186189eab70a527d04aa2d89f5d6adee1f6af4993cfa",
-  "note": "Generated from every shipped modality/property preset and explicit CAMPAIGN_SETTING_NAMES. Other dynamically registered losses/metric parameters and CLI flags still require inventory expansion; this is not a full parity claim."
+  "note": "Generated from every shipped modality/property preset and explicit CAMPAIGN_SETTING_NAMES. Other dynamically registered losses/metric parameters and CLI flags still require inventory expansion; this is not a full parity claim.",
+  "coreProfiles": [
+    {
+      "name": "benchmark",
+      "status": "INTEGRATED",
+      "scope": "Original core precedence with binder and VHH/humanize and explicit seed verified at configuration/input preflight only.",
+      "evidence": "reports/bindcraft-core-profiles.json"
+    }
+  ]
 }

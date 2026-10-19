@@ -47,4 +47,10 @@ class UnboundImportContracts(unittest.TestCase):
   with patch('bindcraft_provenance.native_receipt',return_value={'state':'native_receipts_verified','execution':'cpu','scope':'synthetic protocol fixture'}):result=self.s.dispatch('bindcraft_import',payload)
   records=[self.engine.lab.intelligence_inspect({'structureId':id}) for id in result['records']];unbound=next(r for r in records if r['record']['data']['metadata']['nativePredictionState']['kind']=='unbound_binder_prediction')
   self.assertEqual(unbound['confidence']['plddt'],[42.0]);self.assertIsNone(unbound['confidence']['iptm']);self.assertIsNone(unbound['confidence']['ptm']);self.assertIsNone(unbound['confidence']['pae']);self.assertNotIn('nativeTargetState',unbound['record']['data']['metadata']);self.assertEqual(unbound['assignments']['A']['role'],'candidate')
+ def test_conformational_acceptance_requires_both_saved_prediction_states(self):
+  import pathlib
+  payload=self.output();(pathlib.Path(payload['directory'])/'3_Ranked/synthetic_monomer.cif').unlink();before=len(self.s.library({})['records'])
+  with patch('bindcraft_provenance.native_receipt',return_value={'state':'native_receipts_verified','execution':'cpu','scope':'synthetic protocol fixture'}):
+   with self.assertRaisesRegex(ValueError,'required unbound binder'):self.s.dispatch('bindcraft_import',payload)
+  self.assertEqual(len(self.s.library({})['records']),before)
 del Fixtures

@@ -11,8 +11,8 @@ BASE=pathlib.Path(__file__).resolve().parents[1]
 UPSTREAM=BASE/'vendor'/'bindcraft2'
 PIN='c0ee638d11bc010817c2c97ee58ed5c323e664e2'
 ACTIONS={'bindcraft_results','bindcraft_review','bindcraft_resume','bindcraft_repeat','fold_fragment','fold_engine_status','fold_structure','fold_compute','bindcraft_validate','bindcraft_prepare','bindcraft_campaigns','bindcraft_import','bindcraft_start'}
-CONFIG_KEYS={'properties','projectId','structureId','name','modality','targetChains','hotspots','coldspots','binderLengths','candidates','attempts','seed','additionalTargets'}
-SUPPORTED_MODALITIES=('binder','large_binder','multidomain','peptide','cyclic_peptide','VHH','ARP','scFv','homo_oligomer')
+CONFIG_KEYS={'core','properties','projectId','structureId','name','modality','targetChains','hotspots','coldspots','binderLengths','candidates','attempts','seed','additionalTargets'}
+SUPPORTED_MODALITIES=('binder','large_binder','multidomain','induced_fit','fold_switch','peptide','cyclic_peptide','VHH','ARP','scFv','homo_oligomer')
 SCAFFOLD_MODALITIES=('VHH','ARP','scFv')
 
 def canonical(value):return json.dumps(value,sort_keys=True,separators=(',',':'),allow_nan=False)
@@ -44,8 +44,8 @@ class Engine:
         for path in sorted((UPSTREAM/'settings'/'modality').glob('*.json')):
             modalities.append({'name':path.stem,'description':json.loads(path.read_text()).get('description',''),'configuration':'tested' if path.stem in SUPPORTED_MODALITIES else 'not_started','execution':'experimental' if path.stem in SUPPORTED_MODALITIES else 'blocked'})
         return {'name':'FOLD SCIENTIFIC ENGINE','schemaVersion':1,'source':source_status(),'modalities':modalities,
-                'properties':__import__('campaign_profile').property_catalog(UPSTREAM),
-                'engines':[{'id':'bindcraft2','configuration':'implemented','resultImport':'implemented','execution':'experimental_cpu_and_metal','metalExecution':'experimental_float32_requires_pinned_runtime','modelEnsembles':'original_upstream_selection','profiles':['experimental-cpu-single-model','experimental-cpu-float32-single-model','experimental-cpu-float32-scaffold','experimental-cpu-float32-320','experimental-cpu-float32-multitarget','experimental-metal-float32-single-model','experimental-cpu-float32-ensemble','experimental-metal-float32-ensemble']},
+                'properties':__import__('campaign_profile').property_catalog(UPSTREAM),'coreProfiles':__import__('campaign_profile').core_catalog(UPSTREAM),
+                'engines':[{'id':'bindcraft2','configuration':'implemented','resultImport':'implemented','execution':'experimental_cpu_and_metal','metalExecution':'experimental_float32_requires_pinned_runtime','modelEnsembles':'original_upstream_selection','profiles':['experimental-cpu-single-model','experimental-cpu-float32-single-model','experimental-cpu-float32-scaffold','experimental-cpu-float32-320','experimental-cpu-float32-conformational','experimental-cpu-float32-multitarget','experimental-metal-float32-single-model','experimental-cpu-float32-ensemble','experimental-metal-float32-ensemble']},
                            {'id':'openmm','execution':'cpu','scope':'Short Amber ff14SB/OBC2 protein pilot; not equilibrated sampling or Metal execution'}, {'id':'rdkit','execution':'cpu','scope':'Ligand ETKDGv3/MMFF94s preparation; not docking or biological activity validation'}, {'id':'proteinmpnn','execution':'cpu','scope':'Fixed-backbone sequence redesign; mpnn_start/mpnn_jobs'}, {'id':'boltz2','adapter':'existing prediction_start'}, {'id':'chimerax','adapter':'existing chimerax_execute; separately installed runtime; command availability is not validation'}],
                 'commands':[{'name':x,'status':'implemented' if x!='bindcraft_start' else 'experimental'} for x in sorted(ACTIONS)],
                 'dataModel':'Existing structure records/assets, stable residue/atom identities from Molecular Intelligence; existing jobs table. No parallel coordinate store.'}
@@ -93,7 +93,7 @@ class Engine:
         # Presets are upstream data, retained verbatim; never invent optimization defaults.
         preset=json.loads((UPSTREAM/'settings'/'modality'/(modality+'.json')).read_text());preset.pop('description',None)
         from campaign_profile import property_preset
-        resolved,properties=property_preset(self.s,modality,p.get('properties',[]),UPSTREAM)
+        resolved,properties=property_preset(self.s,modality,p.get('properties',[]),UPSTREAM,p.get('core'))
         if resolved is not None:preset=resolved
         scaffold=None
         if preset.get('binder_scaffold'):
@@ -108,10 +108,15 @@ class Engine:
         checked={'schemaVersion':1,'name':name.strip(),'valid':True,'executionReady':False,'modality':modality,'scaffold':scaffold,'source':shared['reference'],'config':config,'residueMap':[{'id':r['id'],'chain':r['chain'],'number':r['num'],'aminoAcid':r['one']} for r in selected],
                 'settingsSha256':checksum(canonical(config).encode()),'upstream':source_status(),'warnings':['Prepared configuration is not a completed design or a validated full-model Metal backend.','Hotspots use observed source numbering; no biological numbering conversion is inferred.','Memory feasibility has not been established for this target.']}
         if properties:checked['propertyPresets']=properties;checked['warnings'].append('Original property presets change scientific objectives and filters. Their preparation is not modality or biological validation.')
+        if p.get('core'):
+            from campaign_profile import core_catalog
+            checked['corePresets']=[entry for entry in core_catalog(UPSTREAM) if entry['name']==p['core']]
         if modality=='homo_oligomer':checked['warnings'].append('Two identical binder-chain copies follow the original symmetric tying preset. Length bounds are per chain; memory estimates include both copies and the target.')
         if modality=='scFv':checked['warnings'].append('Original heavy and light variable domains are separate chains; no connecting linker is designed. Full target/scaffold memory feasibility must pass the selected profile before computation.')
         from campaign_inputs import extend
+        if modality in ('induced_fit','fold_switch') and p.get('additionalTargets'):raise ValueError('The experimental conformational adapter currently supports one observed target and its unbound binder state.')
         checked=extend(self,p,checked)
+        if modality in ('induced_fit','fold_switch'):checked['warnings'].append('Experimental conformational design includes a separate unbound binder prediction. Only the explicitly bounded CPU profile is enabled; full conformational generation validation remains pending.')
         if properties:
             from campaign_profile import property_conflicts
             property_conflicts(self.s,checked['config'],UPSTREAM,checked.get('scaffold'))
@@ -200,6 +205,8 @@ class Engine:
             for row in rows:
                 actual={target_states[file.name]['name'] for file,raw,fmt,matched,count in prepared if matched['design']==row['design'] and target_states[file.name]['kind']=='target_complex'}
                 if actual!=expected:raise ValueError('Native ranked candidate is missing a prepared target-state coordinate output.')
+                prep=job['data']['preparation']
+                if prep['modality'] in ('induced_fit','fold_switch') and prep['config'].get('save_binder_monomers',True) and not any(matched['design']==row['design'] and target_states[file.name]['kind']=='binder_alone' for file,raw,fmt,matched,count in prepared):raise ValueError('Native conformational candidate is missing its required unbound binder coordinate output.')
         evidence={'metadata':metadata,'rankedRows':rows,'metadataSha256':checksum(meta_bytes),'rankedCsvSha256':checksum(table_bytes),'sourceRevision':metadata.get('revision'),'provenanceMatch':'external_unverified','note':'Externally generated predictions. Source provenance is retained; correspondence to prepared inputs is not asserted.'}
         if native:evidence.update(provenanceMatch=provenance_match,nativeRun=native,note=native['scope'],sourceRevision=PIN)
         folder=self.s.root/'jobs'/job['id'];folder.mkdir(exist_ok=True)

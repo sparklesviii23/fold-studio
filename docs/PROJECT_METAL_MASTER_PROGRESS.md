@@ -1192,3 +1192,22 @@ protocol tests exercise these contracts; no conformational design is claimed.
 312 Python tests pass. Existing 73 frontend tests/TypeScript passed after format
 controls. The original native ensemble job ce12298c continues refinement; no
 competing model job or app rebuild was started.
+
+
+### Original conformational and core profile integration
+
+induced_fit/fold_switch now resolve their implicit binder layer through the
+actual upstream resolver. Their original losses, 5 Å interface/0.6 TM-score
+acceptance checks, bound/unbound schedules and final-state requirements passed
+real input/state preflight. A separate single-model CPU profile is fixed-length,
+one observed target/one binder copy, at most 192 aggregate padded residues
+(96 counted twice conservatively). No conformation-generating trained-model
+trajectory is claimed. Native imports require both accepted states and keep
+unbound confidence separate. Exact evidence: bindcraft-conformational-presets.
+
+Original benchmark core selection is additive in the current form and is
+resolved below modality/properties and explicit campaign fields. Source-based
+binder and VHH/humanize precedence/preflight passed; reserved default/reference
+core names are not falsely offered as layers. bindcraft-core-profiles.json.
+323 Python tests, 73 frontend tests pass; TypeScript checked. These source
+changes are not in the running 097a912 bundle; no competing model was started.

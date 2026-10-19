@@ -1,0 +1,142 @@
+{
+  "state": "passed",
+  "scope": "Real original preset hierarchy, input/feature preparation, binder initialization, loss registration, bound/unbound schedule and final-state requirements. No trained model forward/gradient, conformational trajectory, free-fold correctness or binding validation is claimed. Separate CPU profile retains original filters but deliberately selects one design and one held-out model.",
+  "root": "/Users/vii/Documents/FoldStudio-MetalPort/validation/bindcraft-conformational-presets",
+  "sourceSha256": "ed1fde7381852ae9515414c175db9faf3d14e6bc6aafcdad4b7c68b541bc79c1",
+  "cases": [
+    {
+      "modality": "induced_fit",
+      "jobId": "ec6e1fd3-d0f8-4510-89f5-85cf5f424002",
+      "state": "prepared_not_executed",
+      "originalStatePreflight": {
+        "requiredAdditionalPredictionStates": [
+          "binder_alone"
+        ],
+        "originalConformationSchedule": [
+          [
+            "target"
+          ],
+          [
+            "binder_alone"
+          ]
+        ],
+        "originalAcceptanceCheck": {
+          "threshold": 5.0,
+          "higher": true
+        },
+        "binderRmsdCheck": {
+          "threshold": null,
+          "higher": false
+        },
+        "activeLossNames": [
+          "plddt_loss",
+          "binder_pae",
+          "interface_pae",
+          "compactness",
+          "iptm_loss",
+          "interface_contacts",
+          "binder_contacts",
+          "binder_helicity",
+          "induced_fit_interface",
+          "plddt_loss.binder_alone",
+          "binder_pae.binder_alone",
+          "compactness.binder_alone",
+          "binder_contacts.binder_alone",
+          "binder_helicity.binder_alone"
+        ],
+        "presetMatchesOriginal": true,
+        "implicitBinderPresetRetained": true
+      },
+      "resourceEstimate": {
+        "paddedResidues": 96,
+        "additionalPredictionStates": [
+          "binder_alone"
+        ],
+        "aggregatePaddedResidues": 192
+      },
+      "originalEnsembleSelection": {
+        "designModels": [
+          "model_1_multimer_v3",
+          "model_2_multimer_v3",
+          "model_3_multimer_v3",
+          "model_4_multimer_v3",
+          "model_5_multimer_v3"
+        ],
+        "validationModels": [
+          "model_1_ptm",
+          "model_2_ptm"
+        ],
+        "validationPoolExhausted": false
+      },
+      "singleModelDiagnosticHeldout": "model_1_ptm",
+      "sourceUnchanged": true
+    },
+    {
+      "modality": "fold_switch",
+      "jobId": "4dcd3ea2-799e-49df-97a2-06de98c71291",
+      "state": "prepared_not_executed",
+      "originalStatePreflight": {
+        "requiredAdditionalPredictionStates": [
+          "binder_alone"
+        ],
+        "originalConformationSchedule": [
+          [
+            "target"
+          ],
+          [
+            "binder_alone"
+          ]
+        ],
+        "originalAcceptanceCheck": {
+          "threshold": 0.6,
+          "higher": false
+        },
+        "binderRmsdCheck": {
+          "threshold": null,
+          "higher": false
+        },
+        "activeLossNames": [
+          "plddt_loss",
+          "binder_pae",
+          "interface_pae",
+          "compactness",
+          "iptm_loss",
+          "interface_contacts",
+          "binder_contacts",
+          "binder_helicity",
+          "induced_fit_global",
+          "plddt_loss.binder_alone",
+          "binder_pae.binder_alone",
+          "compactness.binder_alone",
+          "binder_contacts.binder_alone",
+          "binder_helicity.binder_alone"
+        ],
+        "presetMatchesOriginal": true,
+        "implicitBinderPresetRetained": true
+      },
+      "resourceEstimate": {
+        "paddedResidues": 96,
+        "additionalPredictionStates": [
+          "binder_alone"
+        ],
+        "aggregatePaddedResidues": 192
+      },
+      "originalEnsembleSelection": {
+        "designModels": [
+          "model_1_multimer_v3",
+          "model_2_multimer_v3",
+          "model_3_multimer_v3",
+          "model_4_multimer_v3",
+          "model_5_multimer_v3"
+        ],
+        "validationModels": [
+          "model_1_ptm",
+          "model_2_ptm"
+        ],
+        "validationPoolExhausted": false
+      },
+      "singleModelDiagnosticHeldout": "model_1_ptm",
+      "sourceUnchanged": true
+    }
+  ]
+}
