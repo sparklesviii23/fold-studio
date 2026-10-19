@@ -28,8 +28,9 @@ def review(engine,p):
  from observatory import Observatory
  if set(p)-{'id','projectId','operation','table','metrics'}:raise ValueError('Unsupported campaign review field.')
  job=engine.campaign(p);operation=p.get('operation');selected=p.get('table','candidates' if operation=='filter' else 'accepted');metrics=p.get('metrics',['i_pDAE'])
- if operation not in ('filter','rank','score') or not isinstance(selected,str) or selected not in TABLES or not isinstance(metrics,list) or not 1<=len(metrics)<=3 or any(not isinstance(v,str) or not re.fullmatch('[A-Za-z][A-Za-z0-9_.]{0,79}',v) for v in metrics):raise ValueError('Choose upstream filtering/ranking, a recorded table and 1–3 metric names.')
- if operation in ('filter','score') and 'metrics' in p:raise ValueError('Filtering/scoring does not take ranking overrides.')
+ if operation not in ('filter','rank','score','summary') or not isinstance(selected,str) or selected not in TABLES or not isinstance(metrics,list) or not 1<=len(metrics)<=3 or any(not isinstance(v,str) or not re.fullmatch('[A-Za-z][A-Za-z0-9_.]{0,79}',v) for v in metrics):raise ValueError('Choose an original saved-outcome operation, a recorded table and 1–3 metric names.')
+ if operation in ('filter','score','summary') and 'metrics' in p:raise ValueError('This operation does not take ranking overrides.')
+ if operation=='summary' and 'table' in p:raise ValueError('Campaign summaries cover all recorded stages; no table override is accepted.')
  if operation=='score' and selected!='accepted':raise ValueError('Coordinate scoring currently requires the saved accepted-complex table.')
  if job['state'] not in ('completed','failed','cancelled','interrupted','imported'):raise ValueError('Finish or stop the campaign before reviewing saved outcomes.')
  python=os.path.abspath(os.path.expanduser(runtime(engine.s)))
@@ -39,13 +40,13 @@ def review(engine,p):
   from campaign_inputs import verify
   verify(campaign_folder,job['data']['preparation'])
  output=campaign_folder/'output';reading=table(output/TABLES[selected])
- if not reading['rows']:raise ValueError('This campaign has no recorded rows in the selected stage.')
+ if operation!='summary' and not reading['rows']:raise ValueError('This campaign has no recorded rows in the selected stage.')
  s=engine.s;obs=Observatory(s);folder=engine.s.root/'jobs'/job['id']/'reviews'/fe.mi.uid();runner=pathlib.Path(__file__).with_name('campaign_review_runner.py');runner_sha=fe.checksum(runner.read_bytes());s.db.execute('BEGIN IMMEDIATE')
  try:
   if s.active():raise ValueError('Another local compute job is active. Wait before reviewing a campaign.')
   files=manifest(output);folder.mkdir(parents=True);snapshot=folder/'snapshot';snapshot.mkdir()
   for name,raw in files.items():dest=snapshot/name;dest.parent.mkdir(parents=True,exist_ok=True);dest.write_bytes(raw)
-  request={'operation':operation,'table':selected,'metrics':metrics,'inputManifest':{name:fe.checksum(raw) for name,raw in files.items()},'upstream':source};text=fe.canonical(request);(folder/'request.json').write_text(text)
+  request={'operation':operation,'campaignId':job['id'],'table':selected,'metrics':metrics,'inputManifest':{name:fe.checksum(raw) for name,raw in files.items()},'upstream':source};text=fe.canonical(request);(folder/'request.json').write_text(text)
   process=subprocess.run([python,'-I','-B',str(runner),str(folder/'request.json')],env={**os.environ,'JAX_PLATFORMS':'cpu','PYTHONDONTWRITEBYTECODE':'1'},capture_output=True,text=True,timeout=60);(folder/'execution.log').write_text(process.stdout+'\n'+process.stderr)
   if process.returncode:raise ValueError('Upstream review refused: '+process.stderr.strip()[-2000:])
   result=json.loads((folder/'result.json').read_text())

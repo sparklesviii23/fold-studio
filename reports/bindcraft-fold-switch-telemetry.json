@@ -1,0 +1,80 @@
+{
+  "jobId": "4dcd3ea2-799e-49df-97a2-06de98c71291",
+  "root": "/Users/vii/Documents/FoldStudio-MetalPort/validation/bindcraft-conformational-presets",
+  "scope": "Read-only OS process footprint/CPU measurements and system-wide GPU counters during the actual native packaged campaign. GPU utilization includes rendering/other apps and is not exclusive campaign utilization. Samples do not yield a whole-run GPU average or separately measured compilation/inference timing.",
+  "runtime": "/Users/vii/Documents/FoldStudio-MetalPort/runtimes/jax-cpu/bin/python",
+  "modelCheckpoints": {
+    "model_1_multimer_v3": "611da8fc7478928f68de12e8b226260ef1f4ce62bcc29b008572e52f4f212959",
+    "model_1_ptm": "5e564f79af5bcd54ccef6e2a6bb0ff01015d01650ebc41d4575e35f0de9ecc84"
+  },
+  "executionSettingsSha256": "a10d42e59bf41f3f98cd1e8d342272e374ff2647a6793329c1cc565df9dc6fc8",
+  "hardware": {
+    "machine": "arm64",
+    "cpu": "Apple M4 Pro",
+    "memoryBytes": 25769803776,
+    "macOS": "26.4.1"
+  },
+  "samples": [
+    {
+      "observedUtc": "2026-10-19T11:28:32.925376+00:00",
+      "jobState": "running",
+      "processes": [
+        {
+          "pid": 33999,
+          "parentPid": 1,
+          "groupId": 33999,
+          "psCpuPercent": 0.0,
+          "psResidentKiB": 24240,
+          "executable": "/Users/vii/Documents/FoldStudio-MetalPort/fold-studio/../runtimes/openmm-cpu/bin/python"
+        },
+        {
+          "pid": 34002,
+          "parentPid": 33999,
+          "groupId": 33999,
+          "psCpuPercent": 548.0,
+          "psResidentKiB": 1836848,
+          "executable": "/Users/vii/Documents/FoldStudio-MetalPort/runtimes/jax-cpu/bin/python",
+          "physicalFootprint": {
+            "rawVmmapUnit": "2.0G",
+            "method": "vmmap -summary; rounded OS process footprint, not total machine memory"
+          },
+          "peakPhysicalFootprint": {
+            "rawVmmapUnit": "2.0G",
+            "method": "vmmap -summary; rounded OS process footprint, not total machine memory"
+          }
+        }
+      ],
+      "systemGpuCounters": [
+        {
+          "Alloc system memory": 3771285504,
+          "Allocated PB Size": 124387328,
+          "Device Utilization %": 56,
+          "In use system memory": 1261289472,
+          "In use system memory (driver)": 0,
+          "Renderer Utilization %": 55,
+          "SplitSceneCount": 0,
+          "TiledSceneBytes": 5373952,
+          "Tiler Utilization %": 36,
+          "lastRecoveryTime": 0,
+          "recoveryCount": 0
+        }
+      ],
+      "lastObservedOptimizerProgress": {
+        "stage": "screen",
+        "sequenceUpdates": 25,
+        "metrics": {
+          "target.binder_contacts": 2.8237011432647705,
+          "target.binder_helicity": -1.4145874977111816,
+          "target.binder_pae": 0.12290384620428085,
+          "target.compactness": 0.3334895968437195,
+          "target.interface_contacts": 3.901165008544922,
+          "target.interface_pae": 0.05252731591463089,
+          "target.iptm": 0.11786086857318878,
+          "target.iptm_loss": 0.04410695657134056,
+          "target.plddt_loss": 0.03805447369813919,
+          "target.ptm": 0.4365338683128357
+        }
+      }
+    }
+  ]
+}

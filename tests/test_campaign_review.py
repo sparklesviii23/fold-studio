@@ -34,6 +34,12 @@ class CampaignReviewContracts(unittest.TestCase):
    with self.assertRaisesRegex(ValueError,'Another local compute'):self.s.dispatch('bindcraft_review',self.payload(job,operation='rank',table='trajectories'))
    proc.assert_not_called()
   self.assertFalse(self.s.db.in_transaction)
+ def test_campaign_summary_rejects_stage_and_ranking_overrides_before_execution(self):
+  job,_=self.source();self.s.job_update(job['id'],'failed')
+  with patch.object(campaign_review.subprocess,'run') as proc:
+   for extra in ({'table':'accepted'},{'metrics':['i_pTM']}):
+    with self.subTest(extra=extra),self.assertRaises(ValueError):self.s.dispatch('bindcraft_review',self.payload(job,operation='summary',**extra))
+   proc.assert_not_called()
  def test_later_ranking_batches_reuse_existing_coordinate_identity(self):
   job=self.prepared();root=self.result_folder();payload=self.payload(job,directory=str(root));first=self.s.dispatch('bindcraft_import',payload);old=first['records'][0];(root/'3_Ranked/other.pdb').write_text(self.file.read_text().replace('1.450','1.451'));table=root/'3_Ranked/!_Ranked.csv';table.write_text('rank,design,i_pTM\n2,candidate,0.81\n1,other,0.82\n');second=self.s.dispatch('bindcraft_import',payload);self.assertIn(old,second['records']);self.assertEqual(len(second['records']),2);self.assertEqual(len(self.s.job(job['id'])['data']['outputs']),2);self.assertEqual(len(self.s.library({})['records']),3)
   record=next(r for r in self.s.library({})['records'] if r['id']==old);(self.s.root/'assets'/record['data']['asset']).write_bytes(b'corrupt prior coordinate asset');table.write_text(table.read_text().replace('0.82','0.83'))

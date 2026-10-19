@@ -1297,3 +1297,18 @@ acceptance remains pending. Original Fab input preflight requires 608 padded
 residues on full hPDL1; this exceeds the measured CPU320 envelope, but does not
 prove physical CPU memory exhaustion. A bounded original-gradient harness is
 ready. Full port completion remains false.
+
+
+### Updated packaged controls and original campaign statistics
+
+65ecc21 was built, signed, relocated and launched with bundled runtimes and
+no external interpreter overrides. Through the actual native interface:
+canonical hPDL1 sequence saved; one-attempt FASTA campaign prepared with
+original defaults; accepted binder FASTA exported and exactly matched to
+original accepted row; original coordinate scoring returned its saved review.
+No new AlphaFold job launched while the separate fold-switch test is active.
+
+The original summarize_campaign command now runs through the same immutable
+review bridge. Its 157 statistical rows on genuine native 1/3/1 results exactly
+match direct original source, original scientific outputs unchanged, and the
+review survives project ZIP export. Native summary-button acceptance pending.
