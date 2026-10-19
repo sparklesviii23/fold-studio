@@ -1,0 +1,146 @@
+{
+  "jobId": "ce12298c-739e-47d3-bb9c-91794ff80ec5",
+  "root": "/Users/vii/Documents/FoldStudio-MetalPort/validation/bindcraft-campaign-review",
+  "scope": "Read-only OS process footprint/CPU measurements and system-wide GPU counters during the actual native packaged campaign. GPU utilization includes rendering/other apps and is not exclusive campaign utilization. Samples do not yield a whole-run GPU average or separately measured compilation/inference timing.",
+  "runtime": "/Users/vii/Documents/FoldStudio-MetalPort/validation/Relocated BindCraft Recovery Engine/FOLD STUDIO Metal Dev.app/Contents/Resources/runtime-metal/bin/python3.12",
+  "modelCheckpoints": {
+    "model_1_multimer_v3": "611da8fc7478928f68de12e8b226260ef1f4ce62bcc29b008572e52f4f212959",
+    "model_2_multimer_v3": "51362b0844382ae0f5720c59b81dd13a43eea40fbf9995dd2573bdab88865378",
+    "model_3_multimer_v3": "46d9bcad288edc7ad5a6362ee8e5f84307a69712e00e6c36b1ef9daf96ebc9ce",
+    "model_4_multimer_v3": "59bdabd2d69c07fe26b37882d544acbd1b9f89f196828f4220da49e0610b572c",
+    "model_5_multimer_v3": "917742be5a105d6b80f13f1f13f20459f27ec3fdcd34ea088b359f4502d6177f",
+    "model_1_ptm": "5e564f79af5bcd54ccef6e2a6bb0ff01015d01650ebc41d4575e35f0de9ecc84",
+    "model_2_ptm": "23645d9a82c4af2ed54cd48a7b3c1c2575dc6aa9fe931adb4d7203ca5f0dc398"
+  },
+  "executionSettingsSha256": "02685edc7bbc25c4ad58cee15674af603a3e91673ea9b5dc75daa51cd26226ef",
+  "hardware": {
+    "machine": "arm64",
+    "cpu": "Apple M4 Pro",
+    "memoryBytes": 25769803776,
+    "macOS": "26.4.1"
+  },
+  "samples": [
+    {
+      "observedUtc": "2026-10-19T05:57:19.158958+00:00",
+      "jobState": "running",
+      "processes": [
+        {
+          "pid": 20977,
+          "parentPid": 1,
+          "groupId": 20977,
+          "psCpuPercent": 0.0,
+          "psResidentKiB": 13088,
+          "executable": "/Users/vii/Documents/FoldStudio-MetalPort/validation/Relocated BindCraft Recovery Engine/FOLD STUDIO Metal Dev.app/Contents/Resources/runtime/bin/python3.12"
+        },
+        {
+          "pid": 20980,
+          "parentPid": 20977,
+          "groupId": 20977,
+          "psCpuPercent": 3.9,
+          "psResidentKiB": 170080,
+          "executable": "/Users/vii/Documents/FoldStudio-MetalPort/validation/Relocated BindCraft Recovery Engine/FOLD STUDIO Metal Dev.app/Contents/Resources/runtime-metal/bin/python3.12",
+          "physicalFootprint": {
+            "rawVmmapUnit": "7.3G",
+            "method": "vmmap -summary; rounded OS process footprint, not total machine memory"
+          },
+          "peakPhysicalFootprint": {
+            "rawVmmapUnit": "9.1G",
+            "method": "vmmap -summary; rounded OS process footprint, not total machine memory"
+          }
+        }
+      ],
+      "systemGpuCounters": [
+        {
+          "Alloc system memory": 13935312896,
+          "Allocated PB Size": 146538496,
+          "Device Utilization %": 95,
+          "In use system memory": 6268993536,
+          "In use system memory (driver)": 0,
+          "Renderer Utilization %": 60,
+          "SplitSceneCount": 0,
+          "TiledSceneBytes": 1900544,
+          "Tiler Utilization %": 14,
+          "lastRecoveryTime": 0,
+          "recoveryCount": 0
+        }
+      ],
+      "lastObservedOptimizerProgress": {
+        "stage": "anneal",
+        "sequenceUpdates": 42,
+        "metrics": {
+          "target.binder_contacts": 1.3887799978256226,
+          "target.binder_helicity": -0.5106686949729919,
+          "target.binder_pae": 0.026954665780067444,
+          "target.compactness": 0.3112306594848633,
+          "target.interface_contacts": 1.5237455368041992,
+          "target.interface_pae": 0.01622539944946766,
+          "target.iptm": 0.8423929214477539,
+          "target.iptm_loss": 0.007880354300141335,
+          "target.plddt_loss": 0.006141285412013531,
+          "target.ptm": 0.8638620376586914
+        }
+      }
+    },
+    {
+      "observedUtc": "2026-10-19T05:59:10.332154+00:00",
+      "jobState": "running",
+      "processes": [
+        {
+          "pid": 20977,
+          "parentPid": 1,
+          "groupId": 20977,
+          "psCpuPercent": 0.0,
+          "psResidentKiB": 13088,
+          "executable": "/Users/vii/Documents/FoldStudio-MetalPort/validation/Relocated BindCraft Recovery Engine/FOLD STUDIO Metal Dev.app/Contents/Resources/runtime/bin/python3.12"
+        },
+        {
+          "pid": 20980,
+          "parentPid": 20977,
+          "groupId": 20977,
+          "psCpuPercent": 7.0,
+          "psResidentKiB": 173504,
+          "executable": "/Users/vii/Documents/FoldStudio-MetalPort/validation/Relocated BindCraft Recovery Engine/FOLD STUDIO Metal Dev.app/Contents/Resources/runtime-metal/bin/python3.12",
+          "physicalFootprint": {
+            "rawVmmapUnit": "7.3G",
+            "method": "vmmap -summary; rounded OS process footprint, not total machine memory"
+          },
+          "peakPhysicalFootprint": {
+            "rawVmmapUnit": "9.1G",
+            "method": "vmmap -summary; rounded OS process footprint, not total machine memory"
+          }
+        }
+      ],
+      "systemGpuCounters": [
+        {
+          "Alloc system memory": 13900726272,
+          "Allocated PB Size": 159907840,
+          "Device Utilization %": 95,
+          "In use system memory": 4831019008,
+          "In use system memory (driver)": 0,
+          "Renderer Utilization %": 59,
+          "SplitSceneCount": 0,
+          "TiledSceneBytes": 1900544,
+          "Tiler Utilization %": 15,
+          "lastRecoveryTime": 0,
+          "recoveryCount": 0
+        }
+      ],
+      "lastObservedOptimizerProgress": {
+        "stage": "harden",
+        "sequenceUpdates": 1,
+        "metrics": {
+          "target.binder_contacts": 1.332859754562378,
+          "target.binder_helicity": -0.5251834392547607,
+          "target.binder_pae": 0.0261576808989048,
+          "target.compactness": 0.2984647750854492,
+          "target.interface_contacts": 1.3860338926315308,
+          "target.interface_pae": 0.014540374279022217,
+          "target.iptm": 0.8655251264572144,
+          "target.iptm_loss": 0.006723743863403797,
+          "target.plddt_loss": 0.006475681904703379,
+          "target.ptm": 0.882050096988678
+        }
+      }
+    }
+  ]
+}
