@@ -1086,3 +1086,20 @@ investigation retain this negative result; no CPU fallback or model/precision/
 filter change. Larger Metal profiles remain disabled. Further progress requires
 validated allocation/liveness or recomputation work; increasing limits is not
 supported by this experiment.
+
+### Native continuation acceptance and new exclusive BindCraft2 directive
+
+Relocated signed `88a64e9` passes real checkpoint continuation/reference, snapshot
+corruption refusal and exact export (`packaged-openmm-continuation.json`). Native
+button then completes a distinct 100-step segment, automatically opens its eleven
+frames and measures absolute 0.020–0.120 ps times in the existing viewer. Parent
+snapshot bytes and app seal remain intact. `native-checkpoint-continuation.json`,
+AX and screenshots include readable motion table headings. No further OpenMM or
+Vina work is active.
+
+The user supplied Project Metal Ω on 2026-10-19, explicitly restricting the
+current task to complete authentic BindCraft2 integration. Existing unrelated
+engines remain preserved. New priority is upstream-compatible campaign recovery,
+filter/rank operations, full outcomes inspection, parity accounting and packaged
+BindCraft2 acceptance. Core accepted 175-residue ensemble evidence is reused; no
+completed model campaign will be rerun merely to re-establish existing evidence.

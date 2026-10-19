@@ -1,5 +1,5 @@
 """Real shared-job checkpoint lineage against an independent original OpenMM context."""
-import argparse,hashlib,json,pathlib,subprocess,sys,time,zipfile
+import argparse,hashlib,json,os,pathlib,subprocess,sys,time,zipfile
 sys.dont_write_bytecode=True
 ROOT=pathlib.Path(__file__).resolve().parents[1]
 p=argparse.ArgumentParser();p.add_argument('--engine-root',default=str(ROOT));p.add_argument('--python',required=True);p.add_argument('--input',required=True);p.add_argument('--directory',required=True);p.add_argument('--report',required=True);p.add_argument('--bundled-runtime',action='store_true');a=p.parse_args();ENGINE=pathlib.Path(a.engine_root).resolve();sys.path.insert(0,str(ENGINE/'scientific'))
@@ -10,7 +10,7 @@ from dynamics import runtime
 import numpy as np
 import openmm as mm
 from openmm import unit
-root=pathlib.Path(a.directory).absolute()
+root=pathlib.Path(a.directory).resolve()
 if root.exists():raise SystemExit('Use a new isolated continuation QA root.')
 s=Service(root);project=s.project_create({'name':'OpenMM checkpoint continuation QA'});source=pathlib.Path(a.input).absolute();source_sha=hashlib.sha256(source.read_bytes()).hexdigest()
 def wait(job):
@@ -22,8 +22,8 @@ def wait(job):
  return job
 try:
  if a.bundled_runtime:
-  if runtime(s)!=str(pathlib.Path(a.python).absolute()):raise ValueError('Automatic bundled runtime discovery differs.')
- else:s.setting_set({'key':'openmmPython','value':str(pathlib.Path(a.python).absolute())})
+  if runtime(s)!=os.path.abspath(a.python):raise ValueError('Automatic bundled runtime discovery differs.')
+ else:s.setting_set({'key':'openmmPython','value':os.path.abspath(a.python)})
  record=s.import_structure({'projectId':project['id'],'path':str(source),'name':'Original OpenMM protein test derivative · technical QA'})
  parent=wait(s.dispatch('dynamics_start',{'projectId':project['id'],'structureId':record['id'],'name':'Checkpoint parent · technical QA','seed':42,'steps':20,'reportInterval':5}));folder=root/'jobs'/parent['id'];before={f.name:f.read_bytes() for f in folder.iterdir() if f.is_file()};parent_receipt=json.loads((folder/'result.json').read_text())
  child=wait(s.dispatch('dynamics_continue',{'projectId':project['id'],'parentJobId':parent['id'],'name':'Real checkpoint continuation · technical QA','steps':20,'reportInterval':5}));child_folder=root/'jobs'/child['id'];child_receipt=json.loads((child_folder/'result.json').read_text())
