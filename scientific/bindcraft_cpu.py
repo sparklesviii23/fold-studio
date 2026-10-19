@@ -1,5 +1,5 @@
 """Explicit CPU/float32 Metal campaign adapters; preserve upstream rejection criteria."""
-import hashlib,json,os,pathlib,subprocess
+import hashlib,json,os,pathlib,platform,subprocess
 import fold_engine as fe
 import mpnn
 
@@ -16,7 +16,7 @@ def execution_config(original,folder):
 
 def start(engine,p,recovery=None):
  if set(p)-{'id','projectId','profile'}:raise ValueError('Unsupported campaign launch fields.')
- profiles={'experimental-cpu-single-model':('cpu','upstream',False),'experimental-cpu-float32-single-model':('cpu','float32',False),'experimental-cpu-float32-scaffold':('cpu','float32',False),'experimental-cpu-float32-multitarget':('cpu','float32',False),'experimental-metal-float32-single-model':('metal','float32',False),'experimental-cpu-float32-ensemble':('cpu','float32',True),'experimental-metal-float32-ensemble':('metal','float32',True)}
+ profiles={'experimental-cpu-single-model':('cpu','upstream',False),'experimental-cpu-float32-single-model':('cpu','float32',False),'experimental-cpu-float32-scaffold':('cpu','float32',False),'experimental-cpu-float32-320':('cpu','float32',False),'experimental-cpu-float32-multitarget':('cpu','float32',False),'experimental-metal-float32-single-model':('metal','float32',False),'experimental-cpu-float32-ensemble':('cpu','float32',True),'experimental-metal-float32-ensemble':('metal','float32',True)}
  if p.get('profile') not in profiles:raise ValueError('Native binder-design execution is blocked without an explicit experimental execution profile.')
  backend,precision,ensemble=profiles[p['profile']]
  s=engine.s;job=engine.campaign(p)
@@ -26,12 +26,20 @@ def start(engine,p,recovery=None):
  state_count=len(prep['config']['targets']);multitarget=p['profile']=='experimental-cpu-float32-multitarget'
  if state_count>1 and not multitarget:raise ValueError('Multiple targets require the explicit multi-target CPU profile; other profiles remain limited to one state.')
  if multitarget and (not 2<=state_count<=3 or prep['modality'] not in ('binder','peptide')):raise ValueError('The multi-target CPU profile currently supports two or three observed target states with binder or linear-peptide designs.')
- limit=320 if p['profile']=='experimental-cpu-float32-scaffold' else 256
- if limit==320 and not prep.get('scaffold'):raise ValueError('The larger CPU profile requires an original scaffold campaign.')
+ cpu_memory_info={}
+ limit=320 if p['profile'] in ('experimental-cpu-float32-scaffold','experimental-cpu-float32-320') else 256
+ if p['profile']=='experimental-cpu-float32-320':
+  if prep['modality'] not in ('binder','peptide','large_binder','multidomain') or state_count!=1 or len(set(prep['config']['binder_lengths']))!=1:raise ValueError('The bounded 320-residue CPU profile requires one observed target state and a fixed-length binder, linear peptide, large binder or multidomain design.')
+ if p['profile']=='experimental-cpu-float32-scaffold' and not prep.get('scaffold'):raise ValueError('The larger CPU profile requires an original scaffold campaign.')
  count=sum(1 for r in prep['residueMap']);length=max(prep['config']['binder_lengths'])
- if not prep.get('scaffold') and count+length*prep['config'].get('copies',1)>256:raise ValueError('Initial experimental campaigns are limited to 256 total residues for memory validation.')
+ if not prep.get('scaffold') and count+length*prep['config'].get('copies',1)>limit:raise ValueError('This explicit experimental profile is limited to '+str(limit)+' total residues for memory validation.')
+ if p['profile']=='experimental-cpu-float32-320':
+  if platform.system()!='Darwin' or platform.machine()!='arm64':raise ValueError('The measured 320-residue CPU profile requires Apple Silicon macOS with at least 24 GiB unified memory.')
+  memory_bytes=int(subprocess.check_output(['/usr/sbin/sysctl','-n','hw.memsize'],text=True))
+  if memory_bytes<24*1024**3:raise ValueError('The measured 320-residue CPU profile requires Apple Silicon macOS with at least 24 GiB unified memory.')
+  cpu_memory_info={'memoryBytes':memory_bytes,'architecture':platform.machine(),'scope':'Bounded fixed-length single-state CPU profile; 320-residue full trained-model CPU forward/gradient benchmark, not a guarantee for every design.'}
  python=os.path.abspath(os.path.expanduser(mpnn.runtime(s)))
- runtime_info={}
+ runtime_info=cpu_memory_info
  if backend=='metal':
   import metal_runtime
   runtime_info=metal_runtime.probe(s)

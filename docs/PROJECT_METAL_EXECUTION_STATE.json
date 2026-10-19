@@ -1,24 +1,27 @@
 {
   "schemaVersion": 1,
-  "updatedUtc": "2026-10-19T05:11:02.167999+00:00",
+  "updatedUtc": "2026-10-19T05:31:55.230612+00:00",
   "branch": "project-metal/apple-silicon-engine",
-  "implementationCommit": "097a912",
+  "implementationCommit": "da8dbab",
   "scope": "Project Metal Omega: complete authentic local BindCraft2 integration. No new Vina, OpenMM or interface redesign work.",
   "upstreamRevision": "c0ee638d11bc010817c2c97ee58ed5c323e664e2",
   "verified": {
-    "backendTests": 300,
+    "backendTests": 312,
     "frontendTests": 73,
     "typescript": "passed",
     "corePipeline": "Real 175-residue hPDL1 ensemble design + ProteinMPNN + held-out AF2 + original filters; one accepted computational prediction, no biological claim.",
     "campaignRecovery": "Actual CPU cancellation at claimed trajectory 2; original budget continues with rows 1,3,4 and no accepted designs.",
     "filterRank": "Shared operations exactly match original upstream functions on existing authentic 1/3/1 trajectory/refold/accepted case.",
-    "propertyPresets": "9 original presets + combination + VHH/humanize resolution/preflight; VHH/mixed topology refusal before saving. No property generation validation."
+    "propertyPresets": "9 original presets + combination + VHH/humanize resolution/preflight; VHH/mixed topology refusal before saving. No property generation validation.",
+    "extendedFormats": "large_binder/multidomain original presets, real input preflight and ensemble resolution passed; no model execution",
+    "unboundOutputTransport": "7 protocol tests: explicit binder-alone roles/sequence, target completeness, own coordinate pLDDT and no inherited interface confidence."
   },
   "evidence": [
     "reports/bindcraft-ensemble-outcome.json",
     "reports/bindcraft-campaign-recovery.json",
     "reports/bindcraft-campaign-review.json",
-    "reports/af2-320-metal-gradient-only.json"
+    "reports/af2-320-metal-gradient-only.json",
+    "reports/bindcraft-extended-modalities.json"
   ],
   "runtime": {
     "cpu": "../runtimes/jax-cpu/bin/python",
@@ -51,7 +54,7 @@
   "latestVerifiedApp": "/Users/vii/Documents/FoldStudio-MetalPort/validation/Relocated BindCraft Recovery Engine/FOLD STUDIO Metal Dev.app (097a912; native review and packaged recovery passed; full ensemble acceptance active)",
   "immediateNext": [
     "Inspect the running native packaged ensemble without restarting it; eventually verify actual MPNN/refolding/filter/rank outputs and signature.",
-    "Finish property tests/receipts and commit the additive preset controls.",
+    "Connect original conformational presets and CPU resource guards; validate configuration and state handling before any new model job.",
     "Expand remaining upstream modalities/options with original settings hierarchy and explicit resource guards; implement accurate feature parity inventory."
   ],
   "limitations": [
@@ -60,12 +63,5 @@
     "Current new recovery/review native packaged acceptance pending.",
     "Do not rerun prior accepted/VHH/homodimer/multitarget finished campaigns merely to inspect results."
   ],
-  "nextPropertyIntegrationFinding": {
-    "upstreamAuthority": "bindcraft.settings.campaign_over_presets / requested_preset_names / read_preset",
-    "precedence": "core profiles, modality, alphabetically selected property presets, target presets, explicit campaign overrides",
-    "implementationConstraint": "Do not merge property flags on top of already-expanded modality settings: explicit modality fields would otherwise override property presets. Resolve the real upstream hierarchy in the pinned CPU runtime and retain selection/provenance.",
-    "safety": "Validate requested property names against shipped source, preserve scientific thresholds, use upstream feature/input preflight before queueing, keep default no-properties behavior unchanged.",
-    "catalog": "settings/property contains 9 presets (initial_guess, protease_stable, mixed_topology, termini_accessible, disulfide_staple, termini_together, humanize, bigbang, forced_targeting). No property code has been changed yet."
-  },
-  "uncommittedWork": "Property controls and original compatibility/preflight resolution ready for checkpoint; not yet in active native bundle."
+  "uncommittedWork": "Extended formats, bounded CPU320 and unbound-output prerequisite ready for checkpoint; absent from active native bundle."
 }

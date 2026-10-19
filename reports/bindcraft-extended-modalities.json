@@ -1,0 +1,123 @@
+{
+  "state": "passed",
+  "scope": "Two real original extended-format preparations retain every original preset field, explicitly chosen fixed lengths and observed fragment coordinates. Actual original input/feature preflight and ensemble selection execute without model inference. New optional 320-residue CPU profile is bounded from existing 320-residue AF2 CPU forward/gradient and scaffold pipeline evidence; extended-format full design trajectories are not yet validated. No biological domain/epitope, folding or binding claim.",
+  "root": "/Users/vii/Documents/FoldStudio-MetalPort/validation/bindcraft-extended-modalities",
+  "sourceSha256": "ed1fde7381852ae9515414c175db9faf3d14e6bc6aafcdad4b7c68b541bc79c1",
+  "cases": [
+    {
+      "modality": "large_binder",
+      "jobId": "a2805a35-430d-44ca-aaf1-ac6981034cb7",
+      "state": "prepared_not_executed",
+      "explicitBinderLength": 250,
+      "upstreamPreset": {
+        "description": "A longer binder, with extended optimisation; name binder_lengths as well",
+        "binder_lengths": [
+          250,
+          600
+        ],
+        "screen_steps": 100,
+        "refine_steps": 50,
+        "anneal_steps": 90,
+        "harden_steps": 10,
+        "mutate_steps": 30,
+        "design_models": 3,
+        "validation_model": "multimer",
+        "weights_plddt_loss": 1.0,
+        "weights_iptm_loss": 0.1,
+        "weights_interface_contacts": 0.8,
+        "weights_binder_contacts": 1.8,
+        "weights_interface_pae": 0.5,
+        "weights_binder_pae": 0.8,
+        "weights_binder_helicity": -0.2,
+        "weights_compactness": 0.1,
+        "min_plddt_screen": 0.6,
+        "min_plddt_refine": 0.6,
+        "min_plddt_mutate": 0.6,
+        "min_monomer_plddt_final": 0.6,
+        "filters": {
+          "Binder_RMSD": {
+            "threshold": 3.5,
+            "higher": false
+          }
+        }
+      },
+      "resourceEstimate": {
+        "paddedResidues": 288
+      },
+      "originalEnsembleSelection": {
+        "designModels": [
+          "model_1_multimer_v3",
+          "model_3_multimer_v3",
+          "model_5_multimer_v3"
+        ],
+        "validationModels": [
+          "model_2_multimer_v3",
+          "model_4_multimer_v3"
+        ],
+        "validationPoolExhausted": false
+      },
+      "singleModelDiagnosticHeldout": "model_2_multimer_v3",
+      "sourceUnchanged": true
+    },
+    {
+      "modality": "multidomain",
+      "jobId": "5e770dbd-b2f4-43b0-a252-e7bb823942e4",
+      "state": "prepared_not_executed",
+      "explicitBinderLength": 120,
+      "upstreamPreset": {
+        "description": "Two domains on one 120-300 residue chain, with separation and linker objectives",
+        "binder_lengths": [
+          120,
+          300
+        ],
+        "aa_bias": {
+          "C": 0
+        },
+        "design_recycles": 2,
+        "screen_steps": 100,
+        "refine_steps": 50,
+        "anneal_steps": 90,
+        "harden_steps": 10,
+        "mutate_steps": 30,
+        "weights_multidomain": 1.25,
+        "weights_binder_pae": 0.1,
+        "weights_binder_contacts": 0,
+        "weights_compactness": 0,
+        "n_domains": 2,
+        "min_domain_size": 50,
+        "max_domain_size": 180,
+        "max_domains": 2,
+        "domain_rg_weight": 0.5,
+        "domain_sep_weight": 1.0,
+        "domain_contact_cutoff": 8.0,
+        "domain_pae_margin": 0.2,
+        "domain_linker_helix_weight": 0.5,
+        "max_interdomain_contact_final": 0.05,
+        "min_domain_separation_ratio_final": 1.0,
+        "min_plddt_final": 0.75,
+        "min_ptm_final": 0.4,
+        "max_ipae_final": 0.45,
+        "min_monomer_plddt_final": 0.7
+      },
+      "resourceEstimate": {
+        "paddedResidues": 160
+      },
+      "originalEnsembleSelection": {
+        "designModels": [
+          "model_1_multimer_v3",
+          "model_2_multimer_v3",
+          "model_3_multimer_v3",
+          "model_4_multimer_v3",
+          "model_5_multimer_v3"
+        ],
+        "validationModels": [
+          "model_1_ptm",
+          "model_2_ptm"
+        ],
+        "validationPoolExhausted": false
+      },
+      "singleModelDiagnosticHeldout": "model_1_ptm",
+      "sourceUnchanged": true
+    }
+  ]
+}

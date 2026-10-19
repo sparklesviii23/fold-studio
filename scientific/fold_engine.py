@@ -12,7 +12,7 @@ UPSTREAM=BASE/'vendor'/'bindcraft2'
 PIN='c0ee638d11bc010817c2c97ee58ed5c323e664e2'
 ACTIONS={'bindcraft_results','bindcraft_review','bindcraft_resume','bindcraft_repeat','fold_fragment','fold_engine_status','fold_structure','fold_compute','bindcraft_validate','bindcraft_prepare','bindcraft_campaigns','bindcraft_import','bindcraft_start'}
 CONFIG_KEYS={'properties','projectId','structureId','name','modality','targetChains','hotspots','coldspots','binderLengths','candidates','attempts','seed','additionalTargets'}
-SUPPORTED_MODALITIES=('binder','peptide','cyclic_peptide','VHH','ARP','scFv','homo_oligomer')
+SUPPORTED_MODALITIES=('binder','large_binder','multidomain','peptide','cyclic_peptide','VHH','ARP','scFv','homo_oligomer')
 SCAFFOLD_MODALITIES=('VHH','ARP','scFv')
 
 def canonical(value):return json.dumps(value,sort_keys=True,separators=(',',':'),allow_nan=False)
@@ -45,7 +45,7 @@ class Engine:
             modalities.append({'name':path.stem,'description':json.loads(path.read_text()).get('description',''),'configuration':'tested' if path.stem in SUPPORTED_MODALITIES else 'not_started','execution':'experimental' if path.stem in SUPPORTED_MODALITIES else 'blocked'})
         return {'name':'FOLD SCIENTIFIC ENGINE','schemaVersion':1,'source':source_status(),'modalities':modalities,
                 'properties':__import__('campaign_profile').property_catalog(UPSTREAM),
-                'engines':[{'id':'bindcraft2','configuration':'implemented','resultImport':'implemented','execution':'experimental_cpu_and_metal','metalExecution':'experimental_float32_requires_pinned_runtime','modelEnsembles':'original_upstream_selection','profiles':['experimental-cpu-single-model','experimental-cpu-float32-single-model','experimental-cpu-float32-scaffold','experimental-cpu-float32-multitarget','experimental-metal-float32-single-model','experimental-cpu-float32-ensemble','experimental-metal-float32-ensemble']},
+                'engines':[{'id':'bindcraft2','configuration':'implemented','resultImport':'implemented','execution':'experimental_cpu_and_metal','metalExecution':'experimental_float32_requires_pinned_runtime','modelEnsembles':'original_upstream_selection','profiles':['experimental-cpu-single-model','experimental-cpu-float32-single-model','experimental-cpu-float32-scaffold','experimental-cpu-float32-320','experimental-cpu-float32-multitarget','experimental-metal-float32-single-model','experimental-cpu-float32-ensemble','experimental-metal-float32-ensemble']},
                            {'id':'openmm','execution':'cpu','scope':'Short Amber ff14SB/OBC2 protein pilot; not equilibrated sampling or Metal execution'}, {'id':'rdkit','execution':'cpu','scope':'Ligand ETKDGv3/MMFF94s preparation; not docking or biological activity validation'}, {'id':'proteinmpnn','execution':'cpu','scope':'Fixed-backbone sequence redesign; mpnn_start/mpnn_jobs'}, {'id':'boltz2','adapter':'existing prediction_start'}, {'id':'chimerax','adapter':'existing chimerax_execute; separately installed runtime; command availability is not validation'}],
                 'commands':[{'name':x,'status':'implemented' if x!='bindcraft_start' else 'experimental'} for x in sorted(ACTIONS)],
                 'dataModel':'Existing structure records/assets, stable residue/atom identities from Molecular Intelligence; existing jobs table. No parallel coordinate store.'}
@@ -76,9 +76,9 @@ class Engine:
         if any(not r['polymer'] or r['one']=='X' or r['ins'] or r['num']<1 for r in selected):raise ValueError('Selected chains must contain canonical protein residues with positive numbering and no insertion codes. Prepare an explicit derived input for other cases.')
         for r in selected:
             if not {'N','CA','C','O'}.issubset(st['atoms'][i]['name'] for i in r['atoms']):raise ValueError('Selected target residues require complete N, CA, C, O backbone atoms.')
-        lengths=p.get('binderLengths',{'peptide':[15,25],'cyclic_peptide':[7,16],'homo_oligomer':[40,120]}.get(modality,[60,100]))
+        lengths=p.get('binderLengths',{'peptide':[15,25],'cyclic_peptide':[7,16],'homo_oligomer':[40,120],'large_binder':[250,600],'multidomain':[120,300]}.get(modality,[60,100]))
         if not isinstance(lengths,list) or len(lengths) not in (1,2):raise ValueError('Binder lengths must be [fixed] or [minimum, maximum].')
-        for length in lengths:integer(length,'Binder length',5,500)
+        for length in lengths:integer(length,'Binder length',5,600 if modality=='large_binder' else 500)
         if lengths!=sorted(lengths):raise ValueError('Binder length bounds must be ordered.')
         candidates=integer(p.get('candidates',5),'Candidates',1,1000);attempts=integer(p.get('attempts',20),'Attempts',1,100000);seed=integer(p.get('seed',42),'Seed',0,2147483647)
         if attempts<candidates:raise ValueError('Attempts must be at least the requested candidate count.')
@@ -180,7 +180,7 @@ class Engine:
         if sum(f.stat().st_size for f in files)>250*1024**2:raise ValueError('Coordinate import exceeds 250 MB total.')
         metadata=json.loads(meta_bytes)
         if not isinstance(metadata,dict) or not isinstance(metadata.get('settings'),dict):raise ValueError('Invalid upstream campaign metadata.')
-        from bindcraft_provenance import native_receipt,chain_roles,enrich_existing
+        from bindcraft_provenance import native_receipt,prediction_context,enrich_existing
         native=native_receipt(self.s,job,root,metadata)
         provenance_match='native_receipts_verified' if native else 'external_unverified'
         rows=list(csv.DictReader(io.StringIO(table_bytes.decode('utf-8-sig'))))
@@ -194,11 +194,11 @@ class Engine:
             prepared.append((file,raw,fmt,matches[0],len(st['atoms'])))
         target_states={}
         if native:
-            from campaign_inputs import ranked_target,snapshots
-            for file,raw,fmt,row,count in prepared:target_states[file.name]=ranked_target(job['data']['preparation'],file.name,row['design'])
+            from campaign_inputs import snapshots
+            for file,raw,fmt,row,count in prepared:target_states[file.name]=prediction_context(job['data']['preparation'],file.name,row,raw,mi.parse_structure(raw.decode(),fmt),fmt)
             expected={state['name'] for state in snapshots(job['data']['preparation'])}
             for row in rows:
-                actual={target_states[file.name]['name'] for file,raw,fmt,matched,count in prepared if matched['design']==row['design']}
+                actual={target_states[file.name]['name'] for file,raw,fmt,matched,count in prepared if matched['design']==row['design'] and target_states[file.name]['kind']=='target_complex'}
                 if actual!=expected:raise ValueError('Native ranked candidate is missing a prepared target-state coordinate output.')
         evidence={'metadata':metadata,'rankedRows':rows,'metadataSha256':checksum(meta_bytes),'rankedCsvSha256':checksum(table_bytes),'sourceRevision':metadata.get('revision'),'provenanceMatch':'external_unverified','note':'Externally generated predictions. Source provenance is retained; correspondence to prepared inputs is not asserted.'}
         if native:evidence.update(provenanceMatch=provenance_match,nativeRun=native,note=native['scope'],sourceRevision=PIN)
@@ -229,8 +229,8 @@ class Engine:
                 id=str(uuid.uuid4());asset=id+('.pdb' if fmt=='pdb' else '.cif');dest=self.s.root/'assets'/asset;dest.write_bytes(raw);created_assets.append(dest)
                 info={'asset':asset,'format':fmt,'sha256':checksum(raw),'source':'Imported external BindCraft2 ranked prediction','imported':mi.now(),'confidenceKind':None,'metadata':{'campaignId':job['id'],'sourceFilename':file.name,'rawMetrics':row,'upstreamRevision':metadata.get('revision'),'batchSha256':batch,'provenanceMatch':'external_unverified','atoms':count}}
                 if native:
-                    info['source']='Local BindCraft2 '+native['execution']+' ranked prediction';info['confidenceKind']='BindCraft2 AlphaFold2 pLDDT';info['metadata'].update(nativeRun=native,nativeTargetState=target_states[file.name],provenanceMatch=provenance_match,upstreamRevision=PIN,reportedCampaignRevision=metadata.get('revision'))
-                    roles=chain_roles(raw,mi.parse_structure(raw.decode(),fmt)) if fmt=='mmcif' else None
+                    context=target_states[file.name];info['source']='Local BindCraft2 '+native['execution']+' '+('unbound binder prediction' if context['kind']=='binder_alone' else 'ranked prediction');info['confidenceKind']='BindCraft2 AlphaFold2 pLDDT';info['metadata'].update(nativeRun=native,**context['metadata'],provenanceMatch=provenance_match,upstreamRevision=PIN,reportedCampaignRevision=metadata.get('revision'))
+                    roles=context['roles']
                     if roles:
                         info['metadata']['chainRoles']=roles;self.s.db.execute('INSERT INTO intelligence_assignments VALUES(?,?,?,?)',(id,job['project_id'],json.dumps(roles),mi.now()))
                 name=file.stem[:200];self.s.db.execute('INSERT INTO records VALUES(?,?,?,?,?,?)',(id,job['project_id'],'structure',name,json.dumps(info),mi.now()));saved.append(id)

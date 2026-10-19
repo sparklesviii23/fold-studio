@@ -1172,3 +1172,23 @@ full ensemble calculation runs. `BINDCRAFT_FEATURE_PARITY.json` inventories ever
 shipped modality/property and explicit campaign-setting name with scope/status.
 Full option/modality parity remains incomplete, including dynamic loss/metric
 parameters and unavailable native modality/sequence-target routes.
+
+
+### Extended formats and unbound-output transport
+
+Original large_binder and multidomain presets now have additive native format
+controls and immutable input preparation. Real upstream preflight/ensemble
+resolution passes on explicitly identified 12-residue hPDL1 derivatives at
+250/120 binder residues (288/160 padded). No extended-format model trajectory
+is claimed. An explicit fixed-length CPU320 profile requires Apple Silicon
+with at least 24 GiB; the measured CPU320 forward/gradient evidence supports
+this bounded experimental route, without extending the failed Metal320 limit.
+
+Unbound binder outputs now require explicit original CIF roles and exact
+accepted-row sequence correspondence. They cannot satisfy missing bound target
+outputs or inherit target coordinates/interface confidence. Own-coordinate
+pLDDT remains distinct from parent-complex raw metrics. Seven synthetic
+protocol tests exercise these contracts; no conformational design is claimed.
+312 Python tests pass. Existing 73 frontend tests/TypeScript passed after format
+controls. The original native ensemble job ce12298c continues refinement; no
+competing model job or app rebuild was started.

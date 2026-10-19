@@ -27,16 +27,34 @@ def native_receipt(service,job,root,metadata):
  if not data.get('checkpointSha256'):raise ValueError('No native model checkpoint pins were recorded.')
  return {'state':'native_receipts_verified','execution':data['execution'],'precision':data['precision'],'upstreamSource':source,'reportedCampaignRevision':metadata.get('revision'),'executionSettingsSha256':fe.checksum(raw),'runtimeReceiptSha256':fe.checksum(runtime_path.read_bytes()),'checkpointSha256':data['checkpointSha256'],'preparedSource':preparation['source'],'preparedTargets':inputs,'runtime':runtime,'scope':'Native execution/settings/source/checkpoint receipt correspondence. Upstream computational acceptance does not establish biological binding or inhibition.'}
 
-def chain_roles(raw,structure):
+def chain_roles(raw,structure,unbound=False):
  values={};tokens=iter(fe.mi.cif_tokens(raw.decode()))
  for token in tokens:
   if token in ('_bindcraft.binder_chains','_bindcraft.target_chains'):
    if token in values:raise ValueError('Ambiguous BindCraft chain-role metadata.')
    values[token]=next(tokens,'')
  if not values:return None
- binder=set(values.get('_bindcraft.binder_chains','').split(','));target=set(values.get('_bindcraft.target_chains','').split(','));available={chain['id'] for chain in structure['chains']}
- if not binder or not target or '' in binder|target or binder&target or not (binder|target)<=available:raise ValueError('BindCraft chain roles do not match the written molecular model.')
+ def declared(name):
+  value=values.get(name,'')
+  return set() if value in ('','.','?') else set(value.split(','))
+ binder=declared('_bindcraft.binder_chains');target=declared('_bindcraft.target_chains');available={chain['id'] for chain in structure['chains']}
+ if not binder or (not target and not unbound) or '' in binder|target or binder&target or not (binder|target)<=available or (unbound and (target or binder!=available)):raise ValueError('BindCraft chain roles do not match the written molecular model.')
  return {chain:{'role':'candidate' if chain in binder else 'target' if chain in target else 'additional','identity':'BindCraft2 designed binder' if chain in binder else 'Prepared target' if chain in target else 'Additional chain','assignmentSource':'Explicit _bindcraft CIF chain-role metadata'} for chain in available}
+
+def prediction_context(preparation,filename,row,raw,structure,fmt):
+ """Separate original conformational binder-alone output from target complexes."""
+ from campaign_inputs import ranked_target
+ design=row['design'];config=preparation['config']
+ if pathlib.Path(filename).stem==design+'_monomer':
+  conformational=preparation.get('modality') in ('induced_fit','fold_switch') or any(config.get(key) for key in ('weights_induced_fit_interface','weights_induced_fit_global','weights_fold_switching','binder_shapes'))
+  if not conformational or fmt!='mmcif':raise ValueError('Unexpected binder-alone ranked output for this campaign.')
+  roles=chain_roles(raw,structure,unbound=True)
+  if not roles:raise ValueError('Binder-alone output requires explicit original chain-role metadata.')
+  written=row.get('Binder_Sequence','').split('/');actual=[chain['sequence'] for chain in structure['chains']]
+  if not all(written) or sorted(written)!=sorted(actual):raise ValueError('Binder-alone sequence differs from the accepted campaign row.')
+  return {'kind':'binder_alone','name':'binder_alone','roles':roles,'metadata':{'nativePredictionState':{'name':'binder_alone','kind':'unbound_binder_prediction'},'rawMetricsContext':'Accepted parent-complex campaign row; binder-alone pLDDT comes only from its own coordinate confidence field.'}}
+ state=ranked_target(preparation,filename,design);roles=chain_roles(raw,structure) if fmt=='mmcif' else None
+ return {'kind':'target_complex','name':state['name'],'roles':roles,'metadata':{'nativeTargetState':state,'nativePredictionState':{'name':state['name'],'kind':'target_complex'}}}
 
 def enrich_existing(service,job,ids,receipt,folder):
  """Upgrade metadata idempotently after receipt verification; coordinate assets stay immutable."""
@@ -48,10 +66,11 @@ def enrich_existing(service,job,ids,receipt,folder):
    if not row:raise ValueError('Imported native output record is missing.')
    info=json.loads(row['data']);raw=(service.root/'assets'/info['asset']).read_bytes()
    if fe.checksum(raw)!=info['sha256']:raise ValueError('Imported native coordinate asset changed.')
-   from campaign_inputs import ranked_target
-   info['metadata']['nativeTargetState']=ranked_target(job['data']['preparation'],info['metadata']['sourceFilename'],info['metadata']['rawMetrics']['design'])
-   info['source']='Local BindCraft2 '+receipt['execution']+' ranked prediction';info['confidenceKind']='BindCraft2 AlphaFold2 pLDDT';info['metadata'].update(provenanceMatch=receipt['state'],nativeRun=receipt,upstreamRevision=fe.PIN,reportedCampaignRevision=receipt.get('reportedCampaignRevision'))
-   roles=chain_roles(raw,fe.mi.parse_structure(raw.decode(),info['format'])) if info['format']=='mmcif' else None
+   context=prediction_context(job['data']['preparation'],info['metadata']['sourceFilename'],info['metadata']['rawMetrics'],raw,fe.mi.parse_structure(raw.decode(),info['format']),info['format'])
+   if context['kind']=='binder_alone':info['metadata'].pop('nativeTargetState',None)
+   info['metadata'].update(context['metadata'])
+   info['source']='Local BindCraft2 '+receipt['execution']+' '+('unbound binder prediction' if context['kind']=='binder_alone' else 'ranked prediction');info['confidenceKind']='BindCraft2 AlphaFold2 pLDDT';info['metadata'].update(provenanceMatch=receipt['state'],nativeRun=receipt,upstreamRevision=fe.PIN,reportedCampaignRevision=receipt.get('reportedCampaignRevision'))
+   roles=context['roles']
    if roles:
     info['metadata']['chainRoles']=roles
     # Preserve explicit user assignments made after the original result import.
