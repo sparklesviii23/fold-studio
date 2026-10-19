@@ -10,7 +10,7 @@ import fold_compute
 BASE=pathlib.Path(__file__).resolve().parents[1]
 UPSTREAM=BASE/'vendor'/'bindcraft2'
 PIN='c0ee638d11bc010817c2c97ee58ed5c323e664e2'
-ACTIONS={'bindcraft_repeat','fold_fragment','fold_engine_status','fold_structure','fold_compute','bindcraft_validate','bindcraft_prepare','bindcraft_campaigns','bindcraft_import','bindcraft_start'}
+ACTIONS={'bindcraft_results','bindcraft_review','bindcraft_resume','bindcraft_repeat','fold_fragment','fold_engine_status','fold_structure','fold_compute','bindcraft_validate','bindcraft_prepare','bindcraft_campaigns','bindcraft_import','bindcraft_start'}
 CONFIG_KEYS={'projectId','structureId','name','modality','targetChains','hotspots','coldspots','binderLengths','candidates','attempts','seed','additionalTargets'}
 SUPPORTED_MODALITIES=('binder','peptide','cyclic_peptide','VHH','ARP','scFv','homo_oligomer')
 SCAFFOLD_MODALITIES=('VHH','ARP','scFv')
@@ -137,6 +137,17 @@ class Engine:
     def bindcraft_repeat(self,p):
         from campaign_repeat import prepare
         return prepare(self,p)
+    def bindcraft_results(self,p):
+        from campaign_review import results
+        return results(self,p)
+    def bindcraft_review(self,p):
+        from campaign_review import review
+        return review(self,p)
+    def bindcraft_resume(self,p):
+        from campaign_recovery import prepare
+        from bindcraft_cpu import start
+        recovery=prepare(self,p)
+        return start(self,{**p,'profile':recovery['job']['data']['profile']},recovery=recovery)
     def bindcraft_start(self,p):
         self.campaign(p)
         import bindcraft_cpu
@@ -189,6 +200,12 @@ class Engine:
             prior=next(x for x in existing if x['batchSha256']==batch);enrich_existing(self.s,job,prior['outputs'],native,folder/prior['evidenceFolder'])
             return {'state':'already_imported','records':prior['outputs'],'batchSha256':batch,'provenanceMatch':provenance_match}
         saved=[];created_assets=[]
+        # Continuing a campaign can retain earlier accepted coordinate files.
+        # Reuse their immutable library identities across new ranking batches.
+        known={}
+        for item in self.s.rows("SELECT id,data FROM records WHERE project_id=? AND kind='structure'",(job['project_id'],)):
+            info=json.loads(item['data']);stamp=info.get('metadata',{})
+            if stamp.get('campaignId')==job['id']:known[(stamp.get('sourceFilename'),info.get('sha256'))]=(item['id'],info['asset'])
         try:
             self.s.db.execute('BEGIN IMMEDIATE')
             current=self.s.job(job['id']);existing=current['data'].get('imports',[])
@@ -196,6 +213,10 @@ class Engine:
                 self.s.db.rollback();prior=next(x for x in existing if x['batchSha256']==batch);enrich_existing(self.s,job,prior['outputs'],native,folder/prior['evidenceFolder']);return {'state':'already_imported','records':prior['outputs'],'batchSha256':batch,'provenanceMatch':provenance_match}
             job=current
             for file,raw,fmt,row,count in prepared:
+                prior=known.get((file.name,checksum(raw)))
+                if prior:
+                    if checksum((self.s.root/'assets'/prior[1]).read_bytes())!=checksum(raw):raise ValueError('An earlier imported campaign coordinate asset changed.')
+                    saved.append(prior[0]);continue
                 id=str(uuid.uuid4());asset=id+('.pdb' if fmt=='pdb' else '.cif');dest=self.s.root/'assets'/asset;dest.write_bytes(raw);created_assets.append(dest)
                 info={'asset':asset,'format':fmt,'sha256':checksum(raw),'source':'Imported external BindCraft2 ranked prediction','imported':mi.now(),'confidenceKind':None,'metadata':{'campaignId':job['id'],'sourceFilename':file.name,'rawMetrics':row,'upstreamRevision':metadata.get('revision'),'batchSha256':batch,'provenanceMatch':'external_unverified','atoms':count}}
                 if native:
@@ -206,7 +227,7 @@ class Engine:
                 name=file.stem[:200];self.s.db.execute('INSERT INTO records VALUES(?,?,?,?,?,?)',(id,job['project_id'],'structure',name,json.dumps(info),mi.now()));saved.append(id)
             raw_folder=folder/('import-'+batch);raw_folder.mkdir(exist_ok=True);(raw_folder/'campaign_metadata.json').write_bytes(meta_bytes);(raw_folder/'!_Ranked.csv').write_bytes(table_bytes);(raw_folder/'manifest.json').write_text(json.dumps(evidence,indent=2))
             if native:(raw_folder/'native-verification.json').write_text(json.dumps(native,indent=2))
-            data={**job['data'],'outputs':job['data'].get('outputs',[])+saved,'imports':existing+[{'batchSha256':batch,'evidenceFolder':raw_folder.name,'outputs':saved, 'imported':mi.now()}]}
+            data={**job['data'],'outputs':list(dict.fromkeys(job['data'].get('outputs',[])+saved)),'imports':existing+[{'batchSha256':batch,'evidenceFolder':raw_folder.name,'outputs':saved, 'imported':mi.now()}]}
             self.s.db.execute('UPDATE jobs SET state=?,data=?,updated=? WHERE id=?',('imported',json.dumps(data),mi.now(),job['id']));self.s.db.commit()
         except Exception:
             self.s.db.rollback()

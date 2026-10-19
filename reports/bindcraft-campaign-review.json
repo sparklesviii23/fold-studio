@@ -1,0 +1,52 @@
+{
+  "state": "passed",
+  "scope": "Real previously completed accepted 175-residue ensemble campaign: original 1 trajectory / 3 independently refolded candidates / 1 accepted design inspected; shared table rank/filter results exactly match direct original pinned BindCraft2 functions on identical snapshots. No prediction rerun, no acceptance promotion, original outputs unchanged.",
+  "root": "/Users/vii/Documents/FoldStudio-MetalPort/validation/bindcraft-campaign-review",
+  "sourceRoot": "/Users/vii/Documents/FoldStudio-MetalPort/validation/bindcraft-ensemble-metal",
+  "jobId": "31e1b01b-1aa9-48e9-94df-b267adbf0a50",
+  "stageRows": {
+    "trajectories": 1,
+    "candidates": 3,
+    "accepted": 1
+  },
+  "sourceUnchanged": true,
+  "rankAnalysisId": "da075a45-2061-42c0-89e4-b83eaf058320",
+  "filterAnalysisId": "9fae969d-4aff-422d-bcb0-9ad865732518",
+  "rankedDesigns": [
+    "design_l60_7eeb451168a769ef_candidate2",
+    "design_l60_7eeb451168a769ef_candidate3",
+    "design_l60_7eeb451168a769ef_candidate1"
+  ],
+  "filterPassingDesigns": [
+    "design_l60_7eeb451168a769ef_candidate2",
+    "design_l60_7eeb451168a769ef_candidate3",
+    "design_l60_7eeb451168a769ef_candidate1"
+  ],
+  "filterRejectedDesigns": [],
+  "upstreamFilterReport": [
+    "  Backbone_Clashes                 <= 0         keeps    3 of 3",
+    "  Binder_RMSD                      <= 3.5       keeps    3 of 3",
+    "  Epitope_Residues_Contacted       >= 0         keeps    3 of 3",
+    "  Hotspot_Contact_Fraction         >= 0         keeps    3 of 3",
+    "  Interface_BuriedArea             >= 0         keeps    3 of 3",
+    "  Interface_BuriedArea_Fraction    >= 0         keeps    3 of 3",
+    "  Interface_Residues               >= 7         keeps    3 of 3",
+    "  Off_Epitope_Contact_Fraction     <= 1         keeps    3 of 3",
+    "  SS_pLDDT                         >= 0         keeps    3 of 3",
+    "  Target_pLDDT                     >= 0         keeps    3 of 3",
+    "  Unbound_Binder_pLDDT             >= 0.7       keeps    3 of 3",
+    "  i_pAE                            <= 0.35      keeps    3 of 3",
+    "  i_pTM                            >= 0.7       keeps    3 of 3",
+    "  pTM                              >= 0.55      keeps    3 of 3",
+    "  every threshold together                      keeps    3 of 3",
+    "  not recorded in 2_Refolded, so not reapplied: Receptor_Chains_Contacted"
+  ],
+  "archive": "/Users/vii/Documents/FoldStudio-MetalPort/validation/bindcraft-campaign-review/review-project.zip",
+  "upstream": {
+    "state": "present",
+    "revision": "c0ee638d11bc010817c2c97ee58ed5c323e664e2",
+    "manifestSha256": "8f06e409dac335261d2505361f4358e2b4df389b8f85a497967406d8c4af4277",
+    "license": "BindCraft2 Source-Available License (Hosting-Restricted)",
+    "modified": false
+  }
+}

@@ -1103,3 +1103,35 @@ engines remain preserved. New priority is upstream-compatible campaign recovery,
 filter/rank operations, full outcomes inspection, parity accounting and packaged
 BindCraft2 acceptance. Core accepted 175-residue ensemble evidence is reused; no
 completed model campaign will be rerun merely to re-establish existing evidence.
+
+### BindCraft2 Ω: real recovery, original filter/rank and complete stage readings
+
+`campaign_recovery.py`, `bindcraft_cpu.py` and native `bindcraft_resume` continue
+an interrupted/failed/cancelled campaign using the original profile, model hashes,
+JAX versions, numerical adapter, seed, scientific settings and remaining budget.
+Live old process groups are refused. Prior job/settings/runtime/log receipts and
+complete output hashes are archived; claimed interrupted trajectories stay spent
+under the original upstream CampaignProgress behavior. Progress parsing resets at
+a new execution marker. This is next-trajectory recovery, not optimizer checkpoint
+restoration. An actual 24-residue CPU recovery campaign records trajectories
+1, 3, 4 after cancelling claimed trajectory 2, then completes its original four-
+attempt budget with zero accepted designs under original filters.
+`bindcraft-campaign-recovery.json`. No original completed model campaign rerun.
+
+`campaign_review.py` / runner execute authentic upstream `refilter_campaign` and
+`rerank_campaign` on distinct byte-pinned snapshots and save original tables and
+review provenance in the shared research database/project archive. Native
+`CampaignResults.tsx` exposes all recorded trajectory/refold/rank rows, original
+CSV export, metric ranking and saved-filter review. Missing metrics remain
+unreported, and omitted filters are disclosed by upstream. Post-hoc passing rows
+never acquire original campaign acceptance. Existing imported coordinate IDs are
+reused across later ranking batches, with asset-integrity checks.
+
+On the existing genuine accepted 175-residue ensemble case, all 1 / 3 / 1 stage
+rows are read and both review results exactly match direct original functions
+(`bindcraft-campaign-review.json`). The filter review keeps three rows and explicitly
+reports unrecorded Receptor_Chains_Contacted; the original one-design acceptance
+is preserved. No model inference was rerun for this review. Source/parent outputs
+and raw metric values remain unchanged. 295 Python tests pass; frontend copy
+assertion was updated to the equivalent scoped execution disclosure. Native
+packaged recovery/review controls are the next acceptance step.

@@ -14,13 +14,13 @@ def execution_config(original,folder):
  if original.get('binder_scaffold'):config['binder_scaffold']=str(folder/original['binder_scaffold'])
  return config,validation
 
-def start(engine,p):
+def start(engine,p,recovery=None):
  if set(p)-{'id','projectId','profile'}:raise ValueError('Unsupported campaign launch fields.')
  profiles={'experimental-cpu-single-model':('cpu','upstream',False),'experimental-cpu-float32-single-model':('cpu','float32',False),'experimental-cpu-float32-scaffold':('cpu','float32',False),'experimental-cpu-float32-multitarget':('cpu','float32',False),'experimental-metal-float32-single-model':('metal','float32',False),'experimental-cpu-float32-ensemble':('cpu','float32',True),'experimental-metal-float32-ensemble':('metal','float32',True)}
  if p.get('profile') not in profiles:raise ValueError('Native binder-design execution is blocked without an explicit experimental execution profile.')
  backend,precision,ensemble=profiles[p['profile']]
  s=engine.s;job=engine.campaign(p)
- if job['state']!='prepared':raise ValueError('Only a prepared, unexecuted campaign can start.')
+ if job['state']!=('prepared' if recovery is None else recovery['job']['state']):raise ValueError('Only a prepared, unexecuted campaign can start.')
  if s.active():raise ValueError('Another local compute job is active.')
  prep=job['data']['preparation']
  state_count=len(prep['config']['targets']);multitarget=p['profile']=='experimental-cpu-float32-multitarget'
@@ -39,6 +39,10 @@ def start(engine,p):
   runtime_info['launchEnvironment']=metal_runtime.environment('ensemble' if ensemble else 'single')
   python=runtime_info['runtime']
  if not pathlib.Path(python).is_file():raise ValueError('Scientific Python runtime unavailable.')
+ if recovery is not None:
+  result=subprocess.run([python,'-I','-B','-c','import json,importlib.metadata as m;print(json.dumps({n:m.version(n) for n in ("jax","jaxlib")}))'],capture_output=True,text=True,timeout=30)
+  if result.returncode:raise ValueError('The scientific runtime cannot be checked for recovery.')
+  if json.loads(result.stdout.strip())!={key:recovery['runtime'].get(key) for key in ('jax','jaxlib')}:raise ValueError('JAX versions differ from the original campaign.')
  bundled=fe.BASE/'models/alphafold'
  parameters=pathlib.Path(os.environ.get('FOLD_AF2_PARAMETERS') or s.setting('af2Parameters') or (bundled if bundled.is_dir() else s.root/'engine/models/alphafold')).expanduser().absolute()
  fe.verify_source()
@@ -57,6 +61,9 @@ def start(engine,p):
   if config.get('binder_scaffold'):query['binder_scaffold']=config['binder_scaffold']
   selection=ensemble_models(python,query,fe.UPSTREAM)
   config['design_models']=selection['designModels'];config['validation_models']=selection['validationModels'];config['validation_model']='multimer' if all(model.endswith('multimer_v3') for model in selection['validationModels']) else 'monomer'
+ if recovery is not None:
+  config['resume']=True
+  if fe.canonical(config)!=fe.canonical({**recovery['settings'],'resume':True}):raise ValueError('Recovery would change scientific execution settings; automatic continuation refused.')
  weights={}
  for model in (*selection['designModels'],*selection['validationModels']):
   if model not in pins:raise ValueError('AlphaFold model has no reviewed checkpoint pin: '+model)
@@ -64,6 +71,7 @@ def start(engine,p):
   if not path.is_file() or path.stat().st_size<100*1024**2:raise ValueError('Missing genuine AlphaFold checkpoint: '+model)
   weights[model]=hashlib.sha256(path.read_bytes()).hexdigest()
   if weights[model]!=pins[model]:raise ValueError('AlphaFold checkpoint does not match the pinned official acquisition: '+model)
+ if recovery is not None and weights!=recovery['job']['data'].get('checkpointSha256'):raise ValueError('Model checkpoints differ from the original execution; recovery refused.')
  from campaign_profile import resource_estimate
  estimate=resource_estimate(python,config,fe.UPSTREAM)
  if multitarget:
@@ -73,8 +81,16 @@ def start(engine,p):
  s.db.execute('BEGIN IMMEDIATE')
  if s.active():s.db.rollback();raise ValueError('Another local compute job is active.')
  current=s.job(job['id'])
- if current['state']!='prepared':s.db.rollback();raise ValueError('Campaign state changed.')
+ if current['state']!=job['state'] or (recovery is not None and current!=recovery['job']):s.db.rollback();raise ValueError('Campaign state changed.')
+ history=list(current['data'].get('recoveryHistory',[]))
+ if recovery is not None:
+  from campaign_recovery import verify_manifest,archive
+  try:verify_manifest(folder,recovery);history.append(archive(folder,recovery))
+  except Exception:s.db.rollback();raise
  data={**current['data'],'runtime':python,'parameters':str(parameters),'checkpointSha256':weights,'profile':p['profile'],'execution':backend,'precision':precision,'modelEnsemble':ensemble,'modelSelection':selection,'resourceEstimate':estimate,'paddedResidueLimit':limit,'runtimeInfo':runtime_info,'executionSettingsSha256':fe.checksum(fe.canonical(config).encode()),'outputs':[]}
+ if recovery is not None:
+  data.update(recoveryHistory=history,outputs=current['data'].get('outputs',[]))
+  for stale in ('pid','workerPath','error','finished','outcome','acceptedStructureFiles','executionProgress'):data.pop(stale,None)
  s.db.execute('UPDATE jobs SET state=?,data=?,updated=? WHERE id=?',('queued',json.dumps(data),fe.mi.now(),job['id']));s.db.commit()
  try:
   (folder/'execution-settings.json').write_text(json.dumps(config,indent=2));return s.spawn(s.job(job['id']),'--bindcraft-cpu-job')
@@ -84,6 +100,7 @@ def run(s,id):
  job=s.job(id);data=job['data'];folder=s.root/'jobs'/id
  if job['engine']!='bindcraft2' or job['state'] not in ('queued','running'):raise ValueError('Campaign cannot execute in this state.')
  try:
+  print('FOLD_CAMPAIGN_RUN '+json.dumps({'jobId':id,'recoveryNumber':len(data.get('recoveryHistory',[]))}),flush=True)
   s.job_update(id,'running',{'started':fe.mi.now(),'stage':'upstream_campaign'})
   backend=data.get('execution','cpu');env={**os.environ,'JAX_PLATFORMS':backend,'PYTHONUNBUFFERED':'1','XLA_PYTHON_CLIENT_PREALLOCATE':'false','PYTHONDONTWRITEBYTECODE':'1'}
   if backend=='metal':
@@ -108,6 +125,7 @@ def run(s,id):
 def progress_from_log(log):
  """Report only explicitly emitted upstream events. Never invent percent/iteration progress."""
  import re
+ log=log.rsplit('FOLD_CAMPAIGN_RUN ',1)[-1]
  trajectories=list(re.finditer(r'=== trajectory (\d+) \| ([^\n|]+) \| accepted (\d+)/(\d+) ===',log))
  out={'source':'upstream execution log','percent':None}
  if trajectories:
