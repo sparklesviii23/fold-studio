@@ -1,0 +1,124 @@
+{
+  "state": "passed",
+  "scope": "Immutable native FASTA inputs execute original disordered-target feature/input preflight, deterministic source-indexed crops, five-residue validation flanks and unresolved atom masks without inventing input geometry. Binder and peptide preparation only; no AF2 forward/gradient, full trajectory or biological disorder/binding claim.",
+  "root": "/Users/vii/Documents/FoldStudio-MetalPort/validation/bindcraft-sequence-targets",
+  "officialCoordinateSourceUnchanged": true,
+  "officialCoordinateSourceSha256": "d3c95434dcadf26d005340b15bd92be61e101ed921478c26f2a5550f198e61f6",
+  "sequenceSha256": "c434254957dd7a7d80ce4ca859f9a6d101a1205f4ff822177dd0b3c31f02e968",
+  "cases": [
+    {
+      "modality": "binder",
+      "jobId": "ad59cab9-2fae-4e2b-a0a9-957f2ea2be90",
+      "state": "prepared_not_executed",
+      "resourceEstimate": {
+        "paddedResidues": 128
+      },
+      "actualUpstreamCrops": [
+        {
+          "seed": 42,
+          "validationFlanks": false,
+          "start": 30,
+          "end": 67,
+          "sequence": "QLDLAALIVYWEMEDKNIIQFVHGEEDLKVQHSSYRQR",
+          "observedAtomMaskCount": 0
+        },
+        {
+          "seed": 42,
+          "validationFlanks": true,
+          "start": 25,
+          "end": 72,
+          "sequence": "FPVEKQLDLAALIVYWEMEDKNIIQFVHGEEDLKVQHSSYRQRARLLK",
+          "observedAtomMaskCount": 0
+        },
+        {
+          "seed": 2718,
+          "validationFlanks": false,
+          "start": 70,
+          "end": 87,
+          "sequence": "LLKDQLSLGNAALQITDV",
+          "observedAtomMaskCount": 0
+        },
+        {
+          "seed": 2718,
+          "validationFlanks": true,
+          "start": 65,
+          "end": 92,
+          "sequence": "RQRARLLKDQLSLGNAALQITDVKLQDA",
+          "observedAtomMaskCount": 0
+        }
+      ],
+      "originalDisorderedTargetSettingsRetained": true,
+      "originalEnsembleSelection": {
+        "designModels": [
+          "model_1_multimer_v3",
+          "model_2_multimer_v3",
+          "model_3_multimer_v3",
+          "model_4_multimer_v3",
+          "model_5_multimer_v3"
+        ],
+        "validationModels": [
+          "model_1_ptm",
+          "model_2_ptm"
+        ],
+        "validationPoolExhausted": false
+      },
+      "diagnosticHeldoutModel": "model_1_ptm"
+    },
+    {
+      "modality": "peptide",
+      "jobId": "fc810914-0f0d-407e-a77c-bcc2494d317f",
+      "state": "prepared_not_executed",
+      "resourceEstimate": {
+        "paddedResidues": 96
+      },
+      "actualUpstreamCrops": [
+        {
+          "seed": 42,
+          "validationFlanks": false,
+          "start": 30,
+          "end": 67,
+          "sequence": "QLDLAALIVYWEMEDKNIIQFVHGEEDLKVQHSSYRQR",
+          "observedAtomMaskCount": 0
+        },
+        {
+          "seed": 42,
+          "validationFlanks": true,
+          "start": 25,
+          "end": 72,
+          "sequence": "FPVEKQLDLAALIVYWEMEDKNIIQFVHGEEDLKVQHSSYRQRARLLK",
+          "observedAtomMaskCount": 0
+        },
+        {
+          "seed": 2718,
+          "validationFlanks": false,
+          "start": 70,
+          "end": 87,
+          "sequence": "LLKDQLSLGNAALQITDV",
+          "observedAtomMaskCount": 0
+        },
+        {
+          "seed": 2718,
+          "validationFlanks": true,
+          "start": 65,
+          "end": 92,
+          "sequence": "RQRARLLKDQLSLGNAALQITDVKLQDA",
+          "observedAtomMaskCount": 0
+        }
+      ],
+      "originalDisorderedTargetSettingsRetained": true,
+      "originalEnsembleSelection": {
+        "designModels": [
+          "model_1_multimer_v3",
+          "model_3_multimer_v3",
+          "model_5_multimer_v3"
+        ],
+        "validationModels": [
+          "model_2_multimer_v3",
+          "model_4_multimer_v3"
+        ],
+        "validationPoolExhausted": false
+      },
+      "diagnosticHeldoutModel": "model_2_multimer_v3"
+    }
+  ]
+}

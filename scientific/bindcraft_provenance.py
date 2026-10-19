@@ -54,7 +54,11 @@ def prediction_context(preparation,filename,row,raw,structure,fmt):
   if not all(written) or sorted(written)!=sorted(actual):raise ValueError('Binder-alone sequence differs from the accepted campaign row.')
   return {'kind':'binder_alone','name':'binder_alone','roles':roles,'metadata':{'nativePredictionState':{'name':'binder_alone','kind':'unbound_binder_prediction'},'rawMetricsContext':'Accepted parent-complex campaign row; binder-alone pLDDT comes only from its own coordinate confidence field.'}}
  state=ranked_target(preparation,filename,design);roles=chain_roles(raw,structure) if fmt=='mmcif' else None
- return {'kind':'target_complex','name':state['name'],'roles':roles,'metadata':{'nativeTargetState':state,'nativePredictionState':{'name':state['name'],'kind':'target_complex'}}}
+ from sequence_targets import predicted_crop
+ crop=predicted_crop(preparation,structure,roles)
+ metadata={'nativeTargetState':state,'nativePredictionState':{'name':state['name'],'kind':'target_complex'}}
+ if crop:metadata['sequenceTargetPrediction']=crop
+ return {'kind':'target_complex','name':state['name'],'roles':roles,'metadata':metadata}
 
 def enrich_existing(service,job,ids,receipt,folder):
  """Upgrade metadata idempotently after receipt verification; coordinate assets stay immutable."""

@@ -10,7 +10,7 @@ import fold_compute
 BASE=pathlib.Path(__file__).resolve().parents[1]
 UPSTREAM=BASE/'vendor'/'bindcraft2'
 PIN='c0ee638d11bc010817c2c97ee58ed5c323e664e2'
-ACTIONS={'bindcraft_results','bindcraft_review','bindcraft_resume','bindcraft_repeat','fold_fragment','fold_engine_status','fold_structure','fold_compute','bindcraft_validate','bindcraft_prepare','bindcraft_campaigns','bindcraft_import','bindcraft_start'}
+ACTIONS={'bindcraft_results','bindcraft_review','bindcraft_resume','bindcraft_repeat','fold_fragment','fold_engine_status','fold_structure','fold_target','fold_compute','bindcraft_validate','bindcraft_prepare','bindcraft_campaigns','bindcraft_import','bindcraft_start'}
 CONFIG_KEYS={'core','properties','projectId','structureId','name','modality','targetChains','hotspots','coldspots','binderLengths','candidates','attempts','seed','additionalTargets'}
 SUPPORTED_MODALITIES=('binder','large_binder','multidomain','induced_fit','fold_switch','peptide','cyclic_peptide','VHH','ARP','scFv','homo_oligomer')
 SCAFFOLD_MODALITIES=('VHH','ARP','scFv')
@@ -45,7 +45,7 @@ class Engine:
             modalities.append({'name':path.stem,'description':json.loads(path.read_text()).get('description',''),'configuration':'tested' if path.stem in SUPPORTED_MODALITIES else 'not_started','execution':'experimental' if path.stem in SUPPORTED_MODALITIES else 'blocked'})
         return {'name':'FOLD SCIENTIFIC ENGINE','schemaVersion':1,'source':source_status(),'modalities':modalities,
                 'properties':__import__('campaign_profile').property_catalog(UPSTREAM),'coreProfiles':__import__('campaign_profile').core_catalog(UPSTREAM),
-                'engines':[{'id':'bindcraft2','configuration':'implemented','resultImport':'implemented','execution':'experimental_cpu_and_metal','metalExecution':'experimental_float32_requires_pinned_runtime','modelEnsembles':'original_upstream_selection','profiles':['experimental-cpu-single-model','experimental-cpu-float32-single-model','experimental-cpu-float32-scaffold','experimental-cpu-float32-320','experimental-cpu-float32-conformational','experimental-cpu-float32-multitarget','experimental-metal-float32-single-model','experimental-cpu-float32-ensemble','experimental-metal-float32-ensemble']},
+                'engines':[{'id':'bindcraft2','configuration':'implemented','resultImport':'implemented','execution':'experimental_cpu_and_metal','metalExecution':'experimental_float32_requires_pinned_runtime','modelEnsembles':'original_upstream_selection','profiles':['experimental-cpu-single-model','experimental-cpu-float32-single-model','experimental-cpu-float32-scaffold','experimental-cpu-float32-320','experimental-cpu-float32-conformational','experimental-cpu-float32-sequence','experimental-cpu-float32-multitarget','experimental-metal-float32-single-model','experimental-cpu-float32-ensemble','experimental-metal-float32-ensemble']},
                            {'id':'openmm','execution':'cpu','scope':'Short Amber ff14SB/OBC2 protein pilot; not equilibrated sampling or Metal execution'}, {'id':'rdkit','execution':'cpu','scope':'Ligand ETKDGv3/MMFF94s preparation; not docking or biological activity validation'}, {'id':'proteinmpnn','execution':'cpu','scope':'Fixed-backbone sequence redesign; mpnn_start/mpnn_jobs'}, {'id':'boltz2','adapter':'existing prediction_start'}, {'id':'chimerax','adapter':'existing chimerax_execute; separately installed runtime; command availability is not validation'}],
                 'commands':[{'name':x,'status':'implemented' if x!='bindcraft_start' else 'experimental'} for x in sorted(ACTIONS)],
                 'dataModel':'Existing structure records/assets, stable residue/atom identities from Molecular Intelligence; existing jobs table. No parallel coordinate store.'}
@@ -58,24 +58,31 @@ class Engine:
         if p.get('projectId') and record['project_id']!=p['projectId']:raise ValueError('Structure belongs to another project.')
         structure=mi.parse_structure(path.read_text(),record['data']['format'])
         return {'schemaVersion':1,'reference':{'structureId':record['id'],'projectId':record['project_id'],'sha256':record['data']['sha256'],'format':record['data']['format'],'model':structure['model']},'structure':structure}
+    def fold_target(self,p):
+        from sequence_targets import inspect
+        return inspect(self,p)
     def bindcraft_validate(self,p):
         unknown=set(p)-CONFIG_KEYS
         if unknown:raise ValueError('Unsupported campaign fields: '+', '.join(sorted(unknown)))
-        self.s.project(p['projectId']);shared=self.fold_structure(p);st=shared['structure']
+        self.s.project(p['projectId']);shared=self.fold_target(p);st=shared.get('structure')
         modality=p.get('modality','binder')
         if modality not in SUPPORTED_MODALITIES:raise ValueError('Other upstream modalities remain blocked until their constraints and execution are validated.')
         if modality in SCAFFOLD_MODALITIES and 'binderLengths' in p:raise ValueError(modality+' length follows the original scaffold '+('repeat' if modality=='ARP' else 'CDR')+' edit choices; free binder length bounds do not apply.')
         chains=p.get('targetChains')
         if not isinstance(chains,list) or not chains or any(not isinstance(c,str) for c in chains) or len(chains)!=len(set(chains)):raise ValueError('Choose distinct target chains.')
-        available={c['id']:c for c in st['chains']}
-        if any(c not in available or not re.fullmatch('[A-Za-z]',c) for c in chains):raise ValueError('Initial adapter requires explicit one-letter PDB chain identifiers.')
-        selected=[r for r in st['residues'] if r['chain'] in chains]
-        record,path=self.lab.record(p['structureId'])
-        raw_atoms=list(mi.atom_rows(path.read_text(),record['data']['format']))
-        if len(st['models'])!=1 or any(a['chain'] in chains and (a['alt'] or a['occupancy']<=0) for a in raw_atoms):raise ValueError('Initial campaign preparation requires one coordinate model and resolved alternate conformers/occupancies.')
-        if any(not r['polymer'] or r['one']=='X' or r['ins'] or r['num']<1 for r in selected):raise ValueError('Selected chains must contain canonical protein residues with positive numbering and no insertion codes. Prepare an explicit derived input for other cases.')
-        for r in selected:
-            if not {'N','CA','C','O'}.issubset(st['atoms'][i]['name'] for i in r['atoms']):raise ValueError('Selected target residues require complete N, CA, C, O backbone atoms.')
+        if st is not None:
+            available={c['id']:c for c in st['chains']}
+            if any(c not in available or not re.fullmatch('[A-Za-z]',c) for c in chains):raise ValueError('Initial adapter requires explicit one-letter PDB chain identifiers.')
+            selected=[r for r in st['residues'] if r['chain'] in chains]
+            record,path=self.lab.record(p['structureId'])
+            raw_atoms=list(mi.atom_rows(path.read_text(),record['data']['format']))
+            if len(st['models'])!=1 or any(a['chain'] in chains and (a['alt'] or a['occupancy']<=0) for a in raw_atoms):raise ValueError('Initial campaign preparation requires one coordinate model and resolved alternate conformers/occupancies.')
+            if any(not r['polymer'] or r['one']=='X' or r['ins'] or r['num']<1 for r in selected):raise ValueError('Selected chains must contain canonical protein residues with positive numbering and no insertion codes. Prepare an explicit derived input for other cases.')
+            for r in selected:
+                if not {'N','CA','C','O'}.issubset(st['atoms'][i]['name'] for i in r['atoms']):raise ValueError('Selected target residues require complete N, CA, C, O backbone atoms.')
+        else:
+            if chains!=['A'] or p.get('hotspots') or p.get('coldspots') or p.get('additionalTargets') or modality not in ('binder','peptide'):raise ValueError('Sequence-target preparation currently requires chain A, no observed-residue hotspot/coldspot selections, one target and binder or linear-peptide mode.')
+            selected=[]
         lengths=p.get('binderLengths',{'peptide':[15,25],'cyclic_peptide':[7,16],'homo_oligomer':[40,120],'large_binder':[250,600],'multidomain':[120,300]}.get(modality,[60,100]))
         if not isinstance(lengths,list) or len(lengths) not in (1,2):raise ValueError('Binder lengths must be [fixed] or [minimum, maximum].')
         for length in lengths:integer(length,'Binder length',5,600 if modality=='large_binder' else 500)
@@ -102,11 +109,12 @@ class Engine:
             scaffold={'file':'scaffold.cif','source':str(source.relative_to(UPSTREAM)),'sha256':checksum(source.read_bytes()),'modality':modality}
             preset['binder_scaffold']=scaffold['file']
         config={**preset,'binder_lengths':lengths,'number_of_final_designs':candidates,'max_trajectories':attempts,'campaign_seed':seed,'attention_backend':'stock','use_cueq':False,'auto_multi_gpu':False,'design_workers':1,'resume':False,
-                'targets':[{'name':'target','target_path':'input'+('.pdb' if shared['reference']['format']=='pdb' else '.cif'),'chains':','.join(chains),'hotspots':','.join(r['chain']+str(r['num']) for r in hot),'coldspots':','.join(r['chain']+str(r['num']) for r in cold)}],'project_folder':'output'}
+                'targets':[{'name':'target','target_path':'input'+{'pdb':'.pdb','fasta':'.fasta'}.get(shared['reference']['format'],'.cif'),'chains':','.join(chains),'hotspots':','.join(r['chain']+str(r['num']) for r in hot),'coldspots':','.join(r['chain']+str(r['num']) for r in cold)}],'project_folder':'output'}
         name=p.get('name','Design campaign')
         if not isinstance(name,str) or not name.strip() or len(name)>160:raise ValueError('Enter a campaign name of 1–160 characters.')
         checked={'schemaVersion':1,'name':name.strip(),'valid':True,'executionReady':False,'modality':modality,'scaffold':scaffold,'source':shared['reference'],'config':config,'residueMap':[{'id':r['id'],'chain':r['chain'],'number':r['num'],'aminoAcid':r['one']} for r in selected],
                 'settingsSha256':checksum(canonical(config).encode()),'upstream':source_status(),'warnings':['Prepared configuration is not a completed design or a validated full-model Metal backend.','Hotspots use observed source numbering; no biological numbering conversion is inferred.','Memory feasibility has not been established for this target.']}
+        if st is None:checked['sequenceTarget']={'sequence':shared['sequence'],'sequenceSha256':shared['reference']['sequenceSha256']};checked['warnings']=[warning for warning in checked['warnings'] if not warning.startswith('Hotspots use observed')]+['Sequence-only target: original upstream random crop and flanked validation windows apply. No observed coordinates or biological disorder annotation is inferred. Only a separate bounded CPU execution profile is enabled.']
         if properties:checked['propertyPresets']=properties;checked['warnings'].append('Original property presets change scientific objectives and filters. Their preparation is not modality or biological validation.')
         if p.get('core'):
             from campaign_profile import core_catalog
@@ -123,12 +131,13 @@ class Engine:
         return checked
     def bindcraft_prepare(self,p):
         checked=self.bindcraft_validate(p);checked['upstream']=verify_source()
-        record,path=self.lab.record(p['structureId']);job=self.s.job_new({'projectId':p['projectId'],'name':checked['name'],'preparation':checked,'outputs':[]},'bindcraft2','preparing')
+        job=self.s.job_new({'projectId':p['projectId'],'name':checked['name'],'preparation':checked,'outputs':[]},'bindcraft2','preparing')
         folder=self.s.root/'jobs'/job['id'];folder.mkdir(exist_ok=True)
         try:
             from campaign_inputs import snapshots
             for target in snapshots(checked):
-                target_record,target_path=self.lab.record(target['source']['structureId']);raw=target_path.read_bytes()
+                from sequence_targets import snapshot_bytes
+                raw=snapshot_bytes(self,target['source'])
                 if checksum(raw)!=target['source']['sha256']:raise ValueError('Source changed during preparation.')
                 (folder/target['file']).write_bytes(raw)
             if checked.get('scaffold'):

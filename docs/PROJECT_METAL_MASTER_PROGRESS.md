@@ -1221,3 +1221,22 @@ and literal flags are inventoried separately from native equivalents. Every
 entry retains explicit exposure/scope; source presence is not full validation.
 The reproducible inventory script verifies the pinned source manifest before
 writing strict JSON. Full port completion remains false.
+
+
+### Immutable FASTA target path
+
+Saved canonical sequences can now be selected as native campaign inputs. Their
+FASTA bytes, plain sequence hash and source identity are preserved separately
+from observed coordinate inputs. No fake structure is produced. The original
+disordered-target crop sampler and validation flanks were exercised on the
+official hPDL1 sequence as technical QA, without claiming biological disorder.
+Actual source settings/loss cutoff/target-pLDDT defaults and unresolved atom
+masks passed, with exact source-index sequence matches on two seeds.
+
+A dedicated CPU192 fixed-length binder/peptide profile is exposed, with one
+FASTA target and no observed-residue hotspots, mixed targets or multiple crop
+states. Full trained-model sequence-target validation is pending. Predicted
+crops must match the saved sequence at exact original positions and retain
+predicted-coordinate provenance. Repeat/recovery/export preserve FASTA inputs.
+331 backend tests, 73 frontend tests and TypeScript pass. No app rebuild or
+competing high-memory job occurred; ce12298c remains in annealing.

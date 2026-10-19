@@ -38,6 +38,8 @@ def snapshots(preparation):
  return preparation.get('targetSources') or [{'name':preparation['config']['targets'][0]['name'],'file':preparation['config']['targets'][0]['target_path'],'source':preparation['source'],'residueMap':preparation['residueMap'],'objective':'target','weight':1.0}]
 
 def verify(folder,preparation,label='Prepared source changed.',scaffold_label='Prepared scaffold changed.'):
+ from sequence_targets import verify_preparation
+ verify_preparation(preparation)
  inputs=snapshots(preparation);targets=preparation['config']['targets']
  if len(inputs)!=len(targets):raise ValueError('Prepared target input manifest is incomplete.')
  seen=set()

@@ -1379,7 +1379,7 @@
       "name": "targets",
       "status": "INTEGRATED",
       "exposure": "native_control",
-      "limitation": "Observed coordinate targets and one selected modality only; source combinations/FASTA are not available through this control."
+      "limitation": "Observed structures or single canonical FASTA target. Multiple FASTA crops and mixed coordinate/FASTA campaigns remain unavailable."
     },
     {
       "name": "termini_accessible",
@@ -4907,7 +4907,7 @@
     {
       "name": "design",
       "status": "INTEGRATED",
-      "scope": "Native campaign lifecycle and bounded CPU/Metal profiles; no unrestricted --set, custom metadata, FASTA or combined modalities.",
+      "scope": "Native campaign lifecycle and bounded CPU/Metal profiles; one observed or canonical FASTA target path, no unrestricted --set, custom metadata or combined modalities.",
       "source": "vendor/bindcraft2/bindcraft/cli.py",
       "flags": [
         {
@@ -5179,5 +5179,10 @@
       "vendor/bindcraft2/bindcraft/filters.py": "737225ef652fd6a8b5501c7699e0e7a1a43f3712e07ffca98a6f10c2cc7adb0b",
       "vendor/bindcraft2/bindcraft/cli.py": "a9d885212945b82a822e21dbb039b320b5090ddea1d6e80ae304910db44f9336"
     }
+  },
+  "sequenceTargets": {
+    "status": "INTEGRATED",
+    "scope": "Saved canonical sequence -> immutable FASTA -> actual original disordered-target preparation, crop/flank/feature preflight. One target, fixed-length binder/peptide and dedicated CPU192 profile; no sequence-target trained-model campaign yet. No observed coordinates or biological disorder claim.",
+    "evidence": "reports/bindcraft-sequence-targets.json"
   }
 }
