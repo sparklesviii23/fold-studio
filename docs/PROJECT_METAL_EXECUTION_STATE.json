@@ -1,12 +1,12 @@
 {
   "schemaVersion": 1,
-  "updatedUtc": "2026-10-19T11:34:36.826539+00:00",
+  "updatedUtc": "2026-10-19T11:39:27.134114+00:00",
   "branch": "project-metal/apple-silicon-engine",
-  "implementationCommit": "65ecc21",
+  "implementationCommit": "b10d8ee",
   "scope": "Project Metal Omega: complete authentic local BindCraft2 integration. No new Vina, OpenMM or interface redesign work.",
   "upstreamRevision": "c0ee638d11bc010817c2c97ee58ed5c323e664e2",
   "verified": {
-    "backendTests": 342,
+    "backendTests": 343,
     "frontendTests": 76,
     "typescript": "passed",
     "corePipeline": "Real 175-residue hPDL1 ensemble design + ProteinMPNN + held-out AF2 + original filters; one accepted computational prediction, no biological claim.",
@@ -23,7 +23,8 @@
     "coordinateScoring": "Original score_design recomputation on saved genuine 175-residue complex exactly matches direct original source; source unchanged, omitted site/missing state/confidence metrics and separate stamped model readings. 5 synthetic contract tests.",
     "nativeCorePipeline": "Actual packaged app-owned Metal runtime and seven AF2 models: one real trajectory, three passed independent candidate refolds, original rank retained one accepted prediction. 3895.532 seconds. Native CIF export exact bytes, quit/reopen/viewer passed.",
     "acceptedSequenceExport": "Exact original accepted binder FASTA export implemented; three unit tests pass, new bundle acceptance pending.",
-    "campaignSummary": "Original summarize_campaign integrated; all 157 statistical rows on saved genuine native 1/3/1 case exactly match direct original source. Seven review contracts pass; latest summary button not bundled yet."
+    "campaignSummary": "Original summarize_campaign integrated; all 157 statistical rows on saved genuine native 1/3/1 case exactly match direct original source. Seven review contracts pass; latest summary button not bundled yet.",
+    "conformationalExecution": "Original fold_switch single-model CPU float32, technical 12+60 case: bound/unbound optimization executed, screening/refinement passed, rejected at anneal by original i_pTM. 637.945 seconds, 1/0/0 stage rows. Not full downstream or broad validation."
   },
   "evidence": [
     "reports/bindcraft-ensemble-outcome.json",
@@ -41,7 +42,9 @@
     "reports/bindcraft-fab-gradient-preflight.json",
     "reports/native-bindcraft-updated-package.json",
     "reports/bindcraft-campaign-summary.json",
-    "reports/bindcraft-fold-switch-telemetry.json"
+    "reports/bindcraft-fold-switch-telemetry.json",
+    "reports/bindcraft-fold-switch-outcome.json",
+    "reports/native-bindcraft-summary-package.json"
   ],
   "runtime": {
     "cpu": "../runtimes/jax-cpu/bin/python",
@@ -59,22 +62,22 @@
     "reproduce": "METALJAX_MEM_GOVERNOR=1 METALJAX_MEM_BUDGET_MB=8192 METALJAX_MEM_SYS_MB=23552 METALJAX_LOOP_INFLIGHT_MB=128 METALJAX_MATMUL_PRECISION=highest ../runtimes/jax-metaljax/bin/python -B scripts/validate-af2-gradient-memory.py --parameters ../models/alphafold --target vendor/bindcraft2/settings/target/structures/hPDL1.pdb --reference reports/af2-320-cpu.json --output <new-output.json>"
   },
   "activeComputationalTest": {
-    "jobId": "4dcd3ea2-799e-49df-97a2-06de98c71291",
-    "root": "/Users/vii/Documents/FoldStudio-MetalPort/validation/bindcraft-conformational-presets",
-    "workerPid": 33999,
-    "modelDriverPid": 34002,
-    "profile": "experimental-cpu-float32-conformational",
+    "jobId": "fed195a1-3eef-473e-956e-f7260a78d2ef",
+    "root": "/Users/vii/Documents/FoldStudio-MetalPort/validation/bindcraft-campaign-review",
+    "app": "/Users/vii/Documents/FoldStudio-MetalPort/validation/Relocated BindCraft Summary Engine/FOLD STUDIO Metal Dev.app",
+    "workerPid": 36344,
     "backend": "cpu",
+    "profile": "experimental-cpu-float32-sequence",
     "state": "running",
-    "scope": "Original fold_switch, 60 binder + explicit observed 12-residue technical fragment; both bound/unbound genuine optimization, original filters. One maximum attempt.",
-    "instruction": "Do not duplicate or restart. Keep only one AlphaFold process; native FASTA prepared but must wait."
+    "maximumAttempts": 1,
+    "instruction": "Actual native app-launched FASTA target campaign. Do not restart/duplicate. Do not run another AF2 job. Inspect existing saved settings, job and execution.log."
   },
   "activeBuild": null,
-  "latestVerifiedApp": "/Users/vii/Documents/FoldStudio-MetalPort/validation/Relocated BindCraft Complete Engine/FOLD STUDIO Metal Dev.app (65ecc21; signature and relocation passed, native FASTA preparation, exact accepted FASTA export and original coordinate scoring passed)",
+  "latestVerifiedApp": "/Users/vii/Documents/FoldStudio-MetalPort/validation/Relocated BindCraft Summary Engine/FOLD STUDIO Metal Dev.app (b10d8ee; signed relocated launch, native original summary 157 rows passed; actual native FASTA execution running)",
   "immediateNext": [
-    "Build and verify latest native app, including original presets/options, FASTA input and accepted sequence export.",
-    "Run one prepared original-filter fold_switch CPU trajectory; no competing AlphaFold job.",
-    "Characterize full Fab CPU gradient under an explicit bounded memory ceiling; do not mislabel a governor refusal as physical exhaustion."
+    "Verify native FASTA campaign completion, original source outputs and signature without rerunning it.",
+    "Run bounded full Fab608 CPU gradient with no other AlphaFold or build active; record actual outcome, not assumptions about physical memory.",
+    "Finish remaining original command/feature and release validation, preserving scientific rejection."
   ],
   "limitations": [
     "Full upstream modality/option parity remains incomplete.",
@@ -82,5 +85,5 @@
     "Newest additions require packaged acceptance.",
     "Do not rerun finished accepted/VHH/homodimer/multitarget campaigns merely to inspect results."
   ],
-  "uncommittedWork": "Original campaign summary bridge, original-source equality evidence and native packaged controls acceptance."
+  "uncommittedWork": "Genuine completed bounded fold-switch outcome and original native summary evidence; native FASTA campaign active."
 }

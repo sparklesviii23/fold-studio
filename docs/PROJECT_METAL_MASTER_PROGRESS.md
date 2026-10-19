@@ -1312,3 +1312,18 @@ The original summarize_campaign command now runs through the same immutable
 review bridge. Its 157 statistical rows on genuine native 1/3/1 results exactly
 match direct original source, original scientific outputs unchanged, and the
 review survives project ZIP export. Native summary-button acceptance pending.
+
+
+### Genuine bounded bound/unbound execution
+
+Original fold_switch CPU float32 completed in 637.945 seconds on the explicitly
+identified 12-residue hPDL1 derivative plus a 60-residue binder. Both bound
+and unbound optimizer blocks emitted finite readings. Screen and refine passed;
+original i_pTM rejected at annealing. One trajectory, no refolds, no acceptance
+and no promoted outputs. This verifies the bounded execution path, not full
+conformational acceptance or broad biological behavior.
+
+b10d8ee was built/signed/relocated; actual native original summary returned
+157 rows. Native FASTA campaign fed195a1 started through its dedicated CPU
+button with app-owned runtime and weights, one attempt and original defaults.
+It is the sole active model job. 343 backend and 76 frontend tests pass.
