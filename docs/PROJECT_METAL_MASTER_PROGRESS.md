@@ -1259,3 +1259,21 @@ kept default acceptance filters unchanged; no threshold was relaxed to obtain
 a result. 337 Python tests and 73 frontend tests pass, with TypeScript checked.
 Full model-specific option parity remains unverified. ce12298c remains the
 sole model job in annealing; the active app is unchanged at 097a912.
+
+
+### Original coordinate scoring on saved complexes
+
+The existing native outcome inspector now calls original score_design on an
+immutable review snapshot. Scope: 1–4 accepted complex CIFs, one model and at
+most 384 residues each; explicit original binder/target roles required. Site
+metrics whose source-to-written site mapping is not reconstructed are omitted.
+Missing unbound/confidence evidence is unavailable, and recorded validation
+model readings remain separately labelled. Original acceptance is unchanged.
+
+The genuine accepted 175-residue hPDL1 complex yields 57 exported fields whose
+source-computed values exactly match a separate direct original invocation.
+All source outputs remain unchanged and the project ZIP contains the review
+and receipts. bindcraft-campaign-scoring.json. 342 backend tests, 73 frontend
+tests and TypeScript pass. Native full-ensemble job ce12298c remains running,
+near the end of annealing. A live vmmap sample reports 9.1G process peak physical
+footprint; system-wide GPU sample 93% cannot be attributed exclusively to it.

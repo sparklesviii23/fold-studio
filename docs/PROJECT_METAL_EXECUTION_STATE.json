@@ -1,12 +1,12 @@
 {
   "schemaVersion": 1,
-  "updatedUtc": "2026-10-19T05:50:32.194238+00:00",
+  "updatedUtc": "2026-10-19T05:56:04.186184+00:00",
   "branch": "project-metal/apple-silicon-engine",
-  "implementationCommit": "31c701b",
+  "implementationCommit": "cdddfbc",
   "scope": "Project Metal Omega: complete authentic local BindCraft2 integration. No new Vina, OpenMM or interface redesign work.",
   "upstreamRevision": "c0ee638d11bc010817c2c97ee58ed5c323e664e2",
   "verified": {
-    "backendTests": 337,
+    "backendTests": 342,
     "frontendTests": 73,
     "typescript": "passed",
     "corePipeline": "Real 175-residue hPDL1 ensemble design + ProteinMPNN + held-out AF2 + original filters; one accepted computational prediction, no biological claim.",
@@ -19,7 +19,8 @@
     "coreProfiles": "Original benchmark precedence passes on binder and VHH/humanize; source inputs unchanged, explicit native seed retained.",
     "featureInventory": "Actual pinned source introspection: 239 known campaign settings, 37 registered losses, 79 filter metrics with parameters, 9 discovered commands and literal flags.",
     "sequenceTargets": "Original FASTA input preparation, deterministic index-matched crops/validation flanks and atom_mask=0; binder/peptide upstream input/feature preflight; 8 protocol tests. No trained model run.",
-    "scientificOptions": "Explicit original overrides, original strict settings/metric validation, receipts and input preflight. 3 real source comparisons and 3 original refusals; default filters unchanged in all QA cases. 6 protocol tests."
+    "scientificOptions": "Explicit original overrides, original strict settings/metric validation, receipts and input preflight. 3 real source comparisons and 3 original refusals; default filters unchanged in all QA cases. 6 protocol tests.",
+    "coordinateScoring": "Original score_design recomputation on saved genuine 175-residue complex exactly matches direct original source; source unchanged, omitted site/missing state/confidence metrics and separate stamped model readings. 5 synthetic contract tests."
   },
   "evidence": [
     "reports/bindcraft-ensemble-outcome.json",
@@ -30,7 +31,8 @@
     "reports/bindcraft-conformational-presets.json",
     "reports/bindcraft-core-profiles.json",
     "reports/bindcraft-sequence-targets.json",
-    "reports/bindcraft-scientific-options.json"
+    "reports/bindcraft-scientific-options.json",
+    "reports/bindcraft-campaign-scoring.json"
   ],
   "runtime": {
     "cpu": "../runtimes/jax-cpu/bin/python",
@@ -63,7 +65,7 @@
   "latestVerifiedApp": "/Users/vii/Documents/FoldStudio-MetalPort/validation/Relocated BindCraft Recovery Engine/FOLD STUDIO Metal Dev.app (097a912; native review and packaged recovery passed; full ensemble acceptance active)",
   "immediateNext": [
     "Inspect the running native packaged ensemble without restarting it; eventually verify actual MPNN/refolding/filter/rank outputs and signature.",
-    "Connect original source structure scoring on immutable saved outcomes, then finish native packaged acceptance and new bundle checks when the sole model job finishes.",
+    "Capture measured native campaign telemetry, inspect actual completion/MPNN/refold/filter outputs without restarting; rebuild/verify updated native app after it finishes.",
     "Expand remaining upstream modalities/options with original settings hierarchy and explicit resource guards; implement accurate feature parity inventory."
   ],
   "limitations": [
@@ -72,5 +74,5 @@
     "Current new recovery/review native packaged acceptance pending.",
     "Do not rerun prior accepted/VHH/homodimer/multitarget finished campaigns merely to inspect results."
   ],
-  "uncommittedWork": "Scientific option integration ready for checkpoint; absent from active native 097a912 app."
+  "uncommittedWork": "Native original coordinate scoring ready for checkpoint; all recent additions absent from active 097a912 app."
 }

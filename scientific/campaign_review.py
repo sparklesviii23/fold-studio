@@ -28,8 +28,9 @@ def review(engine,p):
  from observatory import Observatory
  if set(p)-{'id','projectId','operation','table','metrics'}:raise ValueError('Unsupported campaign review field.')
  job=engine.campaign(p);operation=p.get('operation');selected=p.get('table','candidates' if operation=='filter' else 'accepted');metrics=p.get('metrics',['i_pDAE'])
- if operation not in ('filter','rank') or not isinstance(selected,str) or selected not in TABLES or not isinstance(metrics,list) or not 1<=len(metrics)<=3 or any(not isinstance(v,str) or not re.fullmatch('[A-Za-z][A-Za-z0-9_.]{0,79}',v) for v in metrics):raise ValueError('Choose upstream filtering/ranking, a recorded table and 1–3 metric names.')
- if operation=='filter' and 'metrics' in p:raise ValueError('Reapplying original filters does not take ranking overrides.')
+ if operation not in ('filter','rank','score') or not isinstance(selected,str) or selected not in TABLES or not isinstance(metrics,list) or not 1<=len(metrics)<=3 or any(not isinstance(v,str) or not re.fullmatch('[A-Za-z][A-Za-z0-9_.]{0,79}',v) for v in metrics):raise ValueError('Choose upstream filtering/ranking, a recorded table and 1–3 metric names.')
+ if operation in ('filter','score') and 'metrics' in p:raise ValueError('Filtering/scoring does not take ranking overrides.')
+ if operation=='score' and selected!='accepted':raise ValueError('Coordinate scoring currently requires the saved accepted-complex table.')
  if job['state'] not in ('completed','failed','cancelled','interrupted','imported'):raise ValueError('Finish or stop the campaign before reviewing saved outcomes.')
  python=os.path.abspath(os.path.expanduser(runtime(engine.s)))
  if not pathlib.Path(python).is_file():raise ValueError('The BindCraft2 scientific runtime is unavailable.')
