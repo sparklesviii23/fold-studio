@@ -141,6 +141,59 @@
           "target.ptm": 0.882050096988678
         }
       }
+    },
+    {
+      "observedUtc": "2026-10-19T06:05:38.754651+00:00",
+      "jobState": "running",
+      "processes": [
+        {
+          "pid": 20977,
+          "parentPid": 1,
+          "groupId": 20977,
+          "psCpuPercent": 0.0,
+          "psResidentKiB": 13008,
+          "executable": "/Users/vii/Documents/FoldStudio-MetalPort/validation/Relocated BindCraft Recovery Engine/FOLD STUDIO Metal Dev.app/Contents/Resources/runtime/bin/python3.12"
+        },
+        {
+          "pid": 20980,
+          "parentPid": 20977,
+          "groupId": 20977,
+          "psCpuPercent": 8.1,
+          "psResidentKiB": 1647712,
+          "executable": "/Users/vii/Documents/FoldStudio-MetalPort/validation/Relocated BindCraft Recovery Engine/FOLD STUDIO Metal Dev.app/Contents/Resources/runtime-metal/bin/python3.12",
+          "physicalFootprint": {
+            "rawVmmapUnit": "6.7G",
+            "method": "vmmap -summary; rounded OS process footprint, not total machine memory"
+          },
+          "peakPhysicalFootprint": {
+            "rawVmmapUnit": "9.1G",
+            "method": "vmmap -summary; rounded OS process footprint, not total machine memory"
+          }
+        }
+      ],
+      "systemGpuCounters": [
+        {
+          "Alloc system memory": 12266569728,
+          "Allocated PB Size": 159776768,
+          "Device Utilization %": 95,
+          "In use system memory": 4108943360,
+          "In use system memory (driver)": 0,
+          "Renderer Utilization %": 59,
+          "SplitSceneCount": 0,
+          "TiledSceneBytes": 1900544,
+          "Tiler Utilization %": 15,
+          "lastRecoveryTime": 0,
+          "recoveryCount": 0
+        }
+      ],
+      "lastObservedOptimizerProgress": {
+        "stage": "mutate",
+        "sequenceUpdates": 15,
+        "metrics": {
+          "target.iptm": 0.8305474519729614,
+          "target.ptm": 0.8634974360466003
+        }
+      }
     }
   ]
 }

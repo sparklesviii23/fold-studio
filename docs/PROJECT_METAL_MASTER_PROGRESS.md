@@ -1277,3 +1277,23 @@ and receipts. bindcraft-campaign-scoring.json. 342 backend tests, 73 frontend
 tests and TypeScript pass. Native full-ensemble job ce12298c remains running,
 near the end of annealing. A live vmmap sample reports 9.1G process peak physical
 footprint; system-wide GPU sample 93% cannot be attributed exclusively to it.
+
+
+### Native complete ensemble acceptance and persistent results
+
+The actual 097a912 packaged app completed its app-owned Metal runtime campaign
+on full official hPDL1 (115 residues) plus a 60-residue binder. One trajectory
+yielded three independently refolded candidates passing unchanged original
+filters; original ranking retained one. Total measured runtime 3895.532 seconds.
+Seven app-owned AF2 checkpoints and native import receipts were verified.
+The accepted CIF export matches imported bytes; the saved 175-residue/1425-atom
+complex survives a complete app quit/reopen and displays in the original viewer.
+Evidence: reports/native-bindcraft-ensemble-job.json. No biological claim.
+
+Accepted-row FASTA export now preserves exact original sequences and separates
+chain copies. Unsafe binder filename prefixes are rejected before preparation.
+342 backend tests, 76 frontend tests and TypeScript pass. Updated bundle
+acceptance remains pending. Original Fab input preflight requires 608 padded
+residues on full hPDL1; this exceeds the measured CPU320 envelope, but does not
+prove physical CPU memory exhaustion. A bounded original-gradient harness is
+ready. Full port completion remains false.

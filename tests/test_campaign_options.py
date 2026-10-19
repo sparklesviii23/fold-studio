@@ -16,7 +16,7 @@ class ScientificOptions(unittest.TestCase):
     process.assert_not_called()
   self.assertEqual(self.s.library({})['jobs'],[])
  def test_unmeasured_dimensions_checkpoint_names_and_malformed_options_are_refused(self):
-  for value in ([],False,{'design_recycles':4},{'validation_recycles':True},{'subbatch_size':None},{'subbatch_size':8},{'screen_steps':201},{'mpnn_model':'/external/model.npz'},{'mpnn_variant':'unknown'},{'filters':'/external/filters.json'},{'crop_fasta_sequence':[1,1000000000]},{'losses':{'plddt_loss':{'params':{'prediction_state':'invented'}}}}):
+  for value in ([],False,{'design_recycles':4},{'validation_recycles':True},{'subbatch_size':None},{'subbatch_size':8},{'screen_steps':201},{'mpnn_model':'/external/model.npz'},{'mpnn_variant':'unknown'},{'binder_name':'../../outside'},{'binder_name':'bad\nname'},{'filters':'/external/filters.json'},{'crop_fasta_sequence':[1,1000000000]},{'losses':{'plddt_loss':{'params':{'prediction_state':'invented'}}}}):
    with self.subTest(value=value),self.assertRaises(ValueError):options.validate(value,fe.UPSTREAM)
   with self.assertRaises(ValueError):options.validate({'weights_compactness':float('nan')},fe.UPSTREAM)
  def test_original_numeric_objectives_and_nested_settings_survive_as_explicit_values(self):
