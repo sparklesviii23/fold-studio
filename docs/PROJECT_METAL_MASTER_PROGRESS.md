@@ -1211,3 +1211,13 @@ binder and VHH/humanize precedence/preflight passed; reserved default/reference
 core names are not falsely offered as layers. bindcraft-core-profiles.json.
 323 Python tests, 73 frontend tests pass; TypeScript checked. These source
 changes are not in the running 097a912 bundle; no competing model was started.
+
+
+### Dynamic source feature inventory
+
+The pinned original runtime reports 239 known settings, 37 registered losses
+and 79 filter metrics with actual parameters/defaults. Nine source commands
+and literal flags are inventoried separately from native equivalents. Every
+entry retains explicit exposure/scope; source presence is not full validation.
+The reproducible inventory script verifies the pinned source manifest before
+writing strict JSON. Full port completion remains false.
