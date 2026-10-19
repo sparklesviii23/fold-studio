@@ -11,7 +11,7 @@ BASE=pathlib.Path(__file__).resolve().parents[1]
 UPSTREAM=BASE/'vendor'/'bindcraft2'
 PIN='c0ee638d11bc010817c2c97ee58ed5c323e664e2'
 ACTIONS={'bindcraft_results','bindcraft_review','bindcraft_resume','bindcraft_repeat','fold_fragment','fold_engine_status','fold_structure','fold_target','fold_compute','bindcraft_validate','bindcraft_prepare','bindcraft_campaigns','bindcraft_import','bindcraft_start'}
-CONFIG_KEYS={'core','properties','projectId','structureId','name','modality','targetChains','hotspots','coldspots','binderLengths','candidates','attempts','seed','additionalTargets'}
+CONFIG_KEYS={'scientificOptions','core','properties','projectId','structureId','name','modality','targetChains','hotspots','coldspots','binderLengths','candidates','attempts','seed','additionalTargets'}
 SUPPORTED_MODALITIES=('binder','large_binder','multidomain','induced_fit','fold_switch','peptide','cyclic_peptide','VHH','ARP','scFv','homo_oligomer')
 SCAFFOLD_MODALITIES=('VHH','ARP','scFv')
 
@@ -100,7 +100,7 @@ class Engine:
         # Presets are upstream data, retained verbatim; never invent optimization defaults.
         preset=json.loads((UPSTREAM/'settings'/'modality'/(modality+'.json')).read_text());preset.pop('description',None)
         from campaign_profile import property_preset
-        resolved,properties=property_preset(self.s,modality,p.get('properties',[]),UPSTREAM,p.get('core'))
+        resolved,properties=property_preset(self.s,modality,p.get('properties',[]),UPSTREAM,p.get('core'),p.get('scientificOptions'))
         if resolved is not None:preset=resolved
         scaffold=None
         if preset.get('binder_scaffold'):
@@ -125,9 +125,12 @@ class Engine:
         if modality in ('induced_fit','fold_switch') and p.get('additionalTargets'):raise ValueError('The experimental conformational adapter currently supports one observed target and its unbound binder state.')
         checked=extend(self,p,checked)
         if modality in ('induced_fit','fold_switch'):checked['warnings'].append('Experimental conformational design includes a separate unbound binder prediction. Only the explicitly bounded CPU profile is enabled; full conformational generation validation remains pending.')
-        if properties:
+        if properties or p.get('scientificOptions'):
             from campaign_profile import property_conflicts
             property_conflicts(self.s,checked['config'],UPSTREAM,checked.get('scaffold'))
+        if p.get('scientificOptions'):
+            checked['scientificOptions']={'values':p['scientificOptions'],'sha256':checksum(canonical(p['scientificOptions']).encode()),'scope':'Explicit user scientific overrides, validated by the original upstream settings loader. Original default recipe/filters are not asserted for this custom campaign.'}
+            checked['warnings'].append('Explicit scientific overrides are part of this saved recipe. Acceptance is evaluated against its saved settings, which may differ from original default filters.')
         return checked
     def bindcraft_prepare(self,p):
         checked=self.bindcraft_validate(p);checked['upstream']=verify_source()

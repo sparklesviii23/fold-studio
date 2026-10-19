@@ -1240,3 +1240,22 @@ crops must match the saved sequence at exact original positions and retain
 predicted-coordinate provenance. Repeat/recovery/export preserve FASTA inputs.
 331 backend tests, 73 frontend tests and TypeScript pass. No app rebuild or
 competing high-memory job occurred; ce12298c remains in annealing.
+
+
+### Original scientific option exposure
+
+An additive advanced JSON field now resolves explicit original scientific
+settings beneath the native campaign controls, using actual upstream preset
+precedence and strict load_settings/metric validation. Unknown keys, metrics
+and nested parameters fail before a job is created. Input/path/lifecycle/model
+controls remain separate; measured recycle/step/subbatch/checkpoint envelopes
+and custom-state limits remain enforced. External filter files and implicit
+filter disabling are unavailable. Custom recipes retain explicit option hashes
+and are not labelled as original-default-filter campaigns.
+
+Three real upstream comparisons/preflights (recycles/dropout, ProteinMPNN
+settings, bias/loss parameters) and three source refusals passed. Every QA case
+kept default acceptance filters unchanged; no threshold was relaxed to obtain
+a result. 337 Python tests and 73 frontend tests pass, with TypeScript checked.
+Full model-specific option parity remains unverified. ce12298c remains the
+sole model job in annealing; the active app is unchanged at 097a912.

@@ -88,6 +88,7 @@ def start(engine,p,recovery=None):
  if recovery is not None and weights!=recovery['job']['data'].get('checkpointSha256'):raise ValueError('Model checkpoints differ from the original execution; recovery refused.')
  from campaign_profile import resource_estimate
  estimate=resource_estimate(python,config,fe.UPSTREAM)
+ if estimate.get('additionalPredictionStates') and not conformational:raise ValueError('Additional unbound prediction states require a validated conformational campaign profile.')
  if conformational:
   from campaign_profile import conformational_resources
   estimate=conformational_resources(estimate)
@@ -134,7 +135,7 @@ def run(s,id):
   imported=[]
   if files:
    result=fe.Engine(s).bindcraft_import({'projectId':job['project_id'],'id':id,'directory':str(folder/'output')});imported=result['records']
-  s.job_update(id,'completed',{'outputs':imported,'stage':'completed','finished':fe.mi.now(),'acceptedStructureFiles':len(files),'outcome':'accepted_predictions' if files else 'no_accepted_designs','limitations':['Experimental '+backend+' campaign; default scientific rejection criteria retained.','Predicted designs are not validated binding or inhibition.','Full modality and ensemble scientific parity not established.']})
+  s.job_update(id,'completed',{'outputs':imported,'stage':'completed','finished':fe.mi.now(),'acceptedStructureFiles':len(files),'outcome':'accepted_predictions' if files else 'no_accepted_designs','limitations':['Experimental '+backend+' campaign; '+('explicit user scientific settings and filters retained.' if data['preparation'].get('scientificOptions') else 'upstream preset rejection criteria retained.'),'Predicted designs are not validated binding or inhibition.','Full modality and ensemble scientific parity not established.']})
  except Exception as error:
   if s.job(id)['state']!='cancelled':s.job_update(id,'failed',{'error':str(error),'finished':fe.mi.now()})
   print('BindCraft CPU error:',error,flush=True)

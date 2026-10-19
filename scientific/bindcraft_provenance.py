@@ -25,7 +25,7 @@ def native_receipt(service,job,root,metadata):
   values=[sha for name,sha in checkpoints.items() if pathlib.Path(name).name=='params_'+model+'.npz']
   if values!=[expected]:raise ValueError('Native campaign checkpoint receipt mismatch: '+model)
  if not data.get('checkpointSha256'):raise ValueError('No native model checkpoint pins were recorded.')
- return {'state':'native_receipts_verified','execution':data['execution'],'precision':data['precision'],'upstreamSource':source,'reportedCampaignRevision':metadata.get('revision'),'executionSettingsSha256':fe.checksum(raw),'runtimeReceiptSha256':fe.checksum(runtime_path.read_bytes()),'checkpointSha256':data['checkpointSha256'],'preparedSource':preparation['source'],'preparedTargets':inputs,'runtime':runtime,'scope':'Native execution/settings/source/checkpoint receipt correspondence. Upstream computational acceptance does not establish biological binding or inhibition.'}
+ return {'state':'native_receipts_verified','execution':data['execution'],'precision':data['precision'],'upstreamSource':source,'reportedCampaignRevision':metadata.get('revision'),'executionSettingsSha256':fe.checksum(raw),'runtimeReceiptSha256':fe.checksum(runtime_path.read_bytes()),'checkpointSha256':data['checkpointSha256'],'preparedSource':preparation['source'],'scientificOptions':preparation.get('scientificOptions'),'preparedTargets':inputs,'runtime':runtime,'scope':'Native execution/settings/source/checkpoint receipt correspondence. Upstream computational acceptance does not establish biological binding or inhibition.'}
 
 def chain_roles(raw,structure,unbound=False):
  values={};tokens=iter(fe.mi.cif_tokens(raw.decode()))

@@ -40,6 +40,8 @@ def snapshots(preparation):
 def verify(folder,preparation,label='Prepared source changed.',scaffold_label='Prepared scaffold changed.'):
  from sequence_targets import verify_preparation
  verify_preparation(preparation)
+ from campaign_options import verify_preparation as verify_options
+ verify_options(preparation)
  inputs=snapshots(preparation);targets=preparation['config']['targets']
  if len(inputs)!=len(targets):raise ValueError('Prepared target input manifest is incomplete.')
  seen=set()

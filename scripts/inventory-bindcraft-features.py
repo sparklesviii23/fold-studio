@@ -9,6 +9,8 @@ from bindcraft.settings import known_campaign_settings,metric_parameter_names
 from bindcraft.loss import REGISTERED_LOSSES
 from bindcraft.filters import REGISTERED_FILTER_METRICS
 from fold_engine import PIN,verify_source
+from campaign_options import RESERVED
+from campaign_profile import property_catalog
 
 def serialize_default(value):
  if value is None or isinstance(value,(str,bool,int)):return value
@@ -37,14 +39,14 @@ def argument_flags(path):
 
 def main():
  parser=argparse.ArgumentParser();parser.add_argument('--output',default=str(ROOT/'docs/BINDCRAFT_FEATURE_PARITY.json'));args=parser.parse_args();path=pathlib.Path(args.output);report=json.loads(path.read_text());source=verify_source()
- prior={item['name']:item for item in report['campaignSettings']};native={'binder_lengths','campaign_seed','max_trajectories','number_of_final_designs','targets','resume','core','modality'};guarded={'project_folder','design_workers','auto_multi_gpu','attention_backend','use_cueq','design_models','validation_models','validation_model'};unsupported={'gpu_ids','workers_per_gpu','max_workers_per_gpu','worker_launch_stagger','compile_next_length','autotune_loss_weights','binder_shapes','parameter_sweep','binder_scaffold','crop_fasta_sequence','idr_crop_count'}
+ prior={item['name']:item for item in report['campaignSettings']};native={'binder_lengths','campaign_seed','max_trajectories','number_of_final_designs','targets','resume','core','modality'};guarded={'project_folder','design_workers','auto_multi_gpu','attention_backend','use_cueq','design_models','validation_models','validation_model'};unsupported=RESERVED|{entry['name'] for entry in property_catalog(SOURCE)}
  settings=[]
  for name in sorted(known_campaign_settings()):
   item=prior.get(name,{'name':name})
-  if name in native:item.update(status='INTEGRATED',exposure='native_control',limitation='Observed coordinate targets and one selected modality only; source combinations/FASTA are not available through this control.' if name in ('targets','modality') else None)
+  if name in native:item.update(status='INTEGRATED',exposure='native_control',limitation='Observed structures or one canonical FASTA target and one selected modality; source modality combinations/mixed FASTA states remain unavailable.' if name in ('targets','modality') else None)
   elif name in guarded:item.update(status='INTEGRATED',exposure='explicit_native_policy',limitation='Execution profiles own this value; arbitrary override is unavailable.')
   elif name in unsupported:item.update(status='UNAVAILABLE',exposure='source_preserved_native_override_unavailable',limitation='Custom input/execution option is not exposed; applicable shipped preset/default behavior may still run.')
-  else:item.update(status='INTEGRATED',exposure='original_upstream_default_or_preset_only',limitation='Native form does not expose this override. Original implementation/defaults/presets are retained; individual option-specific full campaigns are not all validated.')
+  else:item.update(status='INTEGRATED',exposure='native_advanced_scientific_options',limitation='Strict original settings validation plus native measured resource bounds. External filter files and arbitrary state graphs are unavailable; individual option-specific model campaigns are not all validated.')
   settings.append(item)
  report['campaignSettings']=settings;report['losses']=metric_rows(REGISTERED_LOSSES);report['filterMetrics']=metric_rows(REGISTERED_FILTER_METRICS)
  commands=[]
@@ -52,9 +54,10 @@ def main():
   module=cli.COMMAND_MODULES.get(name,name);file=SOURCE/'bindcraft'/f'{module}.py';flags=argument_flags(file) if file.is_file() else []
   if name=='design':
    flags=sorted(set(cli.design_property_flags())|{'--core','--modality','--metadata','--set','--list-targets','--list-modalities','--list-properties','--list-core','--list-settings','-h','--help'})
-  scope={'design':'Native campaign lifecycle and bounded CPU/Metal profiles; no unrestricted --set, custom metadata, FASTA or combined modalities.','rank':'Native original table reranking; source folder rescoring, arbitrary output paths/directions and every CLI flag are not all exposed.','filter':'Native original saved-filter review; custom --where/--filters not exposed.','fetch-weights':'Seven pinned official AF2 checkpoints and original ProteinMPNN models bundled; native acquisition differs from upstream fetch-weights command.','archive':'Project ZIP export preserves campaign outputs; original per-trajectory archive CLI is not exposed.','unarchive':'Original per-trajectory extraction command is not exposed.'}.get(name,'Original source retained; no matching native application action is currently connected.')
+  scope={'design':'Native campaign lifecycle, observed/FASTA targets and explicit scientific options with original settings validation. Native lifecycle/models/memory fields remain owned; no combined modalities or unrestricted CLI parity.','rank':'Native original table reranking; source folder rescoring, arbitrary output paths/directions and every CLI flag are not all exposed.','filter':'Native original saved-filter review; custom --where/--filters not exposed.','fetch-weights':'Seven pinned official AF2 checkpoints and original ProteinMPNN models bundled; native acquisition differs from upstream fetch-weights command.','archive':'Project ZIP export preserves campaign outputs; original per-trajectory archive CLI is not exposed.','unarchive':'Original per-trajectory extraction command is not exposed.'}.get(name,'Original source retained; no matching native application action is currently connected.')
   status='INTEGRATED' if name in ('design','rank','filter','fetch-weights') else 'UNAVAILABLE'
   commands.append({'name':name,'status':status,'scope':scope,'source':str(file.relative_to(ROOT)) if file.is_file() else 'vendor/bindcraft2/bindcraft/cli.py','flags':[{'name':flag,'status':'UNAVAILABLE','scope':'CLI spelling is inventoried; native equivalents/limits are described at command level, not full CLI flag parity.'} for flag in flags]})
+ report['scientificOptions']={'status':'INTEGRATED','scope':'Explicit original setting overrides through a native JSON field and original loader. Native input/lifecycle/model/preset controls remain separate; bounded recycles/steps/subbatch/checkpoint choices. Default preparation unchanged; custom recipes and hashes are clearly retained.','evidence':'reports/bindcraft-scientific-options.json'}
  report['commands']=commands;report['inventorySource']={'revision':PIN,'manifestSha256':source['manifestSha256'],'knownCampaignSettings':len(settings),'registeredLosses':len(report['losses']),'registeredFilterMetrics':len(report['filterMetrics']),'commands':len(commands),'files':{str(file.relative_to(ROOT)):hashlib.sha256(file.read_bytes()).hexdigest() for file in (SOURCE/'bindcraft/settings.py',SOURCE/'bindcraft/loss.py',SOURCE/'bindcraft/filters.py',SOURCE/'bindcraft/cli.py')}}
  report['note']='Inventory covers every original known_campaign_settings name, dynamically registered loss/filter metric and its parameters, shipped modality/property presets, discovered source commands and their literal argparse flags. Source presence and default wiring are distinct from native option exposure and scientific validation. Full parity remains incomplete; command internals/public Python helpers are not individually certified.'
  report['fullPortComplete']=False;path.write_text(json.dumps(report,indent=2,allow_nan=False)+'\n');print(json.dumps(report['inventorySource'],indent=2))
