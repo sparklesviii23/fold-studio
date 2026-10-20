@@ -1,0 +1,35 @@
+{
+  "recordedUtc": "2026-10-20T23:38:33.807501+00:00",
+  "state": "diagnostic_transport_passed",
+  "scope": "Real complete559residue full-gradient coordinates checked against genuine observed hPDL1 and both original reported diagnostic sequences. No trajectory/refold/accepted Fab generation claim.",
+  "coordinateArtifact": "reports/amme-fab-memory-scheduler-gradient_target.cif",
+  "coordinateSha256": "dc1889008606478900b4a5626b5b0667b9f3fa57bf3eda5d12e0b8b3fef72709",
+  "targetSha256": "d3c95434dcadf26d005340b15bd92be61e101ed921478c26f2a5550f198e61f6",
+  "transport": {
+    "state": "reported_sequences_matched",
+    "binderChains": [
+      {
+        "id": "B",
+        "residues": 231
+      },
+      {
+        "id": "C",
+        "residues": 213
+      }
+    ],
+    "targetChains": [
+      {
+        "id": "A",
+        "residues": 115
+      }
+    ],
+    "scope": "Coordinate transport matches both reported antibody chains and the complete prepared target. Original upstream filters remain the authority for scaffold constraints and computational acceptance."
+  },
+  "tests": {
+    "realDiagnosticContracts": 7,
+    "isolatedImportExportContracts": 2,
+    "longLogProgressContracts": 3,
+    "isolatedReceiptScope": "Import/export tests use an explicitly synthetic completion receipt around genuine diagnostic coordinates; not scientific acceptance evidence."
+  },
+  "applicationActivation": "Source and staged package only; live old-identity Fab worker and controller remain unchanged."
+}

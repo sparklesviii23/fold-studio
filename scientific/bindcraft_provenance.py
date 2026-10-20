@@ -41,6 +41,26 @@ def chain_roles(raw,structure,unbound=False):
  if not binder or (not target and not unbound) or '' in binder|target or binder&target or not (binder|target)<=available or (unbound and (target or binder!=available)):raise ValueError('BindCraft chain roles do not match the written molecular model.')
  return {chain:{'role':'candidate' if chain in binder else 'target' if chain in target else 'additional','identity':'BindCraft2 designed binder' if chain in binder else 'Prepared target' if chain in target else 'Additional chain','assignmentSource':'Explicit _bindcraft CIF chain-role metadata'} for chain in available}
 
+def fab_chain_transport(preparation,state,row,structure,roles):
+ """Check native Fab transport against its reported sequences, not new filters.
+
+ This cannot establish scientific acceptance or framework quality. It prevents
+ missing/truncated chains from silently acquiring a native result identity.
+ """
+ if preparation.get('modality')!='Fab':return None
+ chains=structure['chains']
+ if not roles or set(roles)!={c['id'] for c in chains} or any(v['role']=='additional' for v in roles.values()):raise ValueError('Native Fab coordinates require explicit complete binder and target chain roles.')
+ binders=[c for c in chains if roles[c['id']]['role']=='candidate']
+ targets=[c for c in chains if roles[c['id']]['role']=='target']
+ reported=row.get('Binder_Sequence')
+ sequences=reported.split('/') if isinstance(reported,str) else []
+ if len(binders)!=2 or len(sequences)!=2 or any(not s or set(s)-set('ACDEFGHIKLMNPQRSTVWY') for s in sequences):raise ValueError('Native Fab output requires both antibody chains and their original reported sequences.')
+ if sorted(c['sequence'] for c in binders)!=sorted(sequences):raise ValueError('Native Fab coordinate chains differ from the original reported antibody sequences.')
+ expected={}
+ for residue in state.get('residueMap',[]):expected[residue['chain']]=expected.get(residue['chain'],'')+residue['aminoAcid']
+ if not expected or sorted(c['sequence'] for c in targets)!=sorted(expected.values()):raise ValueError('Native Fab target chains differ from the complete prepared target sequences.')
+ return {'state':'reported_sequences_matched','binderChains':[{'id':c['id'],'residues':len(c['sequence'])} for c in binders],'targetChains':[{'id':c['id'],'residues':len(c['sequence'])} for c in targets],'scope':'Coordinate transport matches both reported antibody chains and the complete prepared target. Original upstream filters remain the authority for scaffold constraints and computational acceptance.'}
+
 def prediction_context(preparation,filename,row,raw,structure,fmt):
  """Separate original conformational binder-alone output from target complexes."""
  from campaign_inputs import ranked_target
@@ -58,6 +78,8 @@ def prediction_context(preparation,filename,row,raw,structure,fmt):
  crop=predicted_crop(preparation,structure,roles)
  metadata={'nativeTargetState':state,'nativePredictionState':{'name':state['name'],'kind':'target_complex'}}
  if crop:metadata['sequenceTargetPrediction']=crop
+ assembly=fab_chain_transport(preparation,state,row,structure,roles)
+ if assembly:metadata['fabChainTransport']=assembly
  return {'kind':'target_complex','name':state['name'],'roles':roles,'metadata':metadata}
 
 def enrich_existing(service,job,ids,receipt,folder):

@@ -345,13 +345,18 @@ class Service:
         return self.spawn(self.job_new(p,'boltz2','queued'),'--run-job')
     def job_read(self,p):
         job=self.job(p['id']); path=self.root/'jobs'/p['id']/'execution.log'
+        log_data=b''
         if path.exists():
             with open(path,'rb') as f:
-                f.seek(max(0,path.stat().st_size-30000)); job['log']=f.read().decode('utf8','replace')
-        else: job['log']=''
+                # Full Fab emits many per-gradient memory events. Keep a wider,
+                # bounded context for trajectory/stage parsing, while the visible
+                # log stays small. Otherwise its header disappears mid-trajectory.
+                limit=1024**2 if job['engine']=='bindcraft2' else 30000
+                f.seek(max(0,path.stat().st_size-limit)); log_data=f.read(limit)
+        job['log']=log_data[-30000:].decode('utf8','replace')
         if job['engine']=='bindcraft2':
             from bindcraft_cpu import progress_from_log
-            job['data']['executionProgress']=progress_from_log(job['log'])
+            job['data']['executionProgress']=progress_from_log(log_data.decode('utf8','replace'))
             if job['data'].get('memoryPolicy'):
                 execution={}
                 for key,name in (('telemetry','amme-memory.json'),('stage','amme-stage.json')):
