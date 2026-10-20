@@ -1,0 +1,93 @@
+{
+  "jobId": "3c9a97b1-6d5a-421a-8a52-896dc95bf90d",
+  "root": "/Users/vii/Documents/FoldStudio-MetalPort/validation/bindcraft-packaged-crops",
+  "scope": "Read-only OS process footprint/CPU measurements and system-wide GPU counters during the actual local campaign. GPU utilization includes rendering/other apps and is not exclusive campaign utilization. Samples do not yield a whole-run GPU average or separately measured compilation/inference timing.",
+  "runtime": "/Users/vii/Documents/FoldStudio-MetalPort/validation/Relocated BindCraft Crop Range Engine/FOLD STUDIO Metal Dev.app/Contents/Resources/runtime/bin/python3.12",
+  "modelCheckpoints": {
+    "model_1_multimer_v3": "611da8fc7478928f68de12e8b226260ef1f4ce62bcc29b008572e52f4f212959",
+    "model_2_multimer_v3": "51362b0844382ae0f5720c59b81dd13a43eea40fbf9995dd2573bdab88865378"
+  },
+  "executionSettingsSha256": "863639da2d6fd873a76ac894da41076181e9fb0a9652e2406968e1151c8263c4",
+  "hardware": {
+    "machine": "arm64",
+    "cpu": "Apple M4 Pro",
+    "memoryBytes": 25769803776,
+    "macOS": "26.4.1"
+  },
+  "samples": [
+    {
+      "observedUtc": "2026-10-20T17:45:53.718733+00:00",
+      "jobState": "running",
+      "processes": [
+        {
+          "pid": 52941,
+          "parentPid": 1,
+          "groupId": 52941,
+          "psCpuPercent": 0.0,
+          "psResidentKiB": 33072,
+          "executable": "/Users/vii/Documents/FoldStudio-MetalPort/validation/Relocated BindCraft Crop Range Engine/FOLD STUDIO Metal Dev.app/Contents/Resources/runtime/bin/python3.12",
+          "macOSTaskMemory": {
+            "residentBytes": 33865728,
+            "physicalFootprintBytes": 32883168,
+            "processStartAbstime": 38306229497671,
+            "method": "macOS proc_pid_rusage; task footprint includes compressed allocations, current sample only"
+          }
+        },
+        {
+          "pid": 52944,
+          "parentPid": 52941,
+          "groupId": 52941,
+          "psCpuPercent": 497.1,
+          "psResidentKiB": 1825760,
+          "executable": "/Users/vii/Documents/FoldStudio-MetalPort/validation/Relocated BindCraft Crop Range Engine/FOLD STUDIO Metal Dev.app/Contents/Resources/runtime/bin/python3.12",
+          "macOSTaskMemory": {
+            "residentBytes": 1869578240,
+            "physicalFootprintBytes": 2359463080,
+            "processStartAbstime": 38306234362332,
+            "method": "macOS proc_pid_rusage; task footprint includes compressed allocations, current sample only"
+          },
+          "physicalFootprint": {
+            "rawVmmapUnit": "2.2G",
+            "method": "vmmap -summary; rounded OS process footprint, not total machine memory"
+          },
+          "peakPhysicalFootprint": {
+            "rawVmmapUnit": "2.5G",
+            "method": "vmmap -summary; rounded OS process footprint, not total machine memory"
+          }
+        }
+      ],
+      "systemGpuCounters": [
+        {
+          "Alloc system memory": 9945137152,
+          "Allocated PB Size": 169345024,
+          "Device Utilization %": 60,
+          "In use system memory": 2269446144,
+          "In use system memory (driver)": 0,
+          "Renderer Utilization %": 60,
+          "SplitSceneCount": 0,
+          "TiledSceneBytes": 2064384,
+          "Tiler Utilization %": 15,
+          "lastRecoveryTime": 0,
+          "recoveryCount": 0
+        }
+      ],
+      "lastObservedOptimizerProgress": {
+        "stage": "anneal",
+        "sequenceUpdates": 7,
+        "metrics": {
+          "target_epitope_1.binder_contacts": 1.2594257593154907,
+          "target_epitope_1.binder_helicity": -1.9063069820404053,
+          "target_epitope_1.binder_pae": 0.029489973559975624,
+          "target_epitope_1.interface_contacts.target_epitope_1": 3.392648696899414,
+          "target_epitope_1.interface_pae.target_epitope_1": 0.1173911839723587,
+          "target_epitope_1.iptm": 0.09472203254699707,
+          "target_epitope_1.iptm_loss.target_epitope_1": 0.09052779525518417,
+          "target_epitope_1.plddt_loss": 0.02784877084195614,
+          "target_epitope_1.ptm": 0.27352383732795715,
+          "target_epitope_1.target_helicity.target_epitope_1": -1.0738075971603394,
+          "target_epitope_1.target_plddt.target_epitope_1": 0.45679202675819397
+        }
+      }
+    }
+  ]
+}

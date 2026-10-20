@@ -26,6 +26,12 @@ coordinate scoring, statistics, and lossless trajectory compression/restoration.
 Storage conversion checks logical file hashes and uses an atomic macOS stage
 exchange; settings and acceptance decisions are preserved.
 
+Sequence-only FASTA campaigns can use up to three distinct original crop states
+from one immutable input. Native CPU checks include the combined padded size.
+A fixed numeric crop length is normalized to the identical fixed range for a
+pinned upstream logging compatibility issue; the saved recipe and adjustment
+remain recorded. This is experimental support, not a biological disorder claim.
+
 Eleven modality adapters are connected at explicitly bounded experimental scope.
 **Fab is unavailable and explicitly deferred.** Larger dimensions, individual
 property-specific workflows and unrestricted CLI options are not all validated.

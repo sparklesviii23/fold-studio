@@ -1,0 +1,299 @@
+{
+  "state": "native_original_sequence_trajectory_completed",
+  "scope": "Actual native button launched a one-attempt original FASTA-target campaign with app-owned CPU runtime and checkpoints. Genuine sequence-target losses/optimization observed; original rejection criteria retained. Explicit crop-count/length options, if present, are recorded. Any failed trajectory coordinates remain technical outputs, not accepted predictions. This does not establish biological disorder or binding, full ensemble or broad target validation.",
+  "jobId": "3c9a97b1-6d5a-421a-8a52-896dc95bf90d",
+  "root": "/Users/vii/Documents/FoldStudio-MetalPort/validation/bindcraft-packaged-crops",
+  "app": "/Users/vii/Documents/FoldStudio-MetalPort/validation/Relocated BindCraft Crop Range Engine/FOLD STUDIO Metal Dev.app",
+  "runtime": {
+    "python": "3.12.14 (main, Aug 25 2026, 13:50:33) [Clang 22.1.3 ]",
+    "jax": "0.11.2",
+    "jaxlib": "0.11.2",
+    "architecture": "arm64",
+    "macOS": "26.4.1",
+    "devices": [
+      "cpu:0"
+    ],
+    "execution": "cpu",
+    "precision": "float32",
+    "executionSettingsSha256": "863639da2d6fd873a76ac894da41076181e9fb0a9652e2406968e1151c8263c4",
+    "runnerSha256": "1a9537db332cf6e82d808e2fa72e84f8537665ecef682aae08a5d5dd74a06fca",
+    "upstreamSource": {
+      "state": "present",
+      "revision": "c0ee638d11bc010817c2c97ee58ed5c323e664e2",
+      "manifestSha256": "8f06e409dac335261d2505361f4358e2b4df389b8f85a497967406d8c4af4277",
+      "license": "BindCraft2 Source-Available License (Hosting-Restricted)",
+      "modified": false
+    },
+    "precisionAdapterSha256": "a7699aa7c0669c3654b8d15f9114d66eeeedf29868896ef3318338e0127fdc65",
+    "exitCode": 0,
+    "state": "finished",
+    "totalSeconds": 359.91373783303425
+  },
+  "interpreter": "/Users/vii/Documents/FoldStudio-MetalPort/validation/Relocated BindCraft Crop Range Engine/FOLD STUDIO Metal Dev.app/Contents/Resources/runtime/bin/python3.12",
+  "parameters": "/Users/vii/Documents/FoldStudio-MetalPort/validation/Relocated BindCraft Crop Range Engine/FOLD STUDIO Metal Dev.app/Contents/Resources/models/alphafold",
+  "stageRows": {
+    "trajectories": 1,
+    "candidates": 0,
+    "accepted": 0
+  },
+  "outcome": "no_accepted_designs",
+  "lastObservedUpdatesByStage": {
+    "screen": {
+      "stage": "screen",
+      "sequenceUpdates": 50,
+      "metrics": {
+        "target_epitope_2.binder_contacts": 1.4435527324676514,
+        "target_epitope_2.binder_helicity": -1.6171104907989502,
+        "target_epitope_2.binder_pae": 0.03656872361898422,
+        "target_epitope_2.interface_contacts.target_epitope_2": 3.9411089420318604,
+        "target_epitope_2.interface_pae.target_epitope_2": 0.1441940814256668,
+        "target_epitope_2.iptm": 0.02384442649781704,
+        "target_epitope_2.iptm_loss.target_epitope_2": 0.0976155623793602,
+        "target_epitope_2.plddt_loss": 0.036896493285894394,
+        "target_epitope_2.ptm": 0.18778936564922333,
+        "target_epitope_2.target_helicity.target_epitope_2": -0.3865630626678467,
+        "target_epitope_2.target_plddt.target_epitope_2": 0.485526978969574
+      }
+    },
+    "refine": {
+      "stage": "refine",
+      "sequenceUpdates": 75,
+      "metrics": {
+        "target_epitope_2.binder_contacts": 1.4282708168029785,
+        "target_epitope_2.binder_helicity": -1.5066431760787964,
+        "target_epitope_2.binder_pae": 0.036042094230651855,
+        "target_epitope_2.interface_contacts.target_epitope_2": 4.136991024017334,
+        "target_epitope_2.interface_pae.target_epitope_2": 0.14987023174762726,
+        "target_epitope_2.iptm": 0.01969175785779953,
+        "target_epitope_2.iptm_loss.target_epitope_2": 0.09803082793951035,
+        "target_epitope_2.plddt_loss": 0.03852417692542076,
+        "target_epitope_2.ptm": 0.19022497534751892,
+        "target_epitope_2.target_helicity.target_epitope_2": -0.33577561378479004,
+        "target_epitope_2.target_plddt.target_epitope_2": 0.4354512095451355
+      }
+    },
+    "anneal": {
+      "stage": "anneal",
+      "sequenceUpdates": 45,
+      "metrics": {
+        "target_epitope_1.binder_contacts": 1.4553182125091553,
+        "target_epitope_1.binder_helicity": -1.6058332920074463,
+        "target_epitope_1.binder_pae": 0.04324134811758995,
+        "target_epitope_1.interface_contacts.target_epitope_1": 3.7628798484802246,
+        "target_epitope_1.interface_pae.target_epitope_1": 0.1439046561717987,
+        "target_epitope_1.iptm": 0.02787667326629162,
+        "target_epitope_1.iptm_loss.target_epitope_1": 0.09721233695745468,
+        "target_epitope_1.plddt_loss": 0.04057569429278374,
+        "target_epitope_1.ptm": 0.17568932473659515,
+        "target_epitope_1.target_helicity.target_epitope_1": -1.0065261125564575,
+        "target_epitope_1.target_plddt.target_epitope_1": 0.5317332744598389
+      }
+    }
+  },
+  "sourceCropLogReadings": [
+    {
+      "state": "target_epitope_1",
+      "start": 82,
+      "end": 97,
+      "sourceLength": 115
+    },
+    {
+      "state": "target_epitope_2",
+      "start": 15,
+      "end": 30,
+      "sourceLength": 115
+    },
+    {
+      "state": "target_epitope_1",
+      "start": 2,
+      "end": 17,
+      "sourceLength": 115
+    },
+    {
+      "state": "target_epitope_2",
+      "start": 80,
+      "end": 95,
+      "sourceLength": 115
+    },
+    {
+      "state": "target_epitope_1",
+      "start": 82,
+      "end": 97,
+      "sourceLength": 115
+    },
+    {
+      "state": "target_epitope_2",
+      "start": 15,
+      "end": 30,
+      "sourceLength": 115
+    },
+    {
+      "state": "target_epitope_1",
+      "start": 13,
+      "end": 28,
+      "sourceLength": 115
+    },
+    {
+      "state": "target_epitope_2",
+      "start": 31,
+      "end": 46,
+      "sourceLength": 115
+    },
+    {
+      "state": "target_epitope_1",
+      "start": 30,
+      "end": 45,
+      "sourceLength": 115
+    },
+    {
+      "state": "target_epitope_2",
+      "start": 1,
+      "end": 16,
+      "sourceLength": 115
+    }
+  ],
+  "predictionStates": [
+    {
+      "name": "target_epitope_1",
+      "file": "input.fasta",
+      "source": {
+        "structureId": "2285933c-bae5-425e-a173-99e27a0799a5",
+        "projectId": "e6cba72c-b2f7-4639-a851-35bf62a964a4",
+        "sha256": "3c399d05381a2192b2b77fb921a5eb8323623e73cc444665ba30e1a94bdf0c7e",
+        "format": "fasta",
+        "inputKind": "sequence",
+        "sequenceSha256": "c434254957dd7a7d80ce4ca859f9a6d101a1205f4ff822177dd0b3c31f02e968"
+      },
+      "residueMap": [],
+      "objective": "target",
+      "weight": 1.0,
+      "sourceTargetName": "target",
+      "cropIndex": 1
+    },
+    {
+      "name": "target_epitope_2",
+      "file": "input.fasta",
+      "source": {
+        "structureId": "2285933c-bae5-425e-a173-99e27a0799a5",
+        "projectId": "e6cba72c-b2f7-4639-a851-35bf62a964a4",
+        "sha256": "3c399d05381a2192b2b77fb921a5eb8323623e73cc444665ba30e1a94bdf0c7e",
+        "format": "fasta",
+        "inputKind": "sequence",
+        "sequenceSha256": "c434254957dd7a7d80ce4ca859f9a6d101a1205f4ff822177dd0b3c31f02e968"
+      },
+      "residueMap": [],
+      "objective": "target",
+      "weight": 1.0,
+      "sourceTargetName": "target",
+      "cropIndex": 2
+    }
+  ],
+  "scientificOptions": {
+    "crop_fasta_sequence": 16,
+    "idr_crop_count": 2
+  },
+  "executionAdapters": [
+    {
+      "name": "fixed_fasta_crop_range",
+      "savedValue": 16,
+      "executionValue": [
+        16,
+        16
+      ],
+      "reason": "Pinned campaign header requires an iterable; original scalar and fixed-range sampling are equivalent."
+    }
+  ],
+  "coordinateCrops": [],
+  "trajectoryRows": [
+    {
+      "trajectory": "1",
+      "design": "design_l12_b0abcebe344f432c",
+      "length": "12",
+      "bindcraft_version": "BindCraft 2 (unreleased)",
+      "Timing": "worker=0;start=1792518116.24;design=357.36;compiled=1",
+      "hash": "b0abcebe344f432c",
+      "terminated": "anneal",
+      "autotuned": "",
+      "targets": "target_epitope_1;target_epitope_2",
+      "target_weights": "1;1",
+      "settings_core": "default",
+      "settings_modality": "peptide"
+    }
+  ],
+  "resourceEstimate": {
+    "paddedResidues": 64,
+    "targetPredictionStates": [
+      "target_epitope_1",
+      "target_epitope_2"
+    ],
+    "preflightCropIntervals": {
+      "target_epitope_1": [
+        82,
+        97
+      ],
+      "target_epitope_2": [
+        15,
+        30
+      ]
+    },
+    "aggregatePaddedResidues": 128
+  },
+  "fastaSha256": "3c399d05381a2192b2b77fb921a5eb8323623e73cc444665ba30e1a94bdf0c7e",
+  "originalDefaultFiltersRetained": true,
+  "signatureAfterExecution": "passed",
+  "outputs": [],
+  "modelSelection": {
+    "designModels": [
+      "model_1_multimer_v3"
+    ],
+    "validationModels": [
+      "model_2_multimer_v3"
+    ]
+  },
+  "lastObservedUpdatesByPredictionState": {
+    "target_epitope_1": {
+      "stage": "anneal",
+      "sequenceUpdates": 45,
+      "metrics": {
+        "target_epitope_1.binder_contacts": 1.4553182125091553,
+        "target_epitope_1.binder_helicity": -1.6058332920074463,
+        "target_epitope_1.binder_pae": 0.04324134811758995,
+        "target_epitope_1.interface_contacts.target_epitope_1": 3.7628798484802246,
+        "target_epitope_1.interface_pae.target_epitope_1": 0.1439046561717987,
+        "target_epitope_1.iptm": 0.02787667326629162,
+        "target_epitope_1.iptm_loss.target_epitope_1": 0.09721233695745468,
+        "target_epitope_1.plddt_loss": 0.04057569429278374,
+        "target_epitope_1.ptm": 0.17568932473659515,
+        "target_epitope_1.target_helicity.target_epitope_1": -1.0065261125564575,
+        "target_epitope_1.target_plddt.target_epitope_1": 0.5317332744598389
+      }
+    },
+    "target_epitope_2": {
+      "stage": "refine",
+      "sequenceUpdates": 75,
+      "metrics": {
+        "target_epitope_2.binder_contacts": 1.4282708168029785,
+        "target_epitope_2.binder_helicity": -1.5066431760787964,
+        "target_epitope_2.binder_pae": 0.036042094230651855,
+        "target_epitope_2.interface_contacts.target_epitope_2": 4.136991024017334,
+        "target_epitope_2.interface_pae.target_epitope_2": 0.14987023174762726,
+        "target_epitope_2.iptm": 0.01969175785779953,
+        "target_epitope_2.iptm_loss.target_epitope_2": 0.09803082793951035,
+        "target_epitope_2.plddt_loss": 0.03852417692542076,
+        "target_epitope_2.ptm": 0.19022497534751892,
+        "target_epitope_2.target_helicity.target_epitope_2": -0.33577561378479004,
+        "target_epitope_2.target_plddt.target_epitope_2": 0.4354512095451355
+      }
+    }
+  },
+  "nativeUI": {
+    "sourceCommit": "cf8b07c",
+    "cropCountSelector": "Two distinct crops selected and saved through native preparation controls.",
+    "repeatAndStart": "Exact saved scalar recipe repeated and launched through native controls; original failed job retained.",
+    "completedOutcome": "Actual UI shows completed, no candidate passed original filters,1claimed attempt,0accepted designs,1trajectory row. Native trajectory detail shows two named crop states and terminated anneal.",
+    "screenshots": [
+      "reports/native-sequence-crop-controls.png",
+      "reports/native-two-crop-running.png"
+    ]
+  }
+}

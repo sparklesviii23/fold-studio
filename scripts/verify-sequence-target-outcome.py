@@ -15,13 +15,22 @@ try:
  options=prep.get('scientificOptions',{}).get('values',{});assert not options if a.crop_count==1 else set(options)<= {'idr_crop_count','crop_fasta_sequence'}
  assert prep['config'].get('idr_crop_count',1)==a.crop_count;states=prediction_targets(prep);assert len(states)==a.crop_count
  assert pathlib.Path(data['runtime']).is_relative_to(app) and pathlib.Path(data['parameters']).is_relative_to(app);assert not s.setting('bindcraftPython') and not s.setting('af2Parameters')
+ original=json.loads((folder/'settings.json').read_text());assert original==prep['config'] and fe.checksum(fe.canonical(original).encode())==prep['settingsSha256']
  config=json.loads((folder/'execution-settings.json').read_text());expected,_=execution_config(prep['config'],folder);assert fe.canonical(config)==fe.canonical(expected);assert config['max_trajectories']==1
  runtime=json.loads((folder/'runtime-provenance.json').read_text());assert runtime['state']=='finished' and runtime['exitCode']==0 and runtime['execution']=='cpu' and runtime['precision']=='float32';assert runtime['upstreamSource']==fe.verify_source()
- observations={};log=(folder/'execution.log').read_text()
+ assert runtime['executionSettingsSha256']==fe.checksum((folder/'execution-settings.json').read_bytes())
+ sys.path.insert(0,str(ROOT/'vendor/bindcraft2'))
+ from bindcraft.settings import load_settings,campaign_over_presets
+ defaults=campaign_over_presets({'modality':prep['modality'],'targets':config['targets'],'binder_lengths':config['binder_lengths']})
+ assert load_settings(config)['filters']==load_settings(defaults)['filters']
+ observations={};state_updates={};log=(folder/'execution.log').read_text()
  for line in log.splitlines():
   if not line.startswith('FOLD_PROGRESS '):continue
   value=json.loads(line.removeprefix('FOLD_PROGRESS '));assert value['sequenceUpdates']>0;assert all(not isinstance(v,(int,float)) or math.isfinite(v) for v in value.get('metrics',{}).values());observations[value['stage']]=value
- assert observations and all(any(state['name']+'.target_plddt' in value['metrics'] for value in observations.values()) for state in states)
+  for state in states:
+   name=state['name']
+   if any(key in value['metrics'] for key in (name+'.target_plddt',name+'.target_plddt.'+name)):state_updates[name]=value
+ assert observations and set(state_updates)=={state['name'] for state in states}
  coordinate_crops=[]
  for path in sorted((folder/'output').rglob('*.cif')):
   raw=path.read_bytes();structure=fe.mi.parse_structure(raw.decode(),'mmcif');roles=chain_roles(raw,structure)
@@ -29,5 +38,6 @@ try:
  result=s.dispatch('bindcraft_results',{'projectId':job['project_id'],'id':job['id']});counts={name:value['count'] for name,value in result['tables'].items()};assert counts['trajectories']==1 and result['claimedProgress']['trajectories']==1;assert bool(data.get('outputs'))==bool(counts['accepted'])
  signature=subprocess.run(['/usr/bin/codesign','--verify','--deep','--strict',str(app)],capture_output=True,text=True);assert signature.returncode==0,signature.stderr
  report={'state':'native_original_sequence_trajectory_completed','scope':'Actual native button launched a one-attempt original FASTA-target campaign with app-owned CPU runtime and checkpoints. Genuine sequence-target losses/optimization observed; original rejection criteria retained. Explicit crop-count/length options, if present, are recorded. Any failed trajectory coordinates remain technical outputs, not accepted predictions. This does not establish biological disorder or binding, full ensemble or broad target validation.','jobId':job['id'],'root':str(root),'app':str(app),'runtime':runtime,'interpreter':data['runtime'],'parameters':data['parameters'],'stageRows':counts,'outcome':data['outcome'],'lastObservedUpdatesByStage':observations,'sourceCropLogReadings':[{'state':m[0],'start':int(m[1]),'end':int(m[2]),'sourceLength':int(m[3])} for m in re.findall(r'target=(target(?:_epitope_\d+)?) crop=(\d+)-(\d+)/(\d+)',log)],'predictionStates':states,'scientificOptions':options,'executionAdapters':data.get('executionAdapters',[]),'coordinateCrops':coordinate_crops,'trajectoryRows':result['tables']['trajectories']['rows'],'resourceEstimate':data['resourceEstimate'],'fastaSha256':hashlib.sha256((folder/'input.fasta').read_bytes()).hexdigest(),'originalDefaultFiltersRetained':True,'signatureAfterExecution':'passed','outputs':data.get('outputs',[]),'modelSelection':data['modelSelection']}
+ report['lastObservedUpdatesByPredictionState']=state_updates
  pathlib.Path(a.report).write_text(json.dumps(report,indent=2,allow_nan=False)+'\n');print(json.dumps({'state':report['state'],'outcome':data['outcome'],'stageRows':counts,'seconds':runtime['totalSeconds'],'coordinateCrops':len(coordinate_crops)}))
 finally:s.db.close()

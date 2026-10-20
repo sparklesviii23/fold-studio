@@ -1,12 +1,12 @@
 {
   "schemaVersion": 1,
-  "updatedUtc": "2026-10-20T17:31:06.097046+00:00",
+  "updatedUtc": "2026-10-20T17:50:33.767791+00:00",
   "branch": "project-metal/apple-silicon-engine",
-  "implementationCommit": "412c182 + native scientific option/crop-state integration",
+  "implementationCommit": "cf8b07c (scientific implementation and native package; subsequent validation-only checkpoint)",
   "scope": "Project Metal Omega: complete authentic local BindCraft2 integration. No new Vina, OpenMM or interface redesign work.",
   "upstreamRevision": "c0ee638d11bc010817c2c97ee58ed5c323e664e2",
   "verified": {
-    "backendTests": 358,
+    "backendTests": 361,
     "frontendTests": 76,
     "typescript": "passed",
     "corePipeline": "Real 175-residue hPDL1 ensemble design + ProteinMPNN + held-out AF2 + original filters; one accepted computational prediction, no biological claim.",
@@ -29,7 +29,9 @@
     "memoryGovernor": "Public macOS libproc physical footprint includes compressed allocations; two focused tests and actual1GiB stop smoke passed. Original Fab608 kernel memory kill diagnosed and retained.",
     "ssdOffload": "Experimental CPU SSD tape:6focused runtime tests pass; genuine64-padded trained AF2 loss,coordinates,sequence gradients exactly equal original. Full608Fab attempt wrote9,665,972,632bytes to SSD, then guard stopped at15,279,502,008bytes task footprint in310.219s. No full Fab gradient or accepted design; native Fab remains disabled.",
     "campaignUtilities": "Actual original custom filtering (2pass/1reject), source metric listing, multi-metric explicit-direction ranking, lossless trajectory compression/restoration and persistence-failure rollback passed on genuine saved175-residue ensemble results. Original output data,157summary rows, job state and original QA source unchanged after roundtrip.",
-    "sequenceCropStates": "Actual original two/three distinct FASTA crop preparations match native state mapping, exact source sequence intervals, deterministic seeds and original validation flanks. One immutable physical input;192aggregate-residue guard and original insufficient-window refusal verified. No multi-crop model execution yet."
+    "sequenceCropStates": "Actual native cf8b07c app completed a two-crop12res peptide original-filter CPU trajectory in359.914s. Finite readings for both target_epitope states; screen/refine passed, original anneal rejection,1trajectory/0refolds/0accepted. Single immutable FASTA input and recorded scalar-to-fixed-range compatibility adapter. Three-state preparation tested, not model execution. Accepted multi-crop refolding/import remains unexercised.",
+    "scalarCropCompatibility": "Original scalar16 and normalized[16,16] produce exactly equal source-sampled sequence/position/validation-flank inputs for two and three states across two seeds. Saved scalar recipe remains unchanged, execution normalization receipt recorded. Genuine native multi-crop campaign now completes.",
+    "latestNativePackage": "cf8b07c local ad-hoc signed5.24GiB app; app-owned CPU runtime/checkpoints selected automatically, native selector/prepare/repeat/start/outcome inspection verified. Deep signature passed after real model execution."
   },
   "evidence": [
     "reports/bindcraft-ensemble-outcome.json",
@@ -60,7 +62,13 @@
     "reports/bindcraft-induced-fit-outcome.json",
     "reports/bindcraft-scientific-options-extended.json",
     "reports/bindcraft-sequence-crops.json",
-    "reports/native-bindcraft-multidomain-interrupted.json"
+    "reports/native-bindcraft-multidomain-interrupted.json",
+    "reports/bindcraft-sequence-crops-range.json",
+    "reports/bindcraft-packaged-crops.json",
+    "reports/native-sequence-crop-header-failure.json",
+    "reports/native-bindcraft-two-crop-outcome.json",
+    "reports/native-two-crop-process-telemetry.json",
+    "reports/native-two-crop-telemetry.json"
   ],
   "runtime": {
     "cpu": "../runtimes/jax-cpu/bin/python",
@@ -79,19 +87,19 @@
   },
   "activeComputationalTest": null,
   "activeBuild": null,
-  "latestVerifiedApp": "/Users/vii/Documents/FoldStudio-MetalPort/validation/Relocated BindCraft Utilities Engine/FOLD STUDIO Metal Dev.app (412c182; signed relocated bundled runtime and native custom filter/rank/archive/restore buttons passed)",
+  "latestVerifiedApp": "/Users/vii/Documents/FoldStudio-MetalPort/validation/Relocated BindCraft Crop Range Engine/FOLD STUDIO Metal Dev.app (cf8b07c; signed relocated native two-crop original-model campaign and post-run deep signature passed)",
   "immediateNext": [
-    "Package current option/crop-state integration and check native controls in a newly relocated ad-hoc signed app.",
-    "Execute a bounded genuine multi-crop trained-model diagnostic, without changing original acceptance filters. No competing AF2 job.",
-    "Continue remaining non-Fab option/modality validation. Fab and notarization explicitly deferred."
+    "Continue missing non-Fab native source-option support, prioritizing original target-preset selection and parameter-sweep lifecycle/results adapters. These are not claimed complete.",
+    "Extended-format native multidomain original run remains interrupted after95screen updates; large_binder prepared but unexecuted. Preserve prior budgets/evidence rather than repeat accepted reference campaigns.",
+    "Broaden modality/property and accepted FASTA/conformational output validation within tested resource envelopes. Fab and notarization remain explicitly deferred."
   ],
   "limitations": [
-    "Full upstream modality/option parity remains incomplete.",
-    "Large Metal gradients remain memory limited.",
-    "Newest additions require packaged acceptance.",
-    "Do not rerun finished accepted/VHH/homodimer/multitarget campaigns merely to inspect results."
+    "Full upstream modality/option/CLI parity is incomplete.",
+    "Larger Metal gradients remain memory limited; existing measured caps unchanged.",
+    "Three-crop preparation and transport contracts passed; trained-model execution validated only for the two-crop bounded case, without accepted outputs.",
+    "Fresh-machine installation and every property/modality/option combination remain unvalidated."
   ],
-  "uncommittedWork": "Source-validated native option expansion and multiple FASTA crop states; updated package acceptance pending.",
+  "uncommittedWork": "Validation and documentation checkpoint only. No active model computation.",
   "fabResourceFailure": {
     "state": "kernel_memory_terminated",
     "report": "reports/bindcraft-fab-gradient-cpu.json",
@@ -116,5 +124,38 @@
   "activeScientificRun": null,
   "fabDeferredByUser": true,
   "distributionBlocker": "No valid local code-signing identity (security find-identity reports0). Ad-hoc local signing is available; Developer ID notarized distribution requires external credentials.",
-  "notarizationDeferredByUser": true
+  "notarizationDeferredByUser": true,
+  "completionAssessment": {
+    "metric": "Connected items in explicit non-Fab option/preset/command inventory; not a full scientific certification or release-completion percentage. Individual metrics, literal CLI flags and arbitrary state graphs are not included in this count.",
+    "connected": 249,
+    "total": 269,
+    "percent": 92.6,
+    "categories": {
+      "modalities": {
+        "connected": 11,
+        "total": 11
+      },
+      "properties": {
+        "connected": 9,
+        "total": 9
+      },
+      "coreProfiles": {
+        "connected": 1,
+        "total": 1
+      },
+      "campaignSettings": {
+        "connected": 219,
+        "total": 239
+      },
+      "commands": {
+        "connected": 9,
+        "total": 9
+      }
+    },
+    "exclusions": [
+      "Fab",
+      "notarization"
+    ],
+    "remaining": "Unrestricted/custom source options and state graphs, parameter sweeps/target preset exposure, broader modality/property and accepted FASTA/conformational output validation, extended-format completed runs and fresh-machine packaging acceptance."
+  }
 }
