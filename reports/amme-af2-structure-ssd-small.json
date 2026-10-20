@@ -1,0 +1,515 @@
+{
+  "state": "full_gradient_passed",
+  "scope": "Original complete modality preset, input preparation and losses; single genuine model_1_multimer_v3 CPU float32 gradient including its full forward. No separately retained standalone prediction executable, trajectory optimization, ProteinMPNN, held-out refold, acceptance or biological claim. No original thresholds changed.",
+  "source": {
+    "state": "present",
+    "revision": "c0ee638d11bc010817c2c97ee58ed5c323e664e2",
+    "manifestSha256": "8f06e409dac335261d2505361f4358e2b4df389b8f85a497967406d8c4af4277",
+    "license": "BindCraft2 Source-Available License (Hosting-Restricted)",
+    "modified": false
+  },
+  "targetSha256": "c152bef545f70158970e739878231fbe6ba92b6218a0ce39a84ec4b873b56c8d",
+  "settings": {
+    "mpnn_model": "v_48_020",
+    "mpnn_variant": "negative",
+    "validation_recycles": 3,
+    "validation_crop_flank": 5,
+    "autotune": true,
+    "attention_backend": "stock",
+    "use_cueq": false,
+    "subbatch_size": 1,
+    "trajectory_only": false,
+    "resume": true,
+    "hash_design_names": true,
+    "relax_accepted_designs": false,
+    "archive_trajectories": false,
+    "save_failed_refolds": true,
+    "save_failed_trajectories": true,
+    "save_binder_monomers": true,
+    "save_design_animations": false,
+    "save_design_frames": false,
+    "save_design_sequences": false,
+    "save_loss_plots": false,
+    "betasheet_reopt_trigger": 0.15,
+    "betasheet_reopt_extra_refine_steps": 0,
+    "betasheet_reopt_extra_anneal_steps": 0,
+    "min_plddt_screen": 0.6,
+    "min_plddt_refine": 0.6,
+    "min_plddt_anneal": 0.65,
+    "min_plddt_harden": 0.65,
+    "min_plddt_final": 0.7,
+    "sequence_candidates": 10,
+    "kept_sequences": 1,
+    "enough_passing_sequences": 3,
+    "redesign_interface": false,
+    "design_dropout": true,
+    "forced_targeting": false,
+    "design_recycles": 1,
+    "target_flexibility": 0.0,
+    "bigbang_initialization": false,
+    "initial_guess": false,
+    "desperation": true,
+    "weights_plddt_loss": 0.1,
+    "weights_iptm_loss": 0.05,
+    "weights_interface_contacts": 1.0,
+    "weights_interface_pae": 0.1,
+    "weights_binder_contacts": 1.0,
+    "weights_binder_pae": 0.4,
+    "weights_binder_helicity": -0.3,
+    "weights_compactness": 0.5,
+    "losses": {
+      "plddt_loss": {
+        "params": {
+          "prediction_state": "complex",
+          "chain": "binder"
+        }
+      },
+      "binder_pae": {
+        "params": {
+          "prediction_state": "complex",
+          "chain": "binder"
+        }
+      },
+      "compactness": {
+        "params": {
+          "prediction_state": "complex",
+          "chain": "binder"
+        }
+      },
+      "binder_contacts": {
+        "params": {
+          "prediction_state": "complex",
+          "chain": "binder"
+        }
+      },
+      "binder_helicity": {
+        "params": {
+          "prediction_state": "complex",
+          "chain": "binder"
+        }
+      },
+      "interface_contacts": {
+        "params": {
+          "cutoff": 20.0,
+          "contacts_per_residue": 2
+        }
+      }
+    },
+    "filters": {
+      "Unbound_Binder_pLDDT": {
+        "threshold": 0.7,
+        "higher": true
+      },
+      "pTM": {
+        "threshold": 0.55,
+        "higher": true
+      },
+      "i_pTM": {
+        "threshold": 0.7,
+        "higher": true
+      },
+      "i_pAE": {
+        "threshold": 0.35,
+        "higher": false
+      },
+      "Backbone_Clashes": {
+        "threshold": 0,
+        "higher": false
+      },
+      "Interface_Residues": {
+        "threshold": 7,
+        "higher": true
+      },
+      "Binder_RMSD": {
+        "threshold": 3.5,
+        "higher": false
+      },
+      "Receptor_Chains_Contacted": {
+        "threshold": 0.0,
+        "higher": true,
+        "mandatory": false
+      },
+      "Target_pLDDT": {
+        "threshold": 0.0,
+        "higher": true,
+        "mandatory": false
+      },
+      "Interface_BuriedArea": {
+        "threshold": 0.0,
+        "higher": true,
+        "mandatory": false
+      },
+      "Interface_BuriedArea_Fraction": {
+        "threshold": 0.0,
+        "higher": true,
+        "mandatory": false
+      },
+      "Surface_Hydrophobicity": {
+        "threshold": "Infinity",
+        "higher": false,
+        "mandatory": false
+      },
+      "Interface_Hydrophobicity": {
+        "threshold": "Infinity",
+        "higher": false,
+        "mandatory": false
+      },
+      "Target_RMSD": {
+        "threshold": "Infinity",
+        "higher": false,
+        "mandatory": false
+      },
+      "SS_pLDDT": {
+        "threshold": 0.0,
+        "higher": true,
+        "mandatory": false
+      },
+      "All_Atom_Clashes": {
+        "threshold": "Infinity",
+        "higher": false,
+        "mandatory": false
+      },
+      "Binder_Free_Cysteines": {
+        "threshold": "Infinity",
+        "higher": false,
+        "mandatory": false
+      },
+      "Binder_Helix_Fraction": {
+        "threshold": "Infinity",
+        "higher": false,
+        "mandatory": false
+      },
+      "Binder_BetaSheet_Fraction": {
+        "threshold": "Infinity",
+        "higher": false,
+        "mandatory": false
+      },
+      "Binder_Loop_Fraction": {
+        "threshold": "Infinity",
+        "higher": false,
+        "mandatory": false
+      },
+      "Interface_Helix_Fraction": {
+        "threshold": "Infinity",
+        "higher": false,
+        "mandatory": false
+      },
+      "Interface_BetaSheet_Fraction": {
+        "threshold": "Infinity",
+        "higher": false,
+        "mandatory": false
+      },
+      "Interface_Loop_Fraction": {
+        "threshold": "Infinity",
+        "higher": false,
+        "mandatory": false
+      },
+      "Binder_Disulfides": {
+        "threshold": "Infinity",
+        "higher": false,
+        "mandatory": false
+      },
+      "Binder_Mass_kDa": {
+        "threshold": "Infinity",
+        "higher": false,
+        "mandatory": false
+      },
+      "Binder_pI": {
+        "threshold": "Infinity",
+        "higher": false,
+        "mandatory": false
+      },
+      "Binder_Net_Charge": {
+        "threshold": "Infinity",
+        "higher": false,
+        "mandatory": false
+      },
+      "Binder_Extinction": {
+        "threshold": "Infinity",
+        "higher": false,
+        "mandatory": false
+      },
+      "Binder_Cysteines": {
+        "threshold": "Infinity",
+        "higher": false,
+        "mandatory": false
+      }
+    },
+    "min_iptm_anneal": 0.5,
+    "min_iptm_harden": 0.5,
+    "min_iptm_mutate": 0.5,
+    "min_iptm_final": 0.7,
+    "min_plddt_mutate": 0.6,
+    "binder_lengths": [
+      8
+    ],
+    "aa_bias": {
+      "C": 0
+    },
+    "min_monomer_plddt_final": 0.7,
+    "modality": "binder",
+    "campaign_seed": 42,
+    "targets": [
+      {
+        "name": "target",
+        "target_path": "/Users/vii/Documents/FoldStudio-MetalPort/validation/trajectory-f32-cpu/technical_target_fragment.pdb",
+        "chains": "A"
+      }
+    ]
+  },
+  "settingsSha256": "f73ff74b70e3df1ed6419843277c85c2ce8b67a91767b4eed83f98823e3a238e",
+  "model": "model_1_multimer_v3",
+  "parameterSha256": "611da8fc7478928f68de12e8b226260ef1f4ce62bcc29b008572e52f4f212959",
+  "seed": 42,
+  "maximumPaddedResidues": 64,
+  "inputChainLengths": {
+    "target": {
+      "binder": 8,
+      "target_target": 12
+    }
+  },
+  "executionOverrides": {
+    "subbatch_size": 1
+  },
+  "backend": "cpu",
+  "precision": "float32",
+  "jax": "0.11.2",
+  "jaxlib": "0.11.2",
+  "scaffoldSha256": null,
+  "activeLosses": [
+    "plddt_loss",
+    "binder_pae",
+    "interface_pae",
+    "compactness",
+    "iptm_loss",
+    "interface_contacts",
+    "binder_contacts",
+    "binder_helicity"
+  ],
+  "standaloneForwardExecuted": false,
+  "gradientIncludesFullForward": true,
+  "compileCacheSize": 1,
+  "ssdOffload": {
+    "state": "experimental",
+    "backend": "cpu",
+    "maximumTapeBytes": 1073741824,
+    "reserveBytes": 2147483648,
+    "checkpoints": 54,
+    "bytesWritten": 56955800,
+    "bytesRead": 56955800
+  },
+  "actualGradientStatePaddedResidues": {
+    "target": 64
+  },
+  "effectiveSubbatchSize": 1,
+  "useRemat": true,
+  "currentStage": "gradient_execution",
+  "parameterLogicalBytes": 372894820,
+  "modelSelectionProtocol": "upstream_sampling_with_original_rng_advance",
+  "modelKeyAfterSelection": [
+    1832780943,
+    270669613
+  ],
+  "compileSeconds": 6.621881209081039,
+  "compiledMemoryAnalysis": {
+    "argument_size_in_bytes": 372919781,
+    "output_size_in_bytes": 519016,
+    "temp_size_in_bytes": 64801672,
+    "alias_size_in_bytes": 0
+  },
+  "amme": {
+    "policy": "rematerialized_subbatches",
+    "tracedSubbatchCalls": 17,
+    "structureRematerialization": true,
+    "tracedStructureScans": 1
+  },
+  "loadSeconds": 0.5534823341295123,
+  "firstGradientIncludingCompilationSeconds": 17.419259208021685,
+  "loss": 3.8947081565856934,
+  "gradientNorms": {
+    "binder": 0.6375821828842163,
+    "target_target": 2.2687623500823975
+  },
+  "peakProcessRSSBytes": 2528329728,
+  "memorySamples": [
+    {
+      "residentBytes": 491520,
+      "physicalFootprintBytes": 180296,
+      "processStartAbstime": 38365361888495,
+      "elapsedSeconds": 0.006505084224045277,
+      "stage": "input_preparation",
+      "systemMemoryPressureLevel": 1,
+      "swapUsage": "total = 9216.00M  used = 8182.88M  free = 1033.12M  (encrypted)"
+    },
+    {
+      "residentBytes": 306462720,
+      "physicalFootprintBytes": 201114656,
+      "processStartAbstime": 38365361888495,
+      "elapsedSeconds": 1.051423167111352,
+      "stage": "input_preparation",
+      "systemMemoryPressureLevel": 1,
+      "swapUsage": "total = 9216.00M  used = 8182.88M  free = 1033.12M  (encrypted)"
+    },
+    {
+      "residentBytes": 1174667264,
+      "physicalFootprintBytes": 1069336208,
+      "processStartAbstime": 38365361888495,
+      "elapsedSeconds": 2.0982691252138466,
+      "stage": "gradient_compilation",
+      "systemMemoryPressureLevel": 1,
+      "swapUsage": "total = 9216.00M  used = 8182.88M  free = 1033.12M  (encrypted)"
+    },
+    {
+      "residentBytes": 1214218240,
+      "physicalFootprintBytes": 1108903592,
+      "processStartAbstime": 38365361888495,
+      "elapsedSeconds": 3.1399035421200097,
+      "stage": "gradient_compilation",
+      "systemMemoryPressureLevel": 1,
+      "swapUsage": "total = 9216.00M  used = 8182.88M  free = 1033.12M  (encrypted)"
+    },
+    {
+      "residentBytes": 1260650496,
+      "physicalFootprintBytes": 1155319488,
+      "processStartAbstime": 38365361888495,
+      "elapsedSeconds": 4.177563834004104,
+      "stage": "gradient_compilation",
+      "systemMemoryPressureLevel": 1,
+      "swapUsage": "total = 9216.00M  used = 8182.88M  free = 1033.12M  (encrypted)"
+    },
+    {
+      "residentBytes": 1287536640,
+      "physicalFootprintBytes": 1182222040,
+      "processStartAbstime": 38365361888495,
+      "elapsedSeconds": 5.224353000055999,
+      "stage": "gradient_compilation",
+      "systemMemoryPressureLevel": 1,
+      "swapUsage": "total = 9216.00M  used = 8182.88M  free = 1033.12M  (encrypted)"
+    },
+    {
+      "residentBytes": 1325236224,
+      "physicalFootprintBytes": 1219954440,
+      "processStartAbstime": 38365361888495,
+      "elapsedSeconds": 6.265849000075832,
+      "stage": "gradient_compilation",
+      "systemMemoryPressureLevel": 1,
+      "swapUsage": "total = 9216.00M  used = 8182.88M  free = 1033.12M  (encrypted)"
+    },
+    {
+      "residentBytes": 940998656,
+      "physicalFootprintBytes": 804259400,
+      "processStartAbstime": 38365361888495,
+      "elapsedSeconds": 7.306565792066976,
+      "stage": "gradient_compilation",
+      "systemMemoryPressureLevel": 1,
+      "swapUsage": "total = 9216.00M  used = 8182.88M  free = 1033.12M  (encrypted)"
+    },
+    {
+      "residentBytes": 1159479296,
+      "physicalFootprintBytes": 981157616,
+      "processStartAbstime": 38365361888495,
+      "elapsedSeconds": 8.351460500154644,
+      "stage": "gradient_compilation",
+      "systemMemoryPressureLevel": 1,
+      "swapUsage": "total = 9216.00M  used = 8182.88M  free = 1033.12M  (encrypted)"
+    },
+    {
+      "residentBytes": 1200324608,
+      "physicalFootprintBytes": 1021675248,
+      "processStartAbstime": 38365361888495,
+      "elapsedSeconds": 9.393156292149797,
+      "stage": "gradient_compilation",
+      "systemMemoryPressureLevel": 1,
+      "swapUsage": "total = 9216.00M  used = 8182.88M  free = 1033.12M  (encrypted)"
+    },
+    {
+      "residentBytes": 1457979392,
+      "physicalFootprintBytes": 1208141744,
+      "processStartAbstime": 38365361888495,
+      "elapsedSeconds": 10.441890584072098,
+      "stage": "gradient_compilation",
+      "systemMemoryPressureLevel": 1,
+      "swapUsage": "total = 9216.00M  used = 8182.88M  free = 1033.12M  (encrypted)"
+    },
+    {
+      "residentBytes": 1691156480,
+      "physicalFootprintBytes": 1440860248,
+      "processStartAbstime": 38365361888495,
+      "elapsedSeconds": 11.483346709050238,
+      "stage": "gradient_compilation",
+      "systemMemoryPressureLevel": 1,
+      "swapUsage": "total = 9216.00M  used = 8182.88M  free = 1033.12M  (encrypted)"
+    },
+    {
+      "residentBytes": 1814593536,
+      "physicalFootprintBytes": 1563642064,
+      "processStartAbstime": 38365361888495,
+      "elapsedSeconds": 12.548175667179748,
+      "stage": "gradient_compilation",
+      "systemMemoryPressureLevel": 1,
+      "swapUsage": "total = 9216.00M  used = 8182.88M  free = 1033.12M  (encrypted)"
+    },
+    {
+      "residentBytes": 2099249152,
+      "physicalFootprintBytes": 1418611184,
+      "processStartAbstime": 38365361888495,
+      "elapsedSeconds": 13.60659870901145,
+      "stage": "gradient_compilation",
+      "systemMemoryPressureLevel": 1,
+      "swapUsage": "total = 9216.00M  used = 8182.88M  free = 1033.12M  (encrypted)"
+    },
+    {
+      "residentBytes": 2148204544,
+      "physicalFootprintBytes": 1465731640,
+      "processStartAbstime": 38365361888495,
+      "elapsedSeconds": 14.654059334192425,
+      "stage": "gradient_execution",
+      "systemMemoryPressureLevel": 1,
+      "swapUsage": "total = 9216.00M  used = 8182.88M  free = 1033.12M  (encrypted)"
+    },
+    {
+      "residentBytes": 2152333312,
+      "physicalFootprintBytes": 1469680184,
+      "processStartAbstime": 38365361888495,
+      "elapsedSeconds": 15.703583125025034,
+      "stage": "gradient_execution",
+      "systemMemoryPressureLevel": 1,
+      "swapUsage": "total = 9216.00M  used = 8182.88M  free = 1033.12M  (encrypted)"
+    },
+    {
+      "residentBytes": 2181529600,
+      "physicalFootprintBytes": 1498761784,
+      "processStartAbstime": 38365361888495,
+      "elapsedSeconds": 16.743107500020415,
+      "stage": "gradient_execution",
+      "systemMemoryPressureLevel": 1,
+      "swapUsage": "total = 9216.00M  used = 8182.88M  free = 1033.12M  (encrypted)"
+    },
+    {
+      "residentBytes": 2181529600,
+      "physicalFootprintBytes": 1498761784,
+      "processStartAbstime": 38365361888495,
+      "elapsedSeconds": 17.784769917139784,
+      "stage": "gradient_execution",
+      "systemMemoryPressureLevel": 1,
+      "swapUsage": "total = 9216.00M  used = 8182.88M  free = 1033.12M  (encrypted)"
+    },
+    {
+      "residentBytes": 2325561344,
+      "physicalFootprintBytes": 1642760856,
+      "processStartAbstime": 38365361888495,
+      "elapsedSeconds": 18.826998209115118,
+      "stage": "gradient_execution",
+      "systemMemoryPressureLevel": 1,
+      "swapUsage": "total = 9216.00M  used = 8182.88M  free = 1033.12M  (encrypted)"
+    }
+  ],
+  "observedParentPeakRSSBytes": 2527969280,
+  "observedParentPeakFootprintBytes": 1845136168,
+  "experimentFootprintCeilingGiB": 14,
+  "memoryMeasurement": "macOS proc_pid_rusage ri_phys_footprint, including compressed allocations",
+  "parentWallSeconds": 19.55948262521997,
+  "processExitCode": 0,
+  "ssdRemainingBytesBeforeCleanup": 0,
+  "ssdOwnedScratchRemoved": true
+}

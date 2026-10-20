@@ -1,0 +1,248 @@
+{
+  "schemaVersion": 1,
+  "updatedUtc": "2026-10-20T23:01:39.832599+00:00",
+  "scope": "Full Fab AMME development; complete feature is not certified. Local use; notarization deferred.",
+  "fullFabComplete": false,
+  "sourceRevision": "c0ee638d11bc010817c2c97ee58ed5c323e664e2",
+  "statuses": [
+    {
+      "item": "Fab scaffold preparation",
+      "status": "Verified working",
+      "evidence": "Original H221/L213 scaffold and exact edit constraints saved; source seed42 expands H to231, retaining both full constant domains."
+    },
+    {
+      "item": "Full-length forward prediction",
+      "status": "Verified working",
+      "evidence": "Full original Fab plus full115residue hPDL1; returned by complete original gradient, not a separate retained forward executable."
+    },
+    {
+      "item": "Full-length gradient/backpropagation",
+      "status": "Verified working",
+      "evidence": "Finite genuine gradient completed under unchanged14GiB ceiling; original3design models resident, source sampling selected model5."
+    },
+    {
+      "item": "Multi-step optimization",
+      "status": "Partially verified",
+      "evidence": "Two small original optimizer updates execute with bounded reusable tape. Matched-input comparisons pass; independently propagated runs exceed strict comparison tolerance after tiny input drift. Full-size repeated steps pending."
+    },
+    {
+      "item": "Complete design trajectory",
+      "status": "Not tested",
+      "evidence": "No complete original full-Fab trajectory has finished; all original125gradient and15mutation default rounds remain intact."
+    },
+    {
+      "item": "ProteinMPNN",
+      "status": "Not tested",
+      "evidence": "Previously verified for standard binders; no full-Fab redesign result yet."
+    },
+    {
+      "item": "Multimer validation",
+      "status": "Not tested",
+      "evidence": "Original held-out models2/4selected and pinned; no full-Fab independent validation result yet."
+    },
+    {
+      "item": "Original filtering/ranking",
+      "status": "Partially verified",
+      "evidence": "Original Fab criteria and editable regions preserved; no completed full-Fab filtering/ranking case yet."
+    },
+    {
+      "item": "Accepted Fab generation",
+      "status": "Not tested",
+      "evidence": "No accepted Fab design; gradient prediction is not presented as one."
+    },
+    {
+      "item": "Native Fold Studio integration and export",
+      "status": "Partially verified",
+      "evidence": "Protected experimental CPU profile, original Fab preparation, UI controls, telemetry and packaging resources implemented. Packaged execution validation pending; original scaffold project export tested."
+    }
+  ],
+  "fullGradient": {
+    "state": "full_gradient_passed",
+    "inputChainLengths": {
+      "target": {
+        "binder_0": 231,
+        "binder_1": 213,
+        "target_target": 115
+      }
+    },
+    "gradientGraphResidues": {
+      "target": 595
+    },
+    "maximumPaddedResidues": 608,
+    "originalModelSelection": {
+      "designModels": [
+        "model_1_multimer_v3",
+        "model_3_multimer_v3",
+        "model_5_multimer_v3"
+      ],
+      "validationModels": [
+        "model_2_multimer_v3",
+        "model_4_multimer_v3"
+      ],
+      "validationPoolExhausted": false
+    },
+    "model": "model_5_multimer_v3",
+    "parameterSha256": "917742be5a105d6b80f13f1f13f20459f27ec3fdcd34ea088b359f4502d6177f",
+    "precision": "float32",
+    "jax": "0.11.2",
+    "jaxlib": "0.11.2",
+    "loss": -4.462820053100586,
+    "gradientNorms": {
+      "binder_0": 0.7808735370635986,
+      "binder_1": 0.44350647926330566,
+      "target_target": 1.00406014919281
+    },
+    "parentWallSeconds": 1139.6248236249667,
+    "compileSeconds": 1.3407476670108736,
+    "observedParentPeakFootprintBytes": 11092403680,
+    "observedParentPeakRSSBytes": 8538292224,
+    "ssdOffload": {
+      "state": "experimental",
+      "backend": "cpu",
+      "maximumTapeBytes": 10737418240,
+      "reserveBytes": 2147483648,
+      "checkpoints": 54,
+      "bytesWritten": 9665972632,
+      "bytesRead": 9665972632
+    },
+    "ssdOwnedScratchRemoved": true
+  },
+  "compilerMemory": {
+    "baselineTemporaryBytes": 12641092472,
+    "optimizedTemporaryBytes": 7148896184,
+    "reductionPercent": 43.44716487253935,
+    "policy": "Installed CPU_SCHEDULER_TYPE_MEMORY_OPTIMIZED with original subbatch rematerialization and lossless SSD tape.",
+    "reference": "https://github.com/openxla/xla/blob/main/xla/service/cpu/cpu_compiler.cc"
+  },
+  "fiveLargestIdentifiableLogicalContributors": [
+    {
+      "bytes": 543782400,
+      "shape": [
+        8,
+        595,
+        595,
+        12,
+        4
+      ],
+      "dtype": "float32",
+      "primitive": "scan",
+      "sourceScope": "alphafold/alphafold_iteration/structure_module",
+      "graphScope": "gradient/0:jit:jaxpr:0/598:jit:jaxpr:0/0:jit:jaxpr:0",
+      "logicalLifetime": {
+        "producedAtEquation": 568,
+        "lastConsumedAtEquation": 649
+      },
+      "attributionConfidence": "exact logical shape; allocator overlap/reuse unmeasured"
+    },
+    {
+      "bytes": 362521600,
+      "shape": [
+        595,
+        595,
+        256
+      ],
+      "dtype": "float32",
+      "primitive": "dot_general",
+      "sourceScope": "extra_msa_stack/triangle_multiplication_outgoing/projection/...a, ah->...h",
+      "graphScope": "gradient/0:jit:jaxpr:0/592:jit:jaxpr:0/0:jit:jaxpr:0/162:scan:jaxpr:0/0:custom_vjp_call:call_jaxpr:0/4:remat2:jaxpr:0",
+      "logicalLifetime": {
+        "producedAtEquation": 200,
+        "lastConsumedAtEquation": 203
+      },
+      "attributionConfidence": "exact logical shape; allocator overlap/reuse unmeasured"
+    },
+    {
+      "bytes": 362521600,
+      "shape": [
+        595,
+        595,
+        256
+      ],
+      "dtype": "float32",
+      "primitive": "add",
+      "sourceScope": "extra_msa_stack/triangle_multiplication_outgoing/projection",
+      "graphScope": "gradient/0:jit:jaxpr:0/592:jit:jaxpr:0/0:jit:jaxpr:0/162:scan:jaxpr:0/0:custom_vjp_call:call_jaxpr:0/4:remat2:jaxpr:0",
+      "logicalLifetime": {
+        "producedAtEquation": 203,
+        "lastConsumedAtEquation": 204
+      },
+      "attributionConfidence": "exact logical shape; allocator overlap/reuse unmeasured"
+    },
+    {
+      "bytes": 362521600,
+      "shape": [
+        595,
+        595,
+        256
+      ],
+      "dtype": "float32",
+      "primitive": "mul",
+      "sourceScope": "extra_msa_stack/triangle_multiplication_outgoing",
+      "graphScope": "gradient/0:jit:jaxpr:0/592:jit:jaxpr:0/0:jit:jaxpr:0/162:scan:jaxpr:0/0:custom_vjp_call:call_jaxpr:0/4:remat2:jaxpr:0",
+      "logicalLifetime": {
+        "producedAtEquation": 204,
+        "lastConsumedAtEquation": 211
+      },
+      "attributionConfidence": "exact logical shape; allocator overlap/reuse unmeasured"
+    },
+    {
+      "bytes": 362521600,
+      "shape": [
+        595,
+        595,
+        256
+      ],
+      "dtype": "float32",
+      "primitive": "dot_general",
+      "sourceScope": "extra_msa_stack/triangle_multiplication_outgoing/gate/...a, ah->...h",
+      "graphScope": "gradient/0:jit:jaxpr:0/592:jit:jaxpr:0/0:jit:jaxpr:0/162:scan:jaxpr:0/0:custom_vjp_call:call_jaxpr:0/4:remat2:jaxpr:0",
+      "logicalLifetime": {
+        "producedAtEquation": 206,
+        "lastConsumedAtEquation": 209
+      },
+      "attributionConfidence": "exact logical shape; allocator overlap/reuse unmeasured"
+    }
+  ],
+  "allocationAttributionLimitations": "Logical program-order lifetimes are local to each nested graph. They do not measure compiler scheduling, aliases, resident peak or simultaneous allocation; values may be optimized away.",
+  "ssdLargestSingleCheckpointPayloadBytes": 182479396,
+  "numericalValidation": {
+    "tolerance": {
+      "rtol": 0.0001,
+      "atol": 1e-05
+    },
+    "singleGradient": "passed on genuine small trained model",
+    "independentTwoUpdateComparison": "failed; preserved in reports/amme-two-update-parity.json",
+    "matchedInputLocalUpdates": "passed; reports/amme-matched-update-parity.json",
+    "unmodifiedSourcePerturbationControl": "passed; reports/amme-reference-perturbation-control.json",
+    "firstUpdatedInputMaximumDifference": 7.450580596923828e-08,
+    "interpretation": "On identical input states, original outputs, loss, gradients and local optimizer updates pass unchanged tolerance. The unchanged source reproduces the downstream drift at perturbed inputs. This attributes the observed independent-run drift to sensitivity to tiny input differences, including original float16 coordinate rounding; does not certify continuous-trajectory numerical identity."
+  },
+  "limits": {
+    "workerFootprintGiB": 14,
+    "ssdQuotaGiB": 10,
+    "diskReserveGiB": 2,
+    "workerTimeoutHours": 48,
+    "runtime": "CPU float32, actualJAX0.11.2; no CUDA or remote compute",
+    "scope": "One target state, unchanged complete original scaffold; conservative padded estimate\u2264608. Source scientific overrides remain saved, unsupported envelopes are refused."
+  },
+  "regression": {
+    "backendTests": 371,
+    "frontendTests": 76,
+    "runtimeAMMETests": 4,
+    "runtimeSSDTapeTests": 7
+  },
+  "experimentsNotAdopted": [
+    "Structure recomputation: negligible compiler memory benefit.",
+    "Triangle multiplication recomputation: increased compiler temporary heap.",
+    "Prevent-CSE override: no independent trajectory numerical improvement.",
+    "Triangle-attention-only policy: no independent trajectory numerical improvement.",
+    "SSD without fine rematerialization:35.57GB compiled temporary heap; full execution intentionally refused."
+  ],
+  "remainingNativeOptionGaps": [
+    "binder_shapes",
+    "parameter_sweep",
+    "target (named preset)",
+    "weights_fold_switching (arbitrary state graphs)"
+  ],
+  "inventoryCorrection": "Previous20option count included12already-owned aliases/format controls and4CUDA-only scheduling names. This is accounting correction, not new implemented features."
+}

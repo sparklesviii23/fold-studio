@@ -12,8 +12,8 @@ UPSTREAM=BASE/'vendor'/'bindcraft2'
 PIN='c0ee638d11bc010817c2c97ee58ed5c323e664e2'
 ACTIONS={'bindcraft_results','bindcraft_review','bindcraft_resume','bindcraft_repeat','fold_fragment','fold_engine_status','fold_structure','fold_target','fold_compute','bindcraft_validate','bindcraft_prepare','bindcraft_campaigns','bindcraft_import','bindcraft_start'}
 CONFIG_KEYS={'scientificOptions','core','properties','projectId','structureId','name','modality','targetChains','hotspots','coldspots','binderLengths','candidates','attempts','seed','additionalTargets'}
-SUPPORTED_MODALITIES=('binder','large_binder','multidomain','induced_fit','fold_switch','peptide','cyclic_peptide','VHH','ARP','scFv','homo_oligomer')
-SCAFFOLD_MODALITIES=('VHH','ARP','scFv')
+SUPPORTED_MODALITIES=('binder','large_binder','multidomain','induced_fit','fold_switch','peptide','cyclic_peptide','VHH','ARP','scFv','Fab','homo_oligomer')
+SCAFFOLD_MODALITIES=('VHH','ARP','scFv','Fab')
 
 def canonical(value):return json.dumps(value,sort_keys=True,separators=(',',':'),allow_nan=False)
 def checksum(data):return hashlib.sha256(data).hexdigest()
@@ -40,12 +40,13 @@ class Engine:
     def __init__(self,service):self.s=service;self.lab=mi.Lab(service)
     def dispatch(self,action,p):return getattr(self,action)(p)
     def fold_engine_status(self,p):
+        from amme_campaign import NATIVE_ENABLED
         modalities=[]
         for path in sorted((UPSTREAM/'settings'/'modality').glob('*.json')):
-            modalities.append({'name':path.stem,'description':json.loads(path.read_text()).get('description',''),'configuration':'tested' if path.stem in SUPPORTED_MODALITIES else 'not_started','execution':'experimental' if path.stem in SUPPORTED_MODALITIES else 'blocked'})
-        return {'name':'FOLD SCIENTIFIC ENGINE','schemaVersion':1,'source':source_status(),'modalities':modalities,
+            modalities.append({'name':path.stem,'description':json.loads(path.read_text()).get('description',''),'configuration':'tested' if path.stem in SUPPORTED_MODALITIES else 'not_started','execution':'blocked' if path.stem=='Fab' and not NATIVE_ENABLED else 'experimental' if path.stem in SUPPORTED_MODALITIES else 'blocked'})
+        return {'name':'FOLD SCIENTIFIC ENGINE','schemaVersion':1,'source':source_status(),'modalities':modalities,'fabMemory':{'enabled':NATIVE_ENABLED,'profile':'experimental-cpu-fab-amme','taskMemoryCeilingGiB':14,'ssdQuotaGiB':10,'scope':'Experimental original full Fab CPU campaign; complete scientific validation remains in progress.'},
                 'properties':__import__('campaign_profile').property_catalog(UPSTREAM),'coreProfiles':__import__('campaign_profile').core_catalog(UPSTREAM),
-                'engines':[{'id':'bindcraft2','configuration':'implemented','resultImport':'implemented','execution':'experimental_cpu_and_metal','metalExecution':'experimental_float32_requires_pinned_runtime','modelEnsembles':'original_upstream_selection','profiles':['experimental-cpu-single-model','experimental-cpu-float32-single-model','experimental-cpu-float32-scaffold','experimental-cpu-float32-320','experimental-cpu-float32-conformational','experimental-cpu-float32-sequence','experimental-cpu-float32-multitarget','experimental-metal-float32-single-model','experimental-cpu-float32-ensemble','experimental-metal-float32-ensemble']},
+                'engines':[{'id':'bindcraft2','configuration':'implemented','resultImport':'implemented','execution':'experimental_cpu_and_metal','metalExecution':'experimental_float32_requires_pinned_runtime','modelEnsembles':'original_upstream_selection','profiles':['experimental-cpu-single-model','experimental-cpu-float32-single-model','experimental-cpu-float32-scaffold','experimental-cpu-float32-320','experimental-cpu-float32-conformational','experimental-cpu-float32-sequence','experimental-cpu-float32-multitarget','experimental-metal-float32-single-model','experimental-cpu-float32-ensemble','experimental-metal-float32-ensemble','experimental-cpu-fab-amme']},
                            {'id':'openmm','execution':'cpu','scope':'Short Amber ff14SB/OBC2 protein pilot; not equilibrated sampling or Metal execution'}, {'id':'rdkit','execution':'cpu','scope':'Ligand ETKDGv3/MMFF94s preparation; not docking or biological activity validation'}, {'id':'proteinmpnn','execution':'cpu','scope':'Fixed-backbone sequence redesign; mpnn_start/mpnn_jobs'}, {'id':'boltz2','adapter':'existing prediction_start'}, {'id':'chimerax','adapter':'existing chimerax_execute; separately installed runtime; command availability is not validation'}],
                 'commands':[{'name':x,'status':'implemented' if x!='bindcraft_start' else 'experimental'} for x in sorted(ACTIONS)],
                 'dataModel':'Existing structure records/assets, stable residue/atom identities from Molecular Intelligence; existing jobs table. No parallel coordinate store.'}
@@ -121,6 +122,7 @@ class Engine:
             checked['corePresets']=[entry for entry in core_catalog(UPSTREAM) if entry['name']==p['core']]
         if modality=='homo_oligomer':checked['warnings'].append('Two identical binder-chain copies follow the original symmetric tying preset. Length bounds are per chain; memory estimates include both copies and the target.')
         if modality=='scFv':checked['warnings'].append('Original heavy and light variable domains are separate chains; no connecting linker is designed. Full target/scaffold memory feasibility must pass the selected profile before computation.')
+        if modality=='Fab':checked['warnings'].append('Complete original heavy and light chains, including both constant domains. The original design-model pool and held-out multimer validation follow the saved recipe. Guarded CPU forward/backward has passed; complete campaign and repeated full-size optimizer validation remain in progress.')
         from campaign_inputs import extend
         if modality in ('induced_fit','fold_switch') and p.get('additionalTargets'):raise ValueError('The experimental conformational adapter currently supports one observed target and its unbound binder state.')
         checked=extend(self,p,checked)

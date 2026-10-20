@@ -1,0 +1,61 @@
+{
+  "state": "passed",
+  "scope": "Single genuine model gradient parity for the saved case; not complete campaign or biological acceptance.",
+  "reference": "reports/ssd-af2-reference.json",
+  "offloaded": "reports/amme-af2-remat-small-original-rng.json",
+  "lossAbsoluteDifference": 0.0,
+  "tolerance": {
+    "rtol": 0.0001,
+    "atol": 1e-05
+  },
+  "arrays": {
+    "gradient_binder": {
+      "shape": [
+        8,
+        20
+      ],
+      "exactEqual": false,
+      "maximumAbsoluteDifference": 1.601874828338623e-07
+    },
+    "gradient_target_target": {
+      "shape": [
+        12,
+        20
+      ],
+      "exactEqual": false,
+      "maximumAbsoluteDifference": 4.76837158203125e-07
+    },
+    "target_binder_positions": {
+      "shape": [
+        8,
+        37,
+        3
+      ],
+      "exactEqual": true,
+      "maximumAbsoluteDifference": 0.0
+    },
+    "target_target_target_positions": {
+      "shape": [
+        12,
+        37,
+        3
+      ],
+      "exactEqual": true,
+      "maximumAbsoluteDifference": 0.0
+    }
+  },
+  "executionPolicy": "rematerialized_subbatches",
+  "ssd": null,
+  "amme": {
+    "policy": "rematerialized_subbatches",
+    "tracedSubbatchCalls": 17
+  },
+  "referenceFootprintBytes": 1828031200,
+  "offloadedFootprintBytes": 1920781072,
+  "evidenceSha256": {
+    "reports/ssd-af2-reference.json": "6f8e38861a0d5ab4455778a0639c31008d93bec9208f636b0450156e2c9e7c5d",
+    "reports/amme-af2-remat-small-original-rng.json": "2a2626be05d0c1f1f24d4261f71442e30590ce2598b70385a203d597b45f8a95",
+    "reports/ssd-af2-reference.npz": "9d21f7ecc7a75b5e4bde39eabc90d223d80ab31cc1803dcbbb40905bb2b274d2",
+    "reports/amme-af2-remat-small-original-rng.npz": "5166bd7c52f7a3522f4fb7d88fb014688509fcd668baf1d3fdfac9071b8c2dea"
+  }
+}

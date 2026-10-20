@@ -1,5 +1,6 @@
 """Experimental SSD tape: lossless replay, actual JIT reverse scan and cleanup."""
 import pathlib
+import json
 import sys
 import tempfile
 import unittest
@@ -39,6 +40,27 @@ class SSDCheckpoint(unittest.TestCase):
                 with self.assertRaisesRegex(RuntimeError, 'reserve'):
                     tape.save(np.ones(4, np.float32))
             self.assertEqual(list(tape.path.iterdir()), [])
+
+    def test_atomic_manifest_identity_tensor_metadata_and_failed_write(self):
+        with tempfile.TemporaryDirectory() as directory, DiskTape(directory, max_bytes=4096, reserve_bytes=0,
+                identity={'checkpointSha256':'technical-fixture-not-model-data'}) as tape:
+            token=tape.save(np.ones((2,3),np.float32),np.array([4],np.uint32))
+            manifest=json.loads((tape.path/'manifest.json').read_text())
+            self.assertEqual(manifest['schemaVersion'],1)
+            self.assertEqual(manifest['identity']['checkpointSha256'],'technical-fixture-not-model-data')
+            entry=manifest['records'][str(int(token))]
+            self.assertEqual(entry['tensors'][0],{'shape':[2,3],'dtype':'float32','bytes':24})
+            self.assertEqual(entry['bytes'],tape.live_bytes)
+            self.assertTrue(entry['mustPreserveExactly'])
+            self.assertFalse(list(tape.path.glob('*.pending')))
+            before=tape.live_bytes
+            with patch('ssd_checkpoint.np.save',side_effect=OSError('write interruption')):
+                with self.assertRaisesRegex(OSError,'write interruption'):tape.save(np.zeros(2,np.float32))
+            self.assertEqual(tape.live_bytes,before)
+            self.assertEqual(len(tape._records),1)
+            self.assertFalse(list(tape.path.glob('*.pending')))
+            tape.release()
+            self.assertEqual(json.loads((tape.path/'manifest.json').read_text())['records'],{})
 
     def test_completed_gradient_release_reuses_budget_but_not_handles(self):
         with tempfile.TemporaryDirectory() as directory, DiskTape(directory, max_bytes=2048, reserve_bytes=0) as tape:

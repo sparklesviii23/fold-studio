@@ -1,0 +1,1155 @@
+{
+  "state": "gradient_compiled_not_executed",
+  "scope": "Original complete modality preset, input preparation and losses; one original-sampled CPU float32 model gradient including its full forward; the complete original design pool is loaded when requested. No separately retained standalone prediction executable, trajectory optimization, ProteinMPNN, held-out refold, acceptance or biological claim. No original thresholds changed.",
+  "source": {
+    "state": "present",
+    "revision": "c0ee638d11bc010817c2c97ee58ed5c323e664e2",
+    "manifestSha256": "8f06e409dac335261d2505361f4358e2b4df389b8f85a497967406d8c4af4277",
+    "license": "BindCraft2 Source-Available License (Hosting-Restricted)",
+    "modified": false
+  },
+  "targetSha256": "d3c95434dcadf26d005340b15bd92be61e101ed921478c26f2a5550f198e61f6",
+  "settings": {
+    "mpnn_model": "v_48_020",
+    "mpnn_variant": "negative",
+    "validation_recycles": 3,
+    "validation_crop_flank": 5,
+    "autotune": true,
+    "attention_backend": "stock",
+    "use_cueq": false,
+    "subbatch_size": 1,
+    "trajectory_only": false,
+    "resume": true,
+    "hash_design_names": true,
+    "relax_accepted_designs": false,
+    "archive_trajectories": false,
+    "save_failed_refolds": true,
+    "save_failed_trajectories": true,
+    "save_binder_monomers": true,
+    "save_design_animations": false,
+    "save_design_frames": false,
+    "save_design_sequences": false,
+    "save_loss_plots": false,
+    "betasheet_reopt_trigger": 0.15,
+    "betasheet_reopt_extra_refine_steps": 0,
+    "betasheet_reopt_extra_anneal_steps": 0,
+    "min_plddt_screen": 0.6,
+    "min_plddt_refine": 0.6,
+    "min_plddt_anneal": 0.65,
+    "min_plddt_harden": 0.65,
+    "min_plddt_final": 0.7,
+    "sequence_candidates": 10,
+    "kept_sequences": 1,
+    "enough_passing_sequences": 3,
+    "redesign_interface": false,
+    "design_dropout": true,
+    "forced_targeting": false,
+    "design_recycles": 1,
+    "target_flexibility": 0.0,
+    "bigbang_initialization": false,
+    "initial_guess": false,
+    "desperation": true,
+    "weights_plddt_loss": 0.1,
+    "weights_iptm_loss": 0.05,
+    "weights_interface_contacts": 1.0,
+    "weights_interface_pae": 0.1,
+    "weights_binder_contacts": 1.0,
+    "weights_binder_pae": 0.4,
+    "weights_binder_helicity": -0.3,
+    "weights_compactness": 0.5,
+    "losses": {
+      "plddt_loss": {
+        "params": {
+          "prediction_state": "complex",
+          "chain": "binder"
+        }
+      },
+      "binder_pae": {
+        "params": {
+          "prediction_state": "complex",
+          "chain": "binder"
+        }
+      },
+      "compactness": {
+        "params": {
+          "prediction_state": "complex",
+          "chain": "binder"
+        }
+      },
+      "binder_contacts": {
+        "params": {
+          "prediction_state": "complex",
+          "chain": "binder"
+        }
+      },
+      "binder_helicity": {
+        "params": {
+          "prediction_state": "complex",
+          "chain": "binder"
+        }
+      },
+      "interface_contacts": {
+        "params": {
+          "cutoff": 20.0,
+          "contacts_per_residue": 2
+        }
+      }
+    },
+    "filters": {
+      "Unbound_Binder_pLDDT": {
+        "threshold": 0.7,
+        "higher": true
+      },
+      "pTM": {
+        "threshold": 0.55,
+        "higher": true
+      },
+      "i_pTM": {
+        "threshold": 0.7,
+        "higher": true
+      },
+      "i_pAE": {
+        "threshold": 0.35,
+        "higher": false
+      },
+      "Backbone_Clashes": {
+        "threshold": 0,
+        "higher": false
+      },
+      "Interface_Residues": {
+        "threshold": 7,
+        "higher": true
+      },
+      "Binder_RMSD": {
+        "threshold": null,
+        "higher": false
+      },
+      "Scaffold_Sequence_Retained_Fraction": {
+        "threshold": 1.0,
+        "higher": true,
+        "mandatory": true,
+        "params": {
+          "scaffold": "/Users/vii/Documents/FoldStudio-MetalPort/fold-studio/vendor/bindcraft2/scaffolds/Fab.cif",
+          "scaffold_edits": "L30-32,L91-94,L96,H31-33,H50,H52-55(4-6),H57,H59,H99-106(5-18),H72*"
+        }
+      },
+      "Scaffold_Framework_RMSD": {
+        "threshold": 3.0,
+        "higher": false,
+        "mandatory": true,
+        "params": {
+          "scaffold": "/Users/vii/Documents/FoldStudio-MetalPort/fold-studio/vendor/bindcraft2/scaffolds/Fab.cif",
+          "scaffold_edits": "L30-32,L91-94,L96,H31-33,H50,H52-55(4-6),H57,H59,H99-106(5-18),H72*"
+        }
+      },
+      "Framework_Packing_Fraction": {
+        "threshold": 0.0,
+        "higher": true,
+        "mandatory": false
+      },
+      "Off_Paratope_Contact_Fraction": {
+        "threshold": 0.2,
+        "higher": false,
+        "mandatory": true
+      },
+      "Receptor_Chains_Contacted": {
+        "threshold": 0.0,
+        "higher": true,
+        "mandatory": false
+      },
+      "Target_pLDDT": {
+        "threshold": 0.0,
+        "higher": true,
+        "mandatory": false
+      },
+      "Interface_BuriedArea": {
+        "threshold": 0.0,
+        "higher": true,
+        "mandatory": false
+      },
+      "Interface_BuriedArea_Fraction": {
+        "threshold": 0.0,
+        "higher": true,
+        "mandatory": false
+      },
+      "Surface_Hydrophobicity": {
+        "threshold": "Infinity",
+        "higher": false,
+        "mandatory": false
+      },
+      "Interface_Hydrophobicity": {
+        "threshold": "Infinity",
+        "higher": false,
+        "mandatory": false
+      },
+      "Target_RMSD": {
+        "threshold": "Infinity",
+        "higher": false,
+        "mandatory": false
+      },
+      "SS_pLDDT": {
+        "threshold": 0.0,
+        "higher": true,
+        "mandatory": false
+      },
+      "All_Atom_Clashes": {
+        "threshold": "Infinity",
+        "higher": false,
+        "mandatory": false
+      },
+      "Binder_Free_Cysteines": {
+        "threshold": "Infinity",
+        "higher": false,
+        "mandatory": false
+      },
+      "Binder_Helix_Fraction": {
+        "threshold": "Infinity",
+        "higher": false,
+        "mandatory": false
+      },
+      "Binder_BetaSheet_Fraction": {
+        "threshold": "Infinity",
+        "higher": false,
+        "mandatory": false
+      },
+      "Binder_Loop_Fraction": {
+        "threshold": "Infinity",
+        "higher": false,
+        "mandatory": false
+      },
+      "Interface_Helix_Fraction": {
+        "threshold": "Infinity",
+        "higher": false,
+        "mandatory": false
+      },
+      "Interface_BetaSheet_Fraction": {
+        "threshold": "Infinity",
+        "higher": false,
+        "mandatory": false
+      },
+      "Interface_Loop_Fraction": {
+        "threshold": "Infinity",
+        "higher": false,
+        "mandatory": false
+      },
+      "Binder_Disulfides": {
+        "threshold": "Infinity",
+        "higher": false,
+        "mandatory": false
+      },
+      "Binder_Mass_kDa": {
+        "threshold": "Infinity",
+        "higher": false,
+        "mandatory": false
+      },
+      "Binder_pI": {
+        "threshold": "Infinity",
+        "higher": false,
+        "mandatory": false
+      },
+      "Binder_Net_Charge": {
+        "threshold": "Infinity",
+        "higher": false,
+        "mandatory": false
+      },
+      "Binder_Extinction": {
+        "threshold": "Infinity",
+        "higher": false,
+        "mandatory": false
+      },
+      "Binder_Cysteines": {
+        "threshold": "Infinity",
+        "higher": false,
+        "mandatory": false
+      }
+    },
+    "min_iptm_anneal": 0.5,
+    "min_iptm_harden": 0.5,
+    "min_iptm_mutate": 0.5,
+    "min_iptm_final": 0.7,
+    "min_plddt_mutate": 0.6,
+    "binder_scaffold": "/Users/vii/Documents/FoldStudio-MetalPort/fold-studio/vendor/bindcraft2/scaffolds/Fab.cif",
+    "mutate_positions": "L30-32,L91-94,L96,H31-33,H50,H52-55(4-6),H57,H59,H99-106(5-18),H72*",
+    "design_models": 3,
+    "validation_model": "multimer",
+    "min_scaffold_sequence_retained_final": 1.0,
+    "max_scaffold_framework_rmsd_final": 3.0,
+    "min_monomer_plddt_final": 0.7,
+    "aa_bias": {
+      "C": 0.0,
+      "F": 0.9,
+      "W": 0.3,
+      "Y": 0.9
+    },
+    "modality": "Fab",
+    "campaign_seed": 42,
+    "targets": [
+      {
+        "name": "target",
+        "target_path": "/Users/vii/Documents/FoldStudio-MetalPort/fold-studio/vendor/bindcraft2/settings/target/structures/hPDL1.pdb",
+        "chains": "A"
+      }
+    ],
+    "weights_binder_coldspot": 1.0,
+    "max_off_paratope_contact_final": 0.2
+  },
+  "settingsSha256": "1a70a421becaa8940d32c96959a8af39687354b99e1452a6c70970b754cc8059",
+  "model": "model_5_multimer_v3",
+  "parameterSha256": "917742be5a105d6b80f13f1f13f20459f27ec3fdcd34ea088b359f4502d6177f",
+  "seed": 42,
+  "maximumPaddedResidues": 608,
+  "inputChainLengths": {
+    "target": {
+      "binder_0": 231,
+      "binder_1": 213,
+      "target_target": 115
+    }
+  },
+  "executionOverrides": {
+    "subbatch_size": 1
+  },
+  "backend": "cpu",
+  "precision": "float32",
+  "jax": "0.11.2",
+  "jaxlib": "0.11.2",
+  "scaffoldSha256": "69bb1be47d0ce2dad5f9bea4be30a65b80903369687dd6c660a4b29947f58cf9",
+  "activeLosses": [
+    "plddt_loss",
+    "binder_pae",
+    "interface_pae",
+    "compactness",
+    "iptm_loss",
+    "binder_coldspot",
+    "interface_contacts",
+    "binder_contacts",
+    "binder_helicity"
+  ],
+  "standaloneForwardExecuted": false,
+  "gradientIncludesFullForward": true,
+  "compileCacheSize": 1,
+  "ssdOffload": {
+    "state": "experimental",
+    "backend": "cpu",
+    "maximumTapeBytes": 10737418240,
+    "reserveBytes": 2147483648,
+    "checkpoints": 0,
+    "bytesWritten": 0,
+    "bytesRead": 0
+  },
+  "actualGradientStatePaddedResidues": {
+    "target": 608
+  },
+  "gradientGraphResidues": {
+    "target": 595
+  },
+  "shapeAccountingNote": "actualGradientStatePaddedResidues is the rounded bucket estimate; gradientGraphResidues counts the actual original per-chain padded gradient inputs.",
+  "effectiveSubbatchSize": 1,
+  "useRemat": true,
+  "currentStage": "profile_complete",
+  "parameterLogicalBytes": 1118684460,
+  "originalModelSelection": {
+    "designModels": [
+      "model_1_multimer_v3",
+      "model_3_multimer_v3",
+      "model_5_multimer_v3"
+    ],
+    "validationModels": [
+      "model_2_multimer_v3",
+      "model_4_multimer_v3"
+    ],
+    "validationPoolExhausted": false
+  },
+  "residentDesignModels": [
+    "model_1_multimer_v3",
+    "model_3_multimer_v3",
+    "model_5_multimer_v3"
+  ],
+  "modelSelectionProtocol": "upstream_sampling_with_original_rng_advance",
+  "modelKeyAfterSelection": [
+    1832780943,
+    270669613
+  ],
+  "gradientGraph": {
+    "method": "Abstract original JAX gradient graph, no model activations executed",
+    "limitations": "Logical program-order lifetimes are local to each nested graph. They do not measure compiler scheduling, aliases, resident peak or simultaneous allocation; values may be optimized away.",
+    "nestedGraphs": 967,
+    "valuesAtLeastOneMiB": 5958,
+    "fiveLargestIdentifiableLogicalContributors": [
+      {
+        "bytes": 362521600,
+        "shape": [
+          595,
+          595,
+          256
+        ],
+        "dtype": "float32",
+        "primitive": "dot_general",
+        "sourceScope": "projection/...a, ah->...h",
+        "graphScope": "gradient/0:jit:jaxpr:0/592:jit:jaxpr:0/0:jit:jaxpr:0/162:scan:jaxpr:0/0:custom_vjp_call:call_jaxpr:0/4:remat2:jaxpr:0/179:remat2:jaxpr:0",
+        "logicalLifetime": {
+          "producedAtEquation": 21,
+          "lastConsumedAtEquation": 24
+        },
+        "attributionConfidence": "exact logical shape; allocator overlap/reuse unmeasured"
+      },
+      {
+        "bytes": 362521600,
+        "shape": [
+          595,
+          595,
+          256
+        ],
+        "dtype": "float32",
+        "primitive": "add",
+        "sourceScope": "projection",
+        "graphScope": "gradient/0:jit:jaxpr:0/592:jit:jaxpr:0/0:jit:jaxpr:0/162:scan:jaxpr:0/0:custom_vjp_call:call_jaxpr:0/4:remat2:jaxpr:0/179:remat2:jaxpr:0",
+        "logicalLifetime": {
+          "producedAtEquation": 24,
+          "lastConsumedAtEquation": 25
+        },
+        "attributionConfidence": "exact logical shape; allocator overlap/reuse unmeasured"
+      },
+      {
+        "bytes": 362521600,
+        "shape": [
+          595,
+          595,
+          256
+        ],
+        "dtype": "float32",
+        "primitive": "mul",
+        "sourceScope": "",
+        "graphScope": "gradient/0:jit:jaxpr:0/592:jit:jaxpr:0/0:jit:jaxpr:0/162:scan:jaxpr:0/0:custom_vjp_call:call_jaxpr:0/4:remat2:jaxpr:0/179:remat2:jaxpr:0",
+        "logicalLifetime": {
+          "producedAtEquation": 25,
+          "lastConsumedAtEquation": 32
+        },
+        "attributionConfidence": "exact logical shape; allocator overlap/reuse unmeasured"
+      },
+      {
+        "bytes": 362521600,
+        "shape": [
+          595,
+          595,
+          256
+        ],
+        "dtype": "float32",
+        "primitive": "dot_general",
+        "sourceScope": "gate/...a, ah->...h",
+        "graphScope": "gradient/0:jit:jaxpr:0/592:jit:jaxpr:0/0:jit:jaxpr:0/162:scan:jaxpr:0/0:custom_vjp_call:call_jaxpr:0/4:remat2:jaxpr:0/179:remat2:jaxpr:0",
+        "logicalLifetime": {
+          "producedAtEquation": 27,
+          "lastConsumedAtEquation": 30
+        },
+        "attributionConfidence": "exact logical shape; allocator overlap/reuse unmeasured"
+      },
+      {
+        "bytes": 362521600,
+        "shape": [
+          595,
+          595,
+          256
+        ],
+        "dtype": "float32",
+        "primitive": "add",
+        "sourceScope": "gate",
+        "graphScope": "gradient/0:jit:jaxpr:0/592:jit:jaxpr:0/0:jit:jaxpr:0/162:scan:jaxpr:0/0:custom_vjp_call:call_jaxpr:0/4:remat2:jaxpr:0/179:remat2:jaxpr:0",
+        "logicalLifetime": {
+          "producedAtEquation": 30,
+          "lastConsumedAtEquation": 31
+        },
+        "attributionConfidence": "exact logical shape; allocator overlap/reuse unmeasured"
+      }
+    ],
+    "largestValues": [
+      {
+        "bytes": 362521600,
+        "shape": [
+          595,
+          595,
+          256
+        ],
+        "dtype": "float32",
+        "primitive": "dot_general",
+        "sourceScope": "projection/...a, ah->...h",
+        "graphScope": "gradient/0:jit:jaxpr:0/592:jit:jaxpr:0/0:jit:jaxpr:0/162:scan:jaxpr:0/0:custom_vjp_call:call_jaxpr:0/4:remat2:jaxpr:0/179:remat2:jaxpr:0",
+        "logicalLifetime": {
+          "producedAtEquation": 21,
+          "lastConsumedAtEquation": 24
+        },
+        "attributionConfidence": "exact logical shape; allocator overlap/reuse unmeasured"
+      },
+      {
+        "bytes": 362521600,
+        "shape": [
+          595,
+          595,
+          256
+        ],
+        "dtype": "float32",
+        "primitive": "add",
+        "sourceScope": "projection",
+        "graphScope": "gradient/0:jit:jaxpr:0/592:jit:jaxpr:0/0:jit:jaxpr:0/162:scan:jaxpr:0/0:custom_vjp_call:call_jaxpr:0/4:remat2:jaxpr:0/179:remat2:jaxpr:0",
+        "logicalLifetime": {
+          "producedAtEquation": 24,
+          "lastConsumedAtEquation": 25
+        },
+        "attributionConfidence": "exact logical shape; allocator overlap/reuse unmeasured"
+      },
+      {
+        "bytes": 362521600,
+        "shape": [
+          595,
+          595,
+          256
+        ],
+        "dtype": "float32",
+        "primitive": "mul",
+        "sourceScope": "",
+        "graphScope": "gradient/0:jit:jaxpr:0/592:jit:jaxpr:0/0:jit:jaxpr:0/162:scan:jaxpr:0/0:custom_vjp_call:call_jaxpr:0/4:remat2:jaxpr:0/179:remat2:jaxpr:0",
+        "logicalLifetime": {
+          "producedAtEquation": 25,
+          "lastConsumedAtEquation": 32
+        },
+        "attributionConfidence": "exact logical shape; allocator overlap/reuse unmeasured"
+      },
+      {
+        "bytes": 362521600,
+        "shape": [
+          595,
+          595,
+          256
+        ],
+        "dtype": "float32",
+        "primitive": "dot_general",
+        "sourceScope": "gate/...a, ah->...h",
+        "graphScope": "gradient/0:jit:jaxpr:0/592:jit:jaxpr:0/0:jit:jaxpr:0/162:scan:jaxpr:0/0:custom_vjp_call:call_jaxpr:0/4:remat2:jaxpr:0/179:remat2:jaxpr:0",
+        "logicalLifetime": {
+          "producedAtEquation": 27,
+          "lastConsumedAtEquation": 30
+        },
+        "attributionConfidence": "exact logical shape; allocator overlap/reuse unmeasured"
+      },
+      {
+        "bytes": 362521600,
+        "shape": [
+          595,
+          595,
+          256
+        ],
+        "dtype": "float32",
+        "primitive": "add",
+        "sourceScope": "gate",
+        "graphScope": "gradient/0:jit:jaxpr:0/592:jit:jaxpr:0/0:jit:jaxpr:0/162:scan:jaxpr:0/0:custom_vjp_call:call_jaxpr:0/4:remat2:jaxpr:0/179:remat2:jaxpr:0",
+        "logicalLifetime": {
+          "producedAtEquation": 30,
+          "lastConsumedAtEquation": 31
+        },
+        "attributionConfidence": "exact logical shape; allocator overlap/reuse unmeasured"
+      },
+      {
+        "bytes": 362521600,
+        "shape": [
+          595,
+          595,
+          256
+        ],
+        "dtype": "float32",
+        "primitive": "logistic",
+        "sourceScope": "",
+        "graphScope": "gradient/0:jit:jaxpr:0/592:jit:jaxpr:0/0:jit:jaxpr:0/162:scan:jaxpr:0/0:custom_vjp_call:call_jaxpr:0/4:remat2:jaxpr:0/179:remat2:jaxpr:0",
+        "logicalLifetime": {
+          "producedAtEquation": 31,
+          "lastConsumedAtEquation": 32
+        },
+        "attributionConfidence": "exact logical shape; allocator overlap/reuse unmeasured"
+      },
+      {
+        "bytes": 362521600,
+        "shape": [
+          595,
+          595,
+          256
+        ],
+        "dtype": "float32",
+        "primitive": "mul",
+        "sourceScope": "",
+        "graphScope": "gradient/0:jit:jaxpr:0/592:jit:jaxpr:0/0:jit:jaxpr:0/162:scan:jaxpr:0/0:custom_vjp_call:call_jaxpr:0/4:remat2:jaxpr:0/179:remat2:jaxpr:0",
+        "logicalLifetime": {
+          "producedAtEquation": 32,
+          "lastConsumedAtEquation": 34
+        },
+        "attributionConfidence": "exact logical shape; allocator overlap/reuse unmeasured"
+      },
+      {
+        "bytes": 362521600,
+        "shape": [
+          595,
+          595,
+          256
+        ],
+        "dtype": "float32",
+        "primitive": "dot_general",
+        "sourceScope": "projection/...a, ah->...h",
+        "graphScope": "gradient/0:jit:jaxpr:0/592:jit:jaxpr:0/0:jit:jaxpr:0/162:scan:jaxpr:0/0:custom_vjp_call:call_jaxpr:0/4:remat2:jaxpr:0/190:remat2:jaxpr:0",
+        "logicalLifetime": {
+          "producedAtEquation": 21,
+          "lastConsumedAtEquation": 24
+        },
+        "attributionConfidence": "exact logical shape; allocator overlap/reuse unmeasured"
+      },
+      {
+        "bytes": 362521600,
+        "shape": [
+          595,
+          595,
+          256
+        ],
+        "dtype": "float32",
+        "primitive": "add",
+        "sourceScope": "projection",
+        "graphScope": "gradient/0:jit:jaxpr:0/592:jit:jaxpr:0/0:jit:jaxpr:0/162:scan:jaxpr:0/0:custom_vjp_call:call_jaxpr:0/4:remat2:jaxpr:0/190:remat2:jaxpr:0",
+        "logicalLifetime": {
+          "producedAtEquation": 24,
+          "lastConsumedAtEquation": 25
+        },
+        "attributionConfidence": "exact logical shape; allocator overlap/reuse unmeasured"
+      },
+      {
+        "bytes": 362521600,
+        "shape": [
+          595,
+          595,
+          256
+        ],
+        "dtype": "float32",
+        "primitive": "mul",
+        "sourceScope": "",
+        "graphScope": "gradient/0:jit:jaxpr:0/592:jit:jaxpr:0/0:jit:jaxpr:0/162:scan:jaxpr:0/0:custom_vjp_call:call_jaxpr:0/4:remat2:jaxpr:0/190:remat2:jaxpr:0",
+        "logicalLifetime": {
+          "producedAtEquation": 25,
+          "lastConsumedAtEquation": 32
+        },
+        "attributionConfidence": "exact logical shape; allocator overlap/reuse unmeasured"
+      },
+      {
+        "bytes": 362521600,
+        "shape": [
+          595,
+          595,
+          256
+        ],
+        "dtype": "float32",
+        "primitive": "dot_general",
+        "sourceScope": "gate/...a, ah->...h",
+        "graphScope": "gradient/0:jit:jaxpr:0/592:jit:jaxpr:0/0:jit:jaxpr:0/162:scan:jaxpr:0/0:custom_vjp_call:call_jaxpr:0/4:remat2:jaxpr:0/190:remat2:jaxpr:0",
+        "logicalLifetime": {
+          "producedAtEquation": 27,
+          "lastConsumedAtEquation": 30
+        },
+        "attributionConfidence": "exact logical shape; allocator overlap/reuse unmeasured"
+      },
+      {
+        "bytes": 362521600,
+        "shape": [
+          595,
+          595,
+          256
+        ],
+        "dtype": "float32",
+        "primitive": "add",
+        "sourceScope": "gate",
+        "graphScope": "gradient/0:jit:jaxpr:0/592:jit:jaxpr:0/0:jit:jaxpr:0/162:scan:jaxpr:0/0:custom_vjp_call:call_jaxpr:0/4:remat2:jaxpr:0/190:remat2:jaxpr:0",
+        "logicalLifetime": {
+          "producedAtEquation": 30,
+          "lastConsumedAtEquation": 31
+        },
+        "attributionConfidence": "exact logical shape; allocator overlap/reuse unmeasured"
+      },
+      {
+        "bytes": 362521600,
+        "shape": [
+          595,
+          595,
+          256
+        ],
+        "dtype": "float32",
+        "primitive": "logistic",
+        "sourceScope": "",
+        "graphScope": "gradient/0:jit:jaxpr:0/592:jit:jaxpr:0/0:jit:jaxpr:0/162:scan:jaxpr:0/0:custom_vjp_call:call_jaxpr:0/4:remat2:jaxpr:0/190:remat2:jaxpr:0",
+        "logicalLifetime": {
+          "producedAtEquation": 31,
+          "lastConsumedAtEquation": 32
+        },
+        "attributionConfidence": "exact logical shape; allocator overlap/reuse unmeasured"
+      },
+      {
+        "bytes": 362521600,
+        "shape": [
+          595,
+          595,
+          256
+        ],
+        "dtype": "float32",
+        "primitive": "mul",
+        "sourceScope": "",
+        "graphScope": "gradient/0:jit:jaxpr:0/592:jit:jaxpr:0/0:jit:jaxpr:0/162:scan:jaxpr:0/0:custom_vjp_call:call_jaxpr:0/4:remat2:jaxpr:0/190:remat2:jaxpr:0",
+        "logicalLifetime": {
+          "producedAtEquation": 32,
+          "lastConsumedAtEquation": 34
+        },
+        "attributionConfidence": "exact logical shape; allocator overlap/reuse unmeasured"
+      },
+      {
+        "bytes": 362521600,
+        "shape": [
+          595,
+          595,
+          256
+        ],
+        "dtype": "float32",
+        "primitive": "dot_general",
+        "sourceScope": "projection/...a, ah->...h",
+        "graphScope": "gradient/0:jit:jaxpr:0/592:jit:jaxpr:0/0:jit:jaxpr:0/287:scan:jaxpr:0/0:custom_vjp_call:call_jaxpr:0/4:remat2:jaxpr:0/178:remat2:jaxpr:0",
+        "logicalLifetime": {
+          "producedAtEquation": 21,
+          "lastConsumedAtEquation": 24
+        },
+        "attributionConfidence": "exact logical shape; allocator overlap/reuse unmeasured"
+      },
+      {
+        "bytes": 362521600,
+        "shape": [
+          595,
+          595,
+          256
+        ],
+        "dtype": "float32",
+        "primitive": "add",
+        "sourceScope": "projection",
+        "graphScope": "gradient/0:jit:jaxpr:0/592:jit:jaxpr:0/0:jit:jaxpr:0/287:scan:jaxpr:0/0:custom_vjp_call:call_jaxpr:0/4:remat2:jaxpr:0/178:remat2:jaxpr:0",
+        "logicalLifetime": {
+          "producedAtEquation": 24,
+          "lastConsumedAtEquation": 25
+        },
+        "attributionConfidence": "exact logical shape; allocator overlap/reuse unmeasured"
+      },
+      {
+        "bytes": 362521600,
+        "shape": [
+          595,
+          595,
+          256
+        ],
+        "dtype": "float32",
+        "primitive": "mul",
+        "sourceScope": "",
+        "graphScope": "gradient/0:jit:jaxpr:0/592:jit:jaxpr:0/0:jit:jaxpr:0/287:scan:jaxpr:0/0:custom_vjp_call:call_jaxpr:0/4:remat2:jaxpr:0/178:remat2:jaxpr:0",
+        "logicalLifetime": {
+          "producedAtEquation": 25,
+          "lastConsumedAtEquation": 32
+        },
+        "attributionConfidence": "exact logical shape; allocator overlap/reuse unmeasured"
+      },
+      {
+        "bytes": 362521600,
+        "shape": [
+          595,
+          595,
+          256
+        ],
+        "dtype": "float32",
+        "primitive": "dot_general",
+        "sourceScope": "gate/...a, ah->...h",
+        "graphScope": "gradient/0:jit:jaxpr:0/592:jit:jaxpr:0/0:jit:jaxpr:0/287:scan:jaxpr:0/0:custom_vjp_call:call_jaxpr:0/4:remat2:jaxpr:0/178:remat2:jaxpr:0",
+        "logicalLifetime": {
+          "producedAtEquation": 27,
+          "lastConsumedAtEquation": 30
+        },
+        "attributionConfidence": "exact logical shape; allocator overlap/reuse unmeasured"
+      },
+      {
+        "bytes": 362521600,
+        "shape": [
+          595,
+          595,
+          256
+        ],
+        "dtype": "float32",
+        "primitive": "add",
+        "sourceScope": "gate",
+        "graphScope": "gradient/0:jit:jaxpr:0/592:jit:jaxpr:0/0:jit:jaxpr:0/287:scan:jaxpr:0/0:custom_vjp_call:call_jaxpr:0/4:remat2:jaxpr:0/178:remat2:jaxpr:0",
+        "logicalLifetime": {
+          "producedAtEquation": 30,
+          "lastConsumedAtEquation": 31
+        },
+        "attributionConfidence": "exact logical shape; allocator overlap/reuse unmeasured"
+      },
+      {
+        "bytes": 362521600,
+        "shape": [
+          595,
+          595,
+          256
+        ],
+        "dtype": "float32",
+        "primitive": "logistic",
+        "sourceScope": "",
+        "graphScope": "gradient/0:jit:jaxpr:0/592:jit:jaxpr:0/0:jit:jaxpr:0/287:scan:jaxpr:0/0:custom_vjp_call:call_jaxpr:0/4:remat2:jaxpr:0/178:remat2:jaxpr:0",
+        "logicalLifetime": {
+          "producedAtEquation": 31,
+          "lastConsumedAtEquation": 32
+        },
+        "attributionConfidence": "exact logical shape; allocator overlap/reuse unmeasured"
+      },
+      {
+        "bytes": 362521600,
+        "shape": [
+          595,
+          595,
+          256
+        ],
+        "dtype": "float32",
+        "primitive": "mul",
+        "sourceScope": "",
+        "graphScope": "gradient/0:jit:jaxpr:0/592:jit:jaxpr:0/0:jit:jaxpr:0/287:scan:jaxpr:0/0:custom_vjp_call:call_jaxpr:0/4:remat2:jaxpr:0/178:remat2:jaxpr:0",
+        "logicalLifetime": {
+          "producedAtEquation": 32,
+          "lastConsumedAtEquation": 34
+        },
+        "attributionConfidence": "exact logical shape; allocator overlap/reuse unmeasured"
+      },
+      {
+        "bytes": 362521600,
+        "shape": [
+          595,
+          595,
+          256
+        ],
+        "dtype": "float32",
+        "primitive": "dot_general",
+        "sourceScope": "projection/...a, ah->...h",
+        "graphScope": "gradient/0:jit:jaxpr:0/592:jit:jaxpr:0/0:jit:jaxpr:0/287:scan:jaxpr:0/0:custom_vjp_call:call_jaxpr:0/4:remat2:jaxpr:0/189:remat2:jaxpr:0",
+        "logicalLifetime": {
+          "producedAtEquation": 21,
+          "lastConsumedAtEquation": 24
+        },
+        "attributionConfidence": "exact logical shape; allocator overlap/reuse unmeasured"
+      },
+      {
+        "bytes": 362521600,
+        "shape": [
+          595,
+          595,
+          256
+        ],
+        "dtype": "float32",
+        "primitive": "add",
+        "sourceScope": "projection",
+        "graphScope": "gradient/0:jit:jaxpr:0/592:jit:jaxpr:0/0:jit:jaxpr:0/287:scan:jaxpr:0/0:custom_vjp_call:call_jaxpr:0/4:remat2:jaxpr:0/189:remat2:jaxpr:0",
+        "logicalLifetime": {
+          "producedAtEquation": 24,
+          "lastConsumedAtEquation": 25
+        },
+        "attributionConfidence": "exact logical shape; allocator overlap/reuse unmeasured"
+      },
+      {
+        "bytes": 362521600,
+        "shape": [
+          595,
+          595,
+          256
+        ],
+        "dtype": "float32",
+        "primitive": "mul",
+        "sourceScope": "",
+        "graphScope": "gradient/0:jit:jaxpr:0/592:jit:jaxpr:0/0:jit:jaxpr:0/287:scan:jaxpr:0/0:custom_vjp_call:call_jaxpr:0/4:remat2:jaxpr:0/189:remat2:jaxpr:0",
+        "logicalLifetime": {
+          "producedAtEquation": 25,
+          "lastConsumedAtEquation": 32
+        },
+        "attributionConfidence": "exact logical shape; allocator overlap/reuse unmeasured"
+      },
+      {
+        "bytes": 362521600,
+        "shape": [
+          595,
+          595,
+          256
+        ],
+        "dtype": "float32",
+        "primitive": "dot_general",
+        "sourceScope": "gate/...a, ah->...h",
+        "graphScope": "gradient/0:jit:jaxpr:0/592:jit:jaxpr:0/0:jit:jaxpr:0/287:scan:jaxpr:0/0:custom_vjp_call:call_jaxpr:0/4:remat2:jaxpr:0/189:remat2:jaxpr:0",
+        "logicalLifetime": {
+          "producedAtEquation": 27,
+          "lastConsumedAtEquation": 30
+        },
+        "attributionConfidence": "exact logical shape; allocator overlap/reuse unmeasured"
+      },
+      {
+        "bytes": 362521600,
+        "shape": [
+          595,
+          595,
+          256
+        ],
+        "dtype": "float32",
+        "primitive": "add",
+        "sourceScope": "gate",
+        "graphScope": "gradient/0:jit:jaxpr:0/592:jit:jaxpr:0/0:jit:jaxpr:0/287:scan:jaxpr:0/0:custom_vjp_call:call_jaxpr:0/4:remat2:jaxpr:0/189:remat2:jaxpr:0",
+        "logicalLifetime": {
+          "producedAtEquation": 30,
+          "lastConsumedAtEquation": 31
+        },
+        "attributionConfidence": "exact logical shape; allocator overlap/reuse unmeasured"
+      },
+      {
+        "bytes": 362521600,
+        "shape": [
+          595,
+          595,
+          256
+        ],
+        "dtype": "float32",
+        "primitive": "logistic",
+        "sourceScope": "",
+        "graphScope": "gradient/0:jit:jaxpr:0/592:jit:jaxpr:0/0:jit:jaxpr:0/287:scan:jaxpr:0/0:custom_vjp_call:call_jaxpr:0/4:remat2:jaxpr:0/189:remat2:jaxpr:0",
+        "logicalLifetime": {
+          "producedAtEquation": 31,
+          "lastConsumedAtEquation": 32
+        },
+        "attributionConfidence": "exact logical shape; allocator overlap/reuse unmeasured"
+      },
+      {
+        "bytes": 362521600,
+        "shape": [
+          595,
+          595,
+          256
+        ],
+        "dtype": "float32",
+        "primitive": "mul",
+        "sourceScope": "",
+        "graphScope": "gradient/0:jit:jaxpr:0/592:jit:jaxpr:0/0:jit:jaxpr:0/287:scan:jaxpr:0/0:custom_vjp_call:call_jaxpr:0/4:remat2:jaxpr:0/189:remat2:jaxpr:0",
+        "logicalLifetime": {
+          "producedAtEquation": 32,
+          "lastConsumedAtEquation": 34
+        },
+        "attributionConfidence": "exact logical shape; allocator overlap/reuse unmeasured"
+      },
+      {
+        "bytes": 362521600,
+        "shape": [
+          595,
+          595,
+          256
+        ],
+        "dtype": "float32",
+        "primitive": "dot_general",
+        "sourceScope": "projection/...a, ah->...h",
+        "graphScope": "gradient/0:jit:jaxpr:0/598:jit:jaxpr:0/0:jit:jaxpr:0/201:scan:jaxpr:0/5:remat2:jaxpr:0/169:remat2:jaxpr:0",
+        "logicalLifetime": {
+          "producedAtEquation": 21,
+          "lastConsumedAtEquation": 24
+        },
+        "attributionConfidence": "exact logical shape; allocator overlap/reuse unmeasured"
+      },
+      {
+        "bytes": 362521600,
+        "shape": [
+          595,
+          595,
+          256
+        ],
+        "dtype": "float32",
+        "primitive": "add",
+        "sourceScope": "projection",
+        "graphScope": "gradient/0:jit:jaxpr:0/598:jit:jaxpr:0/0:jit:jaxpr:0/201:scan:jaxpr:0/5:remat2:jaxpr:0/169:remat2:jaxpr:0",
+        "logicalLifetime": {
+          "producedAtEquation": 24,
+          "lastConsumedAtEquation": 25
+        },
+        "attributionConfidence": "exact logical shape; allocator overlap/reuse unmeasured"
+      }
+    ]
+  },
+  "compileSeconds": 7.722882624948397,
+  "compiledMemoryAnalysis": {
+    "argument_size_in_bytes": 373231651,
+    "output_size_in_bytes": 92255577,
+    "temp_size_in_bytes": 12987722576,
+    "alias_size_in_bytes": 0
+  },
+  "amme": {
+    "policy": "rematerialized_subbatches",
+    "tracedSubbatchCalls": 17,
+    "structureRematerialization": true,
+    "tracedStructureScans": 1,
+    "triangleRematerialization": true,
+    "tracedTriangleCalls": 6
+  },
+  "memorySamples": [
+    {
+      "residentBytes": 491520,
+      "physicalFootprintBytes": 180296,
+      "processStartAbstime": 38372299266957,
+      "elapsedSeconds": 0.0017154160887002945,
+      "stage": "input_preparation",
+      "systemMemoryPressureLevel": 1,
+      "swapUsage": "total = 9216.00M  used = 8078.88M  free = 1137.12M  (encrypted)"
+    },
+    {
+      "residentBytes": 346456064,
+      "physicalFootprintBytes": 205341704,
+      "processStartAbstime": 38372299266957,
+      "elapsedSeconds": 1.0426254579797387,
+      "stage": "input_preparation",
+      "systemMemoryPressureLevel": 1,
+      "swapUsage": "total = 9216.00M  used = 8078.88M  free = 1137.12M  (encrypted)"
+    },
+    {
+      "residentBytes": 380583936,
+      "physicalFootprintBytes": 213173304,
+      "processStartAbstime": 38372299266957,
+      "elapsedSeconds": 2.0882996660657227,
+      "stage": "input_preparation",
+      "systemMemoryPressureLevel": 1,
+      "swapUsage": "total = 9216.00M  used = 8078.88M  free = 1137.12M  (encrypted)"
+    },
+    {
+      "residentBytes": 1228177408,
+      "physicalFootprintBytes": 1060816552,
+      "processStartAbstime": 38372299266957,
+      "elapsedSeconds": 3.1490902500227094,
+      "stage": "input_preparation",
+      "systemMemoryPressureLevel": 1,
+      "swapUsage": "total = 9216.00M  used = 8078.88M  free = 1137.12M  (encrypted)"
+    },
+    {
+      "residentBytes": 2353709056,
+      "physicalFootprintBytes": 2186938888,
+      "processStartAbstime": 38372299266957,
+      "elapsedSeconds": 4.190072499914095,
+      "stage": "gradient_compilation_and_execution",
+      "systemMemoryPressureLevel": 1,
+      "swapUsage": "total = 9216.00M  used = 8078.88M  free = 1137.12M  (encrypted)"
+    },
+    {
+      "residentBytes": 2389393408,
+      "physicalFootprintBytes": 2222606880,
+      "processStartAbstime": 38372299266957,
+      "elapsedSeconds": 5.232331458013505,
+      "stage": "abstract_gradient_trace",
+      "systemMemoryPressureLevel": 1,
+      "swapUsage": "total = 9216.00M  used = 8078.88M  free = 1137.12M  (encrypted)"
+    },
+    {
+      "residentBytes": 2436022272,
+      "physicalFootprintBytes": 2269235792,
+      "processStartAbstime": 38372299266957,
+      "elapsedSeconds": 6.284291625022888,
+      "stage": "abstract_gradient_trace",
+      "systemMemoryPressureLevel": 1,
+      "swapUsage": "total = 9216.00M  used = 8078.88M  free = 1137.12M  (encrypted)"
+    },
+    {
+      "residentBytes": 2473508864,
+      "physicalFootprintBytes": 2306738816,
+      "processStartAbstime": 38372299266957,
+      "elapsedSeconds": 7.3274129999335855,
+      "stage": "abstract_gradient_trace",
+      "systemMemoryPressureLevel": 1,
+      "swapUsage": "total = 9216.00M  used = 8078.88M  free = 1137.12M  (encrypted)"
+    },
+    {
+      "residentBytes": 2510159872,
+      "physicalFootprintBytes": 2343406232,
+      "processStartAbstime": 38372299266957,
+      "elapsedSeconds": 8.365671624895185,
+      "stage": "abstract_gradient_trace",
+      "systemMemoryPressureLevel": 1,
+      "swapUsage": "total = 9216.00M  used = 8078.88M  free = 1137.12M  (encrypted)"
+    },
+    {
+      "residentBytes": 2563686400,
+      "physicalFootprintBytes": 2396850864,
+      "processStartAbstime": 38372299266957,
+      "elapsedSeconds": 9.413202791009098,
+      "stage": "gradient_compilation",
+      "systemMemoryPressureLevel": 1,
+      "swapUsage": "total = 9216.00M  used = 8078.88M  free = 1137.12M  (encrypted)"
+    },
+    {
+      "residentBytes": 1959952384,
+      "physicalFootprintBytes": 1713637728,
+      "processStartAbstime": 38372299266957,
+      "elapsedSeconds": 10.456246749963611,
+      "stage": "gradient_compilation",
+      "systemMemoryPressureLevel": 1,
+      "swapUsage": "total = 9216.00M  used = 8078.88M  free = 1137.12M  (encrypted)"
+    },
+    {
+      "residentBytes": 2042839040,
+      "physicalFootprintBytes": 1796278672,
+      "processStartAbstime": 38372299266957,
+      "elapsedSeconds": 11.50466995802708,
+      "stage": "gradient_compilation",
+      "systemMemoryPressureLevel": 1,
+      "swapUsage": "total = 9216.00M  used = 8078.88M  free = 1137.12M  (encrypted)"
+    },
+    {
+      "residentBytes": 2125152256,
+      "physicalFootprintBytes": 1878460864,
+      "processStartAbstime": 38372299266957,
+      "elapsedSeconds": 12.543230999959633,
+      "stage": "gradient_compilation",
+      "systemMemoryPressureLevel": 1,
+      "swapUsage": "total = 9216.00M  used = 8078.88M  free = 1137.12M  (encrypted)"
+    },
+    {
+      "residentBytes": 2300067840,
+      "physicalFootprintBytes": 1906494008,
+      "processStartAbstime": 38372299266957,
+      "elapsedSeconds": 13.586422499967739,
+      "stage": "gradient_compilation",
+      "systemMemoryPressureLevel": 1,
+      "swapUsage": "total = 9216.00M  used = 8078.88M  free = 1137.12M  (encrypted)"
+    },
+    {
+      "residentBytes": 2627633152,
+      "physicalFootprintBytes": 2232978240,
+      "processStartAbstime": 38372299266957,
+      "elapsedSeconds": 14.639066207921132,
+      "stage": "gradient_compilation",
+      "systemMemoryPressureLevel": 1,
+      "swapUsage": "total = 9216.00M  used = 8078.88M  free = 1137.12M  (encrypted)"
+    },
+    {
+      "residentBytes": 2702278656,
+      "physicalFootprintBytes": 2307574664,
+      "processStartAbstime": 38372299266957,
+      "elapsedSeconds": 15.707761415978894,
+      "stage": "gradient_compilation",
+      "systemMemoryPressureLevel": 1,
+      "swapUsage": "total = 9216.00M  used = 8078.88M  free = 1137.12M  (encrypted)"
+    },
+    {
+      "residentBytes": 2264989696,
+      "physicalFootprintBytes": 1108593280,
+      "processStartAbstime": 38372299266957,
+      "elapsedSeconds": 16.75621666596271,
+      "stage": "profile_complete",
+      "systemMemoryPressureLevel": 1,
+      "swapUsage": "total = 9216.00M  used = 8078.88M  free = 1137.12M  (encrypted)"
+    }
+  ],
+  "observedParentPeakRSSBytes": 2984034304,
+  "observedParentPeakFootprintBytes": 2524859176,
+  "experimentFootprintCeilingGiB": 14,
+  "memoryMeasurement": "macOS proc_pid_rusage ri_phys_footprint, including compressed allocations",
+  "parentWallSeconds": 16.86480979109183,
+  "processExitCode": 0,
+  "ssdRemainingBytesBeforeCleanup": 0,
+  "ssdOwnedScratchRemoved": true
+}

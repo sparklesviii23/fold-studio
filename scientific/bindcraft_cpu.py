@@ -21,12 +21,18 @@ def execution_config(original,folder):
 def start(engine,p,recovery=None):
  if set(p)-{'id','projectId','profile'}:raise ValueError('Unsupported campaign launch fields.')
  profiles={'experimental-cpu-single-model':('cpu','upstream',False),'experimental-cpu-float32-single-model':('cpu','float32',False),'experimental-cpu-float32-scaffold':('cpu','float32',False),'experimental-cpu-float32-320':('cpu','float32',False),'experimental-cpu-float32-conformational':('cpu','float32',False),'experimental-cpu-float32-sequence':('cpu','float32',False),'experimental-cpu-float32-multitarget':('cpu','float32',False),'experimental-metal-float32-single-model':('metal','float32',False),'experimental-cpu-float32-ensemble':('cpu','float32',True),'experimental-metal-float32-ensemble':('metal','float32',True)}
+ profiles['experimental-cpu-fab-amme']=('cpu','float32',True)
  if p.get('profile') not in profiles:raise ValueError('Native binder-design execution is blocked without an explicit experimental execution profile.')
  backend,precision,ensemble=profiles[p['profile']]
  s=engine.s;job=engine.campaign(p)
  if job['state']!=('prepared' if recovery is None else recovery['job']['state']):raise ValueError('Only a prepared, unexecuted campaign can start.')
  if s.active():raise ValueError('Another local compute job is active.')
  prep=job['data']['preparation']
+ fab=prep['modality']=='Fab';amme=p['profile']=='experimental-cpu-fab-amme'
+ if fab!=amme:raise ValueError('Full Fab AMME requires its separate protected CPU profile, and that profile requires the complete Fab modality.')
+ if amme:
+  from amme_campaign import NATIVE_ENABLED
+  if not NATIVE_ENABLED:raise ValueError('Full Fab AMME campaign execution is pending guarded full-gradient and repeated-step validation; the original complete scaffold remains prepared.')
  sequence_target=bool(prep.get('sequenceTarget'));sequence_profile=p['profile']=='experimental-cpu-float32-sequence'
  if sequence_target!=sequence_profile:raise ValueError('Sequence-only targets require their separate bounded CPU profile; that profile requires a saved FASTA target.')
  if sequence_target and (len(prep['config']['targets'])!=1 or prep['modality'] not in ('binder','peptide') or prep.get('scaffold') or prep['config'].get('copies',1)!=1 or len(set(prep['config']['binder_lengths']))!=1):raise ValueError('The experimental sequence-target CPU profile requires one FASTA target and a fixed-length binder or linear peptide.')
@@ -37,17 +43,18 @@ def start(engine,p,recovery=None):
  if state_count>1 and not multitarget:raise ValueError('Multiple targets require the explicit multi-target CPU profile; other profiles remain limited to one state.')
  if multitarget and (not 2<=state_count<=3 or prep['modality'] not in ('binder','peptide')):raise ValueError('The multi-target CPU profile currently supports two or three observed target states with binder or linear-peptide designs.')
  cpu_memory_info={}
- limit=192 if sequence_target else 320 if p['profile'] in ('experimental-cpu-float32-scaffold','experimental-cpu-float32-320') else 256
+ limit=608 if amme else 192 if sequence_target else 320 if p['profile'] in ('experimental-cpu-float32-scaffold','experimental-cpu-float32-320') else 256
  if p['profile']=='experimental-cpu-float32-320':
   if prep['modality'] not in ('binder','peptide','large_binder','multidomain') or state_count!=1 or len(set(prep['config']['binder_lengths']))!=1:raise ValueError('The bounded 320-residue CPU profile requires one observed target state and a fixed-length binder, linear peptide, large binder or multidomain design.')
  if p['profile']=='experimental-cpu-float32-scaffold' and not prep.get('scaffold'):raise ValueError('The larger CPU profile requires an original scaffold campaign.')
  count=sum(1 for r in prep['residueMap']);length=max(prep['config']['binder_lengths'])
  if not prep.get('scaffold') and count+length*prep['config'].get('copies',1)>limit:raise ValueError('This explicit experimental profile is limited to '+str(limit)+' total residues for memory validation.')
- if p['profile']=='experimental-cpu-float32-320':
-  if platform.system()!='Darwin' or platform.machine()!='arm64':raise ValueError('The measured 320-residue CPU profile requires Apple Silicon macOS with at least 24 GiB unified memory.')
+ if p['profile']=='experimental-cpu-float32-320' or amme:
+  memory_profile='Fab AMME' if amme else 'measured 320-residue CPU'
+  if platform.system()!='Darwin' or platform.machine()!='arm64':raise ValueError('The '+memory_profile+' profile requires Apple Silicon macOS with at least 24 GiB unified memory.')
   memory_bytes=int(subprocess.check_output(['/usr/sbin/sysctl','-n','hw.memsize'],text=True))
-  if memory_bytes<24*1024**3:raise ValueError('The measured 320-residue CPU profile requires Apple Silicon macOS with at least 24 GiB unified memory.')
-  cpu_memory_info={'memoryBytes':memory_bytes,'architecture':platform.machine(),'scope':'Bounded fixed-length single-state CPU profile; 320-residue full trained-model CPU forward/gradient benchmark, not a guarantee for every design.'}
+  if memory_bytes<24*1024**3:raise ValueError('The '+memory_profile+' profile requires Apple Silicon macOS with at least 24 GiB unified memory.')
+  cpu_memory_info={'memoryBytes':memory_bytes,'architecture':platform.machine(),'scope':'Guarded full Fab CPU profile,14GiB worker ceiling; not a guarantee for every target.' if amme else 'Bounded fixed-length single-state CPU profile;320-residue full trained-model CPU forward/gradient benchmark, not a guarantee for every design.'}
  python=os.path.abspath(os.path.expanduser(mpnn.runtime(s)))
  runtime_info=cpu_memory_info
  if backend=='metal':
@@ -72,6 +79,7 @@ def start(engine,p,recovery=None):
  from campaign_inputs import verify
  verify(folder,prep)
  config,validation=execution_config(original,folder)
+ if amme:config['subbatch_size']=1
  selection={'designModels':config['design_models'],'validationModels':[validation]}
  if ensemble:
   from campaign_profile import ensemble_models
@@ -79,6 +87,7 @@ def start(engine,p,recovery=None):
   if config.get('binder_scaffold'):query['binder_scaffold']=config['binder_scaffold']
   selection=ensemble_models(python,query,fe.UPSTREAM)
   config['design_models']=selection['designModels'];config['validation_models']=selection['validationModels'];config['validation_model']='multimer' if all(model.endswith('multimer_v3') for model in selection['validationModels']) else 'monomer'
+ if amme and (len(selection['designModels'])<3 or not all(model.endswith('multimer_v3') for model in selection['validationModels'])):raise ValueError('Full Fab AMME requires at least3original design models and held-out multimer validation; the saved recipe is unchanged.')
  if recovery is not None:
   config['resume']=True
   if fe.canonical(config)!=fe.canonical({**recovery['settings'],'resume':True}):raise ValueError('Recovery would change scientific execution settings; automatic continuation refused.')
@@ -87,7 +96,7 @@ def start(engine,p,recovery=None):
   if model not in pins:raise ValueError('AlphaFold model has no reviewed checkpoint pin: '+model)
   path=parameters/('params_'+model+'.npz')
   if not path.is_file() or path.stat().st_size<100*1024**2:raise ValueError('Missing genuine AlphaFold checkpoint: '+model)
-  weights[model]=hashlib.sha256(path.read_bytes()).hexdigest()
+  with path.open('rb') as stream:weights[model]=hashlib.file_digest(stream,'sha256').hexdigest()
   if weights[model]!=pins[model]:raise ValueError('AlphaFold checkpoint does not match the pinned official acquisition: '+model)
  if recovery is not None and weights!=recovery['job']['data'].get('checkpointSha256'):raise ValueError('Model checkpoints differ from the original execution; recovery refused.')
  from campaign_profile import resource_estimate
@@ -102,6 +111,13 @@ def start(engine,p,recovery=None):
  if multitarget:
   estimate['aggregatePaddedResidues']=estimate['paddedResidues']*state_count
   if estimate['aggregatePaddedResidues']>192:raise ValueError('The experimental multi-target CPU profile is limited to 192 aggregate padded residues across all states; inputs remain prepared.')
+ if amme:
+  if state_count!=1 or estimate.get('additionalPredictionStates'):raise ValueError('Full Fab AMME currently validates one complete target complex; additional prediction states remain prepared.')
+  from amme_campaign import SSD_QUOTA,DISK_RESERVE,POLICY,FOOTPRINT_LIMIT
+  import shutil
+  if shutil.disk_usage(folder).free<SSD_QUOTA+DISK_RESERVE:raise ValueError('Full Fab needs10GiB bounded SSD checkpoint space plus2GiB free reserve.')
+  runtime_info={**runtime_info,'memoryPolicy':POLICY,'taskFootprintCeilingBytes':FOOTPRINT_LIMIT,'ssdQuotaBytes':SSD_QUOTA,'diskReserveBytes':DISK_RESERVE}
+ if amme and estimate['paddedResidues']>limit:raise ValueError('Full Fab exceeds the validated608padded-residue memory envelope; complete saved target and scaffold remain unchanged.')
  if estimate['paddedResidues']>limit:raise ValueError('Campaign requires up to '+str(estimate['paddedResidues'])+' padded residues; this experimental profile limit is '+str(limit)+'. Prepare an explicitly smaller target or scaffold.')
  s.db.execute('BEGIN IMMEDIATE')
  if s.active():s.db.rollback();raise ValueError('Another local compute job is active.')
@@ -113,6 +129,7 @@ def start(engine,p,recovery=None):
   try:verify_manifest(folder,recovery);history.append(archive(folder,recovery))
   except Exception:s.db.rollback();raise
  data={**current['data'],'runtime':python,'parameters':str(parameters),'checkpointSha256':weights,'profile':p['profile'],'execution':backend,'precision':precision,'modelEnsemble':ensemble,'modelSelection':selection,'resourceEstimate':estimate,'paddedResidueLimit':limit,'runtimeInfo':runtime_info,'executionSettingsSha256':fe.checksum(fe.canonical(config).encode()),'outputs':[]}
+ if amme:data['memoryPolicy']=POLICY;data['executionAdapters']=[{'name':'AMME subbatch execution','savedSubbatchSize':original.get('subbatch_size','auto'),'executionSubbatchSize':1,'scope':'Bounded execution strategy; saved original recipe, models, losses, recycles and filters preserved.'}]
  if type(original.get('crop_fasta_sequence')) is int:data['executionAdapters']=[{'name':'fixed_fasta_crop_range','savedValue':original['crop_fasta_sequence'],'executionValue':config['crop_fasta_sequence'],'reason':'Pinned campaign header requires an iterable; original scalar and fixed-range sampling are equivalent.'}]
  if recovery is not None:
   data.update(recoveryHistory=history,outputs=current['data'].get('outputs',[]))
@@ -136,7 +153,14 @@ def run(s,id):
   if data.get('executionSettingsSha256') and fe.checksum(fe.canonical(json.loads(settings.read_text())).encode())!=data['executionSettingsSha256']:raise ValueError('Execution settings changed after queueing.')
   from campaign_inputs import verify
   verify(folder,data['preparation'])
-  proc=subprocess.run([data['runtime'],'-B',str(pathlib.Path(__file__).with_name('bindcraft_runner.py')),str(settings),data['parameters'],backend,data.get('precision','float32' if backend=='metal' else 'upstream'),'ensemble' if data.get('modelEnsemble') else 'single'],env=env,timeout=12*3600)
+  command=[data['runtime'],'-B',str(pathlib.Path(__file__).with_name('bindcraft_runner.py')),str(settings),data['parameters'],backend,data.get('precision','float32' if backend=='metal' else 'upstream'),'ensemble' if data.get('modelEnsemble') else 'single']
+  if data.get('memoryPolicy'):
+   from amme_campaign import POLICY
+   if data['memoryPolicy']!=POLICY or data['profile']!='experimental-cpu-fab-amme' or data['preparation']['modality']!='Fab':raise ValueError('Invalid Fab memory-policy receipt.')
+   from amme_worker import run_guarded
+   scratch_parent=s.root/'engine/amme-cache';scratch_parent.mkdir(parents=True,exist_ok=True)
+   proc=run_guarded(command,env=env,folder=folder,scratch_parent=scratch_parent)
+  else:proc=subprocess.run(command,env=env,timeout=12*3600)
   if s.job(id)['state']=='cancelled':return
   if proc.returncode in (-signal.SIGINT,-signal.SIGTERM,-signal.SIGKILL):
    termination={'source':'subprocess_returncode','exitCode':proc.returncode,'signal':signal.Signals(-proc.returncode).name,'cause':'not_reported'}

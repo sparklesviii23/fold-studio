@@ -9,6 +9,7 @@ p = argparse.ArgumentParser()
 p.add_argument('--reference', required=True)
 p.add_argument('--offloaded', required=True)
 p.add_argument('--output', required=True)
+p.add_argument('--policy', choices=['ssd','rematerialized_subbatches'], default='ssd')
 a = p.parse_args()
 paths = [pathlib.Path(a.reference), pathlib.Path(a.offloaded)]
 reference, actual = [json.loads(path.read_text()) for path in paths]
@@ -17,8 +18,12 @@ for field in ('source', 'settingsSha256', 'targetSha256', 'parameterSha256', 'se
               'precision', 'actualGradientStatePaddedResidues', 'backend'):
     assert reference[field] == actual[field], field
 assert reference['backend'] == 'cpu'
-assert not reference.get('ssdOffload') and actual['ssdOffload']['checkpoints'] > 0
-assert actual['ssdOffload']['bytesWritten'] > 0 and actual['ssdOffload']['bytesRead'] > 0
+assert not reference.get('ssdOffload')
+if a.policy=='ssd':
+    assert actual['ssdOffload']['checkpoints'] > 0
+    assert actual['ssdOffload']['bytesWritten'] > 0 and actual['ssdOffload']['bytesRead'] > 0
+else:
+    assert actual['amme']['policy']==a.policy and actual['amme']['tracedSubbatchCalls']>0
 np.testing.assert_allclose(actual['loss'], reference['loss'], rtol=1e-4, atol=1e-5)
 arrays = {}
 with np.load(paths[0].with_suffix('.npz'), allow_pickle=False) as left, np.load(paths[1].with_suffix('.npz'), allow_pickle=False) as right:
@@ -32,7 +37,7 @@ with np.load(paths[0].with_suffix('.npz'), allow_pickle=False) as left, np.load(
                         'maximumAbsoluteDifference': float(np.abs(left[name].astype(float) - right[name].astype(float)).max(initial=0))}
 report = {'state': 'passed', 'scope': 'Single genuine model gradient parity for the saved case; not complete campaign or biological acceptance.',
           'reference': str(paths[0]), 'offloaded': str(paths[1]), 'lossAbsoluteDifference': abs(reference['loss'] - actual['loss']),
-          'tolerance': {'rtol': 1e-4, 'atol': 1e-5}, 'arrays': arrays, 'ssd': actual['ssdOffload'],
+          'tolerance': {'rtol': 1e-4, 'atol': 1e-5}, 'arrays': arrays, 'executionPolicy':a.policy,'ssd': actual.get('ssdOffload'),'amme':actual.get('amme'),
           'referenceFootprintBytes': reference['observedParentPeakFootprintBytes'],
           'offloadedFootprintBytes': actual['observedParentPeakFootprintBytes'],
           'evidenceSha256': {str(path): hashlib.sha256(path.read_bytes()).hexdigest() for path in paths + [path.with_suffix('.npz') for path in paths]}}

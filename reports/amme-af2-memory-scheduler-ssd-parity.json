@@ -1,0 +1,74 @@
+{
+  "state": "passed",
+  "scope": "Single genuine model gradient parity for the saved case; not complete campaign or biological acceptance.",
+  "reference": "reports/ssd-af2-reference.json",
+  "offloaded": "reports/amme-af2-memory-scheduler-ssd-small.json",
+  "lossAbsoluteDifference": 0.0,
+  "tolerance": {
+    "rtol": 0.0001,
+    "atol": 1e-05
+  },
+  "arrays": {
+    "gradient_binder": {
+      "shape": [
+        8,
+        20
+      ],
+      "exactEqual": false,
+      "maximumAbsoluteDifference": 2.2631138563156128e-07
+    },
+    "gradient_target_target": {
+      "shape": [
+        12,
+        20
+      ],
+      "exactEqual": false,
+      "maximumAbsoluteDifference": 4.76837158203125e-07
+    },
+    "target_binder_positions": {
+      "shape": [
+        8,
+        37,
+        3
+      ],
+      "exactEqual": true,
+      "maximumAbsoluteDifference": 0.0
+    },
+    "target_target_target_positions": {
+      "shape": [
+        12,
+        37,
+        3
+      ],
+      "exactEqual": true,
+      "maximumAbsoluteDifference": 0.0
+    }
+  },
+  "executionPolicy": "rematerialized_subbatches",
+  "ssd": {
+    "state": "experimental",
+    "backend": "cpu",
+    "maximumTapeBytes": 10737418240,
+    "reserveBytes": 2147483648,
+    "checkpoints": 54,
+    "bytesWritten": 56955800,
+    "bytesRead": 56955800
+  },
+  "amme": {
+    "policy": "rematerialized_subbatches",
+    "tracedSubbatchCalls": 17,
+    "structureRematerialization": false,
+    "tracedStructureScans": 0,
+    "triangleRematerialization": false,
+    "tracedTriangleCalls": 0,
+    "preventCommonSubexpressionElimination": false
+  },
+  "referenceFootprintBytes": 1828031200,
+  "offloadedFootprintBytes": 1807960800,
+  "evidenceSha256": {
+    "reports/ssd-af2-reference.json": "6f8e38861a0d5ab4455778a0639c31008d93bec9208f636b0450156e2c9e7c5d",
+    "reports/amme-af2-memory-scheduler-ssd-small.json": "9f9aa8231cc98a966b639c8ece008b47c1a91cc62eba740ea360b81f34906e26",
+    "reports/ssd-af2-reference.npz": "9d21f7ecc7a75b5e4bde39eabc90d223d80ab31cc1803dcbbb40905bb2b274d2",
+    "reports/amme-af2-memory-scheduler-ssd-small.npz": "b1f6dc3f44554031546a2099596cd783c2614b0c2f22f69b75f5d44658ca6d7d"
+  }
+}

@@ -1,0 +1,2964 @@
+{
+  "state": "bounded_resource_refusal",
+  "scope": "Original complete modality preset, input preparation and losses; single genuine model_1_multimer_v3 CPU float32 gradient including its full forward. No separately retained standalone prediction executable, trajectory optimization, ProteinMPNN, held-out refold, acceptance or biological claim. No original thresholds changed.",
+  "source": {
+    "state": "present",
+    "revision": "c0ee638d11bc010817c2c97ee58ed5c323e664e2",
+    "manifestSha256": "8f06e409dac335261d2505361f4358e2b4df389b8f85a497967406d8c4af4277",
+    "license": "BindCraft2 Source-Available License (Hosting-Restricted)",
+    "modified": false
+  },
+  "targetSha256": "d3c95434dcadf26d005340b15bd92be61e101ed921478c26f2a5550f198e61f6",
+  "settings": {
+    "mpnn_model": "v_48_020",
+    "mpnn_variant": "negative",
+    "validation_recycles": 3,
+    "validation_crop_flank": 5,
+    "autotune": true,
+    "attention_backend": "stock",
+    "use_cueq": false,
+    "subbatch_size": 1,
+    "trajectory_only": false,
+    "resume": true,
+    "hash_design_names": true,
+    "relax_accepted_designs": false,
+    "archive_trajectories": false,
+    "save_failed_refolds": true,
+    "save_failed_trajectories": true,
+    "save_binder_monomers": true,
+    "save_design_animations": false,
+    "save_design_frames": false,
+    "save_design_sequences": false,
+    "save_loss_plots": false,
+    "betasheet_reopt_trigger": 0.15,
+    "betasheet_reopt_extra_refine_steps": 0,
+    "betasheet_reopt_extra_anneal_steps": 0,
+    "min_plddt_screen": 0.6,
+    "min_plddt_refine": 0.6,
+    "min_plddt_anneal": 0.65,
+    "min_plddt_harden": 0.65,
+    "min_plddt_final": 0.7,
+    "sequence_candidates": 10,
+    "kept_sequences": 1,
+    "enough_passing_sequences": 3,
+    "redesign_interface": false,
+    "design_dropout": true,
+    "forced_targeting": false,
+    "design_recycles": 1,
+    "target_flexibility": 0.0,
+    "bigbang_initialization": false,
+    "initial_guess": false,
+    "desperation": true,
+    "weights_plddt_loss": 0.1,
+    "weights_iptm_loss": 0.05,
+    "weights_interface_contacts": 1.0,
+    "weights_interface_pae": 0.1,
+    "weights_binder_contacts": 1.0,
+    "weights_binder_pae": 0.4,
+    "weights_binder_helicity": -0.3,
+    "weights_compactness": 0.5,
+    "losses": {
+      "plddt_loss": {
+        "params": {
+          "prediction_state": "complex",
+          "chain": "binder"
+        }
+      },
+      "binder_pae": {
+        "params": {
+          "prediction_state": "complex",
+          "chain": "binder"
+        }
+      },
+      "compactness": {
+        "params": {
+          "prediction_state": "complex",
+          "chain": "binder"
+        }
+      },
+      "binder_contacts": {
+        "params": {
+          "prediction_state": "complex",
+          "chain": "binder"
+        }
+      },
+      "binder_helicity": {
+        "params": {
+          "prediction_state": "complex",
+          "chain": "binder"
+        }
+      },
+      "interface_contacts": {
+        "params": {
+          "cutoff": 20.0,
+          "contacts_per_residue": 2
+        }
+      }
+    },
+    "filters": {
+      "Unbound_Binder_pLDDT": {
+        "threshold": 0.7,
+        "higher": true
+      },
+      "pTM": {
+        "threshold": 0.55,
+        "higher": true
+      },
+      "i_pTM": {
+        "threshold": 0.7,
+        "higher": true
+      },
+      "i_pAE": {
+        "threshold": 0.35,
+        "higher": false
+      },
+      "Backbone_Clashes": {
+        "threshold": 0,
+        "higher": false
+      },
+      "Interface_Residues": {
+        "threshold": 7,
+        "higher": true
+      },
+      "Binder_RMSD": {
+        "threshold": null,
+        "higher": false
+      },
+      "Scaffold_Sequence_Retained_Fraction": {
+        "threshold": 1.0,
+        "higher": true,
+        "mandatory": true,
+        "params": {
+          "scaffold": "/Users/vii/Documents/FoldStudio-MetalPort/fold-studio/vendor/bindcraft2/scaffolds/Fab.cif",
+          "scaffold_edits": "L30-32,L91-94,L96,H31-33,H50,H52-55(4-6),H57,H59,H99-106(5-18),H72*"
+        }
+      },
+      "Scaffold_Framework_RMSD": {
+        "threshold": 3.0,
+        "higher": false,
+        "mandatory": true,
+        "params": {
+          "scaffold": "/Users/vii/Documents/FoldStudio-MetalPort/fold-studio/vendor/bindcraft2/scaffolds/Fab.cif",
+          "scaffold_edits": "L30-32,L91-94,L96,H31-33,H50,H52-55(4-6),H57,H59,H99-106(5-18),H72*"
+        }
+      },
+      "Framework_Packing_Fraction": {
+        "threshold": 0.0,
+        "higher": true,
+        "mandatory": false
+      },
+      "Off_Paratope_Contact_Fraction": {
+        "threshold": 0.2,
+        "higher": false,
+        "mandatory": true
+      },
+      "Receptor_Chains_Contacted": {
+        "threshold": 0.0,
+        "higher": true,
+        "mandatory": false
+      },
+      "Target_pLDDT": {
+        "threshold": 0.0,
+        "higher": true,
+        "mandatory": false
+      },
+      "Interface_BuriedArea": {
+        "threshold": 0.0,
+        "higher": true,
+        "mandatory": false
+      },
+      "Interface_BuriedArea_Fraction": {
+        "threshold": 0.0,
+        "higher": true,
+        "mandatory": false
+      },
+      "Surface_Hydrophobicity": {
+        "threshold": "Infinity",
+        "higher": false,
+        "mandatory": false
+      },
+      "Interface_Hydrophobicity": {
+        "threshold": "Infinity",
+        "higher": false,
+        "mandatory": false
+      },
+      "Target_RMSD": {
+        "threshold": "Infinity",
+        "higher": false,
+        "mandatory": false
+      },
+      "SS_pLDDT": {
+        "threshold": 0.0,
+        "higher": true,
+        "mandatory": false
+      },
+      "All_Atom_Clashes": {
+        "threshold": "Infinity",
+        "higher": false,
+        "mandatory": false
+      },
+      "Binder_Free_Cysteines": {
+        "threshold": "Infinity",
+        "higher": false,
+        "mandatory": false
+      },
+      "Binder_Helix_Fraction": {
+        "threshold": "Infinity",
+        "higher": false,
+        "mandatory": false
+      },
+      "Binder_BetaSheet_Fraction": {
+        "threshold": "Infinity",
+        "higher": false,
+        "mandatory": false
+      },
+      "Binder_Loop_Fraction": {
+        "threshold": "Infinity",
+        "higher": false,
+        "mandatory": false
+      },
+      "Interface_Helix_Fraction": {
+        "threshold": "Infinity",
+        "higher": false,
+        "mandatory": false
+      },
+      "Interface_BetaSheet_Fraction": {
+        "threshold": "Infinity",
+        "higher": false,
+        "mandatory": false
+      },
+      "Interface_Loop_Fraction": {
+        "threshold": "Infinity",
+        "higher": false,
+        "mandatory": false
+      },
+      "Binder_Disulfides": {
+        "threshold": "Infinity",
+        "higher": false,
+        "mandatory": false
+      },
+      "Binder_Mass_kDa": {
+        "threshold": "Infinity",
+        "higher": false,
+        "mandatory": false
+      },
+      "Binder_pI": {
+        "threshold": "Infinity",
+        "higher": false,
+        "mandatory": false
+      },
+      "Binder_Net_Charge": {
+        "threshold": "Infinity",
+        "higher": false,
+        "mandatory": false
+      },
+      "Binder_Extinction": {
+        "threshold": "Infinity",
+        "higher": false,
+        "mandatory": false
+      },
+      "Binder_Cysteines": {
+        "threshold": "Infinity",
+        "higher": false,
+        "mandatory": false
+      }
+    },
+    "min_iptm_anneal": 0.5,
+    "min_iptm_harden": 0.5,
+    "min_iptm_mutate": 0.5,
+    "min_iptm_final": 0.7,
+    "min_plddt_mutate": 0.6,
+    "binder_scaffold": "/Users/vii/Documents/FoldStudio-MetalPort/fold-studio/vendor/bindcraft2/scaffolds/Fab.cif",
+    "mutate_positions": "L30-32,L91-94,L96,H31-33,H50,H52-55(4-6),H57,H59,H99-106(5-18),H72*",
+    "design_models": 3,
+    "validation_model": "multimer",
+    "min_scaffold_sequence_retained_final": 1.0,
+    "max_scaffold_framework_rmsd_final": 3.0,
+    "min_monomer_plddt_final": 0.7,
+    "aa_bias": {
+      "C": 0.0,
+      "F": 0.9,
+      "W": 0.3,
+      "Y": 0.9
+    },
+    "modality": "Fab",
+    "campaign_seed": 42,
+    "targets": [
+      {
+        "name": "target",
+        "target_path": "/Users/vii/Documents/FoldStudio-MetalPort/fold-studio/vendor/bindcraft2/settings/target/structures/hPDL1.pdb",
+        "chains": "A"
+      }
+    ],
+    "weights_binder_coldspot": 1.0,
+    "max_off_paratope_contact_final": 0.2
+  },
+  "settingsSha256": "1a70a421becaa8940d32c96959a8af39687354b99e1452a6c70970b754cc8059",
+  "model": "model_1_multimer_v3",
+  "parameterSha256": "611da8fc7478928f68de12e8b226260ef1f4ce62bcc29b008572e52f4f212959",
+  "seed": 42,
+  "maximumPaddedResidues": 608,
+  "inputChainLengths": {
+    "target": {
+      "binder_0": 231,
+      "binder_1": 213,
+      "target_target": 115
+    }
+  },
+  "executionOverrides": {
+    "subbatch_size": 1
+  },
+  "backend": "cpu",
+  "precision": "float32",
+  "jax": "0.11.2",
+  "jaxlib": "0.11.2",
+  "scaffoldSha256": "69bb1be47d0ce2dad5f9bea4be30a65b80903369687dd6c660a4b29947f58cf9",
+  "activeLosses": [
+    "plddt_loss",
+    "binder_pae",
+    "interface_pae",
+    "compactness",
+    "iptm_loss",
+    "binder_coldspot",
+    "interface_contacts",
+    "binder_contacts",
+    "binder_helicity"
+  ],
+  "standaloneForwardExecuted": false,
+  "gradientIncludesFullForward": true,
+  "compileCacheSize": 1,
+  "ssdOffload": {
+    "state": "experimental",
+    "backend": "cpu",
+    "maximumTapeBytes": 10737418240,
+    "reserveBytes": 2147483648
+  },
+  "actualGradientStatePaddedResidues": {
+    "target": 608
+  },
+  "effectiveSubbatchSize": 1,
+  "useRemat": true,
+  "currentStage": "gradient_compilation_and_execution",
+  "parameterLogicalBytes": 1118684460,
+  "originalModelSelection": {
+    "designModels": [
+      "model_1_multimer_v3",
+      "model_3_multimer_v3",
+      "model_5_multimer_v3"
+    ],
+    "validationModels": [
+      "model_2_multimer_v3",
+      "model_4_multimer_v3"
+    ],
+    "validationPoolExhausted": false
+  },
+  "residentDesignModels": [
+    "model_1_multimer_v3",
+    "model_3_multimer_v3",
+    "model_5_multimer_v3"
+  ],
+  "modelSelectionProtocol": "upstream_sampling_with_original_rng_advance",
+  "memorySamples": [
+    {
+      "residentBytes": 491520,
+      "physicalFootprintBytes": 180296,
+      "processStartAbstime": 38345498998537,
+      "elapsedSeconds": 0.0016422090120613575,
+      "stage": "input_preparation",
+      "systemMemoryPressureLevel": 1,
+      "swapUsage": "total = 6144.00M  used = 4683.06M  free = 1460.94M  (encrypted)"
+    },
+    {
+      "residentBytes": 286720000,
+      "physicalFootprintBytes": 186156016,
+      "processStartAbstime": 38345498998537,
+      "elapsedSeconds": 1.0378679588902742,
+      "stage": "input_preparation",
+      "systemMemoryPressureLevel": 1,
+      "swapUsage": "total = 6144.00M  used = 4683.06M  free = 1460.94M  (encrypted)"
+    },
+    {
+      "residentBytes": 369098752,
+      "physicalFootprintBytes": 224953400,
+      "processStartAbstime": 38345498998537,
+      "elapsedSeconds": 2.0755522090476006,
+      "stage": "input_preparation",
+      "systemMemoryPressureLevel": 1,
+      "swapUsage": "total = 6144.00M  used = 4683.06M  free = 1460.94M  (encrypted)"
+    },
+    {
+      "residentBytes": 1228865536,
+      "physicalFootprintBytes": 1084704448,
+      "processStartAbstime": 38345498998537,
+      "elapsedSeconds": 3.1126274168491364,
+      "stage": "model_parameters_loaded",
+      "systemMemoryPressureLevel": 1,
+      "swapUsage": "total = 6144.00M  used = 4683.06M  free = 1460.94M  (encrypted)"
+    },
+    {
+      "residentBytes": 2111717376,
+      "physicalFootprintBytes": 1968032120,
+      "processStartAbstime": 38345498998537,
+      "elapsedSeconds": 4.155940833967179,
+      "stage": "model_parameters_loaded",
+      "systemMemoryPressureLevel": 1,
+      "swapUsage": "total = 6144.00M  used = 4683.06M  free = 1460.94M  (encrypted)"
+    },
+    {
+      "residentBytes": 2386903040,
+      "physicalFootprintBytes": 2243283488,
+      "processStartAbstime": 38345498998537,
+      "elapsedSeconds": 5.208897166885436,
+      "stage": "gradient_compilation_and_execution",
+      "systemMemoryPressureLevel": 1,
+      "swapUsage": "total = 6144.00M  used = 4683.06M  free = 1460.94M  (encrypted)"
+    },
+    {
+      "residentBytes": 2425749504,
+      "physicalFootprintBytes": 2282146360,
+      "processStartAbstime": 38345498998537,
+      "elapsedSeconds": 6.250562791945413,
+      "stage": "gradient_compilation_and_execution",
+      "systemMemoryPressureLevel": 1,
+      "swapUsage": "total = 6144.00M  used = 4683.06M  free = 1460.94M  (encrypted)"
+    },
+    {
+      "residentBytes": 2464841728,
+      "physicalFootprintBytes": 2321222224,
+      "processStartAbstime": 38345498998537,
+      "elapsedSeconds": 7.297079249983653,
+      "stage": "gradient_compilation_and_execution",
+      "systemMemoryPressureLevel": 1,
+      "swapUsage": "total = 6144.00M  used = 4683.06M  free = 1460.94M  (encrypted)"
+    },
+    {
+      "residentBytes": 2493366272,
+      "physicalFootprintBytes": 2349763176,
+      "processStartAbstime": 38345498998537,
+      "elapsedSeconds": 8.333857709076256,
+      "stage": "gradient_compilation_and_execution",
+      "systemMemoryPressureLevel": 1,
+      "swapUsage": "total = 6144.00M  used = 4683.06M  free = 1460.94M  (encrypted)"
+    },
+    {
+      "residentBytes": 2533277696,
+      "physicalFootprintBytes": 2389691008,
+      "processStartAbstime": 38345498998537,
+      "elapsedSeconds": 9.375633083982393,
+      "stage": "gradient_compilation_and_execution",
+      "systemMemoryPressureLevel": 1,
+      "swapUsage": "total = 6144.00M  used = 4683.06M  free = 1460.94M  (encrypted)"
+    },
+    {
+      "residentBytes": 2670247936,
+      "physicalFootprintBytes": 2526431992,
+      "processStartAbstime": 38345498998537,
+      "elapsedSeconds": 10.409900083905086,
+      "stage": "gradient_compilation_and_execution",
+      "systemMemoryPressureLevel": 1,
+      "swapUsage": "total = 6144.00M  used = 4683.06M  free = 1460.94M  (encrypted)"
+    },
+    {
+      "residentBytes": 2026717184,
+      "physicalFootprintBytes": 1767491960,
+      "processStartAbstime": 38345498998537,
+      "elapsedSeconds": 11.4505022498779,
+      "stage": "gradient_compilation_and_execution",
+      "systemMemoryPressureLevel": 1,
+      "swapUsage": "total = 6144.00M  used = 4683.06M  free = 1460.94M  (encrypted)"
+    },
+    {
+      "residentBytes": 2040791040,
+      "physicalFootprintBytes": 1781270904,
+      "processStartAbstime": 38345498998537,
+      "elapsedSeconds": 12.489974916912615,
+      "stage": "gradient_compilation_and_execution",
+      "systemMemoryPressureLevel": 1,
+      "swapUsage": "total = 6144.00M  used = 4683.06M  free = 1460.94M  (encrypted)"
+    },
+    {
+      "residentBytes": 2256420864,
+      "physicalFootprintBytes": 1996769824,
+      "processStartAbstime": 38345498998537,
+      "elapsedSeconds": 13.537732374854386,
+      "stage": "gradient_compilation_and_execution",
+      "systemMemoryPressureLevel": 1,
+      "swapUsage": "total = 6144.00M  used = 4683.06M  free = 1460.94M  (encrypted)"
+    },
+    {
+      "residentBytes": 2588803072,
+      "physicalFootprintBytes": 2328234792,
+      "processStartAbstime": 38345498998537,
+      "elapsedSeconds": 14.593177374918014,
+      "stage": "gradient_compilation_and_execution",
+      "systemMemoryPressureLevel": 1,
+      "swapUsage": "total = 6144.00M  used = 4683.06M  free = 1460.94M  (encrypted)"
+    },
+    {
+      "residentBytes": 2639839232,
+      "physicalFootprintBytes": 2379008832,
+      "processStartAbstime": 38345498998537,
+      "elapsedSeconds": 15.670458042062819,
+      "stage": "gradient_compilation_and_execution",
+      "systemMemoryPressureLevel": 1,
+      "swapUsage": "total = 6144.00M  used = 4683.06M  free = 1460.94M  (encrypted)"
+    },
+    {
+      "residentBytes": 2918187008,
+      "physicalFootprintBytes": 2227637320,
+      "processStartAbstime": 38345498998537,
+      "elapsedSeconds": 16.751829667016864,
+      "stage": "gradient_compilation_and_execution",
+      "systemMemoryPressureLevel": 1,
+      "swapUsage": "total = 6144.00M  used = 4683.06M  free = 1460.94M  (encrypted)"
+    },
+    {
+      "residentBytes": 3306782720,
+      "physicalFootprintBytes": 7880416336,
+      "processStartAbstime": 38345498998537,
+      "elapsedSeconds": 17.82305287499912,
+      "stage": "gradient_compilation_and_execution",
+      "systemMemoryPressureLevel": 1,
+      "swapUsage": "total = 6144.00M  used = 4683.06M  free = 1460.94M  (encrypted)"
+    },
+    {
+      "residentBytes": 4038967296,
+      "physicalFootprintBytes": 8775376552,
+      "processStartAbstime": 38345498998537,
+      "elapsedSeconds": 18.907339500030503,
+      "stage": "gradient_compilation_and_execution",
+      "systemMemoryPressureLevel": 1,
+      "swapUsage": "total = 6144.00M  used = 4683.06M  free = 1460.94M  (encrypted)"
+    },
+    {
+      "residentBytes": 4041932800,
+      "physicalFootprintBytes": 8776556200,
+      "processStartAbstime": 38345498998537,
+      "elapsedSeconds": 19.95228495891206,
+      "stage": "gradient_compilation_and_execution",
+      "systemMemoryPressureLevel": 1,
+      "swapUsage": "total = 6144.00M  used = 4683.06M  free = 1460.94M  (encrypted)"
+    },
+    {
+      "residentBytes": 3672768512,
+      "physicalFootprintBytes": 8777473704,
+      "processStartAbstime": 38345498998537,
+      "elapsedSeconds": 20.992145834024996,
+      "stage": "gradient_compilation_and_execution",
+      "systemMemoryPressureLevel": 2,
+      "swapUsage": "total = 6144.00M  used = 4683.06M  free = 1460.94M  (encrypted)"
+    },
+    {
+      "residentBytes": 3163734016,
+      "physicalFootprintBytes": 9273024552,
+      "processStartAbstime": 38345498998537,
+      "elapsedSeconds": 22.033460499951616,
+      "stage": "gradient_compilation_and_execution",
+      "systemMemoryPressureLevel": 2,
+      "swapUsage": "total = 6144.00M  used = 4683.06M  free = 1460.94M  (encrypted)"
+    },
+    {
+      "residentBytes": 2634973184,
+      "physicalFootprintBytes": 9285722200,
+      "processStartAbstime": 38345498998537,
+      "elapsedSeconds": 23.034731209045276,
+      "stage": "gradient_compilation_and_execution",
+      "systemMemoryPressureLevel": 2,
+      "swapUsage": "total = 6144.00M  used = 4683.06M  free = 1460.94M  (encrypted)"
+    },
+    {
+      "residentBytes": 2503737344,
+      "physicalFootprintBytes": 9286672496,
+      "processStartAbstime": 38345498998537,
+      "elapsedSeconds": 24.038361833896488,
+      "stage": "gradient_compilation_and_execution",
+      "systemMemoryPressureLevel": 2,
+      "swapUsage": "total = 6144.00M  used = 4683.06M  free = 1460.94M  (encrypted)"
+    },
+    {
+      "residentBytes": 2681831424,
+      "physicalFootprintBytes": 9286967408,
+      "processStartAbstime": 38345498998537,
+      "elapsedSeconds": 25.08481716690585,
+      "stage": "gradient_compilation_and_execution",
+      "systemMemoryPressureLevel": 2,
+      "swapUsage": "total = 6144.00M  used = 4683.06M  free = 1460.94M  (encrypted)"
+    },
+    {
+      "residentBytes": 2869657600,
+      "physicalFootprintBytes": 9287245936,
+      "processStartAbstime": 38345498998537,
+      "elapsedSeconds": 26.13309816690162,
+      "stage": "gradient_compilation_and_execution",
+      "systemMemoryPressureLevel": 2,
+      "swapUsage": "total = 6144.00M  used = 4683.06M  free = 1460.94M  (encrypted)"
+    },
+    {
+      "residentBytes": 2690400256,
+      "physicalFootprintBytes": 8787828512,
+      "processStartAbstime": 38345498998537,
+      "elapsedSeconds": 27.18129395903088,
+      "stage": "gradient_compilation_and_execution",
+      "systemMemoryPressureLevel": 2,
+      "swapUsage": "total = 6144.00M  used = 4683.06M  free = 1460.94M  (encrypted)"
+    },
+    {
+      "residentBytes": 2693431296,
+      "physicalFootprintBytes": 8788057888,
+      "processStartAbstime": 38345498998537,
+      "elapsedSeconds": 28.226490791887045,
+      "stage": "gradient_compilation_and_execution",
+      "systemMemoryPressureLevel": 2,
+      "swapUsage": "total = 6144.00M  used = 4683.06M  free = 1460.94M  (encrypted)"
+    },
+    {
+      "residentBytes": 2874687488,
+      "physicalFootprintBytes": 8969363328,
+      "processStartAbstime": 38345498998537,
+      "elapsedSeconds": 29.27649783389643,
+      "stage": "gradient_compilation_and_execution",
+      "systemMemoryPressureLevel": 2,
+      "swapUsage": "total = 6144.00M  used = 4683.06M  free = 1460.94M  (encrypted)"
+    },
+    {
+      "residentBytes": 2874720256,
+      "physicalFootprintBytes": 8969379712,
+      "processStartAbstime": 38345498998537,
+      "elapsedSeconds": 30.3197441669181,
+      "stage": "gradient_compilation_and_execution",
+      "systemMemoryPressureLevel": 2,
+      "swapUsage": "total = 6144.00M  used = 4683.06M  free = 1460.94M  (encrypted)"
+    },
+    {
+      "residentBytes": 2877538304,
+      "physicalFootprintBytes": 8969428864,
+      "processStartAbstime": 38345498998537,
+      "elapsedSeconds": 31.369030583882704,
+      "stage": "gradient_compilation_and_execution",
+      "systemMemoryPressureLevel": 2,
+      "swapUsage": "total = 6144.00M  used = 4683.06M  free = 1460.94M  (encrypted)"
+    },
+    {
+      "residentBytes": 2877538304,
+      "physicalFootprintBytes": 8969428864,
+      "processStartAbstime": 38345498998537,
+      "elapsedSeconds": 32.40977037488483,
+      "stage": "gradient_compilation_and_execution",
+      "systemMemoryPressureLevel": 2,
+      "swapUsage": "total = 6144.00M  used = 4683.06M  free = 1460.94M  (encrypted)"
+    },
+    {
+      "residentBytes": 2899853312,
+      "physicalFootprintBytes": 8973655936,
+      "processStartAbstime": 38345498998537,
+      "elapsedSeconds": 33.45906124985777,
+      "stage": "gradient_compilation_and_execution",
+      "systemMemoryPressureLevel": 2,
+      "swapUsage": "total = 6144.00M  used = 4683.06M  free = 1460.94M  (encrypted)"
+    },
+    {
+      "residentBytes": 2901491712,
+      "physicalFootprintBytes": 8973934464,
+      "processStartAbstime": 38345498998537,
+      "elapsedSeconds": 34.50388462492265,
+      "stage": "gradient_compilation_and_execution",
+      "systemMemoryPressureLevel": 2,
+      "swapUsage": "total = 6144.00M  used = 4683.06M  free = 1460.94M  (encrypted)"
+    },
+    {
+      "residentBytes": 2911715328,
+      "physicalFootprintBytes": 8975507328,
+      "processStartAbstime": 38345498998537,
+      "elapsedSeconds": 35.549068291904405,
+      "stage": "gradient_compilation_and_execution",
+      "systemMemoryPressureLevel": 2,
+      "swapUsage": "total = 6144.00M  used = 4683.06M  free = 1460.94M  (encrypted)"
+    },
+    {
+      "residentBytes": 2911830016,
+      "physicalFootprintBytes": 8975572864,
+      "processStartAbstime": 38345498998537,
+      "elapsedSeconds": 36.60142216691747,
+      "stage": "gradient_compilation_and_execution",
+      "systemMemoryPressureLevel": 2,
+      "swapUsage": "total = 6144.00M  used = 4683.06M  free = 1460.94M  (encrypted)"
+    },
+    {
+      "residentBytes": 2911830016,
+      "physicalFootprintBytes": 8975572864,
+      "processStartAbstime": 38345498998537,
+      "elapsedSeconds": 37.65066129202023,
+      "stage": "gradient_compilation_and_execution",
+      "systemMemoryPressureLevel": 2,
+      "swapUsage": "total = 6144.00M  used = 4683.06M  free = 1460.94M  (encrypted)"
+    },
+    {
+      "residentBytes": 2919120896,
+      "physicalFootprintBytes": 8975589248,
+      "processStartAbstime": 38345498998537,
+      "elapsedSeconds": 38.72416258393787,
+      "stage": "gradient_compilation_and_execution",
+      "systemMemoryPressureLevel": 2,
+      "swapUsage": "total = 6144.00M  used = 4683.06M  free = 1460.94M  (encrypted)"
+    },
+    {
+      "residentBytes": 2919120896,
+      "physicalFootprintBytes": 8975589248,
+      "processStartAbstime": 38345498998537,
+      "elapsedSeconds": 39.76850158395246,
+      "stage": "gradient_compilation_and_execution",
+      "systemMemoryPressureLevel": 2,
+      "swapUsage": "total = 6144.00M  used = 4683.06M  free = 1460.94M  (encrypted)"
+    },
+    {
+      "residentBytes": 2927214592,
+      "physicalFootprintBytes": 8976375680,
+      "processStartAbstime": 38345498998537,
+      "elapsedSeconds": 40.82051874999888,
+      "stage": "gradient_compilation_and_execution",
+      "systemMemoryPressureLevel": 2,
+      "swapUsage": "total = 6144.00M  used = 4683.06M  free = 1460.94M  (encrypted)"
+    },
+    {
+      "residentBytes": 2927345664,
+      "physicalFootprintBytes": 8976375680,
+      "processStartAbstime": 38345498998537,
+      "elapsedSeconds": 41.868073124904186,
+      "stage": "gradient_compilation_and_execution",
+      "systemMemoryPressureLevel": 2,
+      "swapUsage": "total = 6144.00M  used = 4683.06M  free = 1460.94M  (encrypted)"
+    },
+    {
+      "residentBytes": 2927345664,
+      "physicalFootprintBytes": 8976375680,
+      "processStartAbstime": 38345498998537,
+      "elapsedSeconds": 42.91230983403511,
+      "stage": "gradient_compilation_and_execution",
+      "systemMemoryPressureLevel": 2,
+      "swapUsage": "total = 6144.00M  used = 4683.06M  free = 1460.94M  (encrypted)"
+    },
+    {
+      "residentBytes": 2934669312,
+      "physicalFootprintBytes": 8976392064,
+      "processStartAbstime": 38345498998537,
+      "elapsedSeconds": 43.96373020904139,
+      "stage": "gradient_compilation_and_execution",
+      "systemMemoryPressureLevel": 2,
+      "swapUsage": "total = 6144.00M  used = 4683.06M  free = 1460.94M  (encrypted)"
+    },
+    {
+      "residentBytes": 2936766464,
+      "physicalFootprintBytes": 8978472832,
+      "processStartAbstime": 38345498998537,
+      "elapsedSeconds": 45.00992916687392,
+      "stage": "gradient_compilation_and_execution",
+      "systemMemoryPressureLevel": 2,
+      "swapUsage": "total = 6144.00M  used = 4683.06M  free = 1460.94M  (encrypted)"
+    },
+    {
+      "residentBytes": 2944040960,
+      "physicalFootprintBytes": 8978472832,
+      "processStartAbstime": 38345498998537,
+      "elapsedSeconds": 46.05334108392708,
+      "stage": "gradient_compilation_and_execution",
+      "systemMemoryPressureLevel": 2,
+      "swapUsage": "total = 6144.00M  used = 4683.06M  free = 1460.94M  (encrypted)"
+    },
+    {
+      "residentBytes": 2944040960,
+      "physicalFootprintBytes": 8978472832,
+      "processStartAbstime": 38345498998537,
+      "elapsedSeconds": 47.10047333384864,
+      "stage": "gradient_compilation_and_execution",
+      "systemMemoryPressureLevel": 2,
+      "swapUsage": "total = 6144.00M  used = 4683.06M  free = 1460.94M  (encrypted)"
+    },
+    {
+      "residentBytes": 2944040960,
+      "physicalFootprintBytes": 8978472832,
+      "processStartAbstime": 38345498998537,
+      "elapsedSeconds": 48.14487783401273,
+      "stage": "gradient_compilation_and_execution",
+      "systemMemoryPressureLevel": 2,
+      "swapUsage": "total = 6144.00M  used = 4683.06M  free = 1460.94M  (encrypted)"
+    },
+    {
+      "residentBytes": 2951331840,
+      "physicalFootprintBytes": 8978489216,
+      "processStartAbstime": 38345498998537,
+      "elapsedSeconds": 49.18997562490404,
+      "stage": "gradient_compilation_and_execution",
+      "systemMemoryPressureLevel": 2,
+      "swapUsage": "total = 6144.00M  used = 4683.06M  free = 1460.94M  (encrypted)"
+    },
+    {
+      "residentBytes": 2951331840,
+      "physicalFootprintBytes": 8978489216,
+      "processStartAbstime": 38345498998537,
+      "elapsedSeconds": 50.23999520903453,
+      "stage": "gradient_compilation_and_execution",
+      "systemMemoryPressureLevel": 2,
+      "swapUsage": "total = 6144.00M  used = 4683.06M  free = 1460.94M  (encrypted)"
+    },
+    {
+      "residentBytes": 2958819328,
+      "physicalFootprintBytes": 8978702208,
+      "processStartAbstime": 38345498998537,
+      "elapsedSeconds": 51.28473204188049,
+      "stage": "gradient_compilation_and_execution",
+      "systemMemoryPressureLevel": 2,
+      "swapUsage": "total = 6144.00M  used = 4683.06M  free = 1460.94M  (encrypted)"
+    },
+    {
+      "residentBytes": 2958802944,
+      "physicalFootprintBytes": 8978718592,
+      "processStartAbstime": 38345498998537,
+      "elapsedSeconds": 52.340431292075664,
+      "stage": "gradient_compilation_and_execution",
+      "systemMemoryPressureLevel": 2,
+      "swapUsage": "total = 6144.00M  used = 4683.06M  free = 1460.94M  (encrypted)"
+    },
+    {
+      "residentBytes": 2966159360,
+      "physicalFootprintBytes": 8978718592,
+      "processStartAbstime": 38345498998537,
+      "elapsedSeconds": 53.388081250013784,
+      "stage": "gradient_compilation_and_execution",
+      "systemMemoryPressureLevel": 2,
+      "swapUsage": "total = 6144.00M  used = 4683.06M  free = 1460.94M  (encrypted)"
+    },
+    {
+      "residentBytes": 2966159360,
+      "physicalFootprintBytes": 8978718592,
+      "processStartAbstime": 38345498998537,
+      "elapsedSeconds": 54.44259262504056,
+      "stage": "gradient_compilation_and_execution",
+      "systemMemoryPressureLevel": 2,
+      "swapUsage": "total = 6144.00M  used = 4683.06M  free = 1460.94M  (encrypted)"
+    },
+    {
+      "residentBytes": 2966159360,
+      "physicalFootprintBytes": 8978718592,
+      "processStartAbstime": 38345498998537,
+      "elapsedSeconds": 55.48487595887855,
+      "stage": "gradient_compilation_and_execution",
+      "systemMemoryPressureLevel": 2,
+      "swapUsage": "total = 6144.00M  used = 4683.06M  free = 1460.94M  (encrypted)"
+    },
+    {
+      "residentBytes": 2973433856,
+      "physicalFootprintBytes": 8978718592,
+      "processStartAbstime": 38345498998537,
+      "elapsedSeconds": 56.53566508390941,
+      "stage": "gradient_compilation_and_execution",
+      "systemMemoryPressureLevel": 2,
+      "swapUsage": "total = 6144.00M  used = 4683.06M  free = 1460.94M  (encrypted)"
+    },
+    {
+      "residentBytes": 2973433856,
+      "physicalFootprintBytes": 8978718592,
+      "processStartAbstime": 38345498998537,
+      "elapsedSeconds": 57.592464291956276,
+      "stage": "gradient_compilation_and_execution",
+      "systemMemoryPressureLevel": 2,
+      "swapUsage": "total = 6144.00M  used = 4683.06M  free = 1460.94M  (encrypted)"
+    },
+    {
+      "residentBytes": 2980790272,
+      "physicalFootprintBytes": 8978718592,
+      "processStartAbstime": 38345498998537,
+      "elapsedSeconds": 58.64326124987565,
+      "stage": "gradient_compilation_and_execution",
+      "systemMemoryPressureLevel": 2,
+      "swapUsage": "total = 6144.00M  used = 4683.06M  free = 1460.94M  (encrypted)"
+    },
+    {
+      "residentBytes": 2980790272,
+      "physicalFootprintBytes": 8978718592,
+      "processStartAbstime": 38345498998537,
+      "elapsedSeconds": 59.70244804187678,
+      "stage": "gradient_compilation_and_execution",
+      "systemMemoryPressureLevel": 2,
+      "swapUsage": "total = 6144.00M  used = 4683.06M  free = 1460.94M  (encrypted)"
+    },
+    {
+      "residentBytes": 2980741120,
+      "physicalFootprintBytes": 8978718592,
+      "processStartAbstime": 38345498998537,
+      "elapsedSeconds": 60.748489334015176,
+      "stage": "gradient_compilation_and_execution",
+      "systemMemoryPressureLevel": 2,
+      "swapUsage": "total = 6144.00M  used = 4683.06M  free = 1460.94M  (encrypted)"
+    },
+    {
+      "residentBytes": 2988015616,
+      "physicalFootprintBytes": 8978718592,
+      "processStartAbstime": 38345498998537,
+      "elapsedSeconds": 61.801354666939005,
+      "stage": "gradient_compilation_and_execution",
+      "systemMemoryPressureLevel": 2,
+      "swapUsage": "total = 6144.00M  used = 4683.06M  free = 1460.94M  (encrypted)"
+    },
+    {
+      "residentBytes": 2988015616,
+      "physicalFootprintBytes": 8978718592,
+      "processStartAbstime": 38345498998537,
+      "elapsedSeconds": 62.84355404204689,
+      "stage": "gradient_compilation_and_execution",
+      "systemMemoryPressureLevel": 2,
+      "swapUsage": "total = 6144.00M  used = 4683.06M  free = 1460.94M  (encrypted)"
+    },
+    {
+      "residentBytes": 2995322880,
+      "physicalFootprintBytes": 8978718592,
+      "processStartAbstime": 38345498998537,
+      "elapsedSeconds": 63.89558354206383,
+      "stage": "gradient_compilation_and_execution",
+      "systemMemoryPressureLevel": 2,
+      "swapUsage": "total = 6144.00M  used = 4683.06M  free = 1460.94M  (encrypted)"
+    },
+    {
+      "residentBytes": 2995322880,
+      "physicalFootprintBytes": 8978718592,
+      "processStartAbstime": 38345498998537,
+      "elapsedSeconds": 64.94313633395359,
+      "stage": "gradient_compilation_and_execution",
+      "systemMemoryPressureLevel": 2,
+      "swapUsage": "total = 6144.00M  used = 4683.06M  free = 1460.94M  (encrypted)"
+    },
+    {
+      "residentBytes": 2995322880,
+      "physicalFootprintBytes": 8978718592,
+      "processStartAbstime": 38345498998537,
+      "elapsedSeconds": 65.9918165418785,
+      "stage": "gradient_compilation_and_execution",
+      "systemMemoryPressureLevel": 2,
+      "swapUsage": "total = 6144.00M  used = 4683.06M  free = 1460.94M  (encrypted)"
+    },
+    {
+      "residentBytes": 3002597376,
+      "physicalFootprintBytes": 8978718592,
+      "processStartAbstime": 38345498998537,
+      "elapsedSeconds": 67.04848129185848,
+      "stage": "gradient_compilation_and_execution",
+      "systemMemoryPressureLevel": 2,
+      "swapUsage": "total = 6144.00M  used = 4683.06M  free = 1460.94M  (encrypted)"
+    },
+    {
+      "residentBytes": 2715516928,
+      "physicalFootprintBytes": 8980209536,
+      "processStartAbstime": 38345498998537,
+      "elapsedSeconds": 68.08984470902942,
+      "stage": "gradient_compilation_and_execution",
+      "systemMemoryPressureLevel": 2,
+      "swapUsage": "total = 6144.00M  used = 4683.06M  free = 1460.94M  (encrypted)"
+    },
+    {
+      "residentBytes": 1611776000,
+      "physicalFootprintBytes": 8980668288,
+      "processStartAbstime": 38345498998537,
+      "elapsedSeconds": 69.17024916689843,
+      "stage": "gradient_compilation_and_execution",
+      "systemMemoryPressureLevel": 2,
+      "swapUsage": "total = 6144.00M  used = 4683.06M  free = 1460.94M  (encrypted)"
+    },
+    {
+      "residentBytes": 2752937984,
+      "physicalFootprintBytes": 8980668288,
+      "processStartAbstime": 38345498998537,
+      "elapsedSeconds": 70.2243720840197,
+      "stage": "gradient_compilation_and_execution",
+      "systemMemoryPressureLevel": 2,
+      "swapUsage": "total = 6144.00M  used = 4683.06M  free = 1460.94M  (encrypted)"
+    },
+    {
+      "residentBytes": 2933063680,
+      "physicalFootprintBytes": 8980668288,
+      "processStartAbstime": 38345498998537,
+      "elapsedSeconds": 71.27630283404142,
+      "stage": "gradient_compilation_and_execution",
+      "systemMemoryPressureLevel": 2,
+      "swapUsage": "total = 6144.00M  used = 4683.06M  free = 1460.94M  (encrypted)"
+    },
+    {
+      "residentBytes": 2940846080,
+      "physicalFootprintBytes": 8980668288,
+      "processStartAbstime": 38345498998537,
+      "elapsedSeconds": 72.32706191693433,
+      "stage": "gradient_compilation_and_execution",
+      "systemMemoryPressureLevel": 2,
+      "swapUsage": "total = 6144.00M  used = 4683.06M  free = 1460.94M  (encrypted)"
+    },
+    {
+      "residentBytes": 2940846080,
+      "physicalFootprintBytes": 8980684672,
+      "processStartAbstime": 38345498998537,
+      "elapsedSeconds": 73.36745600006543,
+      "stage": "gradient_compilation_and_execution",
+      "systemMemoryPressureLevel": 2,
+      "swapUsage": "total = 6144.00M  used = 4683.06M  free = 1460.94M  (encrypted)"
+    },
+    {
+      "residentBytes": 2943614976,
+      "physicalFootprintBytes": 8981569408,
+      "processStartAbstime": 38345498998537,
+      "elapsedSeconds": 74.41743579204194,
+      "stage": "gradient_compilation_and_execution",
+      "systemMemoryPressureLevel": 2,
+      "swapUsage": "total = 6144.00M  used = 4683.06M  free = 1460.94M  (encrypted)"
+    },
+    {
+      "residentBytes": 2952364032,
+      "physicalFootprintBytes": 8982470528,
+      "processStartAbstime": 38345498998537,
+      "elapsedSeconds": 75.46712433407083,
+      "stage": "gradient_compilation_and_execution",
+      "systemMemoryPressureLevel": 2,
+      "swapUsage": "total = 6144.00M  used = 4683.06M  free = 1460.94M  (encrypted)"
+    },
+    {
+      "residentBytes": 2956722176,
+      "physicalFootprintBytes": 8986795904,
+      "processStartAbstime": 38345498998537,
+      "elapsedSeconds": 76.50808249996044,
+      "stage": "gradient_compilation_and_execution",
+      "systemMemoryPressureLevel": 2,
+      "swapUsage": "total = 6144.00M  used = 4683.06M  free = 1460.94M  (encrypted)"
+    },
+    {
+      "residentBytes": 2964979712,
+      "physicalFootprintBytes": 8987762560,
+      "processStartAbstime": 38345498998537,
+      "elapsedSeconds": 77.55936487484723,
+      "stage": "gradient_compilation_and_execution",
+      "systemMemoryPressureLevel": 2,
+      "swapUsage": "total = 6144.00M  used = 4683.06M  free = 1460.94M  (encrypted)"
+    },
+    {
+      "residentBytes": 2964979712,
+      "physicalFootprintBytes": 8987762560,
+      "processStartAbstime": 38345498998537,
+      "elapsedSeconds": 78.61205687490292,
+      "stage": "gradient_compilation_and_execution",
+      "systemMemoryPressureLevel": 2,
+      "swapUsage": "total = 6144.00M  used = 4683.06M  free = 1460.94M  (encrypted)"
+    },
+    {
+      "residentBytes": 2972712960,
+      "physicalFootprintBytes": 8987762560,
+      "processStartAbstime": 38345498998537,
+      "elapsedSeconds": 79.659686292056,
+      "stage": "gradient_compilation_and_execution",
+      "systemMemoryPressureLevel": 2,
+      "swapUsage": "total = 6144.00M  used = 4683.06M  free = 1460.94M  (encrypted)"
+    },
+    {
+      "residentBytes": 2972729344,
+      "physicalFootprintBytes": 8987762560,
+      "processStartAbstime": 38345498998537,
+      "elapsedSeconds": 80.703969291877,
+      "stage": "gradient_compilation_and_execution",
+      "systemMemoryPressureLevel": 2,
+      "swapUsage": "total = 6144.00M  used = 4683.06M  free = 1460.94M  (encrypted)"
+    },
+    {
+      "residentBytes": 2972729344,
+      "physicalFootprintBytes": 8987762560,
+      "processStartAbstime": 38345498998537,
+      "elapsedSeconds": 81.74980329186656,
+      "stage": "gradient_compilation_and_execution",
+      "systemMemoryPressureLevel": 2,
+      "swapUsage": "total = 6144.00M  used = 4683.06M  free = 1460.94M  (encrypted)"
+    },
+    {
+      "residentBytes": 2980020224,
+      "physicalFootprintBytes": 8987762560,
+      "processStartAbstime": 38345498998537,
+      "elapsedSeconds": 82.80132791702636,
+      "stage": "gradient_compilation_and_execution",
+      "systemMemoryPressureLevel": 1,
+      "swapUsage": "total = 6144.00M  used = 4683.06M  free = 1460.94M  (encrypted)"
+    },
+    {
+      "residentBytes": 2980020224,
+      "physicalFootprintBytes": 8987762560,
+      "processStartAbstime": 38345498998537,
+      "elapsedSeconds": 83.84892708389089,
+      "stage": "gradient_compilation_and_execution",
+      "systemMemoryPressureLevel": 1,
+      "swapUsage": "total = 6144.00M  used = 4683.06M  free = 1460.94M  (encrypted)"
+    },
+    {
+      "residentBytes": 2987507712,
+      "physicalFootprintBytes": 8987762560,
+      "processStartAbstime": 38345498998537,
+      "elapsedSeconds": 84.8995707500726,
+      "stage": "gradient_compilation_and_execution",
+      "systemMemoryPressureLevel": 1,
+      "swapUsage": "total = 6144.00M  used = 4683.06M  free = 1460.94M  (encrypted)"
+    },
+    {
+      "residentBytes": 2987507712,
+      "physicalFootprintBytes": 8987762560,
+      "processStartAbstime": 38345498998537,
+      "elapsedSeconds": 85.95321333385073,
+      "stage": "gradient_compilation_and_execution",
+      "systemMemoryPressureLevel": 1,
+      "swapUsage": "total = 6144.00M  used = 4683.06M  free = 1460.94M  (encrypted)"
+    },
+    {
+      "residentBytes": 2993717248,
+      "physicalFootprintBytes": 8988401536,
+      "processStartAbstime": 38345498998537,
+      "elapsedSeconds": 87.0014316670131,
+      "stage": "gradient_compilation_and_execution",
+      "systemMemoryPressureLevel": 1,
+      "swapUsage": "total = 6144.00M  used = 4683.06M  free = 1460.94M  (encrypted)"
+    },
+    {
+      "residentBytes": 2993717248,
+      "physicalFootprintBytes": 8988401536,
+      "processStartAbstime": 38345498998537,
+      "elapsedSeconds": 88.05433433386497,
+      "stage": "gradient_compilation_and_execution",
+      "systemMemoryPressureLevel": 1,
+      "swapUsage": "total = 6144.00M  used = 4683.06M  free = 1460.94M  (encrypted)"
+    },
+    {
+      "residentBytes": 2993733632,
+      "physicalFootprintBytes": 8988401536,
+      "processStartAbstime": 38345498998537,
+      "elapsedSeconds": 89.10016362485476,
+      "stage": "gradient_compilation_and_execution",
+      "systemMemoryPressureLevel": 1,
+      "swapUsage": "total = 6144.00M  used = 4683.06M  free = 1460.94M  (encrypted)"
+    },
+    {
+      "residentBytes": 3001008128,
+      "physicalFootprintBytes": 8988401536,
+      "processStartAbstime": 38345498998537,
+      "elapsedSeconds": 90.1462340420112,
+      "stage": "gradient_compilation_and_execution",
+      "systemMemoryPressureLevel": 1,
+      "swapUsage": "total = 6144.00M  used = 4683.06M  free = 1460.94M  (encrypted)"
+    },
+    {
+      "residentBytes": 2996879360,
+      "physicalFootprintBytes": 8988811136,
+      "processStartAbstime": 38345498998537,
+      "elapsedSeconds": 91.18467408395372,
+      "stage": "gradient_compilation_and_execution",
+      "systemMemoryPressureLevel": 1,
+      "swapUsage": "total = 6144.00M  used = 4683.06M  free = 1460.94M  (encrypted)"
+    },
+    {
+      "residentBytes": 3004170240,
+      "physicalFootprintBytes": 8988811136,
+      "processStartAbstime": 38345498998537,
+      "elapsedSeconds": 92.23635512497276,
+      "stage": "gradient_compilation_and_execution",
+      "systemMemoryPressureLevel": 1,
+      "swapUsage": "total = 6144.00M  used = 4683.06M  free = 1460.94M  (encrypted)"
+    },
+    {
+      "residentBytes": 3004170240,
+      "physicalFootprintBytes": 8988811136,
+      "processStartAbstime": 38345498998537,
+      "elapsedSeconds": 93.27942470903508,
+      "stage": "gradient_compilation_and_execution",
+      "systemMemoryPressureLevel": 1,
+      "swapUsage": "total = 6144.00M  used = 4683.06M  free = 1460.94M  (encrypted)"
+    },
+    {
+      "residentBytes": 3011526656,
+      "physicalFootprintBytes": 8988811136,
+      "processStartAbstime": 38345498998537,
+      "elapsedSeconds": 94.324677541852,
+      "stage": "gradient_compilation_and_execution",
+      "systemMemoryPressureLevel": 1,
+      "swapUsage": "total = 6144.00M  used = 4683.06M  free = 1460.94M  (encrypted)"
+    },
+    {
+      "residentBytes": 3011526656,
+      "physicalFootprintBytes": 8988811136,
+      "processStartAbstime": 38345498998537,
+      "elapsedSeconds": 95.37294250004925,
+      "stage": "gradient_compilation_and_execution",
+      "systemMemoryPressureLevel": 1,
+      "swapUsage": "total = 6144.00M  used = 4683.06M  free = 1460.94M  (encrypted)"
+    },
+    {
+      "residentBytes": 3018801152,
+      "physicalFootprintBytes": 8988811136,
+      "processStartAbstime": 38345498998537,
+      "elapsedSeconds": 96.41501345904544,
+      "stage": "gradient_compilation_and_execution",
+      "systemMemoryPressureLevel": 1,
+      "swapUsage": "total = 6144.00M  used = 4683.06M  free = 1460.94M  (encrypted)"
+    },
+    {
+      "residentBytes": 3018801152,
+      "physicalFootprintBytes": 8988811136,
+      "processStartAbstime": 38345498998537,
+      "elapsedSeconds": 97.46726299985312,
+      "stage": "gradient_compilation_and_execution",
+      "systemMemoryPressureLevel": 1,
+      "swapUsage": "total = 6144.00M  used = 4683.06M  free = 1460.94M  (encrypted)"
+    },
+    {
+      "residentBytes": 3018883072,
+      "physicalFootprintBytes": 8988811136,
+      "processStartAbstime": 38345498998537,
+      "elapsedSeconds": 98.51648454205133,
+      "stage": "gradient_compilation_and_execution",
+      "systemMemoryPressureLevel": 1,
+      "swapUsage": "total = 6144.00M  used = 4683.06M  free = 1460.94M  (encrypted)"
+    },
+    {
+      "residentBytes": 3026157568,
+      "physicalFootprintBytes": 8988811136,
+      "processStartAbstime": 38345498998537,
+      "elapsedSeconds": 99.56802362506278,
+      "stage": "gradient_compilation_and_execution",
+      "systemMemoryPressureLevel": 1,
+      "swapUsage": "total = 6144.00M  used = 4683.06M  free = 1460.94M  (encrypted)"
+    },
+    {
+      "residentBytes": 3026239488,
+      "physicalFootprintBytes": 8988811136,
+      "processStartAbstime": 38345498998537,
+      "elapsedSeconds": 100.61260483390652,
+      "stage": "gradient_compilation_and_execution",
+      "systemMemoryPressureLevel": 1,
+      "swapUsage": "total = 6144.00M  used = 4683.06M  free = 1460.94M  (encrypted)"
+    },
+    {
+      "residentBytes": 3033530368,
+      "physicalFootprintBytes": 8988811136,
+      "processStartAbstime": 38345498998537,
+      "elapsedSeconds": 101.66295962501317,
+      "stage": "gradient_compilation_and_execution",
+      "systemMemoryPressureLevel": 1,
+      "swapUsage": "total = 6144.00M  used = 4683.06M  free = 1460.94M  (encrypted)"
+    },
+    {
+      "residentBytes": 3033546752,
+      "physicalFootprintBytes": 8988811136,
+      "processStartAbstime": 38345498998537,
+      "elapsedSeconds": 102.70846870890819,
+      "stage": "gradient_compilation_and_execution",
+      "systemMemoryPressureLevel": 1,
+      "swapUsage": "total = 6144.00M  used = 4683.06M  free = 1460.94M  (encrypted)"
+    },
+    {
+      "residentBytes": 3040854016,
+      "physicalFootprintBytes": 8988811136,
+      "processStartAbstime": 38345498998537,
+      "elapsedSeconds": 103.7513378339354,
+      "stage": "gradient_compilation_and_execution",
+      "systemMemoryPressureLevel": 1,
+      "swapUsage": "total = 6144.00M  used = 4683.06M  free = 1460.94M  (encrypted)"
+    },
+    {
+      "residentBytes": 3040854016,
+      "physicalFootprintBytes": 8988811136,
+      "processStartAbstime": 38345498998537,
+      "elapsedSeconds": 104.79819279187359,
+      "stage": "gradient_compilation_and_execution",
+      "systemMemoryPressureLevel": 1,
+      "swapUsage": "total = 6144.00M  used = 4683.06M  free = 1460.94M  (encrypted)"
+    },
+    {
+      "residentBytes": 3048128512,
+      "physicalFootprintBytes": 8988811136,
+      "processStartAbstime": 38345498998537,
+      "elapsedSeconds": 105.84302916703746,
+      "stage": "gradient_compilation_and_execution",
+      "systemMemoryPressureLevel": 1,
+      "swapUsage": "total = 6144.00M  used = 4683.06M  free = 1460.94M  (encrypted)"
+    },
+    {
+      "residentBytes": 3048128512,
+      "physicalFootprintBytes": 8988811136,
+      "processStartAbstime": 38345498998537,
+      "elapsedSeconds": 106.88610629201867,
+      "stage": "gradient_compilation_and_execution",
+      "systemMemoryPressureLevel": 1,
+      "swapUsage": "total = 6144.00M  used = 4683.06M  free = 1460.94M  (encrypted)"
+    },
+    {
+      "residentBytes": 3048128512,
+      "physicalFootprintBytes": 8988811136,
+      "processStartAbstime": 38345498998537,
+      "elapsedSeconds": 107.92924358393066,
+      "stage": "gradient_compilation_and_execution",
+      "systemMemoryPressureLevel": 1,
+      "swapUsage": "total = 6144.00M  used = 4683.06M  free = 1460.94M  (encrypted)"
+    },
+    {
+      "residentBytes": 3055403008,
+      "physicalFootprintBytes": 8988811136,
+      "processStartAbstime": 38345498998537,
+      "elapsedSeconds": 108.97450366686098,
+      "stage": "gradient_compilation_and_execution",
+      "systemMemoryPressureLevel": 1,
+      "swapUsage": "total = 6144.00M  used = 4683.06M  free = 1460.94M  (encrypted)"
+    },
+    {
+      "residentBytes": 3055403008,
+      "physicalFootprintBytes": 8988811136,
+      "processStartAbstime": 38345498998537,
+      "elapsedSeconds": 110.01791916694492,
+      "stage": "gradient_compilation_and_execution",
+      "systemMemoryPressureLevel": 1,
+      "swapUsage": "total = 6144.00M  used = 4683.06M  free = 1460.94M  (encrypted)"
+    },
+    {
+      "residentBytes": 3062677504,
+      "physicalFootprintBytes": 8988811136,
+      "processStartAbstime": 38345498998537,
+      "elapsedSeconds": 111.06650941702537,
+      "stage": "gradient_compilation_and_execution",
+      "systemMemoryPressureLevel": 1,
+      "swapUsage": "total = 6144.00M  used = 4683.06M  free = 1460.94M  (encrypted)"
+    },
+    {
+      "residentBytes": 2983870464,
+      "physicalFootprintBytes": 8988811136,
+      "processStartAbstime": 38345498998537,
+      "elapsedSeconds": 112.1266951248981,
+      "stage": "gradient_compilation_and_execution",
+      "systemMemoryPressureLevel": 1,
+      "swapUsage": "total = 6144.00M  used = 4675.06M  free = 1468.94M  (encrypted)"
+    },
+    {
+      "residentBytes": 2991472640,
+      "physicalFootprintBytes": 8988811136,
+      "processStartAbstime": 38345498998537,
+      "elapsedSeconds": 113.18289654189721,
+      "stage": "gradient_compilation_and_execution",
+      "systemMemoryPressureLevel": 1,
+      "swapUsage": "total = 6144.00M  used = 4675.06M  free = 1468.94M  (encrypted)"
+    },
+    {
+      "residentBytes": 2991570944,
+      "physicalFootprintBytes": 8988811136,
+      "processStartAbstime": 38345498998537,
+      "elapsedSeconds": 114.22924770903774,
+      "stage": "gradient_compilation_and_execution",
+      "systemMemoryPressureLevel": 1,
+      "swapUsage": "total = 6144.00M  used = 4675.06M  free = 1468.94M  (encrypted)"
+    },
+    {
+      "residentBytes": 2991603712,
+      "physicalFootprintBytes": 8988811136,
+      "processStartAbstime": 38345498998537,
+      "elapsedSeconds": 115.27671795897186,
+      "stage": "gradient_compilation_and_execution",
+      "systemMemoryPressureLevel": 1,
+      "swapUsage": "total = 6144.00M  used = 4675.06M  free = 1468.94M  (encrypted)"
+    },
+    {
+      "residentBytes": 2998878208,
+      "physicalFootprintBytes": 8988811136,
+      "processStartAbstime": 38345498998537,
+      "elapsedSeconds": 116.32649787492119,
+      "stage": "gradient_compilation_and_execution",
+      "systemMemoryPressureLevel": 1,
+      "swapUsage": "total = 6144.00M  used = 4675.06M  free = 1468.94M  (encrypted)"
+    },
+    {
+      "residentBytes": 2998878208,
+      "physicalFootprintBytes": 8988811136,
+      "processStartAbstime": 38345498998537,
+      "elapsedSeconds": 117.37866987497546,
+      "stage": "gradient_compilation_and_execution",
+      "systemMemoryPressureLevel": 1,
+      "swapUsage": "total = 6144.00M  used = 4675.06M  free = 1468.94M  (encrypted)"
+    },
+    {
+      "residentBytes": 3006152704,
+      "physicalFootprintBytes": 8988811136,
+      "processStartAbstime": 38345498998537,
+      "elapsedSeconds": 118.42258379189298,
+      "stage": "gradient_compilation_and_execution",
+      "systemMemoryPressureLevel": 1,
+      "swapUsage": "total = 6144.00M  used = 4675.06M  free = 1468.94M  (encrypted)"
+    },
+    {
+      "residentBytes": 3006152704,
+      "physicalFootprintBytes": 8988811136,
+      "processStartAbstime": 38345498998537,
+      "elapsedSeconds": 119.46761933388188,
+      "stage": "gradient_compilation_and_execution",
+      "systemMemoryPressureLevel": 1,
+      "swapUsage": "total = 6144.00M  used = 4675.06M  free = 1468.94M  (encrypted)"
+    },
+    {
+      "residentBytes": 3013459968,
+      "physicalFootprintBytes": 8988811136,
+      "processStartAbstime": 38345498998537,
+      "elapsedSeconds": 120.5176885840483,
+      "stage": "gradient_compilation_and_execution",
+      "systemMemoryPressureLevel": 1,
+      "swapUsage": "total = 6144.00M  used = 4675.06M  free = 1468.94M  (encrypted)"
+    },
+    {
+      "residentBytes": 3013459968,
+      "physicalFootprintBytes": 8988811136,
+      "processStartAbstime": 38345498998537,
+      "elapsedSeconds": 121.56840562494472,
+      "stage": "gradient_compilation_and_execution",
+      "systemMemoryPressureLevel": 1,
+      "swapUsage": "total = 6144.00M  used = 4675.06M  free = 1468.94M  (encrypted)"
+    },
+    {
+      "residentBytes": 3013459968,
+      "physicalFootprintBytes": 8988811136,
+      "processStartAbstime": 38345498998537,
+      "elapsedSeconds": 122.61868733400479,
+      "stage": "gradient_compilation_and_execution",
+      "systemMemoryPressureLevel": 1,
+      "swapUsage": "total = 6144.00M  used = 4675.06M  free = 1468.94M  (encrypted)"
+    },
+    {
+      "residentBytes": 3020767232,
+      "physicalFootprintBytes": 8988811136,
+      "processStartAbstime": 38345498998537,
+      "elapsedSeconds": 123.66795550007373,
+      "stage": "gradient_compilation_and_execution",
+      "systemMemoryPressureLevel": 1,
+      "swapUsage": "total = 6144.00M  used = 4675.06M  free = 1468.94M  (encrypted)"
+    },
+    {
+      "residentBytes": 2420981760,
+      "physicalFootprintBytes": 8988811136,
+      "processStartAbstime": 38345498998537,
+      "elapsedSeconds": 124.72135520889424,
+      "stage": "gradient_compilation_and_execution",
+      "systemMemoryPressureLevel": 1,
+      "swapUsage": "total = 6144.00M  used = 4675.06M  free = 1468.94M  (encrypted)"
+    },
+    {
+      "residentBytes": 2289074176,
+      "physicalFootprintBytes": 8988811136,
+      "processStartAbstime": 38345498998537,
+      "elapsedSeconds": 125.77130525000393,
+      "stage": "gradient_compilation_and_execution",
+      "systemMemoryPressureLevel": 1,
+      "swapUsage": "total = 6144.00M  used = 4675.06M  free = 1468.94M  (encrypted)"
+    },
+    {
+      "residentBytes": 2977562624,
+      "physicalFootprintBytes": 8988811136,
+      "processStartAbstime": 38345498998537,
+      "elapsedSeconds": 126.81663387501612,
+      "stage": "gradient_compilation_and_execution",
+      "systemMemoryPressureLevel": 1,
+      "swapUsage": "total = 6144.00M  used = 4675.06M  free = 1468.94M  (encrypted)"
+    },
+    {
+      "residentBytes": 2978643968,
+      "physicalFootprintBytes": 8988811136,
+      "processStartAbstime": 38345498998537,
+      "elapsedSeconds": 127.86305745900609,
+      "stage": "gradient_compilation_and_execution",
+      "systemMemoryPressureLevel": 1,
+      "swapUsage": "total = 6144.00M  used = 4675.06M  free = 1468.94M  (encrypted)"
+    },
+    {
+      "residentBytes": 2986000384,
+      "physicalFootprintBytes": 8988811136,
+      "processStartAbstime": 38345498998537,
+      "elapsedSeconds": 128.91329933400266,
+      "stage": "gradient_compilation_and_execution",
+      "systemMemoryPressureLevel": 1,
+      "swapUsage": "total = 6144.00M  used = 4675.06M  free = 1468.94M  (encrypted)"
+    },
+    {
+      "residentBytes": 2986000384,
+      "physicalFootprintBytes": 8988811136,
+      "processStartAbstime": 38345498998537,
+      "elapsedSeconds": 129.95639487495646,
+      "stage": "gradient_compilation_and_execution",
+      "systemMemoryPressureLevel": 1,
+      "swapUsage": "total = 6144.00M  used = 4675.06M  free = 1468.94M  (encrypted)"
+    },
+    {
+      "residentBytes": 2993307648,
+      "physicalFootprintBytes": 8988811136,
+      "processStartAbstime": 38345498998537,
+      "elapsedSeconds": 131.00339366705157,
+      "stage": "gradient_compilation_and_execution",
+      "systemMemoryPressureLevel": 1,
+      "swapUsage": "total = 6144.00M  used = 4675.06M  free = 1468.94M  (encrypted)"
+    },
+    {
+      "residentBytes": 2993455104,
+      "physicalFootprintBytes": 8988811136,
+      "processStartAbstime": 38345498998537,
+      "elapsedSeconds": 132.0576715420466,
+      "stage": "gradient_compilation_and_execution",
+      "systemMemoryPressureLevel": 1,
+      "swapUsage": "total = 6144.00M  used = 4675.06M  free = 1468.94M  (encrypted)"
+    },
+    {
+      "residentBytes": 2997223424,
+      "physicalFootprintBytes": 8988811136,
+      "processStartAbstime": 38345498998537,
+      "elapsedSeconds": 133.10736779193394,
+      "stage": "gradient_compilation_and_execution",
+      "systemMemoryPressureLevel": 1,
+      "swapUsage": "total = 6144.00M  used = 4675.06M  free = 1468.94M  (encrypted)"
+    },
+    {
+      "residentBytes": 3004792832,
+      "physicalFootprintBytes": 8988811136,
+      "processStartAbstime": 38345498998537,
+      "elapsedSeconds": 134.1555128339678,
+      "stage": "gradient_compilation_and_execution",
+      "systemMemoryPressureLevel": 1,
+      "swapUsage": "total = 6144.00M  used = 4675.06M  free = 1468.94M  (encrypted)"
+    },
+    {
+      "residentBytes": 3009822720,
+      "physicalFootprintBytes": 8991989632,
+      "processStartAbstime": 38345498998537,
+      "elapsedSeconds": 135.20257895905524,
+      "stage": "gradient_compilation_and_execution",
+      "systemMemoryPressureLevel": 1,
+      "swapUsage": "total = 6144.00M  used = 4675.06M  free = 1468.94M  (encrypted)"
+    },
+    {
+      "residentBytes": 3017097216,
+      "physicalFootprintBytes": 8991989632,
+      "processStartAbstime": 38345498998537,
+      "elapsedSeconds": 136.25728770904243,
+      "stage": "gradient_compilation_and_execution",
+      "systemMemoryPressureLevel": 1,
+      "swapUsage": "total = 6144.00M  used = 4675.06M  free = 1468.94M  (encrypted)"
+    },
+    {
+      "residentBytes": 3017097216,
+      "physicalFootprintBytes": 8991989632,
+      "processStartAbstime": 38345498998537,
+      "elapsedSeconds": 137.31015483406372,
+      "stage": "gradient_compilation_and_execution",
+      "systemMemoryPressureLevel": 1,
+      "swapUsage": "total = 6144.00M  used = 4675.06M  free = 1468.94M  (encrypted)"
+    },
+    {
+      "residentBytes": 3024371712,
+      "physicalFootprintBytes": 8991989632,
+      "processStartAbstime": 38345498998537,
+      "elapsedSeconds": 138.3565292500425,
+      "stage": "gradient_compilation_and_execution",
+      "systemMemoryPressureLevel": 1,
+      "swapUsage": "total = 6144.00M  used = 4675.06M  free = 1468.94M  (encrypted)"
+    },
+    {
+      "residentBytes": 3024371712,
+      "physicalFootprintBytes": 8991989632,
+      "processStartAbstime": 38345498998537,
+      "elapsedSeconds": 139.40125604206696,
+      "stage": "gradient_compilation_and_execution",
+      "systemMemoryPressureLevel": 1,
+      "swapUsage": "total = 6144.00M  used = 4675.06M  free = 1468.94M  (encrypted)"
+    },
+    {
+      "residentBytes": 3031646208,
+      "physicalFootprintBytes": 8991989632,
+      "processStartAbstime": 38345498998537,
+      "elapsedSeconds": 140.44411370903254,
+      "stage": "gradient_compilation_and_execution",
+      "systemMemoryPressureLevel": 1,
+      "swapUsage": "total = 6144.00M  used = 4675.06M  free = 1468.94M  (encrypted)"
+    },
+    {
+      "residentBytes": 3031646208,
+      "physicalFootprintBytes": 8991989632,
+      "processStartAbstime": 38345498998537,
+      "elapsedSeconds": 141.49803204205818,
+      "stage": "gradient_compilation_and_execution",
+      "systemMemoryPressureLevel": 1,
+      "swapUsage": "total = 6144.00M  used = 4675.06M  free = 1468.94M  (encrypted)"
+    },
+    {
+      "residentBytes": 3031646208,
+      "physicalFootprintBytes": 8991989632,
+      "processStartAbstime": 38345498998537,
+      "elapsedSeconds": 142.53972158394754,
+      "stage": "gradient_compilation_and_execution",
+      "systemMemoryPressureLevel": 1,
+      "swapUsage": "total = 6144.00M  used = 4675.06M  free = 1468.94M  (encrypted)"
+    },
+    {
+      "residentBytes": 3038953472,
+      "physicalFootprintBytes": 8991989632,
+      "processStartAbstime": 38345498998537,
+      "elapsedSeconds": 143.58700670907274,
+      "stage": "gradient_compilation_and_execution",
+      "systemMemoryPressureLevel": 1,
+      "swapUsage": "total = 6144.00M  used = 4675.06M  free = 1468.94M  (encrypted)"
+    },
+    {
+      "residentBytes": 3038953472,
+      "physicalFootprintBytes": 8991989632,
+      "processStartAbstime": 38345498998537,
+      "elapsedSeconds": 144.6345835418906,
+      "stage": "gradient_compilation_and_execution",
+      "systemMemoryPressureLevel": 1,
+      "swapUsage": "total = 6144.00M  used = 4675.06M  free = 1468.94M  (encrypted)"
+    },
+    {
+      "residentBytes": 3046277120,
+      "physicalFootprintBytes": 8991989632,
+      "processStartAbstime": 38345498998537,
+      "elapsedSeconds": 145.68624616693705,
+      "stage": "gradient_compilation_and_execution",
+      "systemMemoryPressureLevel": 1,
+      "swapUsage": "total = 6144.00M  used = 4675.06M  free = 1468.94M  (encrypted)"
+    },
+    {
+      "residentBytes": 3046277120,
+      "physicalFootprintBytes": 8991989632,
+      "processStartAbstime": 38345498998537,
+      "elapsedSeconds": 146.75027237506583,
+      "stage": "gradient_compilation_and_execution",
+      "systemMemoryPressureLevel": 1,
+      "swapUsage": "total = 6144.00M  used = 4675.06M  free = 1468.94M  (encrypted)"
+    },
+    {
+      "residentBytes": 3053649920,
+      "physicalFootprintBytes": 8991989632,
+      "processStartAbstime": 38345498998537,
+      "elapsedSeconds": 147.80378308403306,
+      "stage": "gradient_compilation_and_execution",
+      "systemMemoryPressureLevel": 1,
+      "swapUsage": "total = 6144.00M  used = 4675.06M  free = 1468.94M  (encrypted)"
+    },
+    {
+      "residentBytes": 3053649920,
+      "physicalFootprintBytes": 8991989632,
+      "processStartAbstime": 38345498998537,
+      "elapsedSeconds": 148.86184670892544,
+      "stage": "gradient_compilation_and_execution",
+      "systemMemoryPressureLevel": 1,
+      "swapUsage": "total = 6144.00M  used = 4675.06M  free = 1468.94M  (encrypted)"
+    },
+    {
+      "residentBytes": 3053764608,
+      "physicalFootprintBytes": 8991989632,
+      "processStartAbstime": 38345498998537,
+      "elapsedSeconds": 149.9101170420181,
+      "stage": "gradient_compilation_and_execution",
+      "systemMemoryPressureLevel": 1,
+      "swapUsage": "total = 6144.00M  used = 4675.06M  free = 1468.94M  (encrypted)"
+    },
+    {
+      "residentBytes": 3061039104,
+      "physicalFootprintBytes": 8991989632,
+      "processStartAbstime": 38345498998537,
+      "elapsedSeconds": 150.95644037495367,
+      "stage": "gradient_compilation_and_execution",
+      "systemMemoryPressureLevel": 1,
+      "swapUsage": "total = 6144.00M  used = 4675.06M  free = 1468.94M  (encrypted)"
+    },
+    {
+      "residentBytes": 3061055488,
+      "physicalFootprintBytes": 8991989632,
+      "processStartAbstime": 38345498998537,
+      "elapsedSeconds": 152.00967824994586,
+      "stage": "gradient_compilation_and_execution",
+      "systemMemoryPressureLevel": 1,
+      "swapUsage": "total = 6144.00M  used = 4675.06M  free = 1468.94M  (encrypted)"
+    },
+    {
+      "residentBytes": 3529424896,
+      "physicalFootprintBytes": 9370296480,
+      "processStartAbstime": 38345498998537,
+      "elapsedSeconds": 153.05647520907223,
+      "stage": "gradient_compilation_and_execution",
+      "systemMemoryPressureLevel": 1,
+      "swapUsage": "total = 6144.00M  used = 4675.06M  free = 1468.94M  (encrypted)"
+    },
+    {
+      "residentBytes": 4038475776,
+      "physicalFootprintBytes": 9642844488,
+      "processStartAbstime": 38345498998537,
+      "elapsedSeconds": 154.11122008389793,
+      "stage": "gradient_compilation_and_execution",
+      "systemMemoryPressureLevel": 1,
+      "swapUsage": "total = 6144.00M  used = 4675.06M  free = 1468.94M  (encrypted)"
+    },
+    {
+      "residentBytes": 4029480960,
+      "physicalFootprintBytes": 9643041096,
+      "processStartAbstime": 38345498998537,
+      "elapsedSeconds": 155.1596802920103,
+      "stage": "gradient_compilation_and_execution",
+      "systemMemoryPressureLevel": 1,
+      "swapUsage": "total = 6144.00M  used = 4675.06M  free = 1468.94M  (encrypted)"
+    },
+    {
+      "residentBytes": 4011786240,
+      "physicalFootprintBytes": 9643041096,
+      "processStartAbstime": 38345498998537,
+      "elapsedSeconds": 156.20962854195386,
+      "stage": "gradient_compilation_and_execution",
+      "systemMemoryPressureLevel": 1,
+      "swapUsage": "total = 6144.00M  used = 4675.06M  free = 1468.94M  (encrypted)"
+    },
+    {
+      "residentBytes": 4539629568,
+      "physicalFootprintBytes": 10150716056,
+      "processStartAbstime": 38345498998537,
+      "elapsedSeconds": 157.25714587490074,
+      "stage": "gradient_compilation_and_execution",
+      "systemMemoryPressureLevel": 1,
+      "swapUsage": "total = 6144.00M  used = 4675.06M  free = 1468.94M  (encrypted)"
+    },
+    {
+      "residentBytes": 4413177856,
+      "physicalFootprintBytes": 10332496656,
+      "processStartAbstime": 38345498998537,
+      "elapsedSeconds": 158.3065789588727,
+      "stage": "gradient_compilation_and_execution",
+      "systemMemoryPressureLevel": 1,
+      "swapUsage": "total = 6144.00M  used = 4675.06M  free = 1468.94M  (encrypted)"
+    },
+    {
+      "residentBytes": 4490838016,
+      "physicalFootprintBytes": 10332676880,
+      "processStartAbstime": 38345498998537,
+      "elapsedSeconds": 159.3595053339377,
+      "stage": "gradient_compilation_and_execution",
+      "systemMemoryPressureLevel": 1,
+      "swapUsage": "total = 6144.00M  used = 4675.06M  free = 1468.94M  (encrypted)"
+    },
+    {
+      "residentBytes": 4228497408,
+      "physicalFootprintBytes": 10332807952,
+      "processStartAbstime": 38345498998537,
+      "elapsedSeconds": 160.40632224990986,
+      "stage": "gradient_compilation_and_execution",
+      "systemMemoryPressureLevel": 1,
+      "swapUsage": "total = 6144.00M  used = 4675.06M  free = 1468.94M  (encrypted)"
+    },
+    {
+      "residentBytes": 4404297728,
+      "physicalFootprintBytes": 10332807952,
+      "processStartAbstime": 38345498998537,
+      "elapsedSeconds": 161.45488399988972,
+      "stage": "gradient_compilation_and_execution",
+      "systemMemoryPressureLevel": 1,
+      "swapUsage": "total = 6144.00M  used = 4675.06M  free = 1468.94M  (encrypted)"
+    },
+    {
+      "residentBytes": 4255006720,
+      "physicalFootprintBytes": 10332807952,
+      "processStartAbstime": 38345498998537,
+      "elapsedSeconds": 162.49735966697335,
+      "stage": "gradient_compilation_and_execution",
+      "systemMemoryPressureLevel": 2,
+      "swapUsage": "total = 6144.00M  used = 4675.06M  free = 1468.94M  (encrypted)"
+    },
+    {
+      "residentBytes": 4360355840,
+      "physicalFootprintBytes": 10332807952,
+      "processStartAbstime": 38345498998537,
+      "elapsedSeconds": 163.54144783387892,
+      "stage": "gradient_compilation_and_execution",
+      "systemMemoryPressureLevel": 2,
+      "swapUsage": "total = 6144.00M  used = 4675.06M  free = 1468.94M  (encrypted)"
+    },
+    {
+      "residentBytes": 3147759616,
+      "physicalFootprintBytes": 10332807952,
+      "processStartAbstime": 38345498998537,
+      "elapsedSeconds": 164.58483999990858,
+      "stage": "gradient_compilation_and_execution",
+      "systemMemoryPressureLevel": 2,
+      "swapUsage": "total = 6144.00M  used = 4675.06M  free = 1468.94M  (encrypted)"
+    },
+    {
+      "residentBytes": 2790801408,
+      "physicalFootprintBytes": 10332807952,
+      "processStartAbstime": 38345498998537,
+      "elapsedSeconds": 165.63622858398594,
+      "stage": "gradient_compilation_and_execution",
+      "systemMemoryPressureLevel": 2,
+      "swapUsage": "total = 6144.00M  used = 4675.06M  free = 1468.94M  (encrypted)"
+    },
+    {
+      "residentBytes": 2612871168,
+      "physicalFootprintBytes": 10332807952,
+      "processStartAbstime": 38345498998537,
+      "elapsedSeconds": 166.70934766693972,
+      "stage": "gradient_compilation_and_execution",
+      "systemMemoryPressureLevel": 2,
+      "swapUsage": "total = 6144.00M  used = 4675.06M  free = 1468.94M  (encrypted)"
+    },
+    {
+      "residentBytes": 2853945344,
+      "physicalFootprintBytes": 10332807952,
+      "processStartAbstime": 38345498998537,
+      "elapsedSeconds": 167.74980224994943,
+      "stage": "gradient_compilation_and_execution",
+      "systemMemoryPressureLevel": 2,
+      "swapUsage": "total = 6144.00M  used = 4675.06M  free = 1468.94M  (encrypted)"
+    },
+    {
+      "residentBytes": 3164241920,
+      "physicalFootprintBytes": 10333266704,
+      "processStartAbstime": 38345498998537,
+      "elapsedSeconds": 168.79549441696145,
+      "stage": "gradient_compilation_and_execution",
+      "systemMemoryPressureLevel": 2,
+      "swapUsage": "total = 6144.00M  used = 4675.06M  free = 1468.94M  (encrypted)"
+    },
+    {
+      "residentBytes": 3176382464,
+      "physicalFootprintBytes": 10333790992,
+      "processStartAbstime": 38345498998537,
+      "elapsedSeconds": 169.8480026249308,
+      "stage": "gradient_compilation_and_execution",
+      "systemMemoryPressureLevel": 2,
+      "swapUsage": "total = 6144.00M  used = 4675.06M  free = 1468.94M  (encrypted)"
+    },
+    {
+      "residentBytes": 3188637696,
+      "physicalFootprintBytes": 10333823760,
+      "processStartAbstime": 38345498998537,
+      "elapsedSeconds": 170.90077470894903,
+      "stage": "gradient_compilation_and_execution",
+      "systemMemoryPressureLevel": 2,
+      "swapUsage": "total = 6144.00M  used = 4675.06M  free = 1468.94M  (encrypted)"
+    },
+    {
+      "residentBytes": 3112599552,
+      "physicalFootprintBytes": 10333840144,
+      "processStartAbstime": 38345498998537,
+      "elapsedSeconds": 171.95711000007577,
+      "stage": "gradient_compilation_and_execution",
+      "systemMemoryPressureLevel": 2,
+      "swapUsage": "total = 6144.00M  used = 4675.06M  free = 1468.94M  (encrypted)"
+    },
+    {
+      "residentBytes": 3157458944,
+      "physicalFootprintBytes": 10333840144,
+      "processStartAbstime": 38345498998537,
+      "elapsedSeconds": 173.00569241703488,
+      "stage": "gradient_compilation_and_execution",
+      "systemMemoryPressureLevel": 2,
+      "swapUsage": "total = 6144.00M  used = 4675.06M  free = 1468.94M  (encrypted)"
+    },
+    {
+      "residentBytes": 3190669312,
+      "physicalFootprintBytes": 10333856528,
+      "processStartAbstime": 38345498998537,
+      "elapsedSeconds": 174.05120270885527,
+      "stage": "gradient_compilation_and_execution",
+      "systemMemoryPressureLevel": 2,
+      "swapUsage": "total = 6144.00M  used = 4675.06M  free = 1468.94M  (encrypted)"
+    },
+    {
+      "residentBytes": 2968125440,
+      "physicalFootprintBytes": 10333856528,
+      "processStartAbstime": 38345498998537,
+      "elapsedSeconds": 175.0928694999311,
+      "stage": "gradient_compilation_and_execution",
+      "systemMemoryPressureLevel": 2,
+      "swapUsage": "total = 6144.00M  used = 4675.06M  free = 1468.94M  (encrypted)"
+    },
+    {
+      "residentBytes": 1798799360,
+      "physicalFootprintBytes": 10333856528,
+      "processStartAbstime": 38345498998537,
+      "elapsedSeconds": 176.1476502090227,
+      "stage": "gradient_compilation_and_execution",
+      "systemMemoryPressureLevel": 2,
+      "swapUsage": "total = 6144.00M  used = 5460.19M  free = 683.81M  (encrypted)"
+    },
+    {
+      "residentBytes": 1903034368,
+      "physicalFootprintBytes": 10333856528,
+      "processStartAbstime": 38345498998537,
+      "elapsedSeconds": 177.20217499998398,
+      "stage": "gradient_compilation_and_execution",
+      "systemMemoryPressureLevel": 2,
+      "swapUsage": "total = 6144.00M  used = 5662.69M  free = 481.31M  (encrypted)"
+    },
+    {
+      "residentBytes": 2784133120,
+      "physicalFootprintBytes": 10333938448,
+      "processStartAbstime": 38345498998537,
+      "elapsedSeconds": 178.2549125838559,
+      "stage": "gradient_compilation_and_execution",
+      "systemMemoryPressureLevel": 2,
+      "swapUsage": "total = 6144.00M  used = 5662.69M  free = 481.31M  (encrypted)"
+    },
+    {
+      "residentBytes": 3155918848,
+      "physicalFootprintBytes": 10333938448,
+      "processStartAbstime": 38345498998537,
+      "elapsedSeconds": 179.3095662088599,
+      "stage": "gradient_compilation_and_execution",
+      "systemMemoryPressureLevel": 2,
+      "swapUsage": "total = 6144.00M  used = 5662.69M  free = 481.31M  (encrypted)"
+    },
+    {
+      "residentBytes": 3156508672,
+      "physicalFootprintBytes": 10333938448,
+      "processStartAbstime": 38345498998537,
+      "elapsedSeconds": 180.35896958387457,
+      "stage": "gradient_compilation_and_execution",
+      "systemMemoryPressureLevel": 2,
+      "swapUsage": "total = 6144.00M  used = 5662.69M  free = 481.31M  (encrypted)"
+    },
+    {
+      "residentBytes": 3159097344,
+      "physicalFootprintBytes": 9880461952,
+      "processStartAbstime": 38345498998537,
+      "elapsedSeconds": 181.40387587505393,
+      "stage": "gradient_compilation_and_execution",
+      "systemMemoryPressureLevel": 2,
+      "swapUsage": "total = 6144.00M  used = 5662.69M  free = 481.31M  (encrypted)"
+    },
+    {
+      "residentBytes": 3168075776,
+      "physicalFootprintBytes": 9887130264,
+      "processStartAbstime": 38345498998537,
+      "elapsedSeconds": 182.46211633388884,
+      "stage": "gradient_compilation_and_execution",
+      "systemMemoryPressureLevel": 2,
+      "swapUsage": "total = 6144.00M  used = 5662.69M  free = 481.31M  (encrypted)"
+    },
+    {
+      "residentBytes": 3180019712,
+      "physicalFootprintBytes": 9888260760,
+      "processStartAbstime": 38345498998537,
+      "elapsedSeconds": 183.5057147499174,
+      "stage": "gradient_compilation_and_execution",
+      "systemMemoryPressureLevel": 2,
+      "swapUsage": "total = 6144.00M  used = 5662.69M  free = 481.31M  (encrypted)"
+    },
+    {
+      "residentBytes": 3180249088,
+      "physicalFootprintBytes": 9888293528,
+      "processStartAbstime": 38345498998537,
+      "elapsedSeconds": 184.54307495895773,
+      "stage": "gradient_compilation_and_execution",
+      "systemMemoryPressureLevel": 2,
+      "swapUsage": "total = 6144.00M  used = 5662.69M  free = 481.31M  (encrypted)"
+    },
+    {
+      "residentBytes": 3180249088,
+      "physicalFootprintBytes": 9888293528,
+      "processStartAbstime": 38345498998537,
+      "elapsedSeconds": 185.59155770903453,
+      "stage": "gradient_compilation_and_execution",
+      "systemMemoryPressureLevel": 2,
+      "swapUsage": "total = 6144.00M  used = 5662.69M  free = 481.31M  (encrypted)"
+    },
+    {
+      "residentBytes": 3189293056,
+      "physicalFootprintBytes": 9888309912,
+      "processStartAbstime": 38345498998537,
+      "elapsedSeconds": 186.6412982500624,
+      "stage": "gradient_compilation_and_execution",
+      "systemMemoryPressureLevel": 2,
+      "swapUsage": "total = 6144.00M  used = 5662.69M  free = 481.31M  (encrypted)"
+    },
+    {
+      "residentBytes": 3189342208,
+      "physicalFootprintBytes": 9888309912,
+      "processStartAbstime": 38345498998537,
+      "elapsedSeconds": 187.69981541694142,
+      "stage": "gradient_compilation_and_execution",
+      "systemMemoryPressureLevel": 2,
+      "swapUsage": "total = 6144.00M  used = 5662.69M  free = 481.31M  (encrypted)"
+    },
+    {
+      "residentBytes": 3196747776,
+      "physicalFootprintBytes": 9888309912,
+      "processStartAbstime": 38345498998537,
+      "elapsedSeconds": 188.74867387488484,
+      "stage": "gradient_compilation_and_execution",
+      "systemMemoryPressureLevel": 2,
+      "swapUsage": "total = 6144.00M  used = 5662.69M  free = 481.31M  (encrypted)"
+    },
+    {
+      "residentBytes": 3196747776,
+      "physicalFootprintBytes": 9723683384,
+      "processStartAbstime": 38345498998537,
+      "elapsedSeconds": 189.80112816696055,
+      "stage": "gradient_compilation_and_execution",
+      "systemMemoryPressureLevel": 2,
+      "swapUsage": "total = 6144.00M  used = 5662.69M  free = 481.31M  (encrypted)"
+    },
+    {
+      "residentBytes": 2834284544,
+      "physicalFootprintBytes": 9141248112,
+      "processStartAbstime": 38345498998537,
+      "elapsedSeconds": 190.8516529169865,
+      "stage": "gradient_compilation_and_execution",
+      "systemMemoryPressureLevel": 2,
+      "swapUsage": "total = 6144.00M  used = 5662.69M  free = 481.31M  (encrypted)"
+    },
+    {
+      "residentBytes": 3204235264,
+      "physicalFootprintBytes": 9503973752,
+      "processStartAbstime": 38345498998537,
+      "elapsedSeconds": 191.89636091701686,
+      "stage": "gradient_compilation_and_execution",
+      "systemMemoryPressureLevel": 2,
+      "swapUsage": "total = 6144.00M  used = 5662.69M  free = 481.31M  (encrypted)"
+    },
+    {
+      "residentBytes": 3204235264,
+      "physicalFootprintBytes": 9503973752,
+      "processStartAbstime": 38345498998537,
+      "elapsedSeconds": 192.94792866706848,
+      "stage": "gradient_compilation_and_execution",
+      "systemMemoryPressureLevel": 2,
+      "swapUsage": "total = 6144.00M  used = 5662.69M  free = 481.31M  (encrypted)"
+    },
+    {
+      "residentBytes": 3211722752,
+      "physicalFootprintBytes": 9503973752,
+      "processStartAbstime": 38345498998537,
+      "elapsedSeconds": 193.9932382090483,
+      "stage": "gradient_compilation_and_execution",
+      "systemMemoryPressureLevel": 2,
+      "swapUsage": "total = 6144.00M  used = 5662.69M  free = 481.31M  (encrypted)"
+    },
+    {
+      "residentBytes": 3211739136,
+      "physicalFootprintBytes": 9503990136,
+      "processStartAbstime": 38345498998537,
+      "elapsedSeconds": 195.04796974989586,
+      "stage": "gradient_compilation_and_execution",
+      "systemMemoryPressureLevel": 2,
+      "swapUsage": "total = 6144.00M  used = 5662.69M  free = 481.31M  (encrypted)"
+    },
+    {
+      "residentBytes": 3211821056,
+      "physicalFootprintBytes": 9504072056,
+      "processStartAbstime": 38345498998537,
+      "elapsedSeconds": 196.0937584999483,
+      "stage": "gradient_compilation_and_execution",
+      "systemMemoryPressureLevel": 2,
+      "swapUsage": "total = 6144.00M  used = 5662.69M  free = 481.31M  (encrypted)"
+    },
+    {
+      "residentBytes": 3219144704,
+      "physicalFootprintBytes": 9504072056,
+      "processStartAbstime": 38345498998537,
+      "elapsedSeconds": 197.14297845889814,
+      "stage": "gradient_compilation_and_execution",
+      "systemMemoryPressureLevel": 2,
+      "swapUsage": "total = 6144.00M  used = 5662.69M  free = 481.31M  (encrypted)"
+    },
+    {
+      "residentBytes": 3221192704,
+      "physicalFootprintBytes": 9505923448,
+      "processStartAbstime": 38345498998537,
+      "elapsedSeconds": 198.19532070891,
+      "stage": "gradient_compilation_and_execution",
+      "systemMemoryPressureLevel": 1,
+      "swapUsage": "total = 6144.00M  used = 5662.69M  free = 481.31M  (encrypted)"
+    },
+    {
+      "residentBytes": 3229335552,
+      "physicalFootprintBytes": 9506742648,
+      "processStartAbstime": 38345498998537,
+      "elapsedSeconds": 199.24808033392765,
+      "stage": "gradient_compilation_and_execution",
+      "systemMemoryPressureLevel": 1,
+      "swapUsage": "total = 6144.00M  used = 5662.69M  free = 481.31M  (encrypted)"
+    },
+    {
+      "residentBytes": 3231039488,
+      "physicalFootprintBytes": 9507250552,
+      "processStartAbstime": 38345498998537,
+      "elapsedSeconds": 200.30108999996446,
+      "stage": "gradient_compilation_and_execution",
+      "systemMemoryPressureLevel": 1,
+      "swapUsage": "total = 6144.00M  used = 5662.69M  free = 481.31M  (encrypted)"
+    },
+    {
+      "residentBytes": 3239837696,
+      "physicalFootprintBytes": 9507660152,
+      "processStartAbstime": 38345498998537,
+      "elapsedSeconds": 201.34538804204203,
+      "stage": "gradient_compilation_and_execution",
+      "systemMemoryPressureLevel": 1,
+      "swapUsage": "total = 6144.00M  used = 5662.69M  free = 481.31M  (encrypted)"
+    },
+    {
+      "residentBytes": 3247128576,
+      "physicalFootprintBytes": 9508249976,
+      "processStartAbstime": 38345498998537,
+      "elapsedSeconds": 202.39287420897745,
+      "stage": "gradient_compilation_and_execution",
+      "systemMemoryPressureLevel": 1,
+      "swapUsage": "total = 6144.00M  used = 5662.69M  free = 481.31M  (encrypted)"
+    },
+    {
+      "residentBytes": 3247161344,
+      "physicalFootprintBytes": 9508249976,
+      "processStartAbstime": 38345498998537,
+      "elapsedSeconds": 203.4448423339054,
+      "stage": "gradient_compilation_and_execution",
+      "systemMemoryPressureLevel": 1,
+      "swapUsage": "total = 6144.00M  used = 5662.69M  free = 481.31M  (encrypted)"
+    },
+    {
+      "residentBytes": 3255943168,
+      "physicalFootprintBytes": 9508299128,
+      "processStartAbstime": 38345498998537,
+      "elapsedSeconds": 204.4928569998592,
+      "stage": "gradient_compilation_and_execution",
+      "systemMemoryPressureLevel": 1,
+      "swapUsage": "total = 6144.00M  used = 5662.69M  free = 481.31M  (encrypted)"
+    },
+    {
+      "residentBytes": 3255943168,
+      "physicalFootprintBytes": 9508299128,
+      "processStartAbstime": 38345498998537,
+      "elapsedSeconds": 205.55107320891693,
+      "stage": "gradient_compilation_and_execution",
+      "systemMemoryPressureLevel": 1,
+      "swapUsage": "total = 6144.00M  used = 5662.69M  free = 481.31M  (encrypted)"
+    },
+    {
+      "residentBytes": 3263266816,
+      "physicalFootprintBytes": 9508299128,
+      "processStartAbstime": 38345498998537,
+      "elapsedSeconds": 206.60057508386672,
+      "stage": "gradient_compilation_and_execution",
+      "systemMemoryPressureLevel": 1,
+      "swapUsage": "total = 6144.00M  used = 5662.69M  free = 481.31M  (encrypted)"
+    },
+    {
+      "residentBytes": 3263266816,
+      "physicalFootprintBytes": 9508299128,
+      "processStartAbstime": 38345498998537,
+      "elapsedSeconds": 207.6462768339552,
+      "stage": "gradient_compilation_and_execution",
+      "systemMemoryPressureLevel": 1,
+      "swapUsage": "total = 6144.00M  used = 5662.69M  free = 481.31M  (encrypted)"
+    },
+    {
+      "residentBytes": 3263283200,
+      "physicalFootprintBytes": 9508299128,
+      "processStartAbstime": 38345498998537,
+      "elapsedSeconds": 208.68867708393373,
+      "stage": "gradient_compilation_and_execution",
+      "systemMemoryPressureLevel": 1,
+      "swapUsage": "total = 6144.00M  used = 5662.69M  free = 481.31M  (encrypted)"
+    },
+    {
+      "residentBytes": 3270672384,
+      "physicalFootprintBytes": 9508299128,
+      "processStartAbstime": 38345498998537,
+      "elapsedSeconds": 209.7416844170075,
+      "stage": "gradient_compilation_and_execution",
+      "systemMemoryPressureLevel": 1,
+      "swapUsage": "total = 6144.00M  used = 5662.69M  free = 481.31M  (encrypted)"
+    },
+    {
+      "residentBytes": 3270672384,
+      "physicalFootprintBytes": 9508299128,
+      "processStartAbstime": 38345498998537,
+      "elapsedSeconds": 210.7920296669472,
+      "stage": "gradient_compilation_and_execution",
+      "systemMemoryPressureLevel": 1,
+      "swapUsage": "total = 6144.00M  used = 5662.69M  free = 481.31M  (encrypted)"
+    },
+    {
+      "residentBytes": 3278536704,
+      "physicalFootprintBytes": 9509544312,
+      "processStartAbstime": 38345498998537,
+      "elapsedSeconds": 211.837872041855,
+      "stage": "gradient_compilation_and_execution",
+      "systemMemoryPressureLevel": 1,
+      "swapUsage": "total = 6144.00M  used = 5662.69M  free = 481.31M  (encrypted)"
+    },
+    {
+      "residentBytes": 3278635008,
+      "physicalFootprintBytes": 9509544312,
+      "processStartAbstime": 38345498998537,
+      "elapsedSeconds": 212.89659679192118,
+      "stage": "gradient_compilation_and_execution",
+      "systemMemoryPressureLevel": 1,
+      "swapUsage": "total = 6144.00M  used = 5662.69M  free = 481.31M  (encrypted)"
+    },
+    {
+      "residentBytes": 3278667776,
+      "physicalFootprintBytes": 9509544312,
+      "processStartAbstime": 38345498998537,
+      "elapsedSeconds": 213.94278216687962,
+      "stage": "gradient_compilation_and_execution",
+      "systemMemoryPressureLevel": 1,
+      "swapUsage": "total = 6144.00M  used = 5662.69M  free = 481.31M  (encrypted)"
+    },
+    {
+      "residentBytes": 3286138880,
+      "physicalFootprintBytes": 9509560696,
+      "processStartAbstime": 38345498998537,
+      "elapsedSeconds": 214.9920670420397,
+      "stage": "gradient_compilation_and_execution",
+      "systemMemoryPressureLevel": 1,
+      "swapUsage": "total = 6144.00M  used = 5662.69M  free = 481.31M  (encrypted)"
+    },
+    {
+      "residentBytes": 3286138880,
+      "physicalFootprintBytes": 9510330744,
+      "processStartAbstime": 38345498998537,
+      "elapsedSeconds": 216.0563494998496,
+      "stage": "gradient_compilation_and_execution",
+      "systemMemoryPressureLevel": 1,
+      "swapUsage": "total = 6144.00M  used = 5662.69M  free = 481.31M  (encrypted)"
+    },
+    {
+      "residentBytes": 3293511680,
+      "physicalFootprintBytes": 9510347128,
+      "processStartAbstime": 38345498998537,
+      "elapsedSeconds": 217.10109683405608,
+      "stage": "gradient_compilation_and_execution",
+      "systemMemoryPressureLevel": 1,
+      "swapUsage": "total = 6144.00M  used = 5662.69M  free = 481.31M  (encrypted)"
+    },
+    {
+      "residentBytes": 3293544448,
+      "physicalFootprintBytes": 9510347128,
+      "processStartAbstime": 38345498998537,
+      "elapsedSeconds": 218.14273195900023,
+      "stage": "gradient_compilation_and_execution",
+      "systemMemoryPressureLevel": 1,
+      "swapUsage": "total = 6144.00M  used = 5662.69M  free = 481.31M  (encrypted)"
+    },
+    {
+      "residentBytes": 3300720640,
+      "physicalFootprintBytes": 9510363512,
+      "processStartAbstime": 38345498998537,
+      "elapsedSeconds": 219.1880218340084,
+      "stage": "gradient_compilation_and_execution",
+      "systemMemoryPressureLevel": 1,
+      "swapUsage": "total = 6144.00M  used = 5662.69M  free = 481.31M  (encrypted)"
+    },
+    {
+      "residentBytes": 3300835328,
+      "physicalFootprintBytes": 9510347128,
+      "processStartAbstime": 38345498998537,
+      "elapsedSeconds": 220.2410578748677,
+      "stage": "gradient_compilation_and_execution",
+      "systemMemoryPressureLevel": 1,
+      "swapUsage": "total = 6144.00M  used = 5662.69M  free = 481.31M  (encrypted)"
+    },
+    {
+      "residentBytes": 3300835328,
+      "physicalFootprintBytes": 9510347128,
+      "processStartAbstime": 38345498998537,
+      "elapsedSeconds": 221.29260420892388,
+      "stage": "gradient_compilation_and_execution",
+      "systemMemoryPressureLevel": 1,
+      "swapUsage": "total = 6144.00M  used = 5662.69M  free = 481.31M  (encrypted)"
+    },
+    {
+      "residentBytes": 3308404736,
+      "physicalFootprintBytes": 9510560120,
+      "processStartAbstime": 38345498998537,
+      "elapsedSeconds": 222.3443347918801,
+      "stage": "gradient_compilation_and_execution",
+      "systemMemoryPressureLevel": 1,
+      "swapUsage": "total = 6144.00M  used = 5662.69M  free = 481.31M  (encrypted)"
+    },
+    {
+      "residentBytes": 3308634112,
+      "physicalFootprintBytes": 9510789496,
+      "processStartAbstime": 38345498998537,
+      "elapsedSeconds": 223.38952283398248,
+      "stage": "gradient_compilation_and_execution",
+      "systemMemoryPressureLevel": 1,
+      "swapUsage": "total = 6144.00M  used = 5662.69M  free = 481.31M  (encrypted)"
+    },
+    {
+      "residentBytes": 3315924992,
+      "physicalFootprintBytes": 9510789496,
+      "processStartAbstime": 38345498998537,
+      "elapsedSeconds": 224.44007074995898,
+      "stage": "gradient_compilation_and_execution",
+      "systemMemoryPressureLevel": 1,
+      "swapUsage": "total = 6144.00M  used = 5662.69M  free = 481.31M  (encrypted)"
+    },
+    {
+      "residentBytes": 3315924992,
+      "physicalFootprintBytes": 9510789496,
+      "processStartAbstime": 38345498998537,
+      "elapsedSeconds": 225.48686854192056,
+      "stage": "gradient_compilation_and_execution",
+      "systemMemoryPressureLevel": 1,
+      "swapUsage": "total = 6144.00M  used = 5662.69M  free = 481.31M  (encrypted)"
+    },
+    {
+      "residentBytes": 3315924992,
+      "physicalFootprintBytes": 9510789496,
+      "processStartAbstime": 38345498998537,
+      "elapsedSeconds": 226.53308041696437,
+      "stage": "gradient_compilation_and_execution",
+      "systemMemoryPressureLevel": 1,
+      "swapUsage": "total = 6144.00M  used = 5662.69M  free = 481.31M  (encrypted)"
+    },
+    {
+      "residentBytes": 3323281408,
+      "physicalFootprintBytes": 9511149944,
+      "processStartAbstime": 38345498998537,
+      "elapsedSeconds": 227.57963375002146,
+      "stage": "gradient_compilation_and_execution",
+      "systemMemoryPressureLevel": 1,
+      "swapUsage": "total = 6144.00M  used = 5662.69M  free = 481.31M  (encrypted)"
+    },
+    {
+      "residentBytes": 3323281408,
+      "physicalFootprintBytes": 9511149944,
+      "processStartAbstime": 38345498998537,
+      "elapsedSeconds": 228.63578799995594,
+      "stage": "gradient_compilation_and_execution",
+      "systemMemoryPressureLevel": 1,
+      "swapUsage": "total = 6144.00M  used = 5662.69M  free = 481.31M  (encrypted)"
+    },
+    {
+      "residentBytes": 3330588672,
+      "physicalFootprintBytes": 9511149944,
+      "processStartAbstime": 38345498998537,
+      "elapsedSeconds": 229.68123179185204,
+      "stage": "gradient_compilation_and_execution",
+      "systemMemoryPressureLevel": 1,
+      "swapUsage": "total = 6144.00M  used = 5662.69M  free = 481.31M  (encrypted)"
+    },
+    {
+      "residentBytes": 3330670592,
+      "physicalFootprintBytes": 9511231864,
+      "processStartAbstime": 38345498998537,
+      "elapsedSeconds": 230.73872808390297,
+      "stage": "gradient_compilation_and_execution",
+      "systemMemoryPressureLevel": 1,
+      "swapUsage": "total = 6144.00M  used = 5662.69M  free = 481.31M  (encrypted)"
+    },
+    {
+      "residentBytes": 3330670592,
+      "physicalFootprintBytes": 9514770808,
+      "processStartAbstime": 38345498998537,
+      "elapsedSeconds": 231.78381012496538,
+      "stage": "gradient_compilation_and_execution",
+      "systemMemoryPressureLevel": 1,
+      "swapUsage": "total = 6144.00M  used = 5662.69M  free = 481.31M  (encrypted)"
+    },
+    {
+      "residentBytes": 3328638976,
+      "physicalFootprintBytes": 9515704696,
+      "processStartAbstime": 38345498998537,
+      "elapsedSeconds": 232.83836079202592,
+      "stage": "gradient_compilation_and_execution",
+      "systemMemoryPressureLevel": 1,
+      "swapUsage": "total = 6144.00M  used = 5662.69M  free = 481.31M  (encrypted)"
+    },
+    {
+      "residentBytes": 3331473408,
+      "physicalFootprintBytes": 9515704696,
+      "processStartAbstime": 38345498998537,
+      "elapsedSeconds": 233.88813983392902,
+      "stage": "gradient_compilation_and_execution",
+      "systemMemoryPressureLevel": 1,
+      "swapUsage": "total = 6144.00M  used = 5662.69M  free = 481.31M  (encrypted)"
+    },
+    {
+      "residentBytes": 3343613952,
+      "physicalFootprintBytes": 9515704696,
+      "processStartAbstime": 38345498998537,
+      "elapsedSeconds": 234.93441770900972,
+      "stage": "gradient_compilation_and_execution",
+      "systemMemoryPressureLevel": 1,
+      "swapUsage": "total = 6144.00M  used = 5662.69M  free = 481.31M  (encrypted)"
+    },
+    {
+      "residentBytes": 3343777792,
+      "physicalFootprintBytes": 9515721080,
+      "processStartAbstime": 38345498998537,
+      "elapsedSeconds": 235.98629820905626,
+      "stage": "gradient_compilation_and_execution",
+      "systemMemoryPressureLevel": 1,
+      "swapUsage": "total = 6144.00M  used = 5662.69M  free = 481.31M  (encrypted)"
+    },
+    {
+      "residentBytes": 3343941632,
+      "physicalFootprintBytes": 9515737464,
+      "processStartAbstime": 38345498998537,
+      "elapsedSeconds": 237.03366025001742,
+      "stage": "gradient_compilation_and_execution",
+      "systemMemoryPressureLevel": 1,
+      "swapUsage": "total = 6144.00M  used = 5662.69M  free = 481.31M  (encrypted)"
+    },
+    {
+      "residentBytes": 3351216128,
+      "physicalFootprintBytes": 9515721080,
+      "processStartAbstime": 38345498998537,
+      "elapsedSeconds": 238.0791622090619,
+      "stage": "gradient_compilation_and_execution",
+      "systemMemoryPressureLevel": 1,
+      "swapUsage": "total = 6144.00M  used = 5662.69M  free = 481.31M  (encrypted)"
+    },
+    {
+      "residentBytes": 3350921216,
+      "physicalFootprintBytes": 9515721080,
+      "processStartAbstime": 38345498998537,
+      "elapsedSeconds": 239.1261456250213,
+      "stage": "gradient_compilation_and_execution",
+      "systemMemoryPressureLevel": 1,
+      "swapUsage": "total = 6144.00M  used = 5662.69M  free = 481.31M  (encrypted)"
+    },
+    {
+      "residentBytes": 3358244864,
+      "physicalFootprintBytes": 9515721080,
+      "processStartAbstime": 38345498998537,
+      "elapsedSeconds": 240.17612620885484,
+      "stage": "gradient_compilation_and_execution",
+      "systemMemoryPressureLevel": 1,
+      "swapUsage": "total = 6144.00M  used = 5662.69M  free = 481.31M  (encrypted)"
+    },
+    {
+      "residentBytes": 3358244864,
+      "physicalFootprintBytes": 9515721080,
+      "processStartAbstime": 38345498998537,
+      "elapsedSeconds": 241.22605154197663,
+      "stage": "gradient_compilation_and_execution",
+      "systemMemoryPressureLevel": 1,
+      "swapUsage": "total = 6144.00M  used = 5662.69M  free = 481.31M  (encrypted)"
+    },
+    {
+      "residentBytes": 3358343168,
+      "physicalFootprintBytes": 9515737464,
+      "processStartAbstime": 38345498998537,
+      "elapsedSeconds": 242.27545412490144,
+      "stage": "gradient_compilation_and_execution",
+      "systemMemoryPressureLevel": 1,
+      "swapUsage": "total = 6144.00M  used = 5662.69M  free = 481.31M  (encrypted)"
+    },
+    {
+      "residentBytes": 3365634048,
+      "physicalFootprintBytes": 9515721080,
+      "processStartAbstime": 38345498998537,
+      "elapsedSeconds": 243.31772533385083,
+      "stage": "gradient_compilation_and_execution",
+      "systemMemoryPressureLevel": 1,
+      "swapUsage": "total = 6144.00M  used = 5662.69M  free = 481.31M  (encrypted)"
+    },
+    {
+      "residentBytes": 3365634048,
+      "physicalFootprintBytes": 9515721080,
+      "processStartAbstime": 38345498998537,
+      "elapsedSeconds": 244.36760641704313,
+      "stage": "gradient_compilation_and_execution",
+      "systemMemoryPressureLevel": 1,
+      "swapUsage": "total = 6144.00M  used = 5662.69M  free = 481.31M  (encrypted)"
+    },
+    {
+      "residentBytes": 3372023808,
+      "physicalFootprintBytes": 9516638584,
+      "processStartAbstime": 38345498998537,
+      "elapsedSeconds": 245.41242025000975,
+      "stage": "gradient_compilation_and_execution",
+      "systemMemoryPressureLevel": 1,
+      "swapUsage": "total = 6144.00M  used = 5662.69M  free = 481.31M  (encrypted)"
+    },
+    {
+      "residentBytes": 3012100096,
+      "physicalFootprintBytes": 9516671352,
+      "processStartAbstime": 38345498998537,
+      "elapsedSeconds": 246.4576044168789,
+      "stage": "gradient_compilation_and_execution",
+      "systemMemoryPressureLevel": 1,
+      "swapUsage": "total = 6144.00M  used = 5662.69M  free = 481.31M  (encrypted)"
+    },
+    {
+      "residentBytes": 3163471872,
+      "physicalFootprintBytes": 9516720504,
+      "processStartAbstime": 38345498998537,
+      "elapsedSeconds": 247.50317599996924,
+      "stage": "gradient_compilation_and_execution",
+      "systemMemoryPressureLevel": 1,
+      "swapUsage": "total = 6144.00M  used = 5662.69M  free = 481.31M  (encrypted)"
+    },
+    {
+      "residentBytes": 3370565632,
+      "physicalFootprintBytes": 9516720504,
+      "processStartAbstime": 38345498998537,
+      "elapsedSeconds": 248.54924879199825,
+      "stage": "gradient_compilation_and_execution",
+      "systemMemoryPressureLevel": 1,
+      "swapUsage": "total = 6144.00M  used = 5662.69M  free = 481.31M  (encrypted)"
+    },
+    {
+      "residentBytes": 3370565632,
+      "physicalFootprintBytes": 9516720504,
+      "processStartAbstime": 38345498998537,
+      "elapsedSeconds": 249.60251154191792,
+      "stage": "gradient_compilation_and_execution",
+      "systemMemoryPressureLevel": 1,
+      "swapUsage": "total = 6144.00M  used = 5662.69M  free = 481.31M  (encrypted)"
+    },
+    {
+      "residentBytes": 3377872896,
+      "physicalFootprintBytes": 9516720504,
+      "processStartAbstime": 38345498998537,
+      "elapsedSeconds": 250.65108983404934,
+      "stage": "gradient_compilation_and_execution",
+      "systemMemoryPressureLevel": 1,
+      "swapUsage": "total = 6144.00M  used = 5662.69M  free = 481.31M  (encrypted)"
+    },
+    {
+      "residentBytes": 3377872896,
+      "physicalFootprintBytes": 9516720504,
+      "processStartAbstime": 38345498998537,
+      "elapsedSeconds": 251.70103308395483,
+      "stage": "gradient_compilation_and_execution",
+      "systemMemoryPressureLevel": 1,
+      "swapUsage": "total = 6144.00M  used = 5662.69M  free = 481.31M  (encrypted)"
+    },
+    {
+      "residentBytes": 3385720832,
+      "physicalFootprintBytes": 9516720504,
+      "processStartAbstime": 38345498998537,
+      "elapsedSeconds": 252.74840687494725,
+      "stage": "gradient_compilation_and_execution",
+      "systemMemoryPressureLevel": 1,
+      "swapUsage": "total = 6144.00M  used = 5662.69M  free = 481.31M  (encrypted)"
+    },
+    {
+      "residentBytes": 3385786368,
+      "physicalFootprintBytes": 9516720504,
+      "processStartAbstime": 38345498998537,
+      "elapsedSeconds": 253.79760599997826,
+      "stage": "gradient_compilation_and_execution",
+      "systemMemoryPressureLevel": 1,
+      "swapUsage": "total = 6144.00M  used = 5662.69M  free = 481.31M  (encrypted)"
+    },
+    {
+      "residentBytes": 3385819136,
+      "physicalFootprintBytes": 9516720504,
+      "processStartAbstime": 38345498998537,
+      "elapsedSeconds": 254.84719420899637,
+      "stage": "gradient_compilation_and_execution",
+      "systemMemoryPressureLevel": 1,
+      "swapUsage": "total = 6144.00M  used = 5662.69M  free = 481.31M  (encrypted)"
+    },
+    {
+      "residentBytes": 3393191936,
+      "physicalFootprintBytes": 9516720504,
+      "processStartAbstime": 38345498998537,
+      "elapsedSeconds": 255.89462416688912,
+      "stage": "gradient_compilation_and_execution",
+      "systemMemoryPressureLevel": 1,
+      "swapUsage": "total = 6144.00M  used = 5662.69M  free = 481.31M  (encrypted)"
+    },
+    {
+      "residentBytes": 3393191936,
+      "physicalFootprintBytes": 9516720504,
+      "processStartAbstime": 38345498998537,
+      "elapsedSeconds": 256.9445919590071,
+      "stage": "gradient_compilation_and_execution",
+      "systemMemoryPressureLevel": 1,
+      "swapUsage": "total = 6144.00M  used = 5662.69M  free = 481.31M  (encrypted)"
+    },
+    {
+      "residentBytes": 3400482816,
+      "physicalFootprintBytes": 9516720504,
+      "processStartAbstime": 38345498998537,
+      "elapsedSeconds": 257.99836866697297,
+      "stage": "gradient_compilation_and_execution",
+      "systemMemoryPressureLevel": 1,
+      "swapUsage": "total = 6144.00M  used = 5662.69M  free = 481.31M  (encrypted)"
+    },
+    {
+      "residentBytes": 3400482816,
+      "physicalFootprintBytes": 9516720504,
+      "processStartAbstime": 38345498998537,
+      "elapsedSeconds": 259.045979749877,
+      "stage": "gradient_compilation_and_execution",
+      "systemMemoryPressureLevel": 1,
+      "swapUsage": "total = 6144.00M  used = 5662.69M  free = 481.31M  (encrypted)"
+    },
+    {
+      "residentBytes": 3407790080,
+      "physicalFootprintBytes": 9516720504,
+      "processStartAbstime": 38345498998537,
+      "elapsedSeconds": 260.0997160419356,
+      "stage": "gradient_compilation_and_execution",
+      "systemMemoryPressureLevel": 1,
+      "swapUsage": "total = 6144.00M  used = 5662.69M  free = 481.31M  (encrypted)"
+    },
+    {
+      "residentBytes": 3407790080,
+      "physicalFootprintBytes": 9516720504,
+      "processStartAbstime": 38345498998537,
+      "elapsedSeconds": 261.14749829191715,
+      "stage": "gradient_compilation_and_execution",
+      "systemMemoryPressureLevel": 1,
+      "swapUsage": "total = 6144.00M  used = 5662.69M  free = 481.31M  (encrypted)"
+    },
+    {
+      "residentBytes": 3407790080,
+      "physicalFootprintBytes": 9516933496,
+      "processStartAbstime": 38345498998537,
+      "elapsedSeconds": 262.19799224985763,
+      "stage": "gradient_compilation_and_execution",
+      "systemMemoryPressureLevel": 1,
+      "swapUsage": "total = 6144.00M  used = 5662.69M  free = 481.31M  (encrypted)"
+    },
+    {
+      "residentBytes": 3415097344,
+      "physicalFootprintBytes": 9516966264,
+      "processStartAbstime": 38345498998537,
+      "elapsedSeconds": 263.2456777920015,
+      "stage": "gradient_compilation_and_execution",
+      "systemMemoryPressureLevel": 1,
+      "swapUsage": "total = 6144.00M  used = 5662.69M  free = 481.31M  (encrypted)"
+    },
+    {
+      "residentBytes": 3417571328,
+      "physicalFootprintBytes": 9517818232,
+      "processStartAbstime": 38345498998537,
+      "elapsedSeconds": 264.2969767919276,
+      "stage": "gradient_compilation_and_execution",
+      "systemMemoryPressureLevel": 1,
+      "swapUsage": "total = 6144.00M  used = 5662.69M  free = 481.31M  (encrypted)"
+    },
+    {
+      "residentBytes": 3427287040,
+      "physicalFootprintBytes": 9517965688,
+      "processStartAbstime": 38345498998537,
+      "elapsedSeconds": 265.34727883385494,
+      "stage": "gradient_compilation_and_execution",
+      "systemMemoryPressureLevel": 1,
+      "swapUsage": "total = 6144.00M  used = 5662.69M  free = 481.31M  (encrypted)"
+    },
+    {
+      "residentBytes": 3429793792,
+      "physicalFootprintBytes": 9519112568,
+      "processStartAbstime": 38345498998537,
+      "elapsedSeconds": 266.3946742089465,
+      "stage": "gradient_compilation_and_execution",
+      "systemMemoryPressureLevel": 1,
+      "swapUsage": "total = 6144.00M  used = 5662.69M  free = 481.31M  (encrypted)"
+    },
+    {
+      "residentBytes": 3432611840,
+      "physicalFootprintBytes": 9520324984,
+      "processStartAbstime": 38345498998537,
+      "elapsedSeconds": 267.4408103339374,
+      "stage": "gradient_compilation_and_execution",
+      "systemMemoryPressureLevel": 1,
+      "swapUsage": "total = 6144.00M  used = 5662.69M  free = 481.31M  (encrypted)"
+    },
+    {
+      "residentBytes": 3430498304,
+      "physicalFootprintBytes": 9521930616,
+      "processStartAbstime": 38345498998537,
+      "elapsedSeconds": 268.48694937489927,
+      "stage": "gradient_compilation_and_execution",
+      "systemMemoryPressureLevel": 1,
+      "swapUsage": "total = 6144.00M  used = 5662.69M  free = 481.31M  (encrypted)"
+    },
+    {
+      "residentBytes": 3430498304,
+      "physicalFootprintBytes": 9521930616,
+      "processStartAbstime": 38345498998537,
+      "elapsedSeconds": 269.5394822920207,
+      "stage": "gradient_compilation_and_execution",
+      "systemMemoryPressureLevel": 1,
+      "swapUsage": "total = 6144.00M  used = 5662.69M  free = 481.31M  (encrypted)"
+    },
+    {
+      "residentBytes": 3437903872,
+      "physicalFootprintBytes": 9521930616,
+      "processStartAbstime": 38345498998537,
+      "elapsedSeconds": 270.58250037487596,
+      "stage": "gradient_compilation_and_execution",
+      "systemMemoryPressureLevel": 1,
+      "swapUsage": "total = 6144.00M  used = 5662.69M  free = 481.31M  (encrypted)"
+    },
+    {
+      "residentBytes": 3437920256,
+      "physicalFootprintBytes": 9521930616,
+      "processStartAbstime": 38345498998537,
+      "elapsedSeconds": 271.62740133400075,
+      "stage": "gradient_compilation_and_execution",
+      "systemMemoryPressureLevel": 1,
+      "swapUsage": "total = 6144.00M  used = 5662.69M  free = 481.31M  (encrypted)"
+    },
+    {
+      "residentBytes": 3445161984,
+      "physicalFootprintBytes": 9521947000,
+      "processStartAbstime": 38345498998537,
+      "elapsedSeconds": 272.6792864999734,
+      "stage": "gradient_compilation_and_execution",
+      "systemMemoryPressureLevel": 1,
+      "swapUsage": "total = 6144.00M  used = 5662.69M  free = 481.31M  (encrypted)"
+    },
+    {
+      "residentBytes": 3445489664,
+      "physicalFootprintBytes": 9521930616,
+      "processStartAbstime": 38345498998537,
+      "elapsedSeconds": 273.73158712498844,
+      "stage": "gradient_compilation_and_execution",
+      "systemMemoryPressureLevel": 1,
+      "swapUsage": "total = 6144.00M  used = 5662.69M  free = 481.31M  (encrypted)"
+    },
+    {
+      "residentBytes": 3445293056,
+      "physicalFootprintBytes": 9523650936,
+      "processStartAbstime": 38345498998537,
+      "elapsedSeconds": 274.7881025839597,
+      "stage": "gradient_compilation_and_execution",
+      "systemMemoryPressureLevel": 1,
+      "swapUsage": "total = 6144.00M  used = 5662.69M  free = 481.31M  (encrypted)"
+    },
+    {
+      "residentBytes": 3046047744,
+      "physicalFootprintBytes": 9526829432,
+      "processStartAbstime": 38345498998537,
+      "elapsedSeconds": 275.8375943750143,
+      "stage": "gradient_compilation_and_execution",
+      "systemMemoryPressureLevel": 1,
+      "swapUsage": "total = 6144.00M  used = 5662.69M  free = 481.31M  (encrypted)"
+    },
+    {
+      "residentBytes": 3282550784,
+      "physicalFootprintBytes": 9526813048,
+      "processStartAbstime": 38345498998537,
+      "elapsedSeconds": 276.9177170000039,
+      "stage": "gradient_compilation_and_execution",
+      "systemMemoryPressureLevel": 1,
+      "swapUsage": "total = 6144.00M  used = 5662.69M  free = 481.31M  (encrypted)"
+    },
+    {
+      "residentBytes": 3283582976,
+      "physicalFootprintBytes": 9526813048,
+      "processStartAbstime": 38345498998537,
+      "elapsedSeconds": 277.95393791701645,
+      "stage": "gradient_compilation_and_execution",
+      "systemMemoryPressureLevel": 1,
+      "swapUsage": "total = 6144.00M  used = 5662.69M  free = 481.31M  (encrypted)"
+    },
+    {
+      "residentBytes": 3291365376,
+      "physicalFootprintBytes": 9526813048,
+      "processStartAbstime": 38345498998537,
+      "elapsedSeconds": 279.0085067090113,
+      "stage": "gradient_compilation_and_execution",
+      "systemMemoryPressureLevel": 1,
+      "swapUsage": "total = 6144.00M  used = 5662.69M  free = 481.31M  (encrypted)"
+    },
+    {
+      "residentBytes": 3291725824,
+      "physicalFootprintBytes": 9526813048,
+      "processStartAbstime": 38345498998537,
+      "elapsedSeconds": 280.05430841702037,
+      "stage": "gradient_compilation_and_execution",
+      "systemMemoryPressureLevel": 1,
+      "swapUsage": "total = 6144.00M  used = 5662.69M  free = 481.31M  (encrypted)"
+    },
+    {
+      "residentBytes": 3291856896,
+      "physicalFootprintBytes": 9526813048,
+      "processStartAbstime": 38345498998537,
+      "elapsedSeconds": 281.10012054187246,
+      "stage": "gradient_compilation_and_execution",
+      "systemMemoryPressureLevel": 1,
+      "swapUsage": "total = 6144.00M  used = 5662.69M  free = 481.31M  (encrypted)"
+    },
+    {
+      "residentBytes": 3299246080,
+      "physicalFootprintBytes": 9526813048,
+      "processStartAbstime": 38345498998537,
+      "elapsedSeconds": 282.1534916248638,
+      "stage": "gradient_compilation_and_execution",
+      "systemMemoryPressureLevel": 1,
+      "swapUsage": "total = 6144.00M  used = 5662.69M  free = 481.31M  (encrypted)"
+    },
+    {
+      "residentBytes": 3299246080,
+      "physicalFootprintBytes": 9526813048,
+      "processStartAbstime": 38345498998537,
+      "elapsedSeconds": 283.2010564589873,
+      "stage": "gradient_compilation_and_execution",
+      "systemMemoryPressureLevel": 1,
+      "swapUsage": "total = 6144.00M  used = 5662.69M  free = 481.31M  (encrypted)"
+    },
+    {
+      "residentBytes": 3306766336,
+      "physicalFootprintBytes": 9526813048,
+      "processStartAbstime": 38345498998537,
+      "elapsedSeconds": 284.25014545884915,
+      "stage": "gradient_compilation_and_execution",
+      "systemMemoryPressureLevel": 1,
+      "swapUsage": "total = 6144.00M  used = 5662.69M  free = 481.31M  (encrypted)"
+    },
+    {
+      "residentBytes": 3306782720,
+      "physicalFootprintBytes": 9526813048,
+      "processStartAbstime": 38345498998537,
+      "elapsedSeconds": 285.3028098340146,
+      "stage": "gradient_compilation_and_execution",
+      "systemMemoryPressureLevel": 1,
+      "swapUsage": "total = 6144.00M  used = 5662.69M  free = 481.31M  (encrypted)"
+    },
+    {
+      "residentBytes": 3314253824,
+      "physicalFootprintBytes": 9526829432,
+      "processStartAbstime": 38345498998537,
+      "elapsedSeconds": 286.347819208866,
+      "stage": "gradient_compilation_and_execution",
+      "systemMemoryPressureLevel": 1,
+      "swapUsage": "total = 6144.00M  used = 5662.69M  free = 481.31M  (encrypted)"
+    },
+    {
+      "residentBytes": 3314548736,
+      "physicalFootprintBytes": 9526813048,
+      "processStartAbstime": 38345498998537,
+      "elapsedSeconds": 287.39612449985,
+      "stage": "gradient_compilation_and_execution",
+      "systemMemoryPressureLevel": 1,
+      "swapUsage": "total = 6144.00M  used = 5662.69M  free = 481.31M  (encrypted)"
+    },
+    {
+      "residentBytes": 3314565120,
+      "physicalFootprintBytes": 9526813048,
+      "processStartAbstime": 38345498998537,
+      "elapsedSeconds": 288.43980200006627,
+      "stage": "gradient_compilation_and_execution",
+      "systemMemoryPressureLevel": 1,
+      "swapUsage": "total = 6144.00M  used = 5662.69M  free = 481.31M  (encrypted)"
+    },
+    {
+      "residentBytes": 3321937920,
+      "physicalFootprintBytes": 9526813048,
+      "processStartAbstime": 38345498998537,
+      "elapsedSeconds": 289.48546945885755,
+      "stage": "gradient_compilation_and_execution",
+      "systemMemoryPressureLevel": 1,
+      "swapUsage": "total = 6144.00M  used = 5662.69M  free = 481.31M  (encrypted)"
+    },
+    {
+      "residentBytes": 3321937920,
+      "physicalFootprintBytes": 9526813048,
+      "processStartAbstime": 38345498998537,
+      "elapsedSeconds": 290.53955774987116,
+      "stage": "gradient_compilation_and_execution",
+      "systemMemoryPressureLevel": 1,
+      "swapUsage": "total = 6144.00M  used = 5662.69M  free = 481.31M  (encrypted)"
+    },
+    {
+      "residentBytes": 3329261568,
+      "physicalFootprintBytes": 9526813048,
+      "processStartAbstime": 38345498998537,
+      "elapsedSeconds": 291.59272279194556,
+      "stage": "gradient_compilation_and_execution",
+      "systemMemoryPressureLevel": 1,
+      "swapUsage": "total = 6144.00M  used = 5662.69M  free = 481.31M  (encrypted)"
+    },
+    {
+      "residentBytes": 3329261568,
+      "physicalFootprintBytes": 9526813048,
+      "processStartAbstime": 38345498998537,
+      "elapsedSeconds": 292.64782937499695,
+      "stage": "gradient_compilation_and_execution",
+      "systemMemoryPressureLevel": 1,
+      "swapUsage": "total = 6144.00M  used = 5662.69M  free = 481.31M  (encrypted)"
+    },
+    {
+      "residentBytes": 3329261568,
+      "physicalFootprintBytes": 9526813048,
+      "processStartAbstime": 38345498998537,
+      "elapsedSeconds": 293.68946116697043,
+      "stage": "gradient_compilation_and_execution",
+      "systemMemoryPressureLevel": 1,
+      "swapUsage": "total = 6144.00M  used = 5662.69M  free = 481.31M  (encrypted)"
+    },
+    {
+      "residentBytes": 5074354176,
+      "physicalFootprintBytes": 9901875792,
+      "processStartAbstime": 38345498998537,
+      "elapsedSeconds": 294.726072459016,
+      "stage": "gradient_compilation_and_execution",
+      "systemMemoryPressureLevel": 1,
+      "swapUsage": "total = 6144.00M  used = 5662.69M  free = 481.31M  (encrypted)"
+    },
+    {
+      "residentBytes": 6027493376,
+      "physicalFootprintBytes": 9904087632,
+      "processStartAbstime": 38345498998537,
+      "elapsedSeconds": 295.75733987498097,
+      "stage": "gradient_compilation_and_execution",
+      "systemMemoryPressureLevel": 2,
+      "swapUsage": "total = 6144.00M  used = 5662.69M  free = 481.31M  (encrypted)"
+    },
+    {
+      "residentBytes": 4101799936,
+      "physicalFootprintBytes": 9968018024,
+      "processStartAbstime": 38345498998537,
+      "elapsedSeconds": 296.8012438749429,
+      "stage": "gradient_compilation_and_execution",
+      "systemMemoryPressureLevel": 2,
+      "swapUsage": "total = 7168.00M  used = 5915.62M  free = 1252.38M  (encrypted)"
+    },
+    {
+      "residentBytes": 4064837632,
+      "physicalFootprintBytes": 10058932888,
+      "processStartAbstime": 38345498998537,
+      "elapsedSeconds": 297.84467424987815,
+      "stage": "gradient_compilation_and_execution",
+      "systemMemoryPressureLevel": 2,
+      "swapUsage": "total = 7168.00M  used = 6246.44M  free = 921.56M  (encrypted)"
+    },
+    {
+      "residentBytes": 6251266048,
+      "physicalFootprintBytes": 11387708992,
+      "processStartAbstime": 38345498998537,
+      "elapsedSeconds": 298.91562737501226,
+      "stage": "gradient_compilation_and_execution",
+      "systemMemoryPressureLevel": 2,
+      "swapUsage": "total = 7168.00M  used = 6246.44M  free = 921.56M  (encrypted)"
+    },
+    {
+      "residentBytes": 4091953152,
+      "physicalFootprintBytes": 13263187032,
+      "processStartAbstime": 38345498998537,
+      "elapsedSeconds": 299.9653131249361,
+      "stage": "gradient_compilation_and_execution",
+      "systemMemoryPressureLevel": 2,
+      "swapUsage": "total = 7168.00M  used = 6298.31M  free = 869.69M  (encrypted)"
+    },
+    {
+      "residentBytes": 3888758784,
+      "physicalFootprintBytes": 14666821464,
+      "processStartAbstime": 38345498998537,
+      "elapsedSeconds": 301.0526492500212,
+      "stage": "gradient_compilation_and_execution",
+      "systemMemoryPressureLevel": 2,
+      "swapUsage": "total = 9216.00M  used = 8146.31M  free = 1069.69M  (encrypted)"
+    }
+  ],
+  "observedParentPeakRSSBytes": 6435815424,
+  "observedParentPeakFootprintBytes": 15200350448,
+  "experimentFootprintCeilingGiB": 14,
+  "memoryMeasurement": "macOS proc_pid_rusage ri_phys_footprint, including compressed allocations",
+  "parentWallSeconds": 302.19477254198864,
+  "processExitCode": -15,
+  "ssdRemainingBytesBeforeCleanup": 9665972632,
+  "ssdOwnedScratchRemoved": true,
+  "error": "Measured macOS task footprint, including compressed allocations, crossed the 14 GiB experiment ceiling; not a claim of exhausting all physical memory."
+}

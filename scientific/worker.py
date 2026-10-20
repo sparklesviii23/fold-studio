@@ -352,6 +352,16 @@ class Service:
         if job['engine']=='bindcraft2':
             from bindcraft_cpu import progress_from_log
             job['data']['executionProgress']=progress_from_log(job['log'])
+            if job['data'].get('memoryPolicy'):
+                execution={}
+                for key,name in (('telemetry','amme-memory.json'),('stage','amme-stage.json')):
+                    report=path.parent/name
+                    try:
+                        if report.is_file() and not report.is_symlink() and report.stat().st_size<=1024**2:
+                            value=json.loads(report.read_text())
+                            if isinstance(value,dict):execution[key]=value
+                    except (OSError,ValueError):pass
+                job['data']['memoryExecution']=execution
         return job
     def job_cancel(self,p):
         job=self.job(p['id'])

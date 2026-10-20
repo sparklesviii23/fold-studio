@@ -28,6 +28,14 @@ def prepare(engine,p):
  runtime=json.loads((folder/'runtime-provenance.json').read_text())
  if runtime.get('execution')!=data.get('execution') or runtime.get('precision')!=data.get('precision') or runtime.get('upstreamSource',{}).get('manifestSha256')!=source['manifestSha256']:raise ValueError('Original scientific runtime provenance differs.')
  if data.get('precision')=='float32' and runtime.get('precisionAdapterSha256')!=fe.checksum(pathlib.Path(__file__).with_name('af2_native.py').read_bytes()):raise ValueError('The validated numerical adapter differs from this campaign.')
+ if data.get('memoryPolicy'):
+  from amme_campaign import POLICY,environment
+  import os
+  policy=runtime.get('amme',{})
+  if data['memoryPolicy']!=POLICY or policy.get('policy')!=POLICY:raise ValueError('The original Fab memory policy differs; recovery refused.')
+  for key,name in (('adapterSha256','amme_campaign.py'),('ssdAdapterSha256','ssd_checkpoint.py')):
+   if policy.get(key)!=fe.checksum(pathlib.Path(__file__).with_name(name).read_bytes()):raise ValueError('The original Fab memory adapter differs; recovery refused.')
+  if policy.get('compilerEnvironment')!=environment(os.environ)['XLA_FLAGS']:raise ValueError('Fab compiler settings differ from the original execution; recovery refused.')
  state_path=folder/'output/.campaign_state.json'
  if state_path.is_symlink() or not state_path.is_file():raise ValueError('No upstream campaign progress exists. Prepare a repeat to retry initialization.')
  state=json.loads(state_path.read_text());attempts=state.get('trajectories');accepted=state.get('accepted');maximum=original.get('max_trajectories');requested=original.get('number_of_final_designs')
@@ -54,7 +62,7 @@ def archive(folder,recovery):
  history=folder/'recovery';history.mkdir(exist_ok=True);index=1
  while (history/f'{index:04d}').exists():index+=1
  target=history/f'{index:04d}';target.mkdir()
- for name in ('execution-settings.json','runtime-provenance.json','execution.log'):
+ for name in ('execution-settings.json','runtime-provenance.json','execution.log','amme-memory.json','amme-stage.json'):
   path=folder/name
   if path.is_file():(target/name).write_bytes(path.read_bytes())
  (target/'receipt.json').write_text(json.dumps(recovery,indent=2)+'\n')

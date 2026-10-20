@@ -1,12 +1,12 @@
 {
   "schemaVersion": 1,
-  "updatedUtc": "2026-10-20T17:50:33.767791+00:00",
+  "updatedUtc": "2026-10-20T23:01:39.832599+00:00",
   "branch": "project-metal/apple-silicon-engine",
   "implementationCommit": "cf8b07c (scientific implementation and native package; subsequent validation-only checkpoint)",
-  "scope": "Project Metal Omega: complete authentic local BindCraft2 integration. No new Vina, OpenMM or interface redesign work.",
+  "scope": "Current directive: full Fab fidelity, AMME profiling/rematerialization/offload and remaining non-Fab inventory accounting; no UI redesign or unrelated scientific features.",
   "upstreamRevision": "c0ee638d11bc010817c2c97ee58ed5c323e664e2",
   "verified": {
-    "backendTests": 361,
+    "backendTests": 371,
     "frontendTests": 76,
     "typescript": "passed",
     "corePipeline": "Real 175-residue hPDL1 ensemble design + ProteinMPNN + held-out AF2 + original filters; one accepted computational prediction, no biological claim.",
@@ -31,7 +31,14 @@
     "campaignUtilities": "Actual original custom filtering (2pass/1reject), source metric listing, multi-metric explicit-direction ranking, lossless trajectory compression/restoration and persistence-failure rollback passed on genuine saved175-residue ensemble results. Original output data,157summary rows, job state and original QA source unchanged after roundtrip.",
     "sequenceCropStates": "Actual native cf8b07c app completed a two-crop12res peptide original-filter CPU trajectory in359.914s. Finite readings for both target_epitope states; screen/refine passed, original anneal rejection,1trajectory/0refolds/0accepted. Single immutable FASTA input and recorded scalar-to-fixed-range compatibility adapter. Three-state preparation tested, not model execution. Accepted multi-crop refolding/import remains unexercised.",
     "scalarCropCompatibility": "Original scalar16 and normalized[16,16] produce exactly equal source-sampled sequence/position/validation-flank inputs for two and three states across two seeds. Saved scalar recipe remains unchanged, execution normalization receipt recorded. Genuine native multi-crop campaign now completes.",
-    "latestNativePackage": "cf8b07c local ad-hoc signed5.24GiB app; app-owned CPU runtime/checkpoints selected automatically, native selector/prepare/repeat/start/outcome inspection verified. Deep signature passed after real model execution."
+    "latestNativePackage": "cf8b07c local ad-hoc signed5.24GiB app; app-owned CPU runtime/checkpoints selected automatically, native selector/prepare/repeat/start/outcome inspection verified. Deep signature passed after real model execution.",
+    "ammeGraphProfiling": "Real full Fab/hPDL1 abstract gradient graph captured with original3design models resident, original1/3/5 design and2/4multimer heldout selection. Largest logical layer inputs8.70GB; two triangle-attention residual arrays3.35GB each disappear under scoped subbatch rematerialization. Logical graph values are not measured simultaneous resident peak.",
+    "ammeNumericalParity": "Real trained64padded CPU reference vs fine-grained original subbatch rematerialization, both alone and with54SSD checkpoints: equal loss/coordinates, largest reported gradient difference4.768e-7, predefined rtol1e-4/atol1e-5 pass. No full Fab gradient result yet.",
+    "ammeCompiledMemory": "Full595-per-chain-padded Fab gradient: attention+SSD12,641,092,472B temporary heap; adding structure12,641,089,872B; adding triangles12,987,722,576B. These are compiler buffer estimates, not measured full resident peaks. Extra policies do not provide a meaningful benefit and remain diagnostic only.",
+    "ammeMemoryScheduler": "Installed CPU_SCHEDULER_TYPE_MEMORY_OPTIMIZED reduces compiled full Fab temporary heap12,641,092,472\u21927,148,896,184B (43.45%). Real small trained-model loss and coordinates identical; gradients differ at most4.768e-7, unchanged rtol1e-4/atol1e-5 pass.",
+    "ammeFullFabGradient": "Full original H231/L213 Fab +115-residue full hPDL1; actual gradient595per-chain-padded residues, conservative bucket608. Original1/3/5model pool resident, original RNG selected5. Genuine finite full forward/backward passed1139.625s, measured peak footprint11,092,403,680B (10.33GiB),14GiB ceiling unchanged.54SSD checkpoints9,665,972,632B written/read and removed. Not a complete trajectory.",
+    "ammeRepeatedLocalUpdates": "Matched-input output, loss, gradient and original local optimizer comparisons pass at unchanged rtol1e-4/atol1e-5, with108checkpoints across2steps andzero liveSSDdata aftereach. Independent trajectory comparison drifts beyond tolerance; unchanged source reproduces drift at the same perturbed inputs. No bitwise continuous-trajectory equivalence claim.",
+    "ammeNativeImplementation": "Protected experimental Fab CPU profile with original3model pool and held-out multimer validation,608conservative residue envelope,14GiB task limit,10GiB tape/2GiB reserve,48h timeout; native package validation pending."
   },
   "evidence": [
     "reports/bindcraft-ensemble-outcome.json",
@@ -68,7 +75,19 @@
     "reports/native-sequence-crop-header-failure.json",
     "reports/native-bindcraft-two-crop-outcome.json",
     "reports/native-two-crop-process-telemetry.json",
-    "reports/native-two-crop-telemetry.json"
+    "reports/native-two-crop-telemetry.json",
+    "reports/amme-fab-remat-ssd-gradient.json",
+    "reports/amme-fab-combined-compile.json",
+    "reports/amme-fab-structure-compile.json",
+    "reports/amme-fab-triangles-compile.json",
+    "reports/amme-af2-remat-parity.json",
+    "reports/amme-af2-remat-ssd-parity.json",
+    "reports/amme-af2-structure-ssd-parity.json",
+    "reports/amme-af2-triangles-ssd-parity.json",
+    "reports/amme-fab-memory-scheduler-gradient.json",
+    "reports/amme-matched-update-parity.json",
+    "reports/amme-reference-perturbation-control.json",
+    "reports/amme-integration-status.json"
   ],
   "runtime": {
     "cpu": "../runtimes/jax-cpu/bin/python",
@@ -89,9 +108,9 @@
   "activeBuild": null,
   "latestVerifiedApp": "/Users/vii/Documents/FoldStudio-MetalPort/validation/Relocated BindCraft Crop Range Engine/FOLD STUDIO Metal Dev.app (cf8b07c; signed relocated native two-crop original-model campaign and post-run deep signature passed)",
   "immediateNext": [
-    "Continue missing non-Fab native source-option support, prioritizing original target-preset selection and parameter-sweep lifecycle/results adapters. These are not claimed complete.",
-    "Extended-format native multidomain original run remains interrupted after95screen updates; large_binder prepared but unexecuted. Preserve prior budgets/evidence rather than repeat accepted reference campaigns.",
-    "Broaden modality/property and accepted FASTA/conformational output validation within tested resource envelopes. Fab and notarization remain explicitly deferred."
+    "Build and verify the locally signed native package with bundled AMME components.",
+    "Launch a genuine original full-Fab campaign from the packaged app, retaining every source stage and filter.",
+    "Measure full-size repeated updates, completion and original downstream outcomes; no complete Fab support claim before these finish."
   ],
   "limitations": [
     "Full upstream modality/option/CLI parity is incomplete.",
@@ -99,7 +118,7 @@
     "Three-crop preparation and transport contracts passed; trained-model execution validated only for the two-crop bounded case, without accepted outputs.",
     "Fresh-machine installation and every property/modality/option combination remain unvalidated."
   ],
-  "uncommittedWork": "Validation and documentation checkpoint only. No active model computation.",
+  "uncommittedWork": "AMME source, full Fab single-gradient evidence, explicit matched-input and independent trajectory comparisons, protected experimental native integration and regression evidence awaiting checkpoint/package validation.",
   "fabResourceFailure": {
     "state": "kernel_memory_terminated",
     "report": "reports/bindcraft-fab-gradient-cpu.json",
@@ -119,10 +138,20 @@
       "ownedScratchRemoved": true,
       "processExitCode": -15,
       "limitation": "Stopped at self-imposed14GiB task footprint limit; not proof of exhausting24GiB physicalRAM. No completed gradient."
-    }
+    },
+    "ammeExperiment": {
+      "report": "reports/amme-fab-remat-ssd-gradient.json",
+      "state": "bounded_resource_refusal",
+      "parentWallSeconds": 302.1947725,
+      "physicalFootprintBytes": 15200350448,
+      "ssdBytes": 9665972632,
+      "ownedScratchRemoved": true,
+      "fullGradientCompleted": false
+    },
+    "resolution": "The CPU memory scheduler lowers the compiler temporary heap from12,641,092,472B to7,148,896,184B and enabled the first complete full Fab gradient within14GiB. This resolves the tested single-gradient allocation failure; campaign and repeated full-size steps remain unverified."
   },
   "activeScientificRun": null,
-  "fabDeferredByUser": true,
+  "fabDeferredByUser": false,
   "distributionBlocker": "No valid local code-signing identity (security find-identity reports0). Ad-hoc local signing is available; Developer ID notarized distribution requires external credentials.",
   "notarizationDeferredByUser": true,
   "completionAssessment": {
@@ -156,6 +185,7 @@
       "Fab",
       "notarization"
     ],
-    "remaining": "Unrestricted/custom source options and state graphs, parameter sweeps/target preset exposure, broader modality/property and accepted FASTA/conformational output validation, extended-format completed runs and fresh-machine packaging acceptance."
+    "remaining": "Unrestricted/custom source options and state graphs, parameter sweeps/target preset exposure, broader modality/property and accepted FASTA/conformational output validation, extended-format completed runs and fresh-machine packaging acceptance.",
+    "accountingCorrection": "Previous20unavailable option names included9property aliases already exposed,3format-owned controls and4single-device-inapplicable GPU scheduler controls. Four actual option exposure gaps remain. This corrects inventory semantics, not twelve new implementations; do not treat the old percentage as full completion."
   }
 }

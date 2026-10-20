@@ -1,0 +1,71 @@
+{
+  "state": "passed",
+  "scope": "Single genuine model gradient parity for the saved case; not complete campaign or biological acceptance.",
+  "reference": "reports/ssd-af2-reference.json",
+  "offloaded": "reports/amme-af2-structure-ssd-small.json",
+  "lossAbsoluteDifference": 0.0,
+  "tolerance": {
+    "rtol": 0.0001,
+    "atol": 1e-05
+  },
+  "arrays": {
+    "gradient_binder": {
+      "shape": [
+        8,
+        20
+      ],
+      "exactEqual": false,
+      "maximumAbsoluteDifference": 2.8312206268310547e-07
+    },
+    "gradient_target_target": {
+      "shape": [
+        12,
+        20
+      ],
+      "exactEqual": false,
+      "maximumAbsoluteDifference": 5.364418029785156e-07
+    },
+    "target_binder_positions": {
+      "shape": [
+        8,
+        37,
+        3
+      ],
+      "exactEqual": true,
+      "maximumAbsoluteDifference": 0.0
+    },
+    "target_target_target_positions": {
+      "shape": [
+        12,
+        37,
+        3
+      ],
+      "exactEqual": true,
+      "maximumAbsoluteDifference": 0.0
+    }
+  },
+  "executionPolicy": "rematerialized_subbatches",
+  "ssd": {
+    "state": "experimental",
+    "backend": "cpu",
+    "maximumTapeBytes": 1073741824,
+    "reserveBytes": 2147483648,
+    "checkpoints": 54,
+    "bytesWritten": 56955800,
+    "bytesRead": 56955800
+  },
+  "amme": {
+    "policy": "rematerialized_subbatches",
+    "tracedSubbatchCalls": 17,
+    "structureRematerialization": true,
+    "tracedStructureScans": 1
+  },
+  "referenceFootprintBytes": 1828031200,
+  "offloadedFootprintBytes": 1845136168,
+  "evidenceSha256": {
+    "reports/ssd-af2-reference.json": "6f8e38861a0d5ab4455778a0639c31008d93bec9208f636b0450156e2c9e7c5d",
+    "reports/amme-af2-structure-ssd-small.json": "3d5a9886a56f3707f27f494dbecab2b964a5eb410de7249a5e21031160a9b8fd",
+    "reports/ssd-af2-reference.npz": "9d21f7ecc7a75b5e4bde39eabc90d223d80ab31cc1803dcbbb40905bb2b274d2",
+    "reports/amme-af2-structure-ssd-small.npz": "da18c3ae01d0224979a8b94a8be88cad9ed7a606f29bda476a8ebaf5cea7a022"
+  }
+}
