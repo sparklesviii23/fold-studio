@@ -1,5 +1,5 @@
 """Recovery persistence/guard contracts; fixture states are explicitly synthetic."""
-import json,pathlib,unittest,zipfile
+import json,os,pathlib,unittest,zipfile
 from unittest.mock import patch
 from test_project_metal import ProjectMetalTests as Fixtures,w
 import campaign_recovery as cr
@@ -48,4 +48,13 @@ class CampaignRecoveryContracts(unittest.TestCase):
   self.assertNotIn('trajectory',progress_from_log(log));self.assertNotIn('lastReportedStage',progress_from_log(log));self.assertEqual(progress_from_log(log+'=== trajectory 3 | third | accepted 0/2 ===\n')['trajectory'],3)
  def test_registration_keeps_recovery_available_to_the_packaged_app(self):
   root=pathlib.Path(w.__file__).parents[1];self.assertIn('bindcraft_resume',fe.ACTIONS);self.assertIn('"bindcraft_resume"',(root/'src-tauri/src/main.rs').read_text());self.assertIn('../scientific/campaign_recovery.py',json.loads((root/'src-tauri/tauri.conf.json').read_text())['bundle']['resources'])
+ def test_original_package_startup_flags_are_compared_after_import(self):
+  from amme_campaign import environment,SCHEDULER_FLAG
+  before=dict(os.environ);env={k:v for k,v in before.items() if k not in ('XLA_FLAGS','BC2_XLA_EXTRA')}
+  flags=cr.effective_fab_compiler_flags(os.path.abspath(os.sys.executable),fe.UPSTREAM,env)
+  self.assertEqual(flags,SCHEDULER_FLAG+' --xla_gpu_enable_triton_gemm=false')
+  self.assertEqual(dict(os.environ),before)
+  changed=cr.effective_fab_compiler_flags(os.path.abspath(os.sys.executable),fe.UPSTREAM,{**env,'BC2_XLA_EXTRA':'--xla_cpu_parallel_codegen_split_count=2'})
+  self.assertNotEqual(changed,flags)
+  self.assertTrue(changed.endswith('--xla_cpu_parallel_codegen_split_count=2'))
 del Fixtures

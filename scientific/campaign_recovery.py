@@ -7,6 +7,21 @@ import json,pathlib,subprocess
 import fold_engine as fe
 
 STATES=('failed','cancelled','interrupted')
+def effective_fab_compiler_flags(runtime,source,existing):
+ """Ask the pinned package to apply its own startup flags, without importing JAX.
+
+ BindCraft appends its Triton setting during import. Comparing a parent's raw
+ launch flags with a worker's effective flags incorrectly refused valid resume.
+ """
+ from amme_campaign import environment
+ code="import json,os,sys;sys.path.insert(0,sys.argv[1]);import bindcraft;print(json.dumps(os.environ.get('XLA_FLAGS','')))"
+ result=subprocess.run([runtime,'-I','-B','-c',code,str(source)],env=environment(existing),capture_output=True,text=True,timeout=30)
+ if result.returncode:raise ValueError('Cannot verify original Fab compiler initialization: '+result.stderr[-2000:])
+ try:value=json.loads(result.stdout.strip())
+ except (ValueError,TypeError):raise ValueError('Invalid Fab compiler initialization receipt.')
+ if not isinstance(value,str):raise ValueError('Invalid Fab compiler initialization receipt.')
+ return value
+
 def prepare(engine,p):
  if set(p)-{'id','projectId'}:raise ValueError('Campaign recovery preserves the profile, seeds, scientific settings and original attempt budget.')
  job=engine.campaign(p);data=job['data'];folder=engine.s.root/'jobs'/job['id']
@@ -29,13 +44,13 @@ def prepare(engine,p):
  if runtime.get('execution')!=data.get('execution') or runtime.get('precision')!=data.get('precision') or runtime.get('upstreamSource',{}).get('manifestSha256')!=source['manifestSha256']:raise ValueError('Original scientific runtime provenance differs.')
  if data.get('precision')=='float32' and runtime.get('precisionAdapterSha256')!=fe.checksum(pathlib.Path(__file__).with_name('af2_native.py').read_bytes()):raise ValueError('The validated numerical adapter differs from this campaign.')
  if data.get('memoryPolicy'):
-  from amme_campaign import POLICY,environment
+  from amme_campaign import POLICY
   import os
   policy=runtime.get('amme',{})
   if data['memoryPolicy']!=POLICY or policy.get('policy')!=POLICY:raise ValueError('The original Fab memory policy differs; recovery refused.')
   for key,name in (('adapterSha256','amme_campaign.py'),('ssdAdapterSha256','ssd_checkpoint.py')):
    if policy.get(key)!=fe.checksum(pathlib.Path(__file__).with_name(name).read_bytes()):raise ValueError('The original Fab memory adapter differs; recovery refused.')
-  if policy.get('compilerEnvironment')!=environment(os.environ)['XLA_FLAGS']:raise ValueError('Fab compiler settings differ from the original execution; recovery refused.')
+  if policy.get('compilerEnvironment')!=effective_fab_compiler_flags(data['runtime'],fe.UPSTREAM,os.environ):raise ValueError('Fab compiler settings differ from the original execution; recovery refused.')
  state_path=folder/'output/.campaign_state.json'
  if state_path.is_symlink() or not state_path.is_file():raise ValueError('No upstream campaign progress exists. Prepare a repeat to retry initialization.')
  state=json.loads(state_path.read_text());attempts=state.get('trajectories');accepted=state.get('accepted');maximum=original.get('max_trajectories');requested=original.get('number_of_final_designs')
