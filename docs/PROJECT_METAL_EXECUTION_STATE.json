@@ -1,12 +1,12 @@
 {
   "schemaVersion": 1,
-  "updatedUtc": "2026-10-20T23:42:02.253064+00:00",
+  "updatedUtc": "2026-10-20T23:48:19.259626+00:00",
   "branch": "project-metal/apple-silicon-engine",
-  "implementationCommit": "07a7839 (full Fab chain-transport and long-run progress checks; earlier AMME and recovery implementations retained)",
+  "implementationCommit": "ace250d (native idle-sleep continuity), following07a7839(Fab transport/progress) and prior AMME/recovery code",
   "scope": "Current directive: full Fab fidelity, AMME profiling/rematerialization/offload and remaining non-Fab inventory accounting; no UI redesign or unrelated scientific features.",
   "upstreamRevision": "c0ee638d11bc010817c2c97ee58ed5c323e664e2",
   "verified": {
-    "backendTests": 390,
+    "backendTests": 393,
     "frontendTests": 76,
     "typescript": "passed",
     "corePipeline": "Real 175-residue hPDL1 ensemble design + ProteinMPNN + held-out AF2 + original filters; one accepted computational prediction, no biological claim.",
@@ -42,7 +42,9 @@
     "localPrivacyLoop": "macOS logs confirmed alternating ad-hoc cdhash250562dd/aff3fb06 under one bundle ID. Matching original controller restored; follow-up privacy logs contain no prompting/mismatch events. Safe launcher reuses actual worker-owning build; seal script refuses mutating an active package.6focusedtests pass.",
     "fabChainTransport": "Genuine559residue gradient diagnostic: both231/213antibody chains and full115residue observed target match reported/source sequences.9tests include rejection-before-write and exact import/project-export coordinate transport with explicitly synthetic completion receipts. No acceptedFab claim.",
     "longCampaignProgress": "Native service parses up to1MiB contextual log while returning only30000visible bytes;3tests cover long AMME logs, recovery boundary reset and unavailable-context refusal.",
-    "stagedFabTransportPackage": "Actual07a7839staged ad-hoc signed package:46scientific Python source files match; bundled Python3.12.14 executes full original Fab preparation, genuine diagnostic transport and long-log protocol check. No GUI activation or model calculation in package test."
+    "stagedFabTransportPackage": "Actual07a7839staged ad-hoc signed package:46scientific Python source files match; bundled Python3.12.14 executes full original Fab preparation, genuine diagnostic transport and long-log protocol check. No GUI activation or model calculation in package test.",
+    "ammeRepeatedFullSizeUpdates": "Two actual native full-Fab original screen optimizer updates completed;54SSD checkpoints per step,8,657,242,520Bperstep,zero live tape aftereach. Third gradient originally samplesmodel5 aftertwo model3steps. Current observedpeak10.23GiB,14GiB cap unchanged. Full trajectory and continuous numerical equivalence remain unverified.",
+    "idleContinuity": "Native per-worker idle-sleep assertion implemented and9focused lifecycle tests pass. Actual older worker protected by a detached native caffeinate -i -w67111 assertion, automatically released on worker exit. Display sleep and permanent power settings unchanged."
   },
   "evidence": [
     "reports/bindcraft-ensemble-outcome.json",
@@ -96,7 +98,8 @@
     "reports/amme-native-resume-flags.json",
     "reports/local-privacy-loop-fix.json",
     "reports/amme-fab-transport.json",
-    "reports/amme-packaged-transport.json"
+    "reports/amme-packaged-transport.json",
+    "reports/amme-idle-continuity.json"
   ],
   "runtime": {
     "cpu": "../runtimes/jax-cpu/bin/python",
@@ -122,11 +125,11 @@
     "workerSourceCommit": "4e23650",
     "controllerSourceCommit": "4e23650",
     "state": "running",
-    "scope": "Full original native Fab campaign. First original optimizer update completed; second gradient executing. Keep worker-owning bundle available. No complete trajectory/accepted Fab.",
-    "lastObservedUtc": "2026-10-20T23:42:02.253064+00:00",
-    "completedGradients": 1,
-    "gradientCalls": 2,
-    "peakFootprintBytes": 10763592896,
+    "scope": "Two actual native original full Fab screen updates completed; third gradient executing. Preserve current scientific worker/owning bundle. Complete trajectory, downstream refolds and acceptedFab pending.",
+    "lastObservedUtc": "2026-10-20T23:48:19.259626+00:00",
+    "completedGradients": 2,
+    "gradientCalls": 3,
+    "peakFootprintBytes": 10980042040,
     "stage": "gradient_execution"
   },
   "activeBuild": null,
@@ -142,7 +145,7 @@
     "Larger Metal gradients remain memory limited; existing measured caps unchanged.",
     "Three-crop preparation and transport contracts passed; trained-model execution validated only for the two-crop bounded case, without accepted outputs.",
     "Fresh-machine installation and every property/modality/option combination remain unvalidated.",
-    "Full Fab single forward/backward passed; full-size repeated optimizer steps and complete original trajectory/ProteinMPNN/held-out validation/acceptedFab remain unverified.",
+    "Full Fab single forward/backward passed; two full-size original updates also passed; complete original trajectory/ProteinMPNN/held-out validation/acceptedFab remain unverified.",
     "Matched-input numerical comparisons pass fixed tolerances; independent two-update propagation diverges beyond them, reproduced by unmodified source at perturbed inputs. Continuous-trajectory numerical identity is not certified.",
     "Experimental Fab currently uses CPU with SSD checkpoints, not a fully GPU-resident Metal execution."
   ],
@@ -187,11 +190,11 @@
     "workerSourceCommit": "4e23650",
     "controllerSourceCommit": "4e23650",
     "state": "running",
-    "scope": "Full original native Fab campaign. First original optimizer update completed; second gradient executing. Keep worker-owning bundle available. No complete trajectory/accepted Fab.",
-    "lastObservedUtc": "2026-10-20T23:42:02.253064+00:00",
-    "completedGradients": 1,
-    "gradientCalls": 2,
-    "peakFootprintBytes": 10763592896,
+    "scope": "Two actual native original full Fab screen updates completed; third gradient executing. Preserve current scientific worker/owning bundle. Complete trajectory, downstream refolds and acceptedFab pending.",
+    "lastObservedUtc": "2026-10-20T23:48:19.259626+00:00",
+    "completedGradients": 2,
+    "gradientCalls": 3,
+    "peakFootprintBytes": 10980042040,
     "stage": "gradient_execution"
   },
   "fabDeferredByUser": false,
@@ -238,6 +241,33 @@
     "sourceCommit": "07a7839",
     "signature": "verified local ad-hoc",
     "bundledBackend": "passed",
-    "activation": "Deferred until old-identity scientific worker and window finish; scripts/open-local-app.py reuses the matching running build."
+    "activation": "Deferred until old-identity scientific worker and window finish; scripts/open-local-app.py reuses the matching running build.",
+    "pendingSourceChanges": [
+      "amme_worker.py: native idle-sleep protection; tests pass, package refresh pending without GUI activation"
+    ]
+  },
+  "backgroundFollowup": {
+    "id": "continue-fold-studio-integration",
+    "kind": "heartbeat",
+    "intervalMinutes": 15,
+    "status": "ACTIVE"
+  },
+  "globalEngineeringEstimate": {
+    "completePercentRange": [
+      85,
+      90
+    ],
+    "remainingPercentRange": [
+      10,
+      15
+    ],
+    "scope": "Rough engineering estimate for local integration, not audited weighted completion, scientific certification or remaining wall time. Fab full trajectory/downstream/acceptance, broader option/modality verification and4native option gaps remain; notarization deferred."
+  },
+  "fabVerification": {
+    "verifiedMilestones": 4,
+    "partialMilestones": 3,
+    "untestedMilestones": 3,
+    "totalMilestones": 10,
+    "scope": "Counts of explicit execution/transport milestones; not percentage of full campaign iterations or scientific certification."
   }
 }

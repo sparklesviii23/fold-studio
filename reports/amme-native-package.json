@@ -84,26 +84,26 @@
     "nativeReconnection": "passed",
     "activation": "Verified updated controller reconnected, then reverted to the worker-owning4e23650build because concurrent ad-hoc identities caused repeated Documents prompts. Recovery update remains ready for activation after current workers finish."
   },
-  "updatedUtc": "2026-10-20T23:29:42.927516+00:00",
+  "updatedUtc": "2026-10-20T23:48:19.259626+00:00",
   "observedRun": {
-    "recordedUtc": "2026-10-20T23:29:42.927516+00:00",
+    "recordedUtc": "2026-10-20T23:48:19.259626+00:00",
     "state": "running",
     "workerPid": 67111,
-    "elapsedSeconds": 1360.0704072499648,
-    "peakFootprintBytes": 10666058872,
+    "elapsedSeconds": 2476.2489903331734,
+    "peakFootprintBytes": 10980042040,
     "highestSystemMemoryPressureLevel": 2,
     "stage": {
       "policy": "fab-cpu-ssd-v1",
       "stage": "gradient_execution",
-      "monotonicSeconds": 1616888.520629291,
-      "gradientCalls": 2,
-      "completedGradients": 1,
-      "lastModel": "model_3_multimer_v3",
+      "monotonicSeconds": 1617873.554515291,
+      "gradientCalls": 3,
+      "completedGradients": 2,
+      "lastModel": "model_5_multimer_v3",
       "ssdLiveBytes": 0,
       "ssdPeakBytes": 8657242520,
-      "ssdBytesWritten": 8657242520,
-      "ssdBytesRead": 8657242520,
-      "compileSeconds": 0.27183900005184114,
+      "ssdBytesWritten": 17314485040,
+      "ssdBytesRead": 17314485040,
+      "compileSeconds": 0.2755333329550922,
       "compiledMemoryAnalysis": {
         "argument_size_in_bytes": 373213539,
         "output_size_in_bytes": 82609785,
@@ -161,5 +161,93 @@
     "originalSecondGradientStarted": true,
     "peakTaskFootprintBytesAtObservation": 10666058872
   },
-  "privacyFixEvidence": "reports/local-privacy-loop-fix.json"
+  "privacyFixEvidence": "reports/local-privacy-loop-fix.json",
+  "nativeRepeatedOptimizerUpdates": {
+    "completedGradients": 2,
+    "sourceOptimizerUpdates": [
+      {
+        "stage": "screen",
+        "sequenceUpdates": 1,
+        "metrics": {
+          "target.binder_coldspot": -9.774319648742676,
+          "target.binder_contacts": 1.4159966707229614,
+          "target.binder_helicity": -2.1208081245422363,
+          "target.binder_pae": 0.0759948268532753,
+          "target.compactness": 1.0056748390197754,
+          "target.interface_contacts": 4.736969470977783,
+          "target.interface_pae": 0.08619143813848495,
+          "target.iptm": 0.17332930862903595,
+          "target.iptm_loss": 0.04133353754878044,
+          "target.plddt_loss": 0.03513450548052788,
+          "target.ptm": 0.7348610162734985
+        }
+      },
+      {
+        "stage": "screen",
+        "sequenceUpdates": 2,
+        "metrics": {
+          "target.binder_coldspot": -9.547579765319824,
+          "target.binder_contacts": 1.4569242000579834,
+          "target.binder_helicity": -2.0763399600982666,
+          "target.binder_pae": 0.07945848256349564,
+          "target.compactness": 1.0423474311828613,
+          "target.interface_contacts": 4.460386753082275,
+          "target.interface_pae": 0.083282969892025,
+          "target.iptm": 0.20670410990715027,
+          "target.iptm_loss": 0.03966479375958443,
+          "target.plddt_loss": 0.041726600378751755,
+          "target.ptm": 0.7370887994766235
+        }
+      }
+    ],
+    "completedGradientEvents": [
+      {
+        "policy": "fab-cpu-ssd-v1",
+        "stage": "gradient_completed",
+        "monotonicSeconds": 1616887.672859458,
+        "gradientCalls": 1,
+        "completedGradients": 1,
+        "lastModel": "model_3_multimer_v3",
+        "ssdLiveBytes": 0,
+        "ssdPeakBytes": 8657242520,
+        "ssdBytesWritten": 8657242520,
+        "ssdBytesRead": 8657242520,
+        "rematerialization": {
+          "policy": "rematerialized_subbatches",
+          "tracedSubbatchCalls": 17,
+          "structureRematerialization": false,
+          "tracedStructureScans": 0,
+          "triangleRematerialization": false,
+          "tracedTriangleCalls": 0,
+          "preventCommonSubexpressionElimination": false,
+          "triangleAttentionOnly": false
+        }
+      },
+      {
+        "policy": "fab-cpu-ssd-v1",
+        "stage": "gradient_completed",
+        "monotonicSeconds": 1617873.118736833,
+        "gradientCalls": 2,
+        "completedGradients": 2,
+        "lastModel": "model_3_multimer_v3",
+        "ssdLiveBytes": 0,
+        "ssdPeakBytes": 8657242520,
+        "ssdBytesWritten": 17314485040,
+        "ssdBytesRead": 17314485040,
+        "rematerialization": {
+          "policy": "rematerialized_subbatches",
+          "tracedSubbatchCalls": 0,
+          "structureRematerialization": false,
+          "tracedStructureScans": 0,
+          "triangleRematerialization": false,
+          "tracedTriangleCalls": 0,
+          "preventCommonSubexpressionElimination": false,
+          "triangleAttentionOnly": false
+        }
+      }
+    ],
+    "thirdGradientStarted": true,
+    "peakFootprintBytes": 10980042040,
+    "scope": "Actual original native full Fab consecutive screen updates, with zero live SSD bytes after each. Two updates are not a complete trajectory or proof of arbitrarily long leak-free execution; independent numerical trajectory drift limitation remains."
+  }
 }

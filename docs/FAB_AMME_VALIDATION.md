@@ -5,8 +5,9 @@ Implementation: `4e23650`, followed by recovery correction `5b63a6e` on
 `c0ee638d11bc010817c2c97ee58ed5c323e664e2`.
 
 Follow-up `07a7839` adds full Fab chain-transport checks and a bounded wider
-progress-log window. The locally signed staged package passes its bundled-runtime
-backend checks; activation waits for the running old-identity calculation to end.
+progress-log window. `ace250d` adds per-worker idle-sleep protection. The signed
+staged transport package passes its bundled-runtime backend checks; activation
+and the power-helper package refresh wait safely behind the current calculation.
 
 Full Fab is connected to the native app as an experimental, protected CPU
 workflow. Complete Fab design is **not yet certified**. This path needs no NVIDIA
@@ -56,11 +57,18 @@ Project export preserved exact scaffold, target and diagnostic coordinates while
 excluding live SSD scratch. Quitting and reopening the original controller, then
 opening the updated recovery controller, retained the same scientific process.
 The controller displays live footprint, peak, limit and completed-gradient count.
-The actual native campaign has now completed its first original screen optimizer
-update and started its second full gradient. Peak task footprint at that point was
-approximately 9.93 GiB; subsequent peak during the second gradient is 10.02 GiB.
-The first tape was released before the second step.
-Multiple completed full-size steps remain unverified.
+The actual native campaign has now completed two consecutive original screen
+optimizer updates and started its third full gradient, sampling original model 5
+after model 3. Observed peak task footprint is 10.23 GiB. Each completed gradient
+wrote/read 8,657,242,520 bytes and released its live tape before the next step.
+This verifies two consecutive full-size updates within the unchanged cap; it does
+not demonstrate completion or leak-free behavior across an entire campaign.
+
+A native idle-sleep assertion is attached to the exact running scientific process
+and automatically ends when that process exits. Future native supervisors create
+and release their own assertions; display sleep and permanent power settings stay
+unchanged. Nine focused lifecycle tests pass. Background continuation in this chat
+is enabled every 15 minutes, with updates on meaningful progress or failures.
 
 The updated controller and older scientific worker caused macOS to alternate
 between their different ad-hoc signing identities under the same app identifier,
@@ -110,7 +118,7 @@ is preserved; matched-input controls do not certify independent trajectory ident
 | Original full scaffold and constraints | Verified working |
 | Full-length forward prediction | Verified working |
 | Full-length backward calculation | Verified working |
-| Multiple optimization steps | Partially verified: first native update completed, second gradient running; small matched-input repeated checks pass |
+| Multiple optimization steps | Verified working: two native full-size updates; full-run longevity and independent numerical-trajectory equivalence remain unverified |
 | Complete original Fab trajectory | Partially verified: actual native campaign running |
 | Fab ProteinMPNN redesign | Not tested |
 | Fab held-out multimer validation | Not tested |
@@ -118,7 +126,7 @@ is preserved; matched-input controls do not certify independent trajectory ident
 | Accepted Fab generation | Not tested; none generated |
 | Native integration/export | Partially verified: launch/viewer/project/reopen pass; accepted Fab pending |
 
-Current regression evidence: 390 backend tests, 76 frontend tests, four AMME runtime
+Current regression evidence: 393 backend tests, 76 frontend tests, four AMME runtime
 tests and seven SSD runtime tests pass. Native/frontend build and local deep
 signature verification pass. Notarization remains deferred for local use.
 
