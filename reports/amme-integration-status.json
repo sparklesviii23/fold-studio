@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "updatedUtc": "2026-10-20T23:01:39.832599+00:00",
+  "updatedUtc": "2026-10-20T23:29:42.927516+00:00",
   "scope": "Full Fab AMME development; complete feature is not certified. Local use; notarization deferred.",
   "fullFabComplete": false,
   "sourceRevision": "c0ee638d11bc010817c2c97ee58ed5c323e664e2",
@@ -23,12 +23,12 @@
     {
       "item": "Multi-step optimization",
       "status": "Partially verified",
-      "evidence": "Two small original optimizer updates execute with bounded reusable tape. Matched-input comparisons pass; independently propagated runs exceed strict comparison tolerance after tiny input drift. Full-size repeated steps pending."
+      "evidence": "Actual signed native full Fab completed first finite gradient and original screen optimizer update; second full gradient executing. Small matched-input repeated updates pass, independent-run drift remains recorded. Multiple completed consecutive full-size steps pending."
     },
     {
       "item": "Complete design trajectory",
-      "status": "Not tested",
-      "evidence": "No complete original full-Fab trajectory has finished; all original125gradient and15mutation default rounds remain intact."
+      "status": "Partially verified",
+      "evidence": "Original native full-Fab trajectory running with1screen sequence update and second gradient executing. All original50/25/45/5/15rounds retained; no complete trajectory yet."
     },
     {
       "item": "ProteinMPNN",
@@ -53,7 +53,7 @@
     {
       "item": "Native Fold Studio integration and export",
       "status": "Partially verified",
-      "evidence": "Protected experimental CPU profile, original Fab preparation, UI controls, telemetry and packaging resources implemented. Packaged execution validation pending; original scaffold project export tested."
+      "evidence": "Ad-hoc signed package launched genuine full Fab from native button with app-owned runtime and all7verified checkpoints. Original viewer rendered full559residue diagnostic; project ZIP preserved exact scaffold/target/CIF and excluded live SSD tape. Quit/reopen and updated recovery controller reconnected to the same running scientific worker. Accepted-Fab import/export not yet exercised."
     }
   ],
   "fullGradient": {
@@ -226,7 +226,7 @@
     "scope": "One target state, unchanged complete original scaffold; conservative padded estimate\u2264608. Source scientific overrides remain saved, unsupported envelopes are refused."
   },
   "regression": {
-    "backendTests": 371,
+    "backendTests": 378,
     "frontendTests": 76,
     "runtimeAMMETests": 4,
     "runtimeSSDTapeTests": 7
@@ -244,5 +244,20 @@
     "target (named preset)",
     "weights_fold_switching (arbitrary state graphs)"
   ],
-  "inventoryCorrection": "Previous20option count included12already-owned aliases/format controls and4CUDA-only scheduling names. This is accounting correction, not new implemented features."
+  "inventoryCorrection": "Previous20option count included12already-owned aliases/format controls and4CUDA-only scheduling names. This is accounting correction, not new implemented features.",
+  "nativePackageEvidence": "reports/amme-native-package.json",
+  "nativeRecoveryFlagsEvidence": "reports/amme-native-resume-flags.json",
+  "activeNativeRun": {
+    "root": "/Users/vii/Documents/FoldStudio-MetalPort/validation/bindcraft-fab-amme-native",
+    "jobId": "b981bc11-4606-43be-a3f2-000f1d6406dd",
+    "workerPid": 67111,
+    "state": "running",
+    "lastObservedUtc": "2026-10-20T23:29:42.927516+00:00",
+    "peakFootprintBytes": 10666058872,
+    "completedGradients": 1,
+    "stage": "gradient_execution",
+    "sourceCommit": "4e23650",
+    "controllerSourceCommit": "4e23650"
+  },
+  "nativeFirstOptimizerUpdateEvidence": "reports/amme-native-package.json"
 }
