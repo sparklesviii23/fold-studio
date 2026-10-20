@@ -1,0 +1,94 @@
+{
+  "jobId": "72debdb3-46b6-4c08-9599-0ff34c281876",
+  "root": "/Users/vii/Documents/FoldStudio-MetalPort/validation/bindcraft-campaign-review",
+  "scope": "Read-only OS process footprint/CPU measurements and system-wide GPU counters during the actual local campaign. GPU utilization includes rendering/other apps and is not exclusive campaign utilization. Samples do not yield a whole-run GPU average or separately measured compilation/inference timing.",
+  "runtime": "/Users/vii/Documents/FoldStudio-MetalPort/validation/Relocated BindCraft Summary Engine/FOLD STUDIO Metal Dev.app/Contents/Resources/runtime/bin/python3.12",
+  "modelCheckpoints": {
+    "model_1_multimer_v3": "611da8fc7478928f68de12e8b226260ef1f4ce62bcc29b008572e52f4f212959",
+    "model_1_ptm": "5e564f79af5bcd54ccef6e2a6bb0ff01015d01650ebc41d4575e35f0de9ecc84"
+  },
+  "executionSettingsSha256": "9e1168f75d7b6691e16b1115da1d59592857db40dce4b73dc534cdc098345e46",
+  "hardware": {
+    "machine": "arm64",
+    "cpu": "Apple M4 Pro",
+    "memoryBytes": 25769803776,
+    "macOS": "26.4.1"
+  },
+  "samples": [
+    {
+      "observedUtc": "2026-10-20T12:41:08.220334+00:00",
+      "jobState": "running",
+      "processes": [
+        {
+          "pid": 42121,
+          "parentPid": 1,
+          "groupId": 42121,
+          "psCpuPercent": 0.0,
+          "psResidentKiB": 15312,
+          "executable": "/Users/vii/Documents/FoldStudio-MetalPort/validation/Relocated BindCraft Summary Engine/FOLD STUDIO Metal Dev.app/Contents/Resources/runtime/bin/python3.12",
+          "macOSTaskMemory": {
+            "residentBytes": 15679488,
+            "physicalFootprintBytes": 29262328,
+            "processStartAbstime": 37867072485024,
+            "method": "macOS proc_pid_rusage; task footprint includes compressed allocations, current sample only"
+          }
+        },
+        {
+          "pid": 42124,
+          "parentPid": 42121,
+          "groupId": 42121,
+          "psCpuPercent": 390.5,
+          "psResidentKiB": 2105616,
+          "executable": "/Users/vii/Documents/FoldStudio-MetalPort/validation/Relocated BindCraft Summary Engine/FOLD STUDIO Metal Dev.app/Contents/Resources/runtime/bin/python3.12",
+          "macOSTaskMemory": {
+            "residentBytes": 2156150784,
+            "physicalFootprintBytes": 2675019040,
+            "processStartAbstime": 37867077379389,
+            "method": "macOS proc_pid_rusage; task footprint includes compressed allocations, current sample only"
+          },
+          "physicalFootprint": {
+            "rawVmmapUnit": "2.5G",
+            "method": "vmmap -summary; rounded OS process footprint, not total machine memory"
+          },
+          "peakPhysicalFootprint": {
+            "rawVmmapUnit": "2.7G",
+            "method": "vmmap -summary; rounded OS process footprint, not total machine memory"
+          }
+        }
+      ],
+      "systemGpuCounters": [
+        {
+          "Alloc system memory": 7155056640,
+          "Allocated PB Size": 138805248,
+          "Device Utilization %": 65,
+          "In use system memory": 2861727744,
+          "In use system memory (driver)": 0,
+          "Renderer Utilization %": 65,
+          "SplitSceneCount": 0,
+          "TiledSceneBytes": 5046272,
+          "Tiler Utilization %": 24,
+          "lastRecoveryTime": 0,
+          "recoveryCount": 0
+        }
+      ],
+      "lastObservedOptimizerProgress": {
+        "stage": "refine",
+        "sequenceUpdates": 7,
+        "metrics": {
+          "target.binder_contacts": 2.7687861919403076,
+          "target.binder_helicity": -1.4949873685836792,
+          "target.binder_pae": 0.11321721225976944,
+          "target.compactness": 0.6760041117668152,
+          "target.interface_contacts": 3.457186698913574,
+          "target.interface_pae": 0.09324247390031815,
+          "target.iptm": 0.603452205657959,
+          "target.iptm_loss": 0.01982739008963108,
+          "target.plddt_loss": 0.030676910653710365,
+          "target.ptm": 0.5112717151641846,
+          "target.target_helicity": -1.7879265546798706,
+          "target.target_plddt": 0.31009259819984436
+        }
+      }
+    }
+  ]
+}

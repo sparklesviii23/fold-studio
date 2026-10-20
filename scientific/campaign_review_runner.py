@@ -8,7 +8,10 @@ def run(request_path):
  from bindcraft.campaign_output import write_csv_rows
  request_path=pathlib.Path(request_path);folder=request_path.parent;request=json.loads(request_path.read_text());snapshot=folder/'snapshot';output=folder/'review.csv'
  if request['operation']=='rank':
-  _,rows,directions=rerank_campaign(str(snapshot),request['metrics'],request['table'],output=str(output));result={'rows':rows,'directions':directions}
+  _,rows,directions=rerank_campaign(str(snapshot),request['metrics'],request['table'],higher=request.get('higher'),output=str(output));result={'rows':rows,'directions':directions}
+ elif request['operation']=='metrics':
+  from bindcraft.rank import design_rows,campaign_settings,recorded_metrics,derive_sequence_metrics,derive_state_metrics,available_metrics_text
+  _,saved=design_rows(str(snapshot),request['table']);settings=campaign_settings(str(snapshot));recorded=recorded_metrics(saved);derived={**derive_sequence_metrics(saved),**derive_state_metrics(saved,settings)};directions={**recorded,**derived};rows=[{'metric':name,'direction':'higher' if higher else 'lower','kind':'recorded' if name in recorded else 'derived'} for name,higher in sorted(directions.items())];write_csv_rows(rows,str(output),['metric','direction','kind']);result={'rows':rows,'directions':directions,'report':available_metrics_text(str(snapshot),recorded,derived,settings,purpose='filter').splitlines()}
  elif request['operation']=='score':
   from bindcraft.campaign_output import read_metric_rows
   from campaign_scoring import score
@@ -17,10 +20,14 @@ def run(request_path):
   from bindcraft.campaign_output import summarize_campaign
   rows=summarize_campaign(str(snapshot),campaign=request['campaignId']);write_csv_rows(rows,str(output));result={'rows':rows,'report':['Original upstream recorded-stage statistics. Counts and aggregate metrics describe saved computations; missing data is not a successful design or a biological result.']}
  elif request['operation']=='filter':
-  rows,rejected,report,_=refilter_campaign(str(snapshot),table=request['table'],output=str(output));write_csv_rows(rejected,str(folder/'rejected.csv'),list(dict.fromkeys(k for row in rejected for k in row)));result={'rows':rows,'rejected':rejected,'report':report}
+  expressions=request.get('expressions',[]);rows,rejected,report,_=refilter_campaign(str(snapshot),expressions=expressions,table=request['table'],output=str(output));write_csv_rows(rejected,str(folder/'rejected.csv'),list(dict.fromkeys(k for row in rejected for k in row)));result={'rows':rows,'rejected':rejected,'report':report,'expressions':expressions,'usesOriginalCampaignFilters':not bool(expressions)}
+ elif request['operation'] in ('archive','unarchive'):
+  from campaign_archive import transform
+  result=transform(snapshot,request['operation']);rows=[{'path':path} for path in result['convertedPaths']];write_csv_rows(rows,str(output),['path']);result.update(rows=rows,report=['Original upstream trajectory '+request['operation']+' executed. Every logical file checksum matches before and after conversion. Coordinates, scientific settings and acceptance decisions are preserved.'])
  else:raise ValueError('Unknown original saved-outcome operation.')
  result.update(operation=request['operation'],table=request['table'],state='reviewed',requestSha256=hashlib.sha256(request_path.read_bytes()).hexdigest(),runnerSha256=hashlib.sha256(pathlib.Path(__file__).read_bytes()).hexdigest(),runtime={'jax':importlib.metadata.version('jax'),'jaxlib':importlib.metadata.version('jaxlib')},csv=output.read_text(),rejectedCsv=(folder/'rejected.csv').read_text() if (folder/'rejected.csv').is_file() else None,scope='Post-hoc upstream table filtering/ranking on saved computations. This does not generate, refold or grant original scientific acceptance to a candidate. Missing recorded filters are explicitly reported by upstream.')
  if request['operation']=='score':result['scope']='Post-hoc original BindCraft2 score_design geometry on immutable accepted complex coordinates. Explicit original chain roles required. Hotspot/coldspot and unavailable unbound/prediction metrics are omitted; stamped per-model readings are kept separately. No prediction, refolding, filtering acceptance or binding claim.'
  if request['operation']=='summary':result['scope']='Original BindCraft2 summarize_campaign over all saved stage tables and recorded trajectory metrics, on a separate snapshot. Original counts and statistical aggregation are retained; original acceptance is unchanged.'
+ if request['operation'] in ('archive','unarchive'):result['scope']='Lossless original trajectory storage conversion. Native application verifies content checksums before atomically applying the converted stage. No model computation or acceptance change.'
  (folder/'result.json').write_text(json.dumps(result,indent=2,allow_nan=False)+'\n');return result
 if __name__=='__main__':run(sys.argv[1])

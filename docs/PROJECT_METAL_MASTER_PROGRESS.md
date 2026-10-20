@@ -1358,3 +1358,59 @@ and ordinary runtime errors remain failed. The interface distinguishes this
 state from preparation and explains the unchanged remaining attempt budget.
 348 backend tests and76 frontend tests pass. Current b10d8ee native FASTA
 repeat continues unchanged; updated packaging is next.
+
+
+### SSD checkpoint experiment — 20 October 2026
+
+User requested SSD offload for Fab. Experimental CPU adapter saves original
+layer-stack inputs losslessly to private disk files and recomputes the original
+blocks for reverse-mode derivatives. Actual I/O uses io_callback. The original
+vendor files, weights, full scaffold/target and acceptance settings are retained.
+Six runtime tests pass, including original Haiku layer stacks, nested JIT with
+dynamic masks, captured derivatives/RNG, checksum/budget/free-space refusal,
+repeated gradients and owned-file cleanup. A genuine trained64-padded AF2 case
+has exactly equal loss, coordinate arrays and sequence gradients with offload.
+See reports/ssd-af2-parity.json. Preliminary stopped-gradient recycles do not
+write an unused tape. No native application SSD option has been enabled.
+
+Full original Fab608, subbatch1, CPU float32, single trained model was tested
+under the same14GiB task-footprint ceiling. It ran310.219seconds and wrote
+9,665,972,632bytes to SSD before crossing the ceiling at15,279,502,008bytes
+physical footprint (resident6,869,172,224bytes). The guard terminated its own
+worker with SIGTERM; owned scratch files were removed. No full gradient, design
+trajectory, refold or accepted output was produced. This is a bounded-resource
+refusal, not evidence that all24GiB of physical memory is insufficient.
+See reports/ssd-fab-gradient.json. Further work should identify remaining backward
+buffers and evaluate finer recomputation within original subbatch loops.
+User requested brainstorming before further implementation; no model job remains.
+
+Prior native FASTA repeat72debdb3 completed all5optimization stages in590.314s
+and faithfully rejected the sole trajectory at the original final i_pTM gate.
+No refolds or accepted coordinates were produced. Updated signed relocated8ef5b2a
+passed the explicit simulated-interruption lifecycle/native status check and
+reopened the genuine175-residue accepted complex in the original viewer.
+
+
+### Native campaign utilities — 20 October 2026
+
+Original custom-threshold filtering, source metric listing, up to3ranking metrics
+and explicit highest/lowest direction are now connected. Original per-trajectory
+archive/restore runs on a verified snapshot, then atomically exchanges the
+canonical stage using macOS renamex_np(RENAME_SWAP). All logical file hashes
+are verified, unsafe ZIP members/collisions/oversized extraction are refused,
+operation receipts retained, and a history-persistence failure rolls back the
+actual storage change. Existing interface/viewer styles are preserved.
+
+352 backend/76frontend checks pass. On the genuine saved175-residue native
+ensemble case, original custom filters yield2passing/1rejected exactly matching
+direct source; metric directions and explicit multi-metric ranks match source.
+Compression/restore preserves every byte, all157summary rows, original job state
+and external source QA data. Injected persistence failure restores exact original
+contents. See reports/bindcraft-native-utilities.json. All9discovered command
+entry points are connected at bounded scope; full CLI flag parity is not claimed.
+
+User explicitly deferred Fab and its memory work. Actual original induced_fit
+job ec6e1fd3 now executes a bounded one-attempt CPU bound/unbound trajectory in
+isolated conformational QA data. No acceptance filters are changed.
+Local signing inventory reports0valid identities, so Developer ID/notarized
+distribution remains externally blocked. Ad-hoc signed local bundles continue.

@@ -1,12 +1,12 @@
 {
   "schemaVersion": 1,
-  "updatedUtc": "2026-10-20T12:40:08.242430+00:00",
+  "updatedUtc": "2026-10-20T13:32:01.529394+00:00",
   "branch": "project-metal/apple-silicon-engine",
-  "implementationCommit": "1094e46",
+  "implementationCommit": "8ef5b2a + experimental SSD adapter work",
   "scope": "Project Metal Omega: complete authentic local BindCraft2 integration. No new Vina, OpenMM or interface redesign work.",
   "upstreamRevision": "c0ee638d11bc010817c2c97ee58ed5c323e664e2",
   "verified": {
-    "backendTests": 348,
+    "backendTests": 352,
     "frontendTests": 76,
     "typescript": "passed",
     "corePipeline": "Real 175-residue hPDL1 ensemble design + ProteinMPNN + held-out AF2 + original filters; one accepted computational prediction, no biological claim.",
@@ -17,16 +17,18 @@
     "unboundOutputTransport": "8 protocol tests: own pLDDT, roles, exact sequence, no parent interface confidence, both bound/unbound acceptance outputs required.",
     "conformationalStatePreflight": "Original source preflight passed; separate real fold_switch bound/unbound CPU trajectory completed with faithful anneal rejection.",
     "coreProfiles": "Original benchmark precedence passes on binder and VHH/humanize; source inputs unchanged, explicit native seed retained.",
-    "featureInventory": "Actual pinned source introspection: 239 known campaign settings, 37 registered losses, 79 filter metrics with parameters, 9 discovered commands and literal flags.",
-    "sequenceTargets": "Native original FASTA target run performed real source loss/optimizer updates and passed screening/refinement, then signal15 interrupted annealing. Complete model trajectory and import remain unverified; exact repeat prepared, no new compute yet.",
+    "featureInventory": "All9discovered command entry points now connected at explicit bounded native scope; literal CLI flags, arbitrary folder/state graphs and option-specific validation remain incomplete.",
+    "sequenceTargets": "Actual native same-settings FASTA repeat72debdb3 completed590.314s with original final i_pTM rejection,1trajectory/0refolds/0accepted. All5optimization stages executed; FASTA-specific accepted coordinate import and held-out refolding remain unexercised.",
     "scientificOptions": "Explicit original overrides, original strict settings/metric validation, receipts and input preflight. 3 real source comparisons and 3 original refusals; default filters unchanged in all QA cases. 6 protocol tests.",
     "coordinateScoring": "Original score_design recomputation on saved genuine 175-residue complex exactly matches direct original source; source unchanged, omitted site/missing state/confidence metrics and separate stamped model readings. 5 synthetic contract tests.",
     "nativeCorePipeline": "Actual packaged app-owned Metal runtime and seven AF2 models: one real trajectory, three passed independent candidate refolds, original rank retained one accepted prediction. 3895.532 seconds. Native CIF export exact bytes, quit/reopen/viewer passed.",
     "acceptedSequenceExport": "Actual native FASTA export passed; exact original accepted 60-residue binder sequence, native save dialog.",
     "campaignSummary": "Actual native summary button returned 157 original statistical rows; source comparison and project ZIP evidence passed.",
     "conformationalExecution": "Original fold_switch single-model CPU float32, technical 12+60 case: bound/unbound optimization executed, screening/refinement passed, rejected at anneal by original i_pTM. 637.945 seconds, 1/0/0 stage rows. Not full downstream or broad validation.",
-    "terminationHandling": "Termination signals SIGINT/SIGTERM/SIGKILL preserve the job as interrupted without promoting or deleting outputs. Explicit cancellation remains cancelled; actual error exit remains failed. Three lifecycle tests pass; native updated bundle pending.",
-    "memoryGovernor": "Public macOS libproc physical footprint includes compressed allocations; two focused tests and actual1GiB stop smoke passed. Original Fab608 kernel memory kill diagnosed and retained."
+    "terminationHandling": "348 backend/76frontend pass. Signed relocated8ef5b2a lifecycle simulation passed bundled runtime and native interrupted-state UI, explicitly no model computation. Genuine saved175res accepted viewer reopened in same updated app.",
+    "memoryGovernor": "Public macOS libproc physical footprint includes compressed allocations; two focused tests and actual1GiB stop smoke passed. Original Fab608 kernel memory kill diagnosed and retained.",
+    "ssdOffload": "Experimental CPU SSD tape:6focused runtime tests pass; genuine64-padded trained AF2 loss,coordinates,sequence gradients exactly equal original. Full608Fab attempt wrote9,665,972,632bytes to SSD, then guard stopped at15,279,502,008bytes task footprint in310.219s. No full Fab gradient or accepted design; native Fab remains disabled.",
+    "campaignUtilities": "Actual original custom filtering (2pass/1reject), source metric listing, multi-metric explicit-direction ranking, lossless trajectory compression/restoration and persistence-failure rollback passed on genuine saved175-residue ensemble results. Original output data,157summary rows, job state and original QA source unchanged after roundtrip."
   },
   "evidence": [
     "reports/bindcraft-ensemble-outcome.json",
@@ -46,7 +48,13 @@
     "reports/bindcraft-campaign-summary.json",
     "reports/bindcraft-fold-switch-telemetry.json",
     "reports/bindcraft-fold-switch-outcome.json",
-    "reports/native-bindcraft-summary-package.json"
+    "reports/native-bindcraft-summary-package.json",
+    "reports/native-bindcraft-fasta-repeat-outcome.json",
+    "reports/bindcraft-packaged-termination.json",
+    "reports/bindcraft-fab-gradient-cpu-subbatch1.json",
+    "reports/ssd-af2-parity.json",
+    "reports/ssd-fab-gradient.json",
+    "reports/bindcraft-native-utilities.json"
   ],
   "runtime": {
     "cpu": "../runtimes/jax-cpu/bin/python",
@@ -63,23 +71,13 @@
     "policy": "No larger Metal profile enabled; retain safe caps.",
     "reproduce": "METALJAX_MEM_GOVERNOR=1 METALJAX_MEM_BUDGET_MB=8192 METALJAX_MEM_SYS_MB=23552 METALJAX_LOOP_INFLIGHT_MB=128 METALJAX_MATMUL_PRECISION=highest ../runtimes/jax-metaljax/bin/python -B scripts/validate-af2-gradient-memory.py --parameters ../models/alphafold --target vendor/bindcraft2/settings/target/structures/hPDL1.pdb --reference reports/af2-320-cpu.json --output <new-output.json>"
   },
-  "activeComputationalTest": {
-    "jobId": "72debdb3-46b6-4c08-9599-0ff34c281876",
-    "root": "/Users/vii/Documents/FoldStudio-MetalPort/validation/bindcraft-campaign-review",
-    "app": "/Users/vii/Documents/FoldStudio-MetalPort/validation/Relocated BindCraft Summary Engine/FOLD STUDIO Metal Dev.app",
-    "workerPid": 42121,
-    "backend": "cpu",
-    "profile": "experimental-cpu-float32-sequence",
-    "state": "running",
-    "maximumAttempts": 1,
-    "instruction": "Actual native UI repeat of signal15-interrupted FASTA validation. Same seed/input/scientific fields, preserved old failed job. Do not cancel/duplicate or run another AF2 process."
-  },
+  "activeComputationalTest": null,
   "activeBuild": null,
-  "latestVerifiedApp": "/Users/vii/Documents/FoldStudio-MetalPort/validation/Relocated BindCraft Summary Engine/FOLD STUDIO Metal Dev.app (b10d8ee; signed relocated launch, native original summary 157 rows passed; actual native FASTA execution running)",
+  "latestVerifiedApp": "/Users/vii/Documents/FoldStudio-MetalPort/validation/Relocated BindCraft Reliable Engine/FOLD STUDIO Metal Dev.app (8ef5b2a; signed relocated native interrupted-state simulation and genuine saved accepted viewer passed)",
   "immediateNext": [
-    "Verify the existing native FASTA repeat72debdb3 outcome and signature, without restarting.",
-    "Then test original full Fab with explicit subbatch_size1 under the corrected footprint governor, no other AF2/build active.",
-    "Do not enable native Fab or raise memory limits based on input preflight or resident RSS. Preserve real rejection/termination."
+    "Package latest non-Fab utilities, verify actual bundled runtime and native buttons.",
+    "Finish active original induced_fit trajectory; do not launch a competing model job.",
+    "Continue non-Fab validation and runtime release checks. Fab and memory experiments explicitly deferred by user."
   ],
   "limitations": [
     "Full upstream modality/option parity remains incomplete.",
@@ -87,7 +85,7 @@
     "Newest additions require packaged acceptance.",
     "Do not rerun finished accepted/VHH/homodimer/multitarget campaigns merely to inspect results."
   ],
-  "uncommittedWork": "Accurate interrupted campaign state and readable interface message;348 backend/76 frontend tests pass. Active native FASTA repeat still runs in the unchanged b10d8ee bundle.",
+  "uncommittedWork": "Non-Fab native original command integration and verified utilities; preserved prior SSD experiment and lifecycle evidence.",
   "fabResourceFailure": {
     "state": "kernel_memory_terminated",
     "report": "reports/bindcraft-fab-gradient-cpu.json",
@@ -95,7 +93,29 @@
     "kernelReportedCompressedProcessSizeMB": 49128,
     "observedResidentPeakBytes": 5916033024,
     "error": "Resident-only governor missed compressed memory; kernel killed model worker40759 at memory pressure. Does not mean49GiB resident physical RAM.",
-    "correction": "New public libproc task-footprint governor includes compressed allocations; two tests pass and real 1GiB smoke stops own child in3.02s. No new full Fab run yet.",
-    "nextMemoryWorkaround": "Original supported subbatch_size=1, same full scaffold/target/thresholds, under corrected14GiB footprint ceiling; test only after active FASTA finishes. Current auto resolves4 at608."
-  }
+    "correction": "Corrected libproc footprint guard safely stopped original subbatch1 Fab at15.948GB task footprint /8.479GB resident in15.43s. No OS memory kill for that bounded experiment.",
+    "nextMemoryWorkaround": "Under discussion: finer recomputation of subbatch backward buffers plus existing SSD tape.",
+    "ssdExperiment": {
+      "state": "bounded_resource_refusal",
+      "report": "reports/ssd-fab-gradient.json",
+      "parentWallSeconds": 310.2191197499633,
+      "physicalFootprintBytes": 15279502008,
+      "residentBytes": 6869172224,
+      "ssdBytesBeforeCleanup": 9665972632,
+      "ownedScratchRemoved": true,
+      "processExitCode": -15,
+      "limitation": "Stopped at self-imposed14GiB task footprint limit; not proof of exhausting24GiB physicalRAM. No completed gradient."
+    }
+  },
+  "activeScientificRun": {
+    "jobId": "ec6e1fd3-d0f8-4510-89f5-85cf5f424002",
+    "root": "/Users/vii/Documents/FoldStudio-MetalPort/validation/bindcraft-conformational-presets",
+    "workerPid": 45773,
+    "state": "running",
+    "backend": "cpu",
+    "profile": "experimental-cpu-float32-conformational",
+    "scope": "Actual original induced_fit, technical12res target+60res binder, bound/unbound original optimization and unchanged acceptance criteria. Single attempt; no competing AF2 process."
+  },
+  "fabDeferredByUser": true,
+  "distributionBlocker": "No valid local code-signing identity (security find-identity reports0). Ad-hoc local signing is available; Developer ID notarized distribution requires external credentials."
 }

@@ -1,0 +1,182 @@
+{
+  "state": "native_original_sequence_trajectory_completed",
+  "scope": "Actual native button launched a one-attempt original FASTA-target campaign with app-owned CPU runtime and checkpoints. Genuine sequence-target losses/optimization observed; original rejection criteria retained. Any failed trajectory coordinates remain technical outputs, not accepted predictions. This does not establish biological disorder or binding, full ensemble or broad target validation.",
+  "jobId": "72debdb3-46b6-4c08-9599-0ff34c281876",
+  "root": "/Users/vii/Documents/FoldStudio-MetalPort/validation/bindcraft-campaign-review",
+  "app": "/Users/vii/Documents/FoldStudio-MetalPort/validation/Relocated BindCraft Summary Engine/FOLD STUDIO Metal Dev.app",
+  "runtime": {
+    "python": "3.12.14 (main, Aug 25 2026, 13:50:33) [Clang 22.1.3 ]",
+    "jax": "0.11.2",
+    "jaxlib": "0.11.2",
+    "architecture": "arm64",
+    "macOS": "26.4.1",
+    "devices": [
+      "cpu:0"
+    ],
+    "execution": "cpu",
+    "precision": "float32",
+    "executionSettingsSha256": "9e1168f75d7b6691e16b1115da1d59592857db40dce4b73dc534cdc098345e46",
+    "runnerSha256": "1a9537db332cf6e82d808e2fa72e84f8537665ecef682aae08a5d5dd74a06fca",
+    "upstreamSource": {
+      "state": "present",
+      "revision": "c0ee638d11bc010817c2c97ee58ed5c323e664e2",
+      "manifestSha256": "8f06e409dac335261d2505361f4358e2b4df389b8f85a497967406d8c4af4277",
+      "license": "BindCraft2 Source-Available License (Hosting-Restricted)",
+      "modified": false
+    },
+    "precisionAdapterSha256": "a7699aa7c0669c3654b8d15f9114d66eeeedf29868896ef3318338e0127fdc65",
+    "exitCode": 0,
+    "state": "finished",
+    "totalSeconds": 590.3139949168544
+  },
+  "interpreter": "/Users/vii/Documents/FoldStudio-MetalPort/validation/Relocated BindCraft Summary Engine/FOLD STUDIO Metal Dev.app/Contents/Resources/runtime/bin/python3.12",
+  "parameters": "/Users/vii/Documents/FoldStudio-MetalPort/validation/Relocated BindCraft Summary Engine/FOLD STUDIO Metal Dev.app/Contents/Resources/models/alphafold",
+  "stageRows": {
+    "trajectories": 1,
+    "candidates": 0,
+    "accepted": 0
+  },
+  "outcome": "no_accepted_designs",
+  "lastObservedUpdatesByStage": {
+    "screen": {
+      "stage": "screen",
+      "sequenceUpdates": 50,
+      "metrics": {
+        "target.binder_contacts": 2.7180533409118652,
+        "target.binder_helicity": -1.515043020248413,
+        "target.binder_pae": 0.107613705098629,
+        "target.compactness": 0.5609356760978699,
+        "target.interface_contacts": 3.2890853881835938,
+        "target.interface_pae": 0.08213028311729431,
+        "target.iptm": 0.6342264413833618,
+        "target.iptm_loss": 0.01828867755830288,
+        "target.plddt_loss": 0.02953229285776615,
+        "target.ptm": 0.554837167263031,
+        "target.target_helicity": -2.1048202514648438,
+        "target.target_plddt": 0.2608867287635803
+      }
+    },
+    "refine": {
+      "stage": "refine",
+      "sequenceUpdates": 25,
+      "metrics": {
+        "target.binder_contacts": 2.821336269378662,
+        "target.binder_helicity": -1.6067763566970825,
+        "target.binder_pae": 0.12465965002775192,
+        "target.compactness": 0.9735481142997742,
+        "target.interface_contacts": 3.334110736846924,
+        "target.interface_pae": 0.09071198850870132,
+        "target.iptm": 0.6274058222770691,
+        "target.iptm_loss": 0.018629709258675575,
+        "target.plddt_loss": 0.03158513456583023,
+        "target.ptm": 0.5101816654205322,
+        "target.target_helicity": -2.1368675231933594,
+        "target.target_plddt": 0.2853550910949707
+      }
+    },
+    "anneal": {
+      "stage": "anneal",
+      "sequenceUpdates": 45,
+      "metrics": {
+        "target.binder_contacts": 2.915855646133423,
+        "target.binder_helicity": -1.4223710298538208,
+        "target.binder_pae": 0.1446501761674881,
+        "target.compactness": 0.5420400500297546,
+        "target.interface_contacts": 3.7859904766082764,
+        "target.interface_pae": 0.12536707520484924,
+        "target.iptm": 0.5450387001037598,
+        "target.iptm_loss": 0.0227480661123991,
+        "target.plddt_loss": 0.03743971511721611,
+        "target.ptm": 0.3919592499732971,
+        "target.target_helicity": -1.5812253952026367,
+        "target.target_plddt": 0.4292994737625122
+      }
+    },
+    "harden": {
+      "stage": "harden",
+      "sequenceUpdates": 5,
+      "metrics": {
+        "target.binder_contacts": 2.8893234729766846,
+        "target.binder_helicity": -1.404282808303833,
+        "target.binder_pae": 0.11809420585632324,
+        "target.compactness": 0.8222162127494812,
+        "target.interface_contacts": 3.471961736679077,
+        "target.interface_pae": 0.09528960287570953,
+        "target.iptm": 0.585160493850708,
+        "target.iptm_loss": 0.02074197493493557,
+        "target.plddt_loss": 0.036287471652030945,
+        "target.ptm": 0.5066596269607544,
+        "target.target_helicity": -1.7534561157226562,
+        "target.target_plddt": 0.34528446197509766
+      }
+    },
+    "mutate": {
+      "stage": "mutate",
+      "sequenceUpdates": 15,
+      "metrics": {
+        "target.iptm": 0.6944614052772522,
+        "target.ptm": 0.5954008102416992
+      }
+    }
+  },
+  "sourceCropLogReadings": [
+    {
+      "start": 30,
+      "end": 67,
+      "sourceLength": 115
+    },
+    {
+      "start": 51,
+      "end": 60,
+      "sourceLength": 115
+    },
+    {
+      "start": 91,
+      "end": 103,
+      "sourceLength": 115
+    },
+    {
+      "start": 40,
+      "end": 58,
+      "sourceLength": 115
+    }
+  ],
+  "coordinateCrops": [],
+  "trajectoryRows": [
+    {
+      "trajectory": "1",
+      "design": "design_l60_d76074950407818b",
+      "length": "60",
+      "bindcraft_version": "BindCraft 2 (unreleased)",
+      "Timing": "worker=0;start=1792499817.74;design=587.94;compiled=1",
+      "hash": "d76074950407818b",
+      "terminated": "final",
+      "autotuned": "",
+      "settings_core": "default"
+    }
+  ],
+  "resourceEstimate": {
+    "paddedResidues": 128
+  },
+  "fastaSha256": "3c399d05381a2192b2b77fb921a5eb8323623e73cc444665ba30e1a94bdf0c7e",
+  "originalDefaultFiltersRetained": true,
+  "signatureAfterExecution": "passed",
+  "outputs": [],
+  "modelSelection": {
+    "designModels": [
+      "model_1_multimer_v3"
+    ],
+    "validationModels": [
+      "model_1_ptm"
+    ]
+  },
+  "nativeCompletedStatus": {
+    "state": "passed",
+    "message": "Campaign finished. No candidate passed the original scientific filters.",
+    "screenshot": "reports/native-bindcraft-fasta-repeat-completed.png"
+  },
+  "limitations": [
+    "No candidate passed the original final i_pTM gate, so FASTA-specific ProteinMPNN, held-out refolding and accepted-coordinate import were not exercised.",
+    "Original sparse output retained trajectory statistics without failed coordinates; actual-coordinate crop round-trip remains unverified in this case."
+  ]
+}

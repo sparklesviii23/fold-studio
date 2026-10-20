@@ -1,5 +1,7 @@
 """Read-only macOS process measurements; GPU counters are explicitly system-wide."""
-import argparse,datetime,hashlib,json,os,pathlib,plistlib,re,sqlite3,subprocess
+import argparse,datetime,hashlib,json,os,pathlib,plistlib,re,sqlite3,subprocess,sys
+sys.path.insert(0,str(pathlib.Path(__file__).resolve().parents[1]/'scientific'))
+from process_memory import process_memory
 p=argparse.ArgumentParser();p.add_argument('--root',required=True);p.add_argument('--job',required=True);p.add_argument('--report',required=True);a=p.parse_args();root=pathlib.Path(a.root).resolve();report_path=pathlib.Path(a.report)
 def command(args):return subprocess.run(args,capture_output=True,text=True,timeout=15)
 db=sqlite3.connect('file:'+str(root/'library.sqlite3')+'?mode=ro',uri=True);row=db.execute('SELECT state,data FROM jobs WHERE id=?',(a.job,)).fetchone();db.close()
@@ -13,6 +15,8 @@ if pid:
    fields=line.split(None,5)
    if len(fields)!=6 or int(fields[2])!=group:continue
    process={'pid':int(fields[0]),'parentPid':int(fields[1]),'groupId':group,'psCpuPercent':float(fields[3]),'psResidentKiB':int(fields[4]),'executable':fields[5]}
+   try:process['macOSTaskMemory']={**process_memory(process['pid']),'method':'macOS proc_pid_rusage; task footprint includes compressed allocations, current sample only'}
+   except OSError as error:process['macOSTaskMemoryUnavailable']=str(error)
    if process['pid']!=pid:
     memory=command(['/usr/bin/vmmap','-summary',fields[0]])
     for name,pattern in [('physicalFootprint','Physical footprint:'),('peakPhysicalFootprint','Physical footprint (peak):')]:

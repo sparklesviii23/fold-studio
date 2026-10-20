@@ -2,19 +2,23 @@
 No standalone forward executable is retained. Outputs are technical predictions,
 not optimized/accepted designs. Parent macOS task-footprint ceiling includes compressed memory.
 """
-import argparse,datetime,hashlib,json,os,pathlib,signal,sqlite3,subprocess,sys,time
+import argparse,atexit,contextlib,datetime,hashlib,json,os,pathlib,signal,sqlite3,subprocess,sys,tempfile,time
 sys.dont_write_bytecode=True
 ROOT=pathlib.Path(__file__).resolve().parents[1];sys.path.insert(0,str(ROOT/'scientific'))
 from process_memory import process_memory,exceeds_footprint_budget
-p=argparse.ArgumentParser();p.add_argument('--modality',required=True);p.add_argument('--parameters',required=True);p.add_argument('--target',required=True);p.add_argument('--target-chains',default='A');p.add_argument('--output',required=True);p.add_argument('--binder-length',type=int);p.add_argument('--seed',type=int,default=42);p.add_argument('--subbatch-size',type=int,choices=[1,2,4]);p.add_argument('--max-footprint-gib','--max-rss-gib',dest='max_footprint_gib',type=float,default=14);p.add_argument('--timeout-seconds',type=int,default=1800);p.add_argument('--idle-root',required=True);p.add_argument('--preflight-only',action='store_true');p.add_argument('--worker',action='store_true',help=argparse.SUPPRESS);a=p.parse_args();output=pathlib.Path(a.output).resolve()
+p=argparse.ArgumentParser();p.add_argument('--modality',required=True);p.add_argument('--parameters',required=True);p.add_argument('--target',required=True);p.add_argument('--target-chains',default='A');p.add_argument('--output',required=True);p.add_argument('--binder-length',type=int);p.add_argument('--seed',type=int,default=42);p.add_argument('--subbatch-size',type=int,choices=[1,2,4]);p.add_argument('--max-footprint-gib','--max-rss-gib',dest='max_footprint_gib',type=float,default=14);p.add_argument('--timeout-seconds',type=int,default=1800);p.add_argument('--idle-root',required=True);p.add_argument('--preflight-only',action='store_true');p.add_argument('--ssd-directory');p.add_argument('--ssd-max-gib',type=float,default=10);p.add_argument('--ssd-owned-directory',help=argparse.SUPPRESS);p.add_argument('--worker',action='store_true',help=argparse.SUPPRESS);a=p.parse_args();output=pathlib.Path(a.output).resolve()
 if not a.worker:
  if output.exists():raise SystemExit('Choose a new gradient report path.')
  db=sqlite3.connect('file:'+str(pathlib.Path(a.idle_root).resolve()/'library.sqlite3')+'?mode=ro',uri=True);active=db.execute("SELECT id FROM jobs WHERE state IN ('queued','running')").fetchall();db.close()
  if active and not a.preflight_only:raise SystemExit('Wait for the existing native model job to finish; no competing model process will be launched.')
  if not 1<=a.max_footprint_gib<=14:raise SystemExit('This experiment permits a positive footprint ceiling no larger than 14 GiB.')
  output.parent.mkdir(parents=True,exist_ok=True);started=time.monotonic();maximum=0;maximum_footprint=0;process_identity=None;failure=None
+ scratch=None;extra=[]
+ if a.ssd_directory:
+  if not 0<a.ssd_max_gib<=12:raise SystemExit('Choose an SSD tape budget greater than zero and no larger than 12 GiB.')
+  scratch=tempfile.TemporaryDirectory(prefix='fold-gradient-',dir=pathlib.Path(a.ssd_directory).resolve(strict=True));atexit.register(scratch.cleanup);extra=['--ssd-owned-directory',scratch.name]
  with output.with_suffix('.log').open('w') as log:
-  child=subprocess.Popen([os.path.abspath(sys.executable),'-I','-B',str(pathlib.Path(__file__).resolve()),*sys.argv[1:],'--worker'],stdout=log,stderr=subprocess.STDOUT,start_new_session=True,env={**os.environ,'JAX_PLATFORMS':'cpu','PYTHONDONTWRITEBYTECODE':'1'})
+  child=subprocess.Popen([os.path.abspath(sys.executable),'-I','-B',str(pathlib.Path(__file__).resolve()),*sys.argv[1:],*extra,'--worker'],stdout=log,stderr=subprocess.STDOUT,start_new_session=True,env={**os.environ,'JAX_PLATFORMS':'cpu','PYTHONDONTWRITEBYTECODE':'1'})
   print(json.dumps({'state':'running','pid':child.pid,'report':str(output)}),flush=True)
   while child.poll() is None:
    try:
@@ -32,8 +36,10 @@ if not a.worker:
     break
    time.sleep(.1)
  report=json.loads(output.read_text()) if output.exists() else {};report.update(observedParentPeakRSSBytes=maximum,observedParentPeakFootprintBytes=maximum_footprint,experimentFootprintCeilingGiB=a.max_footprint_gib,memoryMeasurement="macOS proc_pid_rusage ri_phys_footprint, including compressed allocations",parentWallSeconds=time.monotonic()-started,processExitCode=child.returncode)
+ if scratch:
+  report['ssdRemainingBytesBeforeCleanup']=sum(file.stat().st_size for file in pathlib.Path(scratch.name).rglob('*') if file.is_file());scratch.cleanup();report['ssdOwnedScratchRemoved']=not pathlib.Path(scratch.name).exists()
  if failure:report.update(state='bounded_resource_refusal',error=failure)
- elif child.returncode:report.update(state='failed',error='Original gradient worker failed; see preserved log.')
+ elif child.returncode:report.update(state='failed',error=report.get('error') or 'Original gradient worker failed; see preserved log.')
  output.write_text(json.dumps(report,indent=2,allow_nan=False)+'\n');print(json.dumps({key:report.get(key) for key in ('state','error','maximumPaddedResidues','parentWallSeconds','observedParentPeakRSSBytes')}),flush=True);raise SystemExit(0 if child.returncode==0 and not failure else 1)
 os.environ['JAX_PLATFORMS']='cpu';os.environ['XLA_PYTHON_CLIENT_PREALLOCATE']='false';sys.path.insert(0,str(ROOT/'scientific'));sys.path.insert(0,str(ROOT/'vendor/bindcraft2'))
 import fold_engine as fe
@@ -55,7 +61,17 @@ states,_,losses=initialize_design_trajectory(design,jax.random.PRNGKey(a.seed));
 report={'state':'input_preflight_passed' if a.preflight_only else 'gradient_pending','scope':'Original complete modality preset, input preparation and losses; single genuine model_1_multimer_v3 CPU float32 gradient including its full forward. No separately retained standalone prediction executable, trajectory optimization, ProteinMPNN, held-out refold, acceptance or biological claim. No original thresholds changed.','source':source,'targetSha256':target_sha,'settings':json_compatible(settings),'settingsSha256':fe.checksum(fe.canonical(json_compatible(settings)).encode()),'model':'model_1_multimer_v3','parameterSha256':checkpoint_sha,'seed':a.seed,'maximumPaddedResidues':padded,'inputChainLengths':{state:{chain:len(protein) for chain,protein in values.items()} for state,values in states.items()},'executionOverrides':{'subbatch_size':a.subbatch_size} if a.subbatch_size is not None else {},'backend':'cpu','precision':'float32','jax':jax.__version__,'jaxlib':importlib.metadata.version('jaxlib'),'scaffoldSha256':hashlib.sha256(pathlib.Path(design.binder.scaffold).read_bytes()).hexdigest() if design.binder.scaffold else None,'activeLosses':list(losses),'standaloneForwardExecuted':False,'gradientIncludesFullForward':True,'compileCacheSize':1};output.write_text(json.dumps(report,indent=2,allow_nan=False)+'\n');print(json.dumps({'stage':'preflight','padded':padded,'inputChainLengths':report['inputChainLengths']}),flush=True)
 if a.preflight_only:raise SystemExit(0)
 try:
- started=time.perf_counter();bucket=campaign_length_bucket(settings);target_lengths={len(protein) for protein in prepare_targets(design,longest_crop=True).values()};target_pad=padded_prediction_length(max(target_lengths),bucket) if len(target_lengths)>1 else 0;groups=(design.binder_chains,) if design.binder.copies>1 and design.oligomer_tie=='symmetric' else ();padded_states=pad_design_chains(states,bucket,target_pad);report['actualGradientStatePaddedResidues']={name:padded_prediction_length(sum(len(protein) for protein in chains.values()),bucket) for name,chains in padded_states.items()};report['effectiveSubbatchSize']=campaign_subbatch_size(settings,padded);output.write_text(json.dumps(report,indent=2,allow_nan=False)+'\n');model=model_class()(presets=('model_1_multimer_v3',),models=('model_1_multimer_v3',),data_dir=str(checkpoint.parent),key=jax.random.PRNGKey(a.seed),max_cache_size=1,num_recycle=settings.get('design_recycles',DEFAULT_SETTINGS['design_recycles']),cyclic_offset_mode=resolve_cyclic_offset_mode(settings),subbatch_size=report['effectiveSubbatchSize'],attention_backend='stock',use_cueq=False,length_bucket_size=bucket,multi_chain_binders=groups,target_pad_length=target_pad,amino_acid_bias=design.binder.amino_acid_bias);report['useRemat']=all(runner.config.model.global_config.use_remat for runner in model.alphafold_runners.values());assert report['useRemat'];loaded=time.perf_counter();predictions,grads,loss=model.sequence_gradients(states,losses);jax.block_until_ready(grads);value=float(loss);assert np.isfinite(value)
+ tape=None
+ if a.ssd_directory:
+  from ssd_checkpoint import DiskTape,alphafold_disk_tape
+  tape=DiskTape(a.ssd_owned_directory or a.ssd_directory,max_bytes=int(a.ssd_max_gib*1024**3));report['ssdOffload']={'state':'experimental','backend':'cpu','maximumTapeBytes':tape.max_bytes,'reserveBytes':tape.reserve_bytes};output.write_text(json.dumps(report,indent=2,allow_nan=False)+'\n')
+ started=time.perf_counter();bucket=campaign_length_bucket(settings);target_lengths={len(protein) for protein in prepare_targets(design,longest_crop=True).values()};target_pad=padded_prediction_length(max(target_lengths),bucket) if len(target_lengths)>1 else 0;groups=(design.binder_chains,) if design.binder.copies>1 and design.oligomer_tie=='symmetric' else ();padded_states=pad_design_chains(states,bucket,target_pad);report['actualGradientStatePaddedResidues']={name:padded_prediction_length(sum(len(protein) for protein in chains.values()),bucket) for name,chains in padded_states.items()};report['effectiveSubbatchSize']=campaign_subbatch_size(settings,padded);output.write_text(json.dumps(report,indent=2,allow_nan=False)+'\n');model=model_class()(presets=('model_1_multimer_v3',),models=('model_1_multimer_v3',),data_dir=str(checkpoint.parent),key=jax.random.PRNGKey(a.seed),max_cache_size=1,num_recycle=settings.get('design_recycles',DEFAULT_SETTINGS['design_recycles']),cyclic_offset_mode=resolve_cyclic_offset_mode(settings),subbatch_size=report['effectiveSubbatchSize'],attention_backend='stock',use_cueq=False,length_bucket_size=bucket,multi_chain_binders=groups,target_pad_length=target_pad,amino_acid_bias=design.binder.amino_acid_bias);report['useRemat']=all(runner.config.model.global_config.use_remat for runner in model.alphafold_runners.values());assert report['useRemat'];loaded=time.perf_counter()
+ with (alphafold_disk_tape(tape) if tape else contextlib.nullcontext()):
+  predictions,grads,loss=model.sequence_gradients(states,losses);jax.block_until_ready(grads)
+ if tape:
+  report['ssdOffload'].update(checkpoints=tape.checkpoints,bytesWritten=tape.bytes_written,bytesRead=tape.bytes_read);assert tape.checkpoints>0,'SSD adapter did not intercept original layer-stack scans.'
+  tape.close()
+ value=float(loss);assert np.isfinite(value)
  arrays={};norms={}
  for name,gradient in grads.items():
   values=np.asarray(gradient);assert np.isfinite(values).all();arrays['gradient_'+name]=values;norms[name]=float(np.linalg.norm(values))
@@ -66,3 +82,6 @@ try:
  np.savez(output.with_suffix('.npz'),**arrays);assert fe.verify_source()==source and hashlib.sha256(target.read_bytes()).hexdigest()==target_sha;report.update(state='full_gradient_passed',loadSeconds=loaded-started,firstGradientIncludingCompilationSeconds=time.perf_counter()-loaded,loss=value,gradientNorms=norms,peakProcessRSSBytes=resource.getrusage(resource.RUSAGE_SELF).ru_maxrss);output.write_text(json.dumps(report,indent=2,allow_nan=False)+'\n');print(json.dumps({key:report[key] for key in ('state','loss','gradientNorms','peakProcessRSSBytes')}),flush=True)
 except BaseException as error:
  report.update(state='failed',error=str(error));output.write_text(json.dumps(report,indent=2,allow_nan=False)+'\n');raise
+finally:
+ if tape and not tape.closed:
+  report['ssdOffload'].update(checkpoints=tape.checkpoints,bytesWritten=tape.bytes_written,bytesRead=tape.bytes_read);tape.close();output.write_text(json.dumps(report,indent=2,allow_nan=False)+'\n')
