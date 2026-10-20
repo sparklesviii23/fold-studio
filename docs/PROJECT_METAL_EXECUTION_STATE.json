@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "updatedUtc": "2026-10-20T23:48:19.259626+00:00",
+  "updatedUtc": "2026-10-20T23:52:30.729707+00:00",
   "branch": "project-metal/apple-silicon-engine",
   "implementationCommit": "ace250d (native idle-sleep continuity), following07a7839(Fab transport/progress) and prior AMME/recovery code",
   "scope": "Current directive: full Fab fidelity, AMME profiling/rematerialization/offload and remaining non-Fab inventory accounting; no UI redesign or unrelated scientific features.",
@@ -44,7 +44,8 @@
     "longCampaignProgress": "Native service parses up to1MiB contextual log while returning only30000visible bytes;3tests cover long AMME logs, recovery boundary reset and unavailable-context refusal.",
     "stagedFabTransportPackage": "Actual07a7839staged ad-hoc signed package:46scientific Python source files match; bundled Python3.12.14 executes full original Fab preparation, genuine diagnostic transport and long-log protocol check. No GUI activation or model calculation in package test.",
     "ammeRepeatedFullSizeUpdates": "Two actual native full-Fab original screen optimizer updates completed;54SSD checkpoints per step,8,657,242,520Bperstep,zero live tape aftereach. Third gradient originally samplesmodel5 aftertwo model3steps. Current observedpeak10.23GiB,14GiB cap unchanged. Full trajectory and continuous numerical equivalence remain unverified.",
-    "idleContinuity": "Native per-worker idle-sleep assertion implemented and9focused lifecycle tests pass. Actual older worker protected by a detached native caffeinate -i -w67111 assertion, automatically released on worker exit. Display sleep and permanent power settings unchanged."
+    "idleContinuity": "Native per-worker idle-sleep assertion implemented and9focused lifecycle tests pass. Actual older worker protected by a detached native caffeinate -i -w67111 assertion, automatically released on worker exit. Display sleep and permanent power settings unchanged.",
+    "stagedIdleContinuityPackage": "Actual signed staged ace250d bundle:all46scientific source file SHA-256 values match repo; packaged idle helper starts/releases its own assertion without ending its separate test child. Main scientific worker67111 and active app untouched."
   },
   "evidence": [
     "reports/bindcraft-ensemble-outcome.json",
@@ -99,7 +100,8 @@
     "reports/local-privacy-loop-fix.json",
     "reports/amme-fab-transport.json",
     "reports/amme-packaged-transport.json",
-    "reports/amme-idle-continuity.json"
+    "reports/amme-idle-continuity.json",
+    "reports/amme-packaged-idle-continuity.json"
   ],
   "runtime": {
     "cpu": "../runtimes/jax-cpu/bin/python",
@@ -238,19 +240,21 @@
   "localLaunchGuardCommit": "c64f543",
   "stagedUpdate": {
     "app": "/Users/vii/Documents/FoldStudio-MetalPort/validation/Staged Fab Transport Engine/FOLD STUDIO Metal Dev.app",
-    "sourceCommit": "07a7839",
+    "sourceCommit": "ace250d",
     "signature": "verified local ad-hoc",
     "bundledBackend": "passed",
-    "activation": "Deferred until old-identity scientific worker and window finish; scripts/open-local-app.py reuses the matching running build.",
-    "pendingSourceChanges": [
-      "amme_worker.py: native idle-sleep protection; tests pass, package refresh pending without GUI activation"
-    ]
+    "activation": "Deferred until older scientific worker and app window finish; use guarded launcher.",
+    "pendingSourceChanges": [],
+    "bundledIdleHelperLifecycle": "passed"
   },
   "backgroundFollowup": {
     "id": "continue-fold-studio-integration",
     "kind": "heartbeat",
     "intervalMinutes": 15,
-    "status": "ACTIVE"
+    "status": "ACTIVE",
+    "notificationPolicy": "failed_runs_only",
+    "userRequestedResume": true,
+    "userRequestedQuietBackground": true
   },
   "globalEngineeringEstimate": {
     "completePercentRange": [

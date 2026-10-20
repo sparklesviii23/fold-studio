@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "updatedUtc": "2026-10-20T23:48:19.259626+00:00",
+  "updatedUtc": "2026-10-20T23:52:30.729707+00:00",
   "scope": "Full Fab AMME development; complete feature is not certified. Local use; notarization deferred.",
   "fullFabComplete": false,
   "sourceRevision": "c0ee638d11bc010817c2c97ee58ed5c323e664e2",
@@ -274,7 +274,9 @@
     "id": "continue-fold-studio-integration",
     "intervalMinutes": 15,
     "status": "ACTIVE",
-    "scope": "Continue this chat, observe original background computation, perform safe source integration and report meaningful milestones. No duplicate model runs or conflicting app activation."
+    "scope": "Continue this chat, observe original background computation, perform safe source integration and report meaningful milestones. No duplicate model runs or conflicting app activation.",
+    "notificationPolicy": "failed_runs_only"
   },
-  "idleContinuityEvidence": "reports/amme-idle-continuity.json"
+  "idleContinuityEvidence": "reports/amme-idle-continuity.json",
+  "packagedIdleContinuityEvidence": "reports/amme-packaged-idle-continuity.json"
 }

@@ -6,8 +6,9 @@ Implementation: `4e23650`, followed by recovery correction `5b63a6e` on
 
 Follow-up `07a7839` adds full Fab chain-transport checks and a bounded wider
 progress-log window. `ace250d` adds per-worker idle-sleep protection. The signed
-staged transport package passes its bundled-runtime backend checks; activation
-and the power-helper package refresh wait safely behind the current calculation.
+staged package passes its bundled-runtime transport and idle-helper lifecycle
+checks with all46scientific source hashes matched; GUI activation waits safely
+behind the current calculation.
 
 Full Fab is connected to the native app as an experimental, protected CPU
 workflow. Complete Fab design is **not yet certified**. This path needs no NVIDIA
@@ -68,7 +69,8 @@ A native idle-sleep assertion is attached to the exact running scientific proces
 and automatically ends when that process exits. Future native supervisors create
 and release their own assertions; display sleep and permanent power settings stay
 unchanged. Nine focused lifecycle tests pass. Background continuation in this chat
-is enabled every 15 minutes, with updates on meaningful progress or failures.
+is enabled every 15 minutes. The user resumed it after an accidental pause and
+requested quiet background work; routine notifications are muted.
 
 The updated controller and older scientific worker caused macOS to alternate
 between their different ad-hoc signing identities under the same app identifier,
