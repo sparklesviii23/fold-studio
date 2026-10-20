@@ -17,6 +17,29 @@ from amme_campaign import (DISK_RESERVE, FOOTPRINT_LIMIT, SSD_QUOTA,
 from process_memory import exceeds_footprint_budget, process_memory
 
 
+def start_idle_assertion(pid):
+    """Keep a long Fab job running through idle time; display sleep is unchanged."""
+    if type(pid) is not int or pid <= 0:
+        raise ValueError('A positive worker PID is required for the idle assertion.')
+    try:
+        process=subprocess.Popen(['/usr/bin/caffeinate','-i','-w',str(pid)],
+                                 stdout=subprocess.DEVNULL,stderr=subprocess.DEVNULL)
+        return process,{'state':'active','mode':'prevent_idle_sleep','workerPid':pid,
+                        'assertionPid':process.pid,'displaySleepUnchanged':True}
+    except OSError as error:
+        return None,{'state':'unavailable','error':str(error),'workerPid':pid}
+
+
+def release_idle_assertion(process):
+    if process is None:return None
+    if process.poll() is None:
+        try:process.terminate()
+        except ProcessLookupError:pass
+        try:process.wait(timeout=2)
+        except subprocess.TimeoutExpired:process.kill();process.wait()
+    return process.returncode
+
+
 def cleanup_stale(directory):
     """Reclaim only marked private tapes after BOTH owning processes are gone."""
     removed=[]
@@ -61,6 +84,7 @@ def run_guarded(command, *, env, folder, timeout_seconds=48 * 3600,
               'memoryMeasurement': 'macOS libproc physical footprint including compressed allocations; RSS also checked.',
               'scope': 'Resource supervision; no scientific acceptance or optimizer-step recovery implied.'}
     child = None
+    idle_assertion = None
     previous_handler = signal.getsignal(signal.SIGTERM)
 
     def interrupted(signum, frame):
@@ -89,6 +113,7 @@ def run_guarded(command, *, env, folder, timeout_seconds=48 * 3600,
             # this single scientific child in the native job's original group:
             # cancellation and recovery can still find it if its parent dies.
             child = subprocess.Popen(command, env=launch_env)
+            idle_assertion,report['idleSleepPrevention']=start_idle_assertion(child.pid)
             supervisor_identity = process_memory(os.getpid())['processStartAbstime']
             report.update(state='running', workerPid=child.pid)
             atomic_json(folder / 'amme-memory.json', report)
@@ -145,6 +170,9 @@ def run_guarded(command, *, env, folder, timeout_seconds=48 * 3600,
             raise
         finally:
             stop()
+            assertion_exit=release_idle_assertion(idle_assertion)
+            if idle_assertion is not None:
+                report['idleSleepPrevention'].update(state='released',exitCode=assertion_exit)
             signal.signal(signal.SIGTERM, previous_handler)
             report['elapsedSeconds'] = time.monotonic() - started
             report['exitCode'] = child.returncode if child is not None else None

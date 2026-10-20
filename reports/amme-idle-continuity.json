@@ -1,0 +1,14 @@
+{
+  "recordedUtc": "2026-10-20T23:46:23.614145+00:00",
+  "state": "active",
+  "workerPid": 67111,
+  "workerProcessIdentity": 38774519356368,
+  "assertionPid": 76836,
+  "mode": "prevent_idle_sleep",
+  "displaySleepUnchanged": true,
+  "lifetime": "Native caffeinate -w releases the assertion when this scientific worker exits. No permanent power setting changed.",
+  "actualPowerAssertion": [
+    "pid 76836(caffeinate): [0x0018b02d00019c2c] 00:00:00 PreventUserIdleSystemSleep named: \"caffeinate command-line tool\""
+  ],
+  "nativeIntegration": "scientific/amme_worker.py now starts/releases its own per-worker assertion;9focused lifecycle tests pass. The running older supervisor is preserved; this helper attaches without altering it."
+}

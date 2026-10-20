@@ -10,10 +10,33 @@ from unittest.mock import patch
 
 sys.path.insert(0,str(pathlib.Path(__file__).resolve().parents[1]/'scientific'))
 from amme_campaign import environment,SCHEDULER_FLAG,FOOTPRINT_LIMIT
-from amme_worker import run_guarded,cleanup_stale
+from amme_worker import run_guarded,cleanup_stale,start_idle_assertion,release_idle_assertion
 
 
 class AMMEWorker(unittest.TestCase):
+    def test_idle_assertion_needs_a_real_positive_process_identity(self):
+        for value in (None,False,0,-1,'123'):
+            with self.subTest(value=value),self.assertRaises(ValueError):start_idle_assertion(value)
+
+    def test_unavailable_power_helper_does_not_fail_the_scientific_calculation(self):
+        with patch('amme_worker.subprocess.Popen',side_effect=OSError('unavailable')):
+            process,report=start_idle_assertion(123)
+        self.assertIsNone(process);self.assertEqual(report['state'],'unavailable')
+        self.assertIsNone(release_idle_assertion(process))
+
+    @unittest.skipUnless(sys.platform=='darwin','macOS idle assertions')
+    def test_actual_idle_assertion_is_released_without_terminating_the_worker(self):
+        child=subprocess.Popen([sys.executable,'-B','-c','import time;time.sleep(60)'])
+        assertion=None
+        try:
+            assertion,report=start_idle_assertion(child.pid)
+            self.assertEqual(report['state'],'active');self.assertTrue(report['displaySleepUnchanged'])
+            self.assertIsNone(assertion.poll())
+            release_idle_assertion(assertion)
+            self.assertIsNotNone(assertion.poll());self.assertIsNone(child.poll())
+        finally:
+            release_idle_assertion(assertion);child.terminate();child.wait(timeout=5)
+
     def test_cpu_scheduler_requires_tested_flag(self):
         value=environment({'XLA_FLAGS':'--xla_cpu_parallel_codegen_split_count=2'})
         self.assertIn(SCHEDULER_FLAG,value['XLA_FLAGS'])
@@ -34,6 +57,7 @@ class AMMEWorker(unittest.TestCase):
             self.assertEqual(result.returncode,0)
             report=json.loads((folder/'amme-memory.json').read_text())
             self.assertEqual(report['state'],'finished');self.assertTrue(report['ownedScratchRemoved'])
+            self.assertEqual(report['idleSleepPrevention']['state'],'released')
             self.assertGreater(report['peakFootprintBytes'],0)
             self.assertFalse(list(folder.glob('amme-worker-*')))
             self.assertEqual((folder/'neighbor').read_text(),'keep')
