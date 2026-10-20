@@ -1,12 +1,12 @@
 {
   "schemaVersion": 1,
-  "updatedUtc": "2026-10-20T23:29:42.927516+00:00",
+  "updatedUtc": "2026-10-20T23:42:02.253064+00:00",
   "branch": "project-metal/apple-silicon-engine",
-  "implementationCommit": "5b63a6e (Fab AMME4e23650 plus effective upstream recovery flag comparison)",
+  "implementationCommit": "07a7839 (full Fab chain-transport and long-run progress checks; earlier AMME and recovery implementations retained)",
   "scope": "Current directive: full Fab fidelity, AMME profiling/rematerialization/offload and remaining non-Fab inventory accounting; no UI redesign or unrelated scientific features.",
   "upstreamRevision": "c0ee638d11bc010817c2c97ee58ed5c323e664e2",
   "verified": {
-    "backendTests": 378,
+    "backendTests": 390,
     "frontendTests": 76,
     "typescript": "passed",
     "corePipeline": "Real 175-residue hPDL1 ensemble design + ProteinMPNN + held-out AF2 + original filters; one accepted computational prediction, no biological claim.",
@@ -39,7 +39,10 @@
     "ammeFullFabGradient": "Full original H231/L213 Fab +115-residue full hPDL1; actual gradient595per-chain-padded residues, conservative bucket608. Original1/3/5model pool resident, original RNG selected5. Genuine finite full forward/backward passed1139.625s, measured peak footprint11,092,403,680B (10.33GiB),14GiB ceiling unchanged.54SSD checkpoints9,665,972,632B written/read and removed. Not a complete trajectory.",
     "ammeRepeatedLocalUpdates": "Matched-input output, loss, gradient and original local optimizer comparisons pass at unchanged rtol1e-4/atol1e-5, with108checkpoints across2steps andzero liveSSDdata aftereach. Independent trajectory comparison drifts beyond tolerance; unchanged source reproduces drift at the same perturbed inputs. No bitwise continuous-trajectory equivalence claim.",
     "ammeNativeImplementation": "Actual native full Fab first gradient and original screen optimizer update completed; second gradient running. Original3design/2validation pools,14GiBcap intact. Peak observed9.93GiB. Same worker67111 persisted through controller restore.",
-    "localPrivacyLoop": "macOS logs confirmed alternating ad-hoc cdhash250562dd/aff3fb06 under one bundle ID. Matching original controller restored; follow-up privacy logs contain no prompting/mismatch events. Safe launcher reuses actual worker-owning build; seal script refuses mutating an active package.6focusedtests pass."
+    "localPrivacyLoop": "macOS logs confirmed alternating ad-hoc cdhash250562dd/aff3fb06 under one bundle ID. Matching original controller restored; follow-up privacy logs contain no prompting/mismatch events. Safe launcher reuses actual worker-owning build; seal script refuses mutating an active package.6focusedtests pass.",
+    "fabChainTransport": "Genuine559residue gradient diagnostic: both231/213antibody chains and full115residue observed target match reported/source sequences.9tests include rejection-before-write and exact import/project-export coordinate transport with explicitly synthetic completion receipts. No acceptedFab claim.",
+    "longCampaignProgress": "Native service parses up to1MiB contextual log while returning only30000visible bytes;3tests cover long AMME logs, recovery boundary reset and unavailable-context refusal.",
+    "stagedFabTransportPackage": "Actual07a7839staged ad-hoc signed package:46scientific Python source files match; bundled Python3.12.14 executes full original Fab preparation, genuine diagnostic transport and long-log protocol check. No GUI activation or model calculation in package test."
   },
   "evidence": [
     "reports/bindcraft-ensemble-outcome.json",
@@ -91,7 +94,9 @@
     "reports/amme-integration-status.json",
     "reports/amme-native-package.json",
     "reports/amme-native-resume-flags.json",
-    "reports/local-privacy-loop-fix.json"
+    "reports/local-privacy-loop-fix.json",
+    "reports/amme-fab-transport.json",
+    "reports/amme-packaged-transport.json"
   ],
   "runtime": {
     "cpu": "../runtimes/jax-cpu/bin/python",
@@ -117,7 +122,12 @@
     "workerSourceCommit": "4e23650",
     "controllerSourceCommit": "4e23650",
     "state": "running",
-    "scope": "Full original native Fab campaign. First original optimizer update completed; second gradient executing. Keep worker-owning bundle available. No complete trajectory/accepted Fab."
+    "scope": "Full original native Fab campaign. First original optimizer update completed; second gradient executing. Keep worker-owning bundle available. No complete trajectory/accepted Fab.",
+    "lastObservedUtc": "2026-10-20T23:42:02.253064+00:00",
+    "completedGradients": 1,
+    "gradientCalls": 2,
+    "peakFootprintBytes": 10763592896,
+    "stage": "gradient_execution"
   },
   "activeBuild": null,
   "latestVerifiedApp": "/Users/vii/Documents/FoldStudio-MetalPort/validation/Relocated Fab AMME Recovery Engine/FOLD STUDIO Metal Dev.app",
@@ -177,7 +187,12 @@
     "workerSourceCommit": "4e23650",
     "controllerSourceCommit": "4e23650",
     "state": "running",
-    "scope": "Full original native Fab campaign. First original optimizer update completed; second gradient executing. Keep worker-owning bundle available. No complete trajectory/accepted Fab."
+    "scope": "Full original native Fab campaign. First original optimizer update completed; second gradient executing. Keep worker-owning bundle available. No complete trajectory/accepted Fab.",
+    "lastObservedUtc": "2026-10-20T23:42:02.253064+00:00",
+    "completedGradients": 1,
+    "gradientCalls": 2,
+    "peakFootprintBytes": 10763592896,
+    "stage": "gradient_execution"
   },
   "fabDeferredByUser": false,
   "distributionBlocker": "No valid local code-signing identity (security find-identity reports0). Ad-hoc local signing is available; Developer ID notarized distribution requires external credentials.",
@@ -217,5 +232,12 @@
     "accountingCorrection": "Previous20unavailable option names included9property aliases already exposed,3format-owned controls and4single-device-inapplicable GPU scheduler controls. Four actual option exposure gaps remain. This corrects inventory semantics, not twelve new implementations; do not treat the old percentage as full completion."
   },
   "latestActiveApp": "/Users/vii/Documents/FoldStudio-MetalPort/validation/Relocated Fab AMME Engine/FOLD STUDIO Metal Dev.app",
-  "localLaunchGuardCommit": "c64f543"
+  "localLaunchGuardCommit": "c64f543",
+  "stagedUpdate": {
+    "app": "/Users/vii/Documents/FoldStudio-MetalPort/validation/Staged Fab Transport Engine/FOLD STUDIO Metal Dev.app",
+    "sourceCommit": "07a7839",
+    "signature": "verified local ad-hoc",
+    "bundledBackend": "passed",
+    "activation": "Deferred until old-identity scientific worker and window finish; scripts/open-local-app.py reuses the matching running build."
+  }
 }

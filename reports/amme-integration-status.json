@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "updatedUtc": "2026-10-20T23:29:42.927516+00:00",
+  "updatedUtc": "2026-10-20T23:42:02.253064+00:00",
   "scope": "Full Fab AMME development; complete feature is not certified. Local use; notarization deferred.",
   "fullFabComplete": false,
   "sourceRevision": "c0ee638d11bc010817c2c97ee58ed5c323e664e2",
@@ -226,7 +226,7 @@
     "scope": "One target state, unchanged complete original scaffold; conservative padded estimate\u2264608. Source scientific overrides remain saved, unsupported envelopes are refused."
   },
   "regression": {
-    "backendTests": 378,
+    "backendTests": 390,
     "frontendTests": 76,
     "runtimeAMMETests": 4,
     "runtimeSSDTapeTests": 7
@@ -252,12 +252,22 @@
     "jobId": "b981bc11-4606-43be-a3f2-000f1d6406dd",
     "workerPid": 67111,
     "state": "running",
-    "lastObservedUtc": "2026-10-20T23:29:42.927516+00:00",
-    "peakFootprintBytes": 10666058872,
+    "lastObservedUtc": "2026-10-20T23:42:02.253064+00:00",
+    "peakFootprintBytes": 10763592896,
     "completedGradients": 1,
     "stage": "gradient_execution",
     "sourceCommit": "4e23650",
-    "controllerSourceCommit": "4e23650"
+    "controllerSourceCommit": "4e23650",
+    "gradientCalls": 2
   },
-  "nativeFirstOptimizerUpdateEvidence": "reports/amme-native-package.json"
+  "nativeFirstOptimizerUpdateEvidence": "reports/amme-native-package.json",
+  "followUpIntegration": {
+    "sourceCommit": "07a7839",
+    "fabChainTransportEvidence": "reports/amme-fab-transport.json",
+    "packagedBackendEvidence": "reports/amme-packaged-transport.json",
+    "longProgressContextBytes": 1048576,
+    "visibleLogBytes": 30000,
+    "activationDeferred": true,
+    "scope": "Staged backend checks are not a completed Fab design campaign."
+  }
 }

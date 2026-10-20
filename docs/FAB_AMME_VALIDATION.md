@@ -4,6 +4,10 @@ Implementation: `4e23650`, followed by recovery correction `5b63a6e` on
 `project-metal/apple-silicon-engine`. Pinned scientific source:
 `c0ee638d11bc010817c2c97ee58ed5c323e664e2`.
 
+Follow-up `07a7839` adds full Fab chain-transport checks and a bounded wider
+progress-log window. The locally signed staged package passes its bundled-runtime
+backend checks; activation waits for the running old-identity calculation to end.
+
 Full Fab is connected to the native app as an experimental, protected CPU
 workflow. Complete Fab design is **not yet certified**. This path needs no NVIDIA
 hardware, remote compute or external Python installation; it does not execute
@@ -54,7 +58,8 @@ opening the updated recovery controller, retained the same scientific process.
 The controller displays live footprint, peak, limit and completed-gradient count.
 The actual native campaign has now completed its first original screen optimizer
 update and started its second full gradient. Peak task footprint at that point was
-approximately 9.93 GiB; the first tape was released before the second step.
+approximately 9.93 GiB; subsequent peak during the second gradient is 10.02 GiB.
+The first tape was released before the second step.
 Multiple completed full-size steps remain unverified.
 
 The updated controller and older scientific worker caused macOS to alternate
@@ -70,6 +75,19 @@ reuses the build owning a live window or scientific child. Ordinary Finder
 launches bypass this development guard. Package sealing now refuses an active
 bundle before changing any resources or signing identity. No privacy protection
 or signing requirement was weakened.
+
+Native Fab result transport now requires two antibody chains matching the original
+reported sequences and target chains matching the complete prepared input.
+Missing or truncated chains are refused before any record/asset write. A successful
+check records chain identities and lengths in result metadata, without asserting
+new scientific acceptance. Nine tests cover the genuine diagnostic, corrupted
+assembly cases and isolated import/export with explicitly synthetic completion
+receipts. Accepted Fab generation remains untested.
+
+Progress parsing now reads at most 1 MiB of log context while keeping the visible
+log limited to 30,000 bytes. This retains trajectory information after many memory
+events. A new recovery marker clears old trajectory context; unavailable context
+beyond the bound remains unreported. Three focused native-service tests pass.
 
 Recovery now compares effective compiler flags after the pinned original package
 applies its startup settings. The actual packaged runtime comparison passes.
@@ -100,7 +118,7 @@ is preserved; matched-input controls do not certify independent trajectory ident
 | Accepted Fab generation | Not tested; none generated |
 | Native integration/export | Partially verified: launch/viewer/project/reopen pass; accepted Fab pending |
 
-Current regression evidence: 378 backend tests, 76 frontend tests, four AMME runtime
+Current regression evidence: 390 backend tests, 76 frontend tests, four AMME runtime
 tests and seven SSD runtime tests pass. Native/frontend build and local deep
 signature verification pass. Notarization remains deferred for local use.
 
@@ -108,3 +126,5 @@ Machine-readable evidence: `reports/amme-integration-status.json`,
 `reports/amme-native-package.json`, `reports/amme-fab-memory-scheduler-gradient.json`,
 `reports/amme-two-update-parity.json`, `reports/amme-matched-update-parity.json`
 and `reports/amme-reference-perturbation-control.json`.
+The follow-up package/backend evidence is in `reports/amme-packaged-transport.json`
+and `reports/amme-fab-transport.json`.
