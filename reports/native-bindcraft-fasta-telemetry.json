@@ -1,0 +1,82 @@
+{
+  "jobId": "fed195a1-3eef-473e-956e-f7260a78d2ef",
+  "root": "/Users/vii/Documents/FoldStudio-MetalPort/validation/bindcraft-campaign-review",
+  "scope": "Read-only OS process footprint/CPU measurements and system-wide GPU counters during the actual local campaign. GPU utilization includes rendering/other apps and is not exclusive campaign utilization. Samples do not yield a whole-run GPU average or separately measured compilation/inference timing.",
+  "runtime": "/Users/vii/Documents/FoldStudio-MetalPort/validation/Relocated BindCraft Summary Engine/FOLD STUDIO Metal Dev.app/Contents/Resources/runtime/bin/python3.12",
+  "modelCheckpoints": {
+    "model_1_multimer_v3": "611da8fc7478928f68de12e8b226260ef1f4ce62bcc29b008572e52f4f212959",
+    "model_1_ptm": "5e564f79af5bcd54ccef6e2a6bb0ff01015d01650ebc41d4575e35f0de9ecc84"
+  },
+  "executionSettingsSha256": "4569e17191daaa8a601ca02fe0efa68c443b14a469cb7088f99fe03445a742bd",
+  "hardware": {
+    "machine": "arm64",
+    "cpu": "Apple M4 Pro",
+    "memoryBytes": 25769803776,
+    "macOS": "26.4.1"
+  },
+  "samples": [
+    {
+      "observedUtc": "2026-10-19T11:40:04.455571+00:00",
+      "jobState": "running",
+      "processes": [
+        {
+          "pid": 36344,
+          "parentPid": 1,
+          "groupId": 36344,
+          "psCpuPercent": 0.0,
+          "psResidentKiB": 47072,
+          "executable": "/Users/vii/Documents/FoldStudio-MetalPort/validation/Relocated BindCraft Summary Engine/FOLD STUDIO Metal Dev.app/Contents/Resources/runtime/bin/python3.12"
+        },
+        {
+          "pid": 36347,
+          "parentPid": 36344,
+          "groupId": 36344,
+          "psCpuPercent": 517.2,
+          "psResidentKiB": 2728336,
+          "executable": "/Users/vii/Documents/FoldStudio-MetalPort/validation/Relocated BindCraft Summary Engine/FOLD STUDIO Metal Dev.app/Contents/Resources/runtime/bin/python3.12",
+          "physicalFootprint": {
+            "rawVmmapUnit": "2.0G",
+            "method": "vmmap -summary; rounded OS process footprint, not total machine memory"
+          },
+          "peakPhysicalFootprint": {
+            "rawVmmapUnit": "2.0G",
+            "method": "vmmap -summary; rounded OS process footprint, not total machine memory"
+          }
+        }
+      ],
+      "systemGpuCounters": [
+        {
+          "Alloc system memory": 6693748736,
+          "Allocated PB Size": 141557760,
+          "Device Utilization %": 64,
+          "In use system memory": 2119811072,
+          "In use system memory (driver)": 0,
+          "Renderer Utilization %": 64,
+          "SplitSceneCount": 0,
+          "TiledSceneBytes": 4980736,
+          "Tiler Utilization %": 26,
+          "lastRecoveryTime": 0,
+          "recoveryCount": 0
+        }
+      ],
+      "lastObservedOptimizerProgress": {
+        "stage": "screen",
+        "sequenceUpdates": 19,
+        "metrics": {
+          "target.binder_contacts": 3.3693268299102783,
+          "target.binder_helicity": -0.8116045594215393,
+          "target.binder_pae": 0.13411833345890045,
+          "target.compactness": 0.18381518125534058,
+          "target.interface_contacts": 4.225553512573242,
+          "target.interface_pae": 0.15338020026683807,
+          "target.iptm": 0.2047502100467682,
+          "target.iptm_loss": 0.03976249322295189,
+          "target.plddt_loss": 0.042497456073760986,
+          "target.ptm": 0.3487856090068817,
+          "target.target_helicity": -1.2250819206237793,
+          "target.target_plddt": 0.5640859007835388
+        }
+      }
+    }
+  ]
+}

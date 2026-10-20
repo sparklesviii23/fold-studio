@@ -1327,3 +1327,23 @@ b10d8ee was built/signed/relocated; actual native original summary returned
 157 rows. Native FASTA campaign fed195a1 started through its dedicated CPU
 button with app-owned runtime and weights, one attempt and original defaults.
 It is the sole active model job. 343 backend and 76 frontend tests pass.
+
+
+### Compressed-memory governor correction and honest interrupted validation
+
+FASTA job fed195a1 was interrupted by signal15 during annealing, sender/cause
+unknown. It is preserved as failed, without a completed-validation claim.
+Native repeat72debdb3 retains identical input/seed/scientific settings and is
+now the sole model job in the b10d8ee app.
+
+Full original Fab608 CPU gradient was attempted. macOS kernel explicitly
+terminated worker40759 under memory pressure, reporting compressed process
+size49128MB while resident polling observed only5.916GB. The latter was an
+insufficient governor, not a valid physical-footprint limit. The benchmark
+now uses public libproc ri_phys_footprint including compressed allocations,
+with process identity checks and fail-closed measurement. Two focused tests
+pass, including a real64MiB child. A real1GiB smoke stops its own scientific
+worker in3.02s before expensive computation; no output is treated as a design.
+Original subbatch1 is the next memory workaround after FASTA completion;
+current auto resolves4. No source algorithm or rejection threshold changed.
+Fab remains unavailable in the native interface.

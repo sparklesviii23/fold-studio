@@ -19,10 +19,10 @@
     {
       "name": "Fab",
       "status": "BLOCKED",
-      "scope": "Actual original full scaffold +115-residue hPDL1 requires 608 padded residues, beyond measured CPU320 profile. Native adapter not enabled; source retained. Input preflight passed; full gradient resource characterization pending.",
+      "scope": "Complete original full-scaffold hPDL1 CPU float32 gradient attempted at608 actual padded residues. Kernel terminated worker under memory pressure; kernel reported compressed process size49128MB, not resident RAM. Resident-only benchmark governor was insufficient and is now corrected. Fab remains disabled; explicit source subbatch1 workaround untested.",
       "source": "vendor/bindcraft2/settings/modality/Fab.json",
       "sha256": "c3f07b56b251f1994c372071aef1a1c39d0a430ab0c229cce0e27215f7a79d4b",
-      "evidence": "reports/bindcraft-fab-gradient-preflight.json"
+      "evidence": "reports/bindcraft-fab-gradient-cpu.json"
     },
     {
       "name": "VHH",
