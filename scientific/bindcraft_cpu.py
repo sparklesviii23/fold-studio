@@ -10,6 +10,10 @@ def execution_config(original,folder):
  if validation_kind not in ('monomer','multimer'):raise ValueError('Unknown upstream validation-model pool.')
  validation='model_2_multimer_v3' if validation_kind=='multimer' else 'model_1_ptm'
  config={**original,'project_folder':str(folder/'output'),'design_models':['model_1_multimer_v3'],'validation_model':'multimer' if validation.endswith('multimer_v3') else 'monomer','validation_models':[validation],'design_workers':1,'auto_multi_gpu':False,'attention_backend':'stock','use_cueq':False,'resume':False}
+ # The pinned crop sampler accepts an integer, but its campaign header calls
+ # list(value). Preserve the saved scalar recipe and pass its identical fixed
+ # range to the original runner, without modifying vendored source or sampling.
+ if type(original.get('crop_fasta_sequence')) is int:config['crop_fasta_sequence']=[original['crop_fasta_sequence']]*2
  config['targets']=[{**target,'target_path':str(folder/target['target_path'])} for target in original['targets']]
  if original.get('binder_scaffold'):config['binder_scaffold']=str(folder/original['binder_scaffold'])
  return config,validation
@@ -109,6 +113,7 @@ def start(engine,p,recovery=None):
   try:verify_manifest(folder,recovery);history.append(archive(folder,recovery))
   except Exception:s.db.rollback();raise
  data={**current['data'],'runtime':python,'parameters':str(parameters),'checkpointSha256':weights,'profile':p['profile'],'execution':backend,'precision':precision,'modelEnsemble':ensemble,'modelSelection':selection,'resourceEstimate':estimate,'paddedResidueLimit':limit,'runtimeInfo':runtime_info,'executionSettingsSha256':fe.checksum(fe.canonical(config).encode()),'outputs':[]}
+ if type(original.get('crop_fasta_sequence')) is int:data['executionAdapters']=[{'name':'fixed_fasta_crop_range','savedValue':original['crop_fasta_sequence'],'executionValue':config['crop_fasta_sequence'],'reason':'Pinned campaign header requires an iterable; original scalar and fixed-range sampling are equivalent.'}]
  if recovery is not None:
   data.update(recoveryHistory=history,outputs=current['data'].get('outputs',[]))
   for stale in ('pid','workerPath','error','finished','outcome','acceptedStructureFiles','executionProgress'):data.pop(stale,None)

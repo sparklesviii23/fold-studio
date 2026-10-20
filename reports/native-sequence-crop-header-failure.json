@@ -1,0 +1,25 @@
+{
+  "state": "failed_before_model_optimization",
+  "jobId": "41a8c2a6-8b2d-4704-a759-7702eab81821",
+  "root": "/Users/vii/Documents/FoldStudio-MetalPort/validation/bindcraft-packaged-crops",
+  "error": "Upstream campaign failed with exit code 1. Review execution.log.",
+  "diagnosis": "Pinned protein preparation accepts scalar crop length16 but campaign header list(16) raises TypeError before trajectories. Adapter now passes equivalent original fixed range[16,16], retains scalar saved recipe and records normalization.",
+  "logTail": [
+    "Traceback (most recent call last):",
+    "  File \"/Users/vii/Documents/FoldStudio-MetalPort/validation/Relocated BindCraft Crop Engine/FOLD STUDIO Metal Dev.app/Contents/Resources/scientific/bindcraft_runner.py\", line 35, in <module>",
+    "    status=launch_campaign(sys.argv[1],af2_weights=sys.argv[2],mpnn_weights=proteinmpnn_weights());provenance['exitCode']=status;provenance['state']='finished'",
+    "           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^",
+    "  File \"/Users/vii/Documents/FoldStudio-MetalPort/validation/Relocated BindCraft Crop Engine/FOLD STUDIO Metal Dev.app/Contents/Resources/vendor/bindcraft2/bindcraft/campaign.py\", line 299, in launch_campaign",
+    "    run_campaign(settings, project_folder, af2_weights=af2_weights, mpnn_weights=mpnn_weights, metadata=metadata)",
+    "  File \"/Users/vii/Documents/FoldStudio-MetalPort/validation/Relocated BindCraft Crop Engine/FOLD STUDIO Metal Dev.app/Contents/Resources/vendor/bindcraft2/bindcraft/campaign.py\", line 258, in run_campaign",
+    "    print_campaign_header(settings, project_folder, design_settings)",
+    "  File \"/Users/vii/Documents/FoldStudio-MetalPort/validation/Relocated BindCraft Crop Engine/FOLD STUDIO Metal Dev.app/Contents/Resources/vendor/bindcraft2/bindcraft/campaign.py\", line 242, in print_campaign_header",
+    "    for line in campaign_header(campaign, settings, chain_residues, {name: loss.weight for name, loss in losses.items()}, tuple(design_settings.prepared_states)):",
+    "                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^",
+    "  File \"/Users/vii/Documents/FoldStudio-MetalPort/validation/Relocated BindCraft Crop Engine/FOLD STUDIO Metal Dev.app/Contents/Resources/vendor/bindcraft2/bindcraft/campaign_log.py\", line 147, in campaign_header",
+    "    window = list(settings.get('crop_fasta_sequence') or [])",
+    "             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^",
+    "TypeError: 'int' object is not iterable",
+    "BindCraft CPU error: Upstream campaign failed with exit code 1. Review execution.log."
+  ]
+}

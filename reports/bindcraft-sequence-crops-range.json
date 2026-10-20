@@ -1,0 +1,241 @@
+{
+  "state": "passed",
+  "scope": "Actual pinned source settings/preparation for two and three distinct, reproducible FASTA crops with original validation flanks. One immutable physical input, native per-state output mapping, unchanged original filters and aggregate192-residue guard. No trained-model computation or accepted-output claim.",
+  "root": "/Users/vii/Documents/FoldStudio-MetalPort/validation/bindcraft-sequence-crops-range",
+  "engineRoot": "/Users/vii/Documents/FoldStudio-MetalPort/fold-studio",
+  "interpreter": "/Users/vii/Documents/FoldStudio-MetalPort/runtimes/jax-cpu/bin/python",
+  "bundledRuntimeSelectedAutomatically": false,
+  "cases": [
+    {
+      "jobId": "7ebd06f0-52ae-447f-bd4a-e022388c62bd",
+      "state": "prepared_not_executed",
+      "cropCount": 2,
+      "originalStateNamesMatch": true,
+      "physicalInputCount": 1,
+      "resourceEstimate": {
+        "paddedResidues": 64,
+        "targetPredictionStates": [
+          "target_epitope_1",
+          "target_epitope_2"
+        ],
+        "preflightCropIntervals": {
+          "target_epitope_1": [
+            82,
+            97
+          ],
+          "target_epitope_2": [
+            15,
+            30
+          ]
+        },
+        "aggregatePaddedResidues": 128
+      },
+      "actualOriginalCrops": [
+        {
+          "seed": 42,
+          "name": "target_epitope_1",
+          "sourceTargetName": "target",
+          "cropIndex": 1,
+          "start": 82,
+          "end": 97,
+          "sequence": "LQITDVKLQDAGVYRC",
+          "validationInterval": [
+            77,
+            102
+          ],
+          "observedAtomMaskCount": 0
+        },
+        {
+          "seed": 42,
+          "name": "target_epitope_2",
+          "sourceTargetName": "target",
+          "cropIndex": 2,
+          "start": 15,
+          "end": 30,
+          "sequence": "YGSNMTIECKFPVEKQ",
+          "validationInterval": [
+            10,
+            35
+          ],
+          "observedAtomMaskCount": 0
+        },
+        {
+          "seed": 2718,
+          "name": "target_epitope_1",
+          "sourceTargetName": "target",
+          "cropIndex": 1,
+          "start": 28,
+          "end": 43,
+          "sequence": "EKQLDLAALIVYWEME",
+          "validationInterval": [
+            23,
+            48
+          ],
+          "observedAtomMaskCount": 0
+        },
+        {
+          "seed": 2718,
+          "name": "target_epitope_2",
+          "sourceTargetName": "target",
+          "cropIndex": 2,
+          "start": 2,
+          "end": 17,
+          "sequence": "FTVTVPKDLYVVEYGS",
+          "validationInterval": [
+            1,
+            22
+          ],
+          "observedAtomMaskCount": 0
+        }
+      ],
+      "defaultFiltersUnchanged": true,
+      "repeatRetainsStates": true,
+      "fixedRangeNormalization": {
+        "savedValue": 16,
+        "executionValue": [
+          16,
+          16
+        ],
+        "originalScalarAndRangeCropsExactlyEqual": true
+      }
+    },
+    {
+      "jobId": "41c6094f-6052-46a1-bacc-85d7660997c8",
+      "state": "prepared_not_executed",
+      "cropCount": 3,
+      "originalStateNamesMatch": true,
+      "physicalInputCount": 1,
+      "resourceEstimate": {
+        "paddedResidues": 64,
+        "targetPredictionStates": [
+          "target_epitope_1",
+          "target_epitope_2",
+          "target_epitope_3"
+        ],
+        "preflightCropIntervals": {
+          "target_epitope_1": [
+            82,
+            97
+          ],
+          "target_epitope_2": [
+            15,
+            30
+          ],
+          "target_epitope_3": [
+            4,
+            19
+          ]
+        },
+        "aggregatePaddedResidues": 192
+      },
+      "actualOriginalCrops": [
+        {
+          "seed": 42,
+          "name": "target_epitope_1",
+          "sourceTargetName": "target",
+          "cropIndex": 1,
+          "start": 82,
+          "end": 97,
+          "sequence": "LQITDVKLQDAGVYRC",
+          "validationInterval": [
+            77,
+            102
+          ],
+          "observedAtomMaskCount": 0
+        },
+        {
+          "seed": 42,
+          "name": "target_epitope_2",
+          "sourceTargetName": "target",
+          "cropIndex": 2,
+          "start": 15,
+          "end": 30,
+          "sequence": "YGSNMTIECKFPVEKQ",
+          "validationInterval": [
+            10,
+            35
+          ],
+          "observedAtomMaskCount": 0
+        },
+        {
+          "seed": 42,
+          "name": "target_epitope_3",
+          "sourceTargetName": "target",
+          "cropIndex": 3,
+          "start": 4,
+          "end": 19,
+          "sequence": "VTVPKDLYVVEYGSNM",
+          "validationInterval": [
+            1,
+            24
+          ],
+          "observedAtomMaskCount": 0
+        },
+        {
+          "seed": 2718,
+          "name": "target_epitope_1",
+          "sourceTargetName": "target",
+          "cropIndex": 1,
+          "start": 28,
+          "end": 43,
+          "sequence": "EKQLDLAALIVYWEME",
+          "validationInterval": [
+            23,
+            48
+          ],
+          "observedAtomMaskCount": 0
+        },
+        {
+          "seed": 2718,
+          "name": "target_epitope_2",
+          "sourceTargetName": "target",
+          "cropIndex": 2,
+          "start": 2,
+          "end": 17,
+          "sequence": "FTVTVPKDLYVVEYGS",
+          "validationInterval": [
+            1,
+            22
+          ],
+          "observedAtomMaskCount": 0
+        },
+        {
+          "seed": 2718,
+          "name": "target_epitope_3",
+          "sourceTargetName": "target",
+          "cropIndex": 3,
+          "start": 43,
+          "end": 58,
+          "sequence": "EDKNIIQFVHGEEDLK",
+          "validationInterval": [
+            38,
+            63
+          ],
+          "observedAtomMaskCount": 0
+        }
+      ],
+      "defaultFiltersUnchanged": true,
+      "repeatRetainsStates": true,
+      "fixedRangeNormalization": {
+        "savedValue": 16,
+        "executionValue": [
+          16,
+          16
+        ],
+        "originalScalarAndRangeCropsExactlyEqual": true
+      }
+    }
+  ],
+  "refusals": [
+    {
+      "case": "insufficient_distinct_original_windows",
+      "error": "Upstream scaffold resource check failed: Traceback (most recent call last):\n  File \"<string>\", line 12, in <module>\nValueError: design inputs did not parse: crop_fasta_sequence yields only 1 distinct crop(s) of a 115-residue target; idr_crop_count is larger\n"
+    },
+    {
+      "case": "aggregate_memory_envelope",
+      "error": "The experimental FASTA CPU profile is limited to 192 aggregate padded residues across all crop states; inputs remain prepared."
+    }
+  ],
+  "sourceSha256": "d3c95434dcadf26d005340b15bd92be61e101ed921478c26f2a5550f198e61f6",
+  "sourceUnchanged": true
+}

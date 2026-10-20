@@ -71,4 +71,27 @@ class SequenceTargetContracts(unittest.TestCase):
   from campaign_inputs import prediction_targets
   job=self.s.dispatch('bindcraft_prepare',self.config);prep=job['data']['preparation'];prep['config']['idr_crop_count']=2
   with self.assertRaisesRegex(ValueError,'one immutable FASTA'):prediction_targets(prep)
+ def crop_outputs(self,complete):
+  from test_unbound_predictions import cif
+  record=self.s.sequence_save({'projectId':self.project['id'],'name':'Synthetic A-only sequence transport fixture','sequence':'AAAA'})
+  job=self.s.dispatch('bindcraft_prepare',self.payload(record));prep=job['data']['preparation'];prep['config'].update(idr_crop_count=2,crop_fasta_sequence=1);self.s.job_update(job['id'],'prepared',{'preparation':prep})
+  root=self.s.root/'jobs'/job['id']/'output';ranked=root/'3_Ranked';ranked.mkdir(parents=True);(root/'campaign_metadata.json').write_text(json.dumps({'settings':{}}));(ranked/'!_Ranked.csv').write_text('design,Binder_Sequence,i_pTM\nsynthetic,A,0.99\n')
+  for index in range(1,3 if complete else 2):(ranked/f'synthetic_target_epitope_{index}.cif').write_text(cif(True))
+  return {'projectId':self.project['id'],'id':job['id'],'directory':str(root)}
+ def test_missing_virtual_crop_output_blocks_the_whole_native_import(self):
+  payload=self.crop_outputs(False);before=len(self.s.library({})['records'])
+  with patch('bindcraft_provenance.native_receipt',return_value={'state':'native_receipts_verified','execution':'cpu','scope':'Synthetic transport fixture, no prediction'}):
+   with self.assertRaisesRegex(ValueError,'missing a prepared target'):self.s.dispatch('bindcraft_import',payload)
+  self.assertEqual(len(self.s.library({})['records']),before)
+ def test_all_virtual_crop_outputs_retain_individual_states_and_shared_input_receipt(self):
+  payload=self.crop_outputs(True)
+  with patch('bindcraft_provenance.native_receipt',return_value={'state':'native_receipts_verified','execution':'cpu','scope':'Synthetic transport fixture, no prediction'}):result=self.s.dispatch('bindcraft_import',payload)
+  self.assertEqual(len(result['records']),2);records=[self.engine.lab.intelligence_inspect({'structureId':id}) for id in result['records']];states=[record['record']['data']['metadata']['nativeTargetState'] for record in records]
+  self.assertEqual({state['name'] for state in states},{'target_epitope_1','target_epitope_2'});self.assertEqual(states[0]['source'],states[1]['source']);self.assertTrue(all(state['sourceTargetName']=='target' for state in states))
+  for record in records:self.assertEqual(record['record']['data']['metadata']['sequenceTargetPrediction']['basis'],'predicted_sequence_target')
+ def test_fixed_crop_header_compatibility_preserves_the_saved_scalar_recipe(self):
+  from bindcraft_cpu import execution_config
+  original={'targets':[{'target_path':'input.fasta'}],'crop_fasta_sequence':16};config,_=execution_config(original,self.base)
+  self.assertEqual(original['crop_fasta_sequence'],16);self.assertEqual(config['crop_fasta_sequence'],[16,16])
+  original['crop_fasta_sequence']=[12,16];config,_=execution_config(original,self.base);self.assertEqual(config['crop_fasta_sequence'],[12,16])
 del Fixtures
