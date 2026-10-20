@@ -30,6 +30,7 @@ describe('Scientific result routing',()=>{
   expect(campaignResultMessage({...job,engine:'bindcraft2',data:{preparation:{},outcome:'no_accepted_designs'}})).toContain('No candidate passed');
   expect(campaignResultMessage({...job,engine:'bindcraft2',state:'running',data:{preparation:{}}})).toContain('running');
   expect(campaignResultMessage({...job,engine:'bindcraft2',state:'failed',data:{preparation:{}}})).toContain('failed');
+  const interrupted=campaignResultMessage({...job,engine:'bindcraft2',state:'interrupted',data:{preparation:{}}});expect(interrupted).toContain('interrupted');expect(interrupted).toContain('remaining attempt budget');expect(interrupted).not.toContain('prepared');
   expect(campaignResultMessage({...job,engine:'bindcraft2',state:'prepared',data:{preparation:{}}})).toContain('prepared');
  });
 });

@@ -19,6 +19,7 @@ export function campaignResultMessage(result:any):string{
   if(result.state==='queued')return 'Campaign queued for calculation.';
   if(result.state==='failed')return 'Campaign failed. Review the saved error and execution log.';
   if(result.state==='cancelled')return 'Campaign cancelled.';
+  if(result.state==='interrupted')return 'Campaign interrupted. Saved inputs and outputs remain available; continuation uses the remaining attempt budget.';
   if(result.state==='imported')return 'Ranked coordinate outputs imported.';
   return 'Campaign prepared. Original inputs and settings are saved.';
  }

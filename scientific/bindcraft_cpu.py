@@ -1,5 +1,5 @@
 """Explicit CPU/float32 Metal campaign adapters; preserve upstream rejection criteria."""
-import hashlib,json,os,pathlib,platform,subprocess
+import hashlib,json,os,pathlib,platform,signal,subprocess
 import fold_engine as fe
 import mpnn
 
@@ -129,8 +129,12 @@ def run(s,id):
   from campaign_inputs import verify
   verify(folder,data['preparation'])
   proc=subprocess.run([data['runtime'],'-B',str(pathlib.Path(__file__).with_name('bindcraft_runner.py')),str(settings),data['parameters'],backend,data.get('precision','float32' if backend=='metal' else 'upstream'),'ensemble' if data.get('modelEnsemble') else 'single'],env=env,timeout=12*3600)
-  if proc.returncode:raise RuntimeError('Upstream campaign failed with exit code '+str(proc.returncode)+'. Review execution.log.')
   if s.job(id)['state']=='cancelled':return
+  if proc.returncode in (-signal.SIGINT,-signal.SIGTERM,-signal.SIGKILL):
+   termination={'source':'subprocess_returncode','exitCode':proc.returncode,'signal':signal.Signals(-proc.returncode).name,'cause':'not_reported'}
+   s.job_update(id,'interrupted',{'stage':'interrupted','finished':fe.mi.now(),'error':'The calculation was interrupted before it completed. Saved inputs and completed outputs are preserved. Continuing uses only the remaining original attempt budget.','termination':termination})
+   print('FOLD_CAMPAIGN_INTERRUPTED '+json.dumps(termination),flush=True);return
+  if proc.returncode:raise RuntimeError('Upstream campaign failed with exit code '+str(proc.returncode)+'. Review execution.log.')
   ranked=folder/'output/3_Ranked';files=list(ranked.glob('*.cif')) if ranked.exists() else []
   imported=[]
   if files:

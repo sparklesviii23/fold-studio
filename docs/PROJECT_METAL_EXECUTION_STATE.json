@@ -1,12 +1,12 @@
 {
   "schemaVersion": 1,
-  "updatedUtc": "2026-10-20T12:37:27.719086+00:00",
+  "updatedUtc": "2026-10-20T12:40:08.242430+00:00",
   "branch": "project-metal/apple-silicon-engine",
-  "implementationCommit": "36e0225",
+  "implementationCommit": "1094e46",
   "scope": "Project Metal Omega: complete authentic local BindCraft2 integration. No new Vina, OpenMM or interface redesign work.",
   "upstreamRevision": "c0ee638d11bc010817c2c97ee58ed5c323e664e2",
   "verified": {
-    "backendTests": 343,
+    "backendTests": 348,
     "frontendTests": 76,
     "typescript": "passed",
     "corePipeline": "Real 175-residue hPDL1 ensemble design + ProteinMPNN + held-out AF2 + original filters; one accepted computational prediction, no biological claim.",
@@ -24,7 +24,9 @@
     "nativeCorePipeline": "Actual packaged app-owned Metal runtime and seven AF2 models: one real trajectory, three passed independent candidate refolds, original rank retained one accepted prediction. 3895.532 seconds. Native CIF export exact bytes, quit/reopen/viewer passed.",
     "acceptedSequenceExport": "Actual native FASTA export passed; exact original accepted 60-residue binder sequence, native save dialog.",
     "campaignSummary": "Actual native summary button returned 157 original statistical rows; source comparison and project ZIP evidence passed.",
-    "conformationalExecution": "Original fold_switch single-model CPU float32, technical 12+60 case: bound/unbound optimization executed, screening/refinement passed, rejected at anneal by original i_pTM. 637.945 seconds, 1/0/0 stage rows. Not full downstream or broad validation."
+    "conformationalExecution": "Original fold_switch single-model CPU float32, technical 12+60 case: bound/unbound optimization executed, screening/refinement passed, rejected at anneal by original i_pTM. 637.945 seconds, 1/0/0 stage rows. Not full downstream or broad validation.",
+    "terminationHandling": "Termination signals SIGINT/SIGTERM/SIGKILL preserve the job as interrupted without promoting or deleting outputs. Explicit cancellation remains cancelled; actual error exit remains failed. Three lifecycle tests pass; native updated bundle pending.",
+    "memoryGovernor": "Public macOS libproc physical footprint includes compressed allocations; two focused tests and actual1GiB stop smoke passed. Original Fab608 kernel memory kill diagnosed and retained."
   },
   "evidence": [
     "reports/bindcraft-ensemble-outcome.json",
@@ -85,7 +87,7 @@
     "Newest additions require packaged acceptance.",
     "Do not rerun finished accepted/VHH/homodimer/multitarget campaigns merely to inspect results."
   ],
-  "uncommittedWork": "macOS compressed-footprint governor and native-memory tests; diagnosed Fab kernel memory kill; preserved FASTA interruption and original-setting repeat now active.",
+  "uncommittedWork": "Accurate interrupted campaign state and readable interface message;348 backend/76 frontend tests pass. Active native FASTA repeat still runs in the unchanged b10d8ee bundle.",
   "fabResourceFailure": {
     "state": "kernel_memory_terminated",
     "report": "reports/bindcraft-fab-gradient-cpu.json",

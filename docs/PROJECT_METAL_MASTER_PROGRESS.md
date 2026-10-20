@@ -1347,3 +1347,14 @@ worker in3.02s before expensive computation; no output is treated as a design.
 Original subbatch1 is the next memory workaround after FASTA completion;
 current auto resolves4. No source algorithm or rejection threshold changed.
 Fab remains unavailable in the native interface.
+
+
+### Interrupted calculation lifecycle
+
+Runtime SIGINT/SIGTERM/SIGKILL now saves interrupted state and explicit signal
+metadata, with unknown cause kept unknown. Inputs and prior outputs are
+preserved; no acceptance is promoted. User cancellation remains cancelled
+and ordinary runtime errors remain failed. The interface distinguishes this
+state from preparation and explains the unchanged remaining attempt budget.
+348 backend tests and76 frontend tests pass. Current b10d8ee native FASTA
+repeat continues unchanged; updated packaging is next.
