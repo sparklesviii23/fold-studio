@@ -1,0 +1,24 @@
+{
+  "recordedUtc": "2026-10-20T23:29:42.927516+00:00",
+  "state": "fixed_in_running_session",
+  "cause": "Two ad-hoc builds with one bundle identifier and different designated cdhash requirements. Background scientific child belonged to original build; updated controller triggered repeated Documents requests.",
+  "bundleIdentifier": "org.foldstudio.metalport",
+  "originalCdhash": "250562dd769df2b8df38d5e21498ee6b9d2c42a9",
+  "updatedCdhash": "aff3fb0626959714f49accef982c43ba352b286b",
+  "observedLog": "2026-10-21 02:24:27: Failed to match existing code requirement for subject org.foldstudio.metalport and service kTCCServiceSystemPolicyDocumentsFolder; requirements above; subsequent AUTHREQ_PROMPTING.",
+  "fix": "Quit conflicting controller, restore exact worker-owning build. No TCC reset or privacy bypass; no calculation cancelled.",
+  "activeApp": "/Users/vii/Documents/FoldStudio-MetalPort/validation/Relocated Fab AMME Engine/FOLD STUDIO Metal Dev.app",
+  "scientificWorkerPidUnchanged": 67111,
+  "safeLauncher": "scripts/open-local-app.py",
+  "launcherActualChildOnlyCheck": "passed: proposed updated app selects original bundle using only actual background interpreter process paths, without relying on a main window.",
+  "sealingGuard": "scripts/seal-app.sh refuses an active bundle before deleting caches or changing signatures; actual local child remained alive in focused test.",
+  "focusedTests": 6,
+  "remaining": "Updated recovery package activation deferred until current old-identity scientific jobs finish. Future local build launches use guarded launcher; ordinary Finder launches bypass the development launcher.",
+  "followUpPrivacyLog": {
+    "windowSeconds": 180,
+    "newPromptEvents": 0,
+    "newIdentityMismatchEvents": 0
+  },
+  "actualActiveBundleSealingCheck": "passed: refuses original active Fab app before cache deletion or signature changes",
+  "backendRegressionTests": 378
+}

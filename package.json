@@ -9,7 +9,8 @@
     "test": "vitest run",
     "tauri": "tauri",
     "desktop": "tauri dev",
-    "bundle": "tauri build --bundles app && bash scripts/seal-app.sh"
+    "bundle": "tauri build --bundles app && bash scripts/seal-app.sh",
+    "open:local": "python3 scripts/open-local-app.py"
   },
   "dependencies": {
     "@tauri-apps/api": "^2.8.0",
