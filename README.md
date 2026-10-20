@@ -1,30 +1,39 @@
-# Project Metal — continuous development
-
-The complete platform remains in development. Current source includes genuine
-AF2 CPU execution, experimental single-model CPU BindCraft campaigns, bundled
-CPython/JAX/ProteinMPNN and two AF2 checkpoints, plus scoped full-model Metal
-validation. Follow [the persistent master tracker](docs/PROJECT_METAL_MASTER_PROGRESS.md)
-for verified scope, active calculations and exact continuation points. Historical
-M1/M2 notes below describe earlier checkpoints, not the current completion state.
-
-## Current continuation: M2
-
-Real upstream ProteinMPNN fixed-backbone sequence inference now runs through the
-shared jobs/library on Apple Silicon CPU. See [M2 results and limitations](docs/PROJECT_METAL_M2.md).
-
-# Project Metal development branch
-
-This isolated development build preserves Fold Studio 4.3 and adds versioned
-BindCraft2 source, shared campaign preparation/import, compute diagnostics and a
-reference-tested experimental Apple MPS attention kernel. Full native binder
-design and self-contained runtime packaging are unfinished. See
-[the implementation and validation report](docs/PROJECT_METAL_M1.md).
-
 # FOLD STUDIO
 
 FOLD STUDIO is an experimental macOS application for exploring protein structures, organizing molecular research and working with peptide-design and prediction workflows. It combines a custom React/TypeScript interface with a Rust/Tauri desktop shell, a Python scientific service, and interactive molecular graphics from Mol*. A separately installed UCSF ChimeraX runtime supplies compatible scientific commands and calculations through an original FOLD adapter, without exposing its original Qt interface.
 
 Version: 4.3.0. Primary target: Apple Silicon macOS.
+
+## Project Metal · current macOS scope
+
+The core BindCraft2 pipeline runs locally on Apple Silicon without CUDA or NVIDIA:
+original differentiable AlphaFold2 design → ProteinMPNN → independent AlphaFold2
+refolding → original filters/ranking → native structure import, viewing and export.
+A genuine packaged 175-residue hPDL1 campaign completed with one trajectory,
+three passed independent refolds and one retained computational prediction.
+Accepted coordinates and FASTA were exported through the native app and reopened.
+This establishes software execution, not experimental binding.
+
+The development app includes four private scientific runtimes and seven original
+AlphaFold2 checkpoints. Its BindCraft2 core does not require a separate Python,
+ChimeraX installation, NVIDIA GPU or cloud service. Existing ChimeraX-dependent
+laboratory operations continue to require that separately installed runtime.
+
+Native campaign tools include immutable preparation, original optimization,
+remaining-budget continuation, interruption handling, scientific histories,
+saved/custom filter reviews, multi-metric reranking, original metric listings,
+coordinate scoring, statistics, and lossless trajectory compression/restoration.
+Storage conversion checks logical file hashes and uses an atomic macOS stage
+exchange; settings and acceptance decisions are preserved.
+
+Eleven modality adapters are connected at explicitly bounded experimental scope.
+**Fab is unavailable and explicitly deferred.** Larger dimensions, individual
+property-specific workflows and unrestricted CLI options are not all validated.
+SSD checkpointing remains a separate experiment and is not enabled in the app.
+See [the measured feature inventory](docs/BINDCRAFT_FEATURE_PARITY.json) and
+[the implementation tracker](docs/PROJECT_METAL_MASTER_PROGRESS.md). Historical
+[M1](docs/PROJECT_METAL_M1.md)/[M2](docs/PROJECT_METAL_M2.md) reports describe earlier
+checkpoints. The full port is not declared complete.
 
 ## How it is made
 
@@ -58,7 +67,19 @@ The new numerical code uses Python's standard library. Scientific methods are at
 
 ## Requirements and build
 
-Install Node.js/pnpm, Rust and the macOS/Xcode command-line build tools. Install your own compatible, licensed ChimeraX 1.12 application to use the scientific laboratory. Boltz inference is optional and requires a separate environment and model downloads; the normal Python service uses the system Python standard library.
+For development, install Node.js/pnpm, Rust and the macOS/Xcode command-line
+build tools. Scientific tests additionally need the tested Python dependencies;
+model/runtime integration tests use their explicit isolated environments.
+An installed compatible ChimeraX runtime remains necessary for ChimeraX-specific
+laboratory functions. Boltz model resources are separately managed.
+
+The packaged BindCraft2 core owns its Python interpreters, dependencies and model
+checkpoints. Source builds must stage the four runtime folders and the AlphaFold2
+model folder referenced in `src-tauri/tauri.conf.json`; these large resources are
+outside the Git source checkout. `scripts/prepare-scientific-runtime.py` stages a
+relocatable copy of an existing tested environment and retains dependency notices.
+The local runtime/model paths and pinned versions are recorded in
+[the execution state](docs/PROJECT_METAL_EXECUTION_STATE.json).
 
 ```sh
 pnpm install --frozen-lockfile
@@ -67,13 +88,17 @@ python3 -B -m unittest discover -s tests -v
 pnpm desktop
 ```
 
-For a production macOS application:
+For an ad-hoc signed local macOS development application:
 
 ```sh
 pnpm bundle
 ```
 
-Output: `src-tauri/target/release/bundle/macos/FOLD STUDIO.app`. The build script signs locally ad hoc; this is not a notarized Developer ID release. Other platforms have not been validated.
+Default output: `src-tauri/target/release/bundle/macos/FOLD STUDIO Metal Dev.app`
+(or the corresponding `CARGO_TARGET_DIR` location). The build script signs locally
+ad hoc and verifies the bundle. This is not a notarized Developer ID release.
+Fresh-machine and broader macOS-version acceptance remain outstanding. The main
+validated host is an Apple M4 Pro with 24 GiB unified memory, macOS 26.4.1.
 
 ## Repository layout
 
@@ -85,13 +110,21 @@ Output: `src-tauri/target/release/bundle/macos/FOLD STUDIO.app`. The build scrip
 
 ## Current limitations
 
-This is research software under active development. Complete ChimeraX feature parity is not achieved: some Qt-only tools, clipping effects, specialist graphics and extension interfaces still need custom adapters. Native surface picking, specialist imaging and exhaustive hardware/extension acceptance remain incomplete. BindCraft execution and PS5 compute workers are plans, not completed engines. Prediction confidence and computed geometry do not establish biological binding or experimental accuracy.
+This is research software under active development. Complete ChimeraX feature parity is not achieved: some Qt-only tools, clipping effects, specialist graphics and extension interfaces still need custom adapters. Native surface picking, specialist imaging and exhaustive hardware/extension acceptance remain incomplete. The BindCraft2 core executes as described above; full upstream scope and large-model memory support remain incomplete. PS5 compute workers are not implemented. Prediction confidence and computed geometry do not establish biological binding or experimental accuracy.
 
-The 4.2.2 renderer update corrects full-scene camera depth bounds and separates status badges from panel tabs. Automated camera-depth sweeps passed; full interactive GPU rotation acceptance remains incomplete. The private ANGPTL3/8 test fixture and private acceptance reports are omitted from this public package, so its optional rotation-fixture test skips unless you supply your own authorized file. Integration-validation scripts require their documented external fixtures/runtime.
+The existing Mol* viewer remains in place. Renderer regression checks use the
+attributed public ANGPTL3 reference; integration scripts require their documented
+runtime and fixture paths. Scientific acceptance and computational reproducibility
+are separate from biological or experimental validation.
 
 ## Privacy and included files
 
-This archive contains application source, dependency lockfiles, build configuration, tests, icons and attributed public reference data. It excludes private research structures/results/screenshots, local databases, credentials, model weights, application binaries, dependency folders, build caches and Git history. Runtime-generated project data belongs outside the repository. Historical local release notes were replaced with this current introduction.
+The development checkout contains source, lockfiles, tests, attribution and local
+validation receipts. Runtime environments, model weights, databases, build caches
+and packaged apps are stored outside the Git checkout. Application research data
+belongs in its data directory; automated acceptance uses isolated validation roots.
+A public source package requires a deliberate selection of validation artifacts;
+the local development checkout is not itself a published release.
 
 ## Credits and licensing
 

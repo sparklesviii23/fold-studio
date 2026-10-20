@@ -100,7 +100,7 @@ class Engine:
         # Presets are upstream data, retained verbatim; never invent optimization defaults.
         preset=json.loads((UPSTREAM/'settings'/'modality'/(modality+'.json')).read_text());preset.pop('description',None)
         from campaign_profile import property_preset
-        resolved,properties=property_preset(self.s,modality,p.get('properties',[]),UPSTREAM,p.get('core'),p.get('scientificOptions'))
+        resolved,properties=property_preset(self.s,modality,p.get('properties',[]),UPSTREAM,p.get('core'),p.get('scientificOptions'),'sequence' if st is None else 'structure')
         if resolved is not None:preset=resolved
         scaffold=None
         if preset.get('binder_scaffold'):
@@ -211,9 +211,9 @@ class Engine:
             prepared.append((file,raw,fmt,matches[0],len(st['atoms'])))
         target_states={}
         if native:
-            from campaign_inputs import snapshots
+            from campaign_inputs import prediction_targets
             for file,raw,fmt,row,count in prepared:target_states[file.name]=prediction_context(job['data']['preparation'],file.name,row,raw,mi.parse_structure(raw.decode(),fmt),fmt)
-            expected={state['name'] for state in snapshots(job['data']['preparation'])}
+            expected={state['name'] for state in prediction_targets(job['data']['preparation'])}
             for row in rows:
                 actual={target_states[file.name]['name'] for file,raw,fmt,matched,count in prepared if matched['design']==row['design'] and target_states[file.name]['kind']=='target_complex'}
                 if actual!=expected:raise ValueError('Native ranked candidate is missing a prepared target-state coordinate output.')

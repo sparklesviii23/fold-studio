@@ -88,6 +88,9 @@ def start(engine,p,recovery=None):
  if recovery is not None and weights!=recovery['job']['data'].get('checkpointSha256'):raise ValueError('Model checkpoints differ from the original execution; recovery refused.')
  from campaign_profile import resource_estimate
  estimate=resource_estimate(python,config,fe.UPSTREAM)
+ if sequence_target:
+  from campaign_profile import sequence_resources
+  estimate=sequence_resources(estimate,prep)
  if estimate.get('additionalPredictionStates') and not conformational:raise ValueError('Additional unbound prediction states require a validated conformational campaign profile.')
  if conformational:
   from campaign_profile import conformational_resources

@@ -9,7 +9,7 @@ from bindcraft.settings import known_campaign_settings,metric_parameter_names
 from bindcraft.loss import REGISTERED_LOSSES
 from bindcraft.filters import REGISTERED_FILTER_METRICS
 from fold_engine import PIN,verify_source
-from campaign_options import RESERVED
+from campaign_options import RESERVED,CONFORMATION_WEIGHTS
 from campaign_profile import property_catalog
 
 def serialize_default(value):
@@ -45,6 +45,8 @@ def main():
   item=prior.get(name,{'name':name})
   if name in native:item.update(status='INTEGRATED',exposure='native_control',limitation='Observed structures or one canonical FASTA target and one selected modality; source modality combinations/mixed FASTA states remain unavailable.' if name in ('targets','modality') else None)
   elif name in guarded:item.update(status='INTEGRATED',exposure='explicit_native_policy',limitation='Execution profiles own this value; arbitrary override is unavailable.')
+  elif name in CONFORMATION_WEIGHTS:item.update(status='INTEGRATED',exposure='conformational_scientific_options',limitation='Explicit numeric overrides only in induced-fit/fold-switch modes. Original unbound-state and192aggregate-residue execution checks still apply; full custom-weight trajectory validation is not claimed.')
+  elif name=='idr_crop_count':item.update(status='INTEGRATED',exposure='sequence_crop_states',limitation='One immutable FASTA input with up to three original distinct crop states, per-state ranked output mapping and192aggregate-padded-residue CPU guard. Actual original preparation compared; multi-crop full-model acceptance remains unverified.')
   elif name in unsupported:item.update(status='UNAVAILABLE',exposure='source_preserved_native_override_unavailable',limitation='Custom input/execution option is not exposed; applicable shipped preset/default behavior may still run.')
   else:item.update(status='INTEGRATED',exposure='native_advanced_scientific_options',limitation='Strict original settings validation plus native measured resource bounds. External filter files and arbitrary state graphs are unavailable; individual option-specific model campaigns are not all validated.')
   settings.append(item)

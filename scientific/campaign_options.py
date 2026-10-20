@@ -1,14 +1,26 @@
 """Explicit original scientific overrides; native lifecycle and memory policies stay owned."""
-import re
+import math,re
 import fold_engine as fe
 RESERVED={'core','modality','target','targets','project_folder','binder_lengths','number_of_final_designs','max_trajectories','campaign_seed','resume','design_models','validation_models','validation_model','design_workers','auto_multi_gpu','gpu_ids','workers_per_gpu','max_workers_per_gpu','worker_launch_stagger','compile_next_length','attention_backend','use_cueq','binder_scaffold','copies','cyclize_peptide','binder_shapes','idr_crop_count','parameter_sweep','autotune_loss_weights','weights_induced_fit_interface','weights_induced_fit_global','weights_fold_switching'}
 
-def validate(options,source):
+CONFORMATION_WEIGHTS={'weights_induced_fit_interface','weights_induced_fit_global'}
+RESERVED-= {'autotune_loss_weights','compile_next_length'}
+
+def validate(options,source,modality=None,input_kind=None):
  from campaign_profile import property_catalog
  if not isinstance(options,dict) or any(not isinstance(key,str) for key in options) or len(options)>100:raise ValueError('Original scientific options must be a JSON object with at most 100 named settings.')
  if len(fe.canonical(options).encode())>32768:raise ValueError('Original scientific options exceed 32 KiB.')
- blocked=set(options)&(RESERVED|{entry['name'] for entry in property_catalog(source)})
+ context_allowed={'autotune_loss_weights','compile_next_length'}|(CONFORMATION_WEIGHTS if modality in ('induced_fit','fold_switch') else set())|({'idr_crop_count'} if input_kind=='sequence' else set())
+ blocked=set(options)&((RESERVED-context_allowed)|{entry['name'] for entry in property_catalog(source)})
  if blocked:raise ValueError('Use native campaign, format, property and execution controls for: '+', '.join(sorted(blocked)))
+ for key in ('autotune_loss_weights','compile_next_length'):
+  if key in options and type(options[key]) is not bool:raise ValueError(key+' must be true or false.')
+ for key in CONFORMATION_WEIGHTS&set(options):
+  if type(options[key]) not in (int,float) or not math.isfinite(options[key]):raise ValueError('Conformational loss weights must be finite numbers.')
+ if 'idr_crop_count' in options:
+  count=options['idr_crop_count']
+  if type(count) is not int or not 1<=count<=3:raise ValueError('The experimental FASTA profile supports one to three crop states.')
+  if count>1 and ('crop_fasta_sequence' in options and options['crop_fasta_sequence'] in (None,False)):raise ValueError('Multiple FASTA states require original sequence cropping.')
  if 'binder_name' in options and (not isinstance(options['binder_name'],str) or not re.fullmatch('[A-Za-z0-9_-]{1,80}',options['binder_name'])):raise ValueError('Binder name must be a safe 1–80 character filename prefix using letters, numbers, underscores or hyphens.')
  for key in ('design_recycles','validation_recycles','betasheet_reopt_recycles'):
   if key in options and (type(options[key]) is not int or not 0<=options[key]<=3):raise ValueError('Experimental native profiles support 0–3 recycles: '+key)

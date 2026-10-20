@@ -19,10 +19,10 @@
     {
       "name": "Fab",
       "status": "BLOCKED",
-      "scope": "Complete original full-scaffold hPDL1 CPU float32 gradient attempted at608 actual padded residues. Kernel terminated worker under memory pressure; kernel reported compressed process size49128MB, not resident RAM. Resident-only benchmark governor was insufficient and is now corrected. Fab remains disabled; explicit source subbatch1 workaround untested.",
+      "scope": "Deferred by user. Full608padded CPU gradient still incomplete: original run kernel memory killed; corrected footprint guard safely stopped subbatch1 and SSD-offload attempts. Small64padded SSD loss/coordinate/gradient parity passed, but does not establish full Fab support.",
       "source": "vendor/bindcraft2/settings/modality/Fab.json",
       "sha256": "c3f07b56b251f1994c372071aef1a1c39d0a430ab0c229cce0e27215f7a79d4b",
-      "evidence": "reports/bindcraft-fab-gradient-cpu.json"
+      "evidence": "reports/ssd-fab-gradient.json"
     },
     {
       "name": "VHH",
@@ -64,10 +64,10 @@
     {
       "name": "induced_fit",
       "status": "INTEGRATED",
-      "scope": "Authentic implicit binder preset, conformation schedule, losses and acceptance thresholds connected. Experimental fixed-length CPU profile limited to 192 aggregate padded residues over bound/unbound states; no full conformational model trajectory verified.",
+      "scope": "Actual original bounded CPU bound/unbound optimization completed685.046s on technical12res observed target+60res binder. Original anneal rejection,1trajectory/0refolds/0accepted. No full downstream conformational acceptance or broad target validation.",
       "source": "vendor/bindcraft2/settings/modality/induced_fit.json",
       "sha256": "75872ebd027827118f82c939300cae691015df778401c2dab46fd3e5dc43905d",
-      "evidence": "reports/bindcraft-conformational-presets.json"
+      "evidence": "reports/bindcraft-induced-fit-outcome.json"
     },
     {
       "name": "large_binder",
@@ -80,10 +80,10 @@
     {
       "name": "multidomain",
       "status": "INTEGRATED",
-      "scope": "Original preset, native preparation and authentic upstream input/feature preflight connected. Optional fixed-length 320-padded-residue CPU profile requires Apple Silicon and at least 24 GiB. No full extended-format trajectory validation.",
+      "scope": "Original preset/preflight and native bounded CPU profile connected. Actual native model ran95 finite screen updates, including original multidomain objective, before SIGTERM with unreported cause. Recorded interrupted, not completed; no refolding/acceptance validation.",
       "source": "vendor/bindcraft2/settings/modality/multidomain.json",
       "sha256": "bc5e6d3960b94fb8ea52460bef8a245371981341355d2805699a284dcaba2b4a",
-      "evidence": "reports/bindcraft-extended-modalities.json"
+      "evidence": "reports/native-bindcraft-multidomain-interrupted.json"
     },
     {
       "name": "peptide",
@@ -275,9 +275,9 @@
     },
     {
       "name": "autotune_loss_weights",
-      "status": "UNAVAILABLE",
-      "exposure": "source_preserved_native_override_unavailable",
-      "limitation": "Custom input/execution option is not exposed; applicable shipped preset/default behavior may still run."
+      "status": "INTEGRATED",
+      "exposure": "native_advanced_scientific_options",
+      "limitation": "Strict original settings validation plus native measured resource bounds. External filter files and arbitrary state graphs are unavailable; individual option-specific model campaigns are not all validated."
     },
     {
       "name": "betasheet_reopt_extra_anneal_steps",
@@ -359,9 +359,9 @@
     },
     {
       "name": "compile_next_length",
-      "status": "UNAVAILABLE",
-      "exposure": "source_preserved_native_override_unavailable",
-      "limitation": "Custom input/execution option is not exposed; applicable shipped preset/default behavior may still run."
+      "status": "INTEGRATED",
+      "exposure": "native_advanced_scientific_options",
+      "limitation": "Strict original settings validation plus native measured resource bounds. External filter files and arbitrary state graphs are unavailable; individual option-specific model campaigns are not all validated."
     },
     {
       "name": "copies",
@@ -599,9 +599,9 @@
     },
     {
       "name": "idr_crop_count",
-      "status": "UNAVAILABLE",
-      "exposure": "source_preserved_native_override_unavailable",
-      "limitation": "Custom input/execution option is not exposed; applicable shipped preset/default behavior may still run."
+      "status": "INTEGRATED",
+      "exposure": "sequence_crop_states",
+      "limitation": "One immutable FASTA input with up to three original distinct crop states, per-state ranked output mapping and192aggregate-padded-residue CPU guard. Actual original preparation compared; multi-crop full-model acceptance remains unverified."
     },
     {
       "name": "induced_fit_delta",
@@ -1547,15 +1547,15 @@
     },
     {
       "name": "weights_induced_fit_global",
-      "status": "UNAVAILABLE",
-      "exposure": "source_preserved_native_override_unavailable",
-      "limitation": "Custom input/execution option is not exposed; applicable shipped preset/default behavior may still run."
+      "status": "INTEGRATED",
+      "exposure": "conformational_scientific_options",
+      "limitation": "Explicit numeric overrides only in induced-fit/fold-switch modes. Original unbound-state and192aggregate-residue execution checks still apply; full custom-weight trajectory validation is not claimed."
     },
     {
       "name": "weights_induced_fit_interface",
-      "status": "UNAVAILABLE",
-      "exposure": "source_preserved_native_override_unavailable",
-      "limitation": "Custom input/execution option is not exposed; applicable shipped preset/default behavior may still run."
+      "status": "INTEGRATED",
+      "exposure": "conformational_scientific_options",
+      "limitation": "Explicit numeric overrides only in induced-fit/fold-switch modes. Original unbound-state and192aggregate-residue execution checks still apply; full custom-weight trajectory validation is not claimed."
     },
     {
       "name": "weights_interface_contacts",

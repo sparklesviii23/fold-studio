@@ -37,12 +37,23 @@ def snapshots(preparation):
  # Previously prepared single-target jobs stay reproducible and executable.
  return preparation.get('targetSources') or [{'name':preparation['config']['targets'][0]['name'],'file':preparation['config']['targets'][0]['target_path'],'source':preparation['source'],'residueMap':preparation['residueMap'],'objective':'target','weight':1.0}]
 
+def prediction_targets(preparation):
+ """Original virtual crop states share one immutable physical FASTA input."""
+ inputs=snapshots(preparation);count=preparation['config'].get('idr_crop_count',1)
+ if type(count) is not int or not 1<=count<=3:raise ValueError('Unsupported native FASTA crop-state count.')
+ if count==1:return inputs
+ if not preparation.get('sequenceTarget') or len(inputs)!=1 or inputs[0]['source'].get('format')!='fasta':raise ValueError('Multiple crop states require one immutable FASTA target.')
+ if preparation['config'].get('crop_fasta_sequence',True) in (None,False):raise ValueError('Multiple FASTA states require original sequence cropping.')
+ item=inputs[0]
+ return [{**item,'name':item['name']+'_epitope_'+str(index),'sourceTargetName':item['name'],'cropIndex':index} for index in range(1,count+1)]
+
 def verify(folder,preparation,label='Prepared source changed.',scaffold_label='Prepared scaffold changed.'):
  from sequence_targets import verify_preparation
  verify_preparation(preparation)
  from campaign_options import verify_preparation as verify_options
  verify_options(preparation)
  inputs=snapshots(preparation);targets=preparation['config']['targets']
+ prediction_targets(preparation)
  if len(inputs)!=len(targets):raise ValueError('Prepared target input manifest is incomplete.')
  seen=set()
  for item,target in zip(inputs,targets):
@@ -58,8 +69,8 @@ def verify(folder,preparation,label='Prepared source changed.',scaffold_label='P
  return inputs
 
 def ranked_target(preparation,filename,design):
- """Pinned writer convention for observed-structure states (no FASTA crops)."""
- states=snapshots(preparation);stem=pathlib.Path(filename).stem
+ """Pinned writer convention for observed targets and virtual FASTA states."""
+ states=prediction_targets(preparation);stem=pathlib.Path(filename).stem
  matches=[state for state in states if stem==design+('' if len(states)==1 else '_'+state['name'])]
  if len(matches)!=1:raise ValueError('Native ranked output does not identify a unique prepared target state: '+filename)
  return matches[0]

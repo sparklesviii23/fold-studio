@@ -6,7 +6,7 @@ def resource_estimate(python,config,source):
 import sys,json
 sys.path.insert(0,sys.argv[2])
 from bindcraft.settings import load_settings,build_design_settings
-from bindcraft.protein_preparation import design_residue_count
+from bindcraft.protein_preparation import design_residue_count,prepare_targets
 from bindcraft.af2 import campaign_length_bucket,padded_prediction_length
 from bindcraft.loss import build_design_losses,induced_fit_hinge_names
 from bindcraft.preflight import design_input_problems,feature_problems
@@ -14,7 +14,10 @@ settings=load_settings(json.loads(sys.argv[1]))
 design=build_design_settings(settings)
 problems=design_input_problems(design)+feature_problems(design)
 if problems:raise ValueError('; '.join(problems))
-estimate={'paddedResidues':int(design_residue_count(settings))}
+estimate={'paddedResidues':int(design_residue_count(settings)),'targetPredictionStates':[target.name for target in design.targets]}
+if int(settings.get('idr_crop_count',1))>1:
+ targets=prepare_targets(design,design.seed)
+ estimate['preflightCropIntervals']={name:[int(target.residue_index[0]),int(target.residue_index[-1])] for name,target in targets.items()}
 length=padded_prediction_length(max(design.binder.lengths),campaign_length_bucket(settings))
 losses=build_design_losses(settings,{target.name:target.weight for target in design.targets},length,design.seed)
 if induced_fit_hinge_names(losses) or any('binder_alone' in group for group in design.binder_shapes):estimate['additionalPredictionStates']=['binder_alone']
@@ -31,6 +34,14 @@ def conformational_resources(estimate):
  if estimate.get('additionalPredictionStates')!=['binder_alone']:raise ValueError('Original conformational settings do not require the expected unbound binder prediction.')
  aggregate=estimate['paddedResidues']*2
  if aggregate>192:raise ValueError('The experimental conformational CPU profile is limited to 192 aggregate padded residues across bound and unbound states; inputs remain prepared.')
+ return {**estimate,'aggregatePaddedResidues':aggregate}
+
+def sequence_resources(estimate,preparation):
+ from campaign_inputs import prediction_targets
+ names=[state['name'] for state in prediction_targets(preparation)]
+ if estimate.get('targetPredictionStates')!=names:raise ValueError('Original FASTA prediction states differ from the prepared native state mapping.')
+ aggregate=estimate['paddedResidues']*len(names)
+ if aggregate>192:raise ValueError('The experimental FASTA CPU profile is limited to 192 aggregate padded residues across all crop states; inputs remain prepared.')
  return {**estimate,'aggregatePaddedResidues':aggregate}
 
 def ensemble_models(python,config,source):
@@ -58,12 +69,12 @@ def core_catalog(source):
  # The pinned resolver treats default/reference as reserved names, not layers.
  return [{'name':path.stem,'description':json.loads(path.read_text()).get('description',''),'source':str(path.relative_to(source)),'sha256':hashlib.sha256(path.read_bytes()).hexdigest()} for path in sorted((pathlib.Path(source)/'settings/core').glob('*.json')) if path.stem not in ('default','reference')]
 
-def property_preset(service,modality,names,source,core=None,options=None):
+def property_preset(service,modality,names,source,core=None,options=None,input_kind=None):
  """Use original core/modality/property precedence, never a local preset merger."""
  import pathlib
  from mpnn import runtime
  from campaign_options import validate
- options=validate({} if options is None else options,source)
+ options=validate({} if options is None else options,source,modality,input_kind)
  catalog=property_catalog(source);known={entry['name']:entry for entry in catalog}
  if not isinstance(names,list) or len(names)>len(known) or any(not isinstance(name,str) or name not in known for name in names) or len(names)!=len(set(names)):raise ValueError('Choose distinct property presets supplied by the pinned BindCraft2 source.')
  if core is not None and (not isinstance(core,str) or core not in {entry['name'] for entry in core_catalog(source)}):raise ValueError('Choose an original selectable core profile or leave the default unchanged.')

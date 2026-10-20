@@ -1,0 +1,156 @@
+{
+  "state": "bounded_original_trajectory_completed",
+  "scope": "Actual single-model CPU float32 original conformational trajectory on an explicitly preserved 12-residue hPDL1 fragment plus 60-residue binder. Genuine bound and unbound optimization observed with finite emitted readings. Original rejection criteria and budgets unchanged; rejection is a valid outcome. No broad conformational, full-ensemble or biological validation claim.",
+  "jobId": "ec6e1fd3-d0f8-4510-89f5-85cf5f424002",
+  "root": "/Users/vii/Documents/FoldStudio-MetalPort/validation/bindcraft-conformational-presets",
+  "modality": "induced_fit",
+  "stageRows": {
+    "trajectories": 1,
+    "candidates": 0,
+    "accepted": 0
+  },
+  "outcome": "no_accepted_designs",
+  "resourceEstimate": {
+    "paddedResidues": 96,
+    "additionalPredictionStates": [
+      "binder_alone"
+    ],
+    "aggregatePaddedResidues": 192
+  },
+  "lastObservedUpdatesByStage": {
+    "screen": {
+      "stage": "screen",
+      "sequenceUpdates": 50,
+      "metrics": {
+        "target.binder_contacts": 2.8701226711273193,
+        "target.binder_helicity": -1.4597010612487793,
+        "target.binder_pae": 0.12244286388158798,
+        "target.compactness": -0.0001681115827523172,
+        "target.interface_contacts": 3.6674063205718994,
+        "target.interface_pae": 0.04561200365424156,
+        "target.iptm": 0.1848374605178833,
+        "target.iptm_loss": 0.040758129209280014,
+        "target.plddt_loss": 0.039335913956165314,
+        "target.ptm": 0.3929438591003418
+      }
+    },
+    "screen_binder_alone": {
+      "stage": "screen_binder_alone",
+      "sequenceUpdates": 20,
+      "metrics": {
+        "binder_alone.binder_contacts": 2.5177783966064453,
+        "binder_alone.binder_helicity": -1.8504033088684082,
+        "binder_alone.binder_pae": 0.08500982075929642,
+        "binder_alone.compactness": -0.1577298939228058,
+        "binder_alone.induced_fit_interface": 0.0,
+        "binder_alone.iptm": 0.0,
+        "binder_alone.plddt_loss": 0.026453515514731407,
+        "binder_alone.ptm": 0.545269250869751
+      }
+    },
+    "refine": {
+      "stage": "refine",
+      "sequenceUpdates": 25,
+      "metrics": {
+        "target.binder_contacts": 2.9820303916931152,
+        "target.binder_helicity": -1.4212322235107422,
+        "target.binder_pae": 0.15860556066036224,
+        "target.compactness": 0.4833938479423523,
+        "target.induced_fit_interface": 0.0,
+        "target.interface_contacts": 3.7989284992218018,
+        "target.interface_pae": 0.05578179284930229,
+        "target.iptm": 0.10872622579336166,
+        "target.iptm_loss": 0.044563692063093185,
+        "target.plddt_loss": 0.04513993486762047,
+        "target.ptm": 0.36499303579330444
+      }
+    },
+    "refine_binder_alone": {
+      "stage": "refine_binder_alone",
+      "sequenceUpdates": 30,
+      "metrics": {
+        "binder_alone.binder_contacts": 3.1984190940856934,
+        "binder_alone.binder_helicity": -1.2878587245941162,
+        "binder_alone.binder_pae": 0.15431559085845947,
+        "binder_alone.compactness": -0.08417075872421265,
+        "binder_alone.induced_fit_interface": 0.0,
+        "binder_alone.iptm": 0.0,
+        "binder_alone.plddt_loss": 0.04424496740102768,
+        "binder_alone.ptm": 0.25840359926223755
+      }
+    },
+    "anneal": {
+      "stage": "anneal",
+      "sequenceUpdates": 45,
+      "metrics": {
+        "target.binder_contacts": 3.022722005844116,
+        "target.binder_helicity": -1.3069286346435547,
+        "target.binder_pae": 0.1575983315706253,
+        "target.compactness": 0.3685223460197449,
+        "target.induced_fit_interface": 0.0,
+        "target.interface_contacts": 3.971881151199341,
+        "target.interface_pae": 0.059414949268102646,
+        "target.iptm": 0.0835629403591156,
+        "target.iptm_loss": 0.04582185298204422,
+        "target.plddt_loss": 0.04690205678343773,
+        "target.ptm": 0.3514099717140198
+      }
+    }
+  },
+  "trajectoryRows": [
+    {
+      "trajectory": "1",
+      "design": "design_l60_c13c2fa2afd73529",
+      "length": "60",
+      "bindcraft_version": "BindCraft 2 (unreleased)",
+      "Timing": "worker=0;start=1792502860.57;design=683.68;compiled=1",
+      "hash": "c13c2fa2afd73529",
+      "terminated": "anneal",
+      "autotuned": "",
+      "settings_core": "default",
+      "settings_modality": "binder;induced_fit"
+    }
+  ],
+  "candidateRows": [],
+  "acceptedRows": [],
+  "runtime": {
+    "python": "3.12.14 (main, Aug 25 2026, 13:50:33) [Clang 22.1.3 ]",
+    "jax": "0.11.2",
+    "jaxlib": "0.11.2",
+    "architecture": "arm64",
+    "macOS": "26.4.1",
+    "devices": [
+      "cpu:0"
+    ],
+    "execution": "cpu",
+    "precision": "float32",
+    "executionSettingsSha256": "f2d8af846bb988318e45d04bc1b4ab071501eb330828a91b8b17d4888891ac96",
+    "runnerSha256": "1a9537db332cf6e82d808e2fa72e84f8537665ecef682aae08a5d5dd74a06fca",
+    "upstreamSource": {
+      "state": "present",
+      "revision": "c0ee638d11bc010817c2c97ee58ed5c323e664e2",
+      "manifestSha256": "8f06e409dac335261d2505361f4358e2b4df389b8f85a497967406d8c4af4277",
+      "license": "BindCraft2 Source-Available License (Hosting-Restricted)",
+      "modified": false
+    },
+    "precisionAdapterSha256": "a7699aa7c0669c3654b8d15f9114d66eeeedf29868896ef3318338e0127fdc65",
+    "exitCode": 0,
+    "state": "finished",
+    "totalSeconds": 685.0462761251256
+  },
+  "inputSha256": "ed1fde7381852ae9515414c175db9faf3d14e6bc6aafcdad4b7c68b541bc79c1",
+  "executionSettingsSha256": "34de1c522adca40715391b810be2cf2502325e0e96628761772da0887a05885b",
+  "originalDefaultFiltersRetained": true,
+  "modelSelection": {
+    "designModels": [
+      "model_1_multimer_v3"
+    ],
+    "validationModels": [
+      "model_1_ptm"
+    ]
+  },
+  "checkpointSha256": {
+    "model_1_multimer_v3": "611da8fc7478928f68de12e8b226260ef1f4ce62bcc29b008572e52f4f212959",
+    "model_1_ptm": "5e564f79af5bcd54ccef6e2a6bb0ff01015d01650ebc41d4575e35f0de9ecc84"
+  }
+}

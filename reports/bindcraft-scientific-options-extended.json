@@ -1,0 +1,164 @@
+{
+  "state": "passed",
+  "scope": "Actual original override hierarchy, strict original option/metric parameter validation, immutable recipes and input preflight. Default acceptance filters unchanged in every QA case. No new neural computations, sequence optimization or scientific acceptance claim.",
+  "root": "/Users/vii/Documents/FoldStudio-MetalPort/validation/bindcraft-scientific-options-extended",
+  "cases": [
+    {
+      "jobId": "a528fb13-4b1c-498d-92c8-0d7a371e6a26",
+      "modality": "binder",
+      "originalResolutionMatches": true,
+      "scientificOptionReceipt": {
+        "values": {
+          "design_recycles": 1,
+          "validation_recycles": 1,
+          "design_dropout": false
+        },
+        "sha256": "ec16b65cb23369a5a87216a5cbc64075301427a114551fef0b347c487fbb64f1",
+        "scope": "Explicit user scientific overrides, validated by the original upstream settings loader. Original default recipe/filters are not asserted for this custom campaign."
+      },
+      "resourceEstimate": {
+        "paddedResidues": 192
+      },
+      "defaultFiltersUnchanged": true,
+      "state": "prepared_not_executed"
+    },
+    {
+      "jobId": "a42dfe2c-7048-4f29-9748-a839ad920e5f",
+      "modality": "binder",
+      "originalResolutionMatches": true,
+      "scientificOptionReceipt": {
+        "values": {
+          "mpnn_variant": "positive",
+          "sequence_candidates": 4,
+          "kept_sequences": 2
+        },
+        "sha256": "1e050158147e0f0f52981107e01a4a7b103d73ee2ff2151407af105fb736b27e",
+        "scope": "Explicit user scientific overrides, validated by the original upstream settings loader. Original default recipe/filters are not asserted for this custom campaign."
+      },
+      "resourceEstimate": {
+        "paddedResidues": 192
+      },
+      "defaultFiltersUnchanged": true,
+      "state": "prepared_not_executed"
+    },
+    {
+      "jobId": "054be137-7139-4a30-a107-8598abfd1e94",
+      "modality": "binder",
+      "originalResolutionMatches": true,
+      "scientificOptionReceipt": {
+        "values": {
+          "aa_bias": {
+            "W": 0.1
+          },
+          "losses": {
+            "interface_contacts": {
+              "params": {
+                "cutoff": 8.0
+              }
+            }
+          }
+        },
+        "sha256": "408bf5035653f1cc17f0cf8d7f52f49cf72667f0d1bd387dd9efde2ea587ee76",
+        "scope": "Explicit user scientific overrides, validated by the original upstream settings loader. Original default recipe/filters are not asserted for this custom campaign."
+      },
+      "resourceEstimate": {
+        "paddedResidues": 192
+      },
+      "defaultFiltersUnchanged": true,
+      "state": "prepared_not_executed"
+    },
+    {
+      "jobId": "27b5e646-096a-4e56-b472-ed0a0b314894",
+      "modality": "binder",
+      "originalResolutionMatches": true,
+      "scientificOptionReceipt": {
+        "values": {
+          "autotune_loss_weights": true,
+          "compile_next_length": false
+        },
+        "sha256": "23ab0b158ed7b28d07270c567b1eef0e52d8391901ac2c29bb03516f7cdde1bf",
+        "scope": "Explicit user scientific overrides, validated by the original upstream settings loader. Original default recipe/filters are not asserted for this custom campaign."
+      },
+      "resourceEstimate": {
+        "paddedResidues": 192
+      },
+      "defaultFiltersUnchanged": true,
+      "state": "prepared_not_executed"
+    },
+    {
+      "jobId": "cdae2a3e-dbea-41fc-a766-e7011d3db312",
+      "modality": "induced_fit",
+      "originalResolutionMatches": true,
+      "scientificOptionReceipt": {
+        "values": {
+          "weights_induced_fit_interface": 0.3
+        },
+        "sha256": "4d62167ec2568a563b3db75dfba491471c8271362bc58f2f932d988c02ad25b1",
+        "scope": "Explicit user scientific overrides, validated by the original upstream settings loader. Original default recipe/filters are not asserted for this custom campaign."
+      },
+      "resourceEstimate": {
+        "paddedResidues": 192,
+        "additionalPredictionStates": [
+          "binder_alone"
+        ]
+      },
+      "defaultFiltersUnchanged": true,
+      "state": "prepared_not_executed"
+    },
+    {
+      "jobId": "77718972-ac75-471f-abc8-8ea8c8cfb3cd",
+      "modality": "fold_switch",
+      "originalResolutionMatches": true,
+      "scientificOptionReceipt": {
+        "values": {
+          "weights_induced_fit_global": 0.8
+        },
+        "sha256": "35a3002441aad4b16403a52f2d62582cc657777be14c6159d55ec3e46c72a4bf",
+        "scope": "Explicit user scientific overrides, validated by the original upstream settings loader. Original default recipe/filters are not asserted for this custom campaign."
+      },
+      "resourceEstimate": {
+        "paddedResidues": 192,
+        "additionalPredictionStates": [
+          "binder_alone"
+        ]
+      },
+      "defaultFiltersUnchanged": true,
+      "state": "prepared_not_executed"
+    }
+  ],
+  "refusals": [
+    {
+      "options": {
+        "unrecognized_science_option": 1
+      },
+      "error": "Original property compatibility refused: Traceback (most recent call last):\n  File \"<string>\", line 5, in <module>\n  File \"/Users/vii/Documents/FoldStudio-MetalPort/fold-studio/vendor/bindcraft2/bindcraft/settings.py\", line 453, in load_settings\n    reject_unrecognized_settings(overrides)\n  File \"/Users/vii/Documents/FoldStudio-MetalPort/fold-studio/vendor/bindcraft2/bindcraft/settings.py\", line 449, in reject_unrecognized_settings\n    raise ValueError('unrecognized campaign settings: ' + ', '.join(rejected))\nValueError: unrecognized campaign settings: unrecognized_science_option\n",
+      "noJobCreated": true
+    },
+    {
+      "options": {
+        "losses": {
+          "interface_contacts": {
+            "params": {
+              "unknown_cutoff": 8
+            }
+          }
+        }
+      },
+      "error": "Original property compatibility refused: Traceback (most recent call last):\n  File \"<string>\", line 5, in <module>\n  File \"/Users/vii/Documents/FoldStudio-MetalPort/fold-studio/vendor/bindcraft2/bindcraft/settings.py\", line 453, in load_settings\n    reject_unrecognized_settings(overrides)\n  File \"/Users/vii/Documents/FoldStudio-MetalPort/fold-studio/vendor/bindcraft2/bindcraft/settings.py\", line 449, in reject_unrecognized_settings\n    raise ValueError('unrecognized campaign settings: ' + ', '.join(rejected))\nValueError: unrecognized campaign settings: losses.interface_contacts.params.unknown_cutoff (did you mean cutoff?)\n",
+      "noJobCreated": true
+    },
+    {
+      "options": {
+        "filters": {
+          "Unknown_Filter": {
+            "threshold": 1
+          }
+        }
+      },
+      "error": "Original property compatibility refused: Traceback (most recent call last):\n  File \"<string>\", line 5, in <module>\n  File \"/Users/vii/Documents/FoldStudio-MetalPort/fold-studio/vendor/bindcraft2/bindcraft/settings.py\", line 453, in load_settings\n    reject_unrecognized_settings(overrides)\n  File \"/Users/vii/Documents/FoldStudio-MetalPort/fold-studio/vendor/bindcraft2/bindcraft/settings.py\", line 449, in reject_unrecognized_settings\n    raise ValueError('unrecognized campaign settings: ' + ', '.join(rejected))\nValueError: unrecognized campaign settings: filters.Unknown_Filter\n",
+      "noJobCreated": true
+    }
+  ],
+  "sourceUnchanged": true,
+  "sourceSha256": "d3c95434dcadf26d005340b15bd92be61e101ed921478c26f2a5550f198e61f6"
+}

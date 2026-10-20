@@ -28,6 +28,18 @@ class ScientificOptions(unittest.TestCase):
   with self.assertRaisesRegex(ValueError,'option receipt'):options.verify_preparation(prep)
   prep['config']['aa_bias']['W']=0.1;prep['scientificOptions']['sha256']='changed'
   with self.assertRaisesRegex(ValueError,'option receipt'):options.verify_preparation(prep)
+ def test_original_autotuning_and_compile_policy_have_explicit_boolean_values(self):
+  self.assertEqual(options.validate({'autotune_loss_weights':True,'compile_next_length':False},fe.UPSTREAM),{'autotune_loss_weights':True,'compile_next_length':False})
+  for key in ('autotune_loss_weights','compile_next_length'):
+   for value in (1,'true',None,[]):
+    with self.subTest(key=key,value=value),self.assertRaisesRegex(ValueError,'true or false'):options.validate({key:value},fe.UPSTREAM)
+ def test_conformational_weights_require_the_native_conformational_state_adapter(self):
+  values={'weights_induced_fit_interface':.3,'weights_induced_fit_global':.5}
+  for modality in ('induced_fit','fold_switch'):self.assertEqual(options.validate(values,fe.UPSTREAM,modality),values)
+  for modality in (None,'binder','peptide'):
+   with self.subTest(modality=modality),self.assertRaisesRegex(ValueError,'Use native'):options.validate(values,fe.UPSTREAM,modality)
+  for value in (True,float('inf'),'0.5'):
+   with self.subTest(value=value),self.assertRaises(ValueError):options.validate({'weights_induced_fit_global':value},fe.UPSTREAM,'fold_switch')
  def test_native_bundle_carries_the_option_validation_adapter(self):
   root=pathlib.Path(__file__).parents[1];self.assertIn('../scientific/campaign_options.py',json.loads((root/'src-tauri/tauri.conf.json').read_text())['bundle']['resources'])
 del Fixtures

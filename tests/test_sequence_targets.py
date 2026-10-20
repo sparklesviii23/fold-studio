@@ -40,4 +40,35 @@ class SequenceTargetContracts(unittest.TestCase):
   with self.assertRaisesRegex(ValueError,'immutable FASTA receipt'):verify_preparation(prep)
  def test_packaging_and_native_ipc_include_sequence_adapter(self):
   root=pathlib.Path(__file__).parents[1];self.assertIn('"fold_target"',(root/'src-tauri/src/main.rs').read_text());self.assertIn('../scientific/sequence_targets.py',json.loads((root/'src-tauri/tauri.conf.json').read_text())['bundle']['resources'])
+ def test_crop_count_is_contextual_bounded_and_requires_real_cropping(self):
+  from campaign_options import validate
+  import fold_engine as fe
+  values={'idr_crop_count':2,'crop_fasta_sequence':[5,10]}
+  self.assertEqual(validate(values,fe.UPSTREAM,'peptide','sequence'),values)
+  with self.assertRaisesRegex(ValueError,'Use native'):validate(values,fe.UPSTREAM,'peptide','structure')
+  for count in (0,4,True,1.5,'2'):
+   with self.subTest(count=count),self.assertRaises(ValueError):validate({'idr_crop_count':count},fe.UPSTREAM,'peptide','sequence')
+  for disabled in (None,False):
+   with self.subTest(disabled=disabled),self.assertRaisesRegex(ValueError,'require original sequence cropping'):validate({'idr_crop_count':2,'crop_fasta_sequence':disabled},fe.UPSTREAM,'peptide','sequence')
+ def test_virtual_crop_outputs_map_to_one_physical_input_without_filename_guessing(self):
+  from campaign_inputs import snapshots,prediction_targets,ranked_target,verify
+  record=self.sequence();job=self.s.dispatch('bindcraft_prepare',self.payload(record));prep=job['data']['preparation'];prep['config'].update(idr_crop_count=2,crop_fasta_sequence=5)
+  folder=self.s.root/'jobs'/job['id'];verify(folder,prep)
+  self.assertEqual(len(snapshots(prep)),1);states=prediction_targets(prep);self.assertEqual([state['name'] for state in states],['target_epitope_1','target_epitope_2'])
+  for state in states:
+   self.assertEqual(state['source'],prep['source']);self.assertEqual(state['file'],'input.fasta');self.assertEqual(state['sourceTargetName'],'target')
+   self.assertEqual(ranked_target(prep,'candidate_'+state['name']+'.cif','candidate'),state)
+  for filename in ('candidate.cif','candidate_target.cif','candidate_target_epitope_3.cif'):
+   with self.subTest(filename=filename),self.assertRaisesRegex(ValueError,'unique prepared target'):ranked_target(prep,filename,'candidate')
+ def test_crop_resource_budget_counts_every_state_and_checks_original_state_names(self):
+  from campaign_profile import sequence_resources
+  record=self.sequence();job=self.s.dispatch('bindcraft_prepare',self.payload(record));prep=job['data']['preparation'];prep['config'].update(idr_crop_count=2,crop_fasta_sequence=5)
+  estimate={'paddedResidues':96,'targetPredictionStates':['target_epitope_1','target_epitope_2']}
+  self.assertEqual(sequence_resources(estimate,prep)['aggregatePaddedResidues'],192)
+  with self.assertRaisesRegex(ValueError,'192 aggregate'):sequence_resources({**estimate,'paddedResidues':128},prep)
+  with self.assertRaisesRegex(ValueError,'state mapping'):sequence_resources({**estimate,'targetPredictionStates':['target']},prep)
+ def test_multiple_crop_states_cannot_relabel_an_observed_input(self):
+  from campaign_inputs import prediction_targets
+  job=self.s.dispatch('bindcraft_prepare',self.config);prep=job['data']['preparation'];prep['config']['idr_crop_count']=2
+  with self.assertRaisesRegex(ValueError,'one immutable FASTA'):prediction_targets(prep)
 del Fixtures

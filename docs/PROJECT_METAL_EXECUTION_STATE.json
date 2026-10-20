@@ -1,34 +1,35 @@
 {
   "schemaVersion": 1,
-  "updatedUtc": "2026-10-20T13:32:01.529394+00:00",
+  "updatedUtc": "2026-10-20T17:31:06.097046+00:00",
   "branch": "project-metal/apple-silicon-engine",
-  "implementationCommit": "8ef5b2a + experimental SSD adapter work",
+  "implementationCommit": "412c182 + native scientific option/crop-state integration",
   "scope": "Project Metal Omega: complete authentic local BindCraft2 integration. No new Vina, OpenMM or interface redesign work.",
   "upstreamRevision": "c0ee638d11bc010817c2c97ee58ed5c323e664e2",
   "verified": {
-    "backendTests": 352,
+    "backendTests": 358,
     "frontendTests": 76,
     "typescript": "passed",
     "corePipeline": "Real 175-residue hPDL1 ensemble design + ProteinMPNN + held-out AF2 + original filters; one accepted computational prediction, no biological claim.",
     "campaignRecovery": "Actual CPU cancellation at claimed trajectory 2; original budget continues with rows 1,3,4 and no accepted designs.",
     "filterRank": "Shared operations exactly match original upstream functions on existing authentic 1/3/1 trajectory/refold/accepted case.",
     "propertyPresets": "9 original presets + combination + VHH/humanize resolution/preflight; VHH/mixed topology refusal before saving. No property generation validation.",
-    "extendedFormats": "large_binder/multidomain original presets, real input preflight and ensemble resolution passed; no model execution",
+    "extendedFormats": "Original large_binder/multidomain preparation passed; actual native multidomain ran95 finite screen updates then SIGTERM, cause unreported, recorded interrupted rather than completed.",
     "unboundOutputTransport": "8 protocol tests: own pLDDT, roles, exact sequence, no parent interface confidence, both bound/unbound acceptance outputs required.",
     "conformationalStatePreflight": "Original source preflight passed; separate real fold_switch bound/unbound CPU trajectory completed with faithful anneal rejection.",
     "coreProfiles": "Original benchmark precedence passes on binder and VHH/humanize; source inputs unchanged, explicit native seed retained.",
     "featureInventory": "All9discovered command entry points now connected at explicit bounded native scope; literal CLI flags, arbitrary folder/state graphs and option-specific validation remain incomplete.",
     "sequenceTargets": "Actual native same-settings FASTA repeat72debdb3 completed590.314s with original final i_pTM rejection,1trajectory/0refolds/0accepted. All5optimization stages executed; FASTA-specific accepted coordinate import and held-out refolding remain unexercised.",
-    "scientificOptions": "Explicit original overrides, original strict settings/metric validation, receipts and input preflight. 3 real source comparisons and 3 original refusals; default filters unchanged in all QA cases. 6 protocol tests.",
+    "scientificOptions": "6 actual original resolution/preflight comparisons,3 original validation refusals; default acceptance filters unchanged. Explicit autotuning, compile policy and two context-bound conformational loss weights now exposed.",
     "coordinateScoring": "Original score_design recomputation on saved genuine 175-residue complex exactly matches direct original source; source unchanged, omitted site/missing state/confidence metrics and separate stamped model readings. 5 synthetic contract tests.",
     "nativeCorePipeline": "Actual packaged app-owned Metal runtime and seven AF2 models: one real trajectory, three passed independent candidate refolds, original rank retained one accepted prediction. 3895.532 seconds. Native CIF export exact bytes, quit/reopen/viewer passed.",
     "acceptedSequenceExport": "Actual native FASTA export passed; exact original accepted 60-residue binder sequence, native save dialog.",
     "campaignSummary": "Actual native summary button returned 157 original statistical rows; source comparison and project ZIP evidence passed.",
-    "conformationalExecution": "Original fold_switch single-model CPU float32, technical 12+60 case: bound/unbound optimization executed, screening/refinement passed, rejected at anneal by original i_pTM. 637.945 seconds, 1/0/0 stage rows. Not full downstream or broad validation.",
+    "conformationalExecution": "Original fold_switch637.945s and induced_fit685.046s bound/unbound CPU trajectories completed with original anneal rejection,1/0/0 outputs each; no accepted conformational outputs.",
     "terminationHandling": "348 backend/76frontend pass. Signed relocated8ef5b2a lifecycle simulation passed bundled runtime and native interrupted-state UI, explicitly no model computation. Genuine saved175res accepted viewer reopened in same updated app.",
     "memoryGovernor": "Public macOS libproc physical footprint includes compressed allocations; two focused tests and actual1GiB stop smoke passed. Original Fab608 kernel memory kill diagnosed and retained.",
     "ssdOffload": "Experimental CPU SSD tape:6focused runtime tests pass; genuine64-padded trained AF2 loss,coordinates,sequence gradients exactly equal original. Full608Fab attempt wrote9,665,972,632bytes to SSD, then guard stopped at15,279,502,008bytes task footprint in310.219s. No full Fab gradient or accepted design; native Fab remains disabled.",
-    "campaignUtilities": "Actual original custom filtering (2pass/1reject), source metric listing, multi-metric explicit-direction ranking, lossless trajectory compression/restoration and persistence-failure rollback passed on genuine saved175-residue ensemble results. Original output data,157summary rows, job state and original QA source unchanged after roundtrip."
+    "campaignUtilities": "Actual original custom filtering (2pass/1reject), source metric listing, multi-metric explicit-direction ranking, lossless trajectory compression/restoration and persistence-failure rollback passed on genuine saved175-residue ensemble results. Original output data,157summary rows, job state and original QA source unchanged after roundtrip.",
+    "sequenceCropStates": "Actual original two/three distinct FASTA crop preparations match native state mapping, exact source sequence intervals, deterministic seeds and original validation flanks. One immutable physical input;192aggregate-residue guard and original insufficient-window refusal verified. No multi-crop model execution yet."
   },
   "evidence": [
     "reports/bindcraft-ensemble-outcome.json",
@@ -54,7 +55,12 @@
     "reports/bindcraft-fab-gradient-cpu-subbatch1.json",
     "reports/ssd-af2-parity.json",
     "reports/ssd-fab-gradient.json",
-    "reports/bindcraft-native-utilities.json"
+    "reports/bindcraft-native-utilities.json",
+    "reports/bindcraft-packaged-utilities.json",
+    "reports/bindcraft-induced-fit-outcome.json",
+    "reports/bindcraft-scientific-options-extended.json",
+    "reports/bindcraft-sequence-crops.json",
+    "reports/native-bindcraft-multidomain-interrupted.json"
   ],
   "runtime": {
     "cpu": "../runtimes/jax-cpu/bin/python",
@@ -73,11 +79,11 @@
   },
   "activeComputationalTest": null,
   "activeBuild": null,
-  "latestVerifiedApp": "/Users/vii/Documents/FoldStudio-MetalPort/validation/Relocated BindCraft Reliable Engine/FOLD STUDIO Metal Dev.app (8ef5b2a; signed relocated native interrupted-state simulation and genuine saved accepted viewer passed)",
+  "latestVerifiedApp": "/Users/vii/Documents/FoldStudio-MetalPort/validation/Relocated BindCraft Utilities Engine/FOLD STUDIO Metal Dev.app (412c182; signed relocated bundled runtime and native custom filter/rank/archive/restore buttons passed)",
   "immediateNext": [
-    "Package latest non-Fab utilities, verify actual bundled runtime and native buttons.",
-    "Finish active original induced_fit trajectory; do not launch a competing model job.",
-    "Continue non-Fab validation and runtime release checks. Fab and memory experiments explicitly deferred by user."
+    "Package current option/crop-state integration and check native controls in a newly relocated ad-hoc signed app.",
+    "Execute a bounded genuine multi-crop trained-model diagnostic, without changing original acceptance filters. No competing AF2 job.",
+    "Continue remaining non-Fab option/modality validation. Fab and notarization explicitly deferred."
   ],
   "limitations": [
     "Full upstream modality/option parity remains incomplete.",
@@ -85,7 +91,7 @@
     "Newest additions require packaged acceptance.",
     "Do not rerun finished accepted/VHH/homodimer/multitarget campaigns merely to inspect results."
   ],
-  "uncommittedWork": "Non-Fab native original command integration and verified utilities; preserved prior SSD experiment and lifecycle evidence.",
+  "uncommittedWork": "Source-validated native option expansion and multiple FASTA crop states; updated package acceptance pending.",
   "fabResourceFailure": {
     "state": "kernel_memory_terminated",
     "report": "reports/bindcraft-fab-gradient-cpu.json",
@@ -107,15 +113,8 @@
       "limitation": "Stopped at self-imposed14GiB task footprint limit; not proof of exhausting24GiB physicalRAM. No completed gradient."
     }
   },
-  "activeScientificRun": {
-    "jobId": "ec6e1fd3-d0f8-4510-89f5-85cf5f424002",
-    "root": "/Users/vii/Documents/FoldStudio-MetalPort/validation/bindcraft-conformational-presets",
-    "workerPid": 45773,
-    "state": "running",
-    "backend": "cpu",
-    "profile": "experimental-cpu-float32-conformational",
-    "scope": "Actual original induced_fit, technical12res target+60res binder, bound/unbound original optimization and unchanged acceptance criteria. Single attempt; no competing AF2 process."
-  },
+  "activeScientificRun": null,
   "fabDeferredByUser": true,
-  "distributionBlocker": "No valid local code-signing identity (security find-identity reports0). Ad-hoc local signing is available; Developer ID notarized distribution requires external credentials."
+  "distributionBlocker": "No valid local code-signing identity (security find-identity reports0). Ad-hoc local signing is available; Developer ID notarized distribution requires external credentials.",
+  "notarizationDeferredByUser": true
 }
