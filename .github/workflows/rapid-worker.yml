@@ -1,0 +1,47 @@
+name: Private RAPID worker release candidate
+on:
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  amd64:
+    runs-on: ubuntu-24.04
+    strategy:
+      fail-fast: false
+      matrix:
+        engine: [core, bindcraft2, boltzgen]
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Obtain pinned public BoltzGen source
+        run: |
+          git clone https://github.com/HannesStark/boltzgen.git ../boltzgen
+          git -C ../boltzgen checkout a07fea1153111ef453aaea7a15697ee05de9291f
+      - name: Contract and fixture tests
+        run: |
+          python -m pip install gemmi==0.7.5
+          PYTHONPATH=remote_worker python -m unittest discover -s tests -p test_rapid_worker.py
+      - name: Reclaim disposable runner toolchains for CUDA dependencies
+        run: sudo rm -rf /usr/local/lib/android /usr/share/dotnet /opt/ghc
+      - name: Build source-only release and AMD64 image
+        run: |
+          python scripts/build-rapid-release.py --boltzgen ../boltzgen --output /tmp/rapid
+          cp remote_worker/containers/startup.sh /tmp/rapid/startup.sh
+          chmod 755 /tmp/rapid/startup.sh
+          docker buildx build --platform linux/amd64 --target ${{ matrix.engine }} -f remote_worker/containers/Dockerfile -t fold-rapid:0.2.0-${{ matrix.engine }} --load --metadata-file /tmp/rapid/build-metadata.json /tmp/rapid
+          python scripts/validate-rapid-container.py --image fold-rapid:0.2.0-${{ matrix.engine }} --report /tmp/rapid/container-validation.json
+          docker image inspect fold-rapid:0.2.0-${{ matrix.engine }} > /tmp/rapid/image-inspect.json
+          docker save fold-rapid:0.2.0-${{ matrix.engine }} | gzip -1 > /tmp/rapid/fold-rapid-amd64.tar.gz
+          sha256sum /tmp/rapid/*.tar* > /tmp/rapid/SHA256SUMS
+      - uses: actions/upload-artifact@v4
+        with:
+          name: fold-rapid-0.2.0-${{ matrix.engine }}-linux-amd64-private
+          path: |
+            /tmp/rapid/*.tar*
+            /tmp/rapid/*.json
+            /tmp/rapid/SHA256SUMS
+          retention-days: 7
+      # No registry push. Source permission, registry visibility and credentials
+      # must be explicitly reviewed before publishing any image.

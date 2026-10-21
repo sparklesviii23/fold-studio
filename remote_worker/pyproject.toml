@@ -1,0 +1,20 @@
+[build-system]
+requires = ["setuptools==80.9.0", "wheel==0.45.1"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "fold-studio-rapid"
+version = "0.2.0"
+description = "Persistent, SSH-controlled molecular computation worker"
+requires-python = ">=3.12"
+dependencies = ["gemmi==0.7.5"]
+
+[project.scripts]
+fold-rapid = "fold_rapid.cli:main"
+fold-rapid-install = "fold_rapid.install:main"
+
+[tool.setuptools.packages.find]
+include = ["fold_rapid*"]
+
+[tool.setuptools.package-data]
+fold_rapid = ["*.json"]

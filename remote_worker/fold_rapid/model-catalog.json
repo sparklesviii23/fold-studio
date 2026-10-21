@@ -1,0 +1,149 @@
+{
+  "schemaVersion": 1,
+  "approvalRequired": true,
+  "alphafold": {
+    "schemaVersion": 1,
+    "source": "https://storage.googleapis.com/alphafold/alphafold_params_2022-12-06.tar",
+    "archiveETag": "\"5cc59a561e80601862948ff36c6b040b\"",
+    "checksumAuthority": "Locally computed from the TLS-fetched official archive; not independently published provider member checksums",
+    "models": {
+      "model_1_ptm": "5e564f79af5bcd54ccef6e2a6bb0ff01015d01650ebc41d4575e35f0de9ecc84",
+      "model_1_multimer_v3": "611da8fc7478928f68de12e8b226260ef1f4ce62bcc29b008572e52f4f212959",
+      "model_2_multimer_v3": "51362b0844382ae0f5720c59b81dd13a43eea40fbf9995dd2573bdab88865378",
+      "model_2_ptm": "23645d9a82c4af2ed54cd48a7b3c1c2575dc6aa9fe931adb4d7203ca5f0dc398",
+      "model_3_multimer_v3": "46d9bcad288edc7ad5a6362ee8e5f84307a69712e00e6c36b1ef9daf96ebc9ce",
+      "model_4_multimer_v3": "59bdabd2d69c07fe26b37882d544acbd1b9f89f196828f4220da49e0610b572c",
+      "model_5_multimer_v3": "917742be5a105d6b80f13f1f13f20459f27ec3fdcd34ea088b359f4502d6177f"
+    }
+  },
+  "boltzgen/boltzgen-1": {
+    "revision": "c1be29e1f82ffcc72264f64b993c43fb4e0d17f0",
+    "files": {
+      "boltz2_aff.ckpt": {
+        "sha256": "6dc13d488015666d3c3fdffd29fab54d72e4f2597b654f996cdcf5937feab090",
+        "bytes": 2061914091
+      },
+      "boltz2_conf_final.ckpt": {
+        "sha256": "525a51ef306da7282a54d23a4a5b91212fc60d0ff6b23b56dd6351de3b387530",
+        "bytes": 2087255089
+      },
+      "boltzgen1_adherence.ckpt": {
+        "sha256": "ac7078b3dc13064c68e0c3fd542e5bc538c33558bf6607f65e499eb336ca5e5d",
+        "bytes": 1930858014
+      },
+      "boltzgen1_diverse.ckpt": {
+        "sha256": "360af8bd6e59527ff6ec25dd81253967f3bd3567d200053b10680634751f8e3c",
+        "bytes": 1930847192
+      },
+      "boltzgen1_ifold.ckpt": {
+        "sha256": "dd4cf108c94471bdc3a326b7b180fa3854dc019110fae780208c30b50bd56578",
+        "bytes": 12582656
+      },
+      "boltzgen1_structuretrained_small.ckpt": {
+        "sha256": "e2455b6ff5156218ef3999be894d1a8e4574f0531cefcd9d67d9c1d2d015937b",
+        "bytes": 2210925373
+      }
+    }
+  },
+  "boltzgen/inference-data": {
+    "revision": "c3d36fd276e9caf098c75d4113c6d5eb320b1a4c",
+    "files": {
+      "mols.zip": {
+        "sha256": "3d4f56ac4262e745bb3d09cfaa19099b1d01be208122d501667b952e45521e53",
+        "bytes": 391401102
+      }
+    }
+  },
+  "mpnn": {
+    "neutral": {
+      "sha256": "58db738bbf867ca9b9290ce3a6581b94649f108683ac0e6a10de6b4aeeed30b4",
+      "bytes": 6681030,
+      "source": "https://raw.githubusercontent.com/PacesaLab/BindCraft2/c0ee638d11bc010817c2c97ee58ed5c323e664e2/bindcraft/weights/proteinmpnn/weights_neutral/v_48_020.npz"
+    },
+    "negative": {
+      "sha256": "b166276f80a45cb3de24bceb3b47b2f47a60ff654660f09837cd775846411ad1",
+      "bytes": 6681030,
+      "source": "https://raw.githubusercontent.com/PacesaLab/BindCraft2/c0ee638d11bc010817c2c97ee58ed5c323e664e2/bindcraft/weights/proteinmpnn/weights_negative/v_48_020.npz"
+    },
+    "positive": {
+      "sha256": "9b8b55fcb8a428ba85f583be828d1a8d14ab2fe0e02474979c3dcbae146795f5",
+      "bytes": 6681030,
+      "source": "https://raw.githubusercontent.com/PacesaLab/BindCraft2/c0ee638d11bc010817c2c97ee58ed5c323e664e2/bindcraft/weights/proteinmpnn/weights_positive/v_48_020.npz"
+    }
+  },
+  "solublempnn": {
+    "source": "https://files.ipd.uw.edu/pub/ligandmpnn/solublempnn_v_48_020.pt",
+    "sha256": "7af52d090172c230c7f0e9d21e02203f6b3a38b16db58d3c7a3960e0a9a6e31a",
+    "checksumAuthority": "Pinned upstream BoltzGen source constant"
+  },
+  "esmfold2": {
+    "biohub/ESMFold2": {
+      "revision": "8fc3ff471022fdce52c77030685eb775de0c00a3",
+      "gated": false,
+      "files": {
+        "ccd.pkl": {
+          "sha256": "9ff44b1927c6b9198e38ffe0928706827a09a350c15530beeeabebfa88038fc5",
+          "bytes": 417306584
+        },
+        "config.json": {
+          "sha256": "e9ec2496ec433a1dce18627ed4bf3785b4ce0c1d69e4bb4663dad1ab895da012",
+          "bytes": 2337
+        },
+        "model.safetensors": {
+          "sha256": "138fd4350d6892b81ce6be7ff9bf5a93ae9d4d3751f46a27438a3f9f0dcefa0e",
+          "bytes": 939505228
+        }
+      }
+    },
+    "biohub/ESMC-6B": {
+      "revision": "af1602ba7406f521b11bf8f81d52af378cde09e4",
+      "gated": false,
+      "files": {
+        "config.json": {
+          "sha256": "80ccf981fbbd4f9f0a64830a0b64f1c79ed0f629d3f3b95f4424fd73174ac540",
+          "bytes": 1114
+        },
+        "model-00001-of-00006.safetensors": {
+          "sha256": "80cc4a51f218de3bbe06aa56fe55bc695f0b7707159c01f3e4d8aa49c8cf38b4",
+          "bytes": 4935170376
+        },
+        "model-00002-of-00006.safetensors": {
+          "sha256": "273740475dcd0cab8b9b591f5458679a5a9cc96cd1e8108fb856b1ec5d581c06",
+          "bytes": 4979100240
+        },
+        "model-00003-of-00006.safetensors": {
+          "sha256": "00769f0e680aeae99c4ea877f61c5c6532faf9a0726e6a7cb449d3ef9953d993",
+          "bytes": 4997470904
+        },
+        "model-00004-of-00006.safetensors": {
+          "sha256": "1287dd34cb55f2d9730b81d961c8a693bec4cc3d0c3c13adb6a91e950f6de933",
+          "bytes": 4934515048
+        },
+        "model-00005-of-00006.safetensors": {
+          "sha256": "fef715f2b9f0bc52f846f07fba9d5183ff8eef20edadc3e6bfb67070ebcbf4b2",
+          "bytes": 4979100240
+        },
+        "model-00006-of-00006.safetensors": {
+          "sha256": "7f88f2e9a88439be6672f5dfa6ae369c7ae87fb533e0a25a073f706cd9ac5ddd",
+          "bytes": 582782360
+        },
+        "model.safetensors.index.json": {
+          "sha256": "9791f3424a22125b7a495641e293d43e9336d6f2c54237d982d1ba17d0290a28",
+          "bytes": 85702
+        },
+        "special_tokens_map.json": {
+          "sha256": "0b7245ec86c8c3aeaf61523ba70dfa79be137e6283f127bd651adc30b4f15c74",
+          "bytes": 171
+        },
+        "tokenizer.json": {
+          "sha256": "8d3447b278176e65fb3ef0224472927bf5fee3be46ea2bd77fad0111423cee1f",
+          "bytes": 2879
+        },
+        "tokenizer_config.json": {
+          "sha256": "dd886af5f7a21ee11455a243e57e421bcd0289dfd15a2d2df4f5135986766a12",
+          "bytes": 327
+        }
+      }
+    }
+  }
+}

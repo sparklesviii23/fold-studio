@@ -144,7 +144,7 @@ class CloudCompute:
             if p.get('id') and old is None:raise ValueError('Connection profile not found.')
             if old:
                 if (old['host'],old['port'],old['username'],old['keyPath'])!=(values['host'],values['port'],values['username'],values['keyPath']):
-                    for field in ('connection','worker','lastWorkerReading','health'):old.pop(field,None)
+                    for field in ('connection','worker','lastWorkerReading','health','rapid'):old.pop(field,None)
                 if (old['host'],old['port'])!=(values['host'],values['port']):
                     for field in ('trustedHostKey','fingerprint','pendingHostKey','worker','connection'):old.pop(field,None)
                     (self.root/(id+'.known_hosts')).unlink(missing_ok=True)

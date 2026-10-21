@@ -13,7 +13,7 @@ describe('Cloud Compute foundation',()=>{
  it('clearly identifies the actual foundation scope and keeps local compute accessible',()=>{
   const html=renderToStaticMarkup(<CloudCompute onLocal={()=>{}}/>);
   expect(html).toContain('Cloud Compute');expect(html).toContain('Connect Your GPU');
-  expect(html).toContain('remote scientific campaigns are not available yet');
+  expect(html).toContain('qualify your actual CUDA GPU');
   expect(html).toContain('Local BindCraft Architect');
   expect(html).not.toContain('RTX 5090 · Ready');expect(html).not.toContain('Rent now');
  });

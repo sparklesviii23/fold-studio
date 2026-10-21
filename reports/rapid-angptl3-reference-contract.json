@@ -1,0 +1,71 @@
+{
+  "state": "passed",
+  "scope": "Actual private154-residue construct, original source settings resolver; no model, GPU or trajectory execution. Not the full physiological ANGPTL3/8 assembly. Private coordinates excluded from images.",
+  "inputSha256": "1be49793ab3c4cfd38d2da2bcae1b6ff19d25e4af701a51dafee058aff36f13d",
+  "chains": {
+    "A": 50,
+    "B": 50,
+    "C": 54
+  },
+  "rawBytesUnchanged": true,
+  "originalSourceSettings": {
+    "binderLengths": [
+      20
+    ],
+    "targetChains": [
+      "A,B,C"
+    ],
+    "seed": 42,
+    "resolved": {
+      "campaign_seed": 42,
+      "design_models": [
+        "model_1_multimer_v3",
+        "model_3_multimer_v3",
+        "model_5_multimer_v3"
+      ],
+      "validation_models": [
+        "model_2_multimer_v3",
+        "model_4_multimer_v3"
+      ],
+      "validation_model": "multimer",
+      "design_stage_steps": {
+        "screen": 50,
+        "refine": 75,
+        "anneal": 45,
+        "harden": 5,
+        "mutate": 15
+      },
+      "binder_chains": [
+        "binder"
+      ],
+      "oligomer_tie": "symmetric",
+      "cyclic_offset_mode": "direction",
+      "length_bucket_size": 32
+    }
+  },
+  "error": null,
+  "actualUpstreamTargetPreparation": {
+    "residues": {
+      "target": 154
+    },
+    "sourceChainLayout": {
+      "target_target": [
+        [
+          "A",
+          50,
+          1
+        ],
+        [
+          "B",
+          50,
+          1
+        ],
+        [
+          "C",
+          54,
+          1
+        ]
+      ]
+    }
+  }
+}

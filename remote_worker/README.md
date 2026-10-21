@@ -1,4 +1,12 @@
-# RAPID worker foundation · protocol v1
+# RAPID worker · scientific package v0.2.0 / API v2
+
+The installable scientific application is now `fold_rapid/`, with metadata in
+`pyproject.toml`, isolated hashed environments in `environments/`, and CUDA image
+targets in `containers/Dockerfile`. See `../docs/RAPID_WORKER_REPORT.md` for actual
+execution paths, deployment/test commands, evidence and outstanding NVIDIA gates.
+No CUDA scientific readiness is claimed from a no-GPU build.
+
+## Retained connection foundation · protocol v1
 
 A dependency-free Python worker transported over authenticated OpenSSH stdin.
 It opens no public network port. Supported operations: health, engine inventory,
