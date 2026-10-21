@@ -13,8 +13,10 @@ class ConstraintContracts(unittest.TestCase):
  def test_subset_is_exact_source_identity(self):
   result=prepare(self.structure,['A','B'],{'designResidues':['A2','B2'],'tiedChains':[['A','B']]})
   self.assertEqual([r['design'] for r in result['residues']['A']],[False,True,False])
-  for selected in ([],['A1','A1'],['C2'],['B2']):
+  for selected in (['A1','A1'],['C2'],['B2']):
    with self.subTest(selected=selected),self.assertRaises(ValueError):prepare(self.structure,['A'],{'designResidues':selected})
+ def test_cleared_residues_and_exclusions_match_default_without_changing_fixed_chains(self):
+  self.assertEqual(prepare(self.structure,['A'],{}),prepare(self.structure,['A'],{'designResidues':[],'omitAminoAcids':''}))
  def test_ties_cannot_override_fixed_residues_or_infer_alignment(self):
   for options in ({'tiedChains':[['A','A']]},{'tiedChains':[['A','B'],['B','A']]},{'designResidues':['A2'],'tiedChains':[['A','B']]}):
    with self.assertRaises(ValueError):prepare(self.structure,['A','B'],options)

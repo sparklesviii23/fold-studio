@@ -7,7 +7,7 @@ export interface Library {projects:Project[];records:Item[];jobs:Job[];settings:
 export interface Compute {runtimeKind?:'bundled'|'configured'|'managed';chip:string;architecture:string;memoryGB:number|null;diskFreeGB:number;macOS:string;installed:boolean;mpsAvailable:boolean;version:string|null;torchVersion?:string;python:string;weightsDownloaded:boolean;validatedMPS?:false|{jobId:string;date:string};error?:string}
 export interface StructureEntry {id:string;source:string;type:string;url:string;coverage:string;method?:string;resolution?:string;confidenceKind?:string;metadata:any;accession?:string}
 export interface Residue {chain:string;authChain:string;label:number;auth:number;insertion:string;name:string;one:string;xyz:[number,number,number];bFactor:number;unit:number;index:number;sourcePosition?:number}
-export type Workspace='Home'|'Protein Explorer'|'Sequence Workbench'|'Structure Prediction'|'Molecular Viewer'|'Research Projects'|'Local Compute'|'Settings'|'Research Library'|'Molecular Architect'|'Molecular Arcade'|'Molecular Intelligence';
+export type Workspace='Home'|'Protein Explorer'|'Sequence Workbench'|'Structure Prediction'|'Molecular Viewer'|'Research Projects'|'Local Compute'|'Settings'|'Research Library'|'BindCraft Architect'|'Molecular Arcade'|'Molecular Intelligence';
 
 export interface AtomRecord extends Residue {key:string;atomName:string;element:string;occupancy:number;altLoc:string;serial:number;operatorName:string;modelIndex:number;nativeModelId?:string;nativeSpec?:string}
 export interface MolecularScene {structureId:string;sourceSha256:string;camera:any;representation:string;coloring:string;hiddenChains:string[];selection:string[];lensRadius:number|null;created:string}

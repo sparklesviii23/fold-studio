@@ -8,6 +8,7 @@ def prepare(structure, design_chains, options):
     residues = structure['residues']
     by_id = {r['id']: r for r in residues if r['chain'] in design_chains}
     selected = options.get('designResidues')
+    if isinstance(selected,list) and not selected:selected=None
     if selected is not None:
         if not isinstance(selected, list) or not selected or any(not isinstance(r, str) for r in selected) or len(set(selected)) != len(selected) or set(selected) - set(by_id):
             raise ValueError('Design residues must be distinct observed identities on the selected redesign chains; omit the field to redesign whole chains.')

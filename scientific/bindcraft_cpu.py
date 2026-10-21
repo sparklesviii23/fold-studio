@@ -3,6 +3,13 @@ import hashlib,json,os,pathlib,platform,signal,subprocess
 import fold_engine as fe
 import mpnn
 
+def fab_subbatch(original,recovery=None):
+ """Measured chunk4 default; old recovery receipts keep their exact chunk1."""
+ value=recovery['settings'].get('subbatch_size',1) if recovery is not None else original.get('subbatch_size','auto')
+ if value=='auto':return 4
+ if type(value) is not int or value not in (1,4):raise ValueError('Protected Fab execution currently validates subbatch_size auto,1or4. Choose auto for the measured faster policy or1for the earlier policy; saved scientific inputs remain unchanged.')
+ return value
+
 def execution_config(original,folder):
  """Choose an explicit single-model arm while retaining modality-specific checks."""
  validation_kind=original.get('validation_model')
@@ -79,7 +86,7 @@ def start(engine,p,recovery=None):
  from campaign_inputs import verify
  verify(folder,prep)
  config,validation=execution_config(original,folder)
- if amme:config['subbatch_size']=1
+ if amme:config['subbatch_size']=fab_subbatch(original,recovery)
  selection={'designModels':config['design_models'],'validationModels':[validation]}
  if ensemble:
   from campaign_profile import ensemble_models
@@ -118,6 +125,7 @@ def start(engine,p,recovery=None):
   if shutil.disk_usage(folder).free<SSD_QUOTA+DISK_RESERVE:raise ValueError('Full Fab needs10GiB bounded SSD checkpoint space plus2GiB free reserve.')
   runtime_info={**runtime_info,'memoryPolicy':POLICY,'taskFootprintCeilingBytes':FOOTPRINT_LIMIT,'ssdQuotaBytes':SSD_QUOTA,'diskReserveBytes':DISK_RESERVE}
  if amme and estimate['paddedResidues']>limit:raise ValueError('Full Fab exceeds the validated608padded-residue memory envelope; complete saved target and scaffold remain unchanged.')
+ if backend=='metal' and estimate['paddedResidues']>192:raise ValueError('This target requires '+str(estimate['paddedResidues'])+' padded residues. Metal gradients above the measured192-residue envelope are not enabled: the saved256-residue peptide case exceeded its6GiB governor. Choose an explicit CPU profile or prepare a separate smaller target; the saved target and scientific settings are unchanged.')
  if estimate['paddedResidues']>limit:raise ValueError('Campaign requires up to '+str(estimate['paddedResidues'])+' padded residues; this experimental profile limit is '+str(limit)+'. Prepare an explicitly smaller target or scaffold.')
  s.db.execute('BEGIN IMMEDIATE')
  if s.active():s.db.rollback();raise ValueError('Another local compute job is active.')
@@ -129,7 +137,7 @@ def start(engine,p,recovery=None):
   try:verify_manifest(folder,recovery);history.append(archive(folder,recovery))
   except Exception:s.db.rollback();raise
  data={**current['data'],'runtime':python,'parameters':str(parameters),'checkpointSha256':weights,'profile':p['profile'],'execution':backend,'precision':precision,'modelEnsemble':ensemble,'modelSelection':selection,'resourceEstimate':estimate,'paddedResidueLimit':limit,'runtimeInfo':runtime_info,'executionSettingsSha256':fe.checksum(fe.canonical(config).encode()),'outputs':[]}
- if amme:data['memoryPolicy']=POLICY;data['executionAdapters']=[{'name':'AMME subbatch execution','savedSubbatchSize':original.get('subbatch_size','auto'),'executionSubbatchSize':1,'scope':'Bounded execution strategy; saved original recipe, models, losses, recycles and filters preserved.'}]
+ if amme:data['memoryPolicy']=POLICY;data['executionAdapters']=[{'name':'AMME subbatch execution','savedSubbatchSize':original.get('subbatch_size','auto'),'executionSubbatchSize':config['subbatch_size'],'scope':'Bounded execution strategy; saved original recipe, models, losses, recycles and filters preserved. Chunk4 passes matched local-update and full559-residue original-gradient comparisons at unchanged tolerances. Existing recovery settings remain exact.'}]
  if type(original.get('crop_fasta_sequence')) is int:data['executionAdapters']=[{'name':'fixed_fasta_crop_range','savedValue':original['crop_fasta_sequence'],'executionValue':config['crop_fasta_sequence'],'reason':'Pinned campaign header requires an iterable; original scalar and fixed-range sampling are equivalent.'}]
  if recovery is not None:
   data.update(recoveryHistory=history,outputs=current['data'].get('outputs',[]))
@@ -196,3 +204,12 @@ def progress_from_log(log):
    if observed.get('stage') in ('screen','refine','anneal','harden','mutate') and type(observed.get('sequenceUpdates')) is int and observed['sequenceUpdates']>0:out['lastObservedUpdate']=observed
   except (ValueError,TypeError):pass
  return out
+
+def failure_from_log(log):
+ """Explain a recorded backend exception without rewriting campaign history."""
+ import re
+ if 'RESOURCE_EXHAUSTED' in log and ('metaljax' in log.lower() or 'METALJAX_MEM_BUDGET_MB' in log):
+  line=next((v.strip() for v in reversed(log.splitlines()) if 'RESOURCE_EXHAUSTED' in v), '')
+  return {'category':'metal_memory_limit','message':'Metal stopped at its protected memory limit during model execution. The linear-peptide format was not rejected by configuration validation. Prepare a separate run and choose CPU, or explicitly save a smaller target. Memory limits remain enabled.','originalException':line[:6000],'retryIsAutomatic':False}
+ matches=re.findall(r'^(?:[A-Za-z_][\w.]*\.)?(?:[A-Za-z_][\w]*Error|Exception): .+$',log,re.M)
+ return {'category':'upstream_exception','message':matches[-1][:2000],'retryIsAutomatic':False} if matches else None

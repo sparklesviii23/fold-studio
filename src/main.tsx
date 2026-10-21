@@ -7,6 +7,7 @@ import './observatory.css';
 import './laboratory.css';
 import './arcade.css';
 import './game.css';
+import './architect.css';
 const App=lazy(()=>import('./App'));
 const DetachedPanel=lazy(()=>import('./components/DetachedPanel'));
 const ArcadeWindow=lazy(()=>import('./arcade/ArcadeWindow'));

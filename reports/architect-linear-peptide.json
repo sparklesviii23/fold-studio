@@ -1,0 +1,36 @@
+{
+  "state": "passed",
+  "sourceCampaignId": "1d0dc714-2456-4bf7-935e-c3501787fa16",
+  "sourceRoot": "/Users/vii/Documents/FoldStudio-MetalPort/validation/bindcraft-fab-amme-native",
+  "originalFailure": {
+    "category": "metal_memory_limit",
+    "message": "Metal stopped at its protected memory limit during model execution. The linear-peptide format was not rejected by configuration validation. Prepare a separate run and choose CPU, or explicitly save a smaller target. Memory limits remain enabled.",
+    "originalException": "jax.errors.JaxRuntimeError: RESOURCE_EXHAUSTED: metaljax out of memory at flush: this process would hold 6.2 GB, over the 6.0 GB METALJAX_MEM_BUDGET_MB budget. Needed 0.0 GB more; the machine has 24.0 GB total, 0.4 GB free and 1.8 GB in the page cache, and this process holds 6.2 GB (5.7 GB in live MLX arrays, 0.0 GB in MLX's buffer cache, 0.4 GB other). Raise METALJAX_MEM_BUDGET_MB / METALJAX_MEM_SYS_MB to allow more (at the risk of paging the machine), or run a smaller model.",
+    "retryIsAutomatic": false
+  },
+  "metalLaunchRefusedBeforeSpawn": true,
+  "refusal": "This target requires 256 padded residues. Metal gradients above the measured192-residue envelope are not enabled: the saved256-residue peptide case exceeded its6GiB governor. Choose an explicit CPU profile or prepare a separate smaller target; the saved target and scientific settings are unchanged.",
+  "root": "/Users/vii/Documents/FoldStudio-MetalPort/validation/architect-peptide-cpu",
+  "jobId": "984c6766-4f84-471f-813a-1ad8126ad8c5",
+  "wallSeconds": 76.96805699984543,
+  "engineeringWorkload": {
+    "screen_steps": 1,
+    "refine_steps": 1,
+    "anneal_steps": 1,
+    "harden_steps": 1,
+    "mutate_steps": 1,
+    "betasheet_reopt_extra_refine_steps": 0,
+    "betasheet_reopt_extra_anneal_steps": 0,
+    "save_design_trajectory": true,
+    "save_failed_trajectories": true
+  },
+  "originalUserCampaignUnchanged": true,
+  "outcome": "no_accepted_designs",
+  "stageRows": {
+    "trajectories": 1,
+    "candidates": 0,
+    "accepted": 0
+  },
+  "originalFiltersRetained": true,
+  "fullProductionValidation": false
+}

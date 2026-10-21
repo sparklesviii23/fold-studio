@@ -1,0 +1,70 @@
+{
+  "state": "passed",
+  "scope": "Same full559-residue Fab, seed, target, original design pool and sampled model; chunk1 vs chunk4. One full gradient each, not a completed production trajectory.",
+  "tolerance": {
+    "rtol": 0.0001,
+    "atol": 1e-05
+  },
+  "lossPassed": true,
+  "arrays": {
+    "gradient_binder_0": {
+      "passed": true,
+      "maxAbsoluteDifference": 1.685693860054016e-07,
+      "shape": [
+        231,
+        20
+      ]
+    },
+    "gradient_binder_1": {
+      "passed": true,
+      "maxAbsoluteDifference": 6.51925802230835e-08,
+      "shape": [
+        213,
+        20
+      ]
+    },
+    "gradient_target_target": {
+      "passed": true,
+      "maxAbsoluteDifference": 1.601874828338623e-07,
+      "shape": [
+        115,
+        20
+      ]
+    },
+    "target_binder_0_positions": {
+      "passed": true,
+      "maxAbsoluteDifference": 0.0,
+      "shape": [
+        231,
+        37,
+        3
+      ]
+    },
+    "target_binder_1_positions": {
+      "passed": true,
+      "maxAbsoluteDifference": 0.0,
+      "shape": [
+        213,
+        37,
+        3
+      ]
+    },
+    "target_target_target_positions": {
+      "passed": true,
+      "maxAbsoluteDifference": 0.0,
+      "shape": [
+        115,
+        37,
+        3
+      ]
+    }
+  },
+  "baselineGradientSeconds": 1135.7017417501193,
+  "chunk4GradientSeconds": 633.8871765420772,
+  "speedup": 1.7916465007945017,
+  "baselinePeakGiB": 10.330605953931808,
+  "chunk4PeakGiB": 10.68218395859003,
+  "reference": "reports/amme-fab-memory-scheduler-gradient.json",
+  "optimized": "reports/architect-fab-subbatch4-gradient.json",
+  "sourceAndInputsVerifiedEqualExceptSubbatch": true
+}

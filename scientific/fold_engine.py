@@ -11,7 +11,7 @@ BASE=pathlib.Path(__file__).resolve().parents[1]
 UPSTREAM=BASE/'vendor'/'bindcraft2'
 PIN='c0ee638d11bc010817c2c97ee58ed5c323e664e2'
 ACTIONS={'bindcraft_results','bindcraft_review','bindcraft_resume','bindcraft_repeat','fold_fragment','fold_engine_status','fold_structure','fold_target','fold_compute','bindcraft_validate','bindcraft_prepare','bindcraft_campaigns','bindcraft_import','bindcraft_start'}
-CONFIG_KEYS={'scientificOptions','core','properties','projectId','structureId','name','modality','targetChains','hotspots','coldspots','binderLengths','candidates','attempts','seed','additionalTargets'}
+CONFIG_KEYS={'validationMode','scientificOptions','core','properties','projectId','structureId','name','modality','targetChains','hotspots','coldspots','binderLengths','candidates','attempts','seed','additionalTargets'}
 SUPPORTED_MODALITIES=('binder','large_binder','multidomain','induced_fit','fold_switch','peptide','cyclic_peptide','VHH','ARP','scFv','Fab','homo_oligomer')
 SCAFFOLD_MODALITIES=('VHH','ARP','scFv','Fab')
 
@@ -67,6 +67,8 @@ class Engine:
         if unknown:raise ValueError('Unsupported campaign fields: '+', '.join(sorted(unknown)))
         self.s.project(p['projectId']);shared=self.fold_target(p);st=shared.get('structure')
         modality=p.get('modality','binder')
+        mode=p.get('validationMode','original')
+        if mode not in ('original','engineering') or mode=='engineering' and modality!='Fab':raise ValueError('Choose original scientific run, or the separately labelled Fab engineering-validation mode.')
         if modality not in SUPPORTED_MODALITIES:raise ValueError('Other upstream modalities remain blocked until their constraints and execution are validated.')
         if modality in SCAFFOLD_MODALITIES and 'binderLengths' in p:raise ValueError(modality+' length follows the original scaffold '+('repeat' if modality=='ARP' else 'CDR')+' edit choices; free binder length bounds do not apply.')
         chains=p.get('targetChains')
@@ -90,6 +92,7 @@ class Engine:
         if lengths!=sorted(lengths):raise ValueError('Binder length bounds must be ordered.')
         candidates=integer(p.get('candidates',5),'Candidates',1,1000);attempts=integer(p.get('attempts',20),'Attempts',1,100000);seed=integer(p.get('seed',42),'Seed',0,2147483647)
         if attempts<candidates:raise ValueError('Attempts must be at least the requested candidate count.')
+        if mode=='engineering' and (attempts!=1 or candidates!=1):raise ValueError('Fab engineering validation uses one explicit attempt and one requested result; it is not the original production schedule.')
         def sites(key):
             requested=p.get(key,[])
             if not isinstance(requested,list) or any(not isinstance(x,str) for x in requested) or len(requested)!=len(set(requested)):raise ValueError('Choose distinct '+key+' residue identities.')
@@ -126,11 +129,20 @@ class Engine:
         from campaign_inputs import extend
         if modality in ('induced_fit','fold_switch') and p.get('additionalTargets'):raise ValueError('The experimental conformational adapter currently supports one observed target and its unbound binder state.')
         checked=extend(self,p,checked)
+        if mode=='engineering':
+            fields={key:1 for key in ('screen_steps','refine_steps','anneal_steps','harden_steps','mutate_steps')}
+            fields.update(sequence_candidates=1,kept_sequences=1,enough_passing_sequences=1,mutate_steps=2,betasheet_reopt_extra_refine_steps=0,betasheet_reopt_extra_anneal_steps=0,save_design_trajectory=True,save_failed_trajectories=True)
+            checked['engineeringValidation']={'mode':'engineering','scope':'Short real full-Fab integration workload. Complete target/scaffold and saved model ensemble, recycles, losses and acceptance filters retained. Not original scientific production validation. Early scientific rejection is preserved; later components require separate labelled tests.','originalRecipeSha256':checked['settingsSha256'],'workloadOverrides':fields}
+            checked['config']={**checked['config'],**fields}
+            checked['settingsSha256']=checksum(canonical(checked['config']).encode())
+            checked['name']='Engineering validation · '+checked['name'][:130]
+            checked['warnings'].append(checked['engineeringValidation']['scope'])
         if modality in ('induced_fit','fold_switch'):checked['warnings'].append('Experimental conformational design includes a separate unbound binder prediction. Only the explicitly bounded CPU profile is enabled; full conformational generation validation remains pending.')
         if properties or p.get('scientificOptions'):
             from campaign_profile import property_conflicts
             property_conflicts(self.s,checked['config'],UPSTREAM,checked.get('scaffold'))
         if p.get('scientificOptions'):
+            if mode=='engineering' and any(key in fields and value!=fields[key] for key,value in p['scientificOptions'].items()):raise ValueError('Engineering validation has a fixed short workload; remove conflicting round/output overrides or choose Original Scientific Run.')
             checked['scientificOptions']={'values':p['scientificOptions'],'sha256':checksum(canonical(p['scientificOptions']).encode()),'scope':'Explicit user scientific overrides, validated by the original upstream settings loader. Original default recipe/filters are not asserted for this custom campaign.'}
             checked['warnings'].append('Explicit scientific overrides are part of this saved recipe. Acceptance is evaluated against its saved settings, which may differ from original default filters.')
         return checked
@@ -223,6 +235,7 @@ class Engine:
                 if prep['modality'] in ('induced_fit','fold_switch') and prep['config'].get('save_binder_monomers',True) and not any(matched['design']==row['design'] and target_states[file.name]['kind']=='binder_alone' for file,raw,fmt,matched,count in prepared):raise ValueError('Native conformational candidate is missing its required unbound binder coordinate output.')
         evidence={'metadata':metadata,'rankedRows':rows,'metadataSha256':checksum(meta_bytes),'rankedCsvSha256':checksum(table_bytes),'sourceRevision':metadata.get('revision'),'provenanceMatch':'external_unverified','note':'Externally generated predictions. Source provenance is retained; correspondence to prepared inputs is not asserted.'}
         if native:evidence.update(provenanceMatch=provenance_match,nativeRun=native,note=native['scope'],sourceRevision=PIN)
+        if job['data'].get('preparation',{}).get('engineeringValidation'):evidence['engineeringValidation']=job['data']['preparation']['engineeringValidation'];evidence['note']='Engineering-validation prediction; not a completed original scientific run. '+evidence['note']
         folder=self.s.root/'jobs'/job['id'];folder.mkdir(exist_ok=True)
         batch=checksum(meta_bytes+b'\0'+table_bytes+b'\0'+b''.join(raw for _,raw,_,_,_ in prepared));evidence['batchSha256']=batch
         existing=job['data'].get('imports',[])
@@ -254,7 +267,9 @@ class Engine:
                     roles=context['roles']
                     if roles:
                         info['metadata']['chainRoles']=roles;self.s.db.execute('INSERT INTO intelligence_assignments VALUES(?,?,?,?)',(id,job['project_id'],json.dumps(roles),mi.now()))
-                name=file.stem[:200];self.s.db.execute('INSERT INTO records VALUES(?,?,?,?,?,?)',(id,job['project_id'],'structure',name,json.dumps(info),mi.now()));saved.append(id)
+                if evidence.get('engineeringValidation'):
+                    info['metadata']['engineeringValidation']=evidence['engineeringValidation'];info['source']='Engineering-validation artifact · '+info['source']
+                name=(('Engineering validation · ' if evidence.get('engineeringValidation') else '')+file.stem)[:200];self.s.db.execute('INSERT INTO records VALUES(?,?,?,?,?,?)',(id,job['project_id'],'structure',name,json.dumps(info),mi.now()));saved.append(id)
             raw_folder=folder/('import-'+batch);raw_folder.mkdir(exist_ok=True);(raw_folder/'campaign_metadata.json').write_bytes(meta_bytes);(raw_folder/'!_Ranked.csv').write_bytes(table_bytes);(raw_folder/'manifest.json').write_text(json.dumps(evidence,indent=2))
             if native:(raw_folder/'native-verification.json').write_text(json.dumps(native,indent=2))
             data={**job['data'],'outputs':list(dict.fromkeys(job['data'].get('outputs',[])+saved)),'imports':existing+[{'batchSha256':batch,'evidenceFolder':raw_folder.name,'outputs':saved, 'imported':mi.now()}]}

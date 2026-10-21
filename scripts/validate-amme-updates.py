@@ -15,6 +15,7 @@ ROOT=pathlib.Path(__file__).resolve().parents[1]
 sys.path[:0]=[str(ROOT/'scientific'),str(ROOT/'vendor/bindcraft2')]
 p=argparse.ArgumentParser();p.add_argument('--mode',choices=['reference','amme'],required=True)
 p.add_argument('--parameters',required=True);p.add_argument('--target',required=True);p.add_argument('--output',required=True)
+p.add_argument('--subbatch-size',type=int,choices=[1,2,4],default=1)
 p.add_argument('--prevent-cse',action='store_true')
 p.add_argument('--attention-only',action='store_true')
 p.add_argument('--reference-inputs',help='Diagnostic only: compare local derivatives/updates at each saved original input; not an independent continuous trajectory.')
@@ -41,7 +42,7 @@ import fold_engine as fe
 
 source=fe.verify_source();target=pathlib.Path(a.target).resolve();target_sha=hashlib.sha256(target.read_bytes()).hexdigest()
 settings=load_settings(campaign_over_presets({'modality':'binder','binder_lengths':[8],'design_models':3,
-    'subbatch_size':1,'campaign_seed':42,'attention_backend':'stock','use_cueq':False,
+    'subbatch_size':a.subbatch_size,'campaign_seed':42,'attention_backend':'stock','use_cueq':False,
     'targets':[{'name':'target','target_path':str(target),'chains':'A'}]}))
 design=build_design_settings(settings)
 states,_,losses=initialize_design_trajectory(design,jax.random.PRNGKey(42));states=float32_states(states)
@@ -55,7 +56,7 @@ session=FabSession(os.environ['FOLD_AMME_SCRATCH'],identity=identity,stage_path=
 base=model_class();cls=session.model_type(base) if session else base
 model=cls(presets=tuple(selection['designModels']),models=tuple(selection['designModels']),
     data_dir=str(pathlib.Path(a.parameters).resolve()),key=jax.random.PRNGKey(42),max_cache_size=1,
-    num_recycle=settings['design_recycles'],subbatch_size=1,attention_backend='stock',use_cueq=False,length_bucket_size=32)
+    num_recycle=settings['design_recycles'],subbatch_size=a.subbatch_size,attention_backend='stock',use_cueq=False,length_bucket_size=32)
 arrays={};steps=[];original=model.sequence_gradients
 reference_inputs=None
 if a.reference_inputs:
@@ -98,7 +99,7 @@ try:
     assert fe.verify_source()==source
     np.savez(output.with_suffix('.npz'),**arrays)
     atomic_json(output,{'state':'two_matched_input_steps_passed' if a.reference_inputs else 'two_updates_passed','scope':'Two original local optimizer calculations at saved reference inputs; not a continuous trajectory or Fab run.' if a.reference_inputs else 'Two genuine original binder optimizer updates on a small technical input, not Fab or a full trajectory.',
-        'mode':a.mode,'referenceInputReanchoring':bool(a.reference_inputs),'source':source,'targetSha256':target_sha,'selection':selection,'seed':42,'steps':steps,
+        'subbatchSize':a.subbatch_size,'mode':a.mode,'referenceInputReanchoring':bool(a.reference_inputs),'source':source,'targetSha256':target_sha,'selection':selection,'seed':42,'steps':steps,
         'optimizerUpdates':optimizer.sequence_update_count,'originalOptimizerIterations':optimizer.iterations,
         'ssdCheckpoints':session.tape.checkpoints if session else 0,'ssdPeakBytes':session.tape.peak_live_bytes if session else 0})
 finally:

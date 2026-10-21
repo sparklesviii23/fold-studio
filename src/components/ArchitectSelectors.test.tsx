@@ -1,0 +1,11 @@
+import {describe,it,expect} from 'vitest';
+import {renderToStaticMarkup} from 'react-dom/server';
+import {ExclusionSelector,ResidueSelector,toggleExclusion} from './ArchitectSelectors';
+import {observedProgress,resumeEligibility,architectDraftKey} from '../lib/architect';
+import type {Job} from '../lib/types';
+describe('explicit scientific selections',()=>{
+ it('toggles individual exclusions and preserves exact canonical serialization across reopen',()=>{let value='';value=toggleExclusion(value,'C');expect(value).toBe('C');value=toggleExclusion(value,'W');expect(value).toBe('CW');value=toggleExclusion(value,'C');expect(value).toBe('W');expect(toggleExclusion(value,'W')).toBe('');expect(JSON.parse(JSON.stringify({omitAminoAcids:value}))).toEqual({omitAminoAcids:'W'});expect(architectDraftKey('one')).not.toBe(architectDraftKey('two'));});
+ it('labels allow/exclude states, clear actions and disabled states unambiguously',()=>{const html=renderToStaticMarkup(<ExclusionSelector value="CW" onChange={()=>{}} disabled/>);expect(html).toContain('Remove exclusion C');expect(html).toContain('Allow Cysteine');expect(html).toContain('Exclude Alanine');expect(html).toContain('Clear All Exclusions');expect(html).toContain('disabled');expect((html.match(/aria-pressed="true"/g)??[]).length).toBe(2);});
+ it('exposes clearable residue identities with the all-eligible empty semantics',()=>{const html=renderToStaticMarkup(<ResidueSelector label="Residues to Redesign" residues={[{id:'["A",19,""]',chain:'A',num:19,name:'SER'}]} value={[]} empty="Leave empty to redesign all eligible residues in selected chains." onChange={()=>{}}/>);expect(html).toContain('Clear residues to redesign');expect(html).toContain('all eligible residues');expect(html).not.toContain('checked');expect(html).not.toContain('<select');});
+ it('does not present a cancelled trajectory as actively computing or allow exhausted recovery',()=>{const job={state:'cancelled',data:{profile:'experimental-cpu-fab-amme',preparation:{config:{max_trajectories:1}},executionProgress:{trajectory:1}}} as Job;expect(observedProgress(job)).toContain('Last observed');expect(observedProgress(job)).not.toContain('Computing');expect(resumeEligibility(job)).toBe(false);});
+});

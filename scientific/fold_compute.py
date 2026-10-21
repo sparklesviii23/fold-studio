@@ -36,7 +36,13 @@ def diagnostic(service):
     runtime=scientific_runtime(service)
     import metal_runtime
     metal=metal_runtime.probe(service)
+    import fold_engine as fe
+    bundled=fe.BASE/'models/alphafold'
+    parameters=pathlib.Path(os.environ.get('FOLD_AF2_PARAMETERS') or service.setting('af2Parameters') or (bundled if bundled.is_dir() else service.root/'engine/models/alphafold')).expanduser().absolute()
+    pins=json.loads(pathlib.Path(__file__).with_name('af2-parameters.json').read_text())['models']
+    checkpoints=[{'model':name,'present':(parameters/('params_'+name+'.npz')).is_file(),'bytes':(parameters/('params_'+name+'.npz')).stat().st_size if (parameters/('params_'+name+'.npz')).is_file() else None,'pinnedSha256':digest} for name,digest in pins.items()]
     return {'name':'FOLD COMPUTE','schemaVersion':1,'host':{'architecture':platform.machine(),'macOS':platform.mac_ver()[0]},
+            'modelReadiness':{'directory':str(parameters),'checkpoints':checkpoints,'scope':'File inventory only. Exact official checkpoint hashes are checked before each native campaign starts.'},
             'bindcraftRuntime':probe(runtime), 'bindcraftMetalRuntime':metal,'predictionRuntime':probe(service.engine_python()),
             'remote':{'enabled':False}, 'binderDesign':{'state':'experimental_cpu','metalState':metal['state'],'reason':'Explicit single-model profiles retain upstream filters. Metal requires pinned MetalJAX and float32 states; narrow full-model and optimizer comparisons passed. Full campaign/scientific/modalities acceptance remains in progress. Apple jax-metal incompatibility remains.'},
             'metalAttention':{'state':'experimental','scope':'One float32 attention kernel; run validate-metal-attention.py for measured forward/gradient parity.'}}

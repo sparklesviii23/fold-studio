@@ -355,8 +355,9 @@ class Service:
                 f.seek(max(0,path.stat().st_size-limit)); log_data=f.read(limit)
         job['log']=log_data[-30000:].decode('utf8','replace')
         if job['engine']=='bindcraft2':
-            from bindcraft_cpu import progress_from_log
+            from bindcraft_cpu import progress_from_log,failure_from_log
             job['data']['executionProgress']=progress_from_log(log_data.decode('utf8','replace'))
+            if job['state']=='failed':job['data']['failureDiagnostic']=failure_from_log(log_data.decode('utf8','replace'))
             if job['data'].get('memoryPolicy'):
                 execution={}
                 for key,name in (('telemetry','amme-memory.json'),('stage','amme-stage.json')):
