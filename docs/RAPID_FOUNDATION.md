@@ -80,7 +80,11 @@ timeouts, request/version mismatch, approval before code transfer, private-store
 permissions, readiness invalidation and export boundaries. Frontend tests cover
 honest readiness labels and the explicit foundation scope. The real worker
 health/CPU-refusal path executes in subprocesses rather than mocked GPU success.
-Native build and visual verification are recorded separately in the status matrix.
+The final native release build and deep/strict local signature passed. Native
+inspection confirmed SSH-string parsing, profile save/edit/archive, a clean final
+draft, no unrelated inspector, and preserved local research and cancelled
+campaigns. All 48 bundled Python resources match source. See
+`reports/rapid-native-package.json` and the native screenshots.
 
 ## Using the connection workspace
 

@@ -1,7 +1,7 @@
 {
   "schemaVersion": 1,
-  "updatedUtc": "2026-10-21T00:29:29.565662+00:00",
-  "scope": "Full Fab AMME development; complete feature is not certified. Local use; notarization deferred.",
+  "updatedUtc": "2026-10-21T14:52:27.677275+00:00",
+  "scope": "Experimental full Fab native integration with BindCraft Architect. Engineering components and production validation reported separately; original production cancelled by user; local use/notarization deferred.",
   "fullFabComplete": false,
   "sourceRevision": "c0ee638d11bc010817c2c97ee58ed5c323e664e2",
   "statuses": [
@@ -23,27 +23,27 @@
     {
       "item": "Multi-step optimization",
       "status": "Verified working",
-      "evidence": "Four genuine full-Fab original screen updates completed with finite metrics and zero live SSD tape at each completed-step boundary; fifth gradient running. Peak10.76GiB remains below14GiB. This is repeated execution evidence, not a completed trajectory, leak-free full campaign or independent numerical-trajectory equivalence."
+      "evidence": "Five genuine original native full-Fab screen updates completed; sixth gradient cancelled by user. Peak10.79GiB under14GiB. No full-trajectory or independent numerical-equivalence claim."
     },
     {
       "item": "Complete design trajectory",
       "status": "Partially verified",
-      "evidence": "Original full Fab trajectory running; four screen updates completed, fifth gradient executing. Original50/25/45/5/15stage budgets retained. No completed trajectory or downstream Fab results."
+      "evidence": "Original production cancelled after five screen updates; original schedule unfinished. Engineering-mode preparation verified; genuine full-size downstream fixture completed mutation, ProteinMPNN and model2 bound/unbound refolds with original i_pTM rejection. Full model4 cache fix remains unverified."
     },
     {
       "item": "ProteinMPNN",
-      "status": "Not tested",
-      "evidence": "Previously verified for standard binders; no full-Fab redesign result yet."
+      "status": "Partially verified",
+      "evidence": "GenuinefullFabfixturedecoderexecuted;407frameworkresiduesheld,targetsequencefixed. Notacompletedproductiontrajectory."
     },
     {
       "item": "Multimer validation",
-      "status": "Not tested",
-      "evidence": "Original held-out models2/4selected and pinned; no full-Fab independent validation result yet."
+      "status": "Partially verified",
+      "evidence": "ActualfullFabmodel2bound+unbound3-recyclerefoldcompleted; originali_pTMrejection. Model4hit14GiBguard;cachefixfullsizeretryterminatedbeforecompletion. Smalltrainedparitypasses."
     },
     {
       "item": "Original filtering/ranking",
       "status": "Partially verified",
-      "evidence": "Original Fab criteria and editable regions preserved; no completed full-Fab filtering/ranking case yet."
+      "evidence": "ActualFabmutation/model2refoldoriginali_pTMrejectionretained; originalrankofgenuinerejectedcandidatepassed. NoacceptedfullFab."
     },
     {
       "item": "Accepted Fab generation",
@@ -226,8 +226,8 @@
     "scope": "One target state, unchanged complete original scaffold; conservative padded estimate\u2264608. Source scientific overrides remain saved, unsupported envelopes are refused."
   },
   "regression": {
-    "backendTests": 402,
-    "frontendTests": 80,
+    "backendTests": 407,
+    "frontendTests": 85,
     "runtimeAMMETests": 4,
     "runtimeSSDTapeTests": 7
   },
@@ -250,39 +250,66 @@
   "activeNativeRun": {
     "root": "/Users/vii/Documents/FoldStudio-MetalPort/validation/bindcraft-fab-amme-native",
     "jobId": "b981bc11-4606-43be-a3f2-000f1d6406dd",
-    "workerPid": 67111,
-    "state": "running",
-    "lastObservedUtc": "2026-10-21T00:29:29.565662+00:00",
-    "peakFootprintBytes": 11558708920,
-    "completedGradients": 4,
-    "stage": "gradient_execution",
+    "workerPid": null,
+    "state": "cancelled",
+    "lastObservedUtc": "2026-10-21T09:50:15.340525+00:00",
+    "peakFootprintBytes": 11588593360,
+    "completedGradients": 5,
+    "stage": "gradient_execution_interrupted",
     "sourceCommit": "4e23650",
     "controllerSourceCommit": "4e23650",
-    "gradientCalls": 5
+    "gradientCalls": 6
   },
   "nativeFirstOptimizerUpdateEvidence": "reports/amme-native-package.json",
   "followUpIntegration": {
-    "sourceCommit": "43437a6",
+    "sourceCommit": "5024281",
     "fabChainTransportEvidence": "reports/amme-fab-transport.json",
     "packagedBackendEvidence": "reports/amme-packaged-transport.json",
     "longProgressContextBytes": 1048576,
     "visibleLogBytes": 30000,
-    "activationDeferred": true,
+    "activationDeferred": false,
     "scope": "Staged backend checks are not a completed Fab design campaign.",
-    "packagedStageCoordinates": "reports/campaign-stage-coordinates-packaged.json",
-    "stagedNativePackage": "reports/amme-packaged-stage-inspection.json"
+    "packagedStageCoordinates": "reports/architect-packaged-coordinates.json",
+    "stagedNativePackage": "reports/architect-native-package.json"
   },
   "backgroundFollowup": {
     "id": "continue-fold-studio-integration",
     "intervalMinutes": 15,
-    "status": "ACTIVE",
-    "scope": "Continue this chat, observe original background computation, perform safe source integration and report meaningful milestones. No duplicate model runs or conflicting app activation.",
+    "status": "PAUSED",
+    "scope": "Paused at user cancellation; no automatic production restart.",
     "notificationPolicy": "failed_runs_only"
   },
   "idleContinuityEvidence": "reports/amme-idle-continuity.json",
   "packagedIdleContinuityEvidence": "reports/amme-packaged-idle-continuity.json",
   "savedStageCoordinateEvidence": "reports/campaign-stage-coordinates.json",
   "nativeThreeUpdateEvidence": "reports/amme-native-three-updates.json",
-  "currentTrajectoryOutputLimitation": "Current older Fab job did not request save_design_trajectory; future preparation controls do not retrofit output retention into its running calculation. A rejected trajectory may therefore retain its original CSV without a coordinate snapshot.",
-  "nativeProgressEvidence": "reports/amme-native-progress.json"
+  "currentTrajectoryOutputLimitation": "Cancelled original Fab job did not request save_design_trajectory. Later controls do not retroactively create snapshots; original rejected CSV may lack coordinates.",
+  "nativeProgressEvidence": "reports/amme-native-progress.json",
+  "subbatch4Performance": "reports/architect-fab-chunk-comparison.json",
+  "actualPerformanceProfile": "reports/architect-fab-performance-profile.json",
+  "engineeringMode": {
+    "state": "implemented",
+    "preparationTested": true,
+    "completeNewShortModeTrajectoryExecuted": false,
+    "scope": "Short-modepreparationconnected; actualoriginalmutation,MPNN,model2refoldandrank/library/projectfixturetransportverifiedseparately. Fullnewshorttrajectorynotexecuted."
+  },
+  "optimizerRecovery": {
+    "exactMidTrajectoryAvailable": false,
+    "safeBoundary": "Next original trajectory within remaining claimed attempt budget; interrupted attempts remain spent.",
+    "ssdIsOptimizerCheckpoint": false
+  },
+  "predictionCacheCorrection": {
+    "implementation": "95c7f27",
+    "trainedSmallParity": "reports/architect-cache-trained-parity/result.json",
+    "fullSizeVerification": "Retry terminatedSIGTERMafter604seconds before first refold finished; no terminatingcause recorded. Full-sizecachefixNOTverified. reports/architect-full-fab-refold-cache/amme-memory.json",
+    "previousGuardRefusal": "reports/architect-fab-components-v2/amme-memory.json",
+    "scope": "No model/RNG/precision/filter/recycle/ceiling changes; inference executable lifetime only."
+  },
+  "fabComponentArtifacts": "reports/architect-fab-component-artifacts.json",
+  "latestNativeFoundation": {
+    "sourceCommit": "79302596e8b5abc30a7f38e01217f8d8a0a7a197",
+    "evidence": "reports/rapid-native-package.json",
+    "activeApp": "/Users/vii/Documents/FoldStudio-MetalPort/validation/RAPID Foundation Engine/FOLD STUDIO Metal Dev.app",
+    "scientificCalculationStarted": false
+  }
 }

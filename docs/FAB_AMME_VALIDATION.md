@@ -1,144 +1,139 @@
 # Full Fab integration: measured status
 
-Implementation: `4e23650`, followed by recovery correction `5b63a6e` on
-`project-metal/apple-silicon-engine`. Pinned scientific source:
-`c0ee638d11bc010817c2c97ee58ed5c323e664e2`.
+Current Architect implementation: `5024281`; plain workspace title: `233e9c8`.
+Pinned, unmodified scientific source: `c0ee638d11bc010817c2c97ee58ed5c323e664e2`.
 
-Follow-up `07a7839` adds full Fab chain-transport checks and a bounded wider
-progress-log window. `ace250d` adds per-worker idle-sleep protection. The signed
-staged package passes its bundled-runtime transport and idle-helper lifecycle
-checks with all46scientific source hashes matched; GUI activation waits safely
-behind the current calculation.
+Full Fab is connected to the native app as an experimental protected CPU
+workflow on Apple Silicon. Complete original Fab design is **not yet certified**.
+This path needs no NVIDIA hardware or remote computation; it does not establish
+full GPU-resident Metal Fab execution. Notarization remains deferred for local use.
 
-Full Fab is connected to the native app as an experimental, protected CPU
-workflow. Complete Fab design is **not yet certified**. This path needs no NVIDIA
-hardware, remote compute or external Python installation; it does not execute
-the full Fab calculation on the Metal GPU.
+## Original production campaign — cancelled
 
-## Completed full-size calculation
+The native campaign `b981bc11-4606-43be-a3f2-000f1d6406dd` completed **five**
+genuine original screen optimizer updates. Its sixth gradient was interrupted at
+the user's request. Peak task footprint was 11,588,593,360 bytes (10.79 GiB), below
+the unchanged 14 GiB ceiling. Each completed step released its live SSD tape.
+The worker, supervisor and idle-sleep assertion exited, and owned scratch was
+removed. The campaign remains cancelled; automatic continuation remains paused.
+No complete trajectory, accepted Fab or downstream result is claimed for this run.
 
-The genuine original Fab scaffold retained both constant domains. Original
-editable-loop sampling produced heavy/light chains of 231/213 residues, alongside
-the entire 115-residue hPDL1 target: 559 actual residues. Per-chain padding gave a
-595-residue gradient graph; the conservative admission estimate was 608.
+Saved gradient execution times were 1260.715, 984.598, 929.180, 971.928 and 962.152
+seconds. Initial recorded compilation was 8.271 seconds, then 0.139–0.300 seconds
+per call. Execution, rather than recompilation, dominates these observations.
+The source log reports a 437-residue binder assembly and complete 115-residue
+target (552 residues); this differs from the matched 559-residue fixture below.
+See `reports/architect-fab-performance-profile.json`.
 
-The original three-model design pool (1/3/5) remained resident. Original RNG
-sampling selected model 5 for this calculation. Models 2/4 remain the intended
-held-out validation pool. No scientific losses, filters, model counts or recycle
-counts were reduced.
+## Full-size memory and speed measurements
 
-| Measurement | Observed result |
-|---|---|
-| Full forward plus backward | Passed; finite loss and all three sequence gradients |
-| Combined wall time | 1,139.625 seconds |
-| Peak task footprint, including compressed allocations | 10.33 GiB |
-| Unchanged worker ceiling | 14 GiB |
-| SSD payload written/read | 9,665,972,632 bytes each; 54 checkpoints |
-| Largest individual serialized checkpoint payload | 182,479,396 bytes |
-| Owned scratch cleanup | Passed |
-| Baseline compiled temporary heap | 12,641,092,472 bytes |
-| Optimized compiled temporary heap | 7,148,896,184 bytes; 43.45% reduction |
+A genuine original Fab scaffold retains both constant domains. The matched fixture
+has heavy/light chains of 231/213 residues plus the full 115-residue hPDL1 target:
+559 actual residues. Per-chain padding gives a 595-residue gradient graph; the
+conservative admission estimate is 608. Original design models 1/3/5 remain in the
+pool, and original RNG selects model 5. Models 2/4 are held out for validation.
 
-The improvement combines fine original subbatch rematerialization, lossless SSD
-checkpoints and the installed CPU memory scheduler. Compiler heap estimates are
-not total resident-memory measurements. Earlier SSD-only execution exceeded the
-worker ceiling; it provides no successful baseline runtime for an overhead ratio.
-Forward/backward times are not separately measured. Reliable energy/thermal
-measurements are unavailable. Graph reports identify logical tensor lifetimes,
-not exact overlapping physical allocations.
+| Measurement | Subbatch 1 | Subbatch 4 |
+|---|---:|---:|
+| Genuine forward + backward execution | 1135.702 s | 633.887 s |
+| Recorded compilation | 1.341 s | 1.473 s |
+| Peak task footprint, including compression | 10.331 GiB | 10.682 GiB |
+| Worker ceiling | 14 GiB | 14 GiB |
+| Lossless SSD tape quota | 10 GiB | 10 GiB |
 
-## Native application validation
+Subbatch 4 is **1.79165× faster for this matched full gradient**. Source, complete
+input, seed, model pool, sampled model, checkpoint and settings were verified equal
+except for subbatch size. Coordinates are identical; loss and all gradients pass
+unchanged `rtol=1e-4`, `atol=1e-5`. Largest gradient difference is approximately
+1.69e-7. New automatic native Fab execution selects 4; frozen recovery settings
+retain 1 and explicit 1 remains available. Unsupported native choices are refused.
 
-The ad-hoc signed native bundle contains its CPU interpreter and all seven pinned
-AF2 checkpoints. The actual native Start button launched an original full Fab
-campaign. The viewer rendered the genuine 559-residue diagnostic, explicitly
-named as a diagnostic rather than an optimized or accepted design.
+The original memory improvement combines fine original subbatch rematerialization,
+lossless SSD tape and the installed CPU memory scheduler. At subbatch 1 the latter
+reduced compiled temporary heap from 12,641,092,472 to 7,148,896,184 bytes (43.45%).
+Subbatch 4's compiled temporary heap is approximately 7.45 GB. These compiler
+estimates are not total resident-memory measurements. The matched full gradient
+wrote/read 54 checkpoints totalling 9,665,972,632 bytes in each direction; owned
+scratch cleanup passed. The task ceiling, 10 GiB tape quota and 2 GiB reserve remain.
 
-Project export preserved exact scaffold, target and diagnostic coordinates while
-excluding live SSD scratch. Quitting and reopening the original controller, then
-opening the updated recovery controller, retained the same scientific process.
-The controller displays live footprint, peak, limit and completed-gradient count.
-The actual native campaign has now completed two consecutive original screen
-optimizer updates and started its third full gradient, sampling original model 5
-after model 3. Observed peak task footprint is 10.23 GiB. Each completed gradient
-wrote/read 8,657,242,520 bytes and released its live tape before the next step.
-This verifies two consecutive full-size updates within the unchanged cap; it does
-not demonstrate completion or leak-free behavior across an entire campaign.
+These observations do not establish production steady-state speedup or full-run
+longevity. Forward/backward, triangle attention, triangle multiplication,
+structure-module and SSD I/O wall-time fractions were not separately measured.
+Logical graph reports identify large tensor values and local program-order
+lifetimes, not physical overlap or exact runtime attribution. Energy and thermal
+measurements are unavailable. Earlier SSD-only executions exceeded the task cap;
+they are not successful timing baselines.
 
-A native idle-sleep assertion is attached to the exact running scientific process
-and automatically ends when that process exits. Future native supervisors create
-and release their own assertions; display sleep and permanent power settings stay
-unchanged. Nine focused lifecycle tests pass. Background continuation in this chat
-is enabled every 15 minutes. The user resumed it after an accidental pause and
-requested quiet background work; routine notifications are muted.
+Evidence: `reports/architect-fab-chunk-comparison.json`,
+`reports/architect-fab-subbatch4-gradient.json`,
+`reports/amme-fab-memory-scheduler-gradient.json`.
 
-The updated controller and older scientific worker caused macOS to alternate
-between their different ad-hoc signing identities under the same app identifier,
-repeatedly asking for Documents access. The matching original controller was
-restored; a subsequent three-minute privacy-log check contains no new prompt or
-identity-mismatch events. The recovery update remains ready for activation after
-current workers finish. Their original bundle must remain available until then.
+## Scientific comparisons
 
-For subsequent local updates, use `pnpm open:local /absolute/path/to/app.app`
-(with optional `--data-root /absolute/development/root`). This guarded launcher
-reuses the build owning a live window or scientific child. Ordinary Finder
-launches bypass this development guard. Package sealing now refuses an active
-bundle before changing any resources or signing identity. No privacy protection
-or signing requirement was weakened.
+Small trained-model single gradients and matched-input two-update optimizer tests
+pass the original tolerances, including arrays, coordinates, RNG and optimizer
+state. Independent two-update trajectories still drift beyond tolerance after an
+initial input difference of approximately 7.45e-8. Unmodified source reproduces
+that downstream drift at the perturbed inputs, including float16 coordinate
+rounding. Matched-input controls do not certify independent continuous-trajectory
+identity. The original failed independent report is preserved.
 
-Native Fab result transport now requires two antibody chains matching the original
-reported sequences and target chains matching the complete prepared input.
-Missing or truncated chains are refused before any record/asset write. A successful
-check records chain identities and lengths in result metadata, without asserting
-new scientific acceptance. Nine tests cover the genuine diagnostic, corrupted
-assembly cases and isolated import/export with explicitly synthetic completion
-receipts. Accepted Fab generation remains untested.
+See `reports/amme-two-update-parity.json`,
+`reports/amme-matched-update-parity.json`,
+`reports/amme-reference-perturbation-control.json`, and
+`reports/architect-chunk4-numerical-comparison.json`.
 
-Progress parsing now reads at most 1 MiB of log context while keeping the visible
-log limited to 30,000 bytes. This retains trajectory information after many memory
-events. A new recovery marker clears old trajectory context; unavailable context
-beyond the bound remains unreported. Three focused native-service tests pass.
+## Short engineering workflow
 
-Recovery now compares effective compiler flags after the pinned original package
-applies its startup settings. The actual packaged runtime comparison passes.
-This check did not interrupt the Fab calculation and is not an end-to-end Fab
-resume demonstration. Original campaign recovery resumes at a subsequent claimed
-trajectory boundary, not midway through an optimizer step.
+The native Architect now offers separate **Engineering Validation** and
+**Original Scientific Run** modes. The former records one round per gradient
+stage, two mutation evaluations (one proposed mutation), one candidate/attempt,
+and zero beta-sheet extra rounds. It preserves the complete scaffold/target,
+original model pools, recycles, losses and filters. Original-recipe hash and
+explicit workload overrides distinguish engineering outputs. Preparation and
+immutability tests pass; a complete new shortened trajectory has not been run.
 
-## Scientific comparison and remaining acceptance checks
+Separate original downstream components were exercised on the genuine full
+559-residue gradient fixture. The corrected harness calls the original mutation
+function directly: two evaluations plus final recheck, one proposal, unchanged
+fixed sequence, and genuine rejection at its original i_pTM gate. ProteinMPNN
+holds 407 framework residues. The actual model-2 bound/unbound refold completed at the original three recycles and rejected at i_pTM. Its genuine rejected candidate passed original ranking and exact-byte library/project export checks (`reports/architect-fab-component-artifacts.json`). Starting model 4 then crossed the 14 GiB guard. A cache-cleanup policy passes two JAX lifecycle tests and 78 bitwise-identical small trained-model arrays/RNG; its full-size retry ended with SIGTERM after approximately 604 seconds, without a recorded cause or completed refold. Thus full-size cache cleanup remains unverified; rejection is never promoted to acceptance. An earlier test-only sampler mismatch was caught, stopped
+and marked unvalidated; its output is not counted as evidence.
 
-Small genuine trained-model single-gradient comparisons pass the original
-`rtol=1e-4`, `atol=1e-5` thresholds. Repeated local comparisons also pass at
-bitwise-identical input states. An independent two-update trajectory comparison
-exceeds those thresholds after a first input difference of approximately
-`7.45e-8`. Unmodified source reproduces the downstream drift at those perturbed
-inputs, including its float16 coordinate rounding. The failed independent report
-is preserved; matched-input controls do not certify independent trajectory identity.
+## Native interface, persistence and recovery
 
-| Requirement | Status |
-|---|---|
-| Original full scaffold and constraints | Verified working |
-| Full-length forward prediction | Verified working |
-| Full-length backward calculation | Verified working |
-| Multiple optimization steps | Verified working: four native full-size updates; full-run longevity and independent numerical-trajectory equivalence remain unverified |
-| Complete original Fab trajectory | Partially verified: actual native campaign running |
-| Fab ProteinMPNN redesign | Not tested |
-| Fab held-out multimer validation | Not tested |
-| Original Fab filtering/ranking | Partially verified: criteria preserved; completed case pending |
-| Accepted Fab generation | Not tested; none generated |
-| Native integration/export | Partially verified: launch/viewer/project/reopen pass; accepted Fab pending |
+The rebuilt, locally signed BindCraft Architect replaces the oversized modal
+with five sections, versioned project drafts, clear residue/exclusion controls,
+original settings and compact saved campaigns. Both named user campaigns remain
+accessible. Failed/cancelled progress says last observed rather than computing.
+Current packaged modules pass three genuine standard-binder snapshot imports and
+project exports with exact coordinate bytes, plus two original Fab output-choice
+preparations with unchanged design identity.
 
-Current regression evidence: 402 backend tests, 80 frontend tests, four AMME runtime
-tests and seven SSD runtime tests pass. Native/frontend build and local deep
-signature verification pass. Notarization remains deferred for local use.
+Native Fab result transport retains the existing full-chain checks: both antibody
+chains must match original reported sequences, and target chains must match the
+complete prepared input. Missing/truncated results are refused before writes.
+Synthetic acceptance receipts used by protocol tests are explicitly labelled and
+do not constitute accepted Fab generation.
 
-Machine-readable evidence: `reports/amme-integration-status.json`,
-`reports/amme-native-package.json`, `reports/amme-fab-memory-scheduler-gradient.json`,
-`reports/amme-two-update-parity.json`, `reports/amme-matched-update-parity.json`
-and `reports/amme-reference-perturbation-control.json`.
-The follow-up package/backend evidence is in `reports/amme-packaged-transport.json`
-and `reports/amme-fab-transport.json`.
+Original campaign recovery resumes at the **next original trajectory** when
+claimed attempt budget remains. Interrupted attempts remain spent. Exact
+mid-trajectory optimizer/RNG/mutation restoration is unavailable; temporary SSD
+tape is not a restart checkpoint. The native UI explains this and does not offer
+Resume for the exhausted cancelled one-attempt campaign.
 
-Saved trajectory/refold snapshots can now be copied into the existing Research Library for inspection, with recorded stage rows and explicit non-accepted labels. Three genuine saved standard-binder structures passed exact-byte library and project export checks; eight protocol tests cover lifecycle, tampering and rollback. New Fab preparations expose final-pose retention, recorded as original `save_design_trajectory` / `save_failed_trajectories` options. Explicit choices are preserved, scientific design identity is unchanged, and existing running campaigns retain their saved settings. These transport checks do not demonstrate completed or accepted Fab generation. See `reports/campaign-stage-coordinates.json` and `reports/amme-native-three-updates.json`.
+The guarded local launcher and active-bundle seal checks prevent the previous
+conflicting ad-hoc signing identities from being run or mutated concurrently.
+The old app/worker exited before the new native update was activated. All 46
+scientific Python resources match source; deep/strict local signature verification,
+TypeScript, frontend and native release builds pass. Current regression evidence:
+428 backend and 87 frontend tests in the combined Cloud foundation, plus retained real AMME/SSD runtime checks. The separate current Cloud scope is documented in `docs/RAPID_FOUNDATION.md`.
 
-The43437a6 native release and all46Python resources are now staged and locally signed. Bundled Python3.12.14 repeats the three exact snapshot saves/project exports and two original Fab output preparations (`reports/campaign-stage-coordinates-packaged.json`). GUI activation is deferred while the original scientific worker lives. The current older campaign did not request `save_design_trajectory`; new controls cannot retrofit that choice into the running calculation, so a rejected current trajectory may retain only its original table.
+## Remaining scientific acceptance
+
+Full original trajectory completion, accepted full-Fab generation, independent
+continuous-trajectory parity and exact optimizer-step recovery remain unverified
+or unavailable. Do not claim full Fab completion from a full gradient, a shortened
+run, a rejected fixture or exact-byte transport. See the A–G report in
+`docs/BINDCRAFT_ARCHITECT_REPORT.md` and current machine-readable state in
+`docs/PROJECT_METAL_EXECUTION_STATE.json` and `reports/amme-integration-status.json`.

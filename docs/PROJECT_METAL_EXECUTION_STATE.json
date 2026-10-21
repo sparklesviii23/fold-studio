@@ -1,13 +1,13 @@
 {
   "schemaVersion": 1,
-  "updatedUtc": "2026-10-21T00:29:29.565662+00:00",
-  "branch": "project-metal/apple-silicon-engine",
-  "implementationCommit": "43437a6",
-  "scope": "Current directive: full Fab fidelity, AMME profiling/rematerialization/offload and remaining non-Fab inventory accounting; no UI redesign or unrelated scientific features.",
+  "updatedUtc": "2026-10-21T14:52:27.677275+00:00",
+  "branch": "project-omega/rapid-cloud-foundation",
+  "implementationCommit": "79302596e8b5abc30a7f38e01217f8d8a0a7a197",
+  "scope": "Project Metal local implementation plus RAPID connection foundation. Original Fab production remains cancelled; remote scientific and full original Fab completion remain unverified.",
   "upstreamRevision": "c0ee638d11bc010817c2c97ee58ed5c323e664e2",
   "verified": {
-    "backendTests": 402,
-    "frontendTests": 80,
+    "backendTests": 428,
+    "frontendTests": 87,
     "typescript": "passed",
     "corePipeline": "Real 175-residue hPDL1 ensemble design + ProteinMPNN + held-out AF2 + original filters; one accepted computational prediction, no biological claim.",
     "campaignRecovery": "Actual CPU cancellation at claimed trajectory 2; original budget continues with rows 1,3,4 and no accepted designs.",
@@ -31,23 +31,31 @@
     "campaignUtilities": "Actual original custom filtering (2pass/1reject), source metric listing, multi-metric explicit-direction ranking, lossless trajectory compression/restoration and persistence-failure rollback passed on genuine saved175-residue ensemble results. Original output data,157summary rows, job state and original QA source unchanged after roundtrip.",
     "sequenceCropStates": "Actual native cf8b07c app completed a two-crop12res peptide original-filter CPU trajectory in359.914s. Finite readings for both target_epitope states; screen/refine passed, original anneal rejection,1trajectory/0refolds/0accepted. Single immutable FASTA input and recorded scalar-to-fixed-range compatibility adapter. Three-state preparation tested, not model execution. Accepted multi-crop refolding/import remains unexercised.",
     "scalarCropCompatibility": "Original scalar16 and normalized[16,16] produce exactly equal source-sampled sequence/position/validation-flank inputs for two and three states across two seeds. Saved scalar recipe remains unchanged, execution normalization receipt recorded. Genuine native multi-crop campaign now completes.",
-    "latestNativePackage": "5b63a6e local ad-hoc signed recovery resource update to built4e23650 native app.46Python source resources match; native Start launched app-owned full Fab. Viewer/project snapshot/quit-reopen/reconnection passed, deep signature verified.",
+    "latestNativePackage": "7930259 native release; all48 scientific/worker Python resources match; strict deep local signature passed; native connection form/profile lifecycle and original saved research verified.",
     "ammeGraphProfiling": "Real full Fab/hPDL1 abstract gradient graph captured with original3design models resident, original1/3/5 design and2/4multimer heldout selection. Largest logical layer inputs8.70GB; two triangle-attention residual arrays3.35GB each disappear under scoped subbatch rematerialization. Logical graph values are not measured simultaneous resident peak.",
     "ammeNumericalParity": "Real trained64padded CPU reference vs fine-grained original subbatch rematerialization, both alone and with54SSD checkpoints: equal loss/coordinates, largest reported gradient difference4.768e-7, predefined rtol1e-4/atol1e-5 pass. Full Fab gradient now passes; independent multi-update trajectory drift remains an explicit limitation.",
     "ammeCompiledMemory": "Full595-per-chain-padded Fab gradient: attention+SSD12,641,092,472B temporary heap; adding structure12,641,089,872B; adding triangles12,987,722,576B. These are compiler buffer estimates, not measured full resident peaks. Extra policies do not provide a meaningful benefit and remain diagnostic only.",
     "ammeMemoryScheduler": "Installed CPU_SCHEDULER_TYPE_MEMORY_OPTIMIZED reduces compiled full Fab temporary heap12,641,092,472\u21927,148,896,184B (43.45%). Real small trained-model loss and coordinates identical; gradients differ at most4.768e-7, unchanged rtol1e-4/atol1e-5 pass.",
     "ammeFullFabGradient": "Full original H231/L213 Fab +115-residue full hPDL1; actual gradient595per-chain-padded residues, conservative bucket608. Original1/3/5model pool resident, original RNG selected5. Genuine finite full forward/backward passed1139.625s, measured peak footprint11,092,403,680B (10.33GiB),14GiB ceiling unchanged.54SSD checkpoints9,665,972,632B written/read and removed. Not a complete trajectory.",
     "ammeRepeatedLocalUpdates": "Matched-input output, loss, gradient and original local optimizer comparisons pass at unchanged rtol1e-4/atol1e-5, with108checkpoints across2steps andzero liveSSDdata aftereach. Independent trajectory comparison drifts beyond tolerance; unchanged source reproduces drift at the same perturbed inputs. No bitwise continuous-trajectory equivalence claim.",
-    "ammeNativeImplementation": "Actual native full Fab first gradient and original screen optimizer update completed; second gradient running. Original3design/2validation pools,14GiBcap intact. Peak observed9.93GiB. Same worker67111 persisted through controller restore.",
+    "ammeNativeImplementation": "Original native Fab completed five genuine screen updates; sixth cancelled by user. Original pools and 14GiB ceiling retained. No production worker currently running.",
     "localPrivacyLoop": "macOS logs confirmed alternating ad-hoc cdhash250562dd/aff3fb06 under one bundle ID. Matching original controller restored; follow-up privacy logs contain no prompting/mismatch events. Safe launcher reuses actual worker-owning build; seal script refuses mutating an active package.6focusedtests pass.",
     "fabChainTransport": "Genuine559residue gradient diagnostic: both231/213antibody chains and full115residue observed target match reported/source sequences.9tests include rejection-before-write and exact import/project-export coordinate transport with explicitly synthetic completion receipts. No acceptedFab claim.",
     "longCampaignProgress": "Native service parses up to1MiB contextual log while returning only30000visible bytes;3tests cover long AMME logs, recovery boundary reset and unavailable-context refusal.",
     "stagedFabTransportPackage": "Actual07a7839staged ad-hoc signed package:46scientific Python source files match; bundled Python3.12.14 executes full original Fab preparation, genuine diagnostic transport and long-log protocol check. No GUI activation or model calculation in package test.",
-    "ammeRepeatedFullSizeUpdates": "Four genuine full-Fab original screen updates completed with finite metrics and zero live SSD tape at each completed-step boundary; fifth gradient running. Peak10.76GiB remains below14GiB. This is repeated execution evidence, not a completed trajectory, leak-free full campaign or independent numerical-trajectory equivalence.",
+    "ammeRepeatedFullSizeUpdates": "Five genuine original native screen optimizer updates finished; sixth interrupted by user cancellation. Saved peak10.79GiB, zero live SSD tape after each completed step. No complete original trajectory.",
     "idleContinuity": "Native per-worker idle-sleep assertion implemented and9focused lifecycle tests pass. Actual older worker protected by a detached native caffeinate -i -w67111 assertion, automatically released on worker exit. Display sleep and permanent power settings unchanged.",
     "stagedIdleContinuityPackage": "Actual signed staged ace250d bundle:all46scientific source file SHA-256 values match repo; packaged idle helper starts/releases its own assertion without ending its separate test child. Main scientific worker67111 and active app untouched.",
     "savedStageCoordinates": "Three genuine saved standard-binder snapshots saved idempotently with exact library/project coordinates; original job and acceptance unchanged. Eight refusal/rollback protocol tests pass. New Fab output options resolve through original source without changing scientific design identity; current campaign settings untouched.",
-    "stagedStageInspectionPackage": "Full native interface rebuilt with43437a6;46Python files match committed source. Bundled Python3.12.14 passes three genuine stage imports/project roundtrips and two original Fab output-choice preparations. Deep strict ad-hoc signature passed. GUI activation remains deferred while67111 computes."
+    "stagedStageInspectionPackage": "Full native interface rebuilt with43437a6;46Python files match committed source. Bundled Python3.12.14 passes three genuine stage imports/project roundtrips and two original Fab output-choice preparations. Deep strict ad-hoc signature passed. GUI activation remains deferred while67111 computes. Historical staging evidence; later update activated after that worker exited.",
+    "bindcraftArchitect": "Five persistent workspace sections; project-local draft; original target/viewer and settings preserved; compact library contains both named original campaigns. Native and browser selector/failure/status inspections passed.",
+    "linearPeptide": "Original256-padded Metal job failed at6.2GB vs6.0GB runtime governor. Launch now refuses outside measured192envelope before spawn. Same saved target and peptide bounds ran on explicitCPU in76.968s under labelled short workload; original screen pLDDT rejection, not crash.",
+    "mpnnEmptySelections": "Clearable exclusion grid maps to original uppercase omission string. None and [] redesign selections map identically to all eligible selected-chain positions; fixed chains/constraints retained. Native C/W toggles/removal/Clear and draft persistence verified.",
+    "fabChunk4": "Source-supported subbatch4:633.887s matched full559-residue gradient vs1135.702s subbatch1 (1.79165x); peak10.682GiB vs10.331GiB. Loss, all gradients and coordinates pass unchanged rtol1e-4/atol1e-5. Matched small two-update test passes; independent trajectory drift limitation retained.",
+    "fabEngineeringMode": "Separate native Engineering Validation preparation receipt:1round per gradient stage,2mutation evaluations,1MPNNcandidate/attempt and no beta extras. Complete scaffold/target/modelpools/recycles/losses/filters retained. A full new short-mode trajectory has not been run; component validation recorded separately.",
+    "architectPackagedCoordinates": "Current active bundle scientific modules passed three genuine stage snapshot imports/project exports and two original Fab preparations, exact coordinates and original design identity retained.",
+    "fabInferenceCacheParity": "2JAXlifecycle tests and78bitwiseexacttrainedsmallarray/RNGcomparisons pass. FullsizeretrySIGTERMedafter604secondsbeforecomplete;fullsizecachefixunverified.",
+    "fabComponentArtifacts": "OriginalfullFabmutation/MPNN/model2fixtureactuali_pTMrejectionretained;onegenuinerejectedcandidateoriginalrankandbyteexactlibrary/projectexportpass. reports/architect-fab-component-artifacts.json"
   },
   "evidence": [
     "reports/bindcraft-ensemble-outcome.json",
@@ -108,7 +116,12 @@
     "reports/amme-native-three-updates.json",
     "reports/amme-packaged-stage-inspection.json",
     "reports/campaign-stage-coordinates-packaged.json",
-    "reports/amme-native-progress.json"
+    "reports/amme-native-progress.json",
+    "reports/architect-native-package.json",
+    "reports/architect-linear-peptide.json",
+    "reports/architect-fab-chunk-comparison.json",
+    "reports/architect-fab-performance-profile.json",
+    "reports/architect-packaged-coordinates.json"
   ],
   "runtime": {
     "cpu": "../runtimes/jax-cpu/bin/python",
@@ -125,39 +138,24 @@
     "policy": "No larger Metal profile enabled; retain safe caps.",
     "reproduce": "METALJAX_MEM_GOVERNOR=1 METALJAX_MEM_BUDGET_MB=8192 METALJAX_MEM_SYS_MB=23552 METALJAX_LOOP_INFLIGHT_MB=128 METALJAX_MATMUL_PRECISION=highest ../runtimes/jax-metaljax/bin/python -B scripts/validate-af2-gradient-memory.py --parameters ../models/alphafold --target vendor/bindcraft2/settings/target/structures/hPDL1.pdb --reference reports/af2-320-cpu.json --output <new-output.json>"
   },
-  "activeComputationalTest": {
-    "root": "/Users/vii/Documents/FoldStudio-MetalPort/validation/bindcraft-fab-amme-native",
-    "jobId": "b981bc11-4606-43be-a3f2-000f1d6406dd",
-    "supervisorPid": 67108,
-    "workerPid": 67111,
-    "workerOwningApp": "/Users/vii/Documents/FoldStudio-MetalPort/validation/Relocated Fab AMME Engine/FOLD STUDIO Metal Dev.app",
-    "workerSourceCommit": "4e23650",
-    "controllerSourceCommit": "4e23650",
-    "state": "running",
-    "scope": "Four genuine full-Fab original screen updates completed with finite metrics and zero live SSD tape at each completed-step boundary; fifth gradient running. Peak10.76GiB remains below14GiB. This is repeated execution evidence, not a completed trajectory, leak-free full campaign or independent numerical-trajectory equivalence.",
-    "lastObservedUtc": "2026-10-21T00:29:29.565662+00:00",
-    "completedGradients": 4,
-    "gradientCalls": 5,
-    "peakFootprintBytes": 11558708920,
-    "stage": "gradient_execution"
-  },
+  "activeComputationalTest": null,
   "activeBuild": null,
-  "latestVerifiedApp": "/Users/vii/Documents/FoldStudio-MetalPort/validation/Relocated Fab AMME Recovery Engine/FOLD STUDIO Metal Dev.app",
+  "latestVerifiedApp": "/Users/vii/Documents/FoldStudio-MetalPort/validation/RAPID Foundation Engine/FOLD STUDIO Metal Dev.app",
   "immediateNext": [
-    "Use scripts/open-local-app.py for local app launches. Keep4e23650 controller while its scientific worker lives; do not activate differently sealed5b63a6e package concurrently.",
-    "Observe original full-Fab optimizer updates and memory after each complete gradient; do not launch a competing model calculation.",
-    "Allow unchanged trajectory and downstream ProteinMPNN/multimer/original filters to run; record genuine original rejection or acceptance.",
-    "Validate accepted full-Fab import/export and exact recovery at valid campaign boundaries if those outcomes become available."
+    "Validate real Linux CUDA/RTX5090 environment when an explicitly authorized server becomes available.",
+    "Implement pinned original BindCraft2 remote job execution and exact result/provenance transfer before additional engines.",
+    "Provider API/Keychain token controls, durable jobs, multi-engine candidates and budget scheduling remain later milestones.",
+    "Full-size Fab cache regression remains unverified; no automatic production restart."
   ],
   "limitations": [
     "Full upstream modality/option/CLI parity is incomplete.",
     "Larger Metal gradients remain memory limited; existing measured caps unchanged.",
     "Three-crop preparation and transport contracts passed; trained-model execution validated only for the two-crop bounded case, without accepted outputs.",
     "Fresh-machine installation and every property/modality/option combination remain unvalidated.",
-    "Full Fab single forward/backward passed; four full-size original updates also passed; complete original trajectory/ProteinMPNN/held-out validation/acceptedFab remain unverified.",
+    "Full Fab single forward/backward passed; five full-size original updates also passed; complete original trajectory/ProteinMPNN/held-out validation/acceptedFab remain unverified.",
     "Matched-input numerical comparisons pass fixed tolerances; independent two-update propagation diverges beyond them, reproduced by unmodified source at perturbed inputs. Continuous-trajectory numerical identity is not certified.",
     "Experimental Fab currently uses CPU with SSD checkpoints, not a fully GPU-resident Metal execution.",
-    "Current older Fab job did not request save_design_trajectory; future preparation controls do not retrofit output retention into its running calculation. A rejected trajectory may therefore retain its original CSV without a coordinate snapshot."
+    "Cancelled original Fab job did not request save_design_trajectory; newer controls cannot retroactively create its snapshots. A rejected trajectory may therefore retain its original CSV without a coordinate snapshot."
   ],
   "uncommittedWork": null,
   "fabResourceFailure": {
@@ -194,20 +192,22 @@
   "activeScientificRun": {
     "root": "/Users/vii/Documents/FoldStudio-MetalPort/validation/bindcraft-fab-amme-native",
     "jobId": "b981bc11-4606-43be-a3f2-000f1d6406dd",
-    "supervisorPid": 67108,
-    "workerPid": 67111,
+    "supervisorPid": null,
+    "workerPid": null,
     "workerOwningApp": "/Users/vii/Documents/FoldStudio-MetalPort/validation/Relocated Fab AMME Engine/FOLD STUDIO Metal Dev.app",
     "workerSourceCommit": "4e23650",
     "controllerSourceCommit": "4e23650",
-    "state": "running",
-    "scope": "Four genuine full-Fab original screen updates completed with finite metrics and zero live SSD tape at each completed-step boundary; fifth gradient running. Peak10.76GiB remains below14GiB. This is repeated execution evidence, not a completed trajectory, leak-free full campaign or independent numerical-trajectory equivalence.",
-    "lastObservedUtc": "2026-10-21T00:29:29.565662+00:00",
-    "completedGradients": 4,
-    "gradientCalls": 5,
-    "peakFootprintBytes": 11558708920,
-    "stage": "gradient_execution"
+    "state": "cancelled",
+    "scope": "User cancelled after five full optimizer updates; sixth gradient interrupted, owned SSD scratch removed, original worker/supervisor/sleep helper exited. No automatic restart.",
+    "lastObservedUtc": "2026-10-21T09:50:15.340525+00:00",
+    "completedGradients": 5,
+    "gradientCalls": 6,
+    "peakFootprintBytes": 11588593360,
+    "stage": "gradient_execution_interrupted",
+    "originalWorkerPid": 67111,
+    "originalSupervisorPid": 67108
   },
-  "fabDeferredByUser": false,
+  "fabDeferredByUser": true,
   "distributionBlocker": "No valid local code-signing identity (security find-identity reports0). Ad-hoc local signing is available; Developer ID notarized distribution requires external credentials.",
   "notarizationDeferredByUser": true,
   "completionAssessment": {
@@ -244,28 +244,30 @@
     "remaining": "Unrestricted/custom source options and state graphs, parameter sweeps/target preset exposure, broader modality/property and accepted FASTA/conformational output validation, extended-format completed runs and fresh-machine packaging acceptance.",
     "accountingCorrection": "Previous20unavailable option names included9property aliases already exposed,3format-owned controls and4single-device-inapplicable GPU scheduler controls. Four actual option exposure gaps remain. This corrects inventory semantics, not twelve new implementations; do not treat the old percentage as full completion."
   },
-  "latestActiveApp": "/Users/vii/Documents/FoldStudio-MetalPort/validation/Relocated Fab AMME Engine/FOLD STUDIO Metal Dev.app",
+  "latestActiveApp": "/Users/vii/Documents/FoldStudio-MetalPort/validation/RAPID Foundation Engine/FOLD STUDIO Metal Dev.app",
   "localLaunchGuardCommit": "c64f543",
   "stagedUpdate": {
-    "app": "/Users/vii/Documents/FoldStudio-MetalPort/validation/Staged Fab Transport Engine/FOLD STUDIO Metal Dev.app",
-    "sourceCommit": "43437a6",
+    "app": "/Users/vii/Documents/FoldStudio-MetalPort/validation/RAPID Foundation Engine/FOLD STUDIO Metal Dev.app",
+    "sourceCommit": "79302596e8b5abc30a7f38e01217f8d8a0a7a197",
     "signature": "verified local ad-hoc deep strict",
-    "bundledBackend": "passed: exact stage structure/library/project roundtrip plus original Fab output-option preparation",
-    "activation": "Deferred until older scientific worker and app window finish; use guarded launcher.",
+    "bundledBackend": "All48 resources match source; Cloud protocol/profile smoke passed. Historical coordinate roundtrips retained in architect-packaged-coordinates.json. Full-size cache cleanup remains scientifically unverified.",
+    "activation": "Active; guarded launch after user saved and closed old app. Final native visual QA passed.",
     "pendingSourceChanges": [],
     "bundledIdleHelperLifecycle": "passed",
-    "nativeFrontend": "rebuilt from43437a6, tsc/vite/native release passed",
+    "nativeFrontend": "7930259 final Cloud sidebar and inspector correction; TypeScript/Vite/native build passed.",
     "bundledStageCoordinates": "reports/campaign-stage-coordinates-packaged.json",
-    "packageEvidence": "reports/amme-packaged-stage-inspection.json"
+    "packageEvidence": "reports/rapid-native-package.json",
+    "packagedStageCoordinates": "reports/architect-packaged-coordinates.json"
   },
   "backgroundFollowup": {
     "id": "continue-fold-studio-integration",
     "kind": "heartbeat",
     "intervalMinutes": 15,
-    "status": "ACTIVE",
+    "status": "PAUSED",
     "notificationPolicy": "failed_runs_only",
-    "userRequestedResume": true,
-    "userRequestedQuietBackground": true
+    "userRequestedResume": false,
+    "userRequestedQuietBackground": true,
+    "scope": "Paused at user cancellation; do not restart production automatically."
   },
   "globalEngineeringEstimate": {
     "completePercentRange": [
@@ -276,7 +278,7 @@
       10,
       15
     ],
-    "scope": "Rough engineering estimate for local integration, not audited weighted completion, scientific certification or remaining wall time. Fab full trajectory/downstream/acceptance, broader option/modality verification and4native option gaps remain; notarization deferred."
+    "scope": "Historical rough estimate, not recomputed or a completion certificate. Full original Fab trajectory, accepted design and independent numerical trajectory parity remain unverified; notarization deferred."
   },
   "fabVerification": {
     "verifiedMilestones": 4,
@@ -284,5 +286,6 @@
     "untestedMilestones": 3,
     "totalMilestones": 10,
     "scope": "Counts of explicit execution/transport milestones; not percentage of full campaign iterations or scientific certification."
-  }
+  },
+  "currentPriority": "User requested connection foundation first, now verified. Expanded remote integration tracked separately in reports/rapid-integration-status.json; no server or paid compute authorized."
 }

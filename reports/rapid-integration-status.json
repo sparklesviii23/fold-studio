@@ -1,0 +1,128 @@
+{
+  "schemaVersion": 1,
+  "updatedUtc": "2026-10-21T14:52:27.677275+00:00",
+  "request": "/Users/vii/.codex/attachments/51bcab1c-9a0e-4f2d-b1d8-9e0ec16f178b/Pasted text.txt",
+  "branch": "project-omega/rapid-cloud-foundation",
+  "authorizedCurrentMilestone": "User has no rented instance; build/test the connection foundation first. No rentals, API credentials, model downloads or third-party research uploads.",
+  "completeExpandedPlatform": false,
+  "verifiedRealRTX5090": false,
+  "remoteScientificCampaignsAvailable": false,
+  "localWorkflowsPreserved": true,
+  "milestones": [
+    {
+      "id": 0,
+      "name": "Repository / architecture audit",
+      "status": "completed for foundation",
+      "evidence": "docs/RAPID_FOUNDATION.md"
+    },
+    {
+      "id": 1,
+      "name": "Cloud Compute",
+      "status": "connection foundation implemented; provider API, pricing and instance management remain",
+      "evidence": [
+        "src/components/CloudCompute.tsx",
+        "tests/test_cloud_compute.py"
+      ]
+    },
+    {
+      "id": 2,
+      "name": "Python worker / secure connection",
+      "status": "actual loopback SSH, bootstrap, checksum and API verified; Linux NVIDIA/RTX5090 unavailable",
+      "evidence": "reports/rapid-loopback-ssh.json"
+    },
+    {
+      "id": 3,
+      "name": "Remote BindCraft2 reference campaign",
+      "status": "not implemented / not tested"
+    },
+    {
+      "id": 4,
+      "name": "Shared multi-engine candidates",
+      "status": "not implemented; existing scientific data layer retained"
+    },
+    {
+      "id": 5,
+      "name": "BoltzGen and remote redesign engines",
+      "status": "not installed / not tested"
+    },
+    {
+      "id": 6,
+      "name": "Independent remote complex evaluation",
+      "status": "not implemented"
+    },
+    {
+      "id": 7,
+      "name": "RAPID deadline / budget scheduling",
+      "status": "not implemented"
+    },
+    {
+      "id": 8,
+      "name": "Additional generative engines",
+      "status": "not investigated / not integrated"
+    },
+    {
+      "id": 9,
+      "name": "Anthropic acceleration",
+      "status": "primary repository reviewed; no kits installed or GPU compatibility claimed"
+    },
+    {
+      "id": 10,
+      "name": "Full product hardening / reference benchmarks",
+      "status": "foundation tests pass; expanded platform not complete"
+    }
+  ],
+  "foundation": {
+    "transport": "System OpenSSH, strict known-host verification, public-key auth, SSH-agent/Keychain support; versioned worker API over encrypted stdin, no public HTTP listener.",
+    "credentialHandling": "Private keys remain local. Key paths only in owner-private app storage; profile data excluded from project ZIP. No API token/password input/storage yet. Provider API Keychain storage remains future work.",
+    "worker": {
+      "apiVersion": 1,
+      "version": "0.1.0",
+      "sourceSha256": "e5e23416cd639e61933d4256c4fe0965c584d7c9e76ded828d1bbecf48d59526",
+      "sizeBytes": 7925,
+      "operations": [
+        "health",
+        "engine_inventory",
+        "gpu_selftest"
+      ],
+      "modelInstallOrSubmission": false
+    },
+    "realConnectionEvidence": "reports/rapid-loopback-ssh.json",
+    "testScope": "Loopback macOS OpenSSH and real worker protocol; not a cloud GPU or scientific CUDA run.",
+    "softwareTests": {
+      "backend": 428,
+      "frontend": 87,
+      "connectionProtocolTests": 21,
+      "typescript": "passed",
+      "nativeBuild": "passed final 7930259; deep strict local signature passed",
+      "nativeVisualQA": "Passed final native build: no unrelated inspector; SSH entry parse/save/edit/archive; clean draft; local Architect route and original research/campaigns preserved."
+    }
+  },
+  "nativePackage": "reports/rapid-native-package.json",
+  "fab": {
+    "productionJob": "b981bc11-4606-43be-a3f2-000f1d6406dd",
+    "productionState": "cancelled by user; not restarted",
+    "completedProductionGradients": 5,
+    "componentMutationAndMPNN": "actual fullFab direct original mutation1proposal; fixed407framework through realMPNN",
+    "model2Refold": "actual bound+unbound original3recycles; genuinei_pTMrejection",
+    "model4FullSize": "previous attempt hit14GiBguard; cache-fix retrySIGTERMedbeforefirstmodelcompleted",
+    "cachePolicySmallParity": "78bitwiseidenticaltrainedarraysandRNG;2realJAXlifecycle tests",
+    "fullSizeCacheFixVerified": false,
+    "artifactTransport": "reports/architect-fab-component-artifacts.json",
+    "fullFabComplete": false,
+    "automaticFollowup": "PAUSED"
+  },
+  "primarySources": [
+    "https://docs.vast.ai/guides/instances/connect/ssh",
+    "https://docs.vast.ai/api-reference/instances/show-instances",
+    "https://docs.jax.dev/en/latest/installation.html",
+    "https://github.com/anthropics/uplifting-biomolecular-modeling"
+  ],
+  "next": [
+    "Validate real Linux CUDA/RTX5090 environment when an explicitly authorized server becomes available.",
+    "Implement pinned original BindCraft2 remote job execution and exact result/provenance transfer before additional engines.",
+    "Provider API/Keychain token controls, durable jobs, multi-engine candidates and budget scheduling remain later milestones.",
+    "Full-size Fab cache regression remains unverified; no automatic production restart."
+  ],
+  "notarization": "Deferred for local use",
+  "implementationCommit": "79302596e8b5abc30a7f38e01217f8d8a0a7a197"
+}
