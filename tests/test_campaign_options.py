@@ -42,4 +42,9 @@ class ScientificOptions(unittest.TestCase):
    with self.subTest(value=value),self.assertRaises(ValueError):options.validate({'weights_induced_fit_global':value},fe.UPSTREAM,'fold_switch')
  def test_native_bundle_carries_the_option_validation_adapter(self):
   root=pathlib.Path(__file__).parents[1];self.assertIn('../scientific/campaign_options.py',json.loads((root/'src-tauri/tauri.conf.json').read_text())['bundle']['resources'])
+ def test_trajectory_retention_choices_are_explicit_booleans(self):
+  for key in ('save_design_trajectory','save_failed_trajectories'):
+   for value in (True,False):self.assertEqual(options.validate({key:value},fe.UPSTREAM,'Fab'),{key:value})
+   for value in (1,'false',None,[]):
+    with self.subTest(key=key,value=value),self.assertRaisesRegex(ValueError,'true or false'):options.validate({key:value},fe.UPSTREAM,'Fab')
 del Fixtures

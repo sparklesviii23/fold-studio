@@ -2,6 +2,82 @@
 import csv,io,json,math,os,pathlib,re,shutil,subprocess
 import fold_engine as fe
 TABLES={'trajectories':'1_Trajectories/!_Trajectories.csv','candidates':'2_Refolded/!_Refolded.csv','accepted':'3_Ranked/!_Ranked.csv'}
+def coordinate_path(output,relative):
+ path=output/relative
+ if not path.resolve().is_relative_to(output.resolve()) or path.suffix!='.cif':raise ValueError('Stage coordinates must remain inside the campaign output.')
+ for item in (path,*path.parents):
+  if item.is_symlink():raise ValueError('Stage coordinates cannot follow symlinks.')
+  if item==output:break
+ if not path.is_file() or not 0<path.stat().st_size<=100*1024**2:raise ValueError('Saved stage coordinates are missing or exceed100MiB.')
+ return path
+
+def coordinates(output,stage,rows):
+ """List only existing complex snapshots for the first100displayed stage rows."""
+ if stage not in ('trajectories','candidates'):return {}
+ found={};total=0;count=0
+ for row in rows[:100]:
+  design=row['design']
+  if not re.fullmatch('[A-Za-z0-9_.-]{1,200}',design) or design in ('.','..'):raise ValueError('Unsafe saved stage design identity.')
+  prefix=design+'_trajectory' if stage=='trajectories' else design
+  folder=output/'1_Trajectories'/design if stage=='trajectories' else output/'2_Refolded/Complexes'
+  if not folder.resolve().is_relative_to(output.resolve()):raise ValueError('Stage coordinate folder escapes the campaign output.')
+  for directory in (folder,*folder.parents):
+   if directory.is_symlink():raise ValueError('Stage coordinates cannot follow symlinks.')
+   if directory==output:break
+  matches=[p for p in folder.glob(prefix+'*.cif') if (p.stem==prefix or p.stem.startswith(prefix+'_')) and not p.stem.endswith('_monomer')]
+  if len(matches)>16:raise ValueError('Too many coordinate snapshots for one saved design.')
+  entries=[]
+  for path in sorted(matches):
+   relative=path.relative_to(output).as_posix();path=coordinate_path(output,relative);total+=path.stat().st_size;count+=1
+   if total>100*1024**2 or count>300:raise ValueError('Stage coordinate inspection exceeds its bounded scope.')
+   raw=path.read_bytes();entries.append({'file':relative,'sha256':fe.checksum(raw),'bytes':len(raw)})
+  if entries:found[design]=entries
+ return found
+
+def save_coordinates(engine,p):
+ """Save a stage snapshot for viewing without changing scientific acceptance."""
+ if set(p)-{'id','projectId','operation','table','design','file','sha256'}:raise ValueError('Unsupported coordinate-preview field.')
+ job=engine.campaign(p);stage=p.get('table')
+ if stage not in ('trajectories','candidates'):raise ValueError('Stage previews cover trajectories or refolded candidates; ranked designs use the accepted-result importer.')
+ if job['state'] not in ('completed','failed','cancelled','interrupted','imported'):raise ValueError('Finish or stop this campaign before saving its coordinate snapshots.')
+ folder=engine.s.root/'jobs'/job['id'];output=folder/'output';pid=job['data'].get('pid')
+ if pid:
+  for line in subprocess.check_output(['/bin/ps','-axo','pgid=,command='],text=True).splitlines():
+   parts=line.strip().split(None,1)
+   if len(parts)==2 and parts[0]==str(pid) and (job['id'] in parts[1] or str(folder) in parts[1]):raise ValueError('The scientific worker is still stopping; wait before saving a stage snapshot.')
+ reading=table(output/TABLES[stage]);matched=[row for row in reading['rows'][:100] if row['design']==p.get('design')]
+ if len(matched)!=1:raise ValueError('Choose a unique recorded stage row from the displayed outcomes.')
+ row=matched[0];available=coordinates(output,stage,[row]).get(row['design'],[]);entry=next((v for v in available if v['file']==p.get('file')),None)
+ if entry is None or entry['sha256']!=p.get('sha256'):raise ValueError('Saved stage coordinates changed or are unavailable; read the outcomes again.')
+ path=coordinate_path(output,entry['file']);raw=path.read_bytes();structure=fe.mi.parse_structure(raw.decode(),'mmcif')
+ if not structure['atoms'] or fe.checksum(raw)!=entry['sha256']:raise ValueError('Stage coordinates are empty or changed during inspection.')
+ from bindcraft_provenance import chain_roles
+ roles=chain_roles(raw,structure)
+ stamp={'campaignId':job['id'],'stage':stage,'design':row['design'],'file':entry['file'],'coordinateSha256':entry['sha256'],'tableSha256':reading['sha256'],'recordedStageRow':row,'computationalAcceptance':'not_asserted','scope':'Original saved stage coordinates for inspection. This preview does not add an accepted design or certify scaffold/validation criteria.'}
+ key=fe.checksum(fe.canonical(stamp).encode());s=engine.s;dest=None
+ s.db.execute('BEGIN IMMEDIATE')
+ try:
+  for record in s.library({})['records']:
+   if record['project_id']==job['project_id'] and record['data'].get('metadata',{}).get('campaignStagePreviewKey')==key:
+    saved=s.root/'assets'/record['data']['asset']
+    if not saved.is_file() or fe.checksum(saved.read_bytes())!=entry['sha256']:raise ValueError('Earlier saved stage coordinate asset changed.')
+    s.db.rollback();return {'record':record,'state':'already_saved','scope':stamp['scope']}
+  if table(output/TABLES[stage])['sha256']!=reading['sha256'] or path.read_bytes()!=raw:raise ValueError('Stage output changed before the snapshot was saved.')
+  identity=fe.mi.uid();dest=s.root/'assets'/(identity+'.cif');dest.write_bytes(raw)
+  rejected=bool(row.get('terminated') or row.get('failed_filters') or row.get('outcome')=='rejected')
+  label=('Rejected ' if rejected else '')+('trajectory preview' if stage=='trajectories' else 'refold preview')+' · not accepted'
+  metadata={'campaignStagePreview':stamp,'campaignStagePreviewKey':key}
+  if roles:metadata['chainRoles']=roles;s.db.execute('INSERT INTO intelligence_assignments VALUES(?,?,?,?)',(identity,job['project_id'],json.dumps(roles),fe.mi.now()))
+  info={'asset':dest.name,'format':'mmcif','sha256':entry['sha256'],'source':'Saved BindCraft2 stage preview · acceptance not asserted','confidenceKind':None,'metadata':metadata,'imported':fe.mi.now()}
+  record={'id':identity,'project_id':job['project_id'],'kind':'structure','name':(label+' · '+row['design'])[:200],'data':info}
+  s.db.execute('INSERT INTO records VALUES(?,?,?,?,?,?)',(identity,job['project_id'],'structure',record['name'][:200],json.dumps(info),fe.mi.now()))
+  s.db.execute('UPDATE projects SET updated=? WHERE id=?',(fe.mi.now(),job['project_id']));s.db.commit()
+  return {'record':record,'state':'saved_for_inspection','scope':stamp['scope']}
+ except Exception:
+  s.db.rollback()
+  if dest is not None:dest.unlink(missing_ok=True)
+  raise
+
 def table(path):
  if not path.is_file():return {'rows':[],'count':0,'csv':None,'sha256':None}
  if path.is_symlink() or path.stat().st_size>5*1024**2:raise ValueError('Campaign table exceeds the bounded inspection scope or is a symlink.')
@@ -11,6 +87,7 @@ def table(path):
 def results(engine,p):
  if set(p)-{'id','projectId'}:raise ValueError('Unsupported campaign inspection field.')
  job=engine.campaign(p);output=engine.s.root/'jobs'/job['id']/'output';values={key:table(output/name) for key,name in TABLES.items()};state=output/'.campaign_state.json'
+ for stage,reading in values.items():reading['coordinates']=coordinates(output,stage,reading['rows'])
  return {'campaignId':job['id'],'state':job['state'],'tables':values,'claimedProgress':json.loads(state.read_text()) if state.is_file() and not state.is_symlink() else None,'scope':'Original upstream stage-table readings, preserved as written. Claimed attempts can include an interrupted trajectory with no completed row. Missing metrics are unreported; rejected candidates are not accepted designs.'}
 def manifest(output):
  files={};total=0
@@ -24,6 +101,7 @@ def manifest(output):
  return files
 
 def review(engine,p):
+ if p.get('operation')=='save_coordinates':return save_coordinates(engine,p)
  from mpnn import runtime
  from observatory import Observatory
  if set(p)-{'id','projectId','operation','table','metrics','expressions','higher'}:raise ValueError('Unsupported campaign review field.')

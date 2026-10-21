@@ -13,7 +13,7 @@ def validate(options,source,modality=None,input_kind=None):
  context_allowed={'autotune_loss_weights','compile_next_length'}|(CONFORMATION_WEIGHTS if modality in ('induced_fit','fold_switch') else set())|({'idr_crop_count'} if input_kind=='sequence' else set())
  blocked=set(options)&((RESERVED-context_allowed)|{entry['name'] for entry in property_catalog(source)})
  if blocked:raise ValueError('Use native campaign, format, property and execution controls for: '+', '.join(sorted(blocked)))
- for key in ('autotune_loss_weights','compile_next_length'):
+ for key in ('autotune_loss_weights','compile_next_length','save_design_trajectory','save_failed_trajectories'):
   if key in options and type(options[key]) is not bool:raise ValueError(key+' must be true or false.')
  for key in CONFORMATION_WEIGHTS&set(options):
   if type(options[key]) not in (int,float) or not math.isfinite(options[key]):raise ValueError('Conformational loss weights must be finite numbers.')

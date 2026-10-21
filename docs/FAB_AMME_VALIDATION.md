@@ -120,7 +120,7 @@ is preserved; matched-input controls do not certify independent trajectory ident
 | Original full scaffold and constraints | Verified working |
 | Full-length forward prediction | Verified working |
 | Full-length backward calculation | Verified working |
-| Multiple optimization steps | Verified working: two native full-size updates; full-run longevity and independent numerical-trajectory equivalence remain unverified |
+| Multiple optimization steps | Verified working: three native full-size updates; full-run longevity and independent numerical-trajectory equivalence remain unverified |
 | Complete original Fab trajectory | Partially verified: actual native campaign running |
 | Fab ProteinMPNN redesign | Not tested |
 | Fab held-out multimer validation | Not tested |
@@ -128,7 +128,7 @@ is preserved; matched-input controls do not certify independent trajectory ident
 | Accepted Fab generation | Not tested; none generated |
 | Native integration/export | Partially verified: launch/viewer/project/reopen pass; accepted Fab pending |
 
-Current regression evidence: 393 backend tests, 76 frontend tests, four AMME runtime
+Current regression evidence: 402 backend tests, 80 frontend tests, four AMME runtime
 tests and seven SSD runtime tests pass. Native/frontend build and local deep
 signature verification pass. Notarization remains deferred for local use.
 
@@ -138,3 +138,5 @@ Machine-readable evidence: `reports/amme-integration-status.json`,
 and `reports/amme-reference-perturbation-control.json`.
 The follow-up package/backend evidence is in `reports/amme-packaged-transport.json`
 and `reports/amme-fab-transport.json`.
+
+Saved trajectory/refold snapshots can now be copied into the existing Research Library for inspection, with recorded stage rows and explicit non-accepted labels. Three genuine saved standard-binder structures passed exact-byte library and project export checks; eight protocol tests cover lifecycle, tampering and rollback. New Fab preparations expose final-pose retention, recorded as original `save_design_trajectory` / `save_failed_trajectories` options. Explicit choices are preserved, scientific design identity is unchanged, and existing running campaigns retain their saved settings. These transport checks do not demonstrate completed or accepted Fab generation. See `reports/campaign-stage-coordinates.json` and `reports/amme-native-three-updates.json`.

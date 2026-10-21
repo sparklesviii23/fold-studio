@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "updatedUtc": "2026-10-20T23:52:30.729707+00:00",
+  "updatedUtc": "2026-10-21T00:10:47.990387+00:00",
   "scope": "Full Fab AMME development; complete feature is not certified. Local use; notarization deferred.",
   "fullFabComplete": false,
   "sourceRevision": "c0ee638d11bc010817c2c97ee58ed5c323e664e2",
@@ -226,8 +226,8 @@
     "scope": "One target state, unchanged complete original scaffold; conservative padded estimate\u2264608. Source scientific overrides remain saved, unsupported envelopes are refused."
   },
   "regression": {
-    "backendTests": 393,
-    "frontendTests": 76,
+    "backendTests": 402,
+    "frontendTests": 80,
     "runtimeAMMETests": 4,
     "runtimeSSDTapeTests": 7
   },
@@ -252,13 +252,13 @@
     "jobId": "b981bc11-4606-43be-a3f2-000f1d6406dd",
     "workerPid": 67111,
     "state": "running",
-    "lastObservedUtc": "2026-10-20T23:48:19.259626+00:00",
-    "peakFootprintBytes": 10980042040,
-    "completedGradients": 2,
+    "lastObservedUtc": "2026-10-21T00:10:47.990387+00:00",
+    "peakFootprintBytes": 11558708920,
+    "completedGradients": 3,
     "stage": "gradient_execution",
     "sourceCommit": "4e23650",
     "controllerSourceCommit": "4e23650",
-    "gradientCalls": 3
+    "gradientCalls": 4
   },
   "nativeFirstOptimizerUpdateEvidence": "reports/amme-native-package.json",
   "followUpIntegration": {
@@ -278,5 +278,7 @@
     "notificationPolicy": "failed_runs_only"
   },
   "idleContinuityEvidence": "reports/amme-idle-continuity.json",
-  "packagedIdleContinuityEvidence": "reports/amme-packaged-idle-continuity.json"
+  "packagedIdleContinuityEvidence": "reports/amme-packaged-idle-continuity.json",
+  "savedStageCoordinateEvidence": "reports/campaign-stage-coordinates.json",
+  "nativeThreeUpdateEvidence": "reports/amme-native-three-updates.json"
 }

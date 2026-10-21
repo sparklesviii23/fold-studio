@@ -1,13 +1,13 @@
 {
   "schemaVersion": 1,
-  "updatedUtc": "2026-10-20T23:52:30.729707+00:00",
+  "updatedUtc": "2026-10-21T00:10:47.990387+00:00",
   "branch": "project-metal/apple-silicon-engine",
-  "implementationCommit": "ace250d (native idle-sleep continuity), following07a7839(Fab transport/progress) and prior AMME/recovery code",
+  "implementationCommit": "Stage-coordinate inspection and new-Fab output retention, following985e16c; native package staging pending.",
   "scope": "Current directive: full Fab fidelity, AMME profiling/rematerialization/offload and remaining non-Fab inventory accounting; no UI redesign or unrelated scientific features.",
   "upstreamRevision": "c0ee638d11bc010817c2c97ee58ed5c323e664e2",
   "verified": {
-    "backendTests": 393,
-    "frontendTests": 76,
+    "backendTests": 402,
+    "frontendTests": 80,
     "typescript": "passed",
     "corePipeline": "Real 175-residue hPDL1 ensemble design + ProteinMPNN + held-out AF2 + original filters; one accepted computational prediction, no biological claim.",
     "campaignRecovery": "Actual CPU cancellation at claimed trajectory 2; original budget continues with rows 1,3,4 and no accepted designs.",
@@ -43,9 +43,10 @@
     "fabChainTransport": "Genuine559residue gradient diagnostic: both231/213antibody chains and full115residue observed target match reported/source sequences.9tests include rejection-before-write and exact import/project-export coordinate transport with explicitly synthetic completion receipts. No acceptedFab claim.",
     "longCampaignProgress": "Native service parses up to1MiB contextual log while returning only30000visible bytes;3tests cover long AMME logs, recovery boundary reset and unavailable-context refusal.",
     "stagedFabTransportPackage": "Actual07a7839staged ad-hoc signed package:46scientific Python source files match; bundled Python3.12.14 executes full original Fab preparation, genuine diagnostic transport and long-log protocol check. No GUI activation or model calculation in package test.",
-    "ammeRepeatedFullSizeUpdates": "Two actual native full-Fab original screen optimizer updates completed;54SSD checkpoints per step,8,657,242,520Bperstep,zero live tape aftereach. Third gradient originally samplesmodel5 aftertwo model3steps. Current observedpeak10.23GiB,14GiB cap unchanged. Full trajectory and continuous numerical equivalence remain unverified.",
+    "ammeRepeatedFullSizeUpdates": "Three actual original full Fab screen updates completed; fourth gradient running. Source/defaults untouched. Stage-boundary tape counter is not the current in-flight disk allocation. Peak and system pressure recorded by original worker. No complete trajectory, downstream FabMPNN, held-out validation or accepted-Fab claim.",
     "idleContinuity": "Native per-worker idle-sleep assertion implemented and9focused lifecycle tests pass. Actual older worker protected by a detached native caffeinate -i -w67111 assertion, automatically released on worker exit. Display sleep and permanent power settings unchanged.",
-    "stagedIdleContinuityPackage": "Actual signed staged ace250d bundle:all46scientific source file SHA-256 values match repo; packaged idle helper starts/releases its own assertion without ending its separate test child. Main scientific worker67111 and active app untouched."
+    "stagedIdleContinuityPackage": "Actual signed staged ace250d bundle:all46scientific source file SHA-256 values match repo; packaged idle helper starts/releases its own assertion without ending its separate test child. Main scientific worker67111 and active app untouched.",
+    "savedStageCoordinates": "Three genuine saved standard-binder snapshots saved idempotently with exact library/project coordinates; original job and acceptance unchanged. Eight refusal/rollback protocol tests pass. New Fab output options resolve through original source without changing scientific design identity; current campaign settings untouched."
   },
   "evidence": [
     "reports/bindcraft-ensemble-outcome.json",
@@ -101,7 +102,9 @@
     "reports/amme-fab-transport.json",
     "reports/amme-packaged-transport.json",
     "reports/amme-idle-continuity.json",
-    "reports/amme-packaged-idle-continuity.json"
+    "reports/amme-packaged-idle-continuity.json",
+    "reports/campaign-stage-coordinates.json",
+    "reports/amme-native-three-updates.json"
   ],
   "runtime": {
     "cpu": "../runtimes/jax-cpu/bin/python",
@@ -127,14 +130,18 @@
     "workerSourceCommit": "4e23650",
     "controllerSourceCommit": "4e23650",
     "state": "running",
-    "scope": "Two actual native original full Fab screen updates completed; third gradient executing. Preserve current scientific worker/owning bundle. Complete trajectory, downstream refolds and acceptedFab pending.",
-    "lastObservedUtc": "2026-10-20T23:48:19.259626+00:00",
-    "completedGradients": 2,
-    "gradientCalls": 3,
-    "peakFootprintBytes": 10980042040,
+    "scope": "Three actual original full Fab screen updates completed; fourth gradient running. Source/defaults untouched. Stage-boundary tape counter is not the current in-flight disk allocation. Peak and system pressure recorded by original worker. No complete trajectory, downstream FabMPNN, held-out validation or accepted-Fab claim.",
+    "lastObservedUtc": "2026-10-21T00:10:47.990387+00:00",
+    "completedGradients": 3,
+    "gradientCalls": 4,
+    "peakFootprintBytes": 11558708920,
     "stage": "gradient_execution"
   },
-  "activeBuild": null,
+  "activeBuild": {
+    "kind": "native release binary with existing viewer and new inspection controls",
+    "state": "running",
+    "activation": "deferred while original full Fab scientific worker remains alive"
+  },
   "latestVerifiedApp": "/Users/vii/Documents/FoldStudio-MetalPort/validation/Relocated Fab AMME Recovery Engine/FOLD STUDIO Metal Dev.app",
   "immediateNext": [
     "Use scripts/open-local-app.py for local app launches. Keep4e23650 controller while its scientific worker lives; do not activate differently sealed5b63a6e package concurrently.",
@@ -192,11 +199,11 @@
     "workerSourceCommit": "4e23650",
     "controllerSourceCommit": "4e23650",
     "state": "running",
-    "scope": "Two actual native original full Fab screen updates completed; third gradient executing. Preserve current scientific worker/owning bundle. Complete trajectory, downstream refolds and acceptedFab pending.",
-    "lastObservedUtc": "2026-10-20T23:48:19.259626+00:00",
-    "completedGradients": 2,
-    "gradientCalls": 3,
-    "peakFootprintBytes": 10980042040,
+    "scope": "Three actual original full Fab screen updates completed; fourth gradient running. Source/defaults untouched. Stage-boundary tape counter is not the current in-flight disk allocation. Peak and system pressure recorded by original worker. No complete trajectory, downstream FabMPNN, held-out validation or accepted-Fab claim.",
+    "lastObservedUtc": "2026-10-21T00:10:47.990387+00:00",
+    "completedGradients": 3,
+    "gradientCalls": 4,
+    "peakFootprintBytes": 11558708920,
     "stage": "gradient_execution"
   },
   "fabDeferredByUser": false,
