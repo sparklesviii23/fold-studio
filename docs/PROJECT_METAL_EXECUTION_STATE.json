@@ -1,8 +1,8 @@
 {
   "schemaVersion": 1,
-  "updatedUtc": "2026-10-21T00:10:47.990387+00:00",
+  "updatedUtc": "2026-10-21T00:13:31.604298+00:00",
   "branch": "project-metal/apple-silicon-engine",
-  "implementationCommit": "Stage-coordinate inspection and new-Fab output retention, following985e16c; native package staging pending.",
+  "implementationCommit": "43437a6",
   "scope": "Current directive: full Fab fidelity, AMME profiling/rematerialization/offload and remaining non-Fab inventory accounting; no UI redesign or unrelated scientific features.",
   "upstreamRevision": "c0ee638d11bc010817c2c97ee58ed5c323e664e2",
   "verified": {
@@ -46,7 +46,8 @@
     "ammeRepeatedFullSizeUpdates": "Three actual original full Fab screen updates completed; fourth gradient running. Source/defaults untouched. Stage-boundary tape counter is not the current in-flight disk allocation. Peak and system pressure recorded by original worker. No complete trajectory, downstream FabMPNN, held-out validation or accepted-Fab claim.",
     "idleContinuity": "Native per-worker idle-sleep assertion implemented and9focused lifecycle tests pass. Actual older worker protected by a detached native caffeinate -i -w67111 assertion, automatically released on worker exit. Display sleep and permanent power settings unchanged.",
     "stagedIdleContinuityPackage": "Actual signed staged ace250d bundle:all46scientific source file SHA-256 values match repo; packaged idle helper starts/releases its own assertion without ending its separate test child. Main scientific worker67111 and active app untouched.",
-    "savedStageCoordinates": "Three genuine saved standard-binder snapshots saved idempotently with exact library/project coordinates; original job and acceptance unchanged. Eight refusal/rollback protocol tests pass. New Fab output options resolve through original source without changing scientific design identity; current campaign settings untouched."
+    "savedStageCoordinates": "Three genuine saved standard-binder snapshots saved idempotently with exact library/project coordinates; original job and acceptance unchanged. Eight refusal/rollback protocol tests pass. New Fab output options resolve through original source without changing scientific design identity; current campaign settings untouched.",
+    "stagedStageInspectionPackage": "Full native interface rebuilt with43437a6;46Python files match committed source. Bundled Python3.12.14 passes three genuine stage imports/project roundtrips and two original Fab output-choice preparations. Deep strict ad-hoc signature passed. GUI activation remains deferred while67111 computes."
   },
   "evidence": [
     "reports/bindcraft-ensemble-outcome.json",
@@ -104,7 +105,9 @@
     "reports/amme-idle-continuity.json",
     "reports/amme-packaged-idle-continuity.json",
     "reports/campaign-stage-coordinates.json",
-    "reports/amme-native-three-updates.json"
+    "reports/amme-native-three-updates.json",
+    "reports/amme-packaged-stage-inspection.json",
+    "reports/campaign-stage-coordinates-packaged.json"
   ],
   "runtime": {
     "cpu": "../runtimes/jax-cpu/bin/python",
@@ -137,11 +140,7 @@
     "peakFootprintBytes": 11558708920,
     "stage": "gradient_execution"
   },
-  "activeBuild": {
-    "kind": "native release binary with existing viewer and new inspection controls",
-    "state": "running",
-    "activation": "deferred while original full Fab scientific worker remains alive"
-  },
+  "activeBuild": null,
   "latestVerifiedApp": "/Users/vii/Documents/FoldStudio-MetalPort/validation/Relocated Fab AMME Recovery Engine/FOLD STUDIO Metal Dev.app",
   "immediateNext": [
     "Use scripts/open-local-app.py for local app launches. Keep4e23650 controller while its scientific worker lives; do not activate differently sealed5b63a6e package concurrently.",
@@ -156,7 +155,8 @@
     "Fresh-machine installation and every property/modality/option combination remain unvalidated.",
     "Full Fab single forward/backward passed; two full-size original updates also passed; complete original trajectory/ProteinMPNN/held-out validation/acceptedFab remain unverified.",
     "Matched-input numerical comparisons pass fixed tolerances; independent two-update propagation diverges beyond them, reproduced by unmodified source at perturbed inputs. Continuous-trajectory numerical identity is not certified.",
-    "Experimental Fab currently uses CPU with SSD checkpoints, not a fully GPU-resident Metal execution."
+    "Experimental Fab currently uses CPU with SSD checkpoints, not a fully GPU-resident Metal execution.",
+    "Current older Fab job did not request save_design_trajectory; future preparation controls do not retrofit output retention into its running calculation. A rejected trajectory may therefore retain its original CSV without a coordinate snapshot."
   ],
   "uncommittedWork": null,
   "fabResourceFailure": {
@@ -247,12 +247,15 @@
   "localLaunchGuardCommit": "c64f543",
   "stagedUpdate": {
     "app": "/Users/vii/Documents/FoldStudio-MetalPort/validation/Staged Fab Transport Engine/FOLD STUDIO Metal Dev.app",
-    "sourceCommit": "ace250d",
-    "signature": "verified local ad-hoc",
-    "bundledBackend": "passed",
+    "sourceCommit": "43437a6",
+    "signature": "verified local ad-hoc deep strict",
+    "bundledBackend": "passed: exact stage structure/library/project roundtrip plus original Fab output-option preparation",
     "activation": "Deferred until older scientific worker and app window finish; use guarded launcher.",
     "pendingSourceChanges": [],
-    "bundledIdleHelperLifecycle": "passed"
+    "bundledIdleHelperLifecycle": "passed",
+    "nativeFrontend": "rebuilt from43437a6, tsc/vite/native release passed",
+    "bundledStageCoordinates": "reports/campaign-stage-coordinates-packaged.json",
+    "packageEvidence": "reports/amme-packaged-stage-inspection.json"
   },
   "backgroundFollowup": {
     "id": "continue-fold-studio-integration",

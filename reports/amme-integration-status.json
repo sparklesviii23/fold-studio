@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "updatedUtc": "2026-10-21T00:10:47.990387+00:00",
+  "updatedUtc": "2026-10-21T00:13:31.604298+00:00",
   "scope": "Full Fab AMME development; complete feature is not certified. Local use; notarization deferred.",
   "fullFabComplete": false,
   "sourceRevision": "c0ee638d11bc010817c2c97ee58ed5c323e664e2",
@@ -262,13 +262,15 @@
   },
   "nativeFirstOptimizerUpdateEvidence": "reports/amme-native-package.json",
   "followUpIntegration": {
-    "sourceCommit": "07a7839",
+    "sourceCommit": "43437a6",
     "fabChainTransportEvidence": "reports/amme-fab-transport.json",
     "packagedBackendEvidence": "reports/amme-packaged-transport.json",
     "longProgressContextBytes": 1048576,
     "visibleLogBytes": 30000,
     "activationDeferred": true,
-    "scope": "Staged backend checks are not a completed Fab design campaign."
+    "scope": "Staged backend checks are not a completed Fab design campaign.",
+    "packagedStageCoordinates": "reports/campaign-stage-coordinates-packaged.json",
+    "stagedNativePackage": "reports/amme-packaged-stage-inspection.json"
   },
   "backgroundFollowup": {
     "id": "continue-fold-studio-integration",
@@ -280,5 +282,6 @@
   "idleContinuityEvidence": "reports/amme-idle-continuity.json",
   "packagedIdleContinuityEvidence": "reports/amme-packaged-idle-continuity.json",
   "savedStageCoordinateEvidence": "reports/campaign-stage-coordinates.json",
-  "nativeThreeUpdateEvidence": "reports/amme-native-three-updates.json"
+  "nativeThreeUpdateEvidence": "reports/amme-native-three-updates.json",
+  "currentTrajectoryOutputLimitation": "Current older Fab job did not request save_design_trajectory; future preparation controls do not retrofit output retention into its running calculation. A rejected trajectory may therefore retain its original CSV without a coordinate snapshot."
 }
