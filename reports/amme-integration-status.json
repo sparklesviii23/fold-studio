@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "updatedUtc": "2026-10-21T00:13:31.604298+00:00",
+  "updatedUtc": "2026-10-21T00:29:29.565662+00:00",
   "scope": "Full Fab AMME development; complete feature is not certified. Local use; notarization deferred.",
   "fullFabComplete": false,
   "sourceRevision": "c0ee638d11bc010817c2c97ee58ed5c323e664e2",
@@ -23,12 +23,12 @@
     {
       "item": "Multi-step optimization",
       "status": "Verified working",
-      "evidence": "Two consecutive original full-Fab native screen optimizer updates completed with finite reported metrics, zero live tape after each, and10.23GiBobserved peak below14GiB. Third full gradient executing with original model5 after model3. This verifies repeated execution, not continuous-trajectory numerical equivalence or full campaign completion."
+      "evidence": "Four genuine full-Fab original screen updates completed with finite metrics and zero live SSD tape at each completed-step boundary; fifth gradient running. Peak10.76GiB remains below14GiB. This is repeated execution evidence, not a completed trajectory, leak-free full campaign or independent numerical-trajectory equivalence."
     },
     {
       "item": "Complete design trajectory",
       "status": "Partially verified",
-      "evidence": "Original full-Fab trajectory still running. Two original screen updates completed; third gradient started. All50/25/45/5/15rounds retained. No complete trajectory, held-out validation or acceptedFab yet."
+      "evidence": "Original full Fab trajectory running; four screen updates completed, fifth gradient executing. Original50/25/45/5/15stage budgets retained. No completed trajectory or downstream Fab results."
     },
     {
       "item": "ProteinMPNN",
@@ -252,13 +252,13 @@
     "jobId": "b981bc11-4606-43be-a3f2-000f1d6406dd",
     "workerPid": 67111,
     "state": "running",
-    "lastObservedUtc": "2026-10-21T00:10:47.990387+00:00",
+    "lastObservedUtc": "2026-10-21T00:29:29.565662+00:00",
     "peakFootprintBytes": 11558708920,
-    "completedGradients": 3,
+    "completedGradients": 4,
     "stage": "gradient_execution",
     "sourceCommit": "4e23650",
     "controllerSourceCommit": "4e23650",
-    "gradientCalls": 4
+    "gradientCalls": 5
   },
   "nativeFirstOptimizerUpdateEvidence": "reports/amme-native-package.json",
   "followUpIntegration": {
@@ -283,5 +283,6 @@
   "packagedIdleContinuityEvidence": "reports/amme-packaged-idle-continuity.json",
   "savedStageCoordinateEvidence": "reports/campaign-stage-coordinates.json",
   "nativeThreeUpdateEvidence": "reports/amme-native-three-updates.json",
-  "currentTrajectoryOutputLimitation": "Current older Fab job did not request save_design_trajectory; future preparation controls do not retrofit output retention into its running calculation. A rejected trajectory may therefore retain its original CSV without a coordinate snapshot."
+  "currentTrajectoryOutputLimitation": "Current older Fab job did not request save_design_trajectory; future preparation controls do not retrofit output retention into its running calculation. A rejected trajectory may therefore retain its original CSV without a coordinate snapshot.",
+  "nativeProgressEvidence": "reports/amme-native-progress.json"
 }

@@ -1,0 +1,122 @@
+{
+  "recordedUtc": "2026-10-21T00:29:29.565662+00:00",
+  "state": "running",
+  "root": "/Users/vii/Documents/FoldStudio-MetalPort/validation/bindcraft-fab-amme-native",
+  "jobId": "b981bc11-4606-43be-a3f2-000f1d6406dd",
+  "workerSourceCommit": "4e23650",
+  "logSnapshotSha256": "f2e09f261824af567e9a6cfcad52f40ba09fadde9533f51b5c8aff3724645984",
+  "logSnapshotBytes": 12214,
+  "completedGradients": 4,
+  "gradientCalls": 5,
+  "steps": [
+    {
+      "step": 1,
+      "model": "model_3_multimer_v3",
+      "gradientExecutionSeconds": 1260.714681457961,
+      "completedStepSSDLiveBytes": 0,
+      "cumulativeSSDBytesWritten": 8657242520,
+      "originalOptimizerEvent": {
+        "stage": "screen",
+        "sequenceUpdates": 1,
+        "metrics": {
+          "target.binder_coldspot": -9.774319648742676,
+          "target.binder_contacts": 1.4159966707229614,
+          "target.binder_helicity": -2.1208081245422363,
+          "target.binder_pae": 0.0759948268532753,
+          "target.compactness": 1.0056748390197754,
+          "target.interface_contacts": 4.736969470977783,
+          "target.interface_pae": 0.08619143813848495,
+          "target.iptm": 0.17332930862903595,
+          "target.iptm_loss": 0.04133353754878044,
+          "target.plddt_loss": 0.03513450548052788,
+          "target.ptm": 0.7348610162734985
+        }
+      }
+    },
+    {
+      "step": 2,
+      "model": "model_3_multimer_v3",
+      "gradientExecutionSeconds": 984.5981075421441,
+      "completedStepSSDLiveBytes": 0,
+      "cumulativeSSDBytesWritten": 17314485040,
+      "originalOptimizerEvent": {
+        "stage": "screen",
+        "sequenceUpdates": 2,
+        "metrics": {
+          "target.binder_coldspot": -9.547579765319824,
+          "target.binder_contacts": 1.4569242000579834,
+          "target.binder_helicity": -2.0763399600982666,
+          "target.binder_pae": 0.07945848256349564,
+          "target.compactness": 1.0423474311828613,
+          "target.interface_contacts": 4.460386753082275,
+          "target.interface_pae": 0.083282969892025,
+          "target.iptm": 0.20670410990715027,
+          "target.iptm_loss": 0.03966479375958443,
+          "target.plddt_loss": 0.041726600378751755,
+          "target.ptm": 0.7370887994766235
+        }
+      }
+    },
+    {
+      "step": 3,
+      "model": "model_5_multimer_v3",
+      "gradientExecutionSeconds": 929.1803950839676,
+      "completedStepSSDLiveBytes": 0,
+      "cumulativeSSDBytesWritten": 25971727560,
+      "originalOptimizerEvent": {
+        "stage": "screen",
+        "sequenceUpdates": 3,
+        "metrics": {
+          "target.binder_coldspot": -10.736520767211914,
+          "target.binder_contacts": 1.4444435834884644,
+          "target.binder_helicity": -2.0714404582977295,
+          "target.binder_pae": 0.07957789301872253,
+          "target.compactness": 1.0085721015930176,
+          "target.interface_contacts": 4.071596145629883,
+          "target.interface_pae": 0.07499591261148453,
+          "target.iptm": 0.2807309925556183,
+          "target.iptm_loss": 0.035963453352451324,
+          "target.plddt_loss": 0.042071420699357986,
+          "target.ptm": 0.745227038860321
+        }
+      }
+    },
+    {
+      "step": 4,
+      "model": "model_1_multimer_v3",
+      "gradientExecutionSeconds": 971.9279994580429,
+      "completedStepSSDLiveBytes": 0,
+      "cumulativeSSDBytesWritten": 34628970080,
+      "originalOptimizerEvent": {
+        "stage": "screen",
+        "sequenceUpdates": 4,
+        "metrics": {
+          "target.binder_coldspot": -10.231817245483398,
+          "target.binder_contacts": 1.444985270500183,
+          "target.binder_helicity": -1.9656684398651123,
+          "target.binder_pae": 0.08426210284233093,
+          "target.compactness": 0.997645914554596,
+          "target.interface_contacts": 4.592742443084717,
+          "target.interface_pae": 0.08492962270975113,
+          "target.iptm": 0.18377454578876495,
+          "target.iptm_loss": 0.04081127420067787,
+          "target.plddt_loss": 0.04003153368830681,
+          "target.ptm": 0.7143161296844482
+        }
+      }
+    }
+  ],
+  "peakFootprintBytes": 11558708920,
+  "memoryCeilingBytes": 15032385536,
+  "latestSample": {
+    "residentBytes": 6787989504,
+    "physicalFootprintBytes": 10691650728,
+    "processStartAbstime": 38774519356368,
+    "elapsedSeconds": 4946.410174416145,
+    "stage": "gradient_execution",
+    "systemMemoryPressureLevel": 1,
+    "swapUsage": "total = 8192.00M  used = 6941.94M  free = 1250.06M  (encrypted)"
+  },
+  "scope": "Four genuine full-Fab original screen updates completed with finite metrics and zero live SSD tape at each completed-step boundary; fifth gradient running. Peak10.76GiB remains below14GiB. This is repeated execution evidence, not a completed trajectory, leak-free full campaign or independent numerical-trajectory equivalence.",
+  "fullFabCampaignComplete": false
+}

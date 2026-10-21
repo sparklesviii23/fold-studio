@@ -120,7 +120,7 @@ is preserved; matched-input controls do not certify independent trajectory ident
 | Original full scaffold and constraints | Verified working |
 | Full-length forward prediction | Verified working |
 | Full-length backward calculation | Verified working |
-| Multiple optimization steps | Verified working: three native full-size updates; full-run longevity and independent numerical-trajectory equivalence remain unverified |
+| Multiple optimization steps | Verified working: four native full-size updates; full-run longevity and independent numerical-trajectory equivalence remain unverified |
 | Complete original Fab trajectory | Partially verified: actual native campaign running |
 | Fab ProteinMPNN redesign | Not tested |
 | Fab held-out multimer validation | Not tested |
