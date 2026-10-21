@@ -5,10 +5,12 @@ validated adapter, not by this memory policy. Original models, sampling, losses,
 optimizers, filters, and rejection decisions remain owned by BindCraft2.
 """
 import contextlib
+import gc
 import json
 import os
 import pathlib
 import time
+import weakref
 
 POLICY = 'fab-cpu-ssd-v1'
 NATIVE_ENABLED = True  # Experimental: full gradient + matched-input repeated-step validation; complete trajectory validation remains pending.
@@ -54,6 +56,37 @@ class FabSession:
         self.last_model = None
         self.prevent_cse = prevent_cse
         self.attention_only = attention_only
+        self.models = weakref.WeakSet()
+        self.prediction_cache_releases = 0
+
+    def release_prediction_caches(self):
+        """Drop executables at a synchronized inference boundary, never arrays/RNG.
+
+        Full Fab validation alternates the bound complex and unbound antibody.
+        Removing a closure from the upstream LRU alone does not promptly reclaim
+        all JAX compilation references. Retained executables exhausted the task
+        ceiling on the next held-out model in the genuine full-size test.
+        """
+        import jax
+        jax.effects_barrier()
+        released = 0
+        for model in list(self.models):
+            for name in ('prediction_compile_cache', 'gradient_compile_cache'):
+                cache = getattr(model, name, None)
+                functions = getattr(cache, 'compiled_functions', None)
+                if functions is not None:
+                    for function in list(functions.values()):
+                        clear = getattr(function, 'clear_cache', None)
+                        if clear is not None:
+                            clear()
+                        released += 1
+                    functions.clear()
+        jax.clear_caches()
+        gc.collect()
+        self.prediction_cache_releases += 1
+        session_details = {'releasedCompileFunctions': released,
+                           'predictionCacheReleases': self.prediction_cache_releases}
+        self.stage('prediction_caches_released', **session_details)
 
     def stage(self, stage, **details):
         value = {'policy': POLICY, 'stage': stage, 'monotonicSeconds': time.monotonic(),
@@ -83,6 +116,8 @@ class FabSession:
                 # Shape/family compile caches do not change scientific settings.
                 kwargs['max_cache_size'] = 1
                 super().__init__(*args, **kwargs)
+                session.models.add(self)
+                self._fold_first_prediction = True
                 if hasattr(self,'model_parameters'):
                     import jax
                     session.stage('model_parameters_loaded',modelPool=list(self.models),
@@ -145,10 +180,18 @@ class FabSession:
                     raise
 
             def predict(self, *args, **kwargs):
-                import jax
+                states = args[0] if args else kwargs['protein_states']
+                multiple_states = len(states) > 1
+                # The source model remains responsible for model/RNG selection.
+                # No extra model resolution or stochastic call is introduced.
+                if self._fold_first_prediction or multiple_states:
+                    session.release_prediction_caches()
+                    self._fold_first_prediction = False
                 session.stage('structure_prediction')
                 result = super().predict(*args, **kwargs)
                 synchronize_predictions(result)
+                if multiple_states:
+                    session.release_prediction_caches()
                 session.stage('structure_prediction_completed')
                 return result
 

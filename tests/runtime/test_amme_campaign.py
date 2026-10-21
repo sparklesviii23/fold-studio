@@ -4,6 +4,7 @@ import pathlib
 import sys
 import tempfile
 import unittest
+from types import SimpleNamespace
 
 ROOT=pathlib.Path(__file__).resolve().parents[2]
 sys.path[:0]=[str(ROOT/'scientific'),str(ROOT/'vendor/bindcraft2')]
@@ -13,9 +14,44 @@ import jax.numpy as jnp
 import numpy as np
 from bindcraft.af.alphafold.model import layer_stack
 from amme_campaign import FabSession
+from bindcraft.prediction import CompiledModelCache
 
 
 class SessionLifecycle(unittest.TestCase):
+    def test_multistate_prediction_releases_executables_preserves_output_and_rng(self):
+        class PredictionCalculation:
+            def __init__(self, **kwargs):
+                self.prediction_compile_cache = CompiledModelCache(kwargs['max_cache_size'])
+                self.gradient_compile_cache = CompiledModelCache(kwargs['max_cache_size'])
+                self.key = jax.random.PRNGKey(7)
+            def predict(self, protein_states, model=None):
+                self.key, key = jax.random.split(self.key)
+                result = {}
+                for name, value in protein_states.items():
+                    operation = jax.jit(lambda x: jnp.sin(x) + jax.random.uniform(key, x.shape))
+                    self.prediction_compile_cache.set(name, operation)
+                    atoms = operation(value)
+                    protein = SimpleNamespace(atoms=atoms,atom_mask=jnp.ones_like(atoms),sequence=value)
+                    result[name] = SimpleNamespace(protein_complex={'chain':protein},metrics={'mean':atoms.mean()})
+                return result
+        states={'target':jnp.ones((8,3)), 'binder_alone':jnp.ones((5,3))}
+        reference=PredictionCalculation(max_cache_size=1)
+        with tempfile.TemporaryDirectory() as directory:
+            path=pathlib.Path(directory)
+            session=FabSession(path,identity={'scope':'prediction cache lifecycle'},stage_path=path/'stage.json')
+            model=session.model_type(PredictionCalculation)()
+            try:
+                for heldout in ('model_2_multimer_v3','model_4_multimer_v3'):
+                    expected=reference.predict(states,model=heldout)
+                    actual=model.predict(states,model=heldout)
+                    for state in states:
+                        np.testing.assert_array_equal(actual[state].protein_complex['chain'].atoms,expected[state].protein_complex['chain'].atoms)
+                    np.testing.assert_array_equal(model.key,reference.key)
+                    self.assertFalse(model.prediction_compile_cache.compiled_functions)
+                    self.assertFalse(model.gradient_compile_cache.compiled_functions)
+                self.assertEqual(session.prediction_cache_releases,4)
+            finally:session.tape.close()
+
     def test_original_scan_repeated_gradients_expire_only_completed_step(self):
         def function(x):
             return layer_stack.layer_stack(4)(hk.remat(lambda value:jnp.tanh(hk.Linear(8)(value))))(x).sum()
