@@ -9,7 +9,7 @@ ROOT=pathlib.Path(__file__).resolve().parents[1];sys.path[:0]=[str(ROOT/'scienti
 from cloud_compute import CloudCompute
 from rapid_remote import RapidRemote
 from fold_rapid.contracts import digest
-parser=__import__('argparse').ArgumentParser();parser.add_argument('--image',default='fold-rapid:0.2.0-core');parser.add_argument('--report',type=pathlib.Path,default=ROOT/'reports/rapid-container-validation.json');args=parser.parse_args()
+parser=__import__('argparse').ArgumentParser();parser.add_argument('--image',default='fold-rapid:0.2.0-core');parser.add_argument('--report',type=pathlib.Path,default=ROOT/'reports/rapid-container-validation.json');parser.add_argument('--managed-python',action='store_true');args=parser.parse_args()
 def docker(*a,**kw):return subprocess.run(['/opt/homebrew/bin/docker' if sys.platform=='darwin' else 'docker',*a],check=True,capture_output=True,text=True,**kw)
 with tempfile.TemporaryDirectory(prefix='fold-rapid-container-') as temp:
  root=pathlib.Path(temp);container=None
@@ -41,17 +41,19 @@ with tempfile.TemporaryDirectory(prefix='fold-rapid-container-') as temp:
   replay=remote.call(entry,'job_submit',payload);assert replay['jobId']==idjob and replay['created'] is False
   artifacts=remote.call(entry,'artifact_list',{'jobId':idjob})['artifacts'];package=next(a for a in artifacts if a['path']=='results.zip')
   data=remote.call(entry,'artifact_read',{'jobId':idjob,'path':'results.zip','length':196608});raw=base64.b64decode(data['contentBase64']);assert digest(raw)==data['chunkSha256']==package['sha256']
-  installation=remote.gpu_rapid_install({'id':id,'approved':True});assert installation['state']=='installing'
+  installation=remote.gpu_rapid_install({'id':id,'approved':True,'preferManagedPython':args.managed_python});assert installation['state']=='installing'
   for _ in range(90):
    installed=remote.gpu_rapid_status({'id':id})
    if installed['state'] in ('installed','failed'):break
    time.sleep(1)
   assert installed['state']=='installed',installed
+  interpreter=cloud.ssh(entry,shlex.quote(installed['python'])+' -I -B -c '+shlex.quote('import json,sys;print(json.dumps({"basePrefix":sys.base_prefix,"python":sys.version.split()[0]}))'),{})
+  if args.managed_python:assert '/python/cpython-3.12.14-' in interpreter['basePrefix'],interpreter
   # Route B updates activate into their own prefix, preserving Route A data.
   assert remote.call(entry,'job_status',{'jobId':idjob})['state']=='completed'
   for operation,payload in [('job_cancel',{'jobId':idjob}),('worker_shutdown',{})]:remote.call(entry,operation,payload)
   image=json.loads(docker('image','inspect',args.image).stdout)[0]
-  result={'state':'passed','scope':'Actual AMD64 CUDA-base container, no GPU. Original 115-residue hPDL1 structure analysis; not a model prediction.','imageId':image['Id'],'repoDigests':image.get('RepoDigests',[]),'architecture':image['Architecture'],'workerVersion':health['workerVersion'],'realAuthenticatedSSH':True,'independentHostFingerprint':True,'clientDisconnectedJobSurvived':True,'idempotency':True,'realMolecularResidues':115,'resultArchiveSha256':package['sha256'],'existingInstanceBootstrap':installed,'bootstrapPreservedExistingJobs':True,'cudaScientificExecution':'NOT RUN: NVIDIA hardware unavailable','modelsDownloaded':False,'researchIncludedInImage':False}
+  result={'state':'passed','scope':'Actual AMD64 CUDA-base container, no GPU. Original 115-residue hPDL1 structure analysis; not a model prediction.','imageId':image['Id'],'repoDigests':image.get('RepoDigests',[]),'architecture':image['Architecture'],'workerVersion':health['workerVersion'],'realAuthenticatedSSH':True,'independentHostFingerprint':True,'clientDisconnectedJobSurvived':True,'idempotency':True,'realMolecularResidues':115,'resultArchiveSha256':package['sha256'],'existingInstanceBootstrap':installed,'bootstrapInterpreter':interpreter,'managedPythonBootstrap':args.managed_python,'bootstrapPreservedExistingJobs':True,'cudaScientificExecution':'NOT RUN: NVIDIA hardware unavailable','modelsDownloaded':False,'researchIncludedInImage':False}
  except Exception as e:result={'state':'failed','reason':str(e)}
  finally:
   if container:docker('rm','--force',container)

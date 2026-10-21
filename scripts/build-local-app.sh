@@ -17,8 +17,7 @@ if [[ -e "$repository/../runtime-build" ]]; then
   exit 1
 fi
 cleanup() {
-  rm -rf "$CARGO_TARGET_DIR"
-  rm -rf "$repository/../runtime-build"
+  python3 "$repository/scripts/maintain-local-storage.py"
   rmdir "$repository/../.current-build-lock"
 }
 trap cleanup EXIT

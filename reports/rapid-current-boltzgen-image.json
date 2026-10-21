@@ -1,0 +1,107 @@
+[
+    {
+        "Id": "sha256:e6cd3218b23bd0bc42ac2bd471e1820fb71be0f05f414cfef049d1ce7464b7f1",
+        "RepoTags": [
+            "fold-rapid:current-boltzgen"
+        ],
+        "RepoDigests": [
+            "fold-rapid@sha256:e6cd3218b23bd0bc42ac2bd471e1820fb71be0f05f414cfef049d1ce7464b7f1"
+        ],
+        "Comment": "buildkit.dockerfile.v0",
+        "Created": "2026-10-21T23:27:02.196003066+03:00",
+        "Config": {
+            "Env": [
+                "PATH=/opt/fold-rapid/bin:/usr/local/nvidia/bin:/usr/local/cuda/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin",
+                "NVARCH=x86_64",
+                "NVIDIA_REQUIRE_CUDA=cuda>=13.0 brand=unknown,driver>=535,driver<536 brand=grid,driver>=535,driver<536 brand=tesla,driver>=535,driver<536 brand=nvidia,driver>=535,driver<536 brand=quadro,driver>=535,driver<536 brand=quadrortx,driver>=535,driver<536 brand=nvidiartx,driver>=535,driver<536 brand=vapps,driver>=535,driver<536 brand=vpc,driver>=535,driver<536 brand=vcs,driver>=535,driver<536 brand=vws,driver>=535,driver<536 brand=cloudgaming,driver>=535,driver<536 brand=unknown,driver>=550,driver<551 brand=grid,driver>=550,driver<551 brand=tesla,driver>=550,driver<551 brand=nvidia,driver>=550,driver<551 brand=quadro,driver>=550,driver<551 brand=quadrortx,driver>=550,driver<551 brand=nvidiartx,driver>=550,driver<551 brand=vapps,driver>=550,driver<551 brand=vpc,driver>=550,driver<551 brand=vcs,driver>=550,driver<551 brand=vws,driver>=550,driver<551 brand=cloudgaming,driver>=550,driver<551 brand=unknown,driver>=565,driver<566 brand=grid,driver>=565,driver<566 brand=tesla,driver>=565,driver<566 brand=nvidia,driver>=565,driver<566 brand=quadro,driver>=565,driver<566 brand=quadrortx,driver>=565,driver<566 brand=nvidiartx,driver>=565,driver<566 brand=vapps,driver>=565,driver<566 brand=vpc,driver>=565,driver<566 brand=vcs,driver>=565,driver<566 brand=vws,driver>=565,driver<566 brand=cloudgaming,driver>=565,driver<566 brand=unknown,driver>=570,driver<571 brand=grid,driver>=570,driver<571 brand=tesla,driver>=570,driver<571 brand=nvidia,driver>=570,driver<571 brand=quadro,driver>=570,driver<571 brand=quadrortx,driver>=570,driver<571 brand=nvidiartx,driver>=570,driver<571 brand=vapps,driver>=570,driver<571 brand=vpc,driver>=570,driver<571 brand=vcs,driver>=570,driver<571 brand=vws,driver>=570,driver<571 brand=cloudgaming,driver>=570,driver<571 brand=unknown,driver>=575,driver<576 brand=grid,driver>=575,driver<576 brand=tesla,driver>=575,driver<576 brand=nvidia,driver>=575,driver<576 brand=quadro,driver>=575,driver<576 brand=quadrortx,driver>=575,driver<576 brand=nvidiartx,driver>=575,driver<576 brand=vapps,driver>=575,driver<576 brand=vpc,driver>=575,driver<576 brand=vcs,driver>=575,driver<576 brand=vws,driver>=575,driver<576 brand=cloudgaming,driver>=575,driver<576",
+                "NV_CUDA_CUDART_VERSION=13.0.96-1",
+                "CUDA_VERSION=13.0.2",
+                "LD_LIBRARY_PATH=/usr/local/nvidia/lib:/usr/local/nvidia/lib64:/usr/local/cuda/lib64",
+                "NVIDIA_VISIBLE_DEVICES=all",
+                "NVIDIA_DRIVER_CAPABILITIES=compute,utility",
+                "NV_CUDA_LIB_VERSION=13.0.2-1",
+                "NV_NVTX_VERSION=13.0.85-1",
+                "NV_LIBNPP_VERSION=13.0.1.2-1",
+                "NV_LIBNPP_PACKAGE=libnpp-13-0=13.0.1.2-1",
+                "NV_LIBCUSPARSE_VERSION=12.6.3.3-1",
+                "NV_LIBCUBLAS_PACKAGE_NAME=libcublas-13-0",
+                "NV_LIBCUBLAS_VERSION=13.1.0.3-1",
+                "NV_LIBCUBLAS_PACKAGE=libcublas-13-0=13.1.0.3-1",
+                "NV_LIBNCCL_PACKAGE_NAME=libnccl2",
+                "NV_LIBNCCL_PACKAGE_VERSION=2.28.3-1",
+                "NCCL_VERSION=2.28.3-1",
+                "NV_LIBNCCL_PACKAGE=libnccl2=2.28.3-1+cuda13.0",
+                "NVIDIA_PRODUCT_NAME=CUDA",
+                "DEBIAN_FRONTEND=noninteractive",
+                "PYTHONUNBUFFERED=1",
+                "RAPID_ROOT=/data/rapid",
+                "RAPID_RELEASE_DIR=/opt/fold-rapid-release",
+                "RAPID_DEFAULT_CONFIG=/opt/fold-rapid-defaults/config.json"
+            ],
+            "Entrypoint": [
+                "/usr/local/bin/rapid-start"
+            ],
+            "Cmd": [
+                "serve-ssh"
+            ],
+            "WorkingDir": "/data",
+            "Labels": {
+                "maintainer": "NVIDIA CORPORATION <cudatools@nvidia.com>",
+                "org.opencontainers.image.ref.name": "ubuntu",
+                "org.opencontainers.image.version": "24.04"
+            },
+            "ArgsEscaped": true,
+            "Healthcheck": {
+                "Test": [
+                    "CMD",
+                    "fold-rapid",
+                    "health"
+                ],
+                "Interval": 60000000000,
+                "Timeout": 15000000000
+            }
+        },
+        "Architecture": "amd64",
+        "Os": "linux",
+        "Size": 9319159513,
+        "RootFS": {
+            "Type": "layers",
+            "Layers": [
+                "sha256:073ec47a8c22dcaa4d6e5758799ccefe2f9bde943685830b1bf6fd2395f5eabc",
+                "sha256:18241330a2d180465d0b9868e4978456293d37da715de2f313ba08862da2aab1",
+                "sha256:b5c4de646bbad7dd50f917376023047d99ff9a1e806943dd86799e933b6a6294",
+                "sha256:dab2da33fe40a74d9faf939b829b701aa6cfc6b4502ff68fcf716fd2973697ac",
+                "sha256:b7ec8fd7c485bbedbe64cbc5a7a810ceabb9156e95c83ba60596ddb9b4955d48",
+                "sha256:22df1df9d58183ec065e0fa94fcd40cb766996112c4bab9cc71a31641b35e786",
+                "sha256:3c02fbcccafe1992dbe02745dc79732859f6a23ec5018ee0a25a3ca6b2bd7b74",
+                "sha256:48371d64208fb38d456b6b0ad8c40f72545e9bccacf0669bb84dbacb4f33951f",
+                "sha256:9bc297f160204a5b832f1ad00d94228b41ed65aeb7f12bab2ca35f0efdd0e05f",
+                "sha256:a394a4b7d8781458e6b1ae7d71d39168a3924b0fd1b833315b38f0542466f53f",
+                "sha256:8407edda8ced5271417cd642f29f2e7eb7bd8fb84d88d83686c4acc8efb48765",
+                "sha256:27f1cc00ddd8cdc3a71ff7c61e16869384ff3c8b592f754ad526e96cca5d01ab",
+                "sha256:e67b3aaafa9a8e85b1019d7c6d93fe73a3ea76c083afe3712a6202a330454560",
+                "sha256:b073c6cee15f7d512cc20488e0577f2917ab8a45a2c61665efd1560dcd76ea61",
+                "sha256:5f70bf18a086007016e948b04aed3b82103a36bea41755b6cddfaf10ace3c6ef",
+                "sha256:d7d23741d87cf3078afa8c7ee4488d89791ceedf7165bb6a20c111350fbfe15b",
+                "sha256:5f70bf18a086007016e948b04aed3b82103a36bea41755b6cddfaf10ace3c6ef",
+                "sha256:5f70bf18a086007016e948b04aed3b82103a36bea41755b6cddfaf10ace3c6ef"
+            ]
+        },
+        "Metadata": {
+            "LastTagTime": "2026-10-21T20:31:29.826056371Z"
+        },
+        "Descriptor": {
+            "mediaType": "application/vnd.oci.image.index.v1+json",
+            "digest": "sha256:e6cd3218b23bd0bc42ac2bd471e1820fb71be0f05f414cfef049d1ce7464b7f1",
+            "size": 856
+        },
+        "Identity": {
+            "Build": [
+                {
+                    "Ref": "n46tp5wrtz3k9hrvaid5tqhp5",
+                    "CreatedAt": "2026-10-21T23:31:29.828568008+03:00"
+                }
+            ]
+        }
+    }
+]

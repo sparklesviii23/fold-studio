@@ -125,6 +125,28 @@ class RapidWorkerTest(unittest.TestCase):
                 if state in TERMINAL:break
                 time.sleep(.05)
             self.assertEqual(state,'deadline_exceeded')
+    def test_active_process_is_terminated_by_cancel_and_deadline(self):
+        # Process-control fixture only. No substitute molecular result/model.
+        import os
+        for reason in ('cancel','deadline'):
+            with self.subTest(reason=reason):
+                value=fixture();value['budget']['seconds']=1 if reason=='deadline' else 30
+                id=self.worker.store.submit(value,'active-'+reason)['jobId']
+                code="from pathlib import Path;import sys;from fold_rapid import runner;runner.prepare=lambda root,folder,manifest:{'command':[sys.executable,'-c','import time;time.sleep(60)'],'environment':{},'models':{}};runner.execute(Path(sys.argv[1]),sys.argv[2])"
+                import os
+                process=subprocess.Popen([sys.executable,'-c',code,str(self.root),id],env={**os.environ,'PYTHONPATH':str(ROOT/'remote_worker')},stdout=subprocess.DEVNULL,stderr=subprocess.DEVNULL)
+                try:
+                    until=time.monotonic()+10
+                    while time.monotonic()<until and self.worker.store.get(id)['state']!='running':time.sleep(.02)
+                    self.assertEqual(self.worker.store.get(id)['state'],'running')
+                    child=next(e['childPid'] for e in self.worker.store.events(id) if e['kind']=='started')
+                    if reason=='cancel':self.worker.store.cancel(id)
+                    self.assertEqual(process.wait(timeout=12),0)
+                    self.assertEqual(self.worker.store.get(id)['state'],'cancelled' if reason=='cancel' else 'deadline_exceeded')
+                    with self.assertRaises(ProcessLookupError):os.kill(child,0)
+                    self.assertTrue((self.worker.store.folder(id)/'results.zip').is_file())
+                finally:
+                    if process.poll() is None:process.kill();process.wait()
     def test_bindcraft_translation_preserves_scientific_overrides(self):
         from fold_rapid.adapters import prepare
         m=fixture();m.update(engine='bindcraft2',operation='design',settings={'weights_iptm_loss':0.1,'filters':{'pLDDT':{'threshold':0.8}}})

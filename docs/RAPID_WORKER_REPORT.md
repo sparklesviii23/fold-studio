@@ -103,6 +103,24 @@ ESMFold2 and ESMC repositories have immutable revisions and file hashes.
 The AlphaFold member checksums originate from the earlier TLS-fetched official
 archive, not independently published provider member checksums.
 
+The updated native app was installed **in place**, then connected through its
+actual Cloud Compute controls to the current Linux AMD64 worker. It reported
+worker 0.2.0/x86_64 and correctly unqualified CUDA. The real 154-residue library
+target was parsed locally as A50/B50/C54 without transfer. ProteinMPNN's explicit
+chain-role controls were checked. Its sequence-only results now import as
+separate, checksummed library sequence records per chain; they are not mislabeled
+as newly predicted structures. The temporary SSH profile/container/key were removed.
+
+BoltzGen output collection now selects the native `refold_cif` stage rather than
+whichever same-named backbone a filesystem traversal returns first. Conflicting
+outputs are refused. Failure and interruption diagnostics remain exportable with
+checksums; hashing streams large artifacts without reading each whole file into RAM.
+
+The current AMD64 artifact also passed the **managed CPython 3.12.14** bootstrap
+route, with its actual interpreter prefix verified, preserving the existing job
+database through activation. No host Python was replaced. This extends the earlier
+system-Python bootstrap evidence.
+
 Full BoltzGen includes approximately 33 GB of checkpoints/data plus its separate
 environments; keep at least 50 GiB free before its model installation. BindCraft
 model installation requires at least 16 GiB free. **These model downloads were
@@ -121,8 +139,33 @@ Actual evidence is recorded in:
   original settings resolver and original model pools/schedule. Input bytes are
   unchanged. This is not the full physiological ANGPTL3/ANGPTL8 assembly.
 - `reports/rapid-gpu-qualification.json`: NVIDIA-dependent tests are **NOT RUN**.
+- `reports/rapid-boltzgen-imports.json` and `reports/rapid-esmfold2-imports.json`: actual Linux AMD64 scientific image built; fresh-container entry-point imports passed without checkpoints.
+- `reports/rapid-bindcraft-imports.json`: earlier actual Linux AMD64 BindCraft2 runtime imports passed with the same upstream source/dependency pins; CUDA initialization on the no-GPU host was unavailable.
 - `reports/rapid-scientific-release.json`: final image/package versions, digests,
   tests, native package and remaining acceptance items.
+- `reports/rapid-current-container-validation.json`: current source commit's
+  actual AMD64 SSH/bootstrap, managed Python, persistent job and archive tests.
+- `reports/rapid-scientific-native-package.json`: installed current app,
+  all 48 Python resources and source-only worker archive match; saved 1 project,
+  11 structures and 7 jobs; actual native SSH and local 154-residue target selection.
+- `reports/rapid-coordinate-transport.json`: genuine existing 559-residue
+  coordinates through actual upstream Protein arrays; original sequence and
+  author numbering retained, serialization error below 1e-5. No new inference.
+
+Current regression: **466 backend tests, 88 interface tests, TypeScript and
+native release compilation passed**. Process-control fixtures additionally ran
+real sleeping subprocesses and verified active cancellation/deadline termination
+and diagnostic archives; these are not substitute molecular predictions.
+
+One compressed deployable core image is retained at
+`/Users/vii/Documents/FoldStudio-MetalPort/artifacts/RAPID-cloud-current.tar.gz`,
+with its neighboring SHA-256 receipt. Its current image digest and source archive
+digest are in `reports/rapid-scientific-release.json`. It includes the worker,
+pinned source and approved installer, **not trained checkpoints or preinstalled
+scientific environments**. Those install explicitly on the server. Heavy local
+scientific image validation finished successfully; its VM and all temporary images
+were deleted. It does not become another Mac release.
+The native app stays at `../current/FOLD STUDIO Metal Dev.app`.
 
 A genuine previously computed 559-residue full-Fab rejected refold is used only
 as an output-parser/transport fixture. Its original i_pTM rejection is retained.
@@ -147,8 +190,15 @@ node node_modules/typescript/bin/tsc -b
 python3 -m build remote_worker --outdir /path/to/release/python-packages
 python3 scripts/build-rapid-release.py --output /path/to/release
 sh scripts/build-rapid-image.sh /path/to/release
-python3 scripts/validate-rapid-container.py
+python3 scripts/validate-rapid-container.py --managed-python
+../runtimes/jax-cpu/bin/python -B scripts/validate-rapid-coordinate-transport.py
 ```
+
+The source-only release is approximately 1.2 MB. The current core image archive is
+approximately 1.6 GiB. The default build helper avoids automatic multi-GB image
+exports; use an explicit requested export when replacing the one current cloud
+deployment artifact. Local packaging automatically removes generated runtime
+staging and Cargo build products, including directories Finder is observing.
 
 For a scientific runtime image, use the same generated context with
 `docker buildx build --platform linux/amd64 --target bindcraft2` or
@@ -184,3 +234,18 @@ Primary technical sources:
 - [JAX CUDA installation](https://docs.jax.dev/en/latest/installation.html)
 - [PyTorch versioned CUDA wheels](https://pytorch.org/get-started/previous-versions/)
 - [Vast SSH connection guidance](https://docs.vast.ai/guides/instances/connect/ssh)
+
+## Final no-GPU checkpoint
+
+The core image and full BoltzGen/ESMFold2 image built for Linux AMD64. Both
+scientific entry points imported again in fresh containers. The optional
+cuEquivariance library reported missing `libcuda.so.1` on this no-GPU host;
+imports passed, but no CUDA compatibility or scientific calculation is certified.
+No checkpoints were loaded. The single retained core archive passed gzip
+integrity validation. The temporary VM/images and native build staging are gone.
+
+Next required hardware task: connect an authorized NVIDIA worker, explicitly
+install approved remote checkpoints, and execute the prepared reference suite
+above, starting with actual framework/GPU and matched trained forward/gradient
+checks. Authentic engine campaigns and Mac result recovery must then pass before
+CUDA readiness is announced. Adaptive multi-engine scheduling remains unfinished.

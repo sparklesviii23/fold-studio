@@ -1,0 +1,85 @@
+{
+  "schemaVersion": 1,
+  "updatedUtc": "2026-10-21T20:33:39.051691+00:00",
+  "version": "0.2.0",
+  "apiVersion": 2,
+  "scientificSourceCommit": "abd9d1f",
+  "state": "software_core_verified_nvidia_qualification_required",
+  "cudaProductionQualified": false,
+  "paidInfrastructureUsed": false,
+  "modelWeightsDownloadedOnMac": false,
+  "workerSourceArchive": {
+    "path": "/Users/vii/Documents/FoldStudio-MetalPort/fold-studio/remote_worker/dist/fold-rapid-0.2.0.tar.gz",
+    "sha256": "076b8d6138c1d0b2e292e77cbf1d33e575ee71cc68e947757db0101deab29f37",
+    "bytes": 1208060,
+    "version": "0.2.0",
+    "modelsIncluded": false
+  },
+  "currentCloudImageArchive": {
+    "path": "/Users/vii/Documents/FoldStudio-MetalPort/artifacts/RAPID-cloud-current.tar.gz",
+    "bytes": 1677438258,
+    "sha256": "337089e0068da1661f3e2c5bb32b1be917ebb7c0a64327e16a9b586f7b5f8722",
+    "imageDigest": "sha256:aba668df16f020f1b2695095aeea03f76f9eee2af0f21fa5059860697f82f066",
+    "platform": "linux/amd64",
+    "modelWeightsIncluded": false
+  },
+  "tests": {
+    "backend": 466,
+    "frontend": 88,
+    "typescript": "passed",
+    "nativeReleaseBuild": "passed",
+    "nativeSignedApp": "passed",
+    "currentLinuxAMD64Core": "passed",
+    "actualSSH": "passed",
+    "managedCPython31214Bootstrap": "passed",
+    "detachedJobReconnectAndIdempotency": "passed",
+    "activeProcessCancellationAndDeadline": "passed; process-control fixtures, no substitute model prediction",
+    "genuine559CoordinateTransport": "passed; original sequences and author residue IDs preserved; not new inference",
+    "boltzgenAndESMFold2Imports": "passed; actual built linux/amd64 image and fresh container imports; no checkpoints or CUDA execution",
+    "coreDeploymentArchiveIntegrity": "passed gzip integrity check",
+    "localBuildStorageContract": "passed isolated staging cleanup, research preservation, symlink refusal, differing-weight preservation and identical-weight sharing"
+  },
+  "nativePackage": "reports/rapid-scientific-native-package.json",
+  "references": [
+    "reports/rapid-current-container-validation.json",
+    "reports/rapid-angptl3-reference-contract.json",
+    "reports/rapid-coordinate-transport.json",
+    "reports/rapid-bindcraft-imports.json",
+    "reports/rapid-boltzgen-imports.json",
+    "reports/rapid-esmfold2-imports.json",
+    "reports/rapid-current-boltzgen-build.json"
+  ],
+  "scientificAdapters": {
+    "bindcraft2": "Genuine pinned original CLI; original schedules/models/losses/filters preserved; CUDA NOT RUN",
+    "boltzgen": "Genuine pinned full original pipeline with independent scoring environment; CUDA NOT RUN",
+    "proteinmpnn": "Original model with explicit fixed-backbone and fixed-context checks; new CUDA path NOT RUN",
+    "af2_multimer": "Original held-out models 2/4, three recycles, exact chain-role and coordinate transport; CUDA NOT RUN",
+    "structure_screen": "Actual public115residue coordinate job executed over Linux SSH; not prediction"
+  },
+  "remaining": [
+    "Actual NVIDIA/SM120 CUDA forward/gradient and trained checkpoint reference qualification, authentic model campaigns, VRAM/timing benchmarks and real Mac-to-GPU result recovery.",
+    "Adaptive measured-cost/yield multi-engine scheduling: current four labels share one bounded original-engine reference policy, explicitly disclosed.",
+    "Verified derived cross-engine refinement, additional model families and provider API/billing controls remain outside this initial core.",
+    "Registry publication awaits an authorized private destination; one current local deployable core image is available."
+  ],
+  "storage": {
+    "singleCurrentNativeApp": true,
+    "singleCurrentCloudArchive": true,
+    "temporaryVmAndHeavyImagesRemoved": true,
+    "nativeBuildStagingRemoved": true,
+    "hostFreeGiB": 104.81,
+    "preservedResearchRoot": "/Users/vii/Documents/FoldStudio-MetalPort/validation/bindcraft-fab-amme-native"
+  },
+  "fab": "Original full Fab remains cancelled after five gradients; no restart or full-Fab completion claim.",
+  "scientificImageValidation": {
+    "state": "passed",
+    "imageId": "sha256:e6cd3218b23bd0bc42ac2bd471e1820fb71be0f05f414cfef049d1ce7464b7f1",
+    "platform": "linux/amd64",
+    "boltzgen": "reports/rapid-boltzgen-imports.json",
+    "esmfold2": "reports/rapid-esmfold2-imports.json",
+    "checkpointsLoaded": false,
+    "cudaScientificExecution": "NOT RUN",
+    "optionalCudaWarning": "ESMFold2 emitted missing libcuda.so.1 for optional cuEquivariance operations on the no-GPU host; actual module imports passed. CUDA execution remains unverified.",
+    "temporaryImageAndVmDeleted": true
+  }
+}

@@ -1,0 +1,58 @@
+{
+  "buildx.build.provenance": {
+    "builder": {
+      "id": ""
+    },
+    "buildType": "https://mobyproject.org/buildkit@v1",
+    "materials": [
+      {
+        "uri": "pkg:docker/nvidia/cuda@13.0.2-runtime-ubuntu24.04?digest=sha256:6a0e31b59e70890446f2c17356d6efc0d54260090a8c63d6ca7c2ad049db95d2\u0026platform=linux%2Famd64",
+        "digest": {
+          "sha256": "6a0e31b59e70890446f2c17356d6efc0d54260090a8c63d6ca7c2ad049db95d2"
+        }
+      }
+    ],
+    "invocation": {
+      "configSource": {
+        "entryPoint": "Dockerfile"
+      },
+      "parameters": {
+        "frontend": "dockerfile.v0",
+        "args": {
+          "target": "core"
+        },
+        "locals": [
+          {
+            "name": "context"
+          },
+          {
+            "name": "dockerfile"
+          }
+        ],
+        "root": {
+          "configSource": {
+            "path": "Dockerfile"
+          },
+          "request": {
+            "args": {
+              "target": "core"
+            }
+          }
+        },
+        "compatibilityVersion": 20
+      },
+      "environment": {
+        "dockerfileVersion": "1.24.0",
+        "platform": "linux/arm64"
+      }
+    }
+  },
+  "buildx.build.ref": "colima-fold-rapid-validation/colima-fold-rapid-validation/bzc0bexg5o09nvfeo13asx3ue",
+  "containerimage.descriptor": {
+    "mediaType": "application/vnd.oci.image.index.v1+json",
+    "digest": "sha256:aba668df16f020f1b2695095aeea03f76f9eee2af0f21fa5059860697f82f066",
+    "size": 856
+  },
+  "containerimage.digest": "sha256:aba668df16f020f1b2695095aeea03f76f9eee2af0f21fa5059860697f82f066",
+  "image.name": "docker.io/library/fold-rapid:current-core"
+}
