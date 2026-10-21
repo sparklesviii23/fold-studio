@@ -14,6 +14,7 @@ import fold_engine
 import mpnn
 import ligand
 import dynamics
+import cloud_compute
 
 AA = 'ACDEFGHIKLMNPQRSTVWY'
 MAX_FILE = 100 * 1024 * 1024
@@ -516,6 +517,7 @@ class Service:
         return True
     def dispatch(self,action,p):
         if action not in ACTIONS: raise ValueError('Unsupported scientific action.')
+        if action in cloud_compute.ACTIONS: return cloud_compute.dispatch(self,action,p)
         if action in ligand.ACTIONS: return ligand.dispatch(self,action,p)
         if action in dynamics.ACTIONS: return dynamics.dispatch(self,action,p)
         if action in mpnn.ACTIONS: return mpnn.dispatch(self,action,p)
@@ -528,7 +530,7 @@ class Service:
 
 ACTIONS={'record_update','record_remove','record_restore','library','setting_set','project_create','project_update','project_delete','record_save','sequence_save','mutate','fasta_parse','fasta_import','uniprot_search','uniprot_get','structures','structure_download','import_structure','asset_read','compute','install_engine','prediction_start','prediction_resources','job_read','job_cancel','cloud_prepare','cloud_opened','cloud_import','export_project','export_file','reconcile'}
 
-ACTIONS |= dynamics.ACTIONS | ligand.ACTIONS | mpnn.ACTIONS | fold_engine.ACTIONS | OBSERVATORY_ACTIONS | PEPTIDE_ACTIONS | molecular_graph.ACTIONS | intelligence.ACTIONS
+ACTIONS |= cloud_compute.ACTIONS | dynamics.ACTIONS | ligand.ACTIONS | mpnn.ACTIONS | fold_engine.ACTIONS | OBSERVATORY_ACTIONS | PEPTIDE_ACTIONS | molecular_graph.ACTIONS | intelligence.ACTIONS
 
 def execute_job(service,id):
     job=service.job(id); p=job['data']; folder=service.root/'jobs'/id
