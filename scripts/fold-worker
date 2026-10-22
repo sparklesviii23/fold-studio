@@ -1,0 +1,6 @@
+#!/bin/sh
+# Stable local development runtime; no paid inference and no app rebuild.
+set -eu
+worker_repo=$(CDPATH= cd -- "$(dirname -- "$0")/.." && pwd)
+cd "$worker_repo"
+exec "$worker_repo/../runtimes/openmm-cpu/bin/python" -B -m local_worker "$@"

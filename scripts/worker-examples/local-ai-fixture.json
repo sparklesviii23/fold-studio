@@ -1,0 +1,14 @@
+{
+  "schemaVersion": 1,
+  "type": "local-ai",
+  "instructions": "Fix add(a, b) in worker_tests/fixtures/coding_task.py to return the sum for positive, negative and zero operands. Change only that file, preserve the signature and docstring. This is an intentionally broken software fixture, never application or scientific code. Do not edit tests or execute shell commands.",
+  "authorizedPaths": ["worker_tests/fixtures/coding_task.py"],
+  "acceptanceCriteria": ["All three fixed arithmetic acceptance tests pass", "Git diff check passes", "Only the authorized fixture changes in an isolated worktree"],
+  "operations": ["worker-coding-acceptance", "git-check"],
+  "model": "qwen2.5-coder:3b",
+  "maxModelCalls": 2,
+  "maxContextBytes": 48000,
+  "timeoutSeconds": 180,
+  "retryLimit": 1,
+  "resourceBudget": {"memoryMiB": 4096, "minAvailableMiB": 1024, "maxLogMiB": 2}
+}

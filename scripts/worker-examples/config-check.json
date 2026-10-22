@@ -1,0 +1,12 @@
+{
+  "schemaVersion": 1,
+  "type": "deterministic",
+  "instructions": "Validate Fold Studio JSON configuration and check the current diff for whitespace errors. Do not modify any source or molecular data.",
+  "authorizedPaths": [],
+  "acceptanceCriteria": ["Both approved validation operations exit successfully", "No source files are modified"],
+  "operations": ["config-check", "git-check"],
+  "priority": 1,
+  "timeoutSeconds": 60,
+  "retryLimit": 0,
+  "resourceBudget": {"memoryMiB": 256, "minAvailableMiB": 4096, "maxLogMiB": 2}
+}

@@ -1,0 +1,11 @@
+{
+  "schemaVersion": 1,
+  "type": "deterministic",
+  "instructions": "Run the existing peptide geometry, topology and persistence tests. Preserve molecular assets and the active app.",
+  "authorizedPaths": [],
+  "acceptanceCriteria": ["The existing peptide test suite exits zero", "No scientific campaign or inference is launched"],
+  "operations": ["peptide-tests"],
+  "timeoutSeconds": 120,
+  "retryLimit": 0,
+  "resourceBudget": {"memoryMiB": 512, "minAvailableMiB": 4096, "maxLogMiB": 2}
+}
