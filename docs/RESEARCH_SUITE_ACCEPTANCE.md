@@ -1,11 +1,11 @@
 # Research Suite implementation and acceptance
 
-Full requested research-suite scope is incomplete. Animation implementation is in final native verification.
+The peptide approach animation milestone is complete and verified in the installed native app. The full requested research-suite scope remains incomplete.
 
 | Scope | Actual state |
 |---|---|
 | candidate_evidence | implemented; original source integrity and versioned measurements/notes tested |
-| workspace_persistence | ordinary native relaunch without FOLD_DATA_DIR reopens original project, 11 structures and 7 jobs; sequence search verified |
+| workspace_persistence | ordinary native launch reopens original project and saved research; 12 structures including one intentional derived pose scene, 7 jobs; sequence search verified |
 | preparation | existing inspection and derived AddH; guided repair/loop/protonation workflow incomplete |
 | full_complex | Unique exact-sequence matching tested. Six explicit conformation/ANGPTL3-chain-symmetry comparisons recorded. Best mapping A→B,B→A,C→C: 154 Cα, RMSD 0.806 Å. Separate 1085-residue pose-hypothesis scene saved; biological completeness/binding unverified. |
 | robustness_controls | reproducible local Boltz-2 controlled study preview/start connected; no new prediction launched; review-only and source guards tested |
@@ -22,22 +22,22 @@ Full requested research-suite scope is incomplete. Animation implementation is i
 | collaboration | local versioned notes implemented; authenticated sharing incomplete |
 | publication | candidate evidence export implemented; complete study/figure/report package incomplete |
 | workflow_qualification | existing job systems retained; unified study graph incomplete |
-| cinema_style | real peptide light matte/translucent/cartoon/outline preview renders natively; full style/XYZ qualification pending |
-| cinema_timeline | Camera/orbit plus peptide-only presentation translation, smooth approach, ghost pose, anchored labels and gold actual 4 Å contacts implemented; native track/export QA pending. |
-| cinema_export | bounded PNG staging, frame archive and real MP4 encode/decode tested; real peptide movie pending |
+| cinema_style | light editorial and dark observatory native figures visually verified; matte/cartoon/translucent/outlined rendering retained; 96 larger-complex XYZ observations passed |
+| cinema_timeline | 30-second native peptide approach, ghost pose, anchored labels, 50 geometric contact pairs and interface close-up verified; versioned scene saved and restored |
+| cinema_export | actual native 1920×1080 H.264 movie completed: 30 s, 15 fps, 450 decoded frames, 3,327,424 bytes; source hashes/provenance preserved; 266,815,702 bytes temporary staging cleared; native light/dark PNG figures exported |
 | simulation_design_movies | not implemented in new studio; presentation mode only |
-| reference_demonstration | Original and derived source integrity verified; target coordinate change 0 Å; peptide internal distances preserved to <2e-10 Å. Previous 96 actual renderer frames passed; approach movie pending. |
+| reference_demonstration | original candidate and derived full-complex source integrity verified; target coordinate change 0 Å; peptide internal distance drift <2e-10 Å; 96 actual larger-complex XYZ frames passed; real approach movie exported and decoded; illustrative pose only |
 
-487 backend tests, 96 frontend tests and TypeScript pass. The actual bundled worker imports successfully; 37 transitive local modules are checked before signing/installing.
+487 backend tests, 96 frontend tests and TypeScript pass. The bundled worker imports successfully; 37 transitive local modules are checked before signing/installing. Implementation commit: `804ffa5`.
 
-Native checks already verified ordinary-launch workspace persistence, exact peptide sequence search, the candidate evidence page, and the light matte outlined preview. Previous 96 XYZ renderer observations passed for the original candidate. The earlier 450-frame orbit export was cancelled after 204 frames; staging was cleaned. That attempt produced no completed movie.
+The user granted Documents access and the original research library reopened. The larger ANGPTL3/8 scene passed 96 actual renderer checks across cartoon, mixed, surface and transparent modes and the X/Y/Z axes; maximum edge foreground fraction was zero. This checks rendering visibility, not biological correctness or visibility of every occluded atom. Analytical framing separately passed 639,360 full-reference XYZ atom checks and 9,943 approach-peptide checks.
 
-The user then requested a direct approach/settle animation and use of the saved larger ANGPTL3/8 complex. The implementation adds peptide-only presentation transformations, a ghosted proposed pose, anchored labels, gold heavy-atom-contact highlights and a camera close-up. Six explicit target conformation/chain-symmetry registrations were measured. The selected A→B, B→A, C→C map fits 154 Cα atoms at 0.806 Å RMSD. A separate 1085-residue pose-hypothesis scene is saved; its target coordinates are unchanged and peptide internal distances change by <2e-10 Å. The original candidate asset remains unchanged. This is not a new full-complex prediction or evidence of binding.
+The real native approach movie is `/Users/vii/Documents/FoldStudio-MetalPort/artifacts/ANGPTL3-8-peptide-approach.mp4`: 30 seconds, 1920×1080, 15 fps, 450 H.264 frames, 3,327,424 bytes. All frames decoded without errors. Beginning, settled-pose and final close-up frames were visually inspected. The movie source fingerprint and full pose-transfer context are recorded in its adjacent `.provenance.json`. Movie SHA-256: `b0f22e11507a2efa3199a2a1318dac4330a414c234656976f8904086b3e274e6`. Temporary staging peaked at 266,815,702 bytes and all PNG staging was cleared. The earlier cancelled orbit attempt produced no movie and remains recorded as cancelled.
 
-The single current update is built and signed. Its final native launch is blocked at macOS Documents access after the ad-hoc signing hash changed. A permission request is pending with the user; no privacy database, signing identity or scientific campaign was changed to bypass it. Final approach MP4/figure export and native transform/label spot checks remain pending.
+Native light interface and dark overview PNGs were exported and visually inspected. The saved 30-second scene restores its camera, chain roles, labels, source fingerprint and approach offsets correctly. Original peptide, larger target and derived-scene file checksums were reverified after export.
 
-Analytical framing passed 639,360 full-reference XYZ atom checks and 9,943 approach peptide checks, with zero framing failures. These mathematical tests are separate from actual native rendering.
+Six explicit target conformation/chain-symmetry registrations were measured. The selected A→B, B→A, C→C map fits 154 Cα atoms at 0.806 Å RMSD. The separate 1085-residue pose-hypothesis scene retains the larger target coordinates unchanged; peptide internal-distance drift is below 2e-10 Å. The animation moves derived presentation transforms only. It is not a full-complex refolding, a physical binding trajectory or evidence of affinity/inhibition.
 
-Reports: `reports/cinema-full-reference-comparison.json`, `reports/cinema-full-framing.json`, `reports/research-peptide-full-target.json`. The older poor fit report records the original same-letter mapping; the explicit symmetry comparison explains its correction.
+Reports: `reports/cinema-native-validation.json`, `reports/cinema-full-reference-comparison.json`, `reports/cinema-full-framing.json`, `reports/research-peptide-full-target.json`. The older poor-fit report records the original same-letter mapping; the explicit symmetry comparison explains its correction.
 
-No trained-model campaign, cancelled Fab run, cloud rental, model download or notarization work was started.
+No trained-model campaign, cancelled Fab run, cloud rental, model download or notarization work was started. The single current app was preserved during rendering.
