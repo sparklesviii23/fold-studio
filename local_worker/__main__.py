@@ -46,6 +46,8 @@ def main():
             d=b.setting('daemon',{});pid=d.get('pid');alive=bool(pid and proc(pid)==d.get('identity'))
             rows=[dict(r) for r in b.db.execute('SELECT status,count(*) count FROM tasks GROUP BY status')]
             value={'running':alive,'daemon':d,'heartbeatAgeSeconds':round(time.time()-b.setting('daemonHeartbeat'),1) if b.setting('daemonHeartbeat') else None,'emergencyStop':b.setting('emergency',False),'tasks':rows,'home':str(b.home),'localAI':{'configured':bool(b.setting('localAI')),'inference':'local only, optional; installation not implied'},'workCallback':'not configured; reports persist for explicit retrieval'}
+            active=b.db.execute("SELECT heartbeat FROM tasks WHERE status='running' ORDER BY heartbeat DESC LIMIT 1").fetchone()
+            value['activeTaskHeartbeatAgeSeconds']=round(time.time()-active[0],1) if active and active[0] else None
             if args.action=='health':value['resources']=resources(b.repo)
             output(value);return
         if args.action=='jobs':output([dict(r) for r in b.db.execute('SELECT id,status,created,started,finished,error FROM tasks ORDER BY created DESC LIMIT 30')]);return
@@ -64,7 +66,7 @@ def main():
         task=b.task(args.id);folder=b.home/'tasks'/task['id']
         if args.action=='inspect':output(task)
         elif args.action=='report':
-            summary=folder/'summary.json';output(json.loads(summary.read_text()) if summary.exists() else {'id':task['id'],'status':task['status'],'error':task['error'],'report':'not produced yet'})
+            summary=folder/'summary.json';output(json.loads(summary.read_text()) if summary.exists() and task['status'] in ('completed','failed','cancelled','blocked') else {'id':task['id'],'status':task['status'],'error':task['error'],'report':'not produced yet'})
         elif args.action=='logs':
             logs=[]
             for f in sorted(folder.glob('command-*.log')):
@@ -79,6 +81,8 @@ def main():
             path=b.home/'worktrees'/task['id']
             if not path.is_dir() or path.is_symlink():raise ValueError('No owned review worktree.')
             untracked=run(['/usr/bin/git','ls-files','--others','--exclude-standard'],cwd=path)
+            ignored=run(['/usr/bin/git','ls-files','--others','--ignored','--exclude-standard'],cwd=path)
+            if ignored.stdout.strip():raise ValueError('Ignored files require review; rollback refuses to erase them.')
             if untracked.stdout.strip():raise ValueError('Untracked files require review; rollback refuses to erase them.')
             diff=run(['/usr/bin/git','diff','--no-ext-diff','--no-textconv','--binary','HEAD'],cwd=path)
             if diff.returncode or len(diff.stdout.encode())>1024**2:raise ValueError('Cannot safely retain rollback patch.')

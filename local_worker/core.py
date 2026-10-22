@@ -31,7 +31,7 @@ def validate(spec, repo=REPO):
     if not isinstance(spec,dict): raise ValueError('A task must be a JSON object.')
     allowed={'schemaVersion','type','instructions','authorizedPaths','acceptanceCriteria','priority','resourceBudget','timeoutSeconds','retryLimit','operations','patches','repairs','model','maxModelCalls','maxContextBytes'}
     if set(spec)-allowed: raise ValueError('Unknown task fields: '+', '.join(sorted(set(spec)-allowed)))
-    if spec.get('schemaVersion')!=1 or spec.get('type') not in ('deterministic','patch','local-ai','reasoning'):
+    if spec.get('schemaVersion')!=1 or spec.get('type') not in ('deterministic','patch','local-ai','reasoning','review'):
         raise ValueError('Use schemaVersion 1 and a supported task type.')
     if not isinstance(spec.get('instructions'),str) or not 1<=len(spec['instructions'])<=12000: raise ValueError('Instructions must contain 1–12000 characters.')
     if not isinstance(spec.get('acceptanceCriteria'),list) or not spec['acceptanceCriteria'] or any(not isinstance(x,str) or len(x)>2000 for x in spec['acceptanceCriteria']): raise ValueError('Supply explicit acceptance criteria; prose is reported, operations are executable checks.')
@@ -40,7 +40,7 @@ def validate(spec, repo=REPO):
     for name in paths: scoped(repo,name)
     ops=spec.setdefault('operations',[])
     if not isinstance(ops,list) or len(ops)>8 or any(x not in OPERATIONS for x in ops): raise ValueError('Operations must come from the approved catalogue.')
-    if spec['type']!='reasoning' and not ops: raise ValueError('At least one executable acceptance operation is required.')
+    if spec['type'] not in ('reasoning','review') and not ops: raise ValueError('At least one executable acceptance operation is required.')
     defaults={'priority':0,'timeoutSeconds':300,'retryLimit':0,'maxModelCalls':2,'maxContextBytes':24000}
     limits={'priority':(0,9),'timeoutSeconds':(1,3600),'retryLimit':(0,2),'maxModelCalls':(1,3),'maxContextBytes':(1000,48000)}
     for key,default in defaults.items():
@@ -130,7 +130,7 @@ def resources(repo=REPO):
     try:level=int(pressure.stdout.strip())
     except ValueError:level=None
     vm=run(['/usr/bin/vm_stat']);page=re.search(r'page size of (\d+)',vm.stdout);pages=dict((k,int(v)) for k,v in re.findall(r'^([^:]+):\s+(\d+)\.',vm.stdout,re.M))
-    available=sum(pages.get(k,0) for k in ['Pages free','Pages inactive','Pages speculative','Pages purgeable'])*int(page[1])//1048576 if page else 0
+    available=sum(pages.get(k,0) for k in ['Pages free','Pages inactive','Pages speculative'])*int(page[1])//1048576 if page else 0
     ps=run(['/bin/ps','-axo','pid=,ppid=,rss=,%cpu=,command='])
     for line in ps.stdout.splitlines():
         fields=line.strip().split(None,4)
@@ -150,9 +150,17 @@ def resources(repo=REPO):
                 for id,name,state in db.execute("SELECT id,name,state FROM jobs WHERE state IN ('running','starting','cancelling')"):
                     science.append({'jobId':id,'name':name,'state':state,'source':'read-only saved-job state; conservative admission'})
         except sqlite3.Error:reason='Scientific job state temporarily unavailable.'
-    return {'memoryPressureLevel':level,'estimatedAvailableMiB':available,'availableMethod':'reclaimable free+inactive+speculative+purgeable pages; estimate, not guaranteed capacity','scientificWorkloads':science,'telemetryError':reason}
+    return {'memoryPressureLevel':level,'estimatedAvailableMiB':available,'availableMethod':'free+inactive+speculative pages; purgeable omitted to avoid potential overlap; estimate, not guaranteed capacity','scientificWorkloads':science,'telemetryError':reason}
+
+def route(spec):
+    if spec['type']=='reasoning':return 3
+    if spec['type']=='review':return 2
+    if spec['type']=='local-ai':
+        return 3 if any(p.startswith(('scientific/','local_worker/','src-tauri/','scripts/seal','scripts/install')) for p in spec['authorizedPaths']) else 1
+    return 0
 
 def admission(spec, snapshot):
+    if spec['type']=='review':return 'Tier 2 review requires a separately authorized cloud adapter or manual model selection. No cloud model was invoked.'
     if spec['type']=='reasoning':return 'Tier 3 reasoning requested; review in Work. No cloud model was invoked.'
     if snapshot['telemetryError']:return snapshot['telemetryError']
     if snapshot['memoryPressureLevel']!=1:return 'Memory pressure is not normal; scientific and interactive work take priority.'

@@ -15,7 +15,7 @@ scripts/fold-worker logs TASK_ID
 scripts/fold-worker health
 ```
 
-A single `submit` accepts a complete JSON task and wakes the independent service through a private FIFO. SQLite WAL stores tasks, atomic claims, timestamps, heartbeats, events and results. Full logs and `report.json` remain local; `summary.json` is intended for a later Work review. It reports actual command exit codes, changes, errors, resource observations, revision and artifact paths. Prose acceptance criteria remain review items; the worker does not claim scientific correctness merely because a test exits zero.
+A single `submit` accepts a complete JSON task and wakes the independent service through a private FIFO. SQLite WAL stores tasks, atomic claims, timestamps, heartbeats, events and results. Full logs and `report.json` remain local; `summary.json` is intended for a later Work review. External Work interventions cannot be inferred by the worker and remain unknown; zero automatic Work callbacks is a separate fact. It reports actual command exit codes, changes, errors, resource observations, revision and artifact paths. Prose acceptance criteria remain review items; the worker does not claim scientific correctness merely because a test exits zero.
 
 ## Controls
 
@@ -44,13 +44,14 @@ Schema 1 requires a type, instructions, exact authorized edit paths, acceptance 
 - `deterministic`: no edit capability; runs only approved operations.
 - `patch`: exact before/after replacements with original SHA-256 checks, in a detached worktree. Optional explicit repair batches run only after a failed check.
 - `local-ai`: installed local Aider and Ollama, exact existing edit files, isolated worktree, bounded inference and deterministic acceptance. Scientific/security-sensitive paths escalate instead.
+- `review`: records a blocked Tier 2 request for manual economical-model selection or a separately authorized adapter; it never invokes cloud inference.
 - `reasoning`: records a blocked Tier 3 escalation without invoking any model.
 
 `operations` lists the supported names. These include configuration checks, Git whitespace checks, TypeScript checking, frontend/backend tests, worker tests and peptide tests. The catalogue is trusted source code, not generated shell text. Installed dependencies or fixtures may still be absent; such failures are reported rather than downloading dependencies or relaxing the sandbox. The build available here is TypeScript compilation/checking; automatic native packaging/installation is deliberately not a task capability. Use the existing guarded `scripts/build-local-app.sh` workflow for an approved app update.
 
 Each edit task may authorize at most eight exact existing files. Symlinks, traversal, `.git`, `.env*`, `private`, dependency directories and `AGENTS.md` edits are refused. Changed paths, sizes and diffs are audited. Patches stay review-only. An active dirty checkout blocks editing tasks rather than risking unfinished work. At most three retained edit worktrees may exist per broker; review/rollback them before creating more. No history rewrite, push, dependency install or destructive shell command can be submitted.
 
-Limits: one executing broker task; 1–3600 seconds per task; at most two correction retries; at most eight named checks per attempt; 1 MiB review patch/file limits; bounded log sizes and a 128 MiB per-task artifact ceiling. The wall timeout, log and sampled RSS watchers stop only owned development children. Large persistent dependencies/models are outside per-task staging and are not copied for every job.
+Limits: one global executing development slot across brokers; 1–3600 seconds per task; at most two correction retries; at most eight named checks per attempt; 1 MiB review patch/file limits; bounded log sizes and a 128 MiB per-task artifact ceiling. The wall timeout, log and sampled RSS watchers stop only owned development children. Large persistent dependencies/models are outside per-task staging and are not copied for every job.
 
 ## Crash handling
 
@@ -82,7 +83,7 @@ A small local model has a narrow capability envelope. Failed coding attempts sto
 
 There is no automatic callback into this Work chat. The supported interface used here is local task submission and explicit later report retrieval. Official Codex App Server APIs can start Codex turns, but doing so would require a separately configured authorized adapter and may consume allowance; it is not a free local inference channel. OpenAI API webhooks describe API events, not an arbitrary worker-to-this-chat wake mechanism. No recurring cloud reasoning or heartbeat automation is installed.
 
-Use prospective matched tasks to measure savings: same revision, objective, checks and machine conditions; compare direct Work execution with one worker dispatch and later compact review, alternate order and repeat. Record pass rate, wall time, local peak memory, Work interventions/tool calls and observable account-window snapshots with concurrent-usage caveats. The available account percentages are shared and coarse, not per-task attribution. Do not convert API tokens, local model tokens, tool-call counts or account percentage movement into an invented Work allowance percentage. The 60–85% and 90% targets remain unverified hypotheses.
+Use prospective matched tasks to measure savings: same revision, objective, checks and machine conditions; compare direct Work execution with one worker dispatch and later compact review, alternate order and repeat. Record pass rate, wall time, local peak memory, externally observed Work interventions/tool calls and observable account-window snapshots with concurrent-usage caveats. The available account percentages are shared and coarse, not per-task attribution. Do not convert API tokens, local model tokens, tool-call counts or account percentage movement into an invented Work allowance percentage. The 60–85% and 90% targets remain unverified hypotheses.
 
 The benchmark distinguishes deterministic edits from genuine model-generated edits, deliberately failed checks from successful checks, simulated contention from real scientific runs, and expected escalation from successful implementation. It retains failed attempts and their diagnostics rather than replacing them with a success story.
 
@@ -95,3 +96,13 @@ The benchmark distinguishes deterministic edits from genuine model-generated edi
 - [Official Qwen model listing](https://ollama.com/library/qwen2.5-coder:3b)
 - [Codex App Server](https://learn.chatgpt.com/docs/app-server)
 - [OpenAI API webhooks](https://developers.openai.com/api/docs/guides/webhooks)
+
+## Adapter selection
+
+Aider was selected because its existing edit formats and noninteractive mode fit a narrow edit–validate loop. Ollama supplies the actual local Metal-capable inference and an unloadable model server. [MLX](https://ml-explore.github.io/mlx/build/html/index.html) is a suitable Apple Silicon array/inference foundation, but using it here would add another inference/agent integration to maintain. [OpenCode](https://opencode.ai/docs/providers/) also supports local providers; this first version uses one mature coding framework rather than maintaining two agent permission surfaces. No comparative claim about their coding accuracy or speed has been benchmarked.
+
+## Verified first deployment
+
+The independent launchd service completed a real coding task in a detached worktree: `c1d06d26-62cf-4bee-9195-5910be2810dd`. The local model changed the deliberately broken arithmetic fixture, three acceptance tests and Git checking passed, one inference request used 807 input and 49 output tokens, and the owned server exited. Total service-task time was 108.984 seconds, with 2,893.42 MiB peak observed process-tree RSS. This includes cold model loading and low-priority service overhead; it is not a general programming benchmark. The original active fixture remains intentionally unchanged and its patch is ready for review only.
+
+A separate service task ran the existing peptide suite: 22 tests passed, with no prediction or experiment launched. Worker reliability/security tests also pass. Full numerical evidence and the initial-system acceptance checklist are in `reports/local-worker-validation.json`. Exact Work allowance savings remain unknown.

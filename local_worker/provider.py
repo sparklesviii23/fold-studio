@@ -5,6 +5,10 @@ from .executor import Blocked, environment, sandbox
 
 class LocalProvider:
     def __init__(self,broker,spec,folder):self.b=broker;self.spec=spec;self.folder=folder;self.child=None;self.server=None;self.calls=0;self.metrics=[];self.lock=threading.Lock()
+    def consume_call(self):
+        with self.lock:
+            if self.calls>=self.spec['maxModelCalls']:raise ValueError('Model-call budget exhausted')
+            self.calls+=1
     def request(self,path,data=None,timeout=3):
         class NoRedirect(urllib.request.HTTPRedirectHandler):
             def redirect_request(self,*args):raise Blocked('Local provider redirects are forbidden.')
@@ -55,9 +59,7 @@ class LocalProvider:
                         if body.get('model',body.get('name'))!=model:raise ValueError('Only the selected local model is authorized')
                         if self.path=='/api/show':value=owner.request(self.path,body)
                         elif self.path=='/api/chat':
-                            with owner.lock:
-                                if owner.calls>=owner.spec['maxModelCalls']:raise ValueError('Model-call budget exhausted')
-                                owner.calls+=1
+                            owner.consume_call()
                             body.update(stream=False,keep_alive=0,options={'num_ctx':8192,'num_predict':1200,'temperature':0.1,'num_thread':4})
                             value=owner.request(self.path,body,timeout=min(owner.spec['timeoutSeconds'],300))
                             owner.metrics.append({k:value.get(k) for k in ['total_duration','load_duration','prompt_eval_count','prompt_eval_duration','eval_count','eval_duration','done_reason']})

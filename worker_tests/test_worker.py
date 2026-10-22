@@ -98,4 +98,16 @@ class WorkerTests(unittest.TestCase):
         self.b.set('localAI',{'aider':'/usr/bin/true','ollama':'/usr/bin/true','modelStore':str(store)})
         with self.assertRaises(Blocked):LocalProvider(self.b,{'model':'qwen:cloud'},folder).__enter__()
 
+    def test_gateway_refuses_extra_inference_calls(self):
+        from local_worker.provider import LocalProvider
+        provider=LocalProvider(self.b,{'maxModelCalls':1},self.root);provider.consume_call()
+        with self.assertRaises(ValueError):provider.consume_call()
+        self.assertEqual(provider.calls,1)
+
+    def test_four_tier_routing_never_calls_cloud(self):
+        from local_worker.core import route
+        for kind,tier in [('deterministic',0),('local-ai',1),('review',2),('reasoning',3)]:
+            self.assertEqual(route({'type':kind,'authorizedPaths':['docs/note.md']}),tier)
+        self.assertIn('Tier 2',admission({'type':'review'},NORMAL))
+
 if __name__=='__main__':unittest.main()

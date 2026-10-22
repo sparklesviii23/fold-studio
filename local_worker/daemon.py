@@ -1,7 +1,7 @@
 """One independent, low-idle-cost daemon. Work is not involved in its execution loop."""
 from __future__ import annotations
 import contextlib, fcntl, json, os, pathlib, re, select, signal, sqlite3, subprocess, sys, time
-from .core import Broker, REPO, admission, now, proc, resources, run
+from .core import Broker, REPO, admission, now, proc, resources, route, run
 from .executor import Blocked, Cancelled, PYTHON, environment, command, worktree, patch, changes, local_agent, child_plan, ollama_request
 
 STOP=False
@@ -52,14 +52,14 @@ def execute_command(broker,task,repo,folder,name,argv,deadline,ai=False,provider
     return {'operation':name,**data,'peakProcessTreeRssMiB':round(peak,2),'log':str(log),'diagnostic':tail.decode(errors='replace')[-3000:] if data['returncode'] else '', 'successExcerpt':tail.decode(errors='replace')[-500:] if data['returncode']==0 else ''}
 
 def execute(broker,task):
-    id=task['id'];spec=task['spec'];folder=broker.home/'tasks'/id;folder.mkdir(parents=True,exist_ok=True,mode=0o700);started=time.monotonic();result={'id':id,'instructions':spec['instructions'],'acceptanceCriteria':spec['acceptanceCriteria'],'checks':[],'changedFiles':[],'modelCalls':0,'workInterventionsDuringExecution':0,'workAllowanceUsed':None,'cloudInference':'disabled','resourceAdmission':resources(broker.repo),'artifacts':[]};status='failed';error=None;repo=broker.repo;provider=None;execution_lock=None
+    id=task['id'];spec=task['spec'];folder=broker.home/'tasks'/id;folder.mkdir(parents=True,exist_ok=True,mode=0o700);started=time.monotonic();result={'id':id,'instructions':spec['instructions'],'acceptanceCriteria':spec['acceptanceCriteria'],'checks':[],'changedFiles':[],'modelCalls':0,'workInterventionsDuringExecution':None,'workerRequestedWorkTurns':0,'workAllowanceUsed':None,'cloudInference':'disabled','tier':route(spec),'resourceAdmission':resources(broker.repo),'artifacts':[]};status='failed';error=None;repo=broker.repo;provider=None;execution_lock=None
     try:
         execution_lock=(broker.resource_domain/'execution.lock').open('a')
         try:fcntl.flock(execution_lock,fcntl.LOCK_EX|fcntl.LOCK_NB)
         except BlockingIOError:raise Blocked('Another local development executor owns the global resource slot.')
         reason=admission(spec,result['resourceAdmission'])
         if reason:raise Blocked(reason)
-        result['tier']=1 if spec['type']=='local-ai' else 0
+        result['tier']=route(spec)
         if spec['type'] in ('patch','local-ai'):
             repo,revision=worktree(broker,task,folder);result.update(worktree=str(repo),baseRevision=revision,patchReadyForReview=False)
         else:result['baseRevision']=run(['/usr/bin/git','rev-parse','HEAD'],cwd=repo).stdout.strip()
