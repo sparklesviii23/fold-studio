@@ -1,0 +1,13 @@
+import {describe,it,expect} from 'vitest';
+import {interpolate,orbit,overview,fitCamera,approach} from './cinema';
+import {projectPoint,molecularLabels} from './cinemaLabels';
+const camera={position:[0,0,20],target:[0,0,0],up:[0,1,0]};
+const style={theme:'paper' as const,mode:'mixed' as const,binderChains:['D'],palette:{D:'#bd704e'},outline:true};
+describe('Presentation camera geometry',()=>{
+ it('makes an exact orbit without changing molecular coordinates',()=>{for(const axis of ['x','y','z'] as const){const end=orbit(camera,2*Math.PI,axis);end.position.forEach((n,i)=>expect(n).toBeCloseTo(camera.position[i],10));expect(end.target).toEqual(camera.target);}expect(camera.position).toEqual([0,0,20]);});
+ it('retains endpoints and bounded timeline values',()=>{const t=overview(camera,style,30);expect(t.keyframes).toHaveLength(9);expect(interpolate(t,-10).camera.position).toEqual(camera.position);interpolate(t,40).camera.position.forEach((v,i)=>expect(v).toBeCloseTo(camera.position[i],8));expect(interpolate(t,15).time).toBe(15);});
+ it('preserves saved camera snapshots during interpolation',()=>{const t=overview(camera,style);const original=JSON.stringify(t);interpolate(t,2.2);expect(JSON.stringify(t)).toBe(original);});
+ it('fits elongated molecular bounds through complete XYZ orbits',()=>{const points=[[-5,-8,-60],[5,8,60],[-5,8,60],[5,-8,-60]],fit=fitCamera(camera,points,1.2);for(const axis of ['x','y','z'] as const)for(let step=0;step<24;step++)for(const p of points){const xy=projectPoint(orbit(fit,step*Math.PI/12,axis),p,1200,1000)!;expect(xy[0]).toBeGreaterThan(0);expect(xy[0]).toBeLessThan(1200);expect(xy[1]).toBeGreaterThan(0);expect(xy[1]).toBeLessThan(1000);}});
+ it('moves only the assigned peptide and finishes exactly at the original pose',()=>{const points=[{chain:'A',xyz:[0,0,0]},{chain:'D',xyz:[10,0,0]}],before=JSON.stringify(points),t=approach(camera,style,points);expect(interpolate(t,0).offsets?.D).toEqual([40,0,0]);expect(interpolate(t,16.5).offsets?.D).toEqual([0,0,0]);expect(interpolate(t,30).offsets?.A).toBeUndefined();expect(JSON.stringify(points)).toBe(before);});
+ it('projects anchors consistently with the camera and moves peptide labels only',()=>{expect(projectPoint(camera,[0,0,0],1200,720)).toEqual([600,360]);const points=[{chain:'A',xyz:[0,0,0]},{chain:'D',xyz:[3,0,0]}],a=molecularLabels(camera,points,['D'],{A:'#7652ad',D:'#bd704e'},{},1200,720),b=molecularLabels(camera,points,['D'],{A:'#7652ad',D:'#bd704e'},{D:[3,0,0]},1200,720);expect(a[0].anchor).toEqual(b[0].anchor);expect(b[1].anchor[0]).toBeGreaterThan(a[1].anchor[0]);});
+});

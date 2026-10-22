@@ -33,5 +33,6 @@ for mapping in python-jax:runtime python-metaljax:runtime-metal python-boltz:run
 done
 node node_modules/@tauri-apps/cli/tauri.js build --bundles app
 built="$CARGO_TARGET_DIR/release/bundle/macos/FOLD STUDIO Metal Dev.app"
+python3 scripts/check-scientific-package.py "$built"
 bash scripts/seal-app.sh "$built"
 python3 scripts/install-current-app.py --source "$built" --destination "$app"
