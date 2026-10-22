@@ -1,0 +1,392 @@
+{
+  "updatedUtc": "2026-10-22T21:16:40.156196+00:00",
+  "implementationCommit": "3193d7f",
+  "unitTests": {
+    "passed": 20,
+    "scope": "atomic broker claims, recovery, cancellation, global concurrency slot, exact-patch isolation, actual macOS file/network denials, failure/timeout and remote-model rejection"
+  },
+  "independentService": {
+    "label": "org.foldstudio.development-worker",
+    "pidParent": "launchd",
+    "stateDirectory": "/Users/vii/Library/Application Support/FoldStudioWorker",
+    "configurationDispatch": "4310cb02-678b-4a76-9458-95e567e47ddd",
+    "peptideTestsDispatch": "6d31cfb5-fe13-40ff-8d25-23e284ebbef1",
+    "localAiDispatch": "c1d06d26-62cf-4bee-9195-5910be2810dd",
+    "localAiDispatchState": "completed",
+    "finalDaemon": {
+      "pid": 40353,
+      "identity": "Fri Oct 23 00:15:24 2026     /Users/vii/Documents/FoldStudio-MetalPort/runtimes/openmm-cpu/bin/python -B -m local_worker --home /Users/vii/Library/Application Support/FoldStudioWorker serve",
+      "started": "2026-10-22T21:15:24.841947+00:00"
+    },
+    "idleObservations": [
+      {
+        "parentPid": 1,
+        "rssMiB": 27.8,
+        "cpuPercent": 0.0,
+        "cumulativeCpuTime": "0:00.22"
+      },
+      {
+        "parentPid": 1,
+        "rssMiB": 27.8,
+        "cpuPercent": 0.0,
+        "cumulativeCpuTime": "0:00.22"
+      },
+      {
+        "parentPid": 1,
+        "rssMiB": 27.8,
+        "cpuPercent": 0.0,
+        "cumulativeCpuTime": "0:00.22"
+      },
+      {
+        "parentPid": 1,
+        "rssMiB": 27.8,
+        "cpuPercent": 0.0,
+        "cumulativeCpuTime": "0:00.22"
+      }
+    ],
+    "persistenceRestartDispatch": "233bcb12-8a25-47a5-84b4-deeaeca31a2c",
+    "persistenceRestartResult": {
+      "id": "233bcb12-8a25-47a5-84b4-deeaeca31a2c",
+      "instructions": "Validate Fold Studio JSON configuration and check the current diff for whitespace errors. Do not modify any source or molecular data.",
+      "acceptanceCriteria": [
+        "Both approved validation operations exit successfully",
+        "No source files are modified"
+      ],
+      "checks": [
+        {
+          "operation": "config-check",
+          "returncode": 0,
+          "seconds": 0.5884513750206679,
+          "peakProcessTreeRssMiB": 9.27,
+          "log": "/Users/vii/Library/Application Support/FoldStudioWorker/tasks/233bcb12-8a25-47a5-84b4-deeaeca31a2c/command-00.log",
+          "diagnostic": "",
+          "successExcerpt": "Validated 2 configuration files\n",
+          "attempt": 1
+        },
+        {
+          "operation": "git-check",
+          "returncode": 0,
+          "seconds": 0.6066886659245938,
+          "peakProcessTreeRssMiB": 9.64,
+          "log": "/Users/vii/Library/Application Support/FoldStudioWorker/tasks/233bcb12-8a25-47a5-84b4-deeaeca31a2c/command-01.log",
+          "diagnostic": "",
+          "successExcerpt": "",
+          "attempt": 1
+        }
+      ],
+      "changedFiles": [],
+      "modelCalls": 0,
+      "workInterventionsDuringExecution": null,
+      "workerRequestedWorkTurns": 0,
+      "workAllowanceUsed": null,
+      "cloudInference": "disabled",
+      "tier": 0,
+      "resourceAdmission": {
+        "memoryPressureLevel": 1,
+        "estimatedAvailableMiB": 12600,
+        "availableMethod": "free+inactive+speculative pages; purgeable omitted to avoid potential overlap; estimate, not guaranteed capacity",
+        "scientificWorkloads": [],
+        "telemetryError": null
+      },
+      "artifacts": [],
+      "baseRevision": "10805c7c8511290d9ba434fbff87de1dea0c37d7",
+      "acceptance": "All approved executable checks passed. Prose criteria and scientific claims require human/Work review.",
+      "status": "completed",
+      "error": null,
+      "finished": "2026-10-22T21:15:26.590852+00:00",
+      "wallSeconds": 1.746,
+      "maximumObservedCommandRssMiB": 9.64,
+      "notification": {
+        "state": "requested",
+        "deliveryVerified": false,
+        "note": "Delivery depends on macOS notification settings; no Work callback was sent."
+      }
+    }
+  },
+  "benchmark": {
+    "created": "2026-10-22T20:55:29.118856+00:00",
+    "root": "/Users/vii/Library/Application Support/FoldStudioWorker/benchmarks/18ad9a51-a5a0-4154-b39e-6e36fc35867e",
+    "categories": [
+      {
+        "category": "deterministic operation",
+        "taskId": "7619c938-e855-4619-ae88-2d1a1ca715f3",
+        "status": "completed",
+        "error": null,
+        "seconds": 0.6,
+        "checks": [
+          {
+            "operation": "git-check",
+            "returncode": 0
+          }
+        ],
+        "peakProcessTreeRssMiB": 9.53,
+        "modelCalls": 0,
+        "localInferenceMetrics": [],
+        "providerStopped": null,
+        "activeFixtureUnchanged": true,
+        "workInterventionsDuringExecution": null,
+        "workAllowanceUsed": null,
+        "workerRequestedWorkTurns": 0
+      },
+      {
+        "category": "routine exact edit; no AI",
+        "taskId": "4eb15f8c-e2f0-4ea0-b24f-df5cb9438036",
+        "status": "completed",
+        "error": null,
+        "seconds": 0.725,
+        "checks": [
+          {
+            "operation": "fixture-check",
+            "returncode": 0
+          }
+        ],
+        "peakProcessTreeRssMiB": 8.34,
+        "modelCalls": 0,
+        "localInferenceMetrics": [],
+        "providerStopped": null,
+        "activeFixtureUnchanged": true,
+        "workInterventionsDuringExecution": null,
+        "workAllowanceUsed": null,
+        "workerRequestedWorkTurns": 0
+      },
+      {
+        "category": "recoverable failure followed by one authorized correction",
+        "taskId": "31db3d25-c37a-4974-b9d7-4bbb51ee27ad",
+        "status": "completed",
+        "error": null,
+        "seconds": 1.274,
+        "checks": [
+          {
+            "operation": "fixture-check",
+            "returncode": 1
+          },
+          {
+            "operation": "fixture-check",
+            "returncode": 0
+          }
+        ],
+        "peakProcessTreeRssMiB": 8.47,
+        "modelCalls": 0,
+        "localInferenceMetrics": [],
+        "providerStopped": null,
+        "activeFixtureUnchanged": true,
+        "workInterventionsDuringExecution": null,
+        "workAllowanceUsed": null,
+        "workerRequestedWorkTurns": 0
+      },
+      {
+        "category": "medium complexity escalation",
+        "taskId": "c8116d65-d75a-4a14-aca5-f95c22d9ce9f",
+        "status": "blocked",
+        "error": "Tier 3 reasoning requested; review in Work. No cloud model was invoked.",
+        "seconds": 0.031,
+        "checks": [],
+        "peakProcessTreeRssMiB": 0,
+        "modelCalls": 0,
+        "localInferenceMetrics": [],
+        "providerStopped": null,
+        "activeFixtureUnchanged": true,
+        "workInterventionsDuringExecution": null,
+        "workAllowanceUsed": null,
+        "workerRequestedWorkTurns": 0
+      },
+      {
+        "category": "safe simulated scientific contention",
+        "status": "passed",
+        "reason": "Scientific workload detected; deferred without interrupting it.",
+        "realScientificWorkloadLaunched": false,
+        "workerRequestedWorkTurns": 0
+      },
+      {
+        "category": "genuine local-AI coding in owned programming fixture",
+        "taskId": "9f9f6175-68fc-4d62-a351-1e79f3c422a3",
+        "status": "completed",
+        "error": null,
+        "seconds": 37.262,
+        "checks": [
+          {
+            "operation": "local-aider",
+            "returncode": 0
+          },
+          {
+            "operation": "coding-fixture-tests",
+            "returncode": 0
+          },
+          {
+            "operation": "git-check",
+            "returncode": 0
+          }
+        ],
+        "peakProcessTreeRssMiB": 2579.25,
+        "modelCalls": 1,
+        "localInferenceMetrics": [
+          {
+            "total_duration": 12161304458,
+            "load_duration": 10822809375,
+            "prompt_eval_count": 751,
+            "prompt_eval_duration": 1019387000,
+            "eval_count": 29,
+            "eval_duration": 314990000,
+            "done_reason": "stop"
+          }
+        ],
+        "providerStopped": true,
+        "activeFixtureUnchanged": true,
+        "workInterventionsDuringExecution": null,
+        "workAllowanceUsed": null,
+        "workerRequestedWorkTurns": 0
+      }
+    ],
+    "idleWorkerSamples": [
+      "18192   0.0   0:00.24",
+      "18192   0.0   0:00.24",
+      "18192   0.0   0:00.24",
+      "18192   0.0   0:00.24"
+    ],
+    "idleSampleMethod": "four RSS KiB, recent CPU percent and cumulative CPU time observations, two seconds apart; only call while worker is idle",
+    "workAllowanceSavingsPercent": null,
+    "baseline": "No matched historical per-task Work allowance telemetry. Account-wide percentages cannot attribute task cost.",
+    "cloudApiTokens": 0,
+    "localModelInferenceCalls": 1,
+    "measurementProtocol": {
+      "design": "Prospective matched tasks with identical revision, acceptance checks and hardware conditions. Compare direct Work execution against one worker dispatch plus one report review. Alternate order and repeat.",
+      "record": [
+        "completion/pass rate",
+        "wall time",
+        "local peak RSS",
+        "Work interventions",
+        "Work tool calls",
+        "observable account window snapshots with concurrent-use caveats",
+        "local model/server timing and tokens where available"
+      ],
+      "savingsRule": "Calculate only comparable directly observed quantities. Tool-call reductions or API tokens are not subscription allowance savings."
+    },
+    "report": "/Users/vii/Library/Application Support/FoldStudioWorker/benchmarks/18ad9a51-a5a0-4154-b39e-6e36fc35867e/benchmark.json",
+    "externalWorkInterventionAttribution": "Unknown; original benchmark field counted no automatic callbacks, not external Work activity. Normalized to null here; original report retained."
+  },
+  "localDependencies": {
+    "userApproval": "Explicitly approved installing and testing local AI in this chat",
+    "aider": "0.86.2",
+    "ollama": "0.40.8",
+    "model": {
+      "name": "qwen2.5-coder:3b",
+      "model": "qwen2.5-coder:3b",
+      "modified_at": "2026-10-22T23:49:51.852033039+03:00",
+      "size": 1929912626,
+      "digest": "f72c60cabf6237b07f6e632b2c48d533cef25eda2efbd34bed21c5e9c01e6225",
+      "details": {
+        "parent_model": "",
+        "format": "gguf",
+        "family": "qwen2",
+        "families": [
+          "qwen2"
+        ],
+        "parameter_size": "3.1B",
+        "quantization_level": "Q4_K_M",
+        "context_length": 32768,
+        "embedding_length": 2048,
+        "runner": "ggml"
+      },
+      "capabilities": [
+        "completion",
+        "tools",
+        "insert"
+      ]
+    },
+    "diskGiBApprox": 2.5,
+    "localOnly": "Owned sandboxed server, OLLAMA_NO_CLOUD=1, metered loopback gateway, no paid API credentials"
+  },
+  "usageMeasurement": {
+    "workAllowanceSavingsPercent": null,
+    "perTaskWorkAllowanceAttribution": "unavailable",
+    "accountObservationDuringImplementation": {
+      "primaryUsedPercent": 68,
+      "secondaryUsedPercent": 11,
+      "scope": "shared account windows, not a matched baseline or attribution to this worker"
+    },
+    "apiTokensEquivalentToWorkAllowance": false
+  },
+  "preserved": {
+    "appPidAtStart": 21363,
+    "chimeraxPidAtStart": 21535,
+    "scientificCampaignsLaunched": 0,
+    "currentAppRebuilt": false,
+    "modelsDuplicatedForJobs": false,
+    "autoMerge": false
+  },
+  "limitations": [
+    "Small local model qualification is narrow and fixture-based",
+    "No automatic callback into this Work chat or cloud model adapter",
+    "No verified Work allowance savings",
+    "RSS/pressure sampling is a soft memory governor, not a hard Metal allocation quota",
+    "Native app packaging is kept in the existing guarded manual workflow",
+    "Notifications are best-effort requests; delivery depends on macOS settings",
+    "Earlier runtime fixtures exposed sandbox/configuration and memory-limit failures; original failed task records remain in the private broker and benchmark history."
+  ],
+  "currentEngineCommit": "10805c7c8511290d9ba434fbff87de1dea0c37d7",
+  "initialSystemComplete": true,
+  "serviceCodingDemonstration": {
+    "id": "c1d06d26-62cf-4bee-9195-5910be2810dd",
+    "status": "completed",
+    "baseRevision": "3193d7f5fab3b782e695b3d309d9b335fe85851f",
+    "changedFiles": [
+      "worker_tests/fixtures/coding_task.py"
+    ],
+    "worktree": "/Users/vii/Library/Application Support/FoldStudioWorker/worktrees/c1d06d26-62cf-4bee-9195-5910be2810dd",
+    "patchReadyForReview": true,
+    "modelCalls": 1,
+    "localInferenceMetrics": [
+      {
+        "total_duration": 62201278959,
+        "load_duration": 59252925584,
+        "prompt_eval_count": 807,
+        "prompt_eval_duration": 1785492000,
+        "eval_count": 49,
+        "eval_duration": 1130466000,
+        "done_reason": "stop"
+      }
+    ],
+    "providerStopped": true,
+    "wallSeconds": 108.984,
+    "maximumObservedCommandRssMiB": 2893.42,
+    "notification": {
+      "state": "requested",
+      "deliveryVerified": false,
+      "note": "Delivery depends on macOS notification settings; no Work callback was sent."
+    },
+    "reportPath": "/Users/vii/Library/Application Support/FoldStudioWorker/tasks/c1d06d26-62cf-4bee-9195-5910be2810dd/report.json",
+    "activeCheckoutUnchanged": true,
+    "activeFixtureSha256": "69e1473eebde0e78a039ca0af96ee73df7e349c19b53890d8116ffeac1d4ac1f",
+    "proposedFixtureSha256": "1d99c5354be5a695d2f576742e710ca87a0772169c786b1c4551c8b22964e8a4",
+    "acceptanceChecks": [
+      {
+        "operation": "local-aider",
+        "returncode": 0,
+        "excerpt": "@\n \"\"\"Deliberately failing, isolated software benchmark; never used by Fold \nStudio.\"\"\"\n def add(a, b):\n     \"\"\"Return the sum of two numbers.\"\"\"\n-    return a - b\n+    return a + b\n```\n\n\nTokens: 807 sent, 49 received.\nApplied edit to coding_task.py\n"
+      },
+      {
+        "operation": "worker-coding-acceptance",
+        "returncode": 0,
+        "excerpt": "...\n----------------------------------------------------------------------\nRan 3 tests in 0.000s\n\nOK\n"
+      },
+      {
+        "operation": "git-check",
+        "returncode": 0,
+        "excerpt": ""
+      }
+    ]
+  },
+  "initialAcceptance": {
+    "independentMacOSProcess": true,
+    "singleOperationStructuredSubmission": true,
+    "noActiveWorkSupervisionRequired": true,
+    "approvedDevelopmentOperationCompleted": true,
+    "stateSurvivedRestart": true,
+    "boundedAuditableExecution": true,
+    "compactReportPersisted": true,
+    "reportRetrieved": true,
+    "localResourcesMeasured": true,
+    "realEndToEndDemonstration": true,
+    "genuineLocalAICodingDemonstration": true
+  }
+}
