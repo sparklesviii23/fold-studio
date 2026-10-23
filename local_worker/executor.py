@@ -16,7 +16,7 @@ def environment(folder):
 def sandbox(repo, folder, writes=(), local_ai=False, common_repo=REPO):
     if sys.platform!='darwin' or not pathlib.Path('/usr/bin/sandbox-exec').exists():raise Blocked('macOS Seatbelt unavailable; command execution fails closed.')
     def q(path):return json.dumps(str(pathlib.Path(path).resolve()))
-    reads=[repo,folder,DEFAULT_HOME/'runtime',folder.parents[1]/'runtime',common_repo/'.git',REPO/'.git',REPO/'local_worker',PYTHON.parent.parent,PYTHON.resolve().parents[2],NODE.resolve().parents[1],'/usr','/bin','/sbin','/System','/Library/Apple','/Library/Developer','/private/var/db/dyld','/dev','/opt/homebrew/opt','/opt/homebrew/Cellar','/Library/Preferences']
+    reads=[repo,folder,DEFAULT_HOME/'runtime',folder.parents[1]/'runtime',common_repo/'.git',REPO/'.git',REPO/'local_worker',REPO/'node_modules',PYTHON.parent.parent,PYTHON.resolve().parents[2],NODE.resolve().parents[1],'/usr','/bin','/sbin','/System','/Library/Apple','/Library/Developer','/private/var/db/dyld','/dev','/opt/homebrew/opt','/opt/homebrew/Cellar','/Library/Preferences']
     policy='(version 1)(deny default)(allow process*)(allow sysctl-read)(allow mach-lookup)(allow file-read-metadata)(allow ipc-posix-shm*)(allow file-read* '+''.join('(subpath '+q(p)+')' for p in reads)+')'
     policy+='(allow file-read* (require-all '+''.join('(require-not (subpath '+json.dumps(x)+'))' for x in ['/Users','/Volumes','/private/var/folders','/private/tmp'])+'))'
     policy+='(allow file-write* (subpath '+q(folder)+')(literal "/dev/null"))'
@@ -33,7 +33,7 @@ def command(name, repo):
     if name=='backend-tests':return [str(PYTHON),'-B','-m','unittest','discover','-s','tests']
     if name=='peptide-tests':return [str(PYTHON),'-B','-m','unittest','discover','-s','tests','-p','test_peptides.py']
     if name=='worker-tests':return [str(PYTHON),'-B','-m','unittest','discover','-s','worker_tests']
-    if name=='frontend-tests':return [str(NODE),str(REPO/'node_modules/vitest/vitest.mjs'),'run']
+    if name=='frontend-tests':return [str(NODE),str(REPO/'node_modules/vitest/vitest.mjs'),'run','--configLoader','runner','--no-cache']
     if name=='typecheck':return [str(NODE),str(REPO/'node_modules/typescript/bin/tsc'),'--noEmit','--incremental','false','-p','tsconfig.json']
     if name=='worker-coding-acceptance':return [str(PYTHON),'-B','worker_tests/coding_acceptance.py']
     if name=='coding-fixture-tests':return [str(PYTHON),'-B','-m','unittest','test_worker_fixture']

@@ -27,5 +27,16 @@ class ValidationAdmissionTests(unittest.TestCase):
         args = command('typecheck', REPO)
         self.assertTrue((REPO/args[-1]).is_file())
 
+    def test_readonly_checks_can_read_resolved_shared_dependencies_without_writing_them(self):
+        from local_worker.core import REPO
+        from local_worker.executor import sandbox
+        with tempfile.TemporaryDirectory() as folder:
+            policy=sandbox(REPO,pathlib.Path(folder))
+        self.assertIn(str((REPO/'node_modules').resolve()),policy)
+        self.assertNotIn('(allow file-write* (subpath "'+str((REPO/'node_modules').resolve()),policy)
+        args=command('frontend-tests',REPO)
+        self.assertIn('--no-cache',args)
+        self.assertEqual(args[args.index('--configLoader')+1],'runner')
+
 
 if __name__ == '__main__': unittest.main()
