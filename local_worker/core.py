@@ -132,15 +132,22 @@ def resources(repo=REPO):
     vm=run(['/usr/bin/vm_stat']);page=re.search(r'page size of (\d+)',vm.stdout);pages=dict((k,int(v)) for k,v in re.findall(r'^([^:]+):\s+(\d+)\.',vm.stdout,re.M))
     available=sum(pages.get(k,0) for k in ['Pages free','Pages inactive','Pages speculative'])*int(page[1])//1048576 if page else 0
     ps=run(['/bin/ps','-axo','pid=,ppid=,rss=,%cpu=,command='])
-    for line in ps.stdout.splitlines():
-        fields=line.strip().split(None,4)
+    parsed=[line.strip().split(None,4) for line in ps.stdout.splitlines()]
+    # Validation CPU is governed by the task budget, not mistaken for unrelated
+    # science. Explicit scientific-runner markers still take priority below.
+    owned={os.getpid()}
+    while True:
+        descendants={int(f[0]) for f in parsed if len(f)==5 and int(f[1]) in owned}
+        if descendants<=owned:break
+        owned.update(descendants)
+    for fields in parsed:
         if len(fields)!=5:continue
         pid,ppid,rss,cpu,command=fields
         if int(pid)==os.getpid() or command.startswith(('/bin/ps','/bin/zsh -lc','/bin/bash -lc')):continue
         # Launchers and idle ChimeraX sessions are not inference. Known workers take priority.
         demanding=any(marker in command for marker in ['bindcraft_native_runner.py','bindcraft_campaign.py','amme_worker.py','boltz_entry.py','prediction_runner.py','openmm_runner.py','rapid_worker.py run'])
         related='FoldStudio-MetalPort' in command or 'ChimeraX' in command
-        if demanding or (related and (int(rss)>2*1024**2 or float(cpu)>80)):
+        if demanding or (int(pid) not in owned and related and (int(rss)>2*1024**2 or float(cpu)>80)):
             science.append({'pid':int(pid),'rssMiB':round(int(rss)/1024,1),'cpuPercent':float(cpu),'command':command[:240]})
     live=pathlib.Path(repo).parent/'validation/bindcraft-fab-amme-native/library.sqlite3'
     if live.exists():
