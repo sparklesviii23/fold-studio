@@ -33,7 +33,7 @@ def command(name, repo):
     if name=='backend-tests':return [str(PYTHON),'-B','-m','unittest','discover','-s','tests']
     if name=='peptide-tests':return [str(PYTHON),'-B','-m','unittest','discover','-s','tests','-p','test_peptides.py']
     if name=='worker-tests':return [str(PYTHON),'-B','-m','unittest','discover','-s','worker_tests']
-    if name=='frontend-tests':return [str(NODE),str(REPO/'node_modules/vitest/vitest.mjs'),'run','--configLoader','runner','--no-cache']
+    if name=='frontend-tests':return [str(NODE),str(REPO/'node_modules/vitest/vitest.mjs'),'run','--configLoader','runner','--no-cache','--pool=threads','--maxWorkers=2']
     if name=='typecheck':return [str(NODE),str(REPO/'node_modules/typescript/bin/tsc'),'--noEmit','--incremental','false','-p','tsconfig.json']
     if name=='worker-coding-acceptance':return [str(PYTHON),'-B','worker_tests/coding_acceptance.py']
     if name=='coding-fixture-tests':return [str(PYTHON),'-B','-m','unittest','test_worker_fixture']

@@ -36,6 +36,7 @@ class ValidationAdmissionTests(unittest.TestCase):
         self.assertNotIn('(allow file-write* (subpath "'+str((REPO/'node_modules').resolve()),policy)
         args=command('frontend-tests',REPO)
         self.assertIn('--no-cache',args)
+        self.assertIn('--pool=threads',args)
         self.assertEqual(args[args.index('--configLoader')+1],'runner')
 
 
