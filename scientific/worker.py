@@ -18,6 +18,8 @@ import cloud_compute
 import rapid_remote
 import research
 import cinema
+import evolution
+import boltz_api_adapter
 
 AA = 'ACDEFGHIKLMNPQRSTVWY'
 MAX_FILE = 100 * 1024 * 1024
@@ -129,11 +131,17 @@ class Service:
         return self.project(p['id'])
     def project_delete(self,p):
         self.project(p['id'])
+        if self.db.execute("SELECT 1 FROM sqlite_master WHERE name='biology_api_requests'").fetchone():
+            import json as request_json
+            api_states=[request_json.loads(row['data']).get('state') for row in self.rows('SELECT data FROM biology_api_requests WHERE project_id=?',(p['id'],))]
+            if any(state in ('submission_uncertain','submitted','pending','running') for state in api_states):raise ValueError('Stop or reconcile external Boltz jobs before deleting this project.')
         active = self.db.execute("SELECT 1 FROM jobs WHERE project_id=? AND state IN ('running','queued','installing')",(p['id'],)).fetchone()
         if active: raise ValueError('Cancel active jobs before deleting the project.')
         lab=intelligence.Lab(self)
         if self.db.execute("SELECT 1 FROM intelligence_tasks WHERE project_id=? AND state IN ('running','queued')",(p['id'],)).fetchone():raise ValueError('Cancel active intelligence tasks before deleting the project.')
         for table in ['intelligence_tasks','intelligence_assignments','intelligence_candidates','intelligence_hotspots','intelligence_confidence']:self.db.execute('DELETE FROM '+table+' WHERE project_id=?',(p['id'],))
+        for table in ['evolution_events','evolution_candidates','evolution_manifests','biology_api_requests']:
+            if self.db.execute('SELECT 1 FROM sqlite_master WHERE name=?',(table,)).fetchone():self.db.execute('DELETE FROM '+table+' WHERE project_id=?',(p['id'],))
         # File assets remain until an explicit future garbage collection; deletion is metadata-only.
         Observatory(self)
         Peptides(self)
@@ -451,6 +459,10 @@ class Service:
         data['molecularIntelligence']={}
         for table in ['intelligence_tasks','intelligence_assignments','intelligence_candidates','intelligence_hotspots','intelligence_confidence']:
             data['molecularIntelligence'][table]=[{**r,'data':json.loads(r['data'])} for r in self.rows('SELECT * FROM '+table+' WHERE project_id=?',(p['id'],))]
+        biology=evolution.Evolution(self)
+        data['biologyGuidedDesign']=biology.evolution_list({'projectId':p['id']})
+        data['biologyGuidedDesign']['manifests']=biology.evolution_manifests({'projectId':p['id']})
+        data['biologyGuidedDesign']['externalAPIRequests']=boltz_api_adapter.BoltzAPI(self).biology_boltz_jobs({'projectId':p['id']})
         path=pathlib.Path(p['path'])
         if path.suffix.lower()!='.zip': raise ValueError('Project exports use .zip.')
         assets={}
@@ -520,6 +532,8 @@ class Service:
         return True
     def dispatch(self,action,p):
         if action not in ACTIONS: raise ValueError('Unsupported scientific action.')
+        if action in boltz_api_adapter.ACTIONS: return boltz_api_adapter.dispatch(self,action,p)
+        if action in evolution.ACTIONS: return evolution.dispatch(self,action,p)
         if action in research.ACTIONS: return research.dispatch(self,action,p)
         if action in cinema.ACTIONS: return cinema.dispatch(self,action,p)
         if action in rapid_remote.ACTIONS: return rapid_remote.dispatch(self,action,p)
@@ -536,7 +550,7 @@ class Service:
 
 ACTIONS={'record_update','record_remove','record_restore','library','setting_set','project_create','project_update','project_delete','record_save','sequence_save','mutate','fasta_parse','fasta_import','uniprot_search','uniprot_get','structures','structure_download','import_structure','asset_read','compute','install_engine','prediction_start','prediction_resources','job_read','job_cancel','cloud_prepare','cloud_opened','cloud_import','export_project','export_file','reconcile'}
 
-ACTIONS |= research.ACTIONS | cinema.ACTIONS | rapid_remote.ACTIONS | cloud_compute.ACTIONS | dynamics.ACTIONS | ligand.ACTIONS | mpnn.ACTIONS | fold_engine.ACTIONS | OBSERVATORY_ACTIONS | PEPTIDE_ACTIONS | molecular_graph.ACTIONS | intelligence.ACTIONS
+ACTIONS |= boltz_api_adapter.ACTIONS | evolution.ACTIONS | research.ACTIONS | cinema.ACTIONS | rapid_remote.ACTIONS | cloud_compute.ACTIONS | dynamics.ACTIONS | ligand.ACTIONS | mpnn.ACTIONS | fold_engine.ACTIONS | OBSERVATORY_ACTIONS | PEPTIDE_ACTIONS | molecular_graph.ACTIONS | intelligence.ACTIONS
 
 def execute_job(service,id):
     job=service.job(id); p=job['data']; folder=service.root/'jobs'/id
