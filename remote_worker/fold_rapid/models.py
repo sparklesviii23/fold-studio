@@ -34,13 +34,34 @@ def file_sha(path):
         while block:=f.read(4*1024**2):h.update(block)
     return h.hexdigest()
 
+def install_esm(cache,fast,register):
+    receipt=[]
+    catalogs=CATALOG['esmfold2-fast'] if fast else CATALOG['esmfold2']
+    for repo,data in catalogs.items():
+        snapshot=cache/'huggingface'/'hub'/('models--'+repo.replace('/','--'))/'snapshots'/data['revision'];snapshot.mkdir(parents=True,exist_ok=True)
+        for name,item in data['files'].items():
+            path=snapshot/name
+            if snapshot.resolve() not in path.resolve().parents:raise ValueError('Invalid model artifact path.')
+            path.parent.mkdir(parents=True,exist_ok=True)
+            fetch('https://huggingface.co/'+repo+'/resolve/'+data['revision']+'/'+name,path,item['sha256'])
+            receipt.append({'path':str(path),'sha256':item['sha256'],'repository':repo,'revision':data['revision']})
+    if fast:
+        repo='biohub/ESMFold2';data=CATALOG['esmfold2'][repo];item=data['files']['ccd.pkl'];folder=cache/'ccd';folder.mkdir(exist_ok=True)
+        path=fetch('https://huggingface.co/'+repo+'/resolve/'+data['revision']+'/ccd.pkl',folder/'ccd.pkl',item['sha256'])
+        receipt.append({'path':str(path),'sha256':item['sha256'],'repository':repo,'revision':data['revision']})
+    name='esmfold2-fast-bundle' if fast else 'esmfold2-bundle';path=cache/(name+'-receipt.json');path.write_text(canonical(receipt));register(name,path,file_sha(path))
+
 def install(root,engine,approved):
     if approved is not True:raise ValueError('Approve the model archive download and its storage requirement first.')
     root=pathlib.Path(root);cache=root/'models';cache.mkdir(exist_ok=True)
-    needed=50 if engine=='boltzgen' else 16
+    needed=50 if engine=='boltzgen' else 30 if engine in ('esmfold2','esmfold2_fast') else 1 if engine=='solublempnn' else 16
     if shutil.disk_usage(root).free<needed*1024**3:raise ValueError(f'At least {needed} GiB free storage is required before this model bundle installation.')
     def register(name,path,sha):update_config(root,'models',name,{'path':str(path),'sha256':sha})
-    if engine=='bindcraft2':
+    if engine in ('esmfold2','esmfold2_fast'):
+        install_esm(cache,engine=='esmfold2_fast',register)
+    elif engine=='solublempnn':
+        folder=cache/'proteinmpnn';folder.mkdir(exist_ok=True);item=CATALOG['solublempnn'];path=fetch(item['source'],folder/'solublempnn_v_48_020.pt',item['sha256']);register('solublempnn',path,item['sha256'])
+    elif engine=='bindcraft2':
         af=CATALOG['alphafold'];folder=cache/'alphafold';folder.mkdir(exist_ok=True)
         archive=fetch(af['source'],cache/'alphafold-official.tar')
         with tarfile.open(archive,'r:') as tar:
@@ -98,7 +119,7 @@ def background(root,engine):
     value={'state':'running','engine':engine,'pid':p.pid};path.write_text(canonical(value));return value
 
 def main():
-    p=argparse.ArgumentParser();p.add_argument('--root',required=True);p.add_argument('--engine',required=True,choices=['bindcraft2','boltzgen']);p.add_argument('--approve',action='store_true');a=p.parse_args()
+    p=argparse.ArgumentParser();p.add_argument('--root',required=True);p.add_argument('--engine',required=True,choices=['bindcraft2','boltzgen','esmfold2','esmfold2_fast','solublempnn']);p.add_argument('--approve',action='store_true');a=p.parse_args()
     try:value=install(a.root,a.engine,a.approve)
     except Exception as e:value={'state':'failed','error':str(e)}
     (pathlib.Path(a.root)/('models-'+a.engine+'.json')).write_text(canonical(value));print(canonical(value))

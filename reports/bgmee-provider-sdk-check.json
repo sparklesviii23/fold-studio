@@ -1,0 +1,49 @@
+{
+  "test": "Real pinned SDK offline request/definition validation, not scientific service execution",
+  "versions": {
+    "boltz-api": "0.50.0",
+    "modal": "1.6.2"
+  },
+  "boltzHTTPFixtureRequests": [
+    {
+      "method": "POST",
+      "url": "https://api.boltz.bio/compute/v1/protein/library-screen/estimate-cost",
+      "body": {
+        "proteins": [
+          {
+            "id": "fixture",
+            "entities": [
+              {
+                "type": "protein",
+                "value": "FGHI",
+                "chain_ids": [
+                  "Z"
+                ]
+              }
+            ]
+          }
+        ],
+        "target": {
+          "type": "no_template",
+          "entities": [
+            {
+              "type": "protein",
+              "value": "ACDE",
+              "chain_ids": [
+                "A"
+              ]
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "modalFunctions": [
+    "control",
+    "execute",
+    "setup"
+  ],
+  "networkCalls": 0,
+  "deployment": false,
+  "scientificGPUValidated": false
+}

@@ -71,7 +71,7 @@ def background(root,engine):
     status.write_text(canonical(value));return value
 
 def main():
-    parser=argparse.ArgumentParser();parser.add_argument('--root',default=os.environ.get('RAPID_ROOT','/data/rapid'));parser.add_argument('--engine',choices=['bindcraft2','boltzgen'],required=True);parser.add_argument('--approve',action='store_true');args=parser.parse_args();root=pathlib.Path(args.root);root.mkdir(parents=True,exist_ok=True)
+    parser=argparse.ArgumentParser();parser.add_argument('--root',default=os.environ.get('RAPID_ROOT','/data/rapid'));parser.add_argument('--engine',choices=['bindcraft2','boltzgen','esmfold2'],required=True);parser.add_argument('--approve',action='store_true');args=parser.parse_args();root=pathlib.Path(args.root);root.mkdir(parents=True,exist_ok=True)
     status=root/('install-'+args.engine+'.json')
     try:
         result=install(root,args.engine,args.approve);value={'state':'installed','runtime':result,'cudaQualified':False,'modelsDownloaded':False}

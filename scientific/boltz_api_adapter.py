@@ -11,18 +11,26 @@ import uuid
 
 import evolution as ev
 
-ACTIONS = {'biology_engines', 'biology_boltz_prepare', 'biology_boltz_quote', 'biology_boltz_start', 'biology_boltz_read', 'biology_boltz_jobs', 'biology_boltz_stop'}
+ACTIONS = {'biology_engines', 'biology_boltz_prepare', 'biology_boltz_quote', 'biology_boltz_start', 'biology_boltz_read', 'biology_boltz_jobs', 'biology_boltz_stop','biology_boltz_import','biology_boltz_reconcile'}
 SDK_VERSION = '0.50.0'
 API_URL = 'https://api.boltz.bio'
 
 
-def capabilities():
+def capabilities(service=None):
     try:
         version = importlib.metadata.version('boltz-api')
     except importlib.metadata.PackageNotFoundError:
         version = None
+    if service is not None and version is None:
+        from biology_providers import status
+        version=status(service).get('versions',{}).get('boltz-api')
+    authenticated=bool(os.environ.get('BOLTZ_API_KEY'))
+    if service is not None and not authenticated and __import__('sys').platform=='darwin':
+        from provider_credentials import access
+        try:authenticated=bool(access('boltz-api-key'))
+        except ValueError:pass
     return {'id': 'boltzprot-1', 'provider': 'Boltz API', 'sdkVersion': version, 'contractVersion': SDK_VERSION,
-            'sdkReady': version == SDK_VERSION, 'authenticated': bool(os.environ.get('BOLTZ_API_KEY')),
+            'sdkReady': version == SDK_VERSION, 'authenticated': authenticated,
             'operations': ['design', 'protein_library_screen'], 'realServiceQualified': False,
             'selfHosting': 'unverified; no verified official weights/runtime integrated',
             'scoreSemantics': 'Raw provider binding/structure confidence; not calibrated peptide affinity, Kd or success probability.',
@@ -74,16 +82,16 @@ class BoltzAPI:
 
     def biology_engines(self, p):
         # Never equate registration with scientific readiness.
-        return {'engines': [capabilities(),
+        return {'engines': [capabilities(self.s),
             {'id': 'bindcraft2', 'state': 'existing_path', 'detail': 'Use Compute & Run; readiness checked there.'},
             {'id': 'boltzgen', 'state': 'legacy_adapter', 'detail': 'Existing remote adapter retained; not BoltzProt-1.'},
             {'id': 'proteinmpnn', 'state': 'existing_path', 'detail': 'Authentic local fixed-backbone redesign; separate from SolubleMPNN.'},
-            {'id': 'solublempnn', 'state': 'not_integrated', 'detail': 'Checkpoint used by legacy BoltzGen is not a qualified independent redesign branch.'},
-            {'id': 'esmfold2-fast', 'state': 'not_integrated', 'detail': 'Official model exists; environment pin is not an independent predictor adapter.'},
-            {'id': 'esmfold2', 'state': 'not_integrated', 'detail': 'Separate predictor execution and real hardware validation pending.'},
+            {'id': 'solublempnn', 'state': 'adapter_implemented_model_unvalidated', 'detail': 'Independent decoder and explicit constraints; official checkpoint registration and inference qualification required.'},
+            {'id': 'esmfold2-fast', 'state': 'adapter_implemented_model_unvalidated', 'detail': 'Official Fast model loading, multichain inference and raw confidence output; checkpoints and hardware validation required.'},
+            {'id': 'esmfold2', 'state': 'adapter_implemented_model_unvalidated', 'detail': 'Official full model and ESMC loading, MSA and CCD/bond inputs; checkpoints and inference validation required.'},
             {'id': 'rosetta', 'state': 'requires_license', 'detail': 'No licensed runtime configured; no automatic redistribution.'},
-            {'id': 'rfdiffusion', 'state': 'not_integrated', 'detail': 'Motif scaffolding execution pending.'},
-            {'id': 'modal', 'state': 'not_integrated', 'detail': 'Provider deployment and real GPU qualification pending.'}],
+            {'id': 'rfdiffusion', 'state': 'adapter_implemented_model_unvalidated', 'detail': 'Official CLI motif contigs and output drift checks; exact source/runtime/checkpoint registration required.'},
+            {'id': 'modal', 'state': 'provider_implemented_unqualified', 'detail': 'Native ledger, RAPID worker deployment and control; account, immutable image and approved GPU qualification required.'}],
             'paidOperationStarted': False}
 
     def biology_boltz_prepare(self, p):
@@ -189,7 +197,33 @@ class BoltzAPI:
         value.update(result=run, state=run['status'])
         self.save(value)
         return {**value, 'resultPage': results, 'hasMore': page.has_more, 'lastId': results[-1]['id'] if results else None,
-                'scoreInterpretation': capabilities()['scoreSemantics'], 'artifactImport': 'Raw remote result metadata only; verified structure import pending.'}
+                'scoreInterpretation': capabilities()['scoreSemantics'], 'artifactImport': 'Select an official result ID for bounded coordinate download, sequence checks and local SHA-256 receipt. Provider-independent content checksum is not supplied by the SDK.'}
+
+    def biology_boltz_import(self,p):
+        if p.get('approvedDownload') is not True:raise ValueError('Approve downloading this selected official result artifact.')
+        value=self.read(p)
+        if not value.get('remoteId'):raise ValueError('Reconcile the official remote job before downloading outputs.')
+        result_id=ev.text(p.get('resultId'),'official result ID',100)
+        with client() as api:
+            page=self.resource(api,value).list_results(value['remoteId'],ids=result_id,limit=1)
+            if len(page.data)!=1:raise ValueError('Official result was not found in this request.')
+            result=plain(page.data[0])
+        if result['id']!=result_id:raise ValueError('Official API returned a different result identity.')
+        artifact=result.get('artifacts',{}).get('structure')
+        if not artifact:raise ValueError('Provider has no coordinate artifact for this result.')
+        from boltz_artifacts import download,import_result
+        raw,receipt=download(artifact)
+        return import_result(self.s,value,result,raw,receipt)
+
+    def biology_boltz_reconcile(self,p):
+        value=self.read(p)
+        if value['state']!='submission_uncertain':return value
+        remote=ev.text(p.get('remoteId'),'remote ID from the provider console',100)
+        if p.get('confirmedProviderAssociation') is not True:raise ValueError('Confirm that this provider run belongs to the saved request; unknown submissions are never retried automatically.')
+        with client() as api:run=plain(self.resource(api,value).retrieve(remote))
+        if run['id']!=remote:raise ValueError('Provider run identity mismatch.')
+        value.update(remoteId=remote,state=run['status'],result=run,reconciliation={'association':'explicit_user_confirmed_in_provider_console','at':ev.research.utc(),'requestSha256':value['requestSha256']})
+        return self.save(value)
 
     def biology_boltz_stop(self, p):
         value = self.read(p)
@@ -206,4 +240,10 @@ class BoltzAPI:
 
 def dispatch(service, action, payload):
     service.project(payload['projectId'])
+    if action in ('biology_boltz_quote','biology_boltz_start','biology_boltz_read','biology_boltz_stop','biology_boltz_import','biology_boltz_reconcile') and os.environ.get('FOLD_PROVIDER_CHILD')!='1':
+        try:version=importlib.metadata.version('boltz-api')
+        except importlib.metadata.PackageNotFoundError:version=None
+        if version!=SDK_VERSION:
+            from biology_providers import rpc
+            return rpc(service,action,payload)
     return getattr(BoltzAPI(service), action)(payload)

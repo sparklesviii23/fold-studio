@@ -35,6 +35,18 @@ def prepare(structure, design_chains, options):
     bias = options.get('aminoAcidBias', {})
     if not isinstance(bias, dict) or set(bias) - AMINO or any(type(v) not in (int, float) or not math.isfinite(v) or not -20 <= v <= 20 for v in bias.values()):
         raise ValueError('Amino-acid biases must be finite upstream log-odds shifts from −20 to 20 on canonical codes.')
+    position_constraints=options.get('positionConstraints',{})
+    if not isinstance(position_constraints,dict) or set(position_constraints)-set(by_id):raise ValueError('Position constraints must use observed redesign residue identities.')
+    for rows in layout.values():
+        for row in rows:
+            if row['id'] not in position_constraints:continue
+            spec=position_constraints[row['id']]
+            if not row['design'] or not isinstance(spec,dict) or set(spec)-{'excluded','preferred'}:raise ValueError('Position-specific restrictions require a mutable observed residue.')
+            for key,codes in spec.items():
+                if not isinstance(codes,str) or set(codes)-AMINO or len(set(codes))!=len(codes):raise ValueError('Position restrictions require distinct canonical amino acids.')
+                row[key]=codes
+            if set(omitted+row.get('excluded',''))==AMINO:raise ValueError('Every amino acid is excluded at a redesign position.')
+    if position_constraints and groups:raise ValueError('Position-specific restrictions with tied chains need joint decoder validation; use untied independent branches for now.')
     return {'schemaVersion': 1, 'residues': layout, 'tiedChains': groups,
             'omitAminoAcids': omitted, 'aminoAcidBias': bias,
             'mapping': 'Observed source chain order and residue numbers verified against the upstream parser; ties use within-chain positions, not inferred homology.'}

@@ -152,6 +152,11 @@ class EvolutionTests(EvolutionFixture, unittest.TestCase):
 
 class BoltzContractTests(EvolutionFixture, unittest.TestCase):
     # Synthetic SDK doubles test adapter control flow, never molecular accuracy.
+    def setUp(self):
+        super().setUp()
+        # Unit tests intentionally remain in-process; isolated real SDK is tested separately.
+        probe=patch.object(ba.importlib.metadata,'version',return_value=ba.SDK_VERSION)
+        probe.start();self.addCleanup(probe.stop)
     def request(self):
         return self.call('biology_boltz_prepare', operation='protein_library_screen', targetFasta='>target\nACDEFG', candidateIds=[self.parent()['id']])
     def fake(self):

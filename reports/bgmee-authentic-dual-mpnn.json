@@ -1,0 +1,337 @@
+{
+  "test": "Authentic dual redesign through the persistent native controller, same original peptide backbone, fixed/mutable masks, exclusions, preferred prior, seed and sample count",
+  "checkpoint": {
+    "path": "/Users/vii/Documents/FoldStudio-MetalPort/validation/bindcraft-fab-amme-native/engine/models/bgmee/solublempnn_v_48_020.pt",
+    "source": "https://files.ipd.uw.edu/pub/ligandmpnn/solublempnn_v_48_020.pt",
+    "sha256": "7af52d090172c230c7f0e9d21e02203f6b3a38b16db58d3c7a3960e0a9a6e31a",
+    "bytes": 6681301
+  },
+  "validationRoot": "/Users/vii/Documents/FoldStudio-MetalPort/validation/bgmee-native-controller",
+  "jobId": "d06eff89-bb8e-49ee-907e-1d5d35d5cdf5",
+  "report": {
+    "descendants": [
+      "ecd11347-8184-413a-8261-6ecdd9024d59",
+      "4b0616cc-4520-4ffa-9c8d-d1481466a841"
+    ],
+    "finished": "2026-10-24T03:45:30.006015+00:00",
+    "manifest": {
+      "binderChain": "D",
+      "candidateId": "ba0caf40-ff9c-459f-b156-33441d106f69",
+      "constraints": {
+        "excluded": {
+          "2": "C",
+          "3": "W"
+        },
+        "fixed": [
+          1,
+          4,
+          5,
+          6,
+          7,
+          8,
+          9,
+          10,
+          11,
+          12,
+          13,
+          14,
+          15,
+          16,
+          17,
+          18,
+          19,
+          20
+        ],
+        "mutable": [
+          2,
+          3
+        ],
+        "preferred": {
+          "2": "A"
+        },
+        "tags": {}
+      },
+      "count": 1,
+      "manifestSha256": "f2a4cee5300018b9b9aab3de4f8b8e1bef274f4b40c2992eb0e292b8445a779b",
+      "modelsDownloaded": false,
+      "paidCompute": false,
+      "policy": {
+        "acceptance": "No descendant is accepted without structural re-prediction, hard-constraint checks and separate assessment. Missing evidence remains missing.",
+        "heavyConcurrency": 1,
+        "stopping": [
+          "deadline",
+          "cancel",
+          "no_compatible_available_operation",
+          "all_proposals_fail_hard_constraints"
+        ],
+        "version": "transparent-staged-v1"
+      },
+      "runtimeReadiness": {
+        "esmfold2_fast": false,
+        "proteinmpnn": false,
+        "solublempnn": true
+      },
+      "schemaVersion": 1,
+      "seconds": 180,
+      "seed": 42,
+      "selectionRules": {
+        "limits": {
+          "severeClashes": [
+            0,
+            0
+          ]
+        },
+        "maxDescendants": 16,
+        "maxModelDisagreement": 3.0,
+        "maxPoseRmsd": 3.0,
+        "objectives": {
+          "interfaceArea": "max",
+          "liabilityCount": "min",
+          "severeClashes": "min"
+        },
+        "rounds": 1
+      },
+      "sourceSha256": "3e7ad918b6ec96f5234f993cd97a4836f3aebd59b20b41158fcfaede7492a0f0",
+      "stages": [
+        {
+          "operation": "geometry",
+          "required": true
+        },
+        {
+          "operation": "proteinmpnn",
+          "required": false
+        },
+        {
+          "operation": "solublempnn",
+          "required": false
+        },
+        {
+          "operation": "esmfold2_fast",
+          "required": false
+        }
+      ],
+      "structureId": "056fef34-43c0-423f-8bfe-4488fce78eb3",
+      "targetChains": [
+        "A",
+        "B",
+        "C"
+      ]
+    },
+    "qualifiedCandidates": [],
+    "retainedForComputationalReview": [],
+    "rounds": [
+      {
+        "assessments": [
+          {
+            "blocked": [
+              {
+                "engine": "esmfold2_fast",
+                "reason": "Register the isolated esmfold2_fast runtime before execution."
+              }
+            ],
+            "conditionedFamilies": [],
+            "dominatedBy": [],
+            "eligible": false,
+            "gateReasons": [
+              "missing_held_out_physics_assessment",
+              "missing_structural_reprediction",
+              "no_unconditioned_prediction_family"
+            ],
+            "id": "ba0caf40-ff9c-459f-b156-33441d106f69",
+            "maxDisagreement": null,
+            "metrics": {},
+            "physicsAssessment": false,
+            "predictionFamilies": [],
+            "preferredPrediction": null,
+            "reasons": [
+              "missing_or_nonfinite:liabilityCount",
+              "missing_or_nonfinite:interfaceArea",
+              "missing_or_nonfinite:severeClashes",
+              "missing_held_out_physics_assessment",
+              "missing_structural_reprediction",
+              "no_unconditioned_prediction_family"
+            ],
+            "samples": [],
+            "trainingIndependence": "unverified"
+          },
+          {
+            "blocked": [
+              {
+                "engine": "esmfold2_fast",
+                "reason": "Register the isolated esmfold2_fast runtime before execution."
+              }
+            ],
+            "conditionedFamilies": [
+              "ProteinMPNN"
+            ],
+            "dominatedBy": [],
+            "eligible": false,
+            "gateReasons": [
+              "missing_held_out_physics_assessment",
+              "missing_structural_reprediction",
+              "no_unconditioned_prediction_family"
+            ],
+            "id": "ecd11347-8184-413a-8261-6ecdd9024d59",
+            "maxDisagreement": null,
+            "metrics": {},
+            "physicsAssessment": false,
+            "predictionFamilies": [],
+            "preferredPrediction": null,
+            "reasons": [
+              "missing_or_nonfinite:liabilityCount",
+              "missing_or_nonfinite:interfaceArea",
+              "missing_or_nonfinite:severeClashes",
+              "missing_held_out_physics_assessment",
+              "missing_structural_reprediction",
+              "no_unconditioned_prediction_family"
+            ],
+            "samples": [],
+            "trainingIndependence": "unverified"
+          },
+          {
+            "blocked": [
+              {
+                "engine": "esmfold2_fast",
+                "reason": "Register the isolated esmfold2_fast runtime before execution."
+              }
+            ],
+            "conditionedFamilies": [
+              "ProteinMPNN"
+            ],
+            "dominatedBy": [],
+            "eligible": false,
+            "gateReasons": [
+              "missing_held_out_physics_assessment",
+              "missing_structural_reprediction",
+              "no_unconditioned_prediction_family"
+            ],
+            "id": "4b0616cc-4520-4ffa-9c8d-d1481466a841",
+            "maxDisagreement": null,
+            "metrics": {},
+            "physicsAssessment": false,
+            "predictionFamilies": [],
+            "preferredPrediction": null,
+            "reasons": [
+              "missing_or_nonfinite:liabilityCount",
+              "missing_or_nonfinite:interfaceArea",
+              "missing_or_nonfinite:severeClashes",
+              "missing_held_out_physics_assessment",
+              "missing_structural_reprediction",
+              "no_unconditioned_prediction_family"
+            ],
+            "samples": [],
+            "trainingIndependence": "unverified"
+          }
+        ],
+        "parentId": "ba0caf40-ff9c-459f-b156-33441d106f69",
+        "round": 1,
+        "supportedImprovements": []
+      }
+    ],
+    "schemaVersion": 2,
+    "scientificCertification": false,
+    "selection": "Explicit Pareto objectives, worst-sample hard gates, matched parent re-prediction, protected-residue/pose drift, family dependence and held-out physics. Descriptive criteria are not binding affinity or experimental efficacy.",
+    "stages": [
+      {
+        "engine": "geometry",
+        "metrics": {
+          "atomicContacts": 55,
+          "interfaceArea": 609.9473608177377,
+          "liabilityCount": 3,
+          "severeClashes": 1
+        },
+        "state": "completed"
+      },
+      {
+        "engine": "proteinmpnn",
+        "finished": "2026-10-24T03:45:28.299423+00:00",
+        "parentId": "ba0caf40-ff9c-459f-b156-33441d106f69",
+        "receipt": {
+          "checkpointSha256": "58db738bbf867ca9b9290ce3a6581b94649f108683ac0e6a10de6b4aeeed30b4",
+          "device": "cpu",
+          "engine": "proteinmpnn",
+          "jobId": "0708fdca-0519-4122-8e92-a821493b2784",
+          "resultSha256": "c68af72166c3ae615c20f628e4f0e0b2892fe27eeb1239acc4aba01125c27592",
+          "seed": 42
+        },
+        "round": 1,
+        "started": "2026-10-24T03:45:26.136163+00:00",
+        "state": "completed"
+      },
+      {
+        "engine": "solublempnn",
+        "finished": "2026-10-24T03:45:29.943897+00:00",
+        "parentId": "ba0caf40-ff9c-459f-b156-33441d106f69",
+        "receipt": {
+          "artifact": "jobs/d06eff89-bb8e-49ee-907e-1d5d35d5cdf5/solublempnn-ba0caf40-ff9c-459f-b156-33441d106f69/output/mpnn.json",
+          "device": "cpu",
+          "engine": "solublempnn",
+          "peakObservedFootprintBytes": 193298432,
+          "runtime": {
+            "licenseApproved": false,
+            "modelExecutionValidated": false,
+            "python": "/Users/vii/Documents/FoldStudio-MetalPort/current/FOLD STUDIO Metal Dev.app/Contents/Resources/runtime-boltz/bin/python3.12",
+            "registered": "2026-10-24T03:45:24.846055+00:00",
+            "source": "/Users/vii/Documents/FoldStudio-MetalPort/upstream/boltzgen",
+            "version": "2.14.1"
+          },
+          "seed": 42,
+          "sha256": "1acd64679641f374c7702462218864472531ab5e99968a37aa1b0e41594388c1",
+          "taskLimitBytes": 15032385536
+        },
+        "round": 1,
+        "started": "2026-10-24T03:45:28.299575+00:00",
+        "state": "completed"
+      }
+    ],
+    "stoppingReason": "no_supported_held_out_improvement"
+  },
+  "solubleResult": {
+    "affinityOrSolubilityMeasurement": false,
+    "backboneConformerSelection": "Highest occupancy per N/CA/C/O atom; lexicographic altloc tie break.",
+    "candidates": [
+      {
+        "chains": {
+          "A": "RFAMLDDVKILANGLLQLGHGLKDFVHKTKGQINDIFQKLNIFDQSFYDL",
+          "B": "RFAMLDDVKILANGLLQLGHGLKDFVHKTKGQINDIFQKLNIFDQSFYDL",
+          "C": "GPELAQHEELTLLFHGTLQLGQALNGVYRTTEGRLTKARNSLGLYGRTIELLGQ",
+          "D": "APPEPSWEELIEMMKKENLI"
+        },
+        "metrics": {},
+        "sourceBackboneSha256": "3e7ad918b6ec96f5234f993cd97a4836f3aebd59b20b41158fcfaede7492a0f0"
+      }
+    ],
+    "constraints": {
+      "D": {
+        "excluded": {
+          "2": "C",
+          "3": "W"
+        },
+        "mutable": [
+          2,
+          3
+        ],
+        "preferred": {
+          "2": "A"
+        }
+      }
+    },
+    "device": "cpu",
+    "engine": "solublempnn",
+    "family": "ProteinMPNN",
+    "fixedBackbone": true,
+    "parents": [
+      {
+        "chain": "D",
+        "id": "ba0caf40-ff9c-459f-b156-33441d106f69",
+        "sequenceSha256": "5cb27793e19366a2522fc8588298b8da849f09294314ff5f6e84354b378c2fdb"
+      }
+    ],
+    "preferredLogitShift": 1,
+    "schemaVersion": 1,
+    "seed": 42,
+    "wallSeconds": 1.410549416905269
+  },
+  "scientificCertification": false,
+  "freshStructurePredictionsAvailable": false
+}

@@ -20,6 +20,11 @@ import research
 import cinema
 import evolution
 import boltz_api_adapter
+import biology_pipeline
+import biology_evidence
+import biology_agent
+import biology_modal
+import peptide_chemistry
 
 AA = 'ACDEFGHIKLMNPQRSTVWY'
 MAX_FILE = 100 * 1024 * 1024
@@ -135,12 +140,15 @@ class Service:
             import json as request_json
             api_states=[request_json.loads(row['data']).get('state') for row in self.rows('SELECT data FROM biology_api_requests WHERE project_id=?',(p['id'],))]
             if any(state in ('submission_uncertain','submitted','pending','running') for state in api_states):raise ValueError('Stop or reconcile external Boltz jobs before deleting this project.')
+        if self.db.execute("SELECT 1 FROM sqlite_master WHERE name='biology_modal_jobs'").fetchone():
+            states=[json.loads(row['data']).get('state') for row in self.rows('SELECT data FROM biology_modal_jobs WHERE project_id=?',(p['id'],))]
+            if any(state not in ('prepared','completed','failed','cancelled','interrupted','rejected','finished','partial') for state in states):raise ValueError('Stop or reconcile remote Modal jobs before deleting this project.')
         active = self.db.execute("SELECT 1 FROM jobs WHERE project_id=? AND state IN ('running','queued','installing')",(p['id'],)).fetchone()
         if active: raise ValueError('Cancel active jobs before deleting the project.')
         lab=intelligence.Lab(self)
         if self.db.execute("SELECT 1 FROM intelligence_tasks WHERE project_id=? AND state IN ('running','queued')",(p['id'],)).fetchone():raise ValueError('Cancel active intelligence tasks before deleting the project.')
         for table in ['intelligence_tasks','intelligence_assignments','intelligence_candidates','intelligence_hotspots','intelligence_confidence']:self.db.execute('DELETE FROM '+table+' WHERE project_id=?',(p['id'],))
-        for table in ['evolution_events','evolution_candidates','evolution_manifests','biology_api_requests']:
+        for table in ['evolution_events','evolution_candidates','evolution_manifests','biology_api_requests','biology_modal_jobs','biology_evidence']:
             if self.db.execute('SELECT 1 FROM sqlite_master WHERE name=?',(table,)).fetchone():self.db.execute('DELETE FROM '+table+' WHERE project_id=?',(p['id'],))
         # File assets remain until an explicit future garbage collection; deletion is metadata-only.
         Observatory(self)
@@ -303,8 +311,14 @@ class Service:
         # Hardware detection is not an inference acceptance test.
         result['validatedMPS']=self.setting('validatedMPS',False)
         return result
-    def active(self): return self.db.execute("SELECT id FROM jobs WHERE engine IN ('boltz2','setup','proteinmpnn','bindcraft2','rdkit','openmm') AND state IN ('running','queued','installing') LIMIT 1").fetchone()
+    def active(self):
+        owner=getattr(self,'_compute_owner',None)
+        if owner:
+            job=self.job(owner)
+            if job['engine']!='bgmee' or job['state']!='running':owner=None
+        return self.db.execute("SELECT id FROM jobs WHERE engine IN ('boltz2','setup','proteinmpnn','bindcraft2','rdkit','peptide_chemistry','openmm','bgmee') AND state IN ('running','queued','installing') AND id!=? LIMIT 1",(owner or '',)).fetchone()
     def job_new(self,p,engine,state):
+        if getattr(self,'_compute_owner',None) and engine!='bgmee':p={**p,'controllerId':self._compute_owner}
         self.project(p['projectId']); id,date=uid(),now()
         self.db.execute('INSERT INTO jobs VALUES(?,?,?,?,?,?,?,?)',(id,p['projectId'],p.get('name','Prediction'),engine,state,json.dumps(p),date,date)); self.db.commit()
         return self.job(id)
@@ -384,6 +398,10 @@ class Service:
     def job_cancel(self,p):
         job=self.job(p['id'])
         if job['state'] not in ['queued','running','installing']: return job
+        if job['engine']=='bgmee':
+            for id in job['data'].get('children',[]):
+                child=self.job(id)
+                if child['project_id']==job['project_id'] and child['data'].get('controllerId')==job['id']:self.job_cancel({'id':id})
         pid=job['data'].get('pid')
         if pid:
             # The stored PID must still have this exact worker and job in its command.
@@ -462,6 +480,8 @@ class Service:
         biology=evolution.Evolution(self)
         data['biologyGuidedDesign']=biology.evolution_list({'projectId':p['id']})
         data['biologyGuidedDesign']['manifests']=biology.evolution_manifests({'projectId':p['id']})
+        for table in ('biology_modal_jobs','biology_evidence'):
+            if self.db.execute('SELECT 1 FROM sqlite_master WHERE name=?',(table,)).fetchone():data['biologyGuidedDesign'][table]=[json.loads(row['data']) for row in self.rows('SELECT data FROM '+table+' WHERE project_id=?',(p['id'],))]
         data['biologyGuidedDesign']['externalAPIRequests']=boltz_api_adapter.BoltzAPI(self).biology_boltz_jobs({'projectId':p['id']})
         path=pathlib.Path(p['path'])
         if path.suffix.lower()!='.zip': raise ValueError('Project exports use .zip.')
@@ -532,6 +552,11 @@ class Service:
         return True
     def dispatch(self,action,p):
         if action not in ACTIONS: raise ValueError('Unsupported scientific action.')
+        if action in biology_evidence.ACTIONS:return biology_evidence.dispatch(self,action,p)
+        if action in biology_agent.ACTIONS:return biology_agent.dispatch(self,action,p)
+        if action in peptide_chemistry.ACTIONS:return peptide_chemistry.dispatch(self,action,p)
+        if action in biology_modal.ACTIONS:return biology_modal.dispatch(self,action,p)
+        if action in biology_pipeline.ACTIONS: return biology_pipeline.dispatch(self,action,p)
         if action in boltz_api_adapter.ACTIONS: return boltz_api_adapter.dispatch(self,action,p)
         if action in evolution.ACTIONS: return evolution.dispatch(self,action,p)
         if action in research.ACTIONS: return research.dispatch(self,action,p)
@@ -550,7 +575,7 @@ class Service:
 
 ACTIONS={'record_update','record_remove','record_restore','library','setting_set','project_create','project_update','project_delete','record_save','sequence_save','mutate','fasta_parse','fasta_import','uniprot_search','uniprot_get','structures','structure_download','import_structure','asset_read','compute','install_engine','prediction_start','prediction_resources','job_read','job_cancel','cloud_prepare','cloud_opened','cloud_import','export_project','export_file','reconcile'}
 
-ACTIONS |= boltz_api_adapter.ACTIONS | evolution.ACTIONS | research.ACTIONS | cinema.ACTIONS | rapid_remote.ACTIONS | cloud_compute.ACTIONS | dynamics.ACTIONS | ligand.ACTIONS | mpnn.ACTIONS | fold_engine.ACTIONS | OBSERVATORY_ACTIONS | PEPTIDE_ACTIONS | molecular_graph.ACTIONS | intelligence.ACTIONS
+ACTIONS |= biology_pipeline.ACTIONS | boltz_api_adapter.ACTIONS | evolution.ACTIONS | research.ACTIONS | cinema.ACTIONS | rapid_remote.ACTIONS | cloud_compute.ACTIONS | dynamics.ACTIONS | ligand.ACTIONS | mpnn.ACTIONS | fold_engine.ACTIONS | OBSERVATORY_ACTIONS | PEPTIDE_ACTIONS | molecular_graph.ACTIONS | intelligence.ACTIONS
 
 def execute_job(service,id):
     job=service.job(id); p=job['data']; folder=service.root/'jobs'/id
@@ -626,8 +651,10 @@ def install(service,id):
         service.job_update(id,'failed',{'error':str(error),'finished':now()}); print('SETUP ERROR:',error,flush=True); raise
 
 def main():
-    parser=argparse.ArgumentParser(); parser.add_argument('--root',required=True); parser.add_argument('--fixtures'); parser.add_argument('--run-job'); parser.add_argument('--install'); parser.add_argument('--serve',type=int); parser.add_argument('--intelligence-job'); parser.add_argument('--mpnn-job'); parser.add_argument('--bindcraft-cpu-job'); parser.add_argument('--ligand-job'); parser.add_argument('--dynamics-job')
+    parser=argparse.ArgumentParser(); parser.add_argument('--root',required=True); parser.add_argument('--fixtures'); parser.add_argument('--run-job'); parser.add_argument('--install'); parser.add_argument('--serve',type=int); parser.add_argument('--intelligence-job'); parser.add_argument('--mpnn-job'); parser.add_argument('--bindcraft-cpu-job'); parser.add_argument('--ligand-job'); parser.add_argument('--dynamics-job'); parser.add_argument('--biology-job'); parser.add_argument('--peptide-chemistry-job')
     args=parser.parse_args(); service=Service(args.root,args.fixtures)
+    if args.peptide_chemistry_job:peptide_chemistry.run(service,args.peptide_chemistry_job);return
+    if args.biology_job:biology_pipeline.run(service,args.biology_job);return
     if args.bindcraft_cpu_job:
         import bindcraft_cpu
         bindcraft_cpu.run(service,args.bindcraft_cpu_job); return

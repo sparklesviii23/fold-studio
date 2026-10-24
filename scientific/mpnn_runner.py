@@ -34,12 +34,21 @@ def execute(request,backend='cpu'):
  checkpoint=pathlib.Path(mpnn_variant_directory(str(weights),request['variant']))/'v_48_020.npz'
  model=ProteinMPNNSequenceModel(str(weights),variant=request['variant'],key=jax.random.PRNGKey(request['seed']),temperature=request['temperature'],length_bucket_size=1,**({'multi_chain_binders':tuple(tuple(group) for group in constraints['tiedChains']),'omitted_amino_acids':constraints['omitAminoAcids'],'amino_acid_bias':constraints['aminoAcidBias']} if constraints else {}))
  loaded=time.perf_counter();print('Running full upstream encoder and autoregressive decoder; compilation may take time.',flush=True)
+ if constraints and any('excluded' in r or 'preferred' in r for rows in constraints['residues'].values() for r in rows):
+  from bindcraft.sequence_optimization import OMITTED_AMINO_ACID_LOGIT
+  positions=[r for ch in sorted(proteins) for r in constraints['residues'][ch]]
+  bias=jnp.broadcast_to(model.redesigned_amino_acid_bias,(len(positions),20))
+  for i,r in enumerate(positions):
+   for aa in r.get('preferred',''):bias=bias.at[i,AMINO_ACIDS.index(aa)].add(1.)
+   for aa in r.get('excluded',''):bias=bias.at[i,AMINO_ACIDS.index(aa)].set(OMITTED_AMINO_ACID_LOGIT)
+  model.redesigned_amino_acid_bias=bias
  predictions=model.predict_candidates({'source':proteins},candidate_count=request['count']);results=[]
  for prediction in predictions:
   output=prediction['source'];chains={ch:sequence(p) for ch,p in output.protein_complex.items()}
   for ch,p in output.protein_complex.items():
    if any(actual!=original for actual,original,editable in zip(chains[ch],expected[ch],masks[ch]) if not editable):raise ValueError('Fixed source residue sequence changed.')
    if constraints and any(aa in constraints['omitAminoAcids'] for aa,editable in zip(chains[ch],masks[ch]) if editable):raise ValueError('Omitted amino acid appeared at a redesigned residue.')
+   if constraints and any(aa in r.get('excluded','') for aa,r in zip(chains[ch],constraints['residues'][ch]) if r['design']):raise ValueError('Position-specific excluded amino acid appeared.')
    if not np.array_equal(before[ch],np.asarray(p.atoms)):raise ValueError('Source coordinates changed.')
   if constraints:
    for group in constraints['tiedChains']:

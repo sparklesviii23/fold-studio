@@ -76,7 +76,8 @@ def execute(root,id):
         with store.db() as db:db.execute("UPDATE jobs SET state='preparing',updated=? WHERE id=?",(now(),id))
         prepared=prepare(root,folder,manifest)
         provenance={'jobId':id,'workerVersion':VERSION,'sourceRevision':prepared.get('sourceRevision'),'runtimeReceipt':prepared.get('runtimeReceipt'),'models':prepared['models'],'manifestSha256':job['manifest_hash'],'cudaQualified':False,'requestedSchedulingMode':manifest['mode'],'effectivePolicy':'One original engine workflow; fixed scientific settings. Adaptive cross-engine scheduling awaits measured GPU costs.','imageDigest':os.environ.get('RAPID_IMAGE_DIGEST','unrecorded-local-image')}
-        if manifest['engine']!='structure_screen':
+        provenance.update(computeProvider=os.environ.get('FOLD_COMPUTE_PROVIDER','configured_worker'),biologyCodeSha256=os.environ.get('BGMEE_CODE_SHA256'))
+        if manifest['engine'] not in ('structure_screen','rosetta'):
             from .hardware import require_cuda
             provenance['cudaProbe']=require_cuda(prepared['command'][0],prepared['environment'],timeout=max(1,min(120,expires-time.time())))
         (folder/'provenance.json').write_text(canonical(provenance))
@@ -108,7 +109,7 @@ def execute(root,id):
         # Preserve partial/rejected outputs without upgrading their acceptance.
         candidates=collect(folder,manifest,provenance)
         if state is None:
-            if manifest['engine'] in ('structure_screen','proteinmpnn','af2_multimer'):state='completed'
+            if manifest['engine'] in ('structure_screen','proteinmpnn','af2_multimer','solublempnn','esmfold2','esmfold2_fast','rosetta','rfdiffusion'):state='completed'
             else:state='completed' if any(c['outcome'] in ('accepted','passed_upstream_filters') for c in candidates) else 'no_qualified_candidates'
         result={'candidates':len(candidates),'accepted':sum(c['outcome']=='accepted' for c in candidates),'passedUpstreamFilters':sum(c['outcome']=='passed_upstream_filters' for c in candidates),'wallSeconds':time.monotonic()-started,'peakObservedChildGPU_MiB':peak,'exactStepResume':False,'scientificCUDAQualified':False}
         (folder/'result.json').write_text(canonical(result))

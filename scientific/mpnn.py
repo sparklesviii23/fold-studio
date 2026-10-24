@@ -8,7 +8,7 @@ def runtime(s):
  return os.environ.get('FOLD_BINDCRAFT_PYTHON') or s.setting('bindcraftPython') or str(bundled if bundled.is_file() else s.root/'engine/bindcraft/bin/python')
 
 def start(s,p):
- if set(p)-{'projectId','structureId','designChains','count','seed','temperature','variant','designResidues','tiedChains','omitAminoAcids','aminoAcidBias'}:raise ValueError('Unsupported ProteinMPNN field.')
+ if set(p)-{'projectId','structureId','designChains','count','seed','temperature','variant','designResidues','tiedChains','omitAminoAcids','aminoAcidBias','positionConstraints'}:raise ValueError('Unsupported ProteinMPNN field.')
  engine=fe.Engine(s);shared=engine.fold_structure(p);st=shared['structure'];chains=p.get('designChains')
  if not isinstance(chains,list) or not chains or any(not isinstance(ch,str) for ch in chains) or len(set(chains))!=len(chains):raise ValueError('Select distinct chains to redesign.')
  all_chains=[ch['id'] for ch in st['chains']]

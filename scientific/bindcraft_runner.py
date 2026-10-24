@@ -51,8 +51,15 @@ if __name__=='__main__':
  if backend=='metal':provenance.update(metaljax=importlib.metadata.version('metaljax'),memoryEnvironment=envelope,precisionAdapterSha256=hashlib.sha256(pathlib.Path(__file__).with_name('af2_native.py').read_bytes()).hexdigest())
  (settings.parent/'runtime-provenance.json').write_text(json.dumps(provenance,indent=2)+'\n')
  print('Scientific runtime: '+json.dumps(provenance),flush=True)
+ seed_context=contextlib.nullcontext()
+ protocol=settings.parent/'seed-protocol.json'
+ if protocol.is_file():
+  remote=BASE/'remote_worker';sys.path.insert(0,str(remote if remote.is_dir() else pathlib.Path(__file__).parent))
+  from fold_rapid.seeded_bindcraft import install as install_seed
+  seed_context=install_seed(json.loads(protocol.read_text()))
+  provenance['biologySeedProtocolSha256']=hashlib.sha256(protocol.read_bytes()).hexdigest()
  try:
-  with (session.install(precision_model) if session else contextlib.nullcontext()):
+  with seed_context, (session.install(precision_model) if session else contextlib.nullcontext()):
    status=launch_campaign(sys.argv[1],af2_weights=sys.argv[2],mpnn_weights=proteinmpnn_weights())
   provenance['exitCode']=status;provenance['state']='finished'
  except BaseException as error:

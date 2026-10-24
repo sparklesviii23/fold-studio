@@ -31,7 +31,7 @@ def selected_target(manifest):
     from .contracts import target_bytes
     result=inspect(target_bytes(manifest['target']),manifest['target']['format'])
     if not set(manifest['target']['chains'])<=set(result['chains']):raise ValueError('Requested target chain does not exist in the snapshot.')
-    if manifest['engine'] in ('proteinmpnn','af2_multimer'):
+    if manifest['engine'] in ('proteinmpnn','af2_multimer','solublempnn','esmfold2','esmfold2_fast','rosetta'):
         design=manifest['design'].get('designChains',[])
         if not design or not set(design)<=set(result['chains']):raise ValueError('Select existing binder/redesign chains in the coordinate snapshot.')
         if set(design)&set(manifest['target']['chains']):raise ValueError('Binder/redesign chains and fixed target chains must be disjoint.')
@@ -40,6 +40,13 @@ def selected_target(manifest):
     for chain,values in hotspots.items():
         valid={str(r['authorNumber'])+r['insertionCode'] for r in result['chains'][chain]['residues']}
         if not isinstance(values,list) or any(str(v) not in valid for v in values):raise ValueError('Hotspot does not correspond to an observed author residue.')
+    if manifest.get('biology'):
+        from .biology_contract import validate
+        validate(manifest['biology'],result)
+        if manifest['engine'] in ('proteinmpnn','solublempnn'):
+            design=set(manifest['design']['designChains'])
+            if any(mask.get('mutable') for ch,mask in manifest['biology'].get('constraints',{}).items() if ch not in design):raise ValueError('Mutable residues must belong to explicitly selected redesign chains.')
+        if set(manifest['biology'].get('sequences',{}))-set(manifest['target']['chains'])-set(manifest['design'].get('designChains',[])):raise ValueError('Replacement sequence chain is outside the selected molecular context.')
     return result
 
 def confined(root, relative):

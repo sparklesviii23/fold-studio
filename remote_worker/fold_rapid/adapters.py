@@ -17,6 +17,16 @@ def prepare(root, job, manifest):
     engine=manifest['engine'];d=manifest['design']
     if engine=='structure_screen':return {'command':[sys.executable,'-m','fold_rapid.engine_tasks','screen',str(job)],'environment':{},'models':{},'mapping':mapping}
     runtime,models=verified_runtime(root,engine);python=runtime['python'];source=pathlib.Path(runtime['source'])
+    if engine in ('esmfold2','esmfold2_fast','solublempnn','rosetta','rfdiffusion'):
+        from .biology_contract import validate
+        validate(manifest.get('biology',{}),mapping)
+        (job/'biology-runtime.json').write_text(canonical({'runtime':runtime,'models':models}))
+        environment={'PYTHONPATH':os.pathsep.join([str(source/'src'),str(source),str(pathlib.Path(__file__).resolve().parents[1])]),'HF_HOME':str(pathlib.Path(root)/'models/huggingface'),'HF_HUB_OFFLINE':'1','HF_DATASETS_OFFLINE':'1','BGMEE_DEVICE':'cpu' if engine=='rosetta' else 'cuda'}
+        if engine=='rfdiffusion':
+            from .scaffolding import prepare as scaffold_prepare
+            command=scaffold_prepare(job,manifest,runtime,models)
+        else:command=[python,'-m','fold_rapid.biology_tasks',engine,str(job)]
+        return {'command':command,'environment':environment,'models':models,'mapping':mapping,'sourceRevision':ENGINES[engine]['revision'],'runtimeReceipt':runtime}
     env={'PYTHONPATH':str(source),'JAX_PLATFORMS':'cuda','JAX_PLATFORM_NAME':'gpu','XLA_PYTHON_CLIENT_PREALLOCATE':'false','HF_HUB_OFFLINE':'1','HF_DATASETS_OFFLINE':'1','BINDCRAFT_AF2_PARAMS':str(pathlib.Path(next((v['path'] for k,v in models.items() if k.startswith('model_')),'' )).parent),'BINDCRAFT_MPNN_WEIGHTS':str(pathlib.Path(models['mpnn-neutral']['path']).parent) if 'mpnn-neutral' in models else str(source/'bindcraft/weights/proteinmpnn/weights_neutral')}
     if engine=='bindcraft2':
         # Original settings resolver owns scientific defaults. Only target,
@@ -25,6 +35,14 @@ def prepare(root, job, manifest):
         settings={**manifest.get('settings',{}),'targets':[{'name':'target','target_path':str(target),'chains':','.join(manifest['target']['chains']),'hotspots':','.join(chain+str(v) for chain in manifest['target']['chains'] for v in d.get('hotspots',{}).get(chain,[]))}], 'modality':[d['modality']], 'binder_lengths':d['lengths'],'campaign_seed':manifest['seed'],'number_of_final_designs':d['count'],'max_trajectories':d['attempts'],'project_folder':str(output),'resume':False}
         (job/'execution-settings.json').write_text(canonical(settings))
         command=[python,str(source/'bindcraft.py'),'design',str(job/'execution-settings.json')]
+        if manifest.get('biology'):
+            bio=manifest['biology']
+            if len(bio.get('parents',[]))!=1 or len(bio.get('sequences',{}))!=1:raise ValueError('Seeded BindCraft requires one explicit reference per campaign.')
+            sequence=next(iter(bio['sequences'].values()))
+            if d['lengths'] not in ([len(sequence)],[len(sequence),len(sequence)]):raise ValueError('Seeded BindCraft must retain the reference length.')
+            (job/'seed-protocol.json').write_text(canonical(bio))
+            env['PYTHONPATH']=os.pathsep.join([str(source),str(pathlib.Path(__file__).resolve().parents[1])])
+            command=[python,'-m','fold_rapid.seeded_bindcraft',str(job/'execution-settings.json'),str(job/'seed-protocol.json')]
     elif engine=='boltzgen':
         if manifest.get('settings'):raise ValueError('BoltzGen arbitrary overrides are not enabled; use its pinned original protocol.')
         if 'G' in manifest['target']['chains']:raise ValueError('Target chain G conflicts with the generated binder; prepare a separately numbered construct.')
@@ -91,15 +109,25 @@ def collect(job, manifest, provenance):
         if report.is_file():
             for row in json.loads(report.read_text())['predictions']:
                 rows.append(({'design':row['model'],'outcome':'evaluated','metrics':row['metrics'],'arrayMetricsArtifact':row['arrayMetricsArtifact']},output/(row['model']+'.cif'),'design','sequence'))
-    elif engine=='proteinmpnn':
+    elif engine in ('proteinmpnn','solublempnn'):
         report=output/'mpnn.json'
         if report.is_file():
             for i,row in enumerate(json.loads(report.read_text())['candidates']):
                 rows.append(({'design':f'sequence-{i}','outcome':'sequence_redesigned','metrics':row['metrics'],'sequence':'/'.join(row['chains'][ch] for ch in manifest['design']['designChains']),'fastaArtifact':f'output/sequence-{i}.fasta'},None,'design','sequence'))
+    elif engine in ('esmfold2','esmfold2_fast','rosetta'):
+        report=output/'biology-result.json'
+        if report.is_file():
+            data=json.loads(report.read_text())
+            if engine=='rosetta':rows.append(({'design':'relaxed','outcome':'physical_refinement_requires_validation','metrics':{k:v for k,v in data.items() if type(v) in (int,float)},'method':data},output/data['structure'],'design','sequence'))
+            else:
+                for row in data['predictions']:rows.append(({'design':'prediction-'+str(row['sample']),'outcome':'evaluated','metrics':row['metrics'],'confidenceArtifact':row['confidenceArtifact'],'modelFamily':data['family']},output/row['structure'],'design','sequence'))
+    elif engine=='rfdiffusion':
+        from .scaffolding import collect as scaffold_collect
+        rows=scaffold_collect(job,manifest)
     candidates=[];seen=set()
     for row,path,id_key,seq_key in rows:
         raw=path.read_bytes() if path else None
-        mapping=inspect(raw,'cif') if raw else None
+        mapping=inspect(raw,'pdb' if path.suffix.lower()=='.pdb' else 'cif') if raw else None
         roles={}
         if raw and engine=='bindcraft2':
             # Explicit native chain roles, never guessed from chain order.
@@ -111,7 +139,7 @@ def collect(job, manifest, provenance):
         elif mapping and engine=='boltzgen':
             roles={'binder':['G'],'target':manifest['target']['chains']}
             if not set(roles['binder']+roles['target'])<=set(mapping['chains']):raise ValueError('BoltzGen output chain identities differ from the submitted construct; no chain mapping is inferred.')
-        elif mapping:roles={'binder':manifest['design']['designChains'],'target':manifest['target']['chains']}
+        elif mapping:roles=row.get('chainRoles',{'binder':manifest['design'].get('designChains',[]),'target':manifest['target']['chains']})
         sequence=row.get(seq_key,'')
         if not sequence and mapping and roles.get('binder'):
             sequence='/'.join(mapping['chains'][c]['sequence'] for c in roles['binder'] if c in mapping['chains'])
@@ -120,7 +148,7 @@ def collect(job, manifest, provenance):
         seen.add(key)
         flags={k:str(v).lower() in ('true','1','1.0') for k,v in row.items() if k.startswith('pass_') and k.endswith('_filter')}
         outcome=row.get('outcome','passed_upstream_filters' if flags and all(flags.values()) else 'rejected' if flags else 'unclassified')
-        record={'schemaVersion':1,'candidateId':key,'generator':engine,'upstreamId':row.get(id_key),'parentCandidates':[], 'binderSequence':sequence or None,'binderLength':len(sequence.replace('/','')) if sequence else None,'target':{'sha256':manifest['target']['sha256'],'chains':manifest['target']['chains'],'mappingArtifact':'target-mapping.json'},'coordinates':{'artifact':str(path.relative_to(job)),'sha256':digest(raw),'mapping':mapping,'chainRoles':roles} if raw else None,'metrics':row,'metricNamespace':engine,'outcome':outcome,'rejectionReasons':row.get('failed_filters',','.join(k for k,v in flags.items() if not v)),'seed':manifest['seed'],'provenance':provenance,'independentEvaluationHistory':[row] if engine=='af2_multimer' else [],'sequenceRedesignHistory':[row] if engine=='proteinmpnn' else [],'biologicalValidation':'Not experimentally validated; predictions do not establish binding or inhibition.'}
+        record={'schemaVersion':1,'candidateId':key,'generator':engine,'upstreamId':row.get(id_key),'parentCandidates':manifest.get('parentCandidates',[]), 'binderSequence':sequence or None,'binderLength':len(sequence.replace('/','')) if sequence else None,'target':{'sha256':manifest['target']['sha256'],'chains':manifest['target']['chains'],'mappingArtifact':'target-mapping.json'},'coordinates':{'artifact':str(path.relative_to(job)),'sha256':digest(raw),'mapping':mapping,'chainRoles':roles} if raw else None,'metrics':row,'metricNamespace':engine,'outcome':outcome,'rejectionReasons':row.get('failed_filters',','.join(k for k,v in flags.items() if not v)),'seed':manifest['seed'],'provenance':provenance,'independentEvaluationHistory':[row] if engine=='af2_multimer' else [],'sequenceRedesignHistory':[row] if engine=='proteinmpnn' else [],'biologicalValidation':'Not experimentally validated; predictions do not establish binding or inhibition.'}
         record['sequenceScreen']={'canonical':bool(sequence) and set(sequence.replace('/',''))<=set('ACDEFGHIKLMNPQRSTVWY'),'scope':'Sequence identity check only; no binding prediction.'}
         dest=job/'candidates'/f'{key}.json';dest.parent.mkdir(exist_ok=True)
         if dest.exists() and dest.read_text()!=canonical(record):raise ValueError('Immutable candidate identity conflict.')

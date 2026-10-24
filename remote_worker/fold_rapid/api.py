@@ -31,12 +31,13 @@ class Worker:
     def model_status(self,p):return self.engine_inventory(p)
     def engine_install(self,p):
         fields(p,('engine','approved'))
-        if p['approved'] is not True or p['engine'] not in ('bindcraft2','boltzgen'):raise ValueError('Approve a supported isolated runtime installation.')
+        if p['approved'] is not True or p['engine'] not in ('bindcraft2','boltzgen','esmfold2','esmfold2_fast','solublempnn'):raise ValueError('Approve a supported isolated runtime installation.')
         from .install import background
-        return background(self.store.root,p['engine'])
+        engine='esmfold2' if p['engine']=='esmfold2_fast' else 'boltzgen' if p['engine']=='solublempnn' else p['engine']
+        return background(self.store.root,engine)
     def model_install(self,p):
         fields(p,('engine','approved'))
-        if p['approved'] is not True or p['engine'] not in ('bindcraft2','boltzgen'):raise ValueError('Approve a supported model download.')
+        if p['approved'] is not True or p['engine'] not in ('bindcraft2','boltzgen','esmfold2','esmfold2_fast','solublempnn'):raise ValueError('Approve a supported model download.')
         from .models import background
         return background(self.store.root,p['engine'])
     def installation_status(self,p):

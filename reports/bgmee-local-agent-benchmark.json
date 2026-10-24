@@ -1,0 +1,244 @@
+{
+  "test": "Local research-agent real llama.cpp/Ollama tool request, isolated synthetic library with original peptide sequence",
+  "result": {
+    "answer": "The sequence descriptors of candidate d38b61ac-28cb-4c1d-a4fb-6b0ee9307f8c do not establish experimental binding.",
+    "model": "qwen2.5-coder:3b",
+    "modelDigest": "f72c60cabf6237b07f6e632b2c48d533cef25eda2efbd34bed21c5e9c01e6225",
+    "backend": "Ollama/llama.cpp",
+    "trace": [
+      {
+        "tool": "candidate_context",
+        "arguments": {
+          "candidateId": "d38b61ac-28cb-4c1d-a4fb-6b0ee9307f8c"
+        },
+        "result": {
+          "candidate": {
+            "chemistry": {
+              "crosslinks": [],
+              "modifications": [],
+              "representation": "canonical_linear_protein"
+            },
+            "constraints": {
+              "excluded": {},
+              "fixed": [],
+              "mutable": [
+                1,
+                2,
+                3,
+                4,
+                5,
+                6,
+                7,
+                8,
+                9,
+                10,
+                11,
+                12,
+                13,
+                14,
+                15,
+                16,
+                17,
+                18,
+                19,
+                20
+              ],
+              "preferred": {},
+              "tags": {}
+            },
+            "created": "2026-10-23T17:02:35.220140+00:00",
+            "descriptors": {
+              "chargeAssumptions": "Lys/Arg +1, Asp/Glu -1; excludes termini and histidine; no pH-dependent calculation",
+              "composition": {
+                "A": 2,
+                "E": 5,
+                "I": 2,
+                "K": 2,
+                "L": 2,
+                "M": 2,
+                "N": 1,
+                "P": 2,
+                "S": 1,
+                "W": 1
+              },
+              "flags": [
+                {
+                  "evidence": "sequence heuristic; no rate predicted",
+                  "position": 7,
+                  "residue": "W",
+                  "type": "oxidation-sensitive residue"
+                },
+                {
+                  "evidence": "sequence heuristic; no rate predicted",
+                  "position": 13,
+                  "residue": "M",
+                  "type": "oxidation-sensitive residue"
+                },
+                {
+                  "evidence": "sequence heuristic; no rate predicted",
+                  "position": 14,
+                  "residue": "M",
+                  "type": "oxidation-sensitive residue"
+                }
+              ],
+              "formalSideChainCharge": -3,
+              "gravy": -0.48500000000000004,
+              "gravyMethod": "Kyte\u2013Doolittle arithmetic mean; not a solubility predictor",
+              "length": 20,
+              "unavailable": [
+                "measured solubility",
+                "aggregation probability",
+                "proteolytic half-life",
+                "permeability",
+                "immunogenicity",
+                "affinity"
+              ]
+            },
+            "id": "d38b61ac-28cb-4c1d-a4fb-6b0ee9307f8c",
+            "name": "original computational peptide",
+            "parentId": null,
+            "projectId": "73e571f7-d612-42c6-a605-1de8a9e77038",
+            "provenance": {
+              "conditioning": [],
+              "operation": "import"
+            },
+            "reference": {},
+            "residueMap": [
+              {
+                "position": 1,
+                "wildType": "A"
+              },
+              {
+                "position": 2,
+                "wildType": "P"
+              },
+              {
+                "position": 3,
+                "wildType": "A"
+              },
+              {
+                "position": 4,
+                "wildType": "E"
+              },
+              {
+                "position": 5,
+                "wildType": "P"
+              },
+              {
+                "position": 6,
+                "wildType": "S"
+              },
+              {
+                "position": 7,
+                "wildType": "W"
+              },
+              {
+                "position": 8,
+                "wildType": "E"
+              },
+              {
+                "position": 9,
+                "wildType": "E"
+              },
+              {
+                "position": 10,
+                "wildType": "L"
+              },
+              {
+                "position": 11,
+                "wildType": "I"
+              },
+              {
+                "position": 12,
+                "wildType": "E"
+              },
+              {
+                "position": 13,
+                "wildType": "M"
+              },
+              {
+                "position": 14,
+                "wildType": "M"
+              },
+              {
+                "position": 15,
+                "wildType": "K"
+              },
+              {
+                "position": 16,
+                "wildType": "K"
+              },
+              {
+                "position": 17,
+                "wildType": "E"
+              },
+              {
+                "position": 18,
+                "wildType": "N"
+              },
+              {
+                "position": 19,
+                "wildType": "L"
+              },
+              {
+                "position": 20,
+                "wildType": "I"
+              }
+            ],
+            "rootId": "d38b61ac-28cb-4c1d-a4fb-6b0ee9307f8c",
+            "schemaVersion": 1,
+            "sequence": "APAEPSWEELIEMMKKENLI",
+            "sequenceSha256": "5cb27793e19366a2522fc8588298b8da849f09294314ff5f6e84354b378c2fdb",
+            "source": {},
+            "structure": null,
+            "validation": "sequence_only_unvalidated"
+          },
+          "events": [
+            {
+              "kind": "import",
+              "data": {
+                "source": "fasta",
+                "structure": null
+              },
+              "created": "2026-10-23T17:02:35.220220+00:00"
+            }
+          ],
+          "loadedStructure": null,
+          "scope": "Only this project and candidate. Predicted coordinates do not establish binding."
+        }
+      }
+    ],
+    "timing": [
+      {
+        "load_duration": 519526834,
+        "prompt_eval_count": 236,
+        "eval_count": 102,
+        "eval_duration": 1201291000
+      },
+      {
+        "load_duration": 543665500,
+        "prompt_eval_count": 1234,
+        "eval_count": 100,
+        "eval_duration": 1190689000
+      },
+      {
+        "load_duration": 545178125,
+        "prompt_eval_count": 1276,
+        "eval_count": 62,
+        "eval_duration": 723537000
+      }
+    ],
+    "wallSeconds": 8.082438667071983,
+    "biologyReasoningQualified": false,
+    "remoteInference": false,
+    "scientificComputeStarted": false,
+    "created": "2026-10-23T17:02:43.306519+00:00",
+    "artifact": "research-agent/030b7fe2ccf1c7f4255fc768c810dbe71d6ea0a317987e8cda87576fd7ad45f4.json"
+  },
+  "maximumObservedServerAndRunnerRSSBytes": 2501214208,
+  "memoryMeasure": "Sum process-tree RSS sampled every 0.5 sec; shared pages may double count. Not Metal allocation accounting.",
+  "biologyReasoningQualified": false,
+  "frameworkChoice": "Reuse installed Ollama/llama.cpp Q4_K_M model. MLX alternative has not been benchmarked, no superiority claim.",
+  "downloadedModels": false,
+  "toolContextRead": true
+}

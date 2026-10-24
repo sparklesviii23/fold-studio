@@ -13,6 +13,13 @@ ENGINES={
  'af2_multimer':{'repository':'https://github.com/PacesaLab/BindCraft2','revision':BC_PIN,'license':'Upstream AlphaFold notices and checkpoint terms apply','operations':['evaluate'],'modalities':['peptide','binder'],'runtime':'bindcraft2','models':['model_2_multimer_v3','model_4_multimer_v3'],'representation':'Explicit target and binder chain coordinates; original held-out 2/4 predictions','memory':'Workload dependent; CUDA not measured'},
  'structure_screen':{'repository':'local Fold Studio','revision':'0.2.0','license':'Project source terms','operations':['screen'],'modalities':['peptide','binder'],'runtime':'core','models':[],'representation':'Observed PDB/mmCIF sequences/residue mapping; no model prediction','memory':'Bounded 2 MB input; CPU geometry/sequence checks'}
 }
+ENGINES.update({
+ 'solublempnn':{'repository':'https://github.com/dauparas/LigandMPNN','revision':BG_PIN,'license':'MIT; upstream LigandMPNN notices retained in pinned BoltzGen','operations':['redesign'],'modalities':['peptide','binder'],'runtime':'boltzgen','models':['solublempnn'],'representation':'Complete fixed N/CA/C/O backbone, explicit constraints, independent FASTA descendants','memory':'Not benchmarked on this hardware'},
+ 'esmfold2':{'repository':'https://github.com/Biohub/esm','revision':'esm==3.4.1.post1','sourcePin':BG_PIN,'license':'Official Biohub code/model terms; pinned weights','operations':['evaluate'],'modalities':['peptide','binder'],'runtime':'esmfold2','models':['esmfold2-bundle'],'representation':'Explicit full-chain sequences, optional A3M/CCD/bonds; predicted mmCIF and raw confidence arrays','memory':'ESMC 6B dominates memory; real workload admission required'},
+ 'esmfold2_fast':{'repository':'https://github.com/Biohub/esm','revision':'esm==3.4.1.post1','sourcePin':BG_PIN,'license':'Official Biohub code/model terms; pinned weights','operations':['evaluate'],'modalities':['peptide','binder'],'runtime':'esmfold2','models':['esmfold2-fast-bundle'],'representation':'Official Fast checkpoint, predicted mmCIF and raw confidence arrays','memory':'Not qualified on this Mac or NVIDIA hardware'},
+ 'rosetta':{'repository':'https://rosettacommons.org/','revision':'user-licensed-runtime','license':'Requires explicit licensed installation; never bundled in public images','operations':['relax'],'modalities':['peptide','binder'],'runtime':'rosetta','models':[],'representation':'Derived relaxed PDB, source numbering, energies and interface/per-residue analysis','memory':'CPU; bounded runtime'},
+ 'rfdiffusion':{'repository':'https://github.com/RosettaCommons/RFdiffusion','revision':'configured-source-pin','license':'BSD; verify configured source and checkpoint manifest','operations':['scaffold'],'modalities':['peptide','binder'],'runtime':'rfdiffusion','models':['rfdiffusion-base'],'representation':'Observed atomic motif and fixed flank lengths; real generated backbone requiring sequence design','memory':'NVIDIA inference; not qualified'}
+})
 
 def config(root):
     path=pathlib.Path(root)/'config.json'
@@ -35,7 +42,7 @@ def inventory(root):
         runtime=cfg.get('runtimes',{}).get(description['runtime'],{})
         installed=description['runtime']=='core' or (pathlib.Path(runtime.get('python','/nonexistent')).is_file() and pathlib.Path(runtime.get('source','/nonexistent')).is_dir())
         checkpoints=checkpoint_records(root,id)
-        rows.append({'id':id,**description,'installed':installed,'models':checkpoints,'executionAvailable':installed and all(v['hashRegistered'] for v in checkpoints),'cudaExecutionTested':False,'scientificReferenceValidated':False,'status':'cpu_analysis_available' if id=='structure_screen' else 'hardware_qualification_required' if installed else 'not_installed'})
+        rows.append({'id':id,**description,'installed':installed,'models':checkpoints,'executionAvailable':installed and all(v['hashRegistered'] for v in checkpoints) and (id!='rosetta' or runtime.get('licenseApproved') is True),'cudaExecutionTested':False,'scientificReferenceValidated':False,'status':'cpu_analysis_available' if id=='structure_screen' else 'hardware_qualification_required' if installed else 'not_installed'})
     return {'engines':rows,'scientificCUDAQualified':False,'qualificationReason':'No NVIDIA reference campaign has been certified by this release.'}
 
 def verified_runtime(root,engine):
@@ -44,7 +51,14 @@ def verified_runtime(root,engine):
     python=pathlib.Path(runtime.get('python','/nonexistent'));source=pathlib.Path(runtime.get('source','/nonexistent'))
     if not python.is_file() or not source.is_dir():raise ValueError('Install the isolated '+description['runtime']+' runtime first.')
     pin=source/'rapid-source.json'
-    if not pin.is_file() or json.loads(pin.read_text()).get('revision')!=description['revision']:raise ValueError('Scientific source revision is not the pinned release.')
+    expected=description.get('sourcePin',description['revision'])
+    if expected=='user-licensed-runtime':
+        if runtime.get('licenseApproved') is not True or not runtime.get('version'):raise ValueError('An explicitly approved, versioned licensed Rosetta runtime is required.')
+        return runtime,{}
+    if expected=='configured-source-pin':
+        expected=runtime.get('revision')
+        if not isinstance(expected,str) or len(expected)!=40:raise ValueError('Register an exact reviewed RFdiffusion source commit.')
+    if not pin.is_file() or json.loads(pin.read_text()).get('revision')!=expected:raise ValueError('Scientific source revision is not the pinned release.')
     index=source/'rapid-files.json'
     if not index.is_file():raise ValueError('Scientific source integrity manifest is missing.')
     for name,expected in json.loads(index.read_text()).items():
@@ -58,7 +72,7 @@ def verified_runtime(root,engine):
         with path.open('rb') as f:
             while block:=f.read(4*1024**2):h.update(block)
         if h.hexdigest()!=record['sha256']:raise ValueError('Checkpoint checksum mismatch: '+record['id'])
-        if record['id']=='esmfold2-bundle':
+        if record['id'] in ('esmfold2-bundle','esmfold2-fast-bundle'):
             from .models import file_sha
             for artifact in json.loads(path.read_text()):
                 if file_sha(artifact['path'])!=artifact['sha256']:raise ValueError('ESMFold2 cached checkpoint checksum mismatch.')

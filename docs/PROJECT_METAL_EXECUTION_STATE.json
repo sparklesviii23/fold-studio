@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "updatedUtc": "2026-10-21T20:33:39.051691+00:00",
+  "updatedUtc": "2026-10-24T03:48:40.464049+00:00",
   "branch": "project-omega/rapid-scientific-worker",
   "implementationCommit": "abd9d1f",
   "scope": "RAPID scientific software core, beyond connection foundation; real CUDA qualification outstanding.",
@@ -157,7 +157,7 @@
     "Experimental Fab currently uses CPU with SSD checkpoints, not a fully GPU-resident Metal execution.",
     "Cancelled original Fab job did not request save_design_trajectory; newer controls cannot retroactively create its snapshots. A rejected trajectory may therefore retain its original CSV without a coordinate snapshot."
   ],
-  "uncommittedWork": null,
+  "uncommittedWork": true,
   "fabResourceFailure": {
     "state": "kernel_memory_terminated",
     "report": "reports/bindcraft-fab-gradient-cpu.json",
@@ -287,12 +287,24 @@
     "totalMilestones": 10,
     "scope": "Counts of explicit execution/transport milestones; not percentage of full campaign iterations or scientific certification."
   },
-  "currentPriority": "User requested connection foundation first, now verified. Expanded remote integration tracked separately in reports/rapid-integration-status.json; no server or paid compute authorized.",
+  "currentPriority": "BGMEE executable controller, dual constrained redesign, independent prediction adapters, evidence/agent, Modal and chemical branch; full directive remains incomplete",
   "currentNativePackage": {
     "sourceCommit": "abd9d1f",
     "evidence": "reports/rapid-scientific-native-package.json",
     "activeApp": "/Users/vii/Documents/FoldStudio-MetalPort/current/FOLD STUDIO Metal Dev.app",
     "scientificCalculationStarted": false
   },
-  "rapidScientificCoreCheckpoint": "reports/rapid-scientific-release.json; software core and actual LinuxAMD64 image/import checks passed; NVIDIA scientific qualification NOT RUN; temporary VM/images removed."
+  "rapidScientificCoreCheckpoint": "reports/rapid-scientific-release.json; software core and actual LinuxAMD64 image/import checks passed; NVIDIA scientific qualification NOT RUN; temporary VM/images removed.",
+  "bgmeeExecutionReport": "reports/bgmee-integration-status.json",
+  "bgmeeMilestone": {
+    "completeDirective": false,
+    "authenticDualMPNN": true,
+    "authenticChemistry": true,
+    "authenticLocalAgentToolTest": true,
+    "backendTests": 550,
+    "frontendTests": 100,
+    "paidCompute": false,
+    "fullFabResumed": false,
+    "installation": "guarded_build_pending"
+  }
 }

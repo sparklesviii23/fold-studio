@@ -1,0 +1,242 @@
+{
+  "test": "Genuine local controller -> existing ProteinMPNN child -> immutable descendant -> unavailable predictor gating",
+  "root": "/Users/vii/Documents/FoldStudio-MetalPort/validation/bgmee-native-controller",
+  "jobId": "e87b1276-b65c-443c-84d5-6cc56aef7781",
+  "sourceSha256": "3e7ad918b6ec96f5234f993cd97a4836f3aebd59b20b41158fcfaede7492a0f0",
+  "parentSequence": "APAEPSWEELIEMMKKENLI",
+  "descendantSequence": "APPEPSWEELIEMMKKENLI",
+  "report": {
+    "descendants": [
+      "4d6e0725-e60c-4a4d-9f99-7a5ea70da987"
+    ],
+    "finished": "2026-10-23T17:03:49.083465+00:00",
+    "manifest": {
+      "binderChain": "D",
+      "candidateId": "ba0caf40-ff9c-459f-b156-33441d106f69",
+      "constraints": {
+        "excluded": {
+          "2": "C",
+          "3": "W"
+        },
+        "fixed": [
+          1,
+          4,
+          5,
+          6,
+          7,
+          8,
+          9,
+          10,
+          11,
+          12,
+          13,
+          14,
+          15,
+          16,
+          17,
+          18,
+          19,
+          20
+        ],
+        "mutable": [
+          2,
+          3
+        ],
+        "preferred": {
+          "2": "A"
+        },
+        "tags": {}
+      },
+      "count": 1,
+      "manifestSha256": "ac3546b6d57da8d480a10235f3b4dea1b18477e84cd3cf8507d314992a43975c",
+      "modelsDownloaded": false,
+      "paidCompute": false,
+      "policy": {
+        "acceptance": "No descendant is accepted without structural re-prediction, hard-constraint checks and separate assessment. Missing evidence remains missing.",
+        "heavyConcurrency": 1,
+        "stopping": [
+          "deadline",
+          "cancel",
+          "no_compatible_available_operation",
+          "all_proposals_fail_hard_constraints"
+        ],
+        "version": "transparent-staged-v1"
+      },
+      "runtimeReadiness": {
+        "esmfold2_fast": false,
+        "proteinmpnn": false,
+        "rosetta": false,
+        "solublempnn": false
+      },
+      "schemaVersion": 1,
+      "seconds": 180,
+      "seed": 42,
+      "selectionRules": {
+        "limits": {
+          "severeClashes": [
+            0,
+            0
+          ]
+        },
+        "maxDescendants": 16,
+        "maxModelDisagreement": 3.0,
+        "maxPoseRmsd": 3.0,
+        "objectives": {
+          "interfaceArea": "max",
+          "liabilityCount": "min",
+          "severeClashes": "min"
+        },
+        "rounds": 1
+      },
+      "sourceSha256": "3e7ad918b6ec96f5234f993cd97a4836f3aebd59b20b41158fcfaede7492a0f0",
+      "stages": [
+        {
+          "operation": "geometry",
+          "required": true
+        },
+        {
+          "operation": "proteinmpnn",
+          "required": false
+        },
+        {
+          "operation": "solublempnn",
+          "required": false
+        },
+        {
+          "operation": "esmfold2_fast",
+          "required": false
+        },
+        {
+          "operation": "rosetta",
+          "required": false
+        }
+      ],
+      "structureId": "056fef34-43c0-423f-8bfe-4488fce78eb3",
+      "targetChains": [
+        "A",
+        "B",
+        "C"
+      ]
+    },
+    "qualifiedCandidates": [],
+    "retainedForComputationalReview": [],
+    "rounds": [
+      {
+        "assessments": [
+          {
+            "blocked": [
+              {
+                "engine": "esmfold2_fast",
+                "reason": "Register the isolated esmfold2_fast runtime before execution."
+              }
+            ],
+            "conditionedFamilies": [],
+            "dominatedBy": [],
+            "eligible": false,
+            "gateReasons": [
+              "missing_held_out_physics_assessment",
+              "missing_structural_reprediction",
+              "no_unconditioned_prediction_family"
+            ],
+            "id": "ba0caf40-ff9c-459f-b156-33441d106f69",
+            "maxDisagreement": null,
+            "metrics": {},
+            "physicsAssessment": false,
+            "predictionFamilies": [],
+            "preferredPrediction": null,
+            "reasons": [
+              "missing_or_nonfinite:severeClashes",
+              "missing_or_nonfinite:liabilityCount",
+              "missing_or_nonfinite:interfaceArea",
+              "missing_held_out_physics_assessment",
+              "missing_structural_reprediction",
+              "no_unconditioned_prediction_family"
+            ],
+            "samples": [],
+            "trainingIndependence": "unverified"
+          },
+          {
+            "blocked": [
+              {
+                "engine": "esmfold2_fast",
+                "reason": "Register the isolated esmfold2_fast runtime before execution."
+              }
+            ],
+            "conditionedFamilies": [
+              "ProteinMPNN"
+            ],
+            "dominatedBy": [],
+            "eligible": false,
+            "gateReasons": [
+              "missing_held_out_physics_assessment",
+              "missing_structural_reprediction",
+              "no_unconditioned_prediction_family"
+            ],
+            "id": "4d6e0725-e60c-4a4d-9f99-7a5ea70da987",
+            "maxDisagreement": null,
+            "metrics": {},
+            "physicsAssessment": false,
+            "predictionFamilies": [],
+            "preferredPrediction": null,
+            "reasons": [
+              "missing_or_nonfinite:severeClashes",
+              "missing_or_nonfinite:liabilityCount",
+              "missing_or_nonfinite:interfaceArea",
+              "missing_held_out_physics_assessment",
+              "missing_structural_reprediction",
+              "no_unconditioned_prediction_family"
+            ],
+            "samples": [],
+            "trainingIndependence": "unverified"
+          }
+        ],
+        "parentId": "ba0caf40-ff9c-459f-b156-33441d106f69",
+        "round": 1,
+        "supportedImprovements": []
+      }
+    ],
+    "schemaVersion": 2,
+    "scientificCertification": false,
+    "selection": "Explicit Pareto objectives, worst-sample hard gates, matched parent re-prediction, protected-residue/pose drift, family dependence and held-out physics. Descriptive criteria are not binding affinity or experimental efficacy.",
+    "stages": [
+      {
+        "engine": "geometry",
+        "metrics": {
+          "atomicContacts": 55,
+          "interfaceArea": 609.9473608177377,
+          "liabilityCount": 3,
+          "severeClashes": 1
+        },
+        "state": "completed"
+      },
+      {
+        "engine": "proteinmpnn",
+        "finished": "2026-10-23T17:03:49.021493+00:00",
+        "parentId": "ba0caf40-ff9c-459f-b156-33441d106f69",
+        "receipt": {
+          "checkpointSha256": "58db738bbf867ca9b9290ce3a6581b94649f108683ac0e6a10de6b4aeeed30b4",
+          "device": "cpu",
+          "engine": "proteinmpnn",
+          "jobId": "abd8e6f8-7857-4ca6-9fbd-104bebe4b497",
+          "resultSha256": "bd6f8b7d853b826332b94e32315e4d1e9fc93ffe03058989a5d76edec233dc3e",
+          "seed": 42
+        },
+        "round": 1,
+        "started": "2026-10-23T17:03:46.381153+00:00",
+        "state": "completed"
+      },
+      {
+        "engine": "solublempnn",
+        "finished": "2026-10-23T17:03:49.021989+00:00",
+        "parentId": "ba0caf40-ff9c-459f-b156-33441d106f69",
+        "reason": "Register the isolated solublempnn runtime before execution.",
+        "round": 1,
+        "started": "2026-10-23T17:03:49.021733+00:00",
+        "state": "blocked"
+      }
+    ],
+    "stoppingReason": "no_supported_held_out_improvement"
+  },
+  "scientificCertification": false,
+  "scope": "Missing SolubleMPNN/ESM/Rosetta resources are real blockers; no fake re-prediction or acceptance."
+}

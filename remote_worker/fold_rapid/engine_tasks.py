@@ -24,14 +24,31 @@ def main():
     selected=set(m['target']['chains'])|set(design)
     proteins={ch:p for ch,p in proteins.items() if ch in selected}
     def sequence(p):return ''.join(AMINO_ACIDS[int(i)] for i in np.asarray(p.sequence).argmax(-1))
+    biology=m.get('biology',{});constraints=biology.get('constraints',{})
+    for ch,seq in biology.get('sequences',{}).items():
+        if ch not in proteins or len(seq)!=len(proteins[ch]):raise ValueError('Biological sequence does not match the explicit chain mapping.')
+        proteins[ch]=proteins[ch].replace(sequence=jax.nn.one_hot(jnp.asarray([AMINO_ACIDS.index(a) for a in seq]),20,dtype=proteins[ch].sequence.dtype))
     before={ch:sequence(p) for ch,p in proteins.items()}
     if operation=='proteinmpnn':
         from bindcraft.proteinmpnn import ProteinMPNNSequenceModel
-        proteins={ch:p.replace(flags=jnp.full(len(p),int(ResidueFlags.DESIGN) if ch in design else 0,dtype=jnp.uint8)) for ch,p in proteins.items()}
+        masks={ch:constraints.get(ch,{'mutable':list(range(1,len(p)+1)) if ch in design else []}) for ch,p in proteins.items()}
+        proteins={ch:p.replace(flags=jnp.asarray([int(ResidueFlags.DESIGN) if i in masks[ch]['mutable'] else 0 for i in range(1,len(p)+1)],dtype=jnp.uint8)) for ch,p in proteins.items()}
         model=ProteinMPNNSequenceModel(proteinmpnn_weights(),key=jax.random.PRNGKey(m['seed']),temperature=m['design'].get('temperature',0.1),length_bucket_size=1)
+        if constraints:
+            from bindcraft.sequence_optimization import OMITTED_AMINO_ACID_LOGIT
+            bias=jnp.broadcast_to(model.redesigned_amino_acid_bias,(sum(len(p) for p in proteins.values()),20));offset=0
+            for ch in sorted(proteins):
+                for i in range(len(proteins[ch])):
+                    for aa in masks[ch].get('preferred',{}).get(str(i+1),''):bias=bias.at[offset,AMINO_ACIDS.index(aa)].add(1.)
+                    for aa in masks[ch].get('excluded',{}).get(str(i+1),''):bias=bias.at[offset,AMINO_ACIDS.index(aa)].set(OMITTED_AMINO_ACID_LOGIT)
+                    offset+=1
+            model.redesigned_amino_acid_bias=bias
         result=model.predict_candidates({'source':proteins},candidate_count=m['design']['count']);rows=[]
         for i,prediction in enumerate(result):
             pred=prediction['source'];chains={ch:sequence(p) for ch,p in pred.protein_complex.items()}
+            if constraints:
+                from .biology_contract import validate_outputs
+                validate_outputs(chains,before,masks)
             for ch,p in pred.protein_complex.items():
                 if ch not in design and chains[ch]!=before[ch]:raise ValueError('Fixed context sequence changed.')
                 if not np.array_equal(np.asarray(p.atoms),np.asarray(proteins[ch].atoms)):raise ValueError('Fixed backbone changed.')

@@ -131,7 +131,7 @@ class RapidRemote:
             coordinates=candidate.get('coordinates')
             if not coordinates:
                 name=candidate.get('metrics',{}).get('fastaArtifact')
-                if candidate.get('generator')!='proteinmpnn' or not name:continue
+                if candidate.get('generator') not in ('proteinmpnn','solublempnn') or not name:continue
                 raw=self.receive_artifact(entry,jobid,name,index,limit=1024**2)
                 from worker import parse_fasta,digest
                 sequences=parse_fasta(raw.decode('utf-8'))
@@ -143,7 +143,7 @@ class RapidRemote:
                     chain=match[1];seen.add(chain)
                     metadata={'remoteCandidateId':cid,'remoteChainId':chain,'remoteJobId':jobid,'rapidCandidate':candidate,'experimentalValidation':False}
                     existing=[r for r in self.service.library({})['records'] if r['project_id']==p['projectId'] and r['data'].get('metadata',{}).get('remoteCandidateId')==cid and r['data'].get('metadata',{}).get('remoteChainId')==chain]
-                    record=existing[0] if existing else self.service.record_save({'projectId':p['projectId'],'kind':'sequence','name':'ProteinMPNN · '+str(candidate.get('upstreamId') or cid[:10])+' · chain '+chain,'data':{'sequence':sequence['sequence'],'sha256':digest(sequence['sequence']),'metadata':metadata,'origin':{'engine':'RAPID ProteinMPNN','fixedBackbone':True,'structurePredicted':False},'created':now()}})
+                    record=existing[0] if existing else self.service.record_save({'projectId':p['projectId'],'kind':'sequence','name':candidate['generator']+' · '+str(candidate.get('upstreamId') or cid[:10])+' · chain '+chain,'data':{'sequence':sequence['sequence'],'sha256':digest(sequence['sequence']),'metadata':metadata,'origin':{'engine':'RAPID '+candidate['generator'],'fixedBackbone':True,'structurePredicted':False},'created':now()}})
                     imported.append(record)
                 continue
             name=coordinates['artifact'];item=index.get(name)

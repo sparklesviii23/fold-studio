@@ -1,74 +1,69 @@
-# Biology-Guided Molecular Evolution Engine
+# Biology-Guided Molecular Evolution Engine — execution matrix
 
-This extends the existing Fold Studio application. The complete master directive is **not finished**. Existing Metal BindCraft, RAPID/Vast, ProteinMPNN, AF2, library, viewer and cinema remain in place. No Fab trajectory was resumed, source coordinates changed, model downloaded or paid compute started.
+Updated 24 October 2026 (user timezone). **The complete master directive is not finished.** This matrix replaces the earlier foundation-only status. It distinguishes implemented source, fixture contracts, authentic model execution and full workflow validation.
 
-## Working implementation
+The current implementation reuses the original BindCraft2, RAPID/Vast, library, molecular viewer, geometry tools, scientific jobs and app styling. No Fab campaign was resumed and no paid GPU/API run was launched. One explicitly approved 6.7 MB SolubleMPNN checkpoint was downloaded and verified; no ESM/RFdiffusion checkpoint was downloaded.
 
-The Architect's **Biology-Guided Design** tab now supports:
+Status labels apply only to the scope named in each row. A successful unit test or model import never certifies molecular accuracy, binding, improved solubility or a complete design mode.
 
-- Separate FASTA references, saved sequence records, existing Molecular Intelligence candidates and one explicit observed structure chain per import.
-- Reference groups, biological identity, species/accession/isoform/range and evidence/uncertainty notes. Multiple uncertain regions are never concatenated. Gapped structure numbering and insertion codes remain explicit.
-- Immutable parent/descendant sequences, original-sequence hashes, fixed/mutable residue masks, preferred/excluded amino acids and motif/interface/exposed/core/linker/experimental annotations in the backend. The initial interface exposes fixed positions; other constraints remain typed service fields.
-- Explicit substitutions with reference-residue checking and inherited hard constraints. A proposal has no inherited predicted coordinates or scores. Its parent backbone is only a reference; fresh prediction is required.
-- Retain/reject/revert review events, without deleting prior evidence. Revert returns the interface selection to the parent.
-- Raw result provenance, generation/optimization/refold/assessment roles and lineage-aware model-family conditioning checks. Different family names alone never establish independence.
-- A Counterfactual Laboratory for supplied, explicitly mapped mutation evidence and matched parent/variant result observations. Model/version/context/seed/method/units must match. It reports raw deltas and directional disagreement; it does not calibrate probabilities, neutral-effect thresholds or effect-size associations.
-- Saved/exportable 30/60/120-minute proposed protocols with target hashes, original controls, constraints, seeds, one-heavy-GPU intent and stopping rules. They are explicitly `prepared_not_executable`, not queued scientific campaigns.
-- Persistence and inclusion in explicitly requested project exports. Project removal protects unresolved external jobs, then removes the new metadata with the project.
+| Component | Status | Files / executable backend and models | Tests / actual execution | Remaining work or external blocker |
+|---|---|---|---|---|
+| Shared immutable candidates / residue maps / lineage | Tested with fixtures | scientific/evolution.py; biology_contract.py; No checkpoints; native SQLite/events and typed JSON | 35 new handoff/controller/chemistry/provider checks plus prior ancestry tests; Preserved original peptide, two CPU model receipts; full mode acceptance not implied | None for data model; curated biology mappings still required |
+| BindCraft2 original de novo / hotspot workflows | Model-execution validated | scientific/fold_engine.py; bindcraft_cpu.py; existing Metal/RAPID; Existing pinned BindCraft2 + AF2/MPNN assets | Existing regression suite and prior genuine local campaigns; Existing original peptide campaign evidence retained | Complete full Fab remains cancelled; no new design efficacy claim |
+| BindCraft2 sequence seed / fixed positions | Tested with fixtures | seeded_bindcraft.py; biology_pipeline.seeded_prepare; bindcraft_runner.py; Same unchanged pinned optimizer, no fabricated seed atoms | Real JAX initializer/fixed flag test, reports/bgmee-authentic-mpnn.json; Initializer tested, complete new seeded optimizer campaign not run | Preferred priors unsupported; different per-position exclusions refused because upstream semi-greedy omissions are chain-wide; full optimization validation remains |
+| Official BoltzProt / library screen | Tested with fixtures | boltz_api_adapter.py; boltz_artifacts.py; biology_providers.py; boltz-api==0.50.0, official account/API key | Real SDK HTTP contract fixture; upload/quote/pay gates; immutable result import checks; No authenticated or paid provider execution | API account, workload quote/approval; no verified self-hosted weights; no invented standalone arbitrary-candidate PPI endpoint |
+| ESMFold2-Fast / full predictor | Implemented, untested | biology_tasks.esmfold; models.py; model-catalog.json; adapters.py; esm==3.4.1.post1; official pinned Fast/full/ESMC/CCD shards | Serialization/sequence/numbering fixtures and typed MSA/CCD contracts; No trained-model inference run; Fast ~26.1 GB before CCD | Checkpoint download approval/storage and compatible isolated runtime/hardware; optimized kernels not qualified |
+| ESMC design optimization pathway | Not started | Official source/cookbook investigated; no alternative optimizer claimed; Official Biohub design protocol; compatible models/hardware | No numerical design-path test; No execution | Implement and qualify the authentic design protocol; not replaced by random mutation |
+| ProteinMPNN constrained sequence branch | Model-execution validated | scientific/mpnn*.py; fold_rapid/engine_tasks.py; Existing genuine neutral weights, unchanged upstream encoder/decoder | Actual original peptide CPU inference + persistent controller; reports/bgmee-authentic-mpnn.json and authentic-controller.json | No fresh-prediction/biological improvement claim; positional constraints with tied chains deliberately refused |
+| SolubleMPNN independent branch | Model-execution validated | biology_tasks.solublempnn; third_party/ligandmpnn (unmodified MIT source); Official approved 6,681,301-byte checkpoint, SHA-256 7af52d…a6e31a | Actual CPU decoder + matched native controller, fixed/context/output masks; reports/bgmee-authentic-dual-mpnn.json | Model purpose is solubility-oriented sequence design, not measured solubility; independent refolding still required |
+| Independent geometry / developability | Model-execution validated | intelligence.py; research.liabilities; biology_assessment.py; Existing coordinate/SASA/contact/clash methods and descriptive sequence heuristics | Rigid-rotation/pose-drift, geometry and original peptide controller tests; Actual original-complex geometry in controller reports | Electrostatics/affinity/aggregation probabilities not inferred from these descriptors |
+| Licensed Rosetta relaxation / energies | Implemented, untested | biology_tasks.rosetta; licensed registry gate; User-provided licensed PyRosetta runtime; never public image redistribution | Admission/license guards; no PyRosetta API execution; No licensed runtime available | License, runtime, API/energy/numbering validation; packing/electrostatic interpretation and relaxation drift validation remain |
+| RFdiffusion atomic motif scaffolding | Implemented, untested | scaffolding.py; registry/adapters; Exact user-reviewed RFdiffusion source pin/runtime/Base checkpoint | Contig/schema and output checks implemented; no trained model run; No execution | Install/register legitimate source/checkpoints and approve NVIDIA workload; target-conditioned assembly handoff and full sequence-design/refold flow remain |
+| Transparent evolution controller | Model-execution validated | scientific/biology_pipeline.py; biology_assessment.py; Existing jobs and isolated engine tasks; no alternate molecular engine | Actual controller→MPNN→descendant, cancellation/admission/drift/Pareto fixtures; reports/bgmee-authentic-controller.json; dual-MPNN report | All-engine generation→prediction→physics→refinement acceptance not run; no qualified candidates claimed |
+| Model disagreement / score exploitation / drift | Tested with fixtures | biology_assessment.py; evolution.conditioned; controller assessment events; Explicit objectives/hard limits, family tracking, worst-sample gates | Fails closed for missing refolds/physics, correlated ESM family, unsupported metrics; Actual missing-resource gates in native controller | Reference scientific benchmark, objective robustness and new hardware qualification remain |
+| Counterfactual orchestration | Tested with fixtures | evolution.py; biology_pipeline counterfactual mode; biology_assessment.counterfactual; Mapped direct descendants, matched engine/runtime/seed/geometry settings | No-redesign counterfactual plan; existing mapping/direction comparison fixtures; No WT/mutant trained predictor pair executed | Curated experimentally characterized species/isoform variants, controls and independent predictions; no universal probability bonus |
+| Peptide chemistry / conformers | Model-execution validated | peptide_chemistry*.py; existing ligand/graph tools; Existing RDKit==2026.09.1, explicit isomeric SMILES and atom/residue map | Real cyclic original 20-mer topology; stereo-checked small macrocycle conformer; disulfide fixture; native job test; reports/bgmee-authentic-chemistry.json; bgmee-chemistry-conformer/ | Generic staples/CCD chemical pathways, modified-peptide model support and bound-pose ensemble validation remain; Ile/Thr D conversion refused without side-chain stereo handling |
+| Biological evidence retrieval | End-to-end validated | biology_evidence.py; BiologyWorkflow.tsx; Europe PMC, PubMed, UniProt, RCSB, Crossref official APIs | Live Europe PMC retrieval + provider/receipt/species/ambiguity guards; reports/bgmee-europepmc-smoke.json; remaining endpoints fixture/source checked | Search metadata is not curated experimental evidence; no automatic functional assertion |
+| Local research language model | Model-execution validated | biology_agent.py; existing approved Ollama/llama.cpp installation; qwen2.5-coder:3b Q4_K_M, exact installed digest; model unload after use | Real context tool→answer, bounded tool schema, repeat suppression, resource guard; reports/bgmee-local-agent-benchmark.json (~2.3 GiB sampled process-tree RSS) | One tool-use fixture is not biology-reasoning qualification; MLX/other model comparison and broad reliability benchmark remain; remote LLM not integrated |
+| Modal provider / deployment / spend controls | Tested with fixtures | modal_provider.py; modal_app.py; biology_modal.py; provider_credentials.py; modal==1.6.2; existing immutable RAPID CUDA image; official auth/Keychain | Real SDK function definitions offline; ledger/cost/ambiguous-submission/cancellation/import fixtures; No deployment, no paid run, no GPU claimed | Modal account/authentication, immutable worker image, deployment/setup approval, real lifecycle/GPU test; setup/storage charges separate from estimated GPU allowance |
+| Vast / portable RAPID | Tested with fixtures | existing cloud_compute/rapid_remote; common remote_worker contracts; Existing SSH worker path and original pinned engines retained | RAPID 28 tests and importer compatibility regression; No new NVIDIA qualification in this update | Provisioned GPU and approved benchmark workload |
+| Native UI / Library / report / movie compatibility | Tested with fixtures | BiologyWorkflow.tsx; BiologyGuidedDesign.tsx; native whitelist/resources; Original interface, viewer and existing cinema retained | 100 frontend tests, typecheck; installed QA recorded separately; Source integrated; installed verification pending build | Install and UI verification; all seven complete end-to-end mode acceptance not certified |
 
-No supplied numerical observation becomes certified scientific evidence simply because its JSON validates or a checksum is recorded. Artifact content verification and independent predictor execution are separate unfinished operations.
+## Seven design modes
 
-## Official Boltz API adapter
+1. **De novo:** Original authentic BindCraft path remains operational. Boltz design uses the real SDK with paid gates. Automatic generation-to-complete-BGMEE validation is not end-to-end certified.
+2. **Existing sequence/structure:** Separate FASTA references, observed structures, constrained native MPNN branches, immutable descendants and executable assessment controller work. Sequence-only initial folding and complete multi-engine acceptance require predictors/checkpoints.
+3. **Motif scaffolding:** Real RFdiffusion contig/CLI adapter and geometry checks implemented. Source/runtime/checkpoint and full scaffold→MPNN→refold qualification remain.
+4. **Site guided:** Existing observed-residue hotspot generation retained. New seeded preparation preserves fixed positions. Extensive multi-prior generation and model execution qualification remain.
+5. **Evolution:** Bounded controller actually executes native child jobs, prediction tasks where configured, geometry/drift, conservative Pareto gates and next-round selection. The authentic two-redesign-branch path is tested; all-engine refinement is not.
+6. **Chemical stabilization:** Genuine RDKit chemical descendants, head-to-tail cyclization, disulfides, supported D residues, valence/stereo checking and bounded conformer sampling work. Typed ESM CCD/bond inputs exist. Generic staples and modified-peptide binding prediction remain unsupported and explicitly refused where incompatible.
+7. **Counterfactual:** Explicit mapped mutations and matched supplied-result comparisons remain functional. Controller can schedule fixed WT/variant sequence pairs without redesign. Full APOA5 characterized mutant/negative-control benchmark with trained independent predictors has not run.
 
-`scientific/boltz_api_adapter.py` implements an optional SDK contract for `boltz-api==0.50.0`:
+No mode is marked complete merely because its selector, typed manifest or adapter exists.
 
-- Locally prepared sequence-only protein design and external protein-library-screen requests.
-- Explicit approval before sequence upload for a cost quote, then separate paid-run approval with a maximum accepted **estimate**. Provider-side spending limits are still necessary; a quote is not a hard billing cap.
-- Asynchronous submission with an idempotency key, saved remote ID, bounded result-page retrieval/reconnection and stop requests. Ambiguous submissions remain unresolved and cannot be automatically resubmitted.
-- Raw response/metric preservation. No invented standalone Boltz-PPI endpoint, normalized peptide binding probability or self-hosted BoltzProt checkpoint.
-- Credentials read only from `BOLTZ_API_KEY` in the service environment; never from project JSON. The SDK is lazy/optional and not installed into the signed app. Native isolated SDK-runtime provisioning remains unfinished; controls report installation/credentials missing.
+## Actual evidence and controls
 
-The official SDK wheel was inspected in memory from PyPI, not installed:
+- `reports/bgmee-authentic-mpnn.json`: genuine constrained CPU encoder/decoder on the original saved peptide backbone; fixed coordinates and residue identities checked. Example sampled descendant is a computational proposal only.
+- `reports/bgmee-authentic-controller.json`: persistent native controller/child/lineage handoff and honest missing-predictor gates.
+- `reports/bgmee-authentic-dual-mpnn.json`: genuine SolubleMPNN and ProteinMPNN from the same original parent, masks, restrictions and seed. Identical sequences from distinct engines retain distinct branch provenance.
+- `reports/bgmee-authentic-chemistry.json` and `reports/bgmee-chemistry-conformer/`: real chemical graph/valence/stereochemistry and conformer outputs. The original peptide's cyclic graph has no inherited bound pose.
+- `reports/bgmee-local-agent-benchmark.json`: real installed local model, context tool use, answer and sampled memory. The initial repeated-tool failure led to bounded duplicate suppression and a final-answer gate. This small coding model is **not biology qualified**.
+- `reports/bgmee-provider-sdk-check.json`: actual pinned SDK request serialization and offline Modal function definitions, not remote science or a real quote.
+- `reports/bgmee-europepmc-smoke.json`: live source retrieval with raw-byte checksum receipt. Search records do not automatically establish a supported functional claim.
 
-```
-version: 0.50.0
-wheel SHA-256: b69c85ac4c01b8ca80724cadf2aa7b8b35e7dcdce138a2d6cb02ac3a1bc6b98b
-repository: https://github.com/boltz-bio/boltz-api-python
-```
+The native controller uses one local compute owner, explicit child IDs, deadlines and a 14 GiB footprint limit for direct new engine tasks. Independent source coordinates and original evidence are preserved. Every redesigned sequence needs a fresh prediction; parent atoms are never relabelled as mutant predictions. ESM-Fast/full share an ESMC family and never count as independent final methods. Retaining a computationally supported candidate is distinct from scientific or experimental certification.
 
-Source contracts inspected: `resources/protein/{design,library_screen}.py`, `types/protein/design_start_params.py`, and design/screen estimate-response types. The adapter deliberately uses the SDK's still-supported legacy binder request shape rather than assuming the newer union has the same SDK signature. No API account/key or paid service result was available. Contract doubles test control flow, not molecular inference or production service compatibility. Structure-artifact download, checksum verification, result-to-candidate import and uncertain-submission reconciliation are not yet implemented.
+Official API quotes require sequence-upload approval. Paid Boltz submission requires a second workload/estimate approval. Modal claims requests transactionally before submission; uncertain outcomes cannot auto-resubmit. GPU estimates reserve a cumulative local 30 USD allowance, while provider-side budgets remain required for actual charges, CPU setup, storage/network/cold starts and separate Boltz API costs. Keys use macOS Keychain, never project JSON. Official Modal credentials are also supported. Rosetta is user licensed and never automatically redistributed.
 
-Official references checked 2026-10-23:
+## Source / licensing
 
-- [Protein design](https://api.boltz.com/docs/api/guides/protein-design/)
-- [Protein library screening](https://api.boltz.com/docs/api/guides/protein-library-screen/)
-- [SDK and authentication](https://api.boltz.bio/docs/api/api/python/)
-- [Biohub ESM source](https://github.com/Biohub/esm) and [ESMFold2 variants/design protocol](https://biohub.ai/esm/protein/get-started)
+- BindCraft2 source remains at the existing pin `c0ee638d11bc010817c2c97ee58ed5c323e664e2`.
+- Unmodified MIT LigandMPNN files from BoltzGen commit `a07fea1153111ef453aaea7a15697ee05de9291f` are included under `remote_worker/fold_rapid/third_party/ligandmpnn/`, with original LICENSE, NOTICE and source hashes. Native SolubleMPNN needs the app's existing Torch runtime and approved shared checkpoint, not an external BoltzGen installation.
+- ESM APIs inspected at `esm==3.4.1.post1`; official Hugging Face revisions and per-file hashes are recorded in `model-catalog.json`. Optimized kernels and actual model outputs remain unqualified.
+- Isolated service SDK versions are recorded in `remote_worker/environments/providers.freeze.txt`. They do not modify the signed scientific runtimes.
 
-ESMFold2/Fast are genuine official models; the existing pinned ESM environment for legacy BoltzGen does not constitute a separately implemented predictor adapter. SolubleMPNN used inside that legacy pipeline is likewise not a qualified independent redesign branch.
+Primary references: [official Boltz SDK](https://github.com/boltz-bio/boltz-api-python), [protein design API](https://api.boltz.com/docs/api/guides/protein-design/), [protein library screen](https://api.boltz.com/docs/api/guides/protein-library-screen/), [Biohub ESM](https://github.com/Biohub/esm), [RFdiffusion](https://github.com/RosettaCommons/RFdiffusion), [Modal asynchronous jobs](https://modal.com/docs/guide/job-queue), [Europe PMC API](https://europepmc.org/RestfulWebService).
 
-## Remaining directive work
+## Validation and installation
 
-| Work package | Evidence-backed status |
-| --- | --- |
-| Shared candidates / constraints / lineage | Working first implementation; chemistry payload is canonical linear protein only |
-| BoltzProt / external protein screen | Optional SDK adapter and billing gates; real authenticated service, native runtime provisioning and artifact import pending |
-| ESMFold2-Fast/full and ESMC design | Official availability verified; separate execution, model installation and hardware/numerical qualification pending |
-| Dual ProteinMPNN/SolubleMPNN descendants | Existing ProteinMPNN preserved; genuine dual execution and result ingestion pending |
-| Rosetta / orthogonal physics | Existing independent geometry retained; licensed Rosetta runtime and refinement pending |
-| Biology-guided design | References and controlled explicit evolution work; sequence-seeded BindCraft optimization and automated evaluation pending |
-| RFdiffusion motif scaffolding | Not integrated |
-| Stabilized/modified peptide chemistry | Existing app capabilities retained; new chemistry-aware evolution and sampling pending |
-| Counterfactual intelligence | Mapped evidence and matched supplied-result comparisons work; automatic prediction, controls, held-out calibration and side-by-side structural assessment pending |
-| Molecular Research Agent | Development coding worker is separate; no molecular research-agent inference/literature tool integration claimed |
-| Modal / Vast | Existing Vast/RAPID preserved; Modal and real new-engine GPU qualification pending |
-| Resource scheduler | New protocol budget/stopping-rule schema; adaptive scientific execution and measured runtime/cost admission pending |
-| Matched scientific benchmark programme | Not run; no scientific hit-rate improvement claimed |
-
-The APOA5/ANGPTL3/8 demonstrator still requires curated biological assembly/accessibility and species/isoform mappings, independent predictions, controls and measured campaigns. The previous peptide remains a computational hypothesis. The full Fab production campaign remains cancelled/incomplete, including its documented trajectory-drift limitation. Notarization stays deferred for local use.
-
-## Validation scope
-
-`tests/test_evolution.py` uses isolated temporary research libraries, preserved source fixtures and clearly synthetic model-result doubles. It checks reference separation, constraints, native numbering/insertion codes, ancestry, persistence/export, conditioning, matched counterfactuals, quotes, duplicate submission, ambiguous outcomes, cancellation and project deletion. No test uses the user's research directory as a disposable fixture.
-
-The interface was also exercised against an isolated fixture library: two references imported independently, a D3A descendant retained its parent, reopening preserved ancestry, and preparing a remote screen left upload/billing gates disabled. Numerical engine/GPU success is not implied by these software tests. Exact completed validation and installation results are recorded in `reports/bgmee-integration-status.json`.
+Latest exact test counts, executed operations and current installation state are in `reports/bgmee-integration-status.json`. Local builds use only `scripts/build-local-app.sh`, replace the one current app when idle and do not create versioned app backups or ZIP releases. Notarization is deferred. Scientific evidence and checkpoint files remain preserved outside disposable build products.
