@@ -120,7 +120,7 @@ def attach(app,cfg,image,data,state,model_volume):
         if not name:raise ValueError('Unsupported unified control operation.')
         return Worker('/data/rapid').dispatch({'apiVersion':2,'requestId':'unified-control','operation':name,'payload':payload})['result']
 
-    @app.function(serialized=True,name='unified_qualify',image=image,gpu=cfg['gpu'],volumes={'/models':model_volume},timeout=120,min_containers=0,max_containers=1,scaledown_window=10,retries=0)
+    @app.function(serialized=True,name='unified_qualify',image=image,gpu=cfg['gpu'],cpu=2,memory=4096,volumes={'/models':model_volume},timeout=120,min_containers=0,max_containers=1,scaledown_window=10,retries=0)
     def unified_qualify(engine,approved=False):
         if approved is not True:raise ValueError('Approve the bounded 120-second GPU qualification workload first.')
         from fold_rapid.registry import verified_runtime,ENGINES
@@ -136,7 +136,7 @@ def attach(app,cfg,image,data,state,model_volume):
         finally:
             if state.get('writer-lease')==token:state.pop('writer-lease')
 
-    @app.function(serialized=True,name='unified_setup',image=image,volumes={'/models':model_volume},timeout=7200,min_containers=0,max_containers=1,scaledown_window=10,retries=0)
+    @app.function(serialized=True,name='unified_setup',image=image,cpu=2,memory=8192,volumes={'/models':model_volume},timeout=7200,min_containers=0,max_containers=1,scaledown_window=10,retries=0)
     def unified_setup(engine,kind,approved=False):
         if approved is not True:raise ValueError('Approve CPU setup and model downloads separately.')
         token={'kind':'unified_setup','engine':engine}
