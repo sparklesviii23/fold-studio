@@ -227,4 +227,39 @@ class PeptideChemistryTests(Fixture):
         value=bp.plan(self.s,self.params(counterfactualCandidates=[child['id']],engines=['esmfold2_fast'],policy={'rounds':3}))
         self.assertEqual(value['selectionRules']['rounds'],1);self.assertEqual(value['counterfactualCandidates'],[child['id']])
 
+
+
+
+class CounterfactualAssessmentTests(unittest.TestCase):
+    def sample(self,engine,index,value):return {'engine':engine,'sampleIndex':index,'family':'ESMFold2/ESMC','receipt':{'seed':42,'runtime':{'version':'fixture'},'device':'cpu'},'confidence':{'iptm':value},'metrics':{'severeClashes':0}}
+    def test_matches_surviving_engines_when_one_prediction_failed(self):
+        parent={'id':'p','samples':[self.sample('esmfold2_fast',0,.8),self.sample('esmfold2',0,.7)]}
+        child={'id':'c','samples':[self.sample('esmfold2',0,.4)]}
+        value=assess.counterfactual([parent,child],{'c':{'mutationEvidence':{'direction':'loss'}}},'iptm',True,0)[0]
+        self.assertTrue(value['missingResults']);self.assertEqual(value['matchedPairs'][0]['engine'],'esmfold2');self.assertAlmostEqual(value['matchedPairs'][0]['delta']['iptm'],-.3);self.assertTrue(value['matchedPairs'][0]['directionalAgreement'])
+    def test_same_family_does_not_count_as_two_independent_methods(self):
+        a={'id':'p','samples':[self.sample('esmfold2_fast',0,.8),self.sample('esmfold2',0,.7)]};b={'id':'c','samples':[self.sample('esmfold2_fast',0,.9),self.sample('esmfold2',0,.6)]}
+        value=assess.counterfactual([a,b],{'c':{}},'iptm',True,0)[0];self.assertEqual(value['independentFamilyCount'],1);self.assertTrue(value['inconsistentDirections']);self.assertIsNone(value['matchedPairs'][0]['directionalAgreement'])
+    def test_seed_mismatch_cannot_be_compared(self):
+        a={'id':'p','samples':[self.sample('esmfold2',0,.8)]};b={'id':'c','samples':[self.sample('esmfold2',0,.7)]};b['samples'][0]['receipt']['seed']=43
+        with self.assertRaisesRegex(ValueError,'unmatched'):assess.counterfactual([a,b],{'c':{}})
+
+
+
+
+class NativeDispatchTests(Fixture):
+    def test_every_new_action_is_reachable_through_service_and_native_bridge(self):
+        import biology_modal,biology_agent,biology_evidence,peptide_chemistry,boltz_api_adapter
+        rust=(ROOT/'src-tauri/src/main.rs').read_text()
+        for module in (bp,biology_modal,biology_agent,biology_evidence,peptide_chemistry,boltz_api_adapter):
+            for action in module.ACTIONS:
+                self.assertIn(action,w.ACTIONS);self.assertIn('"'+action+'"',rust)
+        self.assertEqual(self.s.dispatch('biology_evidence_list',{'projectId':self.project}),[])
+        self.assertEqual(self.s.dispatch('biology_modal_jobs',{'projectId':self.project}),[])
+    def test_oversized_checkpoint_rejected_before_model_process_starts(self):
+        shard=self.root/'weights.safetensors'
+        with shard.open('wb') as f:f.truncate(13*1024**3)
+        receipt=self.root/'bundle.json';receipt.write_text(json.dumps([{'path':str(shard)}]))
+        with self.assertRaisesRegex(ValueError,'memory allowance'):bp.local_model_admission('esmfold2_fast',{'esmfold2-fast-bundle':{'path':str(receipt)}})
+
 if __name__=='__main__':unittest.main()

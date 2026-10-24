@@ -14,12 +14,14 @@
     }
   ],
   "validation": {
-    "backendTests": 550,
-    "newBiologyTests": 35,
+    "backendTests": 555,
+    "newBiologyTests": 40,
     "frontendTests": 100,
     "developmentWorkerTests": 23,
     "typecheck": true,
-    "providerSDKOfflineContract": true
+    "providerSDKOfflineContract": true,
+    "nativeBridgeRegistrationRegressionTest": true,
+    "localESMCheckpointAdmissionGuard": true
   },
   "subsystems": [
     {
@@ -204,7 +206,7 @@
     }
   ],
   "installation": {
-    "state": "pending_guarded_build",
+    "state": "native_dispatch_correction_rebuild",
     "oneCurrentApp": true
   },
   "notarization": "deferred_local_use",

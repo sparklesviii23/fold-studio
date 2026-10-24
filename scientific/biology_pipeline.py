@@ -190,6 +190,16 @@ def ingest_sequences(s,parent,chains,engine,receipt):
     return value
 
 
+def local_model_admission(engine,models):
+    if not engine.startswith('esmfold2'):return
+    key='esmfold2-fast-bundle' if engine=='esmfold2_fast' else 'esmfold2-bundle'
+    bundle=models.get(key)
+    if not bundle:raise ValueError('Approved, checksum-verified ESM checkpoint bundle is missing.')
+    entries=json.loads(pathlib.Path(bundle['path']).read_text())
+    weight_bytes=sum(pathlib.Path(item['path']).stat().st_size for item in entries if str(item['path']).endswith('.safetensors'))
+    if weight_bytes>12*1024**3:raise ValueError('This ESM checkpoint alone exceeds the protected local CPU memory allowance (12 GiB weights plus working-memory reserve within 14 GiB). Use a separately approved compatible GPU or a future validated local memory profile; no model truncation or fallback was performed.')
+
+
 def local_biology_task(s,job,parent,record,path,targets,engine,check):
     """Same scientific task functions as RAPID; native runtime/device are explicit."""
     common()
@@ -198,6 +208,7 @@ def local_biology_task(s,job,parent,record,path,targets,engine,check):
     model_key='esmfold2-fast-bundle' if engine=='esmfold2_fast' else 'esmfold2-bundle' if engine=='esmfold2' else 'solublempnn'
     models=cfg.get('models',{})
     if engine!='rosetta' and model_key not in models:raise ValueError('Approved, checksum-verified checkpoint missing: '+model_key)
+    local_model_admission(engine,models)
     for key,item in models.items():
         file=pathlib.Path(item['path'])
         if not file.is_file() or file_sha(file)!=item['sha256']:raise ValueError('Registered model checksum changed: '+key)
