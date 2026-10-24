@@ -9,7 +9,18 @@ from .contracts import canonical,digest,target_bytes
 from .molecules import inspect,selected_target
 from .registry import ENGINES,verified_runtime
 
-def prepare(root, job, manifest):
+def compilation_cache(root,runtime,revision):
+    # Same trusted runtime/source/image may share executables across jobs.
+    # JAX additionally keys entries by graph, flags and accelerator topology.
+    identity={'runtime':runtime,'sourceRevision':revision,
+              'imageDigest':os.environ.get('RAPID_IMAGE_DIGEST','local'),
+              'architecture':__import__('platform').machine()}
+    folder=pathlib.Path(root)/digest(canonical(identity).encode())
+    folder.mkdir(parents=True,exist_ok=True,mode=0o700)
+    return str(folder.resolve())
+
+
+def prepare(root, job, manifest, *, cache_root=None):
     mapping=selected_target(manifest);target=job/('target.'+manifest['target']['format'])
     target.write_bytes(target_bytes(manifest['target']))
     output=job/'output';output.mkdir(exist_ok=True)
@@ -28,6 +39,9 @@ def prepare(root, job, manifest):
         else:command=[python,'-m','fold_rapid.biology_tasks',engine,str(job)]
         return {'command':command,'environment':environment,'models':models,'mapping':mapping,'sourceRevision':ENGINES[engine]['revision'],'runtimeReceipt':runtime}
     env={'PYTHONPATH':str(source),'JAX_PLATFORMS':'cuda','JAX_PLATFORM_NAME':'gpu','XLA_PYTHON_CLIENT_PREALLOCATE':'false','HF_HUB_OFFLINE':'1','HF_DATASETS_OFFLINE':'1','BINDCRAFT_AF2_PARAMS':str(pathlib.Path(next((v['path'] for k,v in models.items() if k.startswith('model_')),'' )).parent),'BINDCRAFT_MPNN_WEIGHTS':str(pathlib.Path(models['mpnn-neutral']['path']).parent) if 'mpnn-neutral' in models else str(source/'bindcraft/weights/proteinmpnn/weights_neutral')}
+    if engine in ('bindcraft2','af2_multimer','proteinmpnn'):
+        env['JAX_COMPILATION_CACHE_DIR']=compilation_cache(
+            cache_root or pathlib.Path(root)/'compile-cache',runtime,ENGINES[engine]['revision'])
     if engine=='bindcraft2':
         # Original settings resolver owns scientific defaults. Only target,
         # requested format/lengths/attempt budget/seed/output are translated.

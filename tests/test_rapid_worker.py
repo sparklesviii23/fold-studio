@@ -132,7 +132,7 @@ class RapidWorkerTest(unittest.TestCase):
             with self.subTest(reason=reason):
                 value=fixture();value['budget']['seconds']=1 if reason=='deadline' else 30
                 id=self.worker.store.submit(value,'active-'+reason)['jobId']
-                code="from pathlib import Path;import sys;from fold_rapid import runner;runner.prepare=lambda root,folder,manifest:{'command':[sys.executable,'-c','import time;time.sleep(60)'],'environment':{},'models':{}};runner.execute(Path(sys.argv[1]),sys.argv[2])"
+                code="from pathlib import Path;import sys;from fold_rapid import runner;runner.prepare=lambda root,folder,manifest,**kwargs:{'command':[sys.executable,'-c','import time;time.sleep(60)'],'environment':{},'models':{}};runner.execute(Path(sys.argv[1]),sys.argv[2])"
                 import os
                 process=subprocess.Popen([sys.executable,'-c',code,str(self.root),id],env={**os.environ,'PYTHONPATH':str(ROOT/'remote_worker')},stdout=subprocess.DEVNULL,stderr=subprocess.DEVNULL)
                 try:

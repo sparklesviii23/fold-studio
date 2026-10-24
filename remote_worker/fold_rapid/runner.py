@@ -51,7 +51,7 @@ def owned_processes(pid):
         result.update(added)
     return result
 
-def execute(root,id):
+def execute(root,id,*,cache_root=None):
     store=Store(root);job=store.get(id);folder=store.folder(id);manifest=job['manifest'];child=None
     with store.db() as db:
         db.execute('BEGIN IMMEDIATE')
@@ -74,8 +74,9 @@ def execute(root,id):
         if state:
             package(folder);store.finish(id,state);return
         with store.db() as db:db.execute("UPDATE jobs SET state='preparing',updated=? WHERE id=?",(now(),id))
-        prepared=prepare(root,folder,manifest)
+        prepared=prepare(root,folder,manifest,cache_root=cache_root)
         provenance={'jobId':id,'workerVersion':VERSION,'sourceRevision':prepared.get('sourceRevision'),'runtimeReceipt':prepared.get('runtimeReceipt'),'models':prepared['models'],'manifestSha256':job['manifest_hash'],'cudaQualified':False,'requestedSchedulingMode':manifest['mode'],'effectivePolicy':'One original engine workflow; fixed scientific settings. Adaptive cross-engine scheduling awaits measured GPU costs.','imageDigest':os.environ.get('RAPID_IMAGE_DIGEST','unrecorded-local-image')}
+        provenance['compilationCache']={'directory':prepared['environment'].get('JAX_COMPILATION_CACHE_DIR'),'reuseMeasured':False,'scope':'JAX persistent cache; graph/runtime/hardware compatibility still determines hits.'}
         provenance.update(executionHost=__import__('socket').gethostname(),executionPlatform=__import__('platform').platform(),engineRole=os.environ.get('FOLD_ENGINE_ROLE'),imageRecipeSha256=os.environ.get('RAPID_IMAGE_RECIPE_SHA256'),computeProvider=os.environ.get('FOLD_COMPUTE_PROVIDER','configured_worker'),biologyCodeSha256=os.environ.get('BGMEE_CODE_SHA256'))
         cuda=manifest['engine'] not in ('structure_screen','rosetta')
         command=prepared['command']

@@ -111,7 +111,7 @@ class LocalStages:
             while not stopped.wait(.25):
                 if cancelled():store.cancel(job['jobId']);break
         thread=threading.Thread(target=watch,daemon=True);thread.start()
-        try:execute(root,job['jobId'])
+        try:execute(root,job['jobId'],cache_root=self.root/'compile-cache')
         finally:stopped.set();thread.join(timeout=1)
         return {'job':store.get(job['jobId']),'folder':str(store.folder(job['jobId']))}
 
