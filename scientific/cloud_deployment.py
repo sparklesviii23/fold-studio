@@ -78,7 +78,21 @@ def require_current_engine(s,cfg,account_id=None):
     with tarfile.open(fileobj=io.BytesIO(rapid_remote.artifact()[0]),mode='r:gz') as archive:
         member=archive.getmember('release/release.json')
         if member.size>2*1024**2:raise ValueError('Release identity exceeds its verification limit.')
-        expected=hashlib.sha256(archive.extractfile(member).read()).hexdigest()
-    if status.get('state')!='deployed' or status.get('appName')!=cfg['appName'] or status.get('sourceManifestSha256')!=expected or status.get('accountId')!=account_id:
+        manifest_bytes=archive.extractfile(member).read()
+        expected=hashlib.sha256(manifest_bytes).hexdigest()
+    same_source=status.get('sourceManifestSha256')==expected
+    if not same_source:
+        # Local-only commits may change release annotations without changing any
+        # deployed files. Trust the previous file index only when bound to the
+        # recorded, health-checked deployment manifest hash.
+        previous_path=s.root/'cloud-engine-deployment/source/release/release.json'
+        if previous_path.is_file():
+            previous_bytes=previous_path.read_bytes()
+            if hashlib.sha256(previous_bytes).hexdigest()==status.get('sourceManifestSha256'):
+                previous=json.loads(previous_bytes);current=json.loads(manifest_bytes)
+                annotations={'sourceCommit','sourceTreeIncludesUncommittedWorker'}
+                same_source=bool(current.get('files')) and {k:v for k,v in previous.items() if k not in annotations}=={k:v for k,v in current.items() if k not in annotations}
+
+    if status.get('state')!='deployed' or status.get('appName')!=cfg['appName'] or not same_source or status.get('accountId')!=account_id:
         raise ValueError('The deployed cloud engine differs from this reviewed source/account. Approve an idle CPU deployment update before any new paid campaign; existing results are preserved.')
     return True

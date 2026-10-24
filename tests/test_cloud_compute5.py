@@ -72,6 +72,24 @@ class CloudCompute5(unittest.TestCase):
    record['sourceManifestSha256']=hashlib.sha256(manifest).hexdigest();(folder/'status.json').write_text(json.dumps(record))
    with self.assertRaisesRegex(ValueError,'differs'):require_current_engine(self.s,cfg,'b')
    self.assertTrue(require_current_engine(self.s,cfg,'a'))
+ def test_local_commit_annotation_does_not_require_cloud_redeployment(self):
+  from cloud_deployment import require_current_engine
+  import io,tarfile
+  previous={'files':{'worker/model.py':'a'*64},'apiVersion':2,'sourceCommit':'old'}
+  prior=json.dumps(previous).encode();folder=self.root/'cloud-engine-deployment';(folder/'source/release').mkdir(parents=True)
+  (folder/'source/release/release.json').write_bytes(prior)
+  (folder/'status.json').write_text(json.dumps({'state':'deployed','appName':'fixture','accountId':None,'sourceManifestSha256':hashlib.sha256(prior).hexdigest()}))
+  def archive(value):
+   body=json.dumps(value).encode();buffer=io.BytesIO()
+   with tarfile.open(fileobj=buffer,mode='w:gz') as tar:
+    member=tarfile.TarInfo('release/release.json');member.size=len(body);tar.addfile(member,io.BytesIO(body))
+   return buffer.getvalue()
+  current={**previous,'sourceCommit':'new-local-only-commit'}
+  with patch('rapid_remote.artifact',return_value=(archive(current),'unused')):self.assertTrue(require_current_engine(self.s,{'appName':'fixture'}))
+  current['files']={'worker/model.py':'b'*64}
+  with patch('rapid_remote.artifact',return_value=(archive(current),'unused')):
+   with self.assertRaisesRegex(ValueError,'differs'):require_current_engine(self.s,{'appName':'fixture'})
+
  def test_shell_requires_exact_review_and_existing_owner(self):
   import cloud_shell
   row=self.row()
