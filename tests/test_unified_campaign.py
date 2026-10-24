@@ -123,6 +123,18 @@ class NativeUnifiedTests(unittest.TestCase):
         import biology_modal
         stored=biology_modal.read(self.s,{'projectId':self.project,'id':out['id']});self.assertIn('contentBase64',stored['manifest']['target'])
     def test_native_unknown_strategy_has_honest_blocker(self):self.assertTrue(self.prepared(strategy='motif_scaffolding')['blockers'])
+    def test_native_review_includes_resource_prices_and_distinct_stage_limits(self):
+        prices={'gpuSecondUSD':1/3600,'cpuCoreSecondUSD':.0000131,'memoryGiBSecondUSD':.00000222,'workerCPUs':2,'workerMemoryGiB':64,'startupSecondsPerStage':60,'safetyUSD':.6,'storageAndControlUSD':.2}
+        out=self.prepared(maxEstimatedUSD=2,resourcePricing=prices,stageLimitsSeconds={'proteinmpnn':12})
+        self.assertEqual(out['manifest']['stageBudgets']['proteinmpnn']['seconds'],12)
+        self.assertEqual(out['manifest']['stageBudgets']['af2_multimer']['seconds'],10)
+        self.assertGreater(out['estimate']['totalResources']['expectedResourceReservationUSD'],out['estimate']['upperReservationUSD'])
+        self.assertIsNone(out['estimate']['totalResources']['providerReportedUSD'])
+    def test_account_replacement_refused_while_another_request_is_uncertain(self):
+        import biology_modal
+        out=self.prepared();stored=biology_modal.read(self.s,{'projectId':self.project,'id':out['id']});stored['state']='submission_uncertain';biology_modal.save(self.s,stored)
+        with self.assertRaisesRegex(ValueError,'outstanding Modal'):
+            self.s.dispatch('biology_modal_auth_start',{'projectId':self.project,'approvedBrowserLogin':True})
     def test_native_cross_project_source_refused(self):
         other=self.s.project_create({'name':'Other'})['id']
         with self.assertRaisesRegex(ValueError,'another project'):

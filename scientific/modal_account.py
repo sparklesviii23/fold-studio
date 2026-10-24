@@ -35,6 +35,11 @@ def dispatch(s,action,p):
         return {'authenticated':True,'gpuStarted':False,'scientificCloudQualified':False,'deploymentChecked':False}
     if action=='biology_modal_auth_start':
         if p.get('approvedBrowserLogin') is not True:raise ValueError('Approve opening official Modal login and saving the resulting credentials in macOS Keychain.')
+        from biology_modal import table
+        table(s)
+        safe={'prepared','COMPLETED','PARTIALLY_COMPLETE','FAILED','CANCELLED','finished','completed','failed','cancelled','rejected','no_qualified_candidates','interrupted','deadline_exceeded'}
+        if any(json.loads(r['data']).get('state') not in safe for r in s.rows('SELECT data FROM biology_modal_jobs')):
+            raise ValueError('Refresh and finish or cancel outstanding Modal requests before replacing account credentials. Their account must remain available for monitoring and cancellation.')
         python=providers.interpreter(s)
         if not python or not providers.status(s)['installed']:raise ValueError('The pinned provider SDK is required.')
         old=read(s)

@@ -21,7 +21,7 @@
     "sourceOnlyDeployment": true,
     "nativeMacAppRequiredOnServer": false,
     "modelDownloads": true,
-    "NVIDIARun": false,
+    "NVIDIARun": true,
     "approvedCPUDeploymentAllowanceUSD": 1,
     "actualBilledUSD": null,
     "sourceCodeSha256": "3ab1e75e4288308e6d860c4d04e7d24ac171fc9adfe9142339f4c6fa5fb6f82c",
@@ -30,7 +30,7 @@
     "apiVersion": 2,
     "remotePlatform": "Linux-4.19.0-gvisor-x86_64-with-glibc2.39",
     "controllerLocation": "remote",
-    "latestCloudSourceCommit": "5232e16",
+    "latestCloudSourceCommit": "b1b489a",
     "postSetupInventoryPassed": true
   },
   "scientificRuntimes": [
@@ -159,5 +159,14 @@
     "approvedSetupCompleted": true,
     "deploymentGuardAndProcessTreeTimeoutActivated": true
   },
-  "nextGPUReview": "reports/first-cloud-gpu-workload-review.json"
+  "nextGPUReview": "reports/first-cloud-gpu-workload-review.json",
+  "firstCloudScientificCampaign": {
+    "campaignId": "06ea1581738361f2fe2ebd21146c4dd1",
+    "state": "CANCELLED",
+    "resultReport": "reports/cloud-qualification-result.json",
+    "genuineBindCraftGeneration": true,
+    "originalFiltersPassed": false,
+    "downstreamRefoldsProduced": false,
+    "scientificCloudQualified": false
+  }
 }

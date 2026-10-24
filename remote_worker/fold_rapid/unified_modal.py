@@ -194,7 +194,7 @@ def attach(app,cfg,image,data,state,model_volume):
         if not state.put('writer-lease',token,skip_if_exists=True):raise ValueError('A scientific/setup operation is active.')
         try:
             model_volume.reload();runtime,models=verified_runtime('/models/rapid',engine)
-            reading=require_cuda(runtime['python'],{'PYTHONPATH':runtime['source'],'HF_HUB_OFFLINE':'1'},timeout=90)
+            reading=require_cuda(runtime['python'],{'PYTHONPATH':runtime['source'],'HF_HUB_OFFLINE':'1'},timeout=90,engine=engine)
             result={'engine':engine,'gpu':inventory(),'cudaNumerics':reading,'runtime':runtime,'models':models,'imageDigest':cfg.get('engineImages',{}).get(engine,cfg['imageDigest']),'source':ENGINES[engine],'scientificCloudQualified':False,'scope':'Tiny genuine CUDA forward/backward in this engine runtime. This is not trained-model inference or multi-engine scientific qualification.'}
             from fold_rapid.unified import atomic
             folder=pathlib.Path('/models/rapid/qualification');folder.mkdir(exist_ok=True)

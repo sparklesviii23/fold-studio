@@ -86,7 +86,11 @@ def prepare_unified(s,p):
     parents=[{'id':record['id'],'binderChains':binders,'sequences':{ch:mapping['chains'][ch]['sequence'] for ch in targets+binders}}] if binders else []
     engines=set(p['workflow']['redesign']+p['workflow']['predictors']+[g['engine'] for g in generators]+(['rosetta'] if p['workflow']['rosetta'] else []))
     cfg=profile(s)
-    value=campaign({'schemaVersion':1,'kind':'unified','execution':{'mode':'cloud','provider':'modal','localFallback':False},'strategy':p['strategy'],'target':{'format':fmt,'contentBase64':base64.b64encode(raw).decode(),'sha256':record['data']['sha256'],'chains':targets,'label':record['name']},'parents':parents,'generators':generators,'workflow':p['workflow'],'stageBudgets':{e:{'seconds':p['stageSeconds'],'hourlyEstimateUSD':cfg['hourlyEstimateUSD']} for e in engines},'budget':{'seconds':p['seconds'],'maxEstimatedUSD':p['maxEstimatedUSD']},'seed':p['seed'],'policy':p.get('policy',{}),'constraints':p.get('constraints',{})})
+    limits=p.get('stageLimitsSeconds',{})
+    if not isinstance(limits,dict) or set(limits)-engines:raise ValueError('Runtime limits must refer to selected engines.')
+    budget={'seconds':p['seconds'],'maxEstimatedUSD':p['maxEstimatedUSD']}
+    if 'resourcePricing' in p:budget['resourcePricing']=p['resourcePricing']
+    value=campaign({'schemaVersion':1,'kind':'unified','execution':{'mode':'cloud','provider':'modal','localFallback':False},'strategy':p['strategy'],'target':{'format':fmt,'contentBase64':base64.b64encode(raw).decode(),'sha256':record['data']['sha256'],'chains':targets,'label':record['name']},'parents':parents,'generators':generators,'workflow':p['workflow'],'stageBudgets':{e:{'seconds':limits.get(e,p['stageSeconds']),'hourlyEstimateUSD':cfg['hourlyEstimateUSD']} for e in engines},'budget':budget,'seed':p['seed'],'policy':p.get('policy',{}),'constraints':p.get('constraints',{})})
     from fold_rapid.unified_modal import cost
     quote=cost(value,cfg)
     row={'id':uuid.uuid4().hex,'kind':'unified','projectId':p['projectId'],'state':'prepared','configuration':cfg,'manifest':value,'manifestSha256':ev.sha(value),'estimate':quote,'blockers':blockers(value),'idempotencyKey':uuid.uuid4().hex,'created':research.utc(),'sourceRecordId':record['id']}

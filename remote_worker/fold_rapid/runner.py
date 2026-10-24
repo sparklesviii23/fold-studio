@@ -59,7 +59,7 @@ def execute(root,id):
         result=db.execute("UPDATE jobs SET runner_pid=?,updated=? WHERE id=? AND runner_pid IS NULL",(os.getpid(),now(),id))
         if result.rowcount!=1:return
     limit=deadline_seconds(manifest);submitted=__import__('datetime').datetime.fromisoformat(job['created']).timestamp()
-    expires=submitted+limit;started=time.monotonic();state='failed';error=None;peak=0
+    expires=submitted+limit;started=time.monotonic();state='failed';error=None;peak=None
     lease=(store.root/'accelerator.lock').open('a+')
     def interrupted():
         if store.get(id)['state']=='cancel_requested':return 'cancelled'
@@ -77,36 +77,49 @@ def execute(root,id):
         prepared=prepare(root,folder,manifest)
         provenance={'jobId':id,'workerVersion':VERSION,'sourceRevision':prepared.get('sourceRevision'),'runtimeReceipt':prepared.get('runtimeReceipt'),'models':prepared['models'],'manifestSha256':job['manifest_hash'],'cudaQualified':False,'requestedSchedulingMode':manifest['mode'],'effectivePolicy':'One original engine workflow; fixed scientific settings. Adaptive cross-engine scheduling awaits measured GPU costs.','imageDigest':os.environ.get('RAPID_IMAGE_DIGEST','unrecorded-local-image')}
         provenance.update(executionHost=__import__('socket').gethostname(),executionPlatform=__import__('platform').platform(),engineRole=os.environ.get('FOLD_ENGINE_ROLE'),imageRecipeSha256=os.environ.get('RAPID_IMAGE_RECIPE_SHA256'),computeProvider=os.environ.get('FOLD_COMPUTE_PROVIDER','configured_worker'),biologyCodeSha256=os.environ.get('BGMEE_CODE_SHA256'))
-        if manifest['engine'] not in ('structure_screen','rosetta'):
-            from .hardware import require_cuda,inventory as gpu_inventory
+        cuda=manifest['engine'] not in ('structure_screen','rosetta')
+        command=prepared['command']
+        if cuda:
+            from .hardware import inventory as gpu_inventory
             provenance['hardware']=gpu_inventory()
-            provenance['cudaProbe']=require_cuda(prepared['command'][0],prepared['environment'],timeout=max(1,min(120,expires-time.time())))
-            provenance['cudaNumericalProbePassed']=True
+            if __import__('platform').system()!='Linux' or not provenance['hardware']['detected']:raise ValueError('Scientific execution requires a real Linux NVIDIA GPU; no CPU fallback.')
+            (folder/'cuda-entry.json').write_text(canonical({'engine':manifest['engine'],'command':command}))
+            command=[command[0],'-m','fold_rapid.cuda_exec',str(folder)]
+            provenance['cudaNumericalProbePassed']=False
         (folder/'provenance.json').write_text(canonical(provenance))
         interruption=interrupted()
         if interruption:package(folder);store.finish(id,interruption);return
         env={**os.environ,**prepared['environment'],'PYTHONUNBUFFERED':'1','RAPID_ROOT':str(root),'RAPID_JOB_ID':id}
         # Retain package importability when started from an installed wheel or source tree.
-        if manifest['engine']=='structure_screen':env['PYTHONPATH']=str(pathlib.Path(__file__).resolve().parents[1])
+        env['PYTHONPATH']=os.pathsep.join(filter(None,[str(pathlib.Path(__file__).resolve().parents[1]),env.get('PYTHONPATH')]))
         with (folder/'execution.log').open('wb') as log:
-            child=subprocess.Popen(prepared['command'],stdin=subprocess.DEVNULL,stdout=log,stderr=subprocess.STDOUT,env=env,cwd=folder,start_new_session=True,pass_fds=(lease.fileno(),))
+            child=subprocess.Popen(command,stdin=subprocess.DEVNULL,stdout=log,stderr=subprocess.STDOUT,env=env,cwd=folder,start_new_session=True,pass_fds=(lease.fileno(),))
             with store.db() as db:db.execute("UPDATE jobs SET state='running',updated=? WHERE id=?",(now(),id))
             store.event(id,{'kind':'started','childPid':child.pid,'command':prepared['command'],'sourceRevision':prepared.get('sourceRevision')})
-            state=None;offset=0;last_sample=0
+            state=None;offset=0;last_sample=0;startup=time.monotonic()
             while child.poll() is None:
                 state=interrupted()
+                if cuda and not (folder/'cuda-probe.json').is_file() and time.monotonic()-startup>=120:
+                    state='failed';error='CUDA startup exceeded 120 seconds; supervised process stopped. No remaining campaign stages should be launched.'
                 if time.monotonic()-last_sample>=2:
-                    usage=gpu_usage();used=sum(usage.get(pid,0) for pid in owned_processes(child.pid));peak=max(peak,used);last_sample=time.monotonic()
+                    usage=gpu_usage();owned=owned_processes(child.pid)&set(usage);used=sum(usage[pid] for pid in owned) if owned else None
+                    if used is not None:peak=max(peak or 0,used)
+                    last_sample=time.monotonic()
                     ceiling=manifest['budget'].get('gpuMemoryMiB')
-                    if ceiling and used>ceiling:state='failed';error='Measured GPU allocation exceeded the task ceiling; outputs retained.'
+                    if ceiling and used is not None and used>ceiling:state='failed';error='Measured GPU allocation exceeded the task ceiling; outputs retained.'
                     with (folder/'execution.log').open('rb') as source:
                         source.seek(offset);block=source.read(32000);offset=source.tell()
                     for line in block.decode(errors='replace').splitlines()[-20:]:store.event(id,parse_progress(line))
-                    store.event(id,{'kind':'resources','peakObservedChildGPU_MiB':peak,'elapsedSeconds':time.monotonic()-started,'remainingSeconds':max(0,expires-time.time())})
+                    store.event(id,{'kind':'resources','peakObservedChildGPU_MiB':peak,'childGPUAttributionAvailable':used is not None,'elapsedSeconds':time.monotonic()-started,'remainingSeconds':max(0,expires-time.time())})
                 if state:stop(child);break
                 time.sleep(.15)
         if state is None and child.returncode!=0:state='failed';error=f'Upstream process exited with code {child.returncode}; inspect execution.log.'
-        provenance.update(wallSeconds=time.monotonic()-started,peakObservedChildGPU_MiB=peak,exitCode=child.returncode)
+        if cuda:
+            receipt=folder/'cuda-probe.json'
+            reading=json.loads(receipt.read_text()) if receipt.is_file() else {'passed':False,'reason':error or 'No completed numerical receipt.'}
+            provenance.update(cudaProbe=reading,cudaNumericalProbePassed=reading.get('passed') is True)
+            if not provenance['cudaNumericalProbePassed'] and state is None:state='failed';error='CUDA numerical check failed before model execution; inspect execution.log.'
+        provenance.update(wallSeconds=time.monotonic()-started,peakObservedChildGPU_MiB=peak,childGPUAttributionAvailable=peak is not None,exitCode=child.returncode)
         (folder/'provenance.json').write_text(canonical(provenance))
         # Preserve partial/rejected outputs without upgrading their acceptance.
         candidates=collect(folder,manifest,provenance)

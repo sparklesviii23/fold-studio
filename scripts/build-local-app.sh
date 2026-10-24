@@ -31,6 +31,9 @@ for mapping in python-jax:runtime python-metaljax:runtime-metal python-boltz:run
     cp -cR -P "$resources/${mapping#*:}" "$staging"
   fi
 done
+# Always package the current portable backend, not a stale previous deployment.
+# This small source-only artifact excludes research and trained weights.
+python3 scripts/build-rapid-release.py --output remote_worker/dist
 node node_modules/@tauri-apps/cli/tauri.js build --bundles app
 built="$CARGO_TARGET_DIR/release/bundle/macos/FOLD STUDIO Metal Dev.app"
 python3 scripts/check-scientific-package.py "$built"

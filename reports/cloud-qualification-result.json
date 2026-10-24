@@ -1,0 +1,114 @@
+{
+  "schemaVersion": 1,
+  "recordedUtc": "2026-10-24T11:40:06.621256+00:00",
+  "requestId": "b01380abcc88401e8c933f308c826bbd",
+  "campaignId": "06ea1581738361f2fe2ebd21146c4dd1",
+  "state": "CANCELLED",
+  "GPU": "A100-80GB",
+  "sourceCommit": "b1b489a",
+  "fullCloudEngineComplete": false,
+  "scientificCloudQualified": false,
+  "originalReference": {
+    "structureId": "e27c619f-f0ac-44e8-8aa3-2f09b4dca5f7",
+    "sha256": "3e7ad918b6ec96f5234f993cd97a4836f3aebd59b20b41158fcfaede7492a0f0",
+    "sequence": "APAEPSWEELIEMMKKENLI",
+    "unchanged": true
+  },
+  "generated": {
+    "candidateId": "3a471caca775a25805be32f2304ef0afb50a8918d6d91ed05ef5e163cedcd49a",
+    "nativeId": "272d3dc5a050e21f6edd6c5b3512b199c2f5a4527d4af05ffe73dd6da7cd30c3",
+    "sequence": "MFDRNGPTPEELQEVLREVI",
+    "libraryStructureId": "9c736a7b-2966-48c8-9af7-8f7bf018103b",
+    "coordinateSha256": "6c60951dd4428bad41d142342db6edbc45709a57280928ebaf8a44755d205736",
+    "coordinateArtifact": "output/1_Trajectories/design_l20_107b4fa0b79e0d0d/design_l20_107b4fa0b79e0d0d_trajectory.cif",
+    "targetResidues": 154,
+    "binderResidues": 20,
+    "outcome": "rejected",
+    "nativeTermination": "final",
+    "finalFilterFailures": [
+      "i_pTM",
+      "pLDDT"
+    ],
+    "metricsScope": "Rounded optimizer readings in original execution.log; not held-out refold scores",
+    "loggedFinalOptimizerMetrics": {
+      "i_pTM": 0.67,
+      "pLDDT": 0.66
+    },
+    "acceptedComputationalCandidate": false,
+    "biologicallyValidated": false
+  },
+  "stages": [
+    {
+      "stageId": "e35268d01c60c39221f9962f3536cb1b",
+      "engine": "bindcraft2",
+      "jobId": "c9ebcb01458c42c7825b0fb6d57988dd",
+      "state": "STAGE_COMPLETE",
+      "jobState": "no_qualified_candidates",
+      "observedRemoteSeconds": 591.7529802610001,
+      "started": "2026-10-24T11:02:54.455535+00:00",
+      "finished": "2026-10-24T11:12:47.966610+00:00"
+    },
+    {
+      "stageId": "bfda1122f0f40b5d981e695168fd7fc9",
+      "engine": "proteinmpnn",
+      "jobId": "a7ad036205174c9caea550070779f7f9",
+      "state": "FAILED",
+      "jobState": "failed",
+      "observedRemoteSeconds": 151.54761515400003,
+      "started": "2026-10-24T11:12:49.197937+00:00",
+      "finished": "2026-10-24T11:15:22.870795+00:00"
+    },
+    {
+      "stageId": "9d103b08e6da2f8d2a707b9b815d79b8",
+      "engine": "solublempnn",
+      "jobId": "6eeb11b53645460ab763e8bb58ee1dd0",
+      "state": "FAILED",
+      "jobState": "failed",
+      "observedRemoteSeconds": 139.17141254900002,
+      "started": "2026-10-24T11:15:23.917987+00:00",
+      "finished": "2026-10-24T11:17:45.189302+00:00"
+    },
+    {
+      "stageId": "2bd9b9166e2ee9d14c5c6d5acd1467e2",
+      "engine": "proteinmpnn",
+      "jobId": "ff4310ac75334a7bb1467716aebc877f",
+      "state": "FAILED",
+      "jobState": "cancelled",
+      "observedRemoteSeconds": 65.13359773600007,
+      "started": "2026-10-24T11:17:46.692803+00:00",
+      "finished": "2026-10-24T11:18:53.979465+00:00"
+    }
+  ],
+  "downstream": {
+    "proteinmpnnDescendants": 0,
+    "solublempnnDescendants": 0,
+    "heldOutAF2Refolds": 0,
+    "independentRemoteGeometryAssessments": 0,
+    "reason": "First ProteinMPNN and SolubleMPNN CUDA probes timed out at120s before model inference. A later ProteinMPNN passed its CUDA probe but was cancelled before producing a sequence. Campaign cancelled to stop repeated startup spending."
+  },
+  "cost": {
+    "approvedAllowanceUSD": 6,
+    "preflightFullResourceReservationUSD": 5.3680568,
+    "dispatchedResourceReservationsUSD": 2.3673224000000004,
+    "lastElapsedEstimateIncludingSafetyUSD": 1.6353096584352438,
+    "providerReportedUSD": null,
+    "providerInvoiceAvailable": false,
+    "billingCapEnforcedByProvider": false
+  },
+  "resources": {
+    "hardwareInventory": "reports/first-cloud-gpu-provenance.json",
+    "childGPUMemoryPeakMiB": null,
+    "childGPUAttributionAvailable": false,
+    "limitation": "Saved runner reported zero without a matched child PID; zero is not a measured memory peak."
+  },
+  "evidence": {
+    "localPackage": "/Users/vii/Documents/FoldStudio-MetalPort/validation/bindcraft-fab-amme-native/cloud-qualification/06ea1581738361f2fe2ebd21146c4dd1",
+    "verifiedArtifacts": 222,
+    "verifiedBytes": 30325062,
+    "allTransferredHashesVerified": true
+  },
+  "nextRun": {
+    "approved": false,
+    "reason": "The earlier allowance covered one campaign; another paid GPU campaign needs a fresh reviewed allowance. Startup mitigation and fail-fast circuit breaker are tested offline, not yet GPU qualified."
+  }
+}

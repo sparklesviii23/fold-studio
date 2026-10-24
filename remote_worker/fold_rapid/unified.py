@@ -185,7 +185,7 @@ def run(root,id,executor=None,publish=lambda row:None,cancelled=lambda:False,loc
             except Exception as exc:
                 entry.update(state='FAILED',error=str(exc)[:2000],dispatchOutcomeUncertain=True);update('Stage failed; no automatic costly retry');raise Halt('Uncertain/failed '+engine+' dispatch; inspect saved evidence') from exc
             update(engine+' finished: '+entry['jobState']);check()
-            if entry['state']=='FAILED':return [],response['folder']
+            if entry['state']=='FAILED':raise Halt(engine+' failed; remaining paid stages were not dispatched. Inspect saved evidence before approving another campaign.')
             output=pathlib.Path(response['folder'])/'candidates.json'
             records=json.loads(output.read_text()) if output.is_file() else []
             if len(records)>10000:raise ValueError('Engine candidate output exceeds bounded import.')
