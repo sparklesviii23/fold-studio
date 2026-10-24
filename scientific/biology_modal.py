@@ -207,8 +207,8 @@ def dispatch(s,action,p):
         # Claim before the network, using a write transaction and a fresh row.
         s.db.execute('BEGIN IMMEDIATE');latest=read(s,p)
         if latest['state']!='prepared':s.db.rollback();raise ValueError('This request was already claimed; reconnect instead of resubmitting.')
-        reserved=sum(json.loads(r['data']).get('estimate',{}).get('allowanceUSD',json.loads(r['data']).get('estimate',{}).get('gpuEstimateUSD',0)) for r in s.rows('SELECT data FROM biology_modal_jobs') if json.loads(r['data']).get('state')!='prepared')
-        if reserved+required>30:s.db.rollback();raise ValueError('The local 30 USD cumulative GPU-estimate allowance is exhausted. Actual provider charges and separate setup/API costs must still be monitored.')
+        # Historical reservations are not invoices or the provider's current balance.
+        # This request still requires its own reviewed allowance and explicit approval.
         latest.update(state='submission_uncertain',claimed=research.utc());s.db.execute('UPDATE biology_modal_jobs SET data=? WHERE id=?',(ev.canonical(latest),latest['id']));s.db.commit()
         try:
             if unified:

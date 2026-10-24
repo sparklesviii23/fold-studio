@@ -192,6 +192,24 @@ class BoltzArtifactTests(Fixture):
         import boltz_artifacts as artifacts
         for url in ('http://localhost/x','https://127.0.0.1/x'):
             with self.assertRaises(ValueError):artifacts.download({'url':url,'url_expires_at':'2099-01-01T00:00:00Z'})
+    def test_historical_estimates_do_not_block_new_explicitly_approved_request(self):
+        import os,copy
+        bm.dispatch(self.s,'biology_modal_configure',self.params(configuration=self.modal()))
+        prepared=bm.dispatch(self.s,'biology_modal_prepare',self.params(structureId=self.record['id'],manifest=self.request_manifest()))
+        old=copy.deepcopy(bm.read(self.s,self.params(id=prepared['id'])))
+        old.update(id='historical-fixture',state='completed',estimate={'gpuEstimateUSD':100,'allowanceUSD':100})
+        bm.save(self.s,old)
+        funcs=bm.contract()
+        with patch.dict(os.environ,{'FOLD_PROVIDER_CHILD':'1'}),patch.object(bm,'contract',return_value=(*funcs[:3],lambda *args:{'state':'submitted','callId':'fixture-only'})):
+            with self.assertRaisesRegex(ValueError,'Approve'):
+                bm.dispatch(self.s,'biology_modal_submit',self.params(id=prepared['id']))
+            with self.assertRaisesRegex(ValueError,'below'):
+                bm.dispatch(self.s,'biology_modal_submit',self.params(id=prepared['id'],approvedResearchTransfer=True,approvedWorkload=True,maxEstimatedCostUSD=0))
+            result=bm.dispatch(self.s,'biology_modal_submit',self.params(id=prepared['id'],approvedResearchTransfer=True,approvedWorkload=True,maxEstimatedCostUSD=1))
+            self.assertEqual(result['state'],'submitted')
+            with self.assertRaisesRegex(ValueError,'claimed'):
+                bm.dispatch(self.s,'biology_modal_submit',self.params(id=prepared['id'],approvedResearchTransfer=True,approvedWorkload=True,maxEstimatedCostUSD=1))
+
     def test_modal_submit_network_failure_cannot_be_retried(self):
         import os
         bm.dispatch(self.s,'biology_modal_configure',self.params(configuration=self.modal()))
