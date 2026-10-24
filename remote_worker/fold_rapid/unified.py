@@ -127,13 +127,16 @@ def model_manifest(row,node,engine):
     biology={'sequences':node['sequences'],'parents':[{'id':node['candidateId'],'chain':ch,'sequenceSha256':digest(node['sequences'][ch].encode())} for ch in node['binderChains']]}
     # The original single-engine parent contract requires unique IDs per chain.
     for item in biology['parents']:item['id']=digest((node['candidateId']+':'+item['chain']).encode())
+    if engine=='bindcraft2':
+        if len(node['binderChains'])!=1:raise ValueError('Sequence-seeded gradient feedback requires one binder chain.')
+        ch=node['binderChains'][0];biology['sequences']={ch:node['sequences'][ch]};biology['constraints']={ch:m.get('constraints',{}).get(ch,{'mutable':list(range(1,len(node['sequences'][ch])+1))})}
     if engine in ('proteinmpnn','solublempnn'):
         biology['constraints']={ch:m.get('constraints',{}).get(ch,{'mutable':list(range(1,len(node['sequences'][ch])+1))}) for ch in node['binderChains']}
     if engine.startswith('esmfold2'):biology['prediction']=flow.get('prediction',{})
     if engine=='rosetta':biology['relax']={'repeats':1}
     budget={'seconds':b['seconds']}
     if 'gpuMemoryMiB' in b:budget['gpuMemoryMiB']=b['gpuMemoryMiB']
-    return manifest({'schemaVersion':1,'engine':engine,'operation':OPERATIONS[engine],'target':source,'design':{'modality':'peptide' if sum(len(node['sequences'][ch]) for ch in node['binderChains'])<=128 else 'binder','lengths':[sum(len(node['sequences'][ch]) for ch in node['binderChains'])],'count':flow['count'] if engine in ('proteinmpnn','solublempnn') else 1,'attempts':1,'designChains':node['binderChains']},'seed':m['seed'],'budget':budget,'mode':'reference','biology':biology,'parentCandidates':[p['id'] for p in biology['parents']]})
+    return manifest({'schemaVersion':1,'engine':engine,'operation':OPERATIONS[engine],'target':source,'design':{'modality':'peptide' if sum(len(node['sequences'][ch]) for ch in node['binderChains'])<=128 else 'binder','lengths':[sum(len(node['sequences'][ch]) for ch in node['binderChains'])],'count':flow['count'] if engine in ('proteinmpnn','solublempnn') else 1,'attempts':1,'designChains':node['binderChains']},'seed':m['seed'],'budget':budget,'mode':'reference','biology':biology,'parentCandidates':[p['id'] for p in biology['parents']],**({'settings':{'save_design_trajectory':True,'save_failed_trajectories':True}} if engine=='bindcraft2' else {})})
 
 
 def run(root,id,executor=None,publish=lambda row:None,cancelled=lambda:False,lock_path=None):
@@ -195,7 +198,11 @@ def run(root,id,executor=None,publish=lambda row:None,cancelled=lambda:False,loc
                 if not binders or set(binders)&set(targets):raise ValueError('Engine chain roles are missing or overlap.')
                 sequences={ch:mapping['chains'][ch]['sequence'] for ch in targets+binders}
                 if parent:
-                    if binders!=parent['binderChains'] or sequences!=parent['sequences']:raise ValueError('A refold/relax output changed submitted sequence or chain identity.')
+                    if binders!=parent['binderChains'] or targets!=parent['targetChains']:raise ValueError('A descendant changed submitted chain identity.')
+                    if operation=='GRADIENT_REFINE':
+                        from .biology_contract import validate_outputs
+                        validate_outputs(sequences,parent['sequences'],{ch:m.get('constraints',{}).get(ch,{'mutable':list(range(1,len(parent['sequences'][ch])+1))}) for ch in binders})
+                    elif sequences!=parent['sequences']:raise ValueError('A refold/relax output changed submitted sequence or chain identity.')
                 else:
                     original=inspect(base64.b64decode(m['target']['contentBase64']),m['target']['format'])
                     if len(targets)!=len(m['target']['chains']) or [sequences[ch] for ch in targets]!=[original['chains'][ch]['sequence'] for ch in m['target']['chains']]:raise ValueError('Generated construct differs from the submitted target; explicit verified construct mapping is required.')
@@ -212,7 +219,7 @@ def run(root,id,executor=None,publish=lambda row:None,cancelled=lambda:False,loc
             if parent:
                 for ch in binders:
                     mutations.extend({'chain':ch,'position':i,'from':a,'to':b} for i,(a,b) in enumerate(zip(parent['sequences'][ch],sequences[ch]),1) if a!=b)
-            return store.add_candidate(row,{'sequences':sequences,'binderChains':binders,'targetChains':targets,'coordinates':coords,'backboneReference':backbone,'parents':[parent['candidateId']] if parent else [],'operation':operation,'generator':record['generator'],'nativeCandidate':record,'sourceJobFolder':str(pathlib.Path(job_folder).relative_to(folder)),'mutationHistory':mutations,'conditionedFamilies':parent['conditionedFamilies'] if parent else [FAMILIES.get(record['generator'],record['generator'])],'seed':m['seed'],'structureStatus':'fresh_prediction' if operation=='REFOLD' else 'derived_relaxation' if operation=='RELAX' else 'sequence_requires_refold' if not coords else 'generator_output'},operation)
+            return store.add_candidate(row,{'sequences':sequences,'binderChains':binders,'targetChains':targets,'coordinates':coords,'backboneReference':backbone,'parents':[parent['candidateId']] if parent else [],'operation':operation,'generator':record['generator'],'nativeCandidate':record,'sourceJobFolder':str(pathlib.Path(job_folder).relative_to(folder)),'mutationHistory':mutations,'conditionedFamilies':sorted(set(parent['conditionedFamilies']+[FAMILIES[record['generator']]])) if parent and operation=='GRADIENT_REFINE' else parent['conditionedFamilies'] if parent else [FAMILIES.get(record['generator'],record['generator'])],'seed':m['seed'],'structureStatus':'fresh_prediction' if operation=='REFOLD' else 'derived_relaxation' if operation=='RELAX' else 'sequence_requires_refold' if not coords else 'generator_output'},operation)
         def assess(prediction,reference):
             mi=analysis_modules().mi
             raw=base64.b64decode(prediction['coordinates']['contentBase64']);structure=mi.parse_structure(raw.decode(),prediction['coordinates']['format'])
@@ -247,13 +254,20 @@ def run(root,id,executor=None,publish=lambda row:None,cancelled=lambda:False,loc
                 if m['workflow'].get('diagnosticRejectedParents') and not any(c['generator']==e for c in originals):
                     originals.extend(diagnostic[:generator['design']['count']])
                     if diagnostic:row['events'].append({'operation':'DIAGNOSTIC_FOLLOWUP','reason':'Rejected generator output remains rejected; explicit downstream computational diagnostics only.','time':now()})
-            frontier=originals;all_selections=[]
+            frontier=originals;all_selections=[];feedback_context={}
             for round_index in range(rules['rounds']):
                 row['round']=round_index+1;branches=list(frontier)
                 for parent in frontier:
-                    for e in m['workflow']['redesign']:
+                    operations=m['workflow']['redesign']
+                    if round_index and 'feedback' in m['workflow']:
+                        from .feedback import choose
+                        plan=choose(m['workflow']['feedback'],feedback_context.get(parent['candidateId']))
+                        operations=plan['operations'];row['events'].append({'operation':'PLAN_MODIFICATION','candidateId':parent['candidateId'],'basis':plan,'time':now()});store.write(row)
+                    for e in operations:
                         records,path=stage(e,model_manifest(row,parent,e),parent['candidateId'])
-                        for record in records:branches.append(node_from_record(record,path,parent,'REDESIGN'))
+                        for record in records:
+                            child=node_from_record(record,path,parent,'GRADIENT_REFINE' if e=='bindcraft2' else 'REDESIGN')
+                            if e!='bindcraft2' or record['outcome'] in ('accepted','passed_upstream_filters') or m['workflow'].get('diagnosticRejectedParents'):branches.append(child)
                 evaluations=[]
                 for candidate in branches:
                     samples=[];predictions=[]
@@ -289,7 +303,8 @@ def run(root,id,executor=None,publish=lambda row:None,cancelled=lambda:False,loc
                 frontier=[c for c in branches if c['candidateId'] in retained]
                 # Only a freshly predicted backbone can drive another redesign.
                 candidates=store.candidates(id)
-                frontier=[next((p for p in reversed(candidates) if p['operation']=='REFOLD' and p['parents']==[c['candidateId']]),c) for c in frontier]
+                paired=[(c,next((p for p in reversed(candidates) if p['operation']=='REFOLD' and p['parents']==[c['candidateId']]),c)) for c in frontier]
+                decisions={d['id']:d for d in selected};feedback_context={p['candidateId']:decisions[c['candidateId']] for c,p in paired};frontier=[p for c,p in paired]
                 update('Recorded explicit Pareto decisions for round '+str(round_index+1))
                 if not frontier:break
             row['selection']=all_selections;row['qualifiedCandidates']=[]

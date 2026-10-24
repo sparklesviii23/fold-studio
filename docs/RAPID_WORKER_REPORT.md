@@ -1,5 +1,7 @@
 # RAPID Compute Worker 0.2.0 — software release candidate
 
+> Historical implementation snapshot. Current cloud readiness, actual execution and unresolved architecture are audited in [RAPID_COMPLETE_ENGINE_AUDIT.md](RAPID_COMPLETE_ENGINE_AUDIT.md); this older document is not the current deployment status.
+
 This implements a scientific worker beyond the earlier connection foundation.
 It is **not a CUDA production qualification**. No rented instance, paid service,
 large model download or new CUDA model prediction has been used in development.

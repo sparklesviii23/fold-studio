@@ -5,7 +5,7 @@ import pathlib
 import subprocess
 import sys
 
-PINS={'boltz-api':'0.50.0','modal':'1.6.2'}
+PINS={'boltz-api':'0.50.0','modal':'1.6.2','gemmi':'0.7.5'}
 
 
 def interpreter(s):
@@ -18,7 +18,7 @@ def interpreter(s):
 def status(s):
     python=interpreter(s)
     if not python:return {'installed':False,'versions':{},'authenticated':False,'modelsDownloaded':False}
-    code="import json,importlib.metadata as m;from modal.config import config;print(json.dumps({'versions':{k:m.version(k) for k in ['modal','boltz-api']},'credentialsConfigured':bool(config.get('token_id')) and bool(config.get('token_secret'))}))"
+    code="import json,importlib.metadata as m;from modal.config import config;print(json.dumps({'versions':{k:m.version(k) for k in ['modal','boltz-api','gemmi']},'credentialsConfigured':bool(config.get('token_id')) and bool(config.get('token_secret'))}))"
     env=dict(os.environ)
     if sys.platform=='darwin':
         from provider_credentials import environment

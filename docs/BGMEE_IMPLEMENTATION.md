@@ -1,5 +1,7 @@
 # Biology-Guided Molecular Evolution Engine — execution matrix
 
+> Historical implementation snapshot. Current cloud readiness, actual execution and unresolved architecture are audited in [RAPID_COMPLETE_ENGINE_AUDIT.md](RAPID_COMPLETE_ENGINE_AUDIT.md); this older document is not the current deployment status.
+
 Updated 24 October 2026 (user timezone). **The complete master directive is not finished.** This matrix replaces the earlier foundation-only status. It distinguishes implemented source, fixture contracts, authentic model execution and full workflow validation.
 
 The current implementation reuses the original BindCraft2, RAPID/Vast, library, molecular viewer, geometry tools, scientific jobs and app styling. No Fab campaign was resumed and no paid GPU/API run was launched. One explicitly approved 6.7 MB SolubleMPNN checkpoint was downloaded and verified; no ESM/RFdiffusion checkpoint was downloaded.

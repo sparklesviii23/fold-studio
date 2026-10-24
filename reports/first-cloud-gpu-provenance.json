@@ -1,0 +1,138 @@
+{
+  "biologyCodeSha256": "aea886ba4b25ca7e87d7ff7b168010bae27e409cecf0416d80bc60340fe672ef",
+  "computeProvider": "modal",
+  "cudaNumericalProbePassed": true,
+  "cudaProbe": {
+    "device": "cuda:0",
+    "forward": 285,
+    "framework": "jax",
+    "gradientChecked": true,
+    "version": "0.11.2"
+  },
+  "cudaQualified": false,
+  "effectivePolicy": "One original engine workflow; fixed scientific settings. Adaptive cross-engine scheduling awaits measured GPU costs.",
+  "engineRole": "cloud",
+  "executionHost": "modal",
+  "executionPlatform": "Linux-4.19.0-gvisor-x86_64-with-glibc2.39",
+  "hardware": {
+    "cudaQualified": false,
+    "detected": true,
+    "devices": [
+      {
+        "computeCapability": "8.0",
+        "driverVersion": "580.95.05",
+        "freeMemoryMiB": 81150.0,
+        "index": "0",
+        "name": "NVIDIA A100 80GB PCIe",
+        "totalMemoryMiB": 81920.0,
+        "uuid": "GPU-51702c41-3a53-9c4e-d47f-d9cac6ace732"
+      }
+    ]
+  },
+  "imageDigest": "nvidia/cuda:13.0.2-runtime-ubuntu24.04@sha256:6a0e31b59e70890446f2c17356d6efc0d54260090a8c63d6ca7c2ad049db95d2",
+  "imageRecipeSha256": "ac1ec028df5065a2fc4444c9b9ab3741a19081587369abe04428e7925b7c6cf3",
+  "jobId": "c9ebcb01458c42c7825b0fb6d57988dd",
+  "manifestSha256": "947b95bf1576262976deca1ce1638b5fa1c1a5b14b3dd8339e570d5a91806769",
+  "models": {
+    "model_1_multimer_v3": {
+      "hashRegistered": true,
+      "id": "model_1_multimer_v3",
+      "path": "/models/rapid/models/alphafold/params_model_1_multimer_v3.npz",
+      "present": true,
+      "sha256": "611da8fc7478928f68de12e8b226260ef1f4ce62bcc29b008572e52f4f212959"
+    },
+    "model_1_ptm": {
+      "hashRegistered": true,
+      "id": "model_1_ptm",
+      "path": "/models/rapid/models/alphafold/params_model_1_ptm.npz",
+      "present": true,
+      "sha256": "5e564f79af5bcd54ccef6e2a6bb0ff01015d01650ebc41d4575e35f0de9ecc84"
+    },
+    "model_2_multimer_v3": {
+      "hashRegistered": true,
+      "id": "model_2_multimer_v3",
+      "path": "/models/rapid/models/alphafold/params_model_2_multimer_v3.npz",
+      "present": true,
+      "sha256": "51362b0844382ae0f5720c59b81dd13a43eea40fbf9995dd2573bdab88865378"
+    },
+    "model_2_ptm": {
+      "hashRegistered": true,
+      "id": "model_2_ptm",
+      "path": "/models/rapid/models/alphafold/params_model_2_ptm.npz",
+      "present": true,
+      "sha256": "23645d9a82c4af2ed54cd48a7b3c1c2575dc6aa9fe931adb4d7203ca5f0dc398"
+    },
+    "model_3_multimer_v3": {
+      "hashRegistered": true,
+      "id": "model_3_multimer_v3",
+      "path": "/models/rapid/models/alphafold/params_model_3_multimer_v3.npz",
+      "present": true,
+      "sha256": "46d9bcad288edc7ad5a6362ee8e5f84307a69712e00e6c36b1ef9daf96ebc9ce"
+    },
+    "model_4_multimer_v3": {
+      "hashRegistered": true,
+      "id": "model_4_multimer_v3",
+      "path": "/models/rapid/models/alphafold/params_model_4_multimer_v3.npz",
+      "present": true,
+      "sha256": "59bdabd2d69c07fe26b37882d544acbd1b9f89f196828f4220da49e0610b572c"
+    },
+    "model_5_multimer_v3": {
+      "hashRegistered": true,
+      "id": "model_5_multimer_v3",
+      "path": "/models/rapid/models/alphafold/params_model_5_multimer_v3.npz",
+      "present": true,
+      "sha256": "917742be5a105d6b80f13f1f13f20459f27ec3fdcd34ea088b359f4502d6177f"
+    },
+    "mpnn-negative": {
+      "hashRegistered": true,
+      "id": "mpnn-negative",
+      "path": "/models/rapid/models/proteinmpnn/weights_negative/v_48_020.npz",
+      "present": true,
+      "sha256": "b166276f80a45cb3de24bceb3b47b2f47a60ff654660f09837cd775846411ad1"
+    },
+    "mpnn-neutral": {
+      "hashRegistered": true,
+      "id": "mpnn-neutral",
+      "path": "/models/rapid/models/proteinmpnn/weights_neutral/v_48_020.npz",
+      "present": true,
+      "sha256": "58db738bbf867ca9b9290ce3a6581b94649f108683ac0e6a10de6b4aeeed30b4"
+    },
+    "mpnn-positive": {
+      "hashRegistered": true,
+      "id": "mpnn-positive",
+      "path": "/models/rapid/models/proteinmpnn/weights_positive/v_48_020.npz",
+      "present": true,
+      "sha256": "9b8b55fcb8a428ba85f583be828d1a8d14ab2fe0e02474979c3dcbae146795f5"
+    }
+  },
+  "requestedSchedulingMode": "reference",
+  "runtimeReceipt": {
+    "cudaQualified": false,
+    "dependencyLockSha256": "66b8e2cb187ae18b835178d71a8185695d7b7f379e57f63964035a5e06aa26ab",
+    "importProbe": {
+      "architecture": "x86_64",
+      "checkpointsLoaded": false,
+      "cudaQualified": false,
+      "cudaScientificExecution": "NOT RUN",
+      "engine": "bindcraft2",
+      "modulesImported": [
+        "jax",
+        "bindcraft.af2",
+        "bindcraft.proteinmpnn"
+      ],
+      "platform": "Linux",
+      "state": "imports_passed",
+      "versions": {
+        "bindcraft": "1.0.3",
+        "jax": "0.11.2",
+        "jax-cuda13-plugin": "0.11.2",
+        "jaxlib": "0.11.2"
+      }
+    },
+    "installedPackages": "absl-py==2.5.1\naiohappyeyeballs==2.6.1\naiohttp==3.12.7\naiosignal==1.3.2\nattrs==25.3.0\nbindcraft @ file:///opt/fold-rapid-release/sources/bindcraft2\nbiotite==2.0.0\nbiotraj==1.2.2\ncbor2==5.7.0\ncertifi==2026.10.19\ncharset-normalizer==3.5.2\ncontourpy==1.4.0\ncuequivariance==0.11.1\ncuequivariance-jax==0.11.1\ncuequivariance-ops-cu13==0.11.1\ncycler==0.12.1\ndm-haiku==0.0.17\neinops==0.8.2\nfonttools==4.67.0\nfrozenlist==1.6.0\ngemmi==0.7.5\ngrpclib==0.4.8\nh2==4.2.0\nhpack==4.1.0\nhyperframe==6.1.0\nidna==3.20\njax==0.11.2\njax-cuda13-pjrt==0.11.2\njax-cuda13-plugin==0.11.2\njaxlib==0.11.2\njmp==0.0.4\nkiwisolver==1.5.1\nmatplotlib==3.11.2\nml_collections==1.1.0\nml_dtypes==0.6.0\nmpmath==1.3.0\nmsgpack==1.2.3\nmultidict==6.4.4\nnetworkx==3.7\nnumpy==2.5.4\nnvidia-cublas==13.1.0.3\nnvidia-cuda-crt==13.4.92\nnvidia-cuda-cupti==13.0.85\nnvidia-cuda-nvcc==13.0.88\nnvidia-cuda-nvrtc==13.0.88\nnvidia-cuda-runtime==13.0.96\nnvidia-cudnn-cu13==9.19.0.56\nnvidia-cufft==12.0.0.61\nnvidia-cusolver==12.0.4.66\nnvidia-cusparse==12.6.3.3\nnvidia-ml-py==13.615.71\nnvidia-nccl-cu13==2.28.9\nnvidia-nvjitlink==13.0.88\nnvidia-nvshmem-cu13==3.4.5\nnvidia-nvvm==13.4.92\nopt_einsum==3.4.0\noptax==0.2.8\npackaging==26.3\npillow==13.0.0\npip==23.2.1\nplatformdirs==4.13.5\npropcache==0.3.1\nprotobuf==6.31.1\npyparsing==3.3.3\npython-dateutil==2.9.0.post0\nPyYAML==6.0.3\nrequests==2.34.2\nscipy==1.18.1\nsetuptools==80.9.0\nsix==1.17.0\nsympy==1.14.0\ntabulate==0.10.0\ntqdm==4.70.1\ntyping_extensions==4.13.2\nurllib3==2.8.0\nwheel==0.45.1\nyarl==1.20.0\n",
+    "python": "/models/rapid/runtimes/bindcraft2/bin/python",
+    "source": "/opt/fold-rapid-release/sources/bindcraft2"
+  },
+  "sourceRevision": "c0ee638d11bc010817c2c97ee58ed5c323e664e2",
+  "workerVersion": "0.2.0"
+}

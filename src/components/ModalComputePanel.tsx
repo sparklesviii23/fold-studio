@@ -1,6 +1,7 @@
 import {useEffect,useState} from 'react';
 import {Cloud,RefreshCw,Play,Square,Download,ExternalLink} from 'lucide-react';
 import {rpc} from '../lib/api';
+import CloudMissionControl from './CloudMissionControl';
 import type {Item} from '../lib/types';
 
 type Props={projectId:string;structures:Item[];onImported?:()=>void;onOpen?:(item:Item)=>void};
@@ -20,6 +21,7 @@ export default function ModalComputePanel({projectId,structures,onImported,onOpe
  const toggle=(items:string[],value:string,set:(v:string[])=>void)=>set(items.includes(value)?items.filter(e=>e!==value):[...items,value]);
  const unified=jobs.filter(j=>j.kind==='unified');
  return <>
+  <CloudMissionControl projectId={projectId}/>
   <section className="cloud-panel"><span className="eyebrow">MODAL · SERVERLESS GPU</span><h2>One campaign. Connected models.</h2><p>Automatic redesign, fresh structure predictions and comparative analysis. Your original candidate stays intact.</p>
    {!projectId?<p>Select a research project to connect an account and prepare a campaign.</p>:<>
     {error&&<p className="error" role="alert">{error}</p>}{busy&&<p role="status"><RefreshCw size={14} className="cloud-spin"/> {busy}…</p>}

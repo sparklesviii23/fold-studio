@@ -1,5 +1,7 @@
 # RAPID unified campaigns — 24 October 2026
 
+> Historical implementation snapshot. Current cloud readiness, actual execution and unresolved architecture are audited in [RAPID_COMPLETE_ENGINE_AUDIT.md](RAPID_COMPLETE_ENGINE_AUDIT.md); this older document is not the current deployment status.
+
 The complete directive is **not finished**. No Modal account is configured on the tested Mac, no immutable deployed RAPID image has been supplied, no cloud models have been downloaded, and no paid GPU/API operation has been launched. Scientific cloud qualification remains false.
 
 ## Implemented in this change

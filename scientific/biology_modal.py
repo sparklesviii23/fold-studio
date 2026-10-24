@@ -123,6 +123,9 @@ def dispatch(s,action,p):
         row={'id':uuid.uuid4().hex,'projectId':p['projectId'],'state':'prepared','configuration':cfg,'manifest':value,'manifestSha256':ev.sha(value),'estimate':estimate,'idempotencyKey':uuid.uuid4().hex,'created':research.utc(),'sourceRecordId':record['id']}
         return public(save(s,row))
     if action in NETWORK and not __import__('os').environ.get('FOLD_PROVIDER_CHILD'):return biology_providers.rpc(s,action,p)
+    if action in NETWORK:
+        import biology_pipeline
+        biology_pipeline.common()
     if action=='biology_cloud_prepare_models':
         if p.get('approvedCPUSetup') is not True or p.get('approvedModelDownloads') is not True or type(p.get('maxApprovedUSD'))not in(int,float) or not 0<p['maxApprovedUSD']<=1:raise ValueError('Approve this cloud-only CPU/runtime/checkpoint plan with an allowance up to 1 USD. No GPU inference is included.')
         import biology_pipeline

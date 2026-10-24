@@ -52,7 +52,7 @@ def campaign(value):
     if value['strategy']=='de_novo' and not seen:raise ValueError('De novo design requires a genuine generator branch.')
     if value['strategy']=='site_guided' and not any(g['design'].get('hotspots') for g in value['generators']):raise ValueError('Site-guided design requires explicit observed target hotspots in the generator configuration.')
     if not parents and not seen:raise ValueError('Choose observed parents or genuine generation.')
-    fields(value['workflow'],('redesign','predictors','rosetta','count'),('prediction','diagnosticRejectedParents'))
+    fields(value['workflow'],('redesign','predictors','rosetta','count'),('prediction','diagnosticRejectedParents','feedback'))
     flow=value['workflow']
     if 'diagnosticRejectedParents' in flow and type(flow['diagnosticRejectedParents'])is not bool:raise ValueError('Diagnostic rejected-parent follow-up must be explicit.')
     for key,supported in [('redesign',('proteinmpnn','solublempnn')),('predictors',('esmfold2_fast','esmfold2','af2_multimer'))]:
@@ -65,6 +65,9 @@ def campaign(value):
     if rules['maxDescendants']>32:raise ValueError('Candidate budget exceeds the bounded controller.')
     if not isinstance(value['stageBudgets'],dict) or set(value['stageBudgets'])-set(OPERATIONS):raise ValueError('Unknown stage budget.')
     required=seen|set(flow['redesign'])|set(flow['predictors'])|({'rosetta'} if flow['rosetta'] else set())
+    if 'feedback' in flow:
+        from .feedback import operations
+        required|=operations(flow['feedback'])
     if required-set(value['stageBudgets']):raise ValueError('Every selected model needs an explicit stage runtime and reviewed hourly estimate.')
     for engine,b in value['stageBudgets'].items():
         fields(b,('seconds','hourlyEstimateUSD'),('gpuMemoryMiB',))
@@ -100,8 +103,16 @@ def estimate(value):
     parents=len(value['parents'])+sum(g['design']['count'] for g in value['generators'])
     per=parents*(1+flow['count']*len(flow['redesign']))
     stages={g['engine']:1 for g in value['generators']}
-    for e in flow['redesign']:stages[e]=parents*rules['rounds']
-    for e in flow['predictors']:stages[e]=per*rules['rounds']*(2 if flow['rosetta'] else 1)
-    if flow['rosetta']:stages['rosetta']=per*rules['rounds']
+    frontier=parents
+    for round_index in range(rules['rounds']):
+        operations=set(flow['redesign'])
+        if round_index and 'feedback' in flow:
+            from .feedback import operations as feedback_operations
+            operations=feedback_operations(flow['feedback'])
+        for e in operations:stages[e]=stages.get(e,0)+frontier
+        branches=frontier*(1+sum(flow['count'] if e!='bindcraft2' else 1 for e in operations))
+        for e in flow['predictors']:stages[e]=stages.get(e,0)+branches*(2 if flow['rosetta'] else 1)
+        if flow['rosetta']:stages['rosetta']=stages.get('rosetta',0)+branches
+        frontier=min(branches,rules['maxDescendants'])
     rows=[{'engine':e,'maximumCalls':n,'secondsPerCall':b[e]['seconds'],'estimatedUSD':n*b[e]['seconds']/3600*b[e]['hourlyEstimateUSD']} for e,n in stages.items()]
     return {'stages':rows,'upperReservationUSD':sum(r['estimatedUSD'] for r in rows),'allowanceUSD':value['budget']['maxEstimatedUSD'],'billingScope':'Reviewed stage runtime rates only; CPU orchestrator, cold starts, memory, storage and network add charges. Provider workspace budget required for billing protection.','externalAPIIncluded':False,'policy':'Sequential modular workers; warm execution requires measured qualification.'}

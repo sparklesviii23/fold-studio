@@ -1,0 +1,28 @@
+import {useEffect,useState} from 'react';
+import {Activity,ArrowRight,BookOpen,CheckCircle2,Cloud,RefreshCw} from 'lucide-react';
+import {rpc} from '../lib/api';
+type AuditRow={name:string;code:string;cloud:string;evidence:string;integration:string;remaining:string};
+const finished=new Set(['COMPLETED','PARTIALLY_COMPLETE','FAILED','CANCELLED']);
+const duration=(s:number=0)=>`${Math.floor(s/60)}m ${Math.floor(s%60)}s`;
+export default function CloudMissionControl({projectId}:{projectId:string}){
+ const [jobs,setJobs]=useState<any[]>([]),[audit,setAudit]=useState<AuditRow[]>([]),[error,setError]=useState(''),[checked,setChecked]=useState('');
+ useEffect(()=>{let stopped=false,timer:ReturnType<typeof setTimeout>;async function update(){try{
+  const rows=await rpc<any[]>('biology_modal_jobs',{projectId});
+  const active=rows.find(r=>r.kind==='unified'&&r.campaignId&&!finished.has(r.state));
+  if(active){const current=await rpc<any>('biology_modal_refresh',{projectId,id:active.id});rows.splice(rows.findIndex(r=>r.id===current.id),1,current);}
+  if(!stopped){setJobs(rows.filter(r=>r.kind==='unified'));setChecked(new Date().toLocaleTimeString([], {hour:'2-digit',minute:'2-digit'}));setError('');}
+ }catch(e){if(!stopped)setError(String(e));}finally{if(!stopped)timer=setTimeout(update,20000);}}
+ if(projectId){void update();rpc<{components:AuditRow[]}>('cloud_engine_audit',{}).then(r=>{if(!stopped)setAudit(r.components);}).catch(e=>{if(!stopped)setError(String(e));});}
+ return()=>{stopped=true;clearTimeout(timer);};},[projectId]);
+ const job=jobs.find(j=>!finished.has(j.state))??jobs[0],remote=job?.remote,stages=remote?.stages??[],live=stages.find((s:any)=>s.state==='RUNNING'),estimated=live?.liveEstimatedWithSafetyUSD;
+ return <section className="mission-control" aria-label="Live cloud campaign and engine audit">
+  <div className="mission-hero"><div><span className="eyebrow"><Cloud size={14}/> RAPID · LIVE RESEARCH</span><h2>Your molecular campaign.</h2><p>{job?(finished.has(job.state)?'This run has finished. Review its actual outcomes below.':'One saved campaign. Computing on Modal.'): 'Your saved campaigns appear here.'}</p></div><div className="mission-orbit"><Activity size={31}/><span>{job?.configuration?.gpu??'Cloud GPU'}</span><small>{job?.state==='CHECKPOINTING'?'Computing · progress saved':job?.state??'Ready to connect'}</small></div></div>
+  {error&&<p className="mission-warning" role="status">Connection update unavailable. Last saved results remain visible. {error}</p>}
+  {job&&<><div className="mission-numbers"><div><small>Current operation</small><strong>{live?.engine??(finished.has(job.state)?'Review results':'Preparing')}</strong></div><div><small>Current stage elapsed</small><strong>{duration(live?.observedRemoteSeconds)}</strong></div><div><small>Intended allowance</small><strong>${job.manifest?.budget?.maxEstimatedUSD??6}</strong></div><div><small>Live estimate + safety</small><strong>{typeof estimated==='number'?`$${estimated.toFixed(2)}`:'Not yet available'}</strong></div></div>
+   <div className="mission-rail">{['bindcraft2','proteinmpnn','solublempnn','af2_multimer'].map((engine,i)=>{const group=stages.filter((s:any)=>s.engine===engine),running=group.some((s:any)=>s.state==='RUNNING'),done=group.length>0&&group.every((s:any)=>s.state==='STAGE_COMPLETE'),failed=group.some((s:any)=>s.state==='FAILED');return <div className={`mission-step ${running?'active':done?'done':failed?'failed':''}`} key={engine}><span className="mission-step-mark">{done?<CheckCircle2 size={18}/>:running?<RefreshCw size={17} className="cloud-spin"/>:String(i+1).padStart(2,'0')}</span><strong>{({bindcraft2:'Generate',proteinmpnn:'Redesign',solublempnn:'Explore solubility',af2_multimer:'Refold & assess'} as Record<string,string>)[engine]}</strong><small>{running?'Computing':done?'Stages finished':failed?'Inspect outcome':'Waiting'} · {engine}</small></div>;})}</div>
+   <p className="mission-footnote">Saved remotely · updated {checked||'—'} · estimates are not provider billing. Model outputs require scientific review; no binding or inhibition is established.</p>
+   <details className="mission-outcomes"><summary>Actual stage outcomes and computational evidence <ArrowRight size={14}/></summary>{stages.map((s:any)=><div className="mission-outcome" key={s.stageId}><strong>{s.engine}</strong><span>{s.jobState??s.state}</span><p>{s.error??s.live?.lastEvent?.message??'Raw outputs and provenance are retained with this stage.'}</p></div>)}</details>
+  </>}
+  <details className="mission-audit" open><summary><BookOpen size={18}/> Engine audit <span>{audit.length} components · evidence by scope</span></summary><p>Available software, model execution and scientific qualification are tracked separately. The full engine is still in development.</p><div className="mission-audit-grid">{audit.map(row=><details className="mission-audit-card" key={row.name}><summary><strong>{row.name}</strong><span>{row.evidence.includes('Blocked')?'External requirement':row.evidence.includes('Cloud execution validated')?'Cloud evidence available':row.evidence.includes('Missing')?'To implement':row.evidence.includes('Genuine')?'Model evidence · see scope':'Validation in progress'}</span></summary><p>{row.evidence}</p><dl><dt>Cloud execution</dt><dd>{row.cloud}</dd><dt>Connected workflow</dt><dd>{row.integration}</dd><dt>Remaining work</dt><dd>{row.remaining}</dd></dl><small>Source evidence · {row.code}</small></details>)}</div></details>
+ </section>;
+}
