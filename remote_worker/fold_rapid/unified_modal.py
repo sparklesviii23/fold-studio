@@ -121,6 +121,15 @@ def attach(app,cfg,image,data,state,model_volume):
             try:row=CampaignStore('/data/rapid').get(id)
             except ValueError:return {'state':'not_observed','resubmit':False}
             return {'campaignId':id,'state':row['state'],'manifestSha256':row['manifestSha256'],'recoveredFrom':'persistent_volume','resubmit':False}
+        if operation=='bootstrap_status':
+            fields(payload,('requestKey',));key=payload['requestKey']
+            if not isinstance(key,str) or not 1<=len(key)<=100:raise ValueError('Invalid setup request key.')
+            observed=state.get('bootstrap:'+key)
+            if observed:return observed
+            if state.get('writer-lease'):return {'state':'not_observed','resubmit':False}
+            model_volume.reload();path=pathlib.Path('/models/rapid/bootstraps')/digest(key.encode())/'status.json'
+            import json
+            return json.loads(path.read_text()) if path.is_file() else {'state':'not_observed','resubmit':False}
         if operation=='inventory':
             fields(payload,())
             if state.get('writer-lease'):raise ValueError('Model storage is owned by an active campaign/setup; inspect its saved execution instead.')
@@ -143,6 +152,20 @@ def attach(app,cfg,image,data,state,model_volume):
         name={'status':'unified_status','stage':'unified_stage'}.get(operation)
         if not name:raise ValueError('Unsupported unified control operation.')
         return Worker('/data/rapid').dispatch({'apiVersion':2,'requestId':'unified-control','operation':name,'payload':payload})['result']
+
+    @app.function(serialized=True,name='unified_prepare_models',image=image,cpu=(2,2),memory=(8192,8192),volumes={'/models':model_volume},timeout=1800,min_containers=0,max_containers=1,scaledown_window=10,retries=0)
+    def unified_prepare_models(plan,key,approved=False):
+        if approved is not True:raise ValueError('Approve the remote installation plan and its CPU/download/storage allowance.')
+        from fold_rapid.bootstrap import run
+        token={'kind':'bootstrap','request':key}
+        if not state.put('writer-lease',token,skip_if_exists=True):raise ValueError('A campaign/setup already owns scientific storage. Reconnect rather than duplicate it.')
+        try:
+            model_volume.reload()
+            def publish(row):model_volume.commit();state['bootstrap:'+key]=row
+            return run('/models/rapid',plan,key,True,publish)
+        finally:
+            model_volume.commit()
+            if state.get('writer-lease')==token:state.pop('writer-lease')
 
     @app.function(serialized=True,name='unified_qualify',image=image,gpu=cfg['gpu'],cpu=(2,2),memory=(4096,4096),volumes={'/models':model_volume},timeout=120,min_containers=0,max_containers=1,scaledown_window=10,retries=0)
     def unified_qualify(engine,approved=False):

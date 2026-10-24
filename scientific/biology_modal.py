@@ -12,8 +12,8 @@ import research
 import biology_providers
 import rapid_remote
 
-ACTIONS={'biology_modal_qualify','biology_unified_prepare','biology_modal_check','biology_modal_configure','biology_modal_status','biology_modal_prepare','biology_modal_submit','biology_modal_refresh','biology_modal_cancel','biology_modal_jobs','biology_modal_import','biology_modal_deploy','biology_modal_setup','biology_provider_credentials'}
-NETWORK={'biology_modal_qualify','biology_modal_check','biology_modal_submit','biology_modal_refresh','biology_modal_cancel','biology_modal_import','biology_modal_deploy','biology_modal_setup'}
+ACTIONS={'biology_cloud_prepare_models','biology_modal_qualify','biology_unified_prepare','biology_modal_check','biology_modal_configure','biology_modal_status','biology_modal_prepare','biology_modal_submit','biology_modal_refresh','biology_modal_cancel','biology_modal_jobs','biology_modal_import','biology_modal_deploy','biology_modal_setup','biology_provider_credentials'}
+NETWORK={'biology_cloud_prepare_models','biology_modal_qualify','biology_modal_check','biology_modal_submit','biology_modal_refresh','biology_modal_cancel','biology_modal_import','biology_modal_deploy','biology_modal_setup'}
 
 
 def contract():
@@ -123,6 +123,20 @@ def dispatch(s,action,p):
         row={'id':uuid.uuid4().hex,'projectId':p['projectId'],'state':'prepared','configuration':cfg,'manifest':value,'manifestSha256':ev.sha(value),'estimate':estimate,'idempotencyKey':uuid.uuid4().hex,'created':research.utc(),'sourceRecordId':record['id']}
         return public(save(s,row))
     if action in NETWORK and not __import__('os').environ.get('FOLD_PROVIDER_CHILD'):return biology_providers.rpc(s,action,p)
+    if action=='biology_cloud_prepare_models':
+        if p.get('approvedCPUSetup') is not True or p.get('approvedModelDownloads') is not True or type(p.get('maxApprovedUSD'))not in(int,float) or not 0<p['maxApprovedUSD']<=1:raise ValueError('Approve this cloud-only CPU/runtime/checkpoint plan with an allowance up to 1 USD. No GPU inference is included.')
+        from fold_rapid.bootstrap import describe
+        plan=describe(p.get('plan'))
+        s.db.execute('BEGIN IMMEDIATE')
+        active=[json.loads(r['data']) for r in s.rows('SELECT data FROM biology_modal_jobs') if json.loads(r['data']).get('kind')=='bootstrap' and json.loads(r['data']).get('configuration',{}).get('appName')==cfg['appName'] and json.loads(r['data']).get('state') in ('submission_uncertain','submitted','running')]
+        if active:s.db.rollback();raise ValueError('An existing cloud setup is active or uncertain; refresh it instead of submitting another.')
+        key=uuid.uuid4().hex
+        row={'id':key,'projectId':p['projectId'],'kind':'bootstrap','engine':plan['plan'],'state':'submission_uncertain','configuration':cfg,'created':research.utc(),'plan':plan,'maximumApprovedUSD':p['maxApprovedUSD'],'gpuStarted':False}
+        save(s,row)
+        import modal
+        try:call=modal.Function.from_name(cfg['appName'],'unified_prepare_models').spawn(plan['plan'],key,True)
+        except Exception:raise ValueError('Cloud setup dispatch outcome is uncertain. Refresh this saved request; no automatic resubmission.') from None
+        row.update(state='submitted',callId=call.object_id);return public(save(s,row))
     if action=='biology_modal_qualify':
         if p.get('approvedQualification') is not True or type(p.get('maxEstimatedCostUSD'))not in(int,float) or not math.isfinite(p['maxEstimatedCostUSD']) or p['maxEstimatedCostUSD']<cfg['hourlyEstimateUSD']*120/3600:raise ValueError('Approve one engine’s 120-second CUDA numerical test and reviewed GPU estimate; startup/CPU/storage costs are additional.')
         if p.get('engine') not in ('bindcraft2','boltzgen','proteinmpnn','solublempnn','esmfold2_fast','esmfold2','af2_multimer'):raise ValueError('Select a supported engine runtime.')
@@ -192,6 +206,9 @@ def dispatch(s,action,p):
             if observed.get('jobId'):row.update(jobId=observed['jobId'],state=observed['state'])
         if row.get('jobId'):
             remote=control(cfg,'status',{'jobId':row['jobId']});row['remote']=remote;row['state']=remote.get('job',remote).get('state',row['state'])
+        if row.get('kind')=='bootstrap':
+            observed=unified_control(cfg,'bootstrap_status',{'requestKey':row['id']});row['remote']=observed
+            if observed.get('state')!='not_observed':row['state']=observed['state']
         if row.get('campaignId'):
             remote=unified_control(cfg,'status',{'campaignId':row['campaignId']});row.update(remote=remote,state=remote['state'])
         row['checked']=research.utc();return public(save(s,row))
