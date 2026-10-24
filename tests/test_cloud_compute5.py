@@ -67,7 +67,7 @@ class CloudCompute5(unittest.TestCase):
    info=tarfile.TarInfo('release/release.json');info.size=len(manifest);f.addfile(info,io.BytesIO(manifest))
   folder=self.root/'cloud-engine-deployment';folder.mkdir();cfg={'appName':'fixture-cloud'};record={'state':'deployed','appName':cfg['appName'],'sourceManifestSha256':'wrong','accountId':'a'}
   (folder/'status.json').write_text(json.dumps(record))
-  with patch('rapid_remote.artifact',return_value=(archive,{})):
+  with patch('rapid_remote.artifact',return_value=(archive.read_bytes(),hashlib.sha256(archive.read_bytes()).hexdigest())):
    with self.assertRaisesRegex(ValueError,'differs'):require_current_engine(self.s,cfg,'a')
    record['sourceManifestSha256']=hashlib.sha256(manifest).hexdigest();(folder/'status.json').write_text(json.dumps(record))
    with self.assertRaisesRegex(ValueError,'differs'):require_current_engine(self.s,cfg,'b')

@@ -71,11 +71,11 @@ if __name__=='__main__' and len(sys.argv)==3 and sys.argv[1]=='--deploy':deploy(
 
 def require_current_engine(s,cfg,account_id=None):
     """Refuse paid dispatch to an older, known-mismatched scientific protocol."""
-    import tarfile,hashlib,rapid_remote
+    import io,tarfile,hashlib,rapid_remote
     status_path=s.root/'cloud-engine-deployment/status.json'
     if not status_path.is_file():raise ValueError('Deploy the reviewed cloud engine before launching new scientific work. Saved campaigns remain readable.')
     status=json.loads(status_path.read_text())
-    with tarfile.open(rapid_remote.artifact()[0],'r:gz') as archive:
+    with tarfile.open(fileobj=io.BytesIO(rapid_remote.artifact()[0]),mode='r:gz') as archive:
         member=archive.getmember('release/release.json')
         if member.size>2*1024**2:raise ValueError('Release identity exceeds its verification limit.')
         expected=hashlib.sha256(archive.extractfile(member).read()).hexdigest()
