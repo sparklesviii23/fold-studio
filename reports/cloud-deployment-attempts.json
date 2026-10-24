@@ -14,7 +14,424 @@
       "error": "Can't serialize object modal.Dict.from_name('fold-rapid-cloud-engine-state') which hasn't been hydrated.",
       "finished": 1792817415.889801,
       "resubmitAutomatically": false
+    },
+    {
+      "state": "deployed",
+      "started": 1792817531.8882911,
+      "appName": "fold-rapid-cloud-engine",
+      "maximumApprovedUSD": 1,
+      "gpuStarted": false,
+      "modelDownloads": false,
+      "scientificCloudQualified": false,
+      "sourceManifestSha256": "48c674f4b0e885be39906fd5f32d26b881c2da86ce72305bfd025603721bb5ed",
+      "pid": 70708,
+      "appId": "ap-V9YyEBaj6Sm9Xsfkonw50t",
+      "health": {
+        "deploymentReachable": true,
+        "scientificCloudQualified": false,
+        "models": {
+          "engines": [
+            {
+              "id": "bindcraft2",
+              "repository": "https://github.com/PacesaLab/BindCraft2",
+              "revision": "c0ee638d11bc010817c2c97ee58ed5c323e664e2",
+              "license": "BindCraft2 Source-Available (Hosting-Restricted); retain LICENSE",
+              "operations": [
+                "design"
+              ],
+              "modalities": [
+                "peptide",
+                "binder"
+              ],
+              "runtime": "bindcraft2",
+              "models": [
+                {
+                  "id": "model_1_multimer_v3",
+                  "present": false,
+                  "hashRegistered": false,
+                  "sha256": null,
+                  "path": null
+                },
+                {
+                  "id": "model_2_multimer_v3",
+                  "present": false,
+                  "hashRegistered": false,
+                  "sha256": null,
+                  "path": null
+                },
+                {
+                  "id": "model_3_multimer_v3",
+                  "present": false,
+                  "hashRegistered": false,
+                  "sha256": null,
+                  "path": null
+                },
+                {
+                  "id": "model_4_multimer_v3",
+                  "present": false,
+                  "hashRegistered": false,
+                  "sha256": null,
+                  "path": null
+                },
+                {
+                  "id": "model_5_multimer_v3",
+                  "present": false,
+                  "hashRegistered": false,
+                  "sha256": null,
+                  "path": null
+                },
+                {
+                  "id": "model_1_ptm",
+                  "present": false,
+                  "hashRegistered": false,
+                  "sha256": null,
+                  "path": null
+                },
+                {
+                  "id": "model_2_ptm",
+                  "present": false,
+                  "hashRegistered": false,
+                  "sha256": null,
+                  "path": null
+                },
+                {
+                  "id": "mpnn-neutral",
+                  "present": false,
+                  "hashRegistered": false,
+                  "sha256": null,
+                  "path": null
+                },
+                {
+                  "id": "mpnn-negative",
+                  "present": false,
+                  "hashRegistered": false,
+                  "sha256": null,
+                  "path": null
+                },
+                {
+                  "id": "mpnn-positive",
+                  "present": false,
+                  "hashRegistered": false,
+                  "sha256": null,
+                  "path": null
+                }
+              ],
+              "representation": "PDB/mmCIF target + original settings; native CIF/CSV output",
+              "memory": "Workload dependent; real CUDA peak not measured",
+              "installed": false,
+              "executionAvailable": false,
+              "cudaExecutionTested": false,
+              "scientificReferenceValidated": false,
+              "status": "not_installed"
+            },
+            {
+              "id": "boltzgen",
+              "repository": "https://github.com/HannesStark/boltzgen",
+              "revision": "a07fea1153111ef453aaea7a15697ee05de9291f",
+              "license": "MIT",
+              "operations": [
+                "design"
+              ],
+              "modalities": [
+                "peptide",
+                "binder"
+              ],
+              "runtime": "boltzgen",
+              "models": [
+                {
+                  "id": "design-diverse",
+                  "present": false,
+                  "hashRegistered": false,
+                  "sha256": null,
+                  "path": null
+                },
+                {
+                  "id": "design-adherence",
+                  "present": false,
+                  "hashRegistered": false,
+                  "sha256": null,
+                  "path": null
+                },
+                {
+                  "id": "solublempnn",
+                  "present": false,
+                  "hashRegistered": false,
+                  "sha256": null,
+                  "path": null
+                },
+                {
+                  "id": "folding",
+                  "present": false,
+                  "hashRegistered": false,
+                  "sha256": null,
+                  "path": null
+                },
+                {
+                  "id": "moldir",
+                  "present": false,
+                  "hashRegistered": false,
+                  "sha256": null,
+                  "path": null
+                },
+                {
+                  "id": "esmfold2-bundle",
+                  "present": false,
+                  "hashRegistered": false,
+                  "sha256": null,
+                  "path": null
+                }
+              ],
+              "representation": "Official YAML entities, peptide-anything / protein-anything pipeline; native mmCIF and metrics",
+              "memory": "Workload dependent; real CUDA peak not measured",
+              "installed": false,
+              "executionAvailable": false,
+              "cudaExecutionTested": false,
+              "scientificReferenceValidated": false,
+              "status": "not_installed"
+            },
+            {
+              "id": "proteinmpnn",
+              "repository": "https://github.com/PacesaLab/BindCraft2",
+              "revision": "c0ee638d11bc010817c2c97ee58ed5c323e664e2",
+              "license": "Bundled upstream ProteinMPNN; retain notices",
+              "operations": [
+                "redesign"
+              ],
+              "modalities": [
+                "peptide",
+                "binder"
+              ],
+              "runtime": "bindcraft2",
+              "models": [
+                {
+                  "id": "mpnn-neutral",
+                  "present": false,
+                  "hashRegistered": false,
+                  "sha256": null,
+                  "path": null
+                }
+              ],
+              "representation": "Fixed coordinates, explicit redesign chains; FASTA + metrics",
+              "memory": "Workload dependent; CUDA not measured",
+              "installed": false,
+              "executionAvailable": false,
+              "cudaExecutionTested": false,
+              "scientificReferenceValidated": false,
+              "status": "not_installed"
+            },
+            {
+              "id": "af2_multimer",
+              "repository": "https://github.com/PacesaLab/BindCraft2",
+              "revision": "c0ee638d11bc010817c2c97ee58ed5c323e664e2",
+              "license": "Upstream AlphaFold notices and checkpoint terms apply",
+              "operations": [
+                "evaluate"
+              ],
+              "modalities": [
+                "peptide",
+                "binder"
+              ],
+              "runtime": "bindcraft2",
+              "models": [
+                {
+                  "id": "model_2_multimer_v3",
+                  "present": false,
+                  "hashRegistered": false,
+                  "sha256": null,
+                  "path": null
+                },
+                {
+                  "id": "model_4_multimer_v3",
+                  "present": false,
+                  "hashRegistered": false,
+                  "sha256": null,
+                  "path": null
+                }
+              ],
+              "representation": "Explicit target and binder chain coordinates; original held-out 2/4 predictions",
+              "memory": "Workload dependent; CUDA not measured",
+              "installed": false,
+              "executionAvailable": false,
+              "cudaExecutionTested": false,
+              "scientificReferenceValidated": false,
+              "status": "not_installed"
+            },
+            {
+              "id": "structure_screen",
+              "repository": "local Fold Studio",
+              "revision": "0.2.0",
+              "license": "Project source terms",
+              "operations": [
+                "screen"
+              ],
+              "modalities": [
+                "peptide",
+                "binder"
+              ],
+              "runtime": "core",
+              "models": [],
+              "representation": "Observed PDB/mmCIF sequences/residue mapping; no model prediction",
+              "memory": "Bounded 2 MB input; CPU geometry/sequence checks",
+              "installed": true,
+              "executionAvailable": true,
+              "cudaExecutionTested": false,
+              "scientificReferenceValidated": false,
+              "status": "cpu_analysis_available"
+            },
+            {
+              "id": "solublempnn",
+              "repository": "https://github.com/dauparas/LigandMPNN",
+              "revision": "a07fea1153111ef453aaea7a15697ee05de9291f",
+              "license": "MIT; upstream LigandMPNN notices retained in pinned BoltzGen",
+              "operations": [
+                "redesign"
+              ],
+              "modalities": [
+                "peptide",
+                "binder"
+              ],
+              "runtime": "boltzgen",
+              "models": [
+                {
+                  "id": "solublempnn",
+                  "present": false,
+                  "hashRegistered": false,
+                  "sha256": null,
+                  "path": null
+                }
+              ],
+              "representation": "Complete fixed N/CA/C/O backbone, explicit constraints, independent FASTA descendants",
+              "memory": "Not benchmarked on this hardware",
+              "installed": false,
+              "executionAvailable": false,
+              "cudaExecutionTested": false,
+              "scientificReferenceValidated": false,
+              "status": "not_installed"
+            },
+            {
+              "id": "esmfold2",
+              "repository": "https://github.com/Biohub/esm",
+              "revision": "esm==3.4.1.post1",
+              "sourcePin": "a07fea1153111ef453aaea7a15697ee05de9291f",
+              "license": "Official Biohub code/model terms; pinned weights",
+              "operations": [
+                "evaluate"
+              ],
+              "modalities": [
+                "peptide",
+                "binder"
+              ],
+              "runtime": "esmfold2",
+              "models": [
+                {
+                  "id": "esmfold2-bundle",
+                  "present": false,
+                  "hashRegistered": false,
+                  "sha256": null,
+                  "path": null
+                }
+              ],
+              "representation": "Explicit full-chain sequences, optional A3M/CCD/bonds; predicted mmCIF and raw confidence arrays",
+              "memory": "ESMC 6B dominates memory; real workload admission required",
+              "installed": false,
+              "executionAvailable": false,
+              "cudaExecutionTested": false,
+              "scientificReferenceValidated": false,
+              "status": "not_installed"
+            },
+            {
+              "id": "esmfold2_fast",
+              "repository": "https://github.com/Biohub/esm",
+              "revision": "esm==3.4.1.post1",
+              "sourcePin": "a07fea1153111ef453aaea7a15697ee05de9291f",
+              "license": "Official Biohub code/model terms; pinned weights",
+              "operations": [
+                "evaluate"
+              ],
+              "modalities": [
+                "peptide",
+                "binder"
+              ],
+              "runtime": "esmfold2",
+              "models": [
+                {
+                  "id": "esmfold2-fast-bundle",
+                  "present": false,
+                  "hashRegistered": false,
+                  "sha256": null,
+                  "path": null
+                }
+              ],
+              "representation": "Official Fast checkpoint, predicted mmCIF and raw confidence arrays",
+              "memory": "Not qualified on this Mac or NVIDIA hardware",
+              "installed": false,
+              "executionAvailable": false,
+              "cudaExecutionTested": false,
+              "scientificReferenceValidated": false,
+              "status": "not_installed"
+            },
+            {
+              "id": "rosetta",
+              "repository": "https://rosettacommons.org/",
+              "revision": "user-licensed-runtime",
+              "license": "Requires explicit licensed installation; never bundled in public images",
+              "operations": [
+                "relax"
+              ],
+              "modalities": [
+                "peptide",
+                "binder"
+              ],
+              "runtime": "rosetta",
+              "models": [],
+              "representation": "Derived relaxed PDB, source numbering, energies and interface/per-residue analysis",
+              "memory": "CPU; bounded runtime",
+              "installed": false,
+              "executionAvailable": false,
+              "cudaExecutionTested": false,
+              "scientificReferenceValidated": false,
+              "status": "not_installed"
+            },
+            {
+              "id": "rfdiffusion",
+              "repository": "https://github.com/RosettaCommons/RFdiffusion",
+              "revision": "configured-source-pin",
+              "license": "BSD; verify configured source and checkpoint manifest",
+              "operations": [
+                "scaffold"
+              ],
+              "modalities": [
+                "peptide",
+                "binder"
+              ],
+              "runtime": "rfdiffusion",
+              "models": [
+                {
+                  "id": "rfdiffusion-base",
+                  "present": false,
+                  "hashRegistered": false,
+                  "sha256": null,
+                  "path": null
+                }
+              ],
+              "representation": "Observed atomic motif and fixed flank lengths; real generated backbone requiring sequence design",
+              "memory": "NVIDIA inference; not qualified",
+              "installed": false,
+              "executionAvailable": false,
+              "cudaExecutionTested": false,
+              "scientificReferenceValidated": false,
+              "status": "not_installed"
+            }
+          ],
+          "scientificCUDAQualified": false,
+          "qualificationReason": "No NVIDIA reference campaign has been certified by this release."
+        },
+        "campaignStatesDurable": true,
+        "executionPolicy": "modular_sequential"
+      },
+      "deploymentVerified": true,
+      "finished": 1792817565.405835
     }
   ],
-  "scope": "Real approved CPU-only deployment; failed SDK handle serialization, no GPU/model execution."
+  "scope": "Approved CPU-only deployment checks; no GPU/model execution. Earlier SDK serialization failure retained."
 }

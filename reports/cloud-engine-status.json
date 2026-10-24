@@ -17,13 +17,19 @@
     "appId": "ap-V9YyEBaj6Sm9Xsfkonw50t",
     "deploymentVerified": true,
     "remoteCPUHealthPassed": true,
-    "sourceManifestSha256": "48c674f4b0e885be39906fd5f32d26b881c2da86ce72305bfd025603721bb5ed",
+    "sourceManifestSha256": "c195a3ded9745775813d3859d9dc89faee01889284660b1c01bd44608cc5aa8d",
     "sourceOnlyDeployment": true,
     "nativeMacAppRequiredOnServer": false,
     "modelDownloads": false,
     "NVIDIARun": false,
     "approvedCPUDeploymentAllowanceUSD": 1,
-    "actualBilledUSD": null
+    "actualBilledUSD": null,
+    "sourceCodeSha256": "e82b9e671f2d56855011e25b7e5c53e2289abf0ae4f25946fd42757976900e42",
+    "imageRecipeSha256": "e41165b86b12a5f1a3bc9f84241b7a258c5834dc83079d6892c8f727090abd85",
+    "remoteVersion": "0.2.0",
+    "apiVersion": 2,
+    "remotePlatform": "Linux-4.19.0-gvisor-x86_64-with-glibc2.39",
+    "controllerLocation": "remote"
   },
   "scientificRuntimes": [
     {
@@ -105,5 +111,13 @@
   "localMPNNTestsCountAsCloudAcceptance": false,
   "FabRestarted": false,
   "notarization": "deferred_local_use",
-  "accountAuthentication": "Official SDK verified; secrets stored in macOS Keychain, temporary TOML removed"
+  "accountAuthentication": "Official SDK verified; secrets stored in macOS Keychain, temporary TOML removed",
+  "validation": {
+    "backendTests": 603,
+    "frontendTests": 100,
+    "typescript": "passed",
+    "policyFirewallTests": 14,
+    "imageIntegrityAndHydrationTests": 3
+  },
+  "pendingApproval": "Remote CPU runtime installation and official checkpoint acquisition; additional $1 allowance requested, not yet authorized."
 }

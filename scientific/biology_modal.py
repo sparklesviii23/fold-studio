@@ -185,6 +185,7 @@ def dispatch(s,action,p):
                 if isinstance(result,dict) and result.get('campaignId'):row['campaignId']=result['campaignId']
             except TimeoutError:pass
             except modal.exception.OutputExpiredError:row['callOutputExpired']=True
+            except Exception as exc:row['callFailureType']=type(exc).__name__;row['state']='remote_failure_pending_reconciliation'
         if row.get('idempotencyKey'):
             observed=(unified_control if row.get('kind')=='unified' else control)(cfg,'request_status',{'idempotencyKey':row['idempotencyKey']})
             if observed.get('campaignId'):row.update(campaignId=observed['campaignId'],state=observed['state'])

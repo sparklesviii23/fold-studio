@@ -14,7 +14,7 @@ from .contracts import fields,integer,canonical,manifest,digest
 
 
 def configuration(value):
-    fields(value,('appName','gpu','maxSeconds','hourlyEstimateUSD'),('imageDigest','imageRecipe','volumeName','stateName','privateLicensedImage','modelVolumeName','engineImages','workerMemoryMiB','workerCPUs'))
+    fields(value,('appName','gpu','maxSeconds','hourlyEstimateUSD'),('imageDigest','imageRecipe','volumeName','stateName','privateLicensedImage','modelVolumeName','engineImages','workerMemoryMiB','workerCPUs','setupMaxSeconds'))
     if not re.fullmatch('[a-z][a-z0-9-]{2,60}',value['appName']):raise ValueError('Choose a Modal application name with lowercase letters, digits and hyphens.')
     from .cloud_image import RECIPE,BASE
     if value.get('imageRecipe') not in (None,RECIPE):raise ValueError('Unknown reviewed cloud image recipe.')
@@ -27,6 +27,7 @@ def configuration(value):
     result={**value,'volumeName':value.get('volumeName',value['appName']+'-data'),'stateName':value.get('stateName',value['appName']+'-state')}
     integer(value.get('workerMemoryMiB',65536),4096,262144,'Scientific worker host memory MiB')
     integer(value.get('workerCPUs',2),1,16,'Scientific worker CPUs')
+    integer(value.get('setupMaxSeconds',900),60,1800,'CPU setup seconds')
     result['modelVolumeName']=value.get('modelVolumeName',value['appName']+'-models')
     if 'privateLicensedImage' in value and type(value['privateLicensedImage'])is not bool:raise ValueError('Licensed-image consent must be explicit.')
     from .unified_contract import OPERATIONS
@@ -116,7 +117,7 @@ def build_app(value,worker_source=None):
         name='job_status' if operation=='status' else operation
         return Worker('/data/rapid').dispatch({'apiVersion':2,'requestId':'modal-control','operation':name,'payload':payload})['result']
 
-    @app.function(serialized=True,name='setup',image=image,volumes={'/data':volume},timeout=7200,min_containers=0,max_containers=1,scaledown_window=10,retries=0)
+    @app.function(serialized=True,name='setup',image=image,cpu=(2,2),memory=(8192,8192),volumes={'/data':volume},timeout=cfg.get('setupMaxSeconds',900),min_containers=0,max_containers=1,scaledown_window=10,retries=0)
     def setup(engine,kind,approved=False):
         if approved is not True:raise ValueError('Approve the CPU setup cost and any model download separately.')
         if kind not in ('runtime','models'):raise ValueError('Unknown setup operation.')

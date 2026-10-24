@@ -27,7 +27,7 @@ def attach(app,cfg,image,data,state,model_volume):
             stage_image=image
             if engine in cfg.get('engineImages',{}):
                 stage_image=modal.Image.from_registry(cfg['engineImages'][engine]).add_local_dir(pathlib.Path(__file__).resolve().parents[1],'/opt/fold-worker',copy=True,ignore=['**/__pycache__/**','**/*.pyc','**/dist/**']).env({'PYTHONPATH':'/opt/fold-worker','RAPID_RELEASE_DIR':'/opt/fold-rapid-release','FOLD_COMPUTE_PROVIDER':'modal','RAPID_IMAGE_DIGEST':cfg['engineImages'][engine]})
-            @app.function(serialized=True,name='unified_'+engine,image=stage_image,gpu=None if engine=='rosetta' else cfg['gpu'],volumes={'/data':data,'/models':model_volume},cpu=cfg.get('workerCPUs',2),memory=cfg.get('workerMemoryMiB',65536),timeout=cfg['maxSeconds']+150,min_containers=0,max_containers=1,scaledown_window=10,retries=0)
+            @app.function(serialized=True,name='unified_'+engine,image=stage_image,gpu=None if engine=='rosetta' else cfg['gpu'],volumes={'/data':data,'/models':model_volume},cpu=(cfg.get('workerCPUs',2),cfg.get('workerCPUs',2)),memory=(cfg.get('workerMemoryMiB',65536),cfg.get('workerMemoryMiB',65536)),timeout=cfg['maxSeconds']+150,min_containers=0,max_containers=1,scaledown_window=10,retries=0)
             def execute_stage(campaign_id,stage,value):
                 from fold_rapid.unified import CampaignStore,LocalStages
                 from fold_rapid.store import Store
@@ -64,7 +64,7 @@ def attach(app,cfg,image,data,state,model_volume):
             return execute_stage
         functions[engine]=factory(engine)
 
-    @app.function(serialized=True,name='unified_execute',image=image,volumes={'/data':data,'/models':model_volume},cpu=1,memory=4096,timeout=cfg['maxSeconds']+180,min_containers=0,max_containers=1,scaledown_window=10,retries=0)
+    @app.function(serialized=True,name='unified_execute',image=image,volumes={'/data':data,'/models':model_volume},cpu=(1,1),memory=(4096,4096),timeout=cfg['maxSeconds']+180,min_containers=0,max_containers=1,scaledown_window=10,retries=0)
     def unified_execute(value,key,approved=False):
         from fold_rapid.unified import CampaignStore,run
         import time
@@ -109,7 +109,18 @@ def attach(app,cfg,image,data,state,model_volume):
         from fold_rapid.contracts import fields,identifier
         from fold_rapid.unified import CampaignStore,TERMINAL
         if operation=='request_status':
-            fields(payload,('idempotencyKey',));return state.get('unified-request:'+payload['idempotencyKey'],{'state':'not_observed','resubmit':False})
+            fields(payload,('idempotencyKey',))
+            observed=state.get('unified-request:'+payload['idempotencyKey'])
+            if observed:return observed
+            if state.get('writer-lease'):return {'state':'not_observed','resubmit':False,'reason':'A writer is active; no duplicate dispatch.'}
+            # The persistent identity is deterministic; recovery survives Dict
+            # and FunctionCall return-value expiry without guessing a new job.
+            key=payload['idempotencyKey']
+            if not isinstance(key,str) or not 1<=len(key)<=100:raise ValueError('Invalid campaign request key.')
+            data.reload();id=digest(key.encode())[:32]
+            try:row=CampaignStore('/data/rapid').get(id)
+            except ValueError:return {'state':'not_observed','resubmit':False}
+            return {'campaignId':id,'state':row['state'],'manifestSha256':row['manifestSha256'],'recoveredFrom':'persistent_volume','resubmit':False}
         if operation=='inventory':
             fields(payload,())
             if state.get('writer-lease'):raise ValueError('Model storage is owned by an active campaign/setup; inspect its saved execution instead.')
@@ -133,7 +144,7 @@ def attach(app,cfg,image,data,state,model_volume):
         if not name:raise ValueError('Unsupported unified control operation.')
         return Worker('/data/rapid').dispatch({'apiVersion':2,'requestId':'unified-control','operation':name,'payload':payload})['result']
 
-    @app.function(serialized=True,name='unified_qualify',image=image,gpu=cfg['gpu'],cpu=2,memory=4096,volumes={'/models':model_volume},timeout=120,min_containers=0,max_containers=1,scaledown_window=10,retries=0)
+    @app.function(serialized=True,name='unified_qualify',image=image,gpu=cfg['gpu'],cpu=(2,2),memory=(4096,4096),volumes={'/models':model_volume},timeout=120,min_containers=0,max_containers=1,scaledown_window=10,retries=0)
     def unified_qualify(engine,approved=False):
         if approved is not True:raise ValueError('Approve the bounded 120-second GPU qualification workload first.')
         from fold_rapid.registry import verified_runtime,ENGINES
@@ -152,7 +163,7 @@ def attach(app,cfg,image,data,state,model_volume):
         finally:
             if state.get('writer-lease')==token:state.pop('writer-lease')
 
-    @app.function(serialized=True,name='unified_setup',image=image,cpu=2,memory=8192,volumes={'/models':model_volume},timeout=7200,min_containers=0,max_containers=1,scaledown_window=10,retries=0)
+    @app.function(serialized=True,name='unified_setup',image=image,cpu=(2,2),memory=(8192,8192),volumes={'/models':model_volume},timeout=cfg.get('setupMaxSeconds',900),min_containers=0,max_containers=1,scaledown_window=10,retries=0)
     def unified_setup(engine,kind,approved=False):
         if approved is not True:raise ValueError('Approve CPU setup and model downloads separately.')
         token={'kind':'unified_setup','engine':engine}
