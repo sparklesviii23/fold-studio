@@ -1,0 +1,63 @@
+{
+  "requestId": "b01380abcc88401e8c933f308c826bbd",
+  "state": "prepared",
+  "manifestSha256": "7840ca58e874c03db2f5322bf705e3a8ad215fe6aedc389a48580f8fdc87d160",
+  "sourceStructureId": "e27c619f-f0ac-44e8-8aa3-2f09b4dca5f7",
+  "targetChains": [
+    "A",
+    "B",
+    "C"
+  ],
+  "binderChain": "D",
+  "binderSequence": "APAEPSWEELIEMMKKENLI",
+  "targetScope": "Observed 154-residue ANGPTL3/8 fragment complex; not full-length biology validation",
+  "gpu": "A100-80GB",
+  "generation": "One original-filter BindCraft peptide attempt, 20 residues, seed 42",
+  "workflow": "Existing peptide and any genuinely accepted generated peptide -> independent ProteinMPNN and SolubleMPNN descendants -> held-out AF2 2/4 fresh refolds -> remote geometry/selection",
+  "estimate": {
+    "stages": [
+      {
+        "engine": "bindcraft2",
+        "maximumCalls": 1,
+        "secondsPerCall": 900,
+        "estimatedUSD": 0.6246
+      },
+      {
+        "engine": "proteinmpnn",
+        "maximumCalls": 2,
+        "secondsPerCall": 180,
+        "estimatedUSD": 0.24984000000000003
+      },
+      {
+        "engine": "solublempnn",
+        "maximumCalls": 2,
+        "secondsPerCall": 180,
+        "estimatedUSD": 0.24984000000000003
+      },
+      {
+        "engine": "af2_multimer",
+        "maximumCalls": 6,
+        "secondsPerCall": 480,
+        "estimatedUSD": 1.9987200000000003
+      }
+    ],
+    "upperReservationUSD": 3.123,
+    "allowanceUSD": 6,
+    "billingScope": "Reviewed stage runtime rates only; CPU orchestrator, cold starts, memory, storage and network add charges. Provider workspace budget required for billing protection.",
+    "externalAPIIncluded": false,
+    "policy": "Sequential modular workers; warm execution requires measured qualification.",
+    "workerHostMemoryMiB": 65536,
+    "workerCPUs": 2,
+    "gpu": "A100-80GB",
+    "imageDigest": "nvidia/cuda:13.0.2-runtime-ubuntu24.04@sha256:6a0e31b59e70890446f2c17356d6efc0d54260090a8c63d6ca7c2ad049db95d2",
+    "scientificGPUValidated": false
+  },
+  "campaignWallTimeSeconds": 5400,
+  "approvalRequestedUSD": 6,
+  "GPUApproved": false,
+  "submitted": false,
+  "ESMOrBoltzGenCheckpointsIncluded": false,
+  "rosettaIncluded": false,
+  "paidExternalAPIsIncluded": false,
+  "scientificScope": "Authentic cloud execution/handoffs; no guaranteed accepted designs, independent-family biological qualification or experimental evidence."
+}

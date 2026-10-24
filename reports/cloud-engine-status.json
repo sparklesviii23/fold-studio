@@ -20,7 +20,7 @@
     "sourceManifestSha256": "1fe7b6303029954d703d0f307ab97034fbd4ad3e5957234026b5dbbc36425968",
     "sourceOnlyDeployment": true,
     "nativeMacAppRequiredOnServer": false,
-    "modelDownloads": false,
+    "modelDownloads": true,
     "NVIDIARun": false,
     "approvedCPUDeploymentAllowanceUSD": 1,
     "actualBilledUSD": null,
@@ -34,67 +34,77 @@
   "scientificRuntimes": [
     {
       "engine": "bindcraft2",
-      "cloudInstalled": false,
-      "cloudExecutionAvailable": false,
-      "scientificQualified": false
+      "cloudInstalled": true,
+      "cloudExecutionAvailable": true,
+      "scientificQualified": false,
+      "readiness": "gpu_validation_pending"
     },
     {
       "engine": "boltzgen",
-      "cloudInstalled": false,
+      "cloudInstalled": true,
       "cloudExecutionAvailable": false,
-      "scientificQualified": false
+      "scientificQualified": false,
+      "readiness": "models_missing"
     },
     {
       "engine": "proteinmpnn",
-      "cloudInstalled": false,
-      "cloudExecutionAvailable": false,
-      "scientificQualified": false
+      "cloudInstalled": true,
+      "cloudExecutionAvailable": true,
+      "scientificQualified": false,
+      "readiness": "gpu_validation_pending"
     },
     {
       "engine": "af2_multimer",
-      "cloudInstalled": false,
-      "cloudExecutionAvailable": false,
-      "scientificQualified": false
+      "cloudInstalled": true,
+      "cloudExecutionAvailable": true,
+      "scientificQualified": false,
+      "readiness": "gpu_validation_pending"
     },
     {
       "engine": "structure_screen",
       "cloudInstalled": true,
       "cloudExecutionAvailable": true,
-      "scientificQualified": false
+      "scientificQualified": false,
+      "readiness": "cpu_analysis_available"
     },
     {
       "engine": "solublempnn",
-      "cloudInstalled": false,
-      "cloudExecutionAvailable": false,
-      "scientificQualified": false
+      "cloudInstalled": true,
+      "cloudExecutionAvailable": true,
+      "scientificQualified": false,
+      "readiness": "gpu_validation_pending"
     },
     {
       "engine": "esmfold2",
-      "cloudInstalled": false,
+      "cloudInstalled": true,
       "cloudExecutionAvailable": false,
-      "scientificQualified": false
+      "scientificQualified": false,
+      "readiness": "models_missing"
     },
     {
       "engine": "esmfold2_fast",
-      "cloudInstalled": false,
+      "cloudInstalled": true,
       "cloudExecutionAvailable": false,
-      "scientificQualified": false
+      "scientificQualified": false,
+      "readiness": "models_missing"
     },
     {
       "engine": "rosetta",
       "cloudInstalled": false,
       "cloudExecutionAvailable": false,
-      "scientificQualified": false
+      "scientificQualified": false,
+      "readiness": "blocked_by_licensing"
     },
     {
       "engine": "rfdiffusion",
       "cloudInstalled": false,
       "cloudExecutionAvailable": false,
-      "scientificQualified": false
+      "scientificQualified": false,
+      "readiness": "not_installed"
     }
   ],
   "remainingPhases": [
-    "Remote runtime/model installation after explicit approval",
+    "Separately approved ESM/BoltzGen/RFdiffusion trained assets and remaining licensed runtimes",
     "Real NVIDIA model loading and inference",
     "Remote generation \u2192 dual redesign \u2192 fresh prediction \u2192 physical assessment \u2192 selection",
     "Real client-disconnect/cancellation/recovery and structure import/viewer acceptance",
@@ -113,16 +123,16 @@
   "notarization": "deferred_local_use",
   "accountAuthentication": "Official SDK verified; secrets stored in macOS Keychain, temporary TOML removed",
   "validation": {
-    "backendTests": 609,
+    "backendTests": 612,
     "frontendTests": 100,
     "typescript": "passed",
     "policyFirewallTests": 14,
-    "imageIntegrityAndHydrationTests": 3,
-    "cloudBootstrapTests": 6
+    "imageIntegrityAndHydrationTests": 5,
+    "cloudBootstrapTests": 7
   },
-  "pendingApproval": "GPU qualification/inference and ESM/BoltzGen trained-model downloads remain unauthorized. CPU setup and AF2/MPNN/SolubleMPNN checkpoints approved up to 1 additional USD.",
+  "pendingApproval": "Prepared first real A100-80GB cloud pipeline requires separate research-upload/GPU approval up to 6 USD; no GPU work is authorized or started.",
   "cloudBootstrap": {
-    "state": "running",
+    "state": "models_cached_gpu_validation_pending",
     "nativeRequestId": "01b7ff232a7b4896b3847915dc9231b2",
     "callId": "fc-01M5P5E7FPNXJMVNA2NTKQ7HRD",
     "plan": "bindcraft-dual-mpnn-af2",
@@ -139,6 +149,13 @@
     "CPUHardLimit": 2,
     "memoryHardLimitMiB": 8192,
     "actualBilledUSD": null,
-    "noAutomaticRetry": true
-  }
+    "noAutomaticRetry": true,
+    "deployedBootstrapCommit": "49985c8",
+    "pendingSafetyUpdateCommit": "019c7ed",
+    "receiptReport": "reports/cloud-model-setup.json",
+    "runtimeCount": 3,
+    "verifiedCheckpointCount": 11,
+    "approvedSetupCompleted": true
+  },
+  "nextGPUReview": "reports/first-cloud-gpu-workload-review.json"
 }

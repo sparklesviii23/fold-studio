@@ -1,8 +1,8 @@
 {
   "schemaVersion": 1,
-  "updatedUtc": "2026-10-24T04:37:49.069031+00:00",
-  "branch": "project-omega/rapid-scientific-worker",
-  "implementationCommit": "38e5756",
+  "updatedUtc": "2026-10-24T05:40:46.013233+00:00",
+  "branch": "project-cloud/rapid-standalone-engine",
+  "implementationCommit": "019c7ed",
   "scope": "RAPID scientific software core, beyond connection foundation; real CUDA qualification outstanding.",
   "upstreamRevision": "c0ee638d11bc010817c2c97ee58ed5c323e664e2",
   "verified": {
@@ -270,7 +270,7 @@
     "totalMilestones": 10,
     "scope": "Counts of explicit execution/transport milestones; not percentage of full campaign iterations or scientific certification."
   },
-  "currentPriority": "Complete standalone cloud-only NVIDIA scientific execution; core deployed to Modal, genuine GPU workflow qualification outstanding",
+  "currentPriority": "Standalone Modal CUDA engine: finish approved remote CPU runtime/checkpoint setup, then obtain a separate bounded GPU workload approval. No Mac app rebuild, no Fab restart.",
   "currentNativePackage": {
     "path": "/Users/vii/Documents/FoldStudio-MetalPort/validation/RAPID Foundation Engine/FOLD STUDIO Metal Dev.app",
     "sourceCommit": "38e5756",
@@ -301,5 +301,23 @@
     "fabResumed": false,
     "coreModalDeployment": true
   },
-  "cloudEngineReport": "reports/cloud-engine-status.json"
+  "cloudEngineReport": "reports/cloud-engine-status.json",
+  "activeCloudSetup": {
+    "requestId": "01b7ff232a7b4896b3847915dc9231b2",
+    "callId": "fc-01M5P5E7FPNXJMVNA2NTKQ7HRD",
+    "appId": "ap-V9YyEBaj6Sm9Xsfkonw50t",
+    "state": "models_cached_gpu_validation_pending",
+    "approvedCPUSetupUSD": 1,
+    "GPUWorkApproved": false,
+    "ESMCheckpointsApproved": false,
+    "report": "reports/cloud-model-setup.json",
+    "preserveActiveWorker": true,
+    "approvedSetupCompleted": true
+  },
+  "nextCloudGPURequest": {
+    "id": "b01380abcc88401e8c933f308c826bbd",
+    "state": "prepared_not_authorized",
+    "maxAllowanceUSD": 6,
+    "review": "reports/first-cloud-gpu-workload-review.json"
+  }
 }
