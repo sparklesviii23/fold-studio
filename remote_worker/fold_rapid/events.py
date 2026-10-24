@@ -21,12 +21,12 @@ def append(path,event):
     import fcntl,os
     from .contracts import canonical,digest
     path=__import__('pathlib').Path(path)
-    with path.open('a+') as out:
+    with path.open('a+b') as out:
         fcntl.flock(out,fcntl.LOCK_EX)
         # Reading just the last bounded record keeps long campaigns linear.
         out.seek(0,os.SEEK_END);size=out.tell();out.seek(max(0,size-262144));tail=out.read().splitlines()
-        previous=json.loads(tail[-1])['eventHash'] if tail else None
+        previous=json.loads(tail[-1].decode('utf-8'))['eventHash'] if tail else None
         record={**event,'previousHash':previous}
         record['eventHash']=digest(canonical(record).encode())
-        out.seek(0,os.SEEK_END);out.write(canonical(record)+'\n');out.flush()
+        out.seek(0,os.SEEK_END);out.write((canonical(record)+'\n').encode('utf-8'));out.flush()
     return record

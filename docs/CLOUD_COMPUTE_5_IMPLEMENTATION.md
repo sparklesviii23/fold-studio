@@ -26,6 +26,8 @@ The same scientific process passed the real JAX CUDA forward/gradient probe in2.
 
 Missing child peak memory resulted from absent PID attribution (host/container PID namespaces may differ); the exact namespace cause is not proven. The new instrumentation reports device totals and attribution separately. Loading/compilation/inference subphase durations and the effect of2physical CPU cores were not measured. No evidence establishes24GB/40GB fit, best CPU/RAM allocation, warm20–45s AF2,1–3s SolubleMPNN, or lowest-cost GPU. Raising AF2's selectable cold allowance to900s is a timeout option, not a measured speedup or automatically approved run.
 
+The added paid-dispatch guard compares the original account/app and exact source-release manifest with the deployed receipt. A cloud writer lease prevents deployment while scientific storage is owned. These final client-side guards are staged for idle installation; the app was reopened before their installation.
+
 ## Still required
 
 - Deploy this source under a separately reviewed CPU deployment allowance; verify genuine live SDK logging/preview delivery against an authorized run.

@@ -52,6 +52,8 @@ def attach(app,cfg,image,data,state,model_volume):
                 original=Store.event
                 def event(self,id,value):
                     envelope=original(self,id,value)
+                    envelope['sourceEventHash']=envelope.pop('eventHash',None)
+                    envelope['sourcePreviousHash']=envelope.pop('previousHash',None)
                     envelope.update(campaignId=campaign_id,stageId=stage['stageId'],engine=engine)
                     state[key]={'state':self.get(id)['state'],'jobId':id,'lastEvent':value}
                     if value.get('kind')!='engine_log':

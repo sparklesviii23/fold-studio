@@ -189,6 +189,8 @@ def dispatch(s,action,p):
         if p.get('approvedResearchTransfer') is not True or p.get('approvedWorkload') is not True:raise ValueError('Approve this molecular upload, workload and estimate.')
         unified=row.get('kind')=='unified'
         if unified:
+            from cloud_deployment import require_current_engine
+            require_current_engine(s,cfg,row.get('accountId'))
             from fold_rapid.unified_modal import cost as unified_cost
             estimate=unified_cost(row['manifest'],cfg)
         else:estimate=contract()[1](row['manifest'],cfg)

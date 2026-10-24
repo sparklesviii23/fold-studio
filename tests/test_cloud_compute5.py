@@ -29,6 +29,11 @@ class CloudCompute5(unittest.TestCase):
   p={**self.p,'id':'r'};r=self.s.dispatch('cloud_campaign_events',p);self.assertEqual(len(r['events']),3);self.assertNotIn('secret123',json.dumps(r));again=self.s.dispatch('cloud_campaign_events',{**p,'after':r['nextCursor']});self.assertEqual(again['events'],[])
  def test_hash_chain_and_redaction(self):
   p=self.root/'events.jsonl';a=append(p,normalize({'message':'token_secret=badsecret'}));b=append(p,normalize({'message':'second'}));self.assertEqual(b['previousHash'],a['eventHash']);self.assertNotIn('badsecret',p.read_text());self.assertEqual(len(p.read_text().splitlines()),2)
+ def test_large_unicode_blackbox_tail_keeps_hash_links(self):
+  p=self.root/'unicode.jsonl';previous=None
+  for i in range(15):
+   value=append(p,normalize({'message':str(i)+' Ω'*16000}));self.assertEqual(value['previousHash'],previous);previous=value['eventHash']
+  self.assertGreater(p.stat().st_size,262144);self.assertEqual(len(p.read_text().splitlines()),15)
  def test_unknown_vram_and_timeout_do_not_invent_cpu_fallback(self):
   result=diagnose('deadline_exceeded','',probe={'passed':True});self.assertEqual(result['observations'][0]['category'],'stage_timeout');self.assertFalse(result['scientificModelReferenceQualified']);self.assertFalse(result['automaticRetry']);self.assertNotIn('cpu_fallback',json.dumps(result))
  def test_explicit_gpu_catalog_and_b300_incompatibility(self):
@@ -54,6 +59,19 @@ class CloudCompute5(unittest.TestCase):
   a='a'*32;cloud_accounts.write(self.s,{'activeId':a,'profiles':[{'id':a,'name':'A'}]})
   with patch('provider_credentials.access',return_value=None):
    with self.assertRaisesRegex(ValueError,'No fallback'):cloud_accounts.environment(self.s,a)
+ def test_paid_launch_refuses_stale_source_or_another_account(self):
+  from cloud_deployment import require_current_engine
+  import tarfile,io
+  manifest=b'{"fixture":true}';archive=self.root/'source.tar.gz'
+  with tarfile.open(archive,'w:gz') as f:
+   info=tarfile.TarInfo('release/release.json');info.size=len(manifest);f.addfile(info,io.BytesIO(manifest))
+  folder=self.root/'cloud-engine-deployment';folder.mkdir();cfg={'appName':'fixture-cloud'};record={'state':'deployed','appName':cfg['appName'],'sourceManifestSha256':'wrong','accountId':'a'}
+  (folder/'status.json').write_text(json.dumps(record))
+  with patch('rapid_remote.artifact',return_value=(archive,{})):
+   with self.assertRaisesRegex(ValueError,'differs'):require_current_engine(self.s,cfg,'a')
+   record['sourceManifestSha256']=hashlib.sha256(manifest).hexdigest();(folder/'status.json').write_text(json.dumps(record))
+   with self.assertRaisesRegex(ValueError,'differs'):require_current_engine(self.s,cfg,'b')
+   self.assertTrue(require_current_engine(self.s,cfg,'a'))
  def test_shell_requires_exact_review_and_existing_owner(self):
   import cloud_shell
   row=self.row()

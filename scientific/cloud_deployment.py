@@ -37,7 +37,7 @@ def dispatch(s,action,p):
         env={k:v for k,v in os.environ.items() if k not in ('PYTHONPATH','PYTHONHOME')}
         from cloud_accounts import environment
         env.update(environment(s));env.update(PYTHONDONTWRITEBYTECODE='1',PYTHONUNBUFFERED='1')
-        value={'state':'queued','started':time.time(),'appName':cfg['appName'],'maximumApprovedUSD':p['maxApprovedUSD'],'gpuStarted':False,'modelDownloads':False,'scientificCloudQualified':False,'sourceManifestSha256':__import__('hashlib').sha256((release/'release.json').read_bytes()).hexdigest()}
+        value={'state':'queued','started':time.time(),'appName':cfg['appName'],'maximumApprovedUSD':p['maxApprovedUSD'],'gpuStarted':False,'modelDownloads':False,'scientificCloudQualified':False,'accountId':__import__('cloud_accounts').get(s).get('activeId'),'sourceManifestSha256':__import__('hashlib').sha256((release/'release.json').read_bytes()).hexdigest()}
         write(path,value)
         with (folder/'deployment.log').open('ab') as log:
             child=subprocess.Popen([str(python),'-B',str(pathlib.Path(__file__).resolve()),'--deploy',str(folder)],env=env,stdin=subprocess.DEVNULL,stdout=log,stderr=log,start_new_session=True,close_fds=True)
@@ -50,6 +50,10 @@ def deploy(folder):
     from fold_rapid.modal_provider import build_app,deploy_app
     cfg=json.loads((folder/'configuration.json').read_text())
     try:
+        import modal
+        try:
+            if modal.Dict.from_name(cfg.get('stateName',cfg['appName']+'-state')).get('writer-lease'):raise ValueError('A scientific campaign or model setup owns the cloud writer lease. Wait for it to finish; deployment did not interrupt it.')
+        except modal.exception.NotFoundError:pass
         app=build_app(cfg,worker_source=release/'worker');deploy_app(app);value.update(state='checking',appId=app.app_id);write(path,value)
         import modal
         result=modal.Function.from_name(cfg['appName'],'unified_control').remote('inventory',{})
@@ -63,3 +67,18 @@ def deploy(folder):
 
 
 if __name__=='__main__' and len(sys.argv)==3 and sys.argv[1]=='--deploy':deploy(pathlib.Path(sys.argv[2]))
+
+
+def require_current_engine(s,cfg,account_id=None):
+    """Refuse paid dispatch to an older, known-mismatched scientific protocol."""
+    import tarfile,hashlib,rapid_remote
+    status_path=s.root/'cloud-engine-deployment/status.json'
+    if not status_path.is_file():raise ValueError('Deploy the reviewed cloud engine before launching new scientific work. Saved campaigns remain readable.')
+    status=json.loads(status_path.read_text())
+    with tarfile.open(rapid_remote.artifact()[0],'r:gz') as archive:
+        member=archive.getmember('release/release.json')
+        if member.size>2*1024**2:raise ValueError('Release identity exceeds its verification limit.')
+        expected=hashlib.sha256(archive.extractfile(member).read()).hexdigest()
+    if status.get('state')!='deployed' or status.get('appName')!=cfg['appName'] or status.get('sourceManifestSha256')!=expected or status.get('accountId')!=account_id:
+        raise ValueError('The deployed cloud engine differs from this reviewed source/account. Approve an idle CPU deployment update before any new paid campaign; existing results are preserved.')
+    return True
