@@ -19,7 +19,7 @@ class Worker:
         if not isinstance(request['requestId'],str) or not 1<=len(request['requestId'])<=100:raise ValueError('Invalid request identity.')
         op=request['operation'];p=request['payload']
         if not isinstance(p,dict):raise ValueError('Payload must be an object.')
-        allowed={'health','engine_inventory','model_status','engine_install','model_install','installation_status','campaign_validate','job_submit','job_list','job_status','job_events','job_cancel','job_recover','candidate_list','artifact_list','artifact_read','worker_shutdown'}
+        allowed={'health','engine_inventory','model_status','engine_install','model_install','installation_status','campaign_validate','job_submit','job_list','job_status','job_events','job_cancel','job_recover','candidate_list','artifact_list','artifact_read','worker_shutdown','unified_validate','unified_submit','unified_status','unified_list','unified_cancel','unified_stage'}
         if op not in allowed:raise ValueError('Unsupported RAPID operation.')
         result=getattr(self,op)(p)
         return {'apiVersion':API_VERSION,'requestId':request['requestId'],'result':result}
@@ -84,6 +84,46 @@ class Worker:
         offset=integer(p.get('offset',0),0,2**40,'Offset');length=integer(p.get('length',786432),1,1048576,'Read length')
         with path.open('rb') as f:f.seek(offset);raw=f.read(length)
         return {'path':p['path'],'offset':offset,'contentBase64':base64.b64encode(raw).decode(),'chunkSha256':digest(raw),'eof':offset+len(raw)>=path.stat().st_size}
+    def unified_validate(self,p):
+        fields(p,('manifest',))
+        from .unified_contract import campaign,estimate,blockers
+        value=campaign(p['manifest'])
+        return {'valid':True,'blockers':blockers(value),'estimate':estimate(value),'engines':inventory(self.store.root),'scientificCloudQualified':False}
+    def unified_submit(self,p):
+        fields(p,('manifest','idempotencyKey','approvedResearchTransfer','approvedWorkload'))
+        if p['approvedResearchTransfer'] is not True or p['approvedWorkload'] is not True:raise ValueError('Approve this entire molecular campaign and reviewed workload allowance.')
+        from .unified import CampaignStore,spawn
+        result=CampaignStore(self.store.root).submit(p['manifest'],p['idempotencyKey'],True)
+        if result['created'] and result['state']=='QUEUED':spawn(self.store.root,result['campaignId'])
+        return result
+    def unified_status(self,p):
+        fields(p,('campaignId',))
+        from .unified import CampaignStore
+        return CampaignStore(self.store.root).status(p['campaignId'])
+    def unified_list(self,p):
+        fields(p,())
+        from .unified import CampaignStore
+        store=CampaignStore(self.store.root)
+        return {'campaigns':[store.status(path.name) for path in sorted(store.campaigns.iterdir()) if (path/'campaign.json').is_file()][-100:]}
+    def unified_cancel(self,p):
+        fields(p,('campaignId',))
+        from .unified import CampaignStore
+        return CampaignStore(self.store.root).cancel(p['campaignId'])
+    def unified_stage(self,p):
+        fields(p,('campaignId','stageId','operation'),('payload',))
+        if p['operation'] not in ('job_status','job_events','candidate_list','artifact_list','artifact_read'):raise ValueError('Read-only stage operation required.')
+        from .unified import CampaignStore
+        row=CampaignStore(self.store.root).get(p['campaignId']);entry=next((s for s in row['stages'] if s['stageId']==p['stageId']),None)
+        if not entry or not entry.get('jobId'):raise ValueError('Stage execution identity has not been committed yet.')
+        if entry['state'] not in ('STAGE_COMPLETE','FAILED'):raise ValueError('Read the live campaign until stage artifacts are committed.')
+        worker=Worker(CampaignStore(self.store.root).folder(p['campaignId'])/'stages'/identifier(p['stageId']))
+        result=getattr(worker,p['operation'])({**p.get('payload',{}),'jobId':entry['jobId']})
+        if p['operation']=='candidate_list':
+            lineage=CampaignStore(self.store.root).candidates(p['campaignId'])
+            for candidate in result['candidates']:
+                node=next((n for n in lineage if n.get('nativeCandidate',{}).get('candidateId')==candidate['candidateId']),None)
+                if node:candidate['unifiedLineage']={'campaignId':p['campaignId'],'candidateId':node['candidateId'],'parents':node['parents'],'operation':node['operation'],'sequences':node['sequences'],'targetChains':node['targetChains'],'binderChains':node['binderChains'],'mutationHistory':node.get('mutationHistory',[]),'structureStatus':node['structureStatus'],'conditionedFamilies':node['conditionedFamilies']}
+        return result
     def worker_shutdown(self,p):
         fields(p,())
         active=[j for j in self.store.list() if j['state'] not in TERMINAL]

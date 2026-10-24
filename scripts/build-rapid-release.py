@@ -8,6 +8,8 @@ release.mkdir()
 def sha(p):return hashlib.sha256(p.read_bytes()).hexdigest()
 def ignore(path,names):return [n for n in names if n in ('.git','__pycache__','.venv','weights','assets','tests','example','docs','dist','build') or n.endswith(('.pyc','.ipynb','.png','.jpeg','.jpg','.pt','.ckpt','.npz','.egg-info'))]
 shutil.copytree(ROOT/'remote_worker',release/'worker',ignore=ignore)
+analysis=release/'worker/native_analysis';analysis.mkdir(exist_ok=True)
+for name in ('intelligence.py','biology_assessment.py','research.py','peptides.py','amino-acids.json'):shutil.copy2(ROOT/'scientific'/name,analysis/name)
 (release/'scripts').mkdir();shutil.copy2(ROOT/'scripts/qualify-rapid-gpu.py',release/'scripts/qualify-rapid-gpu.py')
 sources=release/'sources';sources.mkdir()
 for name,source,revision,allowed in [('bindcraft2',ROOT/'vendor/bindcraft2','c0ee638d11bc010817c2c97ee58ed5c323e664e2',['bindcraft','settings','scaffolds','bindcraft.py','pyproject.toml','LICENSE']),('boltzgen',args.boltzgen,'a07fea1153111ef453aaea7a15697ee05de9291f',['src','pyproject.toml','LICENSE','README.md','PYPI_DESCRIPTION.md'])]:

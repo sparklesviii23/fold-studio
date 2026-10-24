@@ -12,7 +12,11 @@ def main():
     sub=parser.add_subparsers(dest='command',required=True)
     for name in ('rpc','health','recover','inventory'):sub.add_parser(name)
     sub.add_parser('run-job').add_argument('job_id')
+    sub.add_parser('run-campaign').add_argument('campaign_id')
     args=parser.parse_args()
+    if args.command=='run-campaign':
+        from .unified import run
+        run(pathlib.Path(args.root),args.campaign_id);return
     if args.command=='run-job':
         from .runner import execute
         execute(pathlib.Path(args.root),args.job_id);return

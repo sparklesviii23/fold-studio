@@ -18,11 +18,15 @@ def interpreter(s):
 def status(s):
     python=interpreter(s)
     if not python:return {'installed':False,'versions':{},'authenticated':False,'modelsDownloaded':False}
-    code="import json,importlib.metadata as m;print(json.dumps({k:m.version(k) for k in ['modal','boltz-api']}))"
-    p=subprocess.run([str(python),'-I','-B','-c',code],capture_output=True,text=True,timeout=15)
-    try:versions=json.loads(p.stdout) if p.returncode==0 else {}
-    except ValueError:versions={}
-    return {'installed':versions==PINS,'versions':versions,'python':str(python),'modelsDownloaded':False,'credentialLocation':'Official provider environment / account credential store; never project manifests'}
+    code="import json,importlib.metadata as m;from modal.config import config;print(json.dumps({'versions':{k:m.version(k) for k in ['modal','boltz-api']},'credentialsConfigured':bool(config.get('token_id')) and bool(config.get('token_secret'))}))"
+    env=dict(os.environ)
+    if sys.platform=='darwin':
+        from provider_credentials import environment
+        env.update(environment())
+    p=subprocess.run([str(python),'-I','-B','-c',code],capture_output=True,text=True,timeout=15,env=env)
+    try:result=json.loads(p.stdout) if p.returncode==0 else {};versions=result.get('versions',{})
+    except ValueError:versions={};result={}
+    return {'installed':versions==PINS,'credentialsConfigured':result.get('credentialsConfigured',False),'versions':versions,'python':str(python),'modelsDownloaded':False,'credentialLocation':'Official provider environment / account credential store; never project manifests'}
 
 
 def rpc(s,action,payload):

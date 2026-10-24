@@ -14,15 +14,23 @@ from .contracts import fields,integer,canonical,manifest,digest
 
 
 def configuration(value):
-    fields(value,('appName','imageDigest','gpu','maxSeconds','hourlyEstimateUSD'),('volumeName','stateName','privateLicensedImage'))
+    fields(value,('appName','imageDigest','gpu','maxSeconds','hourlyEstimateUSD'),('volumeName','stateName','privateLicensedImage','modelVolumeName','engineImages','workerMemoryMiB','workerCPUs'))
     if not re.fullmatch('[a-z][a-z0-9-]{2,60}',value['appName']):raise ValueError('Choose a Modal application name with lowercase letters, digits and hyphens.')
     if not isinstance(value['imageDigest'],str) or not re.fullmatch('[A-Za-z0-9./:_-]+@sha256:[a-f0-9]{64}',value['imageDigest']):raise ValueError('Use a version-pinned existing RAPID CUDA image digest, not a mutable tag.')
-    if value['gpu'] not in ('T4','L4','A10G','L40S','A100','H100','H200','B200'):raise ValueError('Unsupported Modal GPU selection; availability is provider dependent.')
+    if value['gpu'] not in ('T4','L4','A10','L40S','A100','A100-40GB','A100-80GB','H100','H200','B200'):raise ValueError('Unsupported Modal GPU selection; availability is provider dependent.')
     integer(value['maxSeconds'],60,7200,'Maximum execution seconds')
     rate=value['hourlyEstimateUSD']
     if type(rate)not in(int,float) or not math.isfinite(rate) or not 0<rate<=100:raise ValueError('Supply a reviewed hourly GPU estimate; CPU, memory, storage and network charges are additional.')
     result={**value,'volumeName':value.get('volumeName',value['appName']+'-data'),'stateName':value.get('stateName',value['appName']+'-state')}
-    for key in ('volumeName','stateName'):
+    integer(value.get('workerMemoryMiB',65536),4096,262144,'Scientific worker host memory MiB')
+    integer(value.get('workerCPUs',2),1,16,'Scientific worker CPUs')
+    result['modelVolumeName']=value.get('modelVolumeName',value['appName']+'-models')
+    if 'privateLicensedImage' in value and type(value['privateLicensedImage'])is not bool:raise ValueError('Licensed-image consent must be explicit.')
+    from .unified_contract import OPERATIONS
+    if not isinstance(value.get('engineImages',{}),dict):raise ValueError('Specialized engine images must be an object.')
+    for engine,ref in value.get('engineImages',{}).items():
+        if engine not in OPERATIONS or not re.fullmatch('[A-Za-z0-9./:_-]+@sha256:[a-f0-9]{64}',str(ref)):raise ValueError('Use immutable specialized engine image digests.')
+    for key in ('volumeName','stateName','modelVolumeName'):
         if not re.fullmatch('[a-zA-Z0-9_-]{1,64}',result[key]):raise ValueError('Invalid provider object name.')
     return result
 
@@ -43,6 +51,9 @@ def build_app(value,worker_source=None):
     app=modal.App(cfg['appName']);volume=modal.Volume.from_name(cfg['volumeName'],create_if_missing=True);state=modal.Dict.from_name(cfg['stateName'],create_if_missing=True)
     environment={'PYTHONPATH':'/opt/fold-worker','RAPID_ROOT':'/data/rapid','RAPID_IMAGE_DIGEST':cfg['imageDigest'],'HF_HOME':'/data/rapid/models/huggingface','BGMEE_CODE_SHA256':code_sha,'FOLD_COMPUTE_PROVIDER':'modal'}
     image=image.env(environment)
+    analysis=source.parent/'scientific'
+    if analysis.is_dir():
+        for name in ('intelligence.py','biology_assessment.py','research.py','peptides.py','amino-acids.json'):image=image.add_local_file(analysis/name,'/opt/fold-worker/native_analysis/'+name,copy=True)
 
     @app.function(serialized=True,name='execute',image=image,gpu=cfg['gpu'],volumes={'/data':volume},timeout=cfg['maxSeconds']+180,min_containers=0,max_containers=1,scaledown_window=30,retries=0)
     def execute(value,key,approved=False):
@@ -115,6 +126,8 @@ def build_app(value,worker_source=None):
             volume.commit();return result
         finally:
             if state.get('writer-lease')==token:state.pop('writer-lease')
+    from .unified_modal import attach
+    attach(app,cfg,image,volume,state,modal.Volume.from_name(cfg['modelVolumeName'],create_if_missing=True))
     return app
 
 

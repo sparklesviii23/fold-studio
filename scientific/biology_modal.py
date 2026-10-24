@@ -12,8 +12,8 @@ import research
 import biology_providers
 import rapid_remote
 
-ACTIONS={'biology_modal_configure','biology_modal_status','biology_modal_prepare','biology_modal_submit','biology_modal_refresh','biology_modal_cancel','biology_modal_jobs','biology_modal_import','biology_modal_deploy','biology_modal_setup','biology_provider_credentials'}
-NETWORK={'biology_modal_submit','biology_modal_refresh','biology_modal_cancel','biology_modal_import','biology_modal_deploy','biology_modal_setup'}
+ACTIONS={'biology_modal_qualify','biology_unified_prepare','biology_modal_check','biology_modal_configure','biology_modal_status','biology_modal_prepare','biology_modal_submit','biology_modal_refresh','biology_modal_cancel','biology_modal_jobs','biology_modal_import','biology_modal_deploy','biology_modal_setup','biology_provider_credentials'}
+NETWORK={'biology_modal_qualify','biology_modal_check','biology_modal_submit','biology_modal_refresh','biology_modal_cancel','biology_modal_import','biology_modal_deploy','biology_modal_setup'}
 
 
 def contract():
@@ -43,6 +43,11 @@ def profile(s):
     return value
 
 
+def unified_control(cfg,operation,payload):
+    import modal
+    return modal.Function.from_name(cfg['appName'],'unified_control').remote(operation,payload)
+
+
 def control(cfg,operation,payload):
     import modal
     return modal.Function.from_name(cfg['appName'],'control').remote(operation,payload)
@@ -59,6 +64,34 @@ class Transport(rapid_remote.RapidRemote):
     def call(self,entry,operation,payload):return control(self.cfg,{'job_status':'status','job_cancel':'cancel'}.get(operation,operation),payload)
 
 
+class UnifiedTransport(rapid_remote.RapidRemote):
+    def __init__(self,s,cfg,campaign,stage):self.service=s;self.cfg=cfg;self.cloud=self;self.campaign=campaign;self.stage=stage
+    def profile(self,id):return {'id':id}
+    def call(self,entry,operation,payload):
+        return unified_control(self.cfg,'stage',{'campaignId':self.campaign,'stageId':self.stage,'operation':operation,'payload':{k:v for k,v in payload.items() if k!='jobId'}})
+
+
+def prepare_unified(s,p):
+    import biology_pipeline
+    biology_pipeline.common()
+    from intelligence import Lab
+    from fold_rapid.molecules import inspect
+    from fold_rapid.unified_contract import campaign,blockers
+    record,path=Lab(s).record(p['structureId'])
+    if record['project_id']!=p['projectId']:raise ValueError('Structure belongs to another project.')
+    raw=path.read_bytes();fmt='pdb' if record['data']['format']=='pdb' else 'cif'
+    if hashlib.sha256(raw).hexdigest()!=record['data']['sha256']:raise ValueError('Library snapshot checksum changed.')
+    mapping=inspect(raw,fmt);targets=p.get('targetChains',[]);binders=p.get('binderChains',[])
+    generators=p.get('generators',[])
+    parents=[{'id':record['id'],'binderChains':binders,'sequences':{ch:mapping['chains'][ch]['sequence'] for ch in targets+binders}}] if binders else []
+    engines=set(p['workflow']['redesign']+p['workflow']['predictors']+[g['engine'] for g in generators]+(['rosetta'] if p['workflow']['rosetta'] else []))
+    cfg=profile(s)
+    value=campaign({'schemaVersion':1,'kind':'unified','strategy':p['strategy'],'target':{'format':fmt,'contentBase64':base64.b64encode(raw).decode(),'sha256':record['data']['sha256'],'chains':targets,'label':record['name']},'parents':parents,'generators':generators,'workflow':p['workflow'],'stageBudgets':{e:{'seconds':p['stageSeconds'],'hourlyEstimateUSD':cfg['hourlyEstimateUSD']} for e in engines},'budget':{'seconds':p['seconds'],'maxEstimatedUSD':p['maxEstimatedUSD']},'seed':p['seed'],'policy':p.get('policy',{}),'constraints':p.get('constraints',{})})
+    from fold_rapid.unified_modal import cost
+    quote=cost(value,cfg)
+    row={'id':uuid.uuid4().hex,'kind':'unified','projectId':p['projectId'],'state':'prepared','configuration':cfg,'manifest':value,'manifestSha256':ev.sha(value),'estimate':quote,'blockers':blockers(value),'idempotencyKey':uuid.uuid4().hex,'created':research.utc(),'sourceRecordId':record['id']}
+    return public(save(s,row))
+
 def dispatch(s,action,p):
     s.project(p['projectId']);table(s)
     if action=='biology_provider_credentials':
@@ -73,6 +106,7 @@ def dispatch(s,action,p):
     if action=='biology_modal_status':return {'configuration':s.setting('biologyModal'),'sdk':biology_providers.status(s),'gpuQualified':False,'authentication':'Official Modal credentials or macOS Keychain; account access is verified only by a requested operation.'}
     if action=='biology_modal_jobs':return [public(json.loads(row['data'])) for row in s.rows('SELECT data FROM biology_modal_jobs WHERE project_id=? ORDER BY created DESC',(p['projectId'],))]
     cfg=profile(s)
+    if action=='biology_unified_prepare':return prepare_unified(s,p)
     if action=='biology_modal_prepare':
         from intelligence import Lab
         record,path=Lab(s).record(p['structureId'])
@@ -89,6 +123,17 @@ def dispatch(s,action,p):
         row={'id':uuid.uuid4().hex,'projectId':p['projectId'],'state':'prepared','configuration':cfg,'manifest':value,'manifestSha256':ev.sha(value),'estimate':estimate,'idempotencyKey':uuid.uuid4().hex,'created':research.utc(),'sourceRecordId':record['id']}
         return public(save(s,row))
     if action in NETWORK and not __import__('os').environ.get('FOLD_PROVIDER_CHILD'):return biology_providers.rpc(s,action,p)
+    if action=='biology_modal_qualify':
+        if p.get('approvedQualification') is not True or type(p.get('maxEstimatedCostUSD'))not in(int,float) or not math.isfinite(p['maxEstimatedCostUSD']) or p['maxEstimatedCostUSD']<cfg['hourlyEstimateUSD']*120/3600:raise ValueError('Approve one engine’s 120-second CUDA numerical test and reviewed GPU estimate; startup/CPU/storage costs are additional.')
+        if p.get('engine') not in ('bindcraft2','boltzgen','proteinmpnn','solublempnn','esmfold2_fast','esmfold2','af2_multimer'):raise ValueError('Select a supported engine runtime.')
+        row={'id':uuid.uuid4().hex,'projectId':p['projectId'],'kind':'gpu_qualification','engine':p['engine'],'state':'submission_uncertain','configuration':cfg,'created':research.utc()}
+        save(s,row)
+        import modal
+        call=modal.Function.from_name(cfg['appName'],'unified_qualify').spawn(p['engine'],True)
+        row.update(state='submitted',callId=call.object_id);return public(save(s,row))
+    if action=='biology_modal_check':
+        if p.get('approvedControlCost') is not True:raise ValueError('Approve a small CPU control-function invocation; no GPU or model execution.')
+        return unified_control(cfg,'inventory',{})
     if action=='biology_modal_deploy':
         if p.get('approvedDeployment') is not True:raise ValueError('Approve deploying the reviewed image/source; image builds and storage may have provider costs.')
         app=contract()[2](cfg);result=app.deploy()
@@ -97,21 +142,31 @@ def dispatch(s,action,p):
         if p.get('approvedSetupCost') is not True or p.get('kind')=='models' and p.get('approvedModelDownload') is not True:raise ValueError('Approve CPU setup costs and model downloads separately.')
         if p.get('engine') not in ('bindcraft2','proteinmpnn','af2_multimer','boltzgen','solublempnn','esmfold2','esmfold2_fast') or p.get('kind') not in ('runtime','models'):raise ValueError('Unsupported provider setup request.')
         import modal
-        call=modal.Function.from_name(cfg['appName'],'setup').spawn(p['engine'],p['kind'],True)
+        call=modal.Function.from_name(cfg['appName'],'unified_setup' if p.get('unified') else 'setup').spawn(p['engine'],p['kind'],True)
         row={'id':uuid.uuid4().hex,'projectId':p['projectId'],'state':'setup_submitted','callId':call.object_id,'configuration':cfg,'kind':p['kind'],'engine':p['engine'],'created':research.utc()}
         return public(save(s,row))
     row=read(s,p);cfg=row['configuration']
     if action=='biology_modal_submit':
         if p.get('approvedResearchTransfer') is not True or p.get('approvedWorkload') is not True:raise ValueError('Approve this molecular upload, workload and estimate.')
-        estimate=contract()[1](row['manifest'],cfg)
-        if type(p.get('maxEstimatedCostUSD'))not in(int,float) or not math.isfinite(p['maxEstimatedCostUSD']) or p['maxEstimatedCostUSD']<estimate['gpuEstimateUSD']:raise ValueError('Approved estimate is below the reviewed GPU runtime estimate.')
+        unified=row.get('kind')=='unified'
+        if unified:
+            from fold_rapid.unified_modal import cost as unified_cost
+            estimate=unified_cost(row['manifest'],cfg)
+        else:estimate=contract()[1](row['manifest'],cfg)
+        required=row['manifest']['budget']['maxEstimatedUSD'] if unified else estimate['gpuEstimateUSD']
+        if row.get('blockers'):raise ValueError('This strategy is blocked: '+'; '.join(row['blockers']))
+        if type(p.get('maxEstimatedCostUSD'))not in(int,float) or not math.isfinite(p['maxEstimatedCostUSD']) or p['maxEstimatedCostUSD']<required:raise ValueError('Approved estimate is below the reviewed GPU runtime estimate.')
         # Claim before the network, using a write transaction and a fresh row.
         s.db.execute('BEGIN IMMEDIATE');latest=read(s,p)
         if latest['state']!='prepared':s.db.rollback();raise ValueError('This request was already claimed; reconnect instead of resubmitting.')
-        reserved=sum(json.loads(r['data']).get('estimate',{}).get('gpuEstimateUSD',0) for r in s.rows('SELECT data FROM biology_modal_jobs') if json.loads(r['data']).get('state')!='prepared')
-        if reserved+estimate['gpuEstimateUSD']>30:s.db.rollback();raise ValueError('The local 30 USD cumulative GPU-estimate allowance is exhausted. Actual provider charges and separate setup/API costs must still be monitored.')
+        reserved=sum(json.loads(r['data']).get('estimate',{}).get('allowanceUSD',json.loads(r['data']).get('estimate',{}).get('gpuEstimateUSD',0)) for r in s.rows('SELECT data FROM biology_modal_jobs') if json.loads(r['data']).get('state')!='prepared')
+        if reserved+required>30:s.db.rollback();raise ValueError('The local 30 USD cumulative GPU-estimate allowance is exhausted. Actual provider charges and separate setup/API costs must still be monitored.')
         latest.update(state='submission_uncertain',claimed=research.utc());s.db.execute('UPDATE biology_modal_jobs SET data=? WHERE id=?',(ev.canonical(latest),latest['id']));s.db.commit()
-        try:result=contract()[3](cfg,row['manifest'],row['idempotencyKey'],True,p['maxEstimatedCostUSD'])
+        try:
+            if unified:
+                from fold_rapid.unified_modal import submit
+            else:submit=contract()[3]
+            result=submit(cfg,row['manifest'],row['idempotencyKey'],True,p['maxEstimatedCostUSD'])
         except Exception:raise ValueError('Modal submission outcome is uncertain. Use Refresh to reconcile; no automatic retry.') from None
         latest.update(result);return public(save(s,latest))
     if action=='biology_modal_refresh':
@@ -122,18 +177,33 @@ def dispatch(s,action,p):
                 row.update(state='finished',result=result)
                 if isinstance(result,dict) and result.get('jobId'):row['jobId']=result['jobId']
                 elif isinstance(result,dict) and result.get('id'):row['jobId']=result['id']
+                if isinstance(result,dict) and result.get('campaignId'):row['campaignId']=result['campaignId']
             except TimeoutError:pass
             except modal.exception.OutputExpiredError:row['callOutputExpired']=True
         if row.get('idempotencyKey'):
-            observed=control(cfg,'request_status',{'idempotencyKey':row['idempotencyKey']})
+            observed=(unified_control if row.get('kind')=='unified' else control)(cfg,'request_status',{'idempotencyKey':row['idempotencyKey']})
+            if observed.get('campaignId'):row.update(campaignId=observed['campaignId'],state=observed['state'])
             if observed.get('jobId'):row.update(jobId=observed['jobId'],state=observed['state'])
         if row.get('jobId'):
             remote=control(cfg,'status',{'jobId':row['jobId']});row['remote']=remote;row['state']=remote.get('job',remote).get('state',row['state'])
+        if row.get('campaignId'):
+            remote=unified_control(cfg,'status',{'campaignId':row['campaignId']});row.update(remote=remote,state=remote['state'])
         row['checked']=research.utc();return public(save(s,row))
     if action=='biology_modal_cancel':
+        if row.get('campaignId'):
+            result=unified_control(cfg,'cancel',{'campaignId':row['campaignId']});row.update(cancellation=result,state='cancel_requested');return public(save(s,row))
         if not row.get('jobId'):raise ValueError('Reconcile the remote job ID before cancellation; unknown requests cannot be safely resubmitted.')
         result=control(cfg,'cancel',{'jobId':row['jobId']});row.update(cancellation=result,state='cancel_requested');return public(save(s,row))
     if action=='biology_modal_import':
+        if row.get('kind')=='unified':
+            if not row.get('campaignId'):raise ValueError('Refresh the existing campaign identity first.')
+            remote=unified_control(cfg,'status',{'campaignId':row['campaignId']})
+            if remote['state'] not in ('COMPLETED','PARTIALLY_COMPLETE','FAILED','CANCELLED'):raise ValueError('Wait until the campaign commits its scientific artifacts.')
+            imported=[]
+            for stage in remote['stages']:
+                if stage.get('jobId') and stage['state'] in ('STAGE_COMPLETE','FAILED'):
+                    result=UnifiedTransport(s,cfg,row['campaignId'],stage['stageId']).gpu_rapid_import({'projectId':p['projectId'],'id':row['id'],'jobId':stage['jobId']});imported.extend(result['records'])
+            return {'records':imported,'campaignId':row['campaignId'],'qualifiedCandidates':[],'acceptanceUnchanged':True}
         if not row.get('jobId'):raise ValueError('Read the finished remote job before importing.')
         remote=control(cfg,'status',{'jobId':row['jobId']});job=remote.get('job',remote)
         if job.get('state') not in ('completed','partial','rejected','failed','cancelled','interrupted'):raise ValueError('Wait until scientific outputs are finalized before synchronization.')

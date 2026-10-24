@@ -23,6 +23,7 @@ import boltz_api_adapter
 import biology_pipeline
 import biology_evidence
 import biology_agent
+import modal_account
 import biology_modal
 import peptide_chemistry
 
@@ -142,7 +143,7 @@ class Service:
             if any(state in ('submission_uncertain','submitted','pending','running') for state in api_states):raise ValueError('Stop or reconcile external Boltz jobs before deleting this project.')
         if self.db.execute("SELECT 1 FROM sqlite_master WHERE name='biology_modal_jobs'").fetchone():
             states=[json.loads(row['data']).get('state') for row in self.rows('SELECT data FROM biology_modal_jobs WHERE project_id=?',(p['id'],))]
-            if any(state not in ('prepared','completed','failed','cancelled','interrupted','rejected','finished','partial') for state in states):raise ValueError('Stop or reconcile remote Modal jobs before deleting this project.')
+            if any(state not in ('prepared','completed','failed','cancelled','interrupted','rejected','finished','partial','COMPLETED','PARTIALLY_COMPLETE','FAILED','CANCELLED') for state in states):raise ValueError('Stop or reconcile remote Modal jobs before deleting this project.')
         active = self.db.execute("SELECT 1 FROM jobs WHERE project_id=? AND state IN ('running','queued','installing')",(p['id'],)).fetchone()
         if active: raise ValueError('Cancel active jobs before deleting the project.')
         lab=intelligence.Lab(self)
@@ -555,6 +556,7 @@ class Service:
         if action in biology_evidence.ACTIONS:return biology_evidence.dispatch(self,action,p)
         if action in biology_agent.ACTIONS:return biology_agent.dispatch(self,action,p)
         if action in peptide_chemistry.ACTIONS:return peptide_chemistry.dispatch(self,action,p)
+        if action in modal_account.ACTIONS:return modal_account.dispatch(self,action,p)
         if action in biology_modal.ACTIONS:return biology_modal.dispatch(self,action,p)
         if action in biology_pipeline.ACTIONS: return biology_pipeline.dispatch(self,action,p)
         if action in boltz_api_adapter.ACTIONS: return boltz_api_adapter.dispatch(self,action,p)
@@ -575,7 +577,7 @@ class Service:
 
 ACTIONS={'record_update','record_remove','record_restore','library','setting_set','project_create','project_update','project_delete','record_save','sequence_save','mutate','fasta_parse','fasta_import','uniprot_search','uniprot_get','structures','structure_download','import_structure','asset_read','compute','install_engine','prediction_start','prediction_resources','job_read','job_cancel','cloud_prepare','cloud_opened','cloud_import','export_project','export_file','reconcile'}
 
-ACTIONS |= peptide_chemistry.ACTIONS | biology_modal.ACTIONS | biology_agent.ACTIONS | biology_evidence.ACTIONS | biology_pipeline.ACTIONS | boltz_api_adapter.ACTIONS | evolution.ACTIONS | research.ACTIONS | cinema.ACTIONS | rapid_remote.ACTIONS | cloud_compute.ACTIONS | dynamics.ACTIONS | ligand.ACTIONS | mpnn.ACTIONS | fold_engine.ACTIONS | OBSERVATORY_ACTIONS | PEPTIDE_ACTIONS | molecular_graph.ACTIONS | intelligence.ACTIONS
+ACTIONS |= modal_account.ACTIONS | peptide_chemistry.ACTIONS | biology_modal.ACTIONS | biology_agent.ACTIONS | biology_evidence.ACTIONS | biology_pipeline.ACTIONS | boltz_api_adapter.ACTIONS | evolution.ACTIONS | research.ACTIONS | cinema.ACTIONS | rapid_remote.ACTIONS | cloud_compute.ACTIONS | dynamics.ACTIONS | ligand.ACTIONS | mpnn.ACTIONS | fold_engine.ACTIONS | OBSERVATORY_ACTIONS | PEPTIDE_ACTIONS | molecular_graph.ACTIONS | intelligence.ACTIONS
 
 def execute_job(service,id):
     job=service.job(id); p=job['data']; folder=service.root/'jobs'/id

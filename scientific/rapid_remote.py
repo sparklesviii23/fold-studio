@@ -3,7 +3,7 @@ import base64,hashlib,json,pathlib,re,shlex,uuid
 from cloud_compute import now
 
 ACTIONS={'gpu_rapid_install','gpu_rapid_status','gpu_rapid_call','gpu_rapid_submit','gpu_rapid_import','gpu_rapid_target','gpu_rapid_export'}
-OPERATIONS={'health','engine_inventory','model_status','engine_install','model_install','installation_status','campaign_validate','job_submit','job_list','job_status','job_events','job_cancel','job_recover','candidate_list','artifact_list','artifact_read','worker_shutdown'}
+OPERATIONS={'health','engine_inventory','model_status','engine_install','model_install','installation_status','campaign_validate','job_submit','job_list','job_status','job_events','job_cancel','job_recover','candidate_list','artifact_list','artifact_read','worker_shutdown','unified_validate','unified_submit','unified_status','unified_list','unified_cancel','unified_stage'}
 
 def artifact():
     base=pathlib.Path(__file__).resolve().parent
@@ -91,7 +91,7 @@ class RapidRemote:
         return value['result']
     def gpu_rapid_call(self,p):
         operation=p.get('operation');payload=p.get('payload',{})
-        if operation=='job_submit':raise ValueError('Submit a selected library snapshot through the dedicated scientific transfer action.')
+        if operation in ('job_submit','unified_submit'):raise ValueError('Submit a selected library snapshot through the dedicated scientific transfer action.')
         return self.call(self.cloud.profile(p.get('id')),operation,payload)
     def gpu_rapid_target(self,p):
         record=next((r for r in self.service.library({})['records'] if r['id']==p['targetId'] and r['kind']=='structure'),None)
@@ -113,7 +113,7 @@ class RapidRemote:
         raw=path.read_bytes()
         if len(raw)>2_000_000 or hashlib.sha256(raw).hexdigest()!=data['sha256']:raise ValueError('Selected library snapshot is too large or its checksum changed.')
         manifest={**p['manifest'],'target':{'format':'pdb' if data['format']=='pdb' else 'cif','contentBase64':base64.b64encode(raw).decode(),'sha256':data['sha256'],'chains':p['chains'],'label':record['name']}}
-        return self.call(self.cloud.profile(p.get('id')),'job_submit',{'manifest':manifest,'idempotencyKey':p['idempotencyKey'],'approvedResearchTransfer':True})
+        return self.call(self.cloud.profile(p.get('id')),'unified_submit' if manifest.get('kind')=='unified' else 'job_submit',{'manifest':manifest,'idempotencyKey':p['idempotencyKey'],'approvedResearchTransfer':True,**({'approvedWorkload':p.get('approvedWorkload') is True} if manifest.get('kind')=='unified' else {})})
     def gpu_rapid_import(self,p):
         entry=self.cloud.profile(p.get('id'));jobid=p['jobId']
         if not isinstance(jobid,str) or len(jobid)!=32 or any(c not in 'abcdef0123456789' for c in jobid):raise ValueError('Invalid remote job identity.')
