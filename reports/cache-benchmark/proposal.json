@@ -1,0 +1,35 @@
+{
+  "state": "approved_deployment_started",
+  "sourceCampaign": "c38f508cebd56e3f38d227f4eb876efb",
+  "sourceRequest": "621f309e2f8a4c77a759d87ee4c83fdb",
+  "runs": 2,
+  "scope": "Identical original BindCraft design twice; no MPNN or AF2 stages; first cache population then attempted reuse. No guaranteed cache hits or speedup.",
+  "gpu": "A100-40GB",
+  "seed": 42,
+  "stageSeconds": 900,
+  "estimateEach": {
+    "expectedResourceReservationUSD": 1.4789235500000002,
+    "fixedCoordinatorStorageSafetyUSD": 0.826376,
+    "allowanceUSD": 1.75,
+    "withinAllowance": true,
+    "providerReportedUSD": null,
+    "method": "Reviewed requested/hard-limit CPU, memory and GPU rates; full stage runtimes, startup reserves, coordinator ceiling, storage/control and safety margin. Elapsed estimates are not provider billing.",
+    "pricing": {
+      "cpuCoreSecondUSD": 1.31e-05,
+      "gpuSecondUSD": 0.0005830000000000001,
+      "memoryGiBSecondUSD": 2.22e-06,
+      "safetyUSD": 0.6,
+      "startupSecondsPerStage": 60,
+      "storageAndControlUSD": 0.2,
+      "workerCPUs": 2,
+      "workerMemoryGiB": 31.7734375
+    }
+  },
+  "allowanceEachUSD": 1.75,
+  "cpuDeploymentAllowanceUSD": 1,
+  "totalAuthorizationUSD": 4.5,
+  "gpuJobsStarted": false,
+  "scientificProtocolChanged": false,
+  "approvedTotalUSD": 4.5,
+  "approvalScope": "User approved CPU deployment plus two identical BindCraft GPU cache tests, 1.75 USD each, no retries."
+}

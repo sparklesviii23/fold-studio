@@ -1,0 +1,53 @@
+{
+  "state": "stopped",
+  "runs": [
+    {
+      "index": 1,
+      "requestId": "b2262319078c4ed8a39d7f218ea5cead",
+      "state": "submission_attempted",
+      "quote": {
+        "stages": [
+          {
+            "engine": "bindcraft2",
+            "maximumCalls": 1,
+            "secondsPerCall": 900,
+            "estimatedUSD": 0.5247
+          }
+        ],
+        "upperReservationUSD": 0.5247,
+        "allowanceUSD": 1.75,
+        "billingScope": "Reviewed stage runtime rates only; CPU orchestrator, cold starts, memory, storage and network add charges. Provider workspace budget required for billing protection.",
+        "externalAPIIncluded": false,
+        "policy": "Sequential modular workers; warm execution requires measured qualification.",
+        "totalResources": {
+          "expectedResourceReservationUSD": 1.4789235500000002,
+          "fixedCoordinatorStorageSafetyUSD": 0.826376,
+          "allowanceUSD": 1.75,
+          "withinAllowance": true,
+          "providerReportedUSD": null,
+          "method": "Reviewed requested/hard-limit CPU, memory and GPU rates; full stage runtimes, startup reserves, coordinator ceiling, storage/control and safety margin. Elapsed estimates are not provider billing.",
+          "pricing": {
+            "cpuCoreSecondUSD": 1.31e-05,
+            "gpuSecondUSD": 0.0005830000000000001,
+            "memoryGiBSecondUSD": 2.22e-06,
+            "safetyUSD": 0.6,
+            "startupSecondsPerStage": 60,
+            "storageAndControlUSD": 0.2,
+            "workerCPUs": 2,
+            "workerMemoryGiB": 31.7734375
+          }
+        },
+        "workerHostMemoryMiB": 32536,
+        "workerCPUs": 2,
+        "gpu": "A100-40GB",
+        "imageDigest": "nvidia/cuda:13.0.2-runtime-ubuntu24.04@sha256:6a0e31b59e70890446f2c17356d6efc0d54260090a8c63d6ca7c2ad049db95d2",
+        "scientificGPUValidated": false
+      },
+      "baselineSourceCampaign": "c38f508cebd56e3f38d227f4eb876efb"
+    }
+  ],
+  "totalApprovedUSD": 4.5,
+  "speedupMeasured": false,
+  "error": "This strategy is blocked: Fresh structural predictions are required for final selection.",
+  "automaticRetry": false
+}

@@ -77,6 +77,8 @@ def execute(root,id,*,cache_root=None):
         prepared=prepare(root,folder,manifest,cache_root=cache_root)
         provenance={'jobId':id,'workerVersion':VERSION,'sourceRevision':prepared.get('sourceRevision'),'runtimeReceipt':prepared.get('runtimeReceipt'),'models':prepared['models'],'manifestSha256':job['manifest_hash'],'cudaQualified':False,'requestedSchedulingMode':manifest['mode'],'effectivePolicy':'One original engine workflow; fixed scientific settings. Adaptive cross-engine scheduling awaits measured GPU costs.','imageDigest':os.environ.get('RAPID_IMAGE_DIGEST','unrecorded-local-image')}
         provenance['compilationCache']={'directory':prepared['environment'].get('JAX_COMPILATION_CACHE_DIR'),'reuseMeasured':False,'scope':'JAX persistent cache; graph/runtime/hardware compatibility still determines hits.'}
+        from .adapters import cache_snapshot
+        provenance['compilationCache']['before']=cache_snapshot(prepared['environment'].get('JAX_COMPILATION_CACHE_DIR'))
         provenance.update(executionHost=__import__('socket').gethostname(),executionPlatform=__import__('platform').platform(),engineRole=os.environ.get('FOLD_ENGINE_ROLE'),imageRecipeSha256=os.environ.get('RAPID_IMAGE_RECIPE_SHA256'),computeProvider=os.environ.get('FOLD_COMPUTE_PROVIDER','configured_worker'),biologyCodeSha256=os.environ.get('BGMEE_CODE_SHA256'))
         cuda=manifest['engine'] not in ('structure_screen','rosetta')
         command=prepared['command']
@@ -139,6 +141,7 @@ def execute(root,id,*,cache_root=None):
             reading=json.loads(receipt.read_text()) if receipt.is_file() else {'passed':False,'reason':error or 'No completed numerical receipt.'}
             provenance.update(cudaProbe=reading,cudaNumericalProbePassed=reading.get('passed') is True)
             if not provenance['cudaNumericalProbePassed'] and state is None:state='failed';error='CUDA numerical check failed before model execution; inspect execution.log.'
+        provenance['compilationCache']['after']=cache_snapshot(prepared['environment'].get('JAX_COMPILATION_CACHE_DIR'))
         provenance.update(peakObservedDeviceGPU_MiB=device_peak,peakObservedHostRSS_MiB=host_peak,gpuMemoryScopes='Device total and owned-process attribution are separate; unknown attribution remains null.',wallSeconds=time.monotonic()-started,peakObservedChildGPU_MiB=peak,childGPUAttributionAvailable=peak is not None,exitCode=child.returncode)
         (folder/'provenance.json').write_text(canonical(provenance))
         # Preserve partial/rejected outputs without upgrading their acceptance.

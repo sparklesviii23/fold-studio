@@ -42,3 +42,9 @@ class CompileCacheTests(unittest.TestCase):
    result=LocalStages(self.root,campaign)({'stageId':'a'*32},m,lambda _:None,lambda:False)
   self.assertEqual(execute.call_args.kwargs['cache_root'],self.root/'compile-cache')
   self.assertEqual(result['job']['state'],'queued')
+
+ def test_cache_snapshot_counts_executables_without_locks(self):
+  from fold_rapid.adapters import cache_snapshot
+  folder=self.root/'cache';folder.mkdir();(folder/'a-cache').write_bytes(b'1234');(folder/'compile.lock').write_bytes(b'ignored')
+  self.assertEqual(cache_snapshot(folder),{'files':1,'bytes':4,'truncated':False})
+  self.assertIsNone(cache_snapshot(None))

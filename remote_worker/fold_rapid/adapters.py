@@ -9,6 +9,17 @@ from .contracts import canonical,digest,target_bytes
 from .molecules import inspect,selected_target
 from .registry import ENGINES,verified_runtime
 
+def cache_snapshot(directory):
+    if not directory:return None
+    root=pathlib.Path(directory);count=size=0
+    for path in root.rglob('*'):
+        if path.is_file() and not path.is_symlink() and path.suffix!='.lock':
+            try:size+=path.stat().st_size;count+=1
+            except FileNotFoundError:continue
+        if count>=10000:return {'files':count,'bytes':size,'truncated':True}
+    return {'files':count,'bytes':size,'truncated':False}
+
+
 def compilation_cache(root,runtime,revision):
     # Same trusted runtime/source/image may share executables across jobs.
     # JAX additionally keys entries by graph, flags and accelerator topology.

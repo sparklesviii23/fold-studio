@@ -269,6 +269,10 @@ def run(root,id,executor=None,publish=lambda row:None,cancelled=lambda:False,loc
                 if m['workflow'].get('diagnosticRejectedParents') and not eligible:
                     originals.extend(diagnostic[:generator['design']['count']])
                     if diagnostic:row['events'].append({'operation':'DIAGNOSTIC_FOLLOWUP','reason':'Rejected generator output remains rejected; explicit downstream computational diagnostics only.','time':now()})
+            if m['workflow'].get('purpose')=='compilation_benchmark':
+                row.update(benchmarkOnly=True,qualifiedCandidates=[],selection=[])
+                store.write(row,'COMPLETED','Compilation timing benchmark finished; no candidate selection or scientific qualification.')
+                publish(store.status(id));return store.status(id)
             frontier=originals;all_selections=[];feedback_context={}
             for round_index in range(rules['rounds']):
                 row['round']=round_index+1;branches=list(frontier)

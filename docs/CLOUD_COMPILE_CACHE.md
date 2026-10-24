@@ -36,3 +36,25 @@ elapsed times; compare numerical outputs and immutable scientific outcomes.
 No guaranteed 3x speedup or 90-second runtime is established. Sampling VRAM in
 one short run does not establish safe L4/A10 capacity or equivalent performance.
 Multiple trajectories require an explicit workload choice and revised quote.
+
+## Approved paired benchmark
+
+The user approved a total $4.50 allowance: up to $1 CPU deployment and two
+BindCraft-only trials up to $1.75 each (estimated resource reservation $1.479
+per trial). Both use source campaign c38f508cebd56e3f38d227f4eb876efb's
+A100-40GB profile, seed 42 and original generator configuration. Each retains
+its 900-second scientific limit. No redesign/refolding stages or retries are
+included in this timing experiment.
+
+Workflow purpose `compilation_benchmark` admits exactly one BindCraft generator
+and no downstream engines; it never performs candidate selection or promotes
+outputs to qualified candidates. Normal campaigns still require fresh prediction.
+The first local admission attempt was refused before remote submission; its
+receipt is retained in reports/cache-benchmark/admission-error.json.
+
+scripts/run-cache-benchmark.py owns the approved pair, writes durable submission
+intent, polls existing identities and submits the second only after the first
+stage completes. It cannot restart an existing result record. Cache provenance
+includes bounded file/byte counts before and after execution; these are cache
+population evidence, not proof that any particular graph was read from disk.
+Actual paired timings are recorded in reports/cache-benchmark/results.json.

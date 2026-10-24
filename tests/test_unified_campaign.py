@@ -39,6 +39,21 @@ class UnifiedTests(unittest.TestCase):
     def executor(self,id,**kw):return SyntheticStages(self.root,self.store,id,**kw)
     def test_contract_and_cost(self):
         v=campaign(fixture());self.assertEqual(v,fixture());self.assertGreater(estimate(v)['upperReservationUSD'],0);self.assertFalse(estimate(v)['externalAPIIncluded'])
+    def test_compilation_benchmark_has_no_final_candidate_selection(self):
+        v=fixture();v['workflow']={'redesign':[],'predictors':[],'rosetta':False,'count':1,'purpose':'compilation_benchmark'}
+        v['generators']=[{'engine':'bindcraft2','design':{'modality':'peptide','lengths':[4],'count':1,'attempts':1}}]
+        v['stageBudgets']={'bindcraft2':{'seconds':10,'hourlyEstimateUSD':1}}
+        self.assertEqual(blockers(campaign(v)),[])
+        id=self.submit(v)
+        def execute(stage,value,checkpoint,cancelled):
+            folder=self.root/'empty-fixture-output';folder.mkdir();atomic(folder/'candidates.json',[])
+            return {'folder':str(folder),'job':{'id':'b'*32,'state':'no_qualified_candidates','result':{'fixture':True,'wallSeconds':1}}}
+        row=run(self.root,id,execute)
+        self.assertEqual(row['state'],'COMPLETED');self.assertTrue(row['benchmarkOnly'])
+        self.assertEqual(row['qualifiedCandidates'],[]);self.assertEqual(row['selection'],[])
+        v['workflow']['predictors']=['af2_multimer']
+        with self.assertRaisesRegex(ValueError,'benchmark'):campaign(v)
+
     def test_unobserved_initial_sequence_refused(self):
         v=fixture();v['parents'][0]['sequences']['B']='AAAA'
         with self.assertRaisesRegex(ValueError,'observed'):campaign(v)

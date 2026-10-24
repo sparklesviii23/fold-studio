@@ -52,8 +52,13 @@ def campaign(value):
     if value['strategy']=='de_novo' and not seen:raise ValueError('De novo design requires a genuine generator branch.')
     if value['strategy']=='site_guided' and not any(g['design'].get('hotspots') for g in value['generators']):raise ValueError('Site-guided design requires explicit observed target hotspots in the generator configuration.')
     if not parents and not seen:raise ValueError('Choose observed parents or genuine generation.')
-    fields(value['workflow'],('redesign','predictors','rosetta','count'),('prediction','diagnosticRejectedParents','feedback'))
+    fields(value['workflow'],('redesign','predictors','rosetta','count'),('prediction','diagnosticRejectedParents','feedback','purpose'))
     flow=value['workflow']
+    if flow.get('purpose') not in (None,'compilation_benchmark'):raise ValueError('Unknown workflow purpose.')
+    if flow.get('purpose')=='compilation_benchmark':
+        if len(value['generators'])!=1 or value['generators'][0]['engine']!='bindcraft2' or flow['redesign'] or flow['predictors'] or flow['rosetta'] or 'feedback' in flow:
+            raise ValueError('Compilation benchmark runs one BindCraft generator only; no candidate selection.')
+
     if 'diagnosticRejectedParents' in flow and type(flow['diagnosticRejectedParents'])is not bool:raise ValueError('Diagnostic rejected-parent follow-up must be explicit.')
     for key,supported in [('redesign',('proteinmpnn','solublempnn')),('predictors',('esmfold2_fast','esmfold2','af2_multimer'))]:
         engines=flow[key]
@@ -92,7 +97,7 @@ def blockers(value):
     reasons=[]
     if value['strategy'] in ('motif_scaffolding','chemically_stabilized','counterfactual'):
         reasons.append(value['strategy']+': complete target-aware cloud handoff/curated chemistry or matched controls not yet qualified; use the dedicated pathway until connected')
-    if not value['workflow']['predictors']:reasons.append('Fresh structural predictions are required for final selection.')
+    if not value['workflow']['predictors'] and value['workflow'].get('purpose')!='compilation_benchmark':reasons.append('Fresh structural predictions are required for final selection.')
     return reasons
 
 
