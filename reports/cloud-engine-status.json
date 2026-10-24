@@ -17,15 +17,15 @@
     "appId": "ap-V9YyEBaj6Sm9Xsfkonw50t",
     "deploymentVerified": true,
     "remoteCPUHealthPassed": true,
-    "sourceManifestSha256": "c195a3ded9745775813d3859d9dc89faee01889284660b1c01bd44608cc5aa8d",
+    "sourceManifestSha256": "1fe7b6303029954d703d0f307ab97034fbd4ad3e5957234026b5dbbc36425968",
     "sourceOnlyDeployment": true,
     "nativeMacAppRequiredOnServer": false,
     "modelDownloads": false,
     "NVIDIARun": false,
     "approvedCPUDeploymentAllowanceUSD": 1,
     "actualBilledUSD": null,
-    "sourceCodeSha256": "e82b9e671f2d56855011e25b7e5c53e2289abf0ae4f25946fd42757976900e42",
-    "imageRecipeSha256": "e41165b86b12a5f1a3bc9f84241b7a258c5834dc83079d6892c8f727090abd85",
+    "sourceCodeSha256": "0eb610221b5e2f30cf156d4f0e37d22e03c42178ffa251ba9a7359982181c341",
+    "imageRecipeSha256": "86f4a3eecead794f7086dbe90d6b5031b4bcc299a764a5b2d445f81d7a7b0468",
     "remoteVersion": "0.2.0",
     "apiVersion": 2,
     "remotePlatform": "Linux-4.19.0-gvisor-x86_64-with-glibc2.39",
@@ -113,11 +113,32 @@
   "notarization": "deferred_local_use",
   "accountAuthentication": "Official SDK verified; secrets stored in macOS Keychain, temporary TOML removed",
   "validation": {
-    "backendTests": 603,
+    "backendTests": 609,
     "frontendTests": 100,
     "typescript": "passed",
     "policyFirewallTests": 14,
-    "imageIntegrityAndHydrationTests": 3
+    "imageIntegrityAndHydrationTests": 3,
+    "cloudBootstrapTests": 6
   },
-  "pendingApproval": "Remote CPU runtime installation and official checkpoint acquisition; additional $1 allowance requested, not yet authorized."
+  "pendingApproval": "GPU qualification/inference and ESM/BoltzGen trained-model downloads remain unauthorized. CPU setup and AF2/MPNN/SolubleMPNN checkpoints approved up to 1 additional USD.",
+  "cloudBootstrap": {
+    "state": "running",
+    "nativeRequestId": "01b7ff232a7b4896b3847915dc9231b2",
+    "callId": "fc-01M5P5E7FPNXJMVNA2NTKQ7HRD",
+    "plan": "bindcraft-dual-mpnn-af2",
+    "approvedCPUSetupUSD": 1,
+    "gpuStarted": false,
+    "modelDownloadsApproved": [
+      "original_bindcraft_af2_pool",
+      "original_bindcraft_mpnn_variants",
+      "solublempnn"
+    ],
+    "ESMWeightsApproved": false,
+    "runtimeLimitSeconds": 1800,
+    "workDeadlineSeconds": 1680,
+    "CPUHardLimit": 2,
+    "memoryHardLimitMiB": 8192,
+    "actualBilledUSD": null,
+    "noAutomaticRetry": true
+  }
 }
