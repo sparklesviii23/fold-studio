@@ -145,7 +145,13 @@ def run(root,id,executor=None,publish=lambda row:None,cancelled=lambda:False,loc
         if row['state'] in TERMINAL or row['state']=='WAITING_FOR_APPROVAL':return store.status(id)
         if any(s['state']=='RUNNING' for s in row['stages']):
             store.write(row,'PARTIALLY_COMPLETE','An earlier stage has an uncertain dispatch/completion outcome. Reconcile its saved execution ID; automatic retry refused.');publish(store.status(id));return store.status(id)
-        m=row['manifest'];rules=analysis_modules().policy(m['policy']);expires=datetime.datetime.fromisoformat(row['created']).timestamp()+m['budget']['seconds'];executor=executor or LocalStages(root,folder)
+        m=row['manifest']
+        if m.get('execution'):
+            from .execution import require_cloud
+            try:row['executionLocation']=require_cloud(m['execution'])
+            except ValueError as exc:
+                store.write(row,'FAILED',str(exc));publish(store.status(id));return store.status(id)
+        rules=analysis_modules().policy(m['policy']);expires=datetime.datetime.fromisoformat(row['created']).timestamp()+m['budget']['seconds'];executor=executor or LocalStages(root,folder)
         def stop_requested():return store.cancelled(id) or cancelled() or time.time()>=expires
         def check():
             if stop_requested():raise Halt('Cancellation requested' if store.cancelled(id) or cancelled() else 'Campaign wall-time allowance exhausted')

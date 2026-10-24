@@ -76,7 +76,7 @@ def execute(root,id):
         with store.db() as db:db.execute("UPDATE jobs SET state='preparing',updated=? WHERE id=?",(now(),id))
         prepared=prepare(root,folder,manifest)
         provenance={'jobId':id,'workerVersion':VERSION,'sourceRevision':prepared.get('sourceRevision'),'runtimeReceipt':prepared.get('runtimeReceipt'),'models':prepared['models'],'manifestSha256':job['manifest_hash'],'cudaQualified':False,'requestedSchedulingMode':manifest['mode'],'effectivePolicy':'One original engine workflow; fixed scientific settings. Adaptive cross-engine scheduling awaits measured GPU costs.','imageDigest':os.environ.get('RAPID_IMAGE_DIGEST','unrecorded-local-image')}
-        provenance.update(computeProvider=os.environ.get('FOLD_COMPUTE_PROVIDER','configured_worker'),biologyCodeSha256=os.environ.get('BGMEE_CODE_SHA256'))
+        provenance.update(executionHost=__import__('socket').gethostname(),executionPlatform=__import__('platform').platform(),engineRole=os.environ.get('FOLD_ENGINE_ROLE'),imageRecipeSha256=os.environ.get('RAPID_IMAGE_RECIPE_SHA256'),computeProvider=os.environ.get('FOLD_COMPUTE_PROVIDER','configured_worker'),biologyCodeSha256=os.environ.get('BGMEE_CODE_SHA256'))
         if manifest['engine'] not in ('structure_screen','rosetta'):
             from .hardware import require_cuda
             provenance['cudaProbe']=require_cuda(prepared['command'][0],prepared['environment'],timeout=max(1,min(120,expires-time.time())))

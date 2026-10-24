@@ -3,7 +3,7 @@ import copy
 import math
 import re
 from .contracts import fields, integer, canonical, digest, target_bytes, manifest
-from .molecules import inspect
+from .molecules import inspect,selected_target
 from .biology_contract import validate
 
 STRATEGIES=('de_novo','existing_sequences','motif_scaffolding','site_guided','evolution','chemically_stabilized','counterfactual')
@@ -22,9 +22,12 @@ def analysis_modules():
 
 
 def campaign(value):
-    fields(value,('schemaVersion','kind','strategy','target','parents','generators','workflow','stageBudgets','budget','seed','policy'),('constraints','hotspots'))
+    fields(value,('schemaVersion','kind','strategy','target','parents','generators','workflow','stageBudgets','budget','seed','policy'),('constraints','hotspots','execution'))
     if value['schemaVersion']!=1 or type(value['schemaVersion'])is not int or value['kind']!='unified':raise ValueError('Unsupported unified campaign version.')
     if value['strategy'] not in STRATEGIES:raise ValueError('Unknown biological strategy.')
+    if 'execution' in value:
+        from .execution import policy
+        policy(value['execution'])
     mapping=inspect(target_bytes(value['target']),value['target']['format'])
     if not set(value['target']['chains'])<=set(mapping['chains']):raise ValueError('Target chains are absent.')
     integer(value['seed'],0,2**31-1,'Seed')
@@ -44,7 +47,10 @@ def campaign(value):
         fields(generator,('engine','design'),('settings','biology'))
         if generator['engine'] not in ('bindcraft2','boltzgen') or generator['engine'] in seen:raise ValueError('Use distinct supported self-hosted generators. Official BoltzProt uses its separately approved API route.')
         seen.add(generator['engine'])
-        manifest({'schemaVersion':1,'engine':generator['engine'],'operation':'design','target':value['target'],'design':generator['design'],'settings':generator.get('settings',{}),'biology':generator.get('biology',{}),'parentCandidates':[p['id'] for p in generator.get('biology',{}).get('parents',[])],'seed':value['seed'],'budget':{'seconds':1},'mode':'reference'})
+        generator_manifest=manifest({'schemaVersion':1,'engine':generator['engine'],'operation':'design','target':value['target'],'design':generator['design'],'settings':generator.get('settings',{}),'biology':generator.get('biology',{}),'parentCandidates':[p['id'] for p in generator.get('biology',{}).get('parents',[])],'seed':value['seed'],'budget':{'seconds':1},'mode':'reference'})
+        selected_target(generator_manifest)
+    if value['strategy']=='de_novo' and not seen:raise ValueError('De novo design requires a genuine generator branch.')
+    if value['strategy']=='site_guided' and not any(g['design'].get('hotspots') for g in value['generators']):raise ValueError('Site-guided design requires explicit observed target hotspots in the generator configuration.')
     if not parents and not seen:raise ValueError('Choose observed parents or genuine generation.')
     fields(value['workflow'],('redesign','predictors','rosetta','count'),('prediction',))
     flow=value['workflow']
@@ -69,6 +75,7 @@ def campaign(value):
     integer(value['budget']['seconds'],1,7200,'Campaign runtime')
     if type(value['budget']['maxEstimatedUSD'])not in(int,float) or not math.isfinite(value['budget']['maxEstimatedUSD']) or not 0<value['budget']['maxEstimatedUSD']<=1000:raise ValueError('Set a finite campaign estimate allowance.')
     constraints=value.get('constraints',{})
+    if any(ch in value['target']['chains'] for ch in constraints):raise ValueError('Fixed target chains cannot receive redesign constraints.')
     for p in parents:validate({'sequences':p['sequences'],'constraints':constraints},mapping)
     if constraints and not parents:raise ValueError('De novo chain identities are not known yet; explicit masks require an observed candidate.')
     return copy.deepcopy(value)

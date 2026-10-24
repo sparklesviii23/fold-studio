@@ -62,6 +62,10 @@ def install(root,engine,approved):
     elif engine=='solublempnn':
         folder=cache/'proteinmpnn';folder.mkdir(exist_ok=True);item=CATALOG['solublempnn'];path=fetch(item['source'],folder/'solublempnn_v_48_020.pt',item['sha256']);register('solublempnn',path,item['sha256'])
     elif engine=='bindcraft2':
+        from .registry import config
+        names=list(CATALOG['alphafold']['models'])+['mpnn-'+name for name in CATALOG['mpnn']]
+        cached=config(root).get('models',{})
+        if all(name in cached and pathlib.Path(cached[name]['path']).is_file() and file_sha(cached[name]['path'])==cached[name]['sha256'] for name in names):return {'state':'installed','engine':engine,'cudaQualified':False,'existingVerifiedCacheReused':True}
         af=CATALOG['alphafold'];folder=cache/'alphafold';folder.mkdir(exist_ok=True)
         archive=fetch(af['source'],cache/'alphafold-official.tar')
         with tarfile.open(archive,'r:') as tar:

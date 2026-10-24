@@ -113,6 +113,7 @@ class RapidRemote:
         raw=path.read_bytes()
         if len(raw)>2_000_000 or hashlib.sha256(raw).hexdigest()!=data['sha256']:raise ValueError('Selected library snapshot is too large or its checksum changed.')
         manifest={**p['manifest'],'target':{'format':'pdb' if data['format']=='pdb' else 'cif','contentBase64':base64.b64encode(raw).decode(),'sha256':data['sha256'],'chains':p['chains'],'label':record['name']}}
+        if manifest.get('kind')=='unified':manifest['execution']={'mode':'cloud','provider':'vast','localFallback':False}
         return self.call(self.cloud.profile(p.get('id')),'unified_submit' if manifest.get('kind')=='unified' else 'job_submit',{'manifest':manifest,'idempotencyKey':p['idempotencyKey'],'approvedResearchTransfer':True,**({'approvedWorkload':p.get('approvedWorkload') is True} if manifest.get('kind')=='unified' else {})})
     def gpu_rapid_import(self,p):
         entry=self.cloud.profile(p.get('id'));jobid=p['jobId']

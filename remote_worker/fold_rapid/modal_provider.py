@@ -14,8 +14,11 @@ from .contracts import fields,integer,canonical,manifest,digest
 
 
 def configuration(value):
-    fields(value,('appName','imageDigest','gpu','maxSeconds','hourlyEstimateUSD'),('volumeName','stateName','privateLicensedImage','modelVolumeName','engineImages','workerMemoryMiB','workerCPUs'))
+    fields(value,('appName','gpu','maxSeconds','hourlyEstimateUSD'),('imageDigest','imageRecipe','volumeName','stateName','privateLicensedImage','modelVolumeName','engineImages','workerMemoryMiB','workerCPUs'))
     if not re.fullmatch('[a-z][a-z0-9-]{2,60}',value['appName']):raise ValueError('Choose a Modal application name with lowercase letters, digits and hyphens.')
+    from .cloud_image import RECIPE,BASE
+    if value.get('imageRecipe') not in (None,RECIPE):raise ValueError('Unknown reviewed cloud image recipe.')
+    value={**value,'imageDigest':value.get('imageDigest') or (BASE if value.get('imageRecipe')==RECIPE else '')}
     if not isinstance(value['imageDigest'],str) or not re.fullmatch('[A-Za-z0-9./:_-]+@sha256:[a-f0-9]{64}',value['imageDigest']):raise ValueError('Use a version-pinned existing RAPID CUDA image digest, not a mutable tag.')
     if value['gpu'] not in ('T4','L4','A10','L40S','A100','A100-40GB','A100-80GB','H100','H200','B200'):raise ValueError('Unsupported Modal GPU selection; availability is provider dependent.')
     integer(value['maxSeconds'],60,7200,'Maximum execution seconds')
@@ -47,9 +50,14 @@ def build_app(value,worker_source=None):
     cfg=configuration(value)
     source=pathlib.Path(worker_source or pathlib.Path(__file__).resolve().parents[1])
     code_sha=digest(canonical({str(p.relative_to(source)):digest(p.read_bytes()) for p in sorted((source/'fold_rapid').glob('*.py'))}).encode())
-    image=modal.Image.from_registry(cfg['imageDigest']).add_local_dir(source,'/opt/fold-worker',copy=True,ignore=['**/__pycache__/**','**/*.pyc','**/dist/**','**/.env*'])
+    if cfg.get('imageRecipe'):
+        from .cloud_image import definition
+        image,cloud_receipt=definition(source.parent)
+    else:
+        image=modal.Image.from_registry(cfg['imageDigest']);cloud_receipt={}
+    image=image.add_local_dir(source,'/opt/fold-worker',copy=True,ignore=['**/__pycache__/**','**/*.pyc','**/dist/**','**/.env*'])
     app=modal.App(cfg['appName']);volume=modal.Volume.from_name(cfg['volumeName'],create_if_missing=True);state=modal.Dict.from_name(cfg['stateName'],create_if_missing=True)
-    environment={'PYTHONPATH':'/opt/fold-worker','RAPID_ROOT':'/data/rapid','RAPID_IMAGE_DIGEST':cfg['imageDigest'],'HF_HOME':'/data/rapid/models/huggingface','BGMEE_CODE_SHA256':code_sha,'FOLD_COMPUTE_PROVIDER':'modal'}
+    environment={'PYTHONPATH':'/opt/fold-worker','RAPID_ROOT':'/data/rapid','RAPID_IMAGE_DIGEST':cfg['imageDigest'],'HF_HOME':'/data/rapid/models/huggingface','BGMEE_CODE_SHA256':code_sha,'FOLD_COMPUTE_PROVIDER':'modal','FOLD_ENGINE_ROLE':'cloud','RAPID_IMAGE_RECIPE_SHA256':cloud_receipt.get('recipeSha256','external_registry_image')}
     image=image.env(environment)
     analysis=source.parent/'scientific'
     if analysis.is_dir():
@@ -127,7 +135,9 @@ def build_app(value,worker_source=None):
         finally:
             if state.get('writer-lease')==token:state.pop('writer-lease')
     from .unified_modal import attach
-    attach(app,cfg,image,volume,state,modal.Volume.from_name(cfg['modelVolumeName'],create_if_missing=True))
+    model_volume=modal.Volume.from_name(cfg['modelVolumeName'],create_if_missing=True)
+    attach(app,cfg,image,volume,state,model_volume)
+    app._fold_resources=(state,volume,model_volume)
     return app
 
 
@@ -140,3 +150,9 @@ def submit(config,value,key,approved,maximum_estimate):
     # responses require request_status reconciliation, never an automatic retry.
     call=modal.Function.from_name(cfg['appName'],'execute').spawn(value,key,True)
     return {'callId':call.object_id,'idempotencyKey':key,'estimate':estimate,'provider':'modal','state':'submitted','scientificGPUValidated':False}
+
+
+def deploy_app(app):
+    """Hydrate closure-owned durable objects before serialized function upload."""
+    for resource in app._fold_resources:resource.hydrate()
+    return app.deploy()

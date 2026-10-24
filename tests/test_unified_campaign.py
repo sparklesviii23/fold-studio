@@ -48,6 +48,12 @@ class UnifiedTests(unittest.TestCase):
     def test_mask_target_missing_refused(self):
         v=fixture();v['constraints']={'Z':{'mutable':[1]}}
         with self.assertRaises(ValueError):campaign(v)
+    def test_target_mutability_cannot_be_silently_dropped(self):
+        v=fixture();v['constraints']={'A':{'mutable':[1]}}
+        with self.assertRaisesRegex(ValueError,'Fixed target'):campaign(v)
+    def test_site_guided_cannot_ignore_missing_hotspots(self):
+        v=fixture();v['strategy']='site_guided'
+        with self.assertRaisesRegex(ValueError,'hotspots'):campaign(v)
     def test_infinite_cost_refused(self):
         v=fixture();v['budget']['maxEstimatedUSD']=float('inf')
         with self.assertRaises(ValueError):campaign(v)

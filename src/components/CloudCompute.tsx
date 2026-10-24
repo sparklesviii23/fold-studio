@@ -4,6 +4,7 @@ import {chooseSSHKey,rpc} from '../lib/api';
 import '../cloud.css';
 import RapidComputePanel from './RapidComputePanel';
 import ModalComputePanel from './ModalComputePanel';
+import ExecutionBackendSelector,{useExecutionBackend,selectExecutionBackend} from './ExecutionBackendSelector';
 import type {Item} from '../lib/types';
 
 type Profile={id:string;name:string;provider:'vast'|'custom';host:string;port:number;username:string;keyPath:string;health?:any;fingerprint?:string;connection?:any;worker?:any;lastWorkerReading?:{operation:string;checkedUtc:string;result:any}};
@@ -11,7 +12,9 @@ const empty={name:'My GPU',provider:'vast' as 'vast'|'custom',host:'',port:22,us
 function readDraft():typeof empty{try{return {...empty,...JSON.parse(localStorage.getItem('fold-cloud-draft-v1')??'{}')};}catch{return empty;}}
 export function connectionLabel(profile:Profile){const reading=profile.lastWorkerReading?.result;return reading?.cudaNumericsPassed?'GPU checks passed · engines needed':profile.worker?'Worker installed':profile.connection?'SSH checked':profile.fingerprint?'Identity saved':'Disconnected';}
 export default function CloudCompute({onLocal,projectId='',structures=[],onImported,onOpen}:{onLocal:()=>void;projectId?:string;structures?:Item[];onImported?:()=>void;onOpen?:(item:Item)=>void}){
+ const executionBackend=useExecutionBackend();
  const [profiles,setProfiles]=useState<Profile[]>([]),[selected,setSelected]=useState(''),[form,setForm]=useState(readDraft),[connection,setConnection]=useState(''),[editing,setEditing]=useState(false),[editingId,setEditingId]=useState(''),[busy,setBusy]=useState(''),[error,setError]=useState(''),[result,setResult]=useState<any>(null),[identity,setIdentity]=useState<any>(null),[worker,setWorker]=useState<any>(null);
+ useEffect(()=>{if(executionBackend.mode==='modal')setSelected('modal');else if(executionBackend.mode==='vast'&&executionBackend.profileId)setSelected(executionBackend.profileId);},[executionBackend.mode,executionBackend.profileId]);
  const profile=profiles.find(p=>p.id===selected);
  const patch=(value:Partial<typeof empty>)=>setForm(old=>({...old,...value}));
  async function refresh(){const data=await rpc<any>('gpu_profiles');setProfiles(data.profiles);setWorker(data.worker);return data;}
@@ -28,9 +31,10 @@ export default function CloudCompute({onLocal,projectId='',structures=[],onImpor
   <div className="cloud-foundation"><ShieldCheck size={17}/><p>RAPID scientific adapters · install the engine and qualify your actual CUDA GPU before research use. Your local BindCraft and Metal workflows remain available.</p></div>
   {error&&<div className="cloud-notice error" role="alert">{error}<button className="text-button" onClick={()=>setError('')}>Dismiss</button></div>}
   {busy&&<div className="cloud-notice" role="status"><RefreshCw className="cloud-spin" size={16}/>{busy}… You can continue using other workspaces.</div>}
+  <ExecutionBackendSelector/>
   <div className="cloud-layout">
    <section className="cloud-sidebar" aria-label="Compute targets">
-    <button className="cloud-server local" onClick={onLocal}><Cpu size={24}/><strong>Apple Silicon</strong><small>Local BindCraft Architect</small><span>Open local workspace <ArrowRight size={13}/></span></button>
+    <button className="cloud-server local" onClick={async()=>{try{await selectExecutionBackend({mode:'local'});onLocal();}catch(e){setError(String(e));}}}><Cpu size={24}/><strong>Apple Silicon</strong><small>Local BindCraft Architect</small><span>Open local workspace <ArrowRight size={13}/></span></button>
     <button className={'cloud-server '+(selected==='modal'?'selected':'')} aria-pressed={selected==='modal'} onClick={()=>select('modal')}><Cloud size={24}/><strong>Modal</strong><small>Serverless GPU</small><span>Unified molecular campaigns <ArrowRight size={13}/></span></button>
     {profiles.map(p=><button key={p.id} className={'cloud-server '+(selected===p.id?'selected':'')} aria-pressed={selected===p.id} onClick={()=>select(p.id)}><Server size={24}/><strong>{p.name}</strong><small>{p.provider==='vast'?'Vast.ai':'Custom NVIDIA server'} · {p.host}:{p.port}</small><span>{connectionLabel(p)}</span></button>)}
     {!profiles.length&&<p className="caption">No saved GPU connections. Add an existing server when you have one.</p>}

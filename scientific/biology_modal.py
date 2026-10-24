@@ -86,7 +86,7 @@ def prepare_unified(s,p):
     parents=[{'id':record['id'],'binderChains':binders,'sequences':{ch:mapping['chains'][ch]['sequence'] for ch in targets+binders}}] if binders else []
     engines=set(p['workflow']['redesign']+p['workflow']['predictors']+[g['engine'] for g in generators]+(['rosetta'] if p['workflow']['rosetta'] else []))
     cfg=profile(s)
-    value=campaign({'schemaVersion':1,'kind':'unified','strategy':p['strategy'],'target':{'format':fmt,'contentBase64':base64.b64encode(raw).decode(),'sha256':record['data']['sha256'],'chains':targets,'label':record['name']},'parents':parents,'generators':generators,'workflow':p['workflow'],'stageBudgets':{e:{'seconds':p['stageSeconds'],'hourlyEstimateUSD':cfg['hourlyEstimateUSD']} for e in engines},'budget':{'seconds':p['seconds'],'maxEstimatedUSD':p['maxEstimatedUSD']},'seed':p['seed'],'policy':p.get('policy',{}),'constraints':p.get('constraints',{})})
+    value=campaign({'schemaVersion':1,'kind':'unified','execution':{'mode':'cloud','provider':'modal','localFallback':False},'strategy':p['strategy'],'target':{'format':fmt,'contentBase64':base64.b64encode(raw).decode(),'sha256':record['data']['sha256'],'chains':targets,'label':record['name']},'parents':parents,'generators':generators,'workflow':p['workflow'],'stageBudgets':{e:{'seconds':p['stageSeconds'],'hourlyEstimateUSD':cfg['hourlyEstimateUSD']} for e in engines},'budget':{'seconds':p['seconds'],'maxEstimatedUSD':p['maxEstimatedUSD']},'seed':p['seed'],'policy':p.get('policy',{}),'constraints':p.get('constraints',{})})
     from fold_rapid.unified_modal import cost
     quote=cost(value,cfg)
     row={'id':uuid.uuid4().hex,'kind':'unified','projectId':p['projectId'],'state':'prepared','configuration':cfg,'manifest':value,'manifestSha256':ev.sha(value),'estimate':quote,'blockers':blockers(value),'idempotencyKey':uuid.uuid4().hex,'created':research.utc(),'sourceRecordId':record['id']}
@@ -136,7 +136,12 @@ def dispatch(s,action,p):
         return unified_control(cfg,'inventory',{})
     if action=='biology_modal_deploy':
         if p.get('approvedDeployment') is not True:raise ValueError('Approve deploying the reviewed image/source; image builds and storage may have provider costs.')
-        app=contract()[2](cfg);result=app.deploy()
+        worker_source=None
+        if cfg.get('imageRecipe'):
+            from fold_rapid.cloud_image import prepare_release
+            release=prepare_release(s.root/'cloud-engine-source',rapid_remote.artifact()[0]);worker_source=release/'worker'
+        from fold_rapid.modal_provider import deploy_app
+        app=contract()[2](cfg,worker_source=worker_source);result=deploy_app(app)
         return {'state':'deployed','appId':app.app_id,'result':str(result),'scientificGPUValidated':False,'configuration':cfg}
     if action=='biology_modal_setup':
         if p.get('approvedSetupCost') is not True or p.get('kind')=='models' and p.get('approvedModelDownload') is not True:raise ValueError('Approve CPU setup costs and model downloads separately.')

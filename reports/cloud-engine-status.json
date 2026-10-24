@@ -1,0 +1,109 @@
+{
+  "schemaVersion": 1,
+  "updatedUserDate": "2026-10-24",
+  "directive": "Standalone NVIDIA cloud backend; local Metal remains separate",
+  "fullCloudEngineComplete": false,
+  "remoteScientificInferenceQualified": false,
+  "phase1": {
+    "cloudOnlyDispatchFirewall": true,
+    "controllerRequiresLinuxAndSelectedProvider": true,
+    "localFallbackAllowed": false,
+    "softwareTests": "14 policy tests; cloud scientific acceptance NOT RUN"
+  },
+  "phase2": {
+    "standaloneCloudEngine": "deployed_core",
+    "provider": "Modal",
+    "appName": "fold-rapid-cloud-engine",
+    "appId": "ap-V9YyEBaj6Sm9Xsfkonw50t",
+    "deploymentVerified": true,
+    "remoteCPUHealthPassed": true,
+    "sourceManifestSha256": "48c674f4b0e885be39906fd5f32d26b881c2da86ce72305bfd025603721bb5ed",
+    "sourceOnlyDeployment": true,
+    "nativeMacAppRequiredOnServer": false,
+    "modelDownloads": false,
+    "NVIDIARun": false,
+    "approvedCPUDeploymentAllowanceUSD": 1,
+    "actualBilledUSD": null
+  },
+  "scientificRuntimes": [
+    {
+      "engine": "bindcraft2",
+      "cloudInstalled": false,
+      "cloudExecutionAvailable": false,
+      "scientificQualified": false
+    },
+    {
+      "engine": "boltzgen",
+      "cloudInstalled": false,
+      "cloudExecutionAvailable": false,
+      "scientificQualified": false
+    },
+    {
+      "engine": "proteinmpnn",
+      "cloudInstalled": false,
+      "cloudExecutionAvailable": false,
+      "scientificQualified": false
+    },
+    {
+      "engine": "af2_multimer",
+      "cloudInstalled": false,
+      "cloudExecutionAvailable": false,
+      "scientificQualified": false
+    },
+    {
+      "engine": "structure_screen",
+      "cloudInstalled": true,
+      "cloudExecutionAvailable": true,
+      "scientificQualified": false
+    },
+    {
+      "engine": "solublempnn",
+      "cloudInstalled": false,
+      "cloudExecutionAvailable": false,
+      "scientificQualified": false
+    },
+    {
+      "engine": "esmfold2",
+      "cloudInstalled": false,
+      "cloudExecutionAvailable": false,
+      "scientificQualified": false
+    },
+    {
+      "engine": "esmfold2_fast",
+      "cloudInstalled": false,
+      "cloudExecutionAvailable": false,
+      "scientificQualified": false
+    },
+    {
+      "engine": "rosetta",
+      "cloudInstalled": false,
+      "cloudExecutionAvailable": false,
+      "scientificQualified": false
+    },
+    {
+      "engine": "rfdiffusion",
+      "cloudInstalled": false,
+      "cloudExecutionAvailable": false,
+      "scientificQualified": false
+    }
+  ],
+  "remainingPhases": [
+    "Remote runtime/model installation after explicit approval",
+    "Real NVIDIA model loading and inference",
+    "Remote generation \u2192 dual redesign \u2192 fresh prediction \u2192 physical assessment \u2192 selection",
+    "Real client-disconnect/cancellation/recovery and structure import/viewer acceptance",
+    "ESM Fast/full, RFdiffusion, ESMC and Boltz API qualification",
+    "Curated biology/chemistry/counterfactual handoffs and optional remote research agent",
+    "Licensed Rosetta qualification; broader local-physics feature cloud coverage"
+  ],
+  "nativeApplication": {
+    "oneCurrentApp": true,
+    "lastBuildModules": 49,
+    "latestCloudOnlyChangesInstalled": false,
+    "rebuildDeferredUntilCloudWorkerMilestone": true
+  },
+  "localMPNNTestsCountAsCloudAcceptance": false,
+  "FabRestarted": false,
+  "notarization": "deferred_local_use",
+  "accountAuthentication": "Official SDK verified; secrets stored in macOS Keychain, temporary TOML removed"
+}

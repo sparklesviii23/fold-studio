@@ -93,6 +93,8 @@ class Worker:
         fields(p,('manifest','idempotencyKey','approvedResearchTransfer','approvedWorkload'))
         if p['approvedResearchTransfer'] is not True or p['approvedWorkload'] is not True:raise ValueError('Approve this entire molecular campaign and reviewed workload allowance.')
         from .unified import CampaignStore,spawn
+        from .execution import require_cloud
+        require_cloud(p['manifest'].get('execution',{}))
         result=CampaignStore(self.store.root).submit(p['manifest'],p['idempotencyKey'],True)
         if result['created'] and result['state']=='QUEUED':spawn(self.store.root,result['campaignId'])
         return result

@@ -42,7 +42,16 @@ def inventory(root):
         runtime=cfg.get('runtimes',{}).get(description['runtime'],{})
         installed=description['runtime']=='core' or (pathlib.Path(runtime.get('python','/nonexistent')).is_file() and pathlib.Path(runtime.get('source','/nonexistent')).is_dir())
         checkpoints=checkpoint_records(root,id)
-        rows.append({'id':id,**description,'installed':installed,'models':checkpoints,'executionAvailable':installed and all(v['hashRegistered'] for v in checkpoints) and (id!='rosetta' or runtime.get('licenseApproved') is True),'cudaExecutionTested':False,'scientificReferenceValidated':False,'status':'cpu_analysis_available' if id=='structure_screen' else 'hardware_qualification_required' if installed else 'not_installed'})
+        qualification=pathlib.Path(root)/'qualification'
+        def receipt(kind):
+            path=qualification/(id+'-'+kind+'.json')
+            return json.loads(path.read_text()) if path.is_file() else {}
+        numerical=receipt('cuda-numerics');inference=receipt('inference')
+        cached=all(v['hashRegistered'] for v in checkpoints)
+        readiness='blocked_by_licensing' if id=='rosetta' and runtime.get('licenseApproved') is not True else 'not_installed' if not installed else 'models_missing' if not cached else 'model_loading_test_pending' if numerical else 'gpu_validation_pending'
+        if id=='structure_screen':readiness='cpu_analysis_available'
+        elif inference.get('validOutputsObserved'):readiness='model_execution_observed_reference_validation_pending'
+        rows.append({'id':id,**description,'installed':installed,'models':checkpoints,'executionAvailable':installed and all(v['hashRegistered'] for v in checkpoints) and (id!='rosetta' or runtime.get('licenseApproved') is True),'cudaExecutionTested':bool(numerical),'scientificReferenceValidated':False,'readiness':readiness,'readinessEvidence':{'numerical':numerical,'inference':inference},'status':'cpu_analysis_available' if id=='structure_screen' else 'hardware_qualification_required' if installed else 'not_installed'})
     return {'engines':rows,'scientificCUDAQualified':False,'qualificationReason':'No NVIDIA reference campaign has been certified by this release.'}
 
 def verified_runtime(root,engine):

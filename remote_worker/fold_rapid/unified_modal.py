@@ -51,6 +51,13 @@ def attach(app,cfg,image,data,state,model_volume):
                 def checkpoint(value):state[key]={**value,'state':'running'}
                 try:
                     result=LocalStages('/data/rapid',folder,configuration_root='/models/rapid')(stage,value,checkpoint,cancelled)
+                    if result['job']['state']=='completed' and result['job'].get('result',{}).get('candidates',0)>0:
+                        from fold_rapid.unified import atomic
+                        evidence=pathlib.Path('/models/rapid/qualification');evidence.mkdir(exist_ok=True)
+                        import json
+                        provenance=json.loads((pathlib.Path(result['folder'])/'provenance.json').read_text())
+                        atomic(evidence/(engine+'-inference.json'),{'validOutputsObserved':True,'jobId':result['job']['id'],'campaignId':campaign_id,'provenance':provenance,'scientificReferenceValidated':False,'handoffVerification':'Recorded separately in the immutable campaign lineage after sequence/coordinate checks.'})
+                        model_volume.commit()
                     data.commit();state[key]={'jobId':result['job']['id'],'state':result['job']['state'],'artifactsCommitted':True}
                     return result
                 finally:Store.event=original;data.commit()
@@ -62,6 +69,8 @@ def attach(app,cfg,image,data,state,model_volume):
         from fold_rapid.unified import CampaignStore,run
         import time
         if approved is not True:raise ValueError('Approve the complete cloud campaign before execution.')
+        from fold_rapid.execution import require_cloud
+        require_cloud(value.get('execution',{}))
         cost(value,cfg);token={'kind':'unified','request':key}
         if not state.put('writer-lease',token,skip_if_exists=True):raise ValueError('Another campaign/setup owns shared scientific storage; reconcile existing operations.')
         try:
@@ -102,9 +111,13 @@ def attach(app,cfg,image,data,state,model_volume):
         if operation=='request_status':
             fields(payload,('idempotencyKey',));return state.get('unified-request:'+payload['idempotencyKey'],{'state':'not_observed','resubmit':False})
         if operation=='inventory':
-            fields(payload,());model_volume.reload()
+            fields(payload,())
+            if state.get('writer-lease'):raise ValueError('Model storage is owned by an active campaign/setup; inspect its saved execution instead.')
+            model_volume.reload()
             from fold_rapid.registry import inventory
-            return {'deploymentReachable':True,'scientificCloudQualified':False,'models':inventory('/models/rapid'),'campaignStatesDurable':True,'executionPolicy':'modular_sequential'}
+            import socket,platform,os
+            from fold_rapid import VERSION,API_VERSION
+            return {'deploymentReachable':True,'name':'Fold Studio RAPID Cloud Engine','version':VERSION,'apiVersion':API_VERSION,'executionHost':socket.gethostname(),'executionPlatform':platform.platform(),'provider':os.environ.get('FOLD_COMPUTE_PROVIDER'),'controllerLocation':'remote','sourceCodeSha256':os.environ.get('BGMEE_CODE_SHA256'),'imageRecipeSha256':os.environ.get('RAPID_IMAGE_RECIPE_SHA256'),'scientificCloudQualified':False,'models':inventory('/models/rapid'),'campaignStatesDurable':True,'executionPolicy':'modular_sequential'}
         id=identifier(payload.get('campaignId'))
         if operation=='cancel':state['unified-cancel:'+id]=True;return {'campaignId':id,'state':'cancel_requested','billingStopped':False}
         live=state.get('unified:'+id)
@@ -132,6 +145,9 @@ def attach(app,cfg,image,data,state,model_volume):
             model_volume.reload();runtime,models=verified_runtime('/models/rapid',engine)
             reading=require_cuda(runtime['python'],{'PYTHONPATH':runtime['source'],'HF_HUB_OFFLINE':'1'},timeout=90)
             result={'engine':engine,'gpu':inventory(),'cudaNumerics':reading,'runtime':runtime,'models':models,'imageDigest':cfg.get('engineImages',{}).get(engine,cfg['imageDigest']),'source':ENGINES[engine],'scientificCloudQualified':False,'scope':'Tiny genuine CUDA forward/backward in this engine runtime. This is not trained-model inference or multi-engine scientific qualification.'}
+            from fold_rapid.unified import atomic
+            folder=pathlib.Path('/models/rapid/qualification');folder.mkdir(exist_ok=True)
+            atomic(folder/(engine+'-cuda-numerics.json'),result);model_volume.commit()
             state['qualification:'+engine]=result;return result
         finally:
             if state.get('writer-lease')==token:state.pop('writer-lease')
@@ -149,6 +165,7 @@ def attach(app,cfg,image,data,state,model_volume):
                 engine={'proteinmpnn':'bindcraft2','af2_multimer':'bindcraft2','esmfold2_fast':'esmfold2','solublempnn':'boltzgen'}.get(engine,engine)
             elif kind=='models':
                 from fold_rapid.models import install
+                engine={'proteinmpnn':'bindcraft2','af2_multimer':'bindcraft2'}.get(engine,engine)
             else:raise ValueError('Unknown setup operation.')
             result=install('/models/rapid',engine,True);model_volume.commit();return result
         finally:

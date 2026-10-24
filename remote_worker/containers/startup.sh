@@ -1,4 +1,6 @@
 #!/bin/sh
+export FOLD_ENGINE_ROLE=cloud
+export FOLD_COMPUTE_PROVIDER=${FOLD_COMPUTE_PROVIDER:-vast}
 set -eu
 if [ -n "${RAPID_DEFAULT_CONFIG:-}" ] && [ ! -e "${RAPID_ROOT}/config.json" ]; then
   mkdir -p "$RAPID_ROOT"
