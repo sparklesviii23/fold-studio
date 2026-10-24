@@ -1,8 +1,8 @@
 {
   "schemaVersion": 1,
-  "updatedUtc": "2026-10-24T05:40:46.013233+00:00",
+  "updatedUtc": "2026-10-24T05:42:32.848244+00:00",
   "branch": "project-cloud/rapid-standalone-engine",
-  "implementationCommit": "019c7ed",
+  "implementationCommit": "5232e16",
   "scope": "RAPID scientific software core, beyond connection foundation; real CUDA qualification outstanding.",
   "upstreamRevision": "c0ee638d11bc010817c2c97ee58ed5c323e664e2",
   "verified": {
@@ -270,7 +270,7 @@
     "totalMilestones": 10,
     "scope": "Counts of explicit execution/transport milestones; not percentage of full campaign iterations or scientific certification."
   },
-  "currentPriority": "Standalone Modal CUDA engine: finish approved remote CPU runtime/checkpoint setup, then obtain a separate bounded GPU workload approval. No Mac app rebuild, no Fab restart.",
+  "currentPriority": "Approved remote CPU setup complete: 3 runtimes, 11 checkpoints, GPU inference not authorized. Prepared first real cloud pipeline b01380abcc88401e8c933f308c826bbd awaits research-upload/GPU approval up to 6 USD. No Fab restart or Mac rebuild.",
   "currentNativePackage": {
     "path": "/Users/vii/Documents/FoldStudio-MetalPort/validation/RAPID Foundation Engine/FOLD STUDIO Metal Dev.app",
     "sourceCommit": "38e5756",
@@ -312,7 +312,9 @@
     "ESMCheckpointsApproved": false,
     "report": "reports/cloud-model-setup.json",
     "preserveActiveWorker": true,
-    "approvedSetupCompleted": true
+    "approvedSetupCompleted": true,
+    "writerLeaseReleased": true,
+    "postSetupInventoryPassed": true
   },
   "nextCloudGPURequest": {
     "id": "b01380abcc88401e8c933f308c826bbd",

@@ -1383,6 +1383,482 @@
       },
       "deploymentVerified": true,
       "finished": 1792818976.505197
+    },
+    {
+      "state": "deployed",
+      "started": 1792820454.643241,
+      "appName": "fold-rapid-cloud-engine",
+      "maximumApprovedUSD": 1,
+      "gpuStarted": false,
+      "modelDownloads": false,
+      "scientificCloudQualified": false,
+      "sourceManifestSha256": "e3fdb498ff8b947f8c77656e682f5f9a3d9cf501327be9de31577e30c9ce0f01",
+      "pid": 73364,
+      "appId": "ap-V9YyEBaj6Sm9Xsfkonw50t",
+      "health": {
+        "deploymentReachable": true,
+        "name": "Fold Studio RAPID Cloud Engine",
+        "version": "0.2.0",
+        "apiVersion": 2,
+        "executionHost": "modal",
+        "executionPlatform": "Linux-4.19.0-gvisor-x86_64-with-glibc2.39",
+        "provider": "modal",
+        "controllerLocation": "remote",
+        "sourceCodeSha256": "3ab1e75e4288308e6d860c4d04e7d24ac171fc9adfe9142339f4c6fa5fb6f82c",
+        "imageRecipeSha256": "6054ebeb5dda701d66096f61167b41dfefd1f5fd61684c7146186585d41e27f3",
+        "scientificCloudQualified": false,
+        "models": {
+          "engines": [
+            {
+              "id": "bindcraft2",
+              "repository": "https://github.com/PacesaLab/BindCraft2",
+              "revision": "c0ee638d11bc010817c2c97ee58ed5c323e664e2",
+              "license": "BindCraft2 Source-Available (Hosting-Restricted); retain LICENSE",
+              "operations": [
+                "design"
+              ],
+              "modalities": [
+                "peptide",
+                "binder"
+              ],
+              "runtime": "bindcraft2",
+              "models": [
+                {
+                  "id": "model_1_multimer_v3",
+                  "present": true,
+                  "hashRegistered": true,
+                  "sha256": "611da8fc7478928f68de12e8b226260ef1f4ce62bcc29b008572e52f4f212959",
+                  "path": "/models/rapid/models/alphafold/params_model_1_multimer_v3.npz"
+                },
+                {
+                  "id": "model_2_multimer_v3",
+                  "present": true,
+                  "hashRegistered": true,
+                  "sha256": "51362b0844382ae0f5720c59b81dd13a43eea40fbf9995dd2573bdab88865378",
+                  "path": "/models/rapid/models/alphafold/params_model_2_multimer_v3.npz"
+                },
+                {
+                  "id": "model_3_multimer_v3",
+                  "present": true,
+                  "hashRegistered": true,
+                  "sha256": "46d9bcad288edc7ad5a6362ee8e5f84307a69712e00e6c36b1ef9daf96ebc9ce",
+                  "path": "/models/rapid/models/alphafold/params_model_3_multimer_v3.npz"
+                },
+                {
+                  "id": "model_4_multimer_v3",
+                  "present": true,
+                  "hashRegistered": true,
+                  "sha256": "59bdabd2d69c07fe26b37882d544acbd1b9f89f196828f4220da49e0610b572c",
+                  "path": "/models/rapid/models/alphafold/params_model_4_multimer_v3.npz"
+                },
+                {
+                  "id": "model_5_multimer_v3",
+                  "present": true,
+                  "hashRegistered": true,
+                  "sha256": "917742be5a105d6b80f13f1f13f20459f27ec3fdcd34ea088b359f4502d6177f",
+                  "path": "/models/rapid/models/alphafold/params_model_5_multimer_v3.npz"
+                },
+                {
+                  "id": "model_1_ptm",
+                  "present": true,
+                  "hashRegistered": true,
+                  "sha256": "5e564f79af5bcd54ccef6e2a6bb0ff01015d01650ebc41d4575e35f0de9ecc84",
+                  "path": "/models/rapid/models/alphafold/params_model_1_ptm.npz"
+                },
+                {
+                  "id": "model_2_ptm",
+                  "present": true,
+                  "hashRegistered": true,
+                  "sha256": "23645d9a82c4af2ed54cd48a7b3c1c2575dc6aa9fe931adb4d7203ca5f0dc398",
+                  "path": "/models/rapid/models/alphafold/params_model_2_ptm.npz"
+                },
+                {
+                  "id": "mpnn-neutral",
+                  "present": true,
+                  "hashRegistered": true,
+                  "sha256": "58db738bbf867ca9b9290ce3a6581b94649f108683ac0e6a10de6b4aeeed30b4",
+                  "path": "/models/rapid/models/proteinmpnn/weights_neutral/v_48_020.npz"
+                },
+                {
+                  "id": "mpnn-negative",
+                  "present": true,
+                  "hashRegistered": true,
+                  "sha256": "b166276f80a45cb3de24bceb3b47b2f47a60ff654660f09837cd775846411ad1",
+                  "path": "/models/rapid/models/proteinmpnn/weights_negative/v_48_020.npz"
+                },
+                {
+                  "id": "mpnn-positive",
+                  "present": true,
+                  "hashRegistered": true,
+                  "sha256": "9b8b55fcb8a428ba85f583be828d1a8d14ab2fe0e02474979c3dcbae146795f5",
+                  "path": "/models/rapid/models/proteinmpnn/weights_positive/v_48_020.npz"
+                }
+              ],
+              "representation": "PDB/mmCIF target + original settings; native CIF/CSV output",
+              "memory": "Workload dependent; real CUDA peak not measured",
+              "installed": true,
+              "executionAvailable": true,
+              "cudaExecutionTested": false,
+              "scientificReferenceValidated": false,
+              "readiness": "gpu_validation_pending",
+              "readinessEvidence": {
+                "numerical": {},
+                "inference": {}
+              },
+              "status": "hardware_qualification_required"
+            },
+            {
+              "id": "boltzgen",
+              "repository": "https://github.com/HannesStark/boltzgen",
+              "revision": "a07fea1153111ef453aaea7a15697ee05de9291f",
+              "license": "MIT",
+              "operations": [
+                "design"
+              ],
+              "modalities": [
+                "peptide",
+                "binder"
+              ],
+              "runtime": "boltzgen",
+              "models": [
+                {
+                  "id": "design-diverse",
+                  "present": false,
+                  "hashRegistered": false,
+                  "sha256": null,
+                  "path": null
+                },
+                {
+                  "id": "design-adherence",
+                  "present": false,
+                  "hashRegistered": false,
+                  "sha256": null,
+                  "path": null
+                },
+                {
+                  "id": "solublempnn",
+                  "present": true,
+                  "hashRegistered": true,
+                  "sha256": "7af52d090172c230c7f0e9d21e02203f6b3a38b16db58d3c7a3960e0a9a6e31a",
+                  "path": "/models/rapid/models/proteinmpnn/solublempnn_v_48_020.pt"
+                },
+                {
+                  "id": "folding",
+                  "present": false,
+                  "hashRegistered": false,
+                  "sha256": null,
+                  "path": null
+                },
+                {
+                  "id": "moldir",
+                  "present": false,
+                  "hashRegistered": false,
+                  "sha256": null,
+                  "path": null
+                },
+                {
+                  "id": "esmfold2-bundle",
+                  "present": false,
+                  "hashRegistered": false,
+                  "sha256": null,
+                  "path": null
+                }
+              ],
+              "representation": "Official YAML entities, peptide-anything / protein-anything pipeline; native mmCIF and metrics",
+              "memory": "Workload dependent; real CUDA peak not measured",
+              "installed": true,
+              "executionAvailable": false,
+              "cudaExecutionTested": false,
+              "scientificReferenceValidated": false,
+              "readiness": "models_missing",
+              "readinessEvidence": {
+                "numerical": {},
+                "inference": {}
+              },
+              "status": "hardware_qualification_required"
+            },
+            {
+              "id": "proteinmpnn",
+              "repository": "https://github.com/PacesaLab/BindCraft2",
+              "revision": "c0ee638d11bc010817c2c97ee58ed5c323e664e2",
+              "license": "Bundled upstream ProteinMPNN; retain notices",
+              "operations": [
+                "redesign"
+              ],
+              "modalities": [
+                "peptide",
+                "binder"
+              ],
+              "runtime": "bindcraft2",
+              "models": [
+                {
+                  "id": "mpnn-neutral",
+                  "present": true,
+                  "hashRegistered": true,
+                  "sha256": "58db738bbf867ca9b9290ce3a6581b94649f108683ac0e6a10de6b4aeeed30b4",
+                  "path": "/models/rapid/models/proteinmpnn/weights_neutral/v_48_020.npz"
+                }
+              ],
+              "representation": "Fixed coordinates, explicit redesign chains; FASTA + metrics",
+              "memory": "Workload dependent; CUDA not measured",
+              "installed": true,
+              "executionAvailable": true,
+              "cudaExecutionTested": false,
+              "scientificReferenceValidated": false,
+              "readiness": "gpu_validation_pending",
+              "readinessEvidence": {
+                "numerical": {},
+                "inference": {}
+              },
+              "status": "hardware_qualification_required"
+            },
+            {
+              "id": "af2_multimer",
+              "repository": "https://github.com/PacesaLab/BindCraft2",
+              "revision": "c0ee638d11bc010817c2c97ee58ed5c323e664e2",
+              "license": "Upstream AlphaFold notices and checkpoint terms apply",
+              "operations": [
+                "evaluate"
+              ],
+              "modalities": [
+                "peptide",
+                "binder"
+              ],
+              "runtime": "bindcraft2",
+              "models": [
+                {
+                  "id": "model_2_multimer_v3",
+                  "present": true,
+                  "hashRegistered": true,
+                  "sha256": "51362b0844382ae0f5720c59b81dd13a43eea40fbf9995dd2573bdab88865378",
+                  "path": "/models/rapid/models/alphafold/params_model_2_multimer_v3.npz"
+                },
+                {
+                  "id": "model_4_multimer_v3",
+                  "present": true,
+                  "hashRegistered": true,
+                  "sha256": "59bdabd2d69c07fe26b37882d544acbd1b9f89f196828f4220da49e0610b572c",
+                  "path": "/models/rapid/models/alphafold/params_model_4_multimer_v3.npz"
+                }
+              ],
+              "representation": "Explicit target and binder chain coordinates; original held-out 2/4 predictions",
+              "memory": "Workload dependent; CUDA not measured",
+              "installed": true,
+              "executionAvailable": true,
+              "cudaExecutionTested": false,
+              "scientificReferenceValidated": false,
+              "readiness": "gpu_validation_pending",
+              "readinessEvidence": {
+                "numerical": {},
+                "inference": {}
+              },
+              "status": "hardware_qualification_required"
+            },
+            {
+              "id": "structure_screen",
+              "repository": "local Fold Studio",
+              "revision": "0.2.0",
+              "license": "Project source terms",
+              "operations": [
+                "screen"
+              ],
+              "modalities": [
+                "peptide",
+                "binder"
+              ],
+              "runtime": "core",
+              "models": [],
+              "representation": "Observed PDB/mmCIF sequences/residue mapping; no model prediction",
+              "memory": "Bounded 2 MB input; CPU geometry/sequence checks",
+              "installed": true,
+              "executionAvailable": true,
+              "cudaExecutionTested": false,
+              "scientificReferenceValidated": false,
+              "readiness": "cpu_analysis_available",
+              "readinessEvidence": {
+                "numerical": {},
+                "inference": {}
+              },
+              "status": "cpu_analysis_available"
+            },
+            {
+              "id": "solublempnn",
+              "repository": "https://github.com/dauparas/LigandMPNN",
+              "revision": "a07fea1153111ef453aaea7a15697ee05de9291f",
+              "license": "MIT; upstream LigandMPNN notices retained in pinned BoltzGen",
+              "operations": [
+                "redesign"
+              ],
+              "modalities": [
+                "peptide",
+                "binder"
+              ],
+              "runtime": "boltzgen",
+              "models": [
+                {
+                  "id": "solublempnn",
+                  "present": true,
+                  "hashRegistered": true,
+                  "sha256": "7af52d090172c230c7f0e9d21e02203f6b3a38b16db58d3c7a3960e0a9a6e31a",
+                  "path": "/models/rapid/models/proteinmpnn/solublempnn_v_48_020.pt"
+                }
+              ],
+              "representation": "Complete fixed N/CA/C/O backbone, explicit constraints, independent FASTA descendants",
+              "memory": "Not benchmarked on this hardware",
+              "installed": true,
+              "executionAvailable": true,
+              "cudaExecutionTested": false,
+              "scientificReferenceValidated": false,
+              "readiness": "gpu_validation_pending",
+              "readinessEvidence": {
+                "numerical": {},
+                "inference": {}
+              },
+              "status": "hardware_qualification_required"
+            },
+            {
+              "id": "esmfold2",
+              "repository": "https://github.com/Biohub/esm",
+              "revision": "esm==3.4.1.post1",
+              "sourcePin": "a07fea1153111ef453aaea7a15697ee05de9291f",
+              "license": "Official Biohub code/model terms; pinned weights",
+              "operations": [
+                "evaluate"
+              ],
+              "modalities": [
+                "peptide",
+                "binder"
+              ],
+              "runtime": "esmfold2",
+              "models": [
+                {
+                  "id": "esmfold2-bundle",
+                  "present": false,
+                  "hashRegistered": false,
+                  "sha256": null,
+                  "path": null
+                }
+              ],
+              "representation": "Explicit full-chain sequences, optional A3M/CCD/bonds; predicted mmCIF and raw confidence arrays",
+              "memory": "ESMC 6B dominates memory; real workload admission required",
+              "installed": true,
+              "executionAvailable": false,
+              "cudaExecutionTested": false,
+              "scientificReferenceValidated": false,
+              "readiness": "models_missing",
+              "readinessEvidence": {
+                "numerical": {},
+                "inference": {}
+              },
+              "status": "hardware_qualification_required"
+            },
+            {
+              "id": "esmfold2_fast",
+              "repository": "https://github.com/Biohub/esm",
+              "revision": "esm==3.4.1.post1",
+              "sourcePin": "a07fea1153111ef453aaea7a15697ee05de9291f",
+              "license": "Official Biohub code/model terms; pinned weights",
+              "operations": [
+                "evaluate"
+              ],
+              "modalities": [
+                "peptide",
+                "binder"
+              ],
+              "runtime": "esmfold2",
+              "models": [
+                {
+                  "id": "esmfold2-fast-bundle",
+                  "present": false,
+                  "hashRegistered": false,
+                  "sha256": null,
+                  "path": null
+                }
+              ],
+              "representation": "Official Fast checkpoint, predicted mmCIF and raw confidence arrays",
+              "memory": "Not qualified on this Mac or NVIDIA hardware",
+              "installed": true,
+              "executionAvailable": false,
+              "cudaExecutionTested": false,
+              "scientificReferenceValidated": false,
+              "readiness": "models_missing",
+              "readinessEvidence": {
+                "numerical": {},
+                "inference": {}
+              },
+              "status": "hardware_qualification_required"
+            },
+            {
+              "id": "rosetta",
+              "repository": "https://rosettacommons.org/",
+              "revision": "user-licensed-runtime",
+              "license": "Requires explicit licensed installation; never bundled in public images",
+              "operations": [
+                "relax"
+              ],
+              "modalities": [
+                "peptide",
+                "binder"
+              ],
+              "runtime": "rosetta",
+              "models": [],
+              "representation": "Derived relaxed PDB, source numbering, energies and interface/per-residue analysis",
+              "memory": "CPU; bounded runtime",
+              "installed": false,
+              "executionAvailable": false,
+              "cudaExecutionTested": false,
+              "scientificReferenceValidated": false,
+              "readiness": "blocked_by_licensing",
+              "readinessEvidence": {
+                "numerical": {},
+                "inference": {}
+              },
+              "status": "not_installed"
+            },
+            {
+              "id": "rfdiffusion",
+              "repository": "https://github.com/RosettaCommons/RFdiffusion",
+              "revision": "configured-source-pin",
+              "license": "BSD; verify configured source and checkpoint manifest",
+              "operations": [
+                "scaffold"
+              ],
+              "modalities": [
+                "peptide",
+                "binder"
+              ],
+              "runtime": "rfdiffusion",
+              "models": [
+                {
+                  "id": "rfdiffusion-base",
+                  "present": false,
+                  "hashRegistered": false,
+                  "sha256": null,
+                  "path": null
+                }
+              ],
+              "representation": "Observed atomic motif and fixed flank lengths; real generated backbone requiring sequence design",
+              "memory": "NVIDIA inference; not qualified",
+              "installed": false,
+              "executionAvailable": false,
+              "cudaExecutionTested": false,
+              "scientificReferenceValidated": false,
+              "readiness": "not_installed",
+              "readinessEvidence": {
+                "numerical": {},
+                "inference": {}
+              },
+              "status": "not_installed"
+            }
+          ],
+          "scientificCUDAQualified": false,
+          "qualificationReason": "No NVIDIA reference campaign has been certified by this release."
+        },
+        "campaignStatesDurable": true,
+        "executionPolicy": "modular_sequential"
+      },
+      "deploymentVerified": true,
+      "finished": 1792820489.777269
     }
   ],
   "scope": "Approved CPU-only deployment checks; no GPU/model execution. Earlier SDK serialization failure retained."
