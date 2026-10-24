@@ -14,6 +14,7 @@ import rapid_remote
 
 ACTIONS={'biology_cloud_prepare_models','biology_modal_qualify','biology_unified_prepare','biology_modal_check','biology_modal_configure','biology_modal_status','biology_modal_prepare','biology_modal_submit','biology_modal_refresh','biology_modal_cancel','biology_modal_jobs','biology_modal_import','biology_modal_deploy','biology_modal_setup','biology_provider_credentials'}
 NETWORK={'biology_cloud_prepare_models','biology_modal_qualify','biology_modal_check','biology_modal_submit','biology_modal_refresh','biology_modal_cancel','biology_modal_import','biology_modal_deploy','biology_modal_setup'}
+LOCAL_PROVIDER={'biology_unified_prepare','biology_modal_prepare'}
 
 
 def contract():
@@ -98,6 +99,12 @@ def prepare_unified(s,p):
 
 def dispatch(s,action,p):
     s.project(p['projectId']);table(s)
+    # Coordinate parsing/contract validation needs pinned gemmi. The bundled
+    # JAX supervisor lacks it; use the existing isolated provider interpreter.
+    # These preparation actions never invoke Modal or upload the snapshot.
+    if action in LOCAL_PROVIDER and not __import__('os').environ.get('FOLD_PROVIDER_CHILD'):
+        try:__import__('gemmi')
+        except ImportError:return biology_providers.rpc(s,action,p)
     if action=='biology_provider_credentials':
         from provider_credentials import access
         if p.get('approved') is not True:raise ValueError('Approve saving or removing this provider credential in macOS Keychain.')

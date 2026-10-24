@@ -123,6 +123,15 @@ class NativeUnifiedTests(unittest.TestCase):
         import biology_modal
         stored=biology_modal.read(self.s,{'projectId':self.project,'id':out['id']});self.assertIn('contentBase64',stored['manifest']['target'])
     def test_native_unknown_strategy_has_honest_blocker(self):self.assertTrue(self.prepared(strategy='motif_scaffolding')['blockers'])
+    def test_missing_native_parser_routes_review_to_isolated_runtime_only(self):
+        import builtins,biology_modal
+        from unittest.mock import patch
+        original=builtins.__import__
+        def imports(name,*args,**kwargs):
+            if name=='gemmi':raise ImportError('fixture parser absent from supervisor')
+            return original(name,*args,**kwargs)
+        with patch('builtins.__import__',side_effect=imports),patch.object(biology_modal.biology_providers,'rpc',return_value={'state':'prepared','fixture':True}) as isolated:
+            self.assertEqual(self.prepared()['state'],'prepared');self.assertEqual(isolated.call_args.args[1],'biology_unified_prepare')
     def test_native_review_includes_resource_prices_and_distinct_stage_limits(self):
         prices={'gpuSecondUSD':1/3600,'cpuCoreSecondUSD':.0000131,'memoryGiBSecondUSD':.00000222,'workerCPUs':2,'workerMemoryGiB':64,'startupSecondsPerStage':60,'safetyUSD':.6,'storageAndControlUSD':.2}
         out=self.prepared(maxEstimatedUSD=2,resourcePricing=prices,stageLimitsSeconds={'proteinmpnn':12})
