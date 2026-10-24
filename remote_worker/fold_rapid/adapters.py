@@ -87,6 +87,10 @@ def collect(job, manifest, provenance):
                 for row in csv.DictReader(f):
                     if not row.get('design'):continue
                     structure=next((p for p in output.rglob(row['design']+'.cif') if p.is_file() and not p.is_symlink()),None)
+                    if structure is None:
+                        structure=next((p for p in output.rglob(row['design']+'_trajectory.cif') if p.is_file() and not p.is_symlink()),None)
+                    if row.get('terminated'):
+                        row={**row,'outcome':'rejected','failed_filters':row['terminated'],'coordinateStatus':'Incomplete upstream optimization; inspect trajectory and independently refold any diagnostic sequence.'}
                     rows.append((row,structure,'design','Binder_Sequence'))
     elif engine=='boltzgen':
         for table in sorted(output.glob('**/all_designs_metrics.csv')):

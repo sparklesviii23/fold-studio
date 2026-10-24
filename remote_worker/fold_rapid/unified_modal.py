@@ -16,7 +16,13 @@ def cost(value,cfg):
     for e,b in value['stageBudgets'].items():
         if e!='rosetta' and b['hourlyEstimateUSD']!=cfg['hourlyEstimateUSD']:raise ValueError('GPU stage rates must match the reviewed deployment GPU rate; no silent price or GPU change.')
     if value['workflow']['rosetta'] and not cfg.get('privateLicensedImage'):raise ValueError('Rosetta requires an authorized private licensed runtime/image.')
-    return {**estimate(value),'workerHostMemoryMiB':cfg.get('workerMemoryMiB',65536),'workerCPUs':cfg.get('workerCPUs',2),'gpu':cfg['gpu'],'imageDigest':cfg['imageDigest'],'scientificGPUValidated':False}
+    from .billing import quote
+    reviewed=estimate(value);total=quote(value,reviewed)
+    if total:
+        p=value['budget']['resourcePricing']
+        if not math.isclose(p['gpuSecondUSD']*3600,cfg['hourlyEstimateUSD'],rel_tol=0,abs_tol=1e-9) or p['workerCPUs']!=cfg.get('workerCPUs',2) or p['workerMemoryGiB']*1024!=cfg.get('workerMemoryMiB',65536):raise ValueError('Resource prices must match the deployed GPU/CPU/memory profile.')
+        if not total['withinAllowance']:raise ValueError('Projected total resources and safety reserves exceed the approved allowance.')
+    return {**reviewed,'totalResources':total,'workerHostMemoryMiB':cfg.get('workerMemoryMiB',65536),'workerCPUs':cfg.get('workerCPUs',2),'gpu':cfg['gpu'],'imageDigest':cfg['imageDigest'],'scientificGPUValidated':False}
 
 
 def attach(app,cfg,image,data,state,model_volume):
@@ -86,17 +92,28 @@ def attach(app,cfg,image,data,state,model_volume):
                     description=next(e for e in inventory('/models/rapid')['engines'] if e['id']==engine)
                     return {'ready':description['executionAvailable'],'reason':description['status']}
                 def __call__(self,stage,value,checkpoint,cancelled):
+                    from fold_rapid import billing
+                    started=time.monotonic();last_meter=0
                     call=functions[stage['engine']].spawn(id,stage,value)
                     checkpoint({'callId':call.object_id})
                     while True:
                         try:result=call.get(timeout=1);break
                         except TimeoutError:
+                            elapsed=time.monotonic()-started
+                            campaign_row=store.get(id)
+                            if elapsed-last_meter>=10 and 'resourcePricing' in campaign_row['manifest']['budget']:
+                                stage['observedRemoteSeconds']=elapsed
+                                next(s for s in campaign_row['stages'] if s['stageId']==stage['stageId'])['observedRemoteSeconds']=elapsed
+                                estimated=billing.live(campaign_row['manifest'],campaign_row['stages'],time.time()-__import__('datetime').datetime.fromisoformat(campaign_row['created']).timestamp())
+                                checkpoint({'observedRemoteSeconds':elapsed,'liveEstimatedWithSafetyUSD':estimated,'providerReportedUSD':None})
+                                if estimated>=campaign_row['manifest']['budget']['maxEstimatedUSD']:state['unified-cancel:'+id]=True
+                                last_meter=elapsed
                             live=state.get('unified-stage:'+id+':'+stage['stageId'],{})
                             if live.get('jobId') and stage.get('jobId')!=live['jobId']:checkpoint({'jobId':live['jobId']})
                             # The model supervisor observes cancellation and finalizes
                             # artifacts. Don't terminate it before evidence is committed.
                     data.reload()
-                    checkpoint({'jobId':result['job']['id']})
+                    checkpoint({'jobId':result['job']['id'],'observedRemoteSeconds':time.monotonic()-started})
                     return result
             result=run('/data/rapid',id,DistributedStages(),publish,lambda:bool(state.get('unified-cancel:'+id,False)),lock_path='/tmp/unified-'+id+'.lock')
             publish(result);return result

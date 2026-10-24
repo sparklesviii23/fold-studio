@@ -52,8 +52,9 @@ def campaign(value):
     if value['strategy']=='de_novo' and not seen:raise ValueError('De novo design requires a genuine generator branch.')
     if value['strategy']=='site_guided' and not any(g['design'].get('hotspots') for g in value['generators']):raise ValueError('Site-guided design requires explicit observed target hotspots in the generator configuration.')
     if not parents and not seen:raise ValueError('Choose observed parents or genuine generation.')
-    fields(value['workflow'],('redesign','predictors','rosetta','count'),('prediction',))
+    fields(value['workflow'],('redesign','predictors','rosetta','count'),('prediction','diagnosticRejectedParents'))
     flow=value['workflow']
+    if 'diagnosticRejectedParents' in flow and type(flow['diagnosticRejectedParents'])is not bool:raise ValueError('Diagnostic rejected-parent follow-up must be explicit.')
     for key,supported in [('redesign',('proteinmpnn','solublempnn')),('predictors',('esmfold2_fast','esmfold2','af2_multimer'))]:
         engines=flow[key]
         if not isinstance(engines,list) or len(set(engines))!=len(engines) or set(engines)-set(supported):raise ValueError('Unsupported '+key+' engines.')
@@ -71,7 +72,10 @@ def campaign(value):
         rate=b['hourlyEstimateUSD']
         if type(rate)not in(int,float) or not math.isfinite(rate) or not 0<rate<=100:raise ValueError('Invalid stage hourly estimate.')
         if 'gpuMemoryMiB' in b:integer(b['gpuMemoryMiB'],512,200000,'GPU ceiling')
-    fields(value['budget'],('seconds','maxEstimatedUSD'))
+    fields(value['budget'],('seconds','maxEstimatedUSD'),('resourcePricing',))
+    if 'resourcePricing' in value['budget']:
+        from .billing import validate as prices
+        prices(value['budget']['resourcePricing'])
     integer(value['budget']['seconds'],1,7200,'Campaign runtime')
     if type(value['budget']['maxEstimatedUSD'])not in(int,float) or not math.isfinite(value['budget']['maxEstimatedUSD']) or not 0<value['budget']['maxEstimatedUSD']<=1000:raise ValueError('Set a finite campaign estimate allowance.')
     constraints=value.get('constraints',{})

@@ -2,7 +2,7 @@
 def write_prediction(template,proteins,path,binder_chains,target_chains,plddt=None):
     import gemmi
     import numpy as np
-    from bindcraft.protein import ATOM_NAMES
+    from bindcraft.protein import ATOM_NAMES, AMINO_ACIDS, THREE_LETTER_CODE
     source=gemmi.read_structure(str(template));out=gemmi.Structure();model=gemmi.Model('1');offset=0
     for name,protein in proteins.items():
         original=[r for r in source[0][name] if gemmi.find_tabulated_residue(r.name).is_amino_acid()]
@@ -10,7 +10,7 @@ def write_prediction(template,proteins,path,binder_chains,target_chains,plddt=No
         if len(original)!=len(positions):raise ValueError('Prediction residue correspondence differs from original target snapshot.')
         chain=gemmi.Chain(name)
         for index,old in enumerate(original):
-            residue=gemmi.Residue();residue.name=old.name;residue.seqid=old.seqid;residue.label_seq=old.label_seq;residue.het_flag='A'
+            residue=gemmi.Residue();residue.name=THREE_LETTER_CODE[AMINO_ACIDS[int(np.asarray(protein.sequence[index]).argmax())]];residue.seqid=old.seqid;residue.label_seq=old.label_seq;residue.het_flag='A'
             for atom_index,atom_name in enumerate(ATOM_NAMES):
                 if not bool(mask[index,atom_index]):continue
                 atom=gemmi.Atom();atom.name=atom_name;atom.element=gemmi.Element(atom_name[0]);atom.pos=gemmi.Position(*map(float,positions[index,atom_index]));atom.occ=1

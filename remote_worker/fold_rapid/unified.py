@@ -152,6 +152,9 @@ def run(root,id,executor=None,publish=lambda row:None,cancelled=lambda:False,loc
             except ValueError as exc:
                 store.write(row,'FAILED',str(exc));publish(store.status(id));return store.status(id)
         rules=analysis_modules().policy(m['policy']);expires=datetime.datetime.fromisoformat(row['created']).timestamp()+m['budget']['seconds'];executor=executor or LocalStages(root,folder)
+        from . import billing
+        priced='resourcePricing' in m['budget']
+        if priced:row.setdefault('resourceReservationsUSD',billing.base(m))
         def stop_requested():return store.cancelled(id) or cancelled() or time.time()>=expires
         def check():
             if stop_requested():raise Halt('Cancellation requested' if store.cancelled(id) or cancelled() else 'Campaign wall-time allowance exhausted')
@@ -165,9 +168,14 @@ def run(root,id,executor=None,publish=lambda row:None,cancelled=lambda:False,loc
             if remaining<b['seconds']:raise Halt('Insufficient remaining runtime for the next bounded '+engine+' stage')
             cost=b['seconds']/3600*b['hourlyEstimateUSD']
             if row['reservationsUSD']+cost>m['budget']['maxEstimatedUSD']:raise Halt('Insufficient approved estimated-cost allowance for '+engine)
+            resource_cost=billing.reservation(m,engine) if priced else cost
+            if priced and row['resourceReservationsUSD']+resource_cost>m['budget']['maxEstimatedUSD']:raise Halt('Insufficient total GPU/CPU/memory/startup/safety allowance for '+engine)
             stage_id=digest(canonical({'campaign':id,'index':len(row['stages']),'engine':engine,'parent':parent,'manifest':value}).encode())[:32]
             entry={'stageId':stage_id,'engine':engine,'parentCandidate':parent,'state':'RUNNING','manifestSha256':digest(canonical(value).encode()),'reservedUSD':cost,'started':now()}
             row['stages'].append(entry);row['reservationsUSD']+=cost;store.write(row,'RUNNING','Dispatching '+engine);publish(store.status(id))
+            if priced:
+                entry['resourceReservationUSD']=resource_cost;row['resourceReservationsUSD']+=resource_cost
+                store.write(row)
             def checkpoint(data):entry.update(data);update('Saved '+engine+' execution identity')
             try:
                 response=executor(entry,value,checkpoint,stop_requested);entry.update(state='STAGE_COMPLETE' if response['job']['state'] in ('completed','no_qualified_candidates') else 'FAILED',result=response['job'].get('result'),jobState=response['job']['state'],error=response['job'].get('error'),finished=now())
@@ -229,9 +237,16 @@ def run(root,id,executor=None,publish=lambda row:None,cancelled=lambda:False,loc
                 e=generator['engine'];b=m['stageBudgets'][e]
                 value=manifest({'schemaVersion':1,'engine':e,'operation':'design','target':m['target'],'design':generator['design'],'settings':generator.get('settings',{}),'biology':generator.get('biology',{}),'parentCandidates':[p['id'] for p in generator.get('biology',{}).get('parents',[])],'seed':m['seed'],'budget':{'seconds':b['seconds']},'mode':'reference'})
                 records,path=stage(e,value)
+                diagnostic=[]
                 for record in records:
-                    if record['outcome'] in ('accepted','passed_upstream_filters') and record.get('coordinates'):originals.append(node_from_record(record,path,None,'CREATE'))
-                    else:row['events'].append({'operation':'REJECT','nativeCandidateId':record['candidateId'],'reason':record['outcome'],'time':now()})
+                    if record.get('coordinates'):
+                        generated=node_from_record(record,path,None,'CREATE')
+                        if record['outcome'] in ('accepted','passed_upstream_filters'):originals.append(generated)
+                        else:diagnostic.append(generated)
+                    if record['outcome'] not in ('accepted','passed_upstream_filters'):row['events'].append({'operation':'REJECT','nativeCandidateId':record['candidateId'],'reason':record['outcome'],'time':now()})
+                if m['workflow'].get('diagnosticRejectedParents') and not any(c['generator']==e for c in originals):
+                    originals.extend(diagnostic[:generator['design']['count']])
+                    if diagnostic:row['events'].append({'operation':'DIAGNOSTIC_FOLLOWUP','reason':'Rejected generator output remains rejected; explicit downstream computational diagnostics only.','time':now()})
             frontier=originals;all_selections=[]
             for round_index in range(rules['rounds']):
                 row['round']=round_index+1;branches=list(frontier)
