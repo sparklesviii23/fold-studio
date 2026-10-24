@@ -35,8 +35,8 @@ def dispatch(s,action,p):
                 except (ProcessLookupError,KeyError):raise ValueError('Previous deployment outcome is uncertain; inspect its remote application before explicitly updating again.')
         release=prepare_release(folder/'source',rapid_remote.artifact()[0]);(folder/'configuration.json').write_text(json.dumps(cfg))
         env={k:v for k,v in os.environ.items() if k not in ('PYTHONPATH','PYTHONHOME')}
-        from provider_credentials import environment
-        env.update(environment());env.update(PYTHONDONTWRITEBYTECODE='1',PYTHONUNBUFFERED='1')
+        from cloud_accounts import environment
+        env.update(environment(s));env.update(PYTHONDONTWRITEBYTECODE='1',PYTHONUNBUFFERED='1')
         value={'state':'queued','started':time.time(),'appName':cfg['appName'],'maximumApprovedUSD':p['maxApprovedUSD'],'gpuStarted':False,'modelDownloads':False,'scientificCloudQualified':False,'sourceManifestSha256':__import__('hashlib').sha256((release/'release.json').read_bytes()).hexdigest()}
         write(path,value)
         with (folder/'deployment.log').open('ab') as log:

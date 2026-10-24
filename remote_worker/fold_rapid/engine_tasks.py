@@ -61,7 +61,10 @@ def main():
         names={ch:'binder_'+str(design.index(ch)) if ch in design else 'target_'+ch for ch in proteins}
         reverse={v:k for k,v in names.items()}
         inputs={names[ch]:p.replace(flags=jnp.full(len(p),int(ResidueFlags.DESIGN) if ch in design else int(ResidueFlags.TEMPLATE),dtype=jnp.uint8)) for ch,p in proteins.items()}
-        models=('model_2_multimer_v3','model_4_multimer_v3')
+        af2=biology.get('af2',{})
+        models=tuple(af2.get('models',('model_2_multimer_v3','model_4_multimer_v3')))
+        design_pool=af2.get('gradientDesignModels',[])
+        if set(models)&set(design_pool):raise ValueError('Evaluation overlaps the recorded gradient design pool.')
         model=AlphaFoldDesignModel(presets=models,data_dir=alphafold_parameters(download=False),key=jax.random.PRNGKey(m['seed']),num_recycle=3,dropout=False)
         rows=[]
         for name in models:
@@ -76,7 +79,7 @@ def main():
             np.savez_compressed(out/(name+'-metrics.npz'),**arrays)
             rows.append({'model':name,'metrics':{k:float(v) for k,v in arrays.items() if v.ndim==0},'arrayMetricsArtifact':name+'-metrics.npz','plddtMean':float(arrays['plddt'].mean()) if 'plddt' in arrays else None})
             jax.clear_caches()
-        (out/'evaluation.json').write_text(canonical({'predictions':rows,'recycles':3,'independent':'Held-out models2/4 within AF2 family; not independent experimental validation.'}))
+        (out/'evaluation.json').write_text(canonical({'predictions':rows,'recycles':3,'evaluationModels':models,'gradientDesignModels':design_pool,'heldOutFromGradientDesign':bool(design_pool) and not bool(set(models)&set(design_pool)),'independent':'Disjoint AF2 models within a correlated family; not experimental validation.' if design_pool else 'Gradient model exposure unknown; diagnostic AF2 evaluation, held-out status unverified.'}))
     else:raise ValueError('Unsupported scientific task.')
 
 if __name__=='__main__':main()

@@ -51,8 +51,12 @@ def attach(app,cfg,image,data,state,model_volume):
                 if not state.put(key,{'state':'claimed'},skip_if_exists=True):raise ValueError('Stage already claimed. Reconcile its committed outputs; never replay automatically.')
                 original=Store.event
                 def event(self,id,value):
-                    original(self,id,value)
+                    envelope=original(self,id,value)
+                    envelope.update(campaignId=campaign_id,stageId=stage['stageId'],engine=engine)
                     state[key]={'state':self.get(id)['state'],'jobId':id,'lastEvent':value}
+                    if value.get('kind')!='engine_log':
+                        print('RAPID_EVENT '+canonical(envelope),flush=True)
+                    return envelope
                 Store.event=event
                 def checkpoint(value):state[key]={**value,'state':'running'}
                 try:
@@ -82,7 +86,18 @@ def attach(app,cfg,image,data,state,model_volume):
         try:
             data.reload();model_volume.reload();store=CampaignStore('/data/rapid');submitted=store.submit(value,key,True);id=submitted['campaignId']
             state['unified-request:'+key]=submitted
-            def publish(row):data.commit();state['unified:'+id]=row
+            published_candidates=set()
+            def publish(row):
+                data.commit()
+                for candidate_id in row.get('candidateIds',[]):
+                    if candidate_id in published_candidates:continue
+                    node=__import__('json').loads((store.folder(id)/'candidates'/(candidate_id+'.json')).read_text())
+                    # Small immutable previews are available during later stages.
+                    # Large structures remain in committed Volume artifacts.
+                    if len(canonical(node).encode())<=8*1024**2:
+                        state['unified-candidate:'+id+':'+candidate_id]=node
+                    published_candidates.add(candidate_id)
+                state['unified:'+id]=row
             if not submitted['created']:
                 return store.status(id)  # reconnect never restarts a claimed campaign
             publish(store.status(id))

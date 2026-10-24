@@ -25,7 +25,10 @@ def read(s):
 def dispatch(s,action,p):
     s.project(p['projectId'])
     import biology_providers as providers
-    if action=='biology_modal_auth_status':return {**read(s),'sdk':providers.status(s)}
+    if action=='biology_modal_auth_status':
+        from cloud_accounts import register_login
+        register_login(s,read(s))
+        return {**read(s),'sdk':providers.status(s)}
     if action=='biology_modal_connection_test':
         if not os.environ.get('FOLD_PROVIDER_CHILD'):return providers.rpc(s,action,p)
         import modal
@@ -35,16 +38,23 @@ def dispatch(s,action,p):
         return {'authenticated':True,'gpuStarted':False,'scientificCloudQualified':False,'deploymentChecked':False}
     if action=='biology_modal_auth_start':
         if p.get('approvedBrowserLogin') is not True:raise ValueError('Approve opening official Modal login and saving the resulting credentials in macOS Keychain.')
+        from cloud_accounts import get,name
+        new_profile=bool(p.get('profileName'))
+        profile_name=name(p['profileName']) if new_profile else None
+        if new_profile and not get(s).get('activeId') and providers.status(s).get('credentialsConfigured'):raise ValueError('Save the connected account first so existing campaigns keep their credential owner.')
+        if get(s).get('activeId') and not new_profile:raise ValueError('Use Add Account to preserve the active saved account.')
         from biology_modal import table
         table(s)
         safe={'prepared','COMPLETED','PARTIALLY_COMPLETE','FAILED','CANCELLED','finished','completed','failed','cancelled','rejected','no_qualified_candidates','interrupted','deadline_exceeded'}
-        if any(json.loads(r['data']).get('state') not in safe for r in s.rows('SELECT data FROM biology_modal_jobs')):
+        if not new_profile and any(json.loads(r['data']).get('state') not in safe for r in s.rows('SELECT data FROM biology_modal_jobs')):
             raise ValueError('Refresh and finish or cancel outstanding Modal requests before replacing account credentials. Their account must remain available for monitoring and cancellation.')
         python=providers.interpreter(s)
         if not python or not providers.status(s)['installed']:raise ValueError('The pinned provider SDK is required.')
         old=read(s)
         if old.get('state')=='waiting_for_browser' and time.time()-old.get('started',0)<600:return old
-        path=state_path(s);row={'state':'waiting_for_browser','started':time.time(),'credentialStorage':'macOS Keychain','gpuStarted':False};path.write_text(json.dumps(row))
+        path=state_path(s);row={'state':'waiting_for_browser','started':time.time(),'credentialStorage':'macOS Keychain','gpuStarted':False};
+        if new_profile:row.update(profileId=__import__('uuid').uuid4().hex,profileName=profile_name)
+        path.write_text(json.dumps(row))
         subprocess.Popen([sys.executable,'-B',str(pathlib.Path(__file__).resolve()),'--login',str(path),str(python)],stdin=subprocess.DEVNULL,stdout=subprocess.DEVNULL,stderr=subprocess.DEVNULL,start_new_session=True,close_fds=True)
         return row
     raise ValueError('Unsupported Modal account action.')
@@ -63,7 +73,10 @@ def login(path,python):
             profile=tomllib.loads(config.read_text()).get('foldstudio',{})
             if not profile.get('token_id') or not profile.get('token_secret'):raise ValueError('Official SDK did not return a complete token pair.')
             from provider_credentials import access
-            access('modal-token-id',profile['token_id']);access('modal-token-secret',profile['token_secret'])
+            if row.get('profileId'):
+                from cloud_accounts import slot
+                access(slot(row['profileId'],'id'),profile['token_id']);access(slot(row['profileId'],'secret'),profile['token_secret'])
+            else:access('modal-token-id',profile['token_id']);access('modal-token-secret',profile['token_secret'])
             row.update(state='connected',temporaryCredentialFileRemoved=True)
     except Exception:
         row.update(state='failed',reason='Login did not complete or Keychain refused storage. Retry official browser login; credentials are never returned.')

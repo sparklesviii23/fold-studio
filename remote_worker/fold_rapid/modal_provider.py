@@ -20,7 +20,8 @@ def configuration(value):
     if value.get('imageRecipe') not in (None,RECIPE):raise ValueError('Unknown reviewed cloud image recipe.')
     value={**value,'imageDigest':value.get('imageDigest') or (BASE if value.get('imageRecipe')==RECIPE else '')}
     if not isinstance(value['imageDigest'],str) or not re.fullmatch('[A-Za-z0-9./:_-]+@sha256:[a-f0-9]{64}',value['imageDigest']):raise ValueError('Use a version-pinned existing RAPID CUDA image digest, not a mutable tag.')
-    if value['gpu'] not in ('T4','L4','A10','L40S','A100','A100-40GB','A100-80GB','H100','H200','B200'):raise ValueError('Unsupported Modal GPU selection; availability is provider dependent.')
+    if value['gpu'] not in ('T4','L4','A10','L40S','A100','A100-40GB','A100-80GB','H100','H200','B200','B300','RTX-PRO-6000'):raise ValueError('Unsupported Modal GPU selection; availability is provider dependent.')
+    if value.get('imageRecipe') and value['gpu']=='B300':raise ValueError('This GPU requires a different validated scientific runtime; the current CUDA 13.0.2 recipe is incompatible.')
     integer(value['maxSeconds'],60,7200,'Maximum execution seconds')
     rate=value['hourlyEstimateUSD']
     if type(rate)not in(int,float) or not math.isfinite(rate) or not 0<rate<=100:raise ValueError('Supply a reviewed hourly GPU estimate; CPU, memory, storage and network charges are additional.')

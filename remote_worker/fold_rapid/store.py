@@ -55,7 +55,13 @@ CREATE TABLE IF NOT EXISTS events(seq INTEGER PRIMARY KEY AUTOINCREMENT, job TEX
         with self.db() as db:rows=db.execute('SELECT id,state,created,updated,error FROM jobs ORDER BY created DESC LIMIT 100').fetchall()
         return [dict(row) for row in rows]
     def event(self,id,value):
-        with self.db() as db:db.execute('INSERT INTO events(job,time,data) VALUES(?,?,?)',(identifier(id),now(),canonical(value)))
+        stamp=now()
+        with self.db() as db:
+            cursor=db.execute('INSERT INTO events(job,time,data) VALUES(?,?,?)',(identifier(id),stamp,canonical(value))).lastrowid
+        from .events import normalize
+        event=normalize(value,stage=id,cursor=cursor,timestamp=stamp)
+        from .events import append
+        return append(self.folder(id)/'events.jsonl',event)
     def events(self,id,after=None):
         self.get(id)
         if after is not None and (type(after) is not int or after<0):raise ValueError('Invalid event cursor.')

@@ -90,7 +90,7 @@ def manifest(value):
         'bindcraft2':{'parents','sequences','constraints'},
         'proteinmpnn':{'parents','sequences','constraints'},
         'solublempnn':{'parents','sequences','constraints'},
-        'af2_multimer':{'parents','sequences'},
+        'af2_multimer':{'parents','sequences','af2'},
         'esmfold2':{'parents','sequences','prediction','chemistry'},
         'esmfold2_fast':{'parents','sequences','prediction','chemistry'},
         'rosetta':{'parents','sequences','relax'},

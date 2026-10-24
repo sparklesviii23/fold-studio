@@ -81,7 +81,7 @@ def collect(job, manifest, provenance):
     output=job/'output';rows=[]
     engine=manifest['engine']
     if engine=='bindcraft2':
-        tables=sorted(output.glob('**/!_Refolded.csv'))+sorted(output.glob('**/!_Trajectories.csv'))
+        tables=sorted(output.glob('**/!_Ranked.csv'))+sorted(output.glob('**/!_Refolded.csv'))+sorted(output.glob('**/!_Trajectories.csv'))
         for table in tables:
             with table.open(newline='') as f:
                 for row in csv.DictReader(f):
@@ -89,7 +89,11 @@ def collect(job, manifest, provenance):
                     structure=next((p for p in output.rglob(row['design']+'.cif') if p.is_file() and not p.is_symlink()),None)
                     if structure is None:
                         structure=next((p for p in output.rglob(row['design']+'_trajectory.cif') if p.is_file() and not p.is_symlink()),None)
-                    if row.get('terminated'):
+                    if table.name=='!_Ranked.csv':
+                        row={**row,'outcome':'accepted','upstreamStage':'ranked','acceptanceScope':'Original upstream ranked computational prediction; not experimental or full-engine qualification.'}
+                    elif table.name=='!_Refolded.csv' and row.get('outcome')=='passed':
+                        row={**row,'upstreamOutcome':'passed','outcome':'passed_upstream_filters','upstreamStage':'refolded'}
+                    elif row.get('terminated'):
                         row={**row,'outcome':'rejected','failed_filters':row['terminated'],'coordinateStatus':'Incomplete upstream optimization; inspect trajectory and independently refold any diagnostic sequence.'}
                     rows.append((row,structure,'design','Binder_Sequence'))
     elif engine=='boltzgen':
@@ -128,6 +132,10 @@ def collect(job, manifest, provenance):
     elif engine=='rfdiffusion':
         from .scaffolding import collect as scaffold_collect
         rows=scaffold_collect(job,manifest)
+    exposure={}
+    if engine=='bindcraft2' and (output/'campaign_metadata.json').is_file():
+        receipt=json.loads((output/'campaign_metadata.json').read_text());resolved=receipt.get('resolved',{})
+        exposure={'gradientDesignModels':resolved.get('design_models',[]),'validationModels':resolved.get('validation_models',[]),'sourceArtifact':'output/campaign_metadata.json','sourceSha256':digest((output/'campaign_metadata.json').read_bytes())}
     candidates=[];seen=set()
     for row,path,id_key,seq_key in rows:
         raw=path.read_bytes() if path else None
@@ -147,6 +155,9 @@ def collect(job, manifest, provenance):
         sequence=row.get(seq_key,'')
         if not sequence and mapping and roles.get('binder'):
             sequence='/'.join(mapping['chains'][c]['sequence'] for c in roles['binder'] if c in mapping['chains'])
+        if engine=='bindcraft2' and row.get('upstreamStage')=='ranked':
+            if not mapping or not roles.get('binder') or not roles.get('target') or sequence!='/'.join(mapping['chains'][ch]['sequence'] for ch in roles['binder']):
+                raise ValueError('Original ranked acceptance needs matching coordinates, source chain roles and sequence; acceptance cannot be inferred from a table alone.')
         key=digest(canonical({'runId':provenance.get('jobId'),'manifestSha256':provenance.get('manifestSha256'),'targetSha256':manifest['target']['sha256'],'engine':engine,'row':row,'coordinate':digest(raw) if raw else None}).encode())
         if key in seen:continue
         seen.add(key)
@@ -154,6 +165,7 @@ def collect(job, manifest, provenance):
         outcome=row.get('outcome','passed_upstream_filters' if flags and all(flags.values()) else 'rejected' if flags else 'unclassified')
         record={'schemaVersion':1,'candidateId':key,'generator':engine,'upstreamId':row.get(id_key),'parentCandidates':manifest.get('parentCandidates',[]), 'binderSequence':sequence or None,'binderLength':len(sequence.replace('/','')) if sequence else None,'target':{'sha256':manifest['target']['sha256'],'chains':manifest['target']['chains'],'mappingArtifact':'target-mapping.json'},'coordinates':{'artifact':str(path.relative_to(job)),'sha256':digest(raw),'mapping':mapping,'chainRoles':roles} if raw else None,'metrics':row,'metricNamespace':engine,'outcome':outcome,'rejectionReasons':row.get('failed_filters',','.join(k for k,v in flags.items() if not v)),'seed':manifest['seed'],'provenance':provenance,'independentEvaluationHistory':[row] if engine=='af2_multimer' else [],'sequenceRedesignHistory':[row] if engine=='proteinmpnn' else [],'biologicalValidation':'Not experimentally validated; predictions do not establish binding or inhibition.'}
         record['sequenceScreen']={'canonical':bool(sequence) and set(sequence.replace('/',''))<=set('ACDEFGHIKLMNPQRSTVWY'),'scope':'Sequence identity check only; no binding prediction.'}
+        if exposure:record['af2ModelExposure']=exposure
         dest=job/'candidates'/f'{key}.json';dest.parent.mkdir(exist_ok=True)
         if dest.exists() and dest.read_text()!=canonical(record):raise ValueError('Immutable candidate identity conflict.')
         dest.write_text(canonical(record));candidates.append(record)

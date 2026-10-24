@@ -24,6 +24,9 @@ import biology_pipeline
 import biology_evidence
 import biology_agent
 import cloud_deployment
+import cloud_shell
+import cloud_accounts
+import cloud_monitor
 import cloud_audit
 import execution_policy
 import modal_account
@@ -556,6 +559,9 @@ class Service:
         return True
     def dispatch(self,action,p):
         if action not in ACTIONS: raise ValueError('Unsupported scientific action.')
+        if action in cloud_shell.ACTIONS:return cloud_shell.dispatch(self,action,p)
+        if action in cloud_accounts.ACTIONS:return cloud_accounts.dispatch(self,action,p)
+        if action in cloud_monitor.ACTIONS:return cloud_monitor.dispatch(self,action,p)
         if action in cloud_audit.ACTIONS:return cloud_audit.dispatch(self,action,p)
         if action in cloud_deployment.ACTIONS:return cloud_deployment.dispatch(self,action,p)
         if action in execution_policy.ACTIONS:return execution_policy.dispatch(self,action,p)
@@ -584,7 +590,7 @@ class Service:
 
 ACTIONS={'record_update','record_remove','record_restore','library','setting_set','project_create','project_update','project_delete','record_save','sequence_save','mutate','fasta_parse','fasta_import','uniprot_search','uniprot_get','structures','structure_download','import_structure','asset_read','compute','install_engine','prediction_start','prediction_resources','job_read','job_cancel','cloud_prepare','cloud_opened','cloud_import','export_project','export_file','reconcile'}
 
-ACTIONS |= cloud_audit.ACTIONS | cloud_deployment.ACTIONS | execution_policy.ACTIONS | modal_account.ACTIONS | peptide_chemistry.ACTIONS | biology_modal.ACTIONS | biology_agent.ACTIONS | biology_evidence.ACTIONS | biology_pipeline.ACTIONS | boltz_api_adapter.ACTIONS | evolution.ACTIONS | research.ACTIONS | cinema.ACTIONS | rapid_remote.ACTIONS | cloud_compute.ACTIONS | dynamics.ACTIONS | ligand.ACTIONS | mpnn.ACTIONS | fold_engine.ACTIONS | OBSERVATORY_ACTIONS | PEPTIDE_ACTIONS | molecular_graph.ACTIONS | intelligence.ACTIONS
+ACTIONS |= cloud_shell.ACTIONS | cloud_accounts.ACTIONS | cloud_monitor.ACTIONS | cloud_audit.ACTIONS | cloud_deployment.ACTIONS | execution_policy.ACTIONS | modal_account.ACTIONS | peptide_chemistry.ACTIONS | biology_modal.ACTIONS | biology_agent.ACTIONS | biology_evidence.ACTIONS | biology_pipeline.ACTIONS | boltz_api_adapter.ACTIONS | evolution.ACTIONS | research.ACTIONS | cinema.ACTIONS | rapid_remote.ACTIONS | cloud_compute.ACTIONS | dynamics.ACTIONS | ligand.ACTIONS | mpnn.ACTIONS | fold_engine.ACTIONS | OBSERVATORY_ACTIONS | PEPTIDE_ACTIONS | molecular_graph.ACTIONS | intelligence.ACTIONS
 
 def execute_job(service,id):
     job=service.job(id); p=job['data']; folder=service.root/'jobs'/id

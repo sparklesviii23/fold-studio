@@ -28,6 +28,10 @@ def table(s):s.db.execute('CREATE TABLE IF NOT EXISTS biology_modal_jobs(id TEXT
 
 
 def save(s,row):
+    if 'accountId' not in row:
+        from cloud_accounts import get
+        previous=s.db.execute('SELECT data FROM biology_modal_jobs WHERE id=?',(row['id'],)).fetchone()
+        row['accountId']=json.loads(previous[0]).get('accountId') if previous else get(s).get('activeId')
     with s.db:s.db.execute('INSERT OR REPLACE INTO biology_modal_jobs VALUES(?,?,?,?)',(row['id'],row['projectId'],ev.canonical(row),row['created']))
     return row
 
@@ -116,7 +120,7 @@ def dispatch(s,action,p):
         return {'configuration':cfg,'deployed':False,'gpuStarted':False}
     if action=='biology_modal_status':return {'configuration':s.setting('biologyModal'),'sdk':biology_providers.status(s),'gpuQualified':False,'authentication':'Official Modal credentials or macOS Keychain; account access is verified only by a requested operation.'}
     if action=='biology_modal_jobs':return [public(json.loads(row['data'])) for row in s.rows('SELECT data FROM biology_modal_jobs WHERE project_id=? ORDER BY created DESC',(p['projectId'],))]
-    cfg=profile(s)
+    cfg=read(s,p)['configuration'] if p.get('id') else profile(s)
     if action=='biology_unified_prepare':return prepare_unified(s,p)
     if action=='biology_modal_prepare':
         from intelligence import Lab

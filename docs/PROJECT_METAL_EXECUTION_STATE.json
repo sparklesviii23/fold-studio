@@ -1,13 +1,13 @@
 {
   "schemaVersion": 1,
-  "updatedUtc": "2026-10-24T11:40:06.621256+00:00",
+  "updatedUtc": "2026-10-24T18:09:04.925778+00:00",
   "branch": "project-cloud/rapid-standalone-engine",
-  "implementationCommit": "e7d8f5c",
-  "scope": "Genuine A10080GB generation completed with original rejection; downstream startup failure retained; next campaign requires new approval.",
+  "implementationCommit": "20622e1",
+  "scope": "Cloud Compute 5 presentation and reliability work; real rank-1 upstream peptide retained, additional AF2 evaluation incomplete; no new paid run authorized.",
   "upstreamRevision": "c0ee638d11bc010817c2c97ee58ed5c323e664e2",
   "verified": {
-    "backendTests": 629,
-    "frontendTests": 100,
+    "backendTests": 642,
+    "frontendTests": 104,
     "typescript": "passed",
     "corePipeline": "Real 175-residue hPDL1 ensemble design + ProteinMPNN + held-out AF2 + original filters; one accepted computational prediction, no biological claim.",
     "campaignRecovery": "Actual CPU cancellation at claimed trajectory 2; original budget continues with rows 1,3,4 and no accepted designs.",
@@ -318,28 +318,31 @@
     "postSetupInventoryPassed": true
   },
   "nextCloudGPURequest": {
-    "id": "b01380abcc88401e8c933f308c826bbd",
-    "state": "first_campaign_finished_cancelled_new_campaign_requires_new_allowance",
-    "maxAllowanceUSD": 6,
-    "review": "reports/first-cloud-gpu-workload-review.json"
+    "id": "5f913abcad8247e99671915900e5cb03",
+    "state": "submitted_from_native_UI",
+    "gpu": "A100-80GB",
+    "maxAllowanceUSD": 6
   },
   "userPause": {
     "paused": false,
     "resumedBy": "Explicit complete scientific cloud validation directive, authorizing one 6 USD initial experiment"
   },
   "activeCloudQualification": {
-    "requestId": "b01380abcc88401e8c933f308c826bbd",
-    "callId": "fc-01M5PS7NGHXPZ9N38MPBSVDFT3",
-    "state": "CANCELLED",
+    "requestId": "5f913abcad8247e99671915900e5cb03",
+    "campaignId": "9c99e7870a19bd621c67ccf7bc8aefa1",
+    "callId": "fc-01M5PW7CY3CGNXC7KMAZGKE0NS",
+    "state": "PARTIALLY_COMPLETE",
     "maximumIntendedUSD": 6,
     "maximumWallSeconds": 5400,
-    "authorizationAttachment": "be3140d7-0879-4bc0-930b-bf52aa6fa777",
-    "preparedManifestSha256": "1ffbe7fef93c5412285ae0550356c89ef46652a105b77bf92fef81df1eb96fb1",
+    "approvedCPUDeploymentUSD": 1,
+    "maximumCombinedAuthorizationUSD": 7,
+    "authorization": "Explicit approval this turn: Approve this campaign up to7USD total",
     "projectId": "0e985c2f-7583-4634-a416-c525790da308",
+    "sourceCommit": "20622e1",
     "noAdditionalPaidCampaigns": true,
-    "campaignId": "06ea1581738361f2fe2ebd21146c4dd1",
+    "preserveRunningCampaign": false,
     "writerLeaseReleased": true,
-    "resultReport": "reports/cloud-qualification-result.json"
+    "newPaidRunRequiresApproval": true
   },
   "firstCloudScientificCampaign": {
     "schemaVersion": 1,
@@ -454,5 +457,35 @@
       "approved": false,
       "reason": "The earlier allowance covered one campaign; another paid GPU campaign needs a fresh reviewed allowance. Startup mitigation and fail-fast circuit breaker are tested offline, not yet GPU qualified."
     }
+  },
+  "secondCloudScientificCampaign": {
+    "campaignId": "9c99e7870a19bd621c67ccf7bc8aefa1",
+    "state": "PARTIALLY_COMPLETE",
+    "upstreamRank1Sequence": "DPDLERIRSGEWMAEVQAAL",
+    "upstreamIPTM": 0.9,
+    "upstreamPLDDT": 0.91,
+    "upstreamDesignModels": [
+      1,
+      3,
+      4
+    ],
+    "upstreamValidationModels": [
+      2,
+      5
+    ],
+    "additionalRedesignStagesCompleted": 4,
+    "additionalAF2": "One model2 prediction; second model unfinished when 480-second stage deadline elapsed. No complete additional ensemble.",
+    "qualifiedCandidates": [],
+    "providerReportedUSD": null,
+    "newPaidRunStarted": false,
+    "libraryRankedStructureId": "d4818abf-6d91-4414-b2b3-296d2e40311e",
+    "evidencePackage": "../validation/bindcraft-fab-amme-native/cloud-qualification/9c99e7870a19bd621c67ccf7bc8aefa1"
+  },
+  "cloudCompute5": {
+    "localImplementation": "Guarded app installed and native readback verified; final layout packaging in progress.",
+    "remoteDeployment": "Staged source only; deployed service remains20622e1. No deployment or GPU spend authorized by the new directives.",
+    "completeDirective": false,
+    "realNewScientificQualification": false,
+    "details": "docs/CLOUD_COMPUTE_5_IMPLEMENTATION.md"
   }
 }

@@ -10,7 +10,15 @@ BIO_ENGINES={'esmfold2_fast':'evaluate','esmfold2':'evaluate','solublempnn':'red
 
 
 def validate(value, mapping=None):
-    fields(value,(),('parents','sequences','constraints','prediction','motif','chemistry','relax'))
+    fields(value,(),('parents','sequences','constraints','prediction','motif','chemistry','relax','af2'))
+    if 'af2' in value:
+        options=value['af2'];fields(options,('models','gradientDesignModels'))
+        pool={f'model_{i}_multimer_v3' for i in range(1,6)}
+        for key in ('models','gradientDesignModels'):
+            names=options[key]
+            if not isinstance(names,list) or len(names)!=len(set(names)) or set(names)-pool:raise ValueError('Use distinct explicit AF2 multimer model identities.')
+        if len(options['models'])!=2:raise ValueError('This AF2 evaluation protocol requires two explicit models.')
+        if set(options['models'])&set(options['gradientDesignModels']):raise ValueError('AF2 evaluation overlaps the recorded gradient design pool.')
     parents=value.get('parents',[])
     if not isinstance(parents,list) or len(parents)>26:raise ValueError('Supply at most 26 explicit parents.')
     ids=[]

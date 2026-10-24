@@ -1,0 +1,103 @@
+{
+  "recordedUtc": "2026-10-24T11:54:05.753038+00:00",
+  "sourceCommit": "20622e1",
+  "backendTests": 630,
+  "frontendTests": 100,
+  "typescript": "passed",
+  "packagedNativeReviewTest": "passed with synthetic disposable fixture; no upload/GPU",
+  "nativeGUIReview": "passed on actual preserved ANGPTL3/8 saved reference",
+  "preparedRequestId": "5f913abcad8247e99671915900e5cb03",
+  "manifestSha256": "8ddcf13c201c8a38a7f68d9f90ef96b3560f449eb2d05920aa5cff0c4cb1b915",
+  "configuration": {
+    "appName": "fold-rapid-cloud-engine",
+    "gpu": "A100-80GB",
+    "hourlyEstimateUSD": 2.4984,
+    "imageDigest": "nvidia/cuda:13.0.2-runtime-ubuntu24.04@sha256:6a0e31b59e70890446f2c17356d6efc0d54260090a8c63d6ca7c2ad049db95d2",
+    "imageRecipe": "rapid-cuda13-core-v1",
+    "maxSeconds": 7200,
+    "modelVolumeName": "fold-rapid-cloud-engine-models",
+    "setupMaxSeconds": 900,
+    "stateName": "fold-rapid-cloud-engine-state",
+    "volumeName": "fold-rapid-cloud-engine-data",
+    "workerCPUs": 2,
+    "workerMemoryMiB": 65536
+  },
+  "resourceEstimate": {
+    "allowanceUSD": 6,
+    "billingScope": "Reviewed stage runtime rates only; CPU orchestrator, cold starts, memory, storage and network add charges. Provider workspace budget required for billing protection.",
+    "externalAPIIncluded": false,
+    "gpu": "A100-80GB",
+    "imageDigest": "nvidia/cuda:13.0.2-runtime-ubuntu24.04@sha256:6a0e31b59e70890446f2c17356d6efc0d54260090a8c63d6ca7c2ad049db95d2",
+    "policy": "Sequential modular workers; warm execution requires measured qualification.",
+    "scientificGPUValidated": false,
+    "stages": [
+      {
+        "engine": "bindcraft2",
+        "estimatedUSD": 0.6246,
+        "maximumCalls": 1,
+        "secondsPerCall": 900
+      },
+      {
+        "engine": "proteinmpnn",
+        "estimatedUSD": 0.24984000000000003,
+        "maximumCalls": 2,
+        "secondsPerCall": 180
+      },
+      {
+        "engine": "solublempnn",
+        "estimatedUSD": 0.24984000000000003,
+        "maximumCalls": 2,
+        "secondsPerCall": 180
+      },
+      {
+        "engine": "af2_multimer",
+        "estimatedUSD": 1.9987200000000003,
+        "maximumCalls": 6,
+        "secondsPerCall": 480
+      }
+    ],
+    "totalResources": {
+      "allowanceUSD": 6,
+      "expectedResourceReservationUSD": 5.3680568,
+      "fixedCoordinatorStorageSafetyUSD": 0.9186920000000001,
+      "method": "Reviewed requested/hard-limit CPU, memory and GPU rates; full stage runtimes, startup reserves, coordinator ceiling, storage/control and safety margin. Elapsed estimates are not provider billing.",
+      "pricing": {
+        "cpuCoreSecondUSD": 1.31e-05,
+        "gpuSecondUSD": 0.0006940000000000001,
+        "memoryGiBSecondUSD": 2.22e-06,
+        "safetyUSD": 0.6,
+        "startupSecondsPerStage": 60,
+        "storageAndControlUSD": 0.2,
+        "workerCPUs": 2,
+        "workerMemoryGiB": 64
+      },
+      "providerReportedUSD": null,
+      "withinAllowance": true
+    },
+    "upperReservationUSD": 3.123,
+    "workerCPUs": 2,
+    "workerHostMemoryMiB": 65536
+  },
+  "seed": 43,
+  "targetSha256": "3e7ad918b6ec96f5234f993cd97a4836f3aebd59b20b41158fcfaede7492a0f0",
+  "authorization": {
+    "approvedTotalUSD": 7,
+    "CPUDeploymentMaximumUSD": 1,
+    "campaignIntendedAllowanceUSD": 6,
+    "scope": "One further A10080GB campaign, user explicitly approved this turn",
+    "providerBillingCap": false
+  },
+  "knownLimitations": [
+    "Named multi-account profiles absent; reconnect current account only while idle",
+    "Initial cloud supervisor failed later CUDA preflights; updated same-process startup mitigation needs real GPU verification",
+    "No joint end-to-end differentiability or scientific qualification claim",
+    "Original first generated20mer retained as rejected"
+  ],
+  "submittedFromNativeGUI": true,
+  "campaignId": "9c99e7870a19bd621c67ccf7bc8aefa1",
+  "callId": "fc-01M5PW7CY3CGNXC7KMAZGKE0NS",
+  "nativeLiveProgressVerified": true,
+  "stopButtonVisible": true,
+  "sourceDeploymentVerified": true,
+  "sourceDeploymentManifestSha256": "125af8b09d303b5c0114a7f6e8ee0e3ddc8dbe6feb235c9cb0f2826e262b8397"
+}

@@ -60,6 +60,9 @@ class CampaignStore:
             if state not in STATES:raise ValueError('Unknown campaign state.')
             row['state']=state
         row['updated']=now();row['revision']+=1
+        if message:
+            from .events import append,normalize
+            append(self.folder(row['campaignId'])/'blackbox.jsonl',normalize({'message':message,'kind':row['state']},campaign=row['campaignId'],cursor=row['revision'],timestamp=row['updated']))
         if message:row['events'].append({'cursor':row['revision'],'time':row['updated'],'state':row['state'],'message':message})
         atomic(self.folder(row['campaignId'])/'campaign.json',row)
     def cancel(self,id):
@@ -133,6 +136,13 @@ def model_manifest(row,node,engine):
     if engine in ('proteinmpnn','solublempnn'):
         biology['constraints']={ch:m.get('constraints',{}).get(ch,{'mutable':list(range(1,len(node['sequences'][ch])+1))}) for ch in node['binderChains']}
     if engine.startswith('esmfold2'):biology['prediction']=flow.get('prediction',{})
+    if engine=='af2_multimer':
+        exposure=node.get('af2ModelExposure',{});design=exposure.get('gradientDesignModels',[])
+        # Seed-dependent upstream pools must be carried through descendants.
+        # Unknown legacy exposure remains a labelled diagnostic, never inferred
+        # to be held out simply because the evaluator names models2/4.
+        models=exposure.get('validationModels') or ['model_2_multimer_v3','model_4_multimer_v3']
+        biology['af2']={'models':models,'gradientDesignModels':design}
     if engine=='rosetta':biology['relax']={'repeats':1}
     budget={'seconds':b['seconds']}
     if 'gpuMemoryMiB' in b:budget['gpuMemoryMiB']=b['gpuMemoryMiB']
@@ -219,7 +229,7 @@ def run(root,id,executor=None,publish=lambda row:None,cancelled=lambda:False,loc
             if parent:
                 for ch in binders:
                     mutations.extend({'chain':ch,'position':i,'from':a,'to':b} for i,(a,b) in enumerate(zip(parent['sequences'][ch],sequences[ch]),1) if a!=b)
-            return store.add_candidate(row,{'sequences':sequences,'binderChains':binders,'targetChains':targets,'coordinates':coords,'backboneReference':backbone,'parents':[parent['candidateId']] if parent else [],'operation':operation,'generator':record['generator'],'nativeCandidate':record,'sourceJobFolder':str(pathlib.Path(job_folder).relative_to(folder)),'mutationHistory':mutations,'conditionedFamilies':sorted(set(parent['conditionedFamilies']+[FAMILIES[record['generator']]])) if parent and operation=='GRADIENT_REFINE' else parent['conditionedFamilies'] if parent else [FAMILIES.get(record['generator'],record['generator'])],'seed':m['seed'],'structureStatus':'fresh_prediction' if operation=='REFOLD' else 'derived_relaxation' if operation=='RELAX' else 'sequence_requires_refold' if not coords else 'generator_output'},operation)
+            return store.add_candidate(row,{'sequences':sequences,'binderChains':binders,'targetChains':targets,'coordinates':coords,'backboneReference':backbone,'parents':[parent['candidateId']] if parent else [],'operation':operation,'generator':record['generator'],'nativeCandidate':record,'af2ModelExposure':record.get('af2ModelExposure') or (parent or {}).get('af2ModelExposure',{}),'sourceJobFolder':str(pathlib.Path(job_folder).relative_to(folder)),'mutationHistory':mutations,'conditionedFamilies':sorted(set(parent['conditionedFamilies']+[FAMILIES[record['generator']]])) if parent and operation=='GRADIENT_REFINE' else parent['conditionedFamilies'] if parent else [FAMILIES.get(record['generator'],record['generator'])],'seed':m['seed'],'structureStatus':'fresh_prediction' if operation=='REFOLD' else 'derived_relaxation' if operation=='RELAX' else 'sequence_requires_refold' if not coords else 'generator_output'},operation)
         def assess(prediction,reference):
             mi=analysis_modules().mi
             raw=base64.b64decode(prediction['coordinates']['contentBase64']);structure=mi.parse_structure(raw.decode(),prediction['coordinates']['format'])
@@ -244,14 +254,19 @@ def run(root,id,executor=None,publish=lambda row:None,cancelled=lambda:False,loc
                 e=generator['engine'];b=m['stageBudgets'][e]
                 value=manifest({'schemaVersion':1,'engine':e,'operation':'design','target':m['target'],'design':generator['design'],'settings':generator.get('settings',{}),'biology':generator.get('biology',{}),'parentCandidates':[p['id'] for p in generator.get('biology',{}).get('parents',[])],'seed':m['seed'],'budget':{'seconds':b['seconds']},'mode':'reference'})
                 records,path=stage(e,value)
-                diagnostic=[]
+                diagnostic=[];eligible=[]
                 for record in records:
                     if record.get('coordinates'):
                         generated=node_from_record(record,path,None,'CREATE')
-                        if record['outcome'] in ('accepted','passed_upstream_filters'):originals.append(generated)
+                        if record['outcome'] in ('accepted','passed_upstream_filters'):eligible.append(generated)
                         else:diagnostic.append(generated)
                     if record['outcome'] not in ('accepted','passed_upstream_filters'):row['events'].append({'operation':'REJECT','nativeCandidateId':record['candidateId'],'reason':record['outcome'],'time':now()})
-                if m['workflow'].get('diagnosticRejectedParents') and not any(c['generator']==e for c in originals):
+                # Original protocols may retain many passing refolds while
+                # selecting fewer ranked winners. Retain all immutable nodes,
+                # but respect the generator count used in reviewed stage costs.
+                eligible.sort(key=lambda c:(c['nativeCandidate']['outcome']!='accepted',float(c['nativeCandidate'].get('metrics',{}).get('rank') or 1e9)))
+                originals.extend(eligible[:generator['design']['count']])
+                if m['workflow'].get('diagnosticRejectedParents') and not eligible:
                     originals.extend(diagnostic[:generator['design']['count']])
                     if diagnostic:row['events'].append({'operation':'DIAGNOSTIC_FOLLOWUP','reason':'Rejected generator output remains rejected; explicit downstream computational diagnostics only.','time':now()})
             frontier=originals;all_selections=[];feedback_context={}

@@ -59,7 +59,7 @@ def execute(root,id):
         result=db.execute("UPDATE jobs SET runner_pid=?,updated=? WHERE id=? AND runner_pid IS NULL",(os.getpid(),now(),id))
         if result.rowcount!=1:return
     limit=deadline_seconds(manifest);submitted=__import__('datetime').datetime.fromisoformat(job['created']).timestamp()
-    expires=submitted+limit;started=time.monotonic();state='failed';error=None;peak=None
+    expires=submitted+limit;started=time.monotonic();state='failed';error=None;peak=None;device_peak=None;host_peak=None
     lease=(store.root/'accelerator.lock').open('a+')
     def interrupted():
         if store.get(id)['state']=='cancel_requested':return 'cancelled'
@@ -96,30 +96,49 @@ def execute(root,id):
             child=subprocess.Popen(command,stdin=subprocess.DEVNULL,stdout=log,stderr=subprocess.STDOUT,env=env,cwd=folder,start_new_session=True,pass_fds=(lease.fileno(),))
             with store.db() as db:db.execute("UPDATE jobs SET state='running',updated=? WHERE id=?",(now(),id))
             store.event(id,{'kind':'started','childPid':child.pid,'command':prepared['command'],'sourceRevision':prepared.get('sourceRevision')})
-            state=None;offset=0;last_sample=0;startup=time.monotonic()
+            state=None;offset=0;last_sample=0;startup=time.monotonic();pending=b''
+            def forward(final=False):
+                nonlocal offset,pending
+                from .events import redact
+                with (folder/'execution.log').open('rb') as source:
+                    source.seek(offset);block=source.read(262144);offset=source.tell()
+                pending+=block
+                lines=pending.split(b'\n');pending=lines.pop()
+                if final and pending:lines.append(pending);pending=b''
+                # Preserve every line, including final output after the child exits.
+                for raw in lines:
+                    line=raw.decode(errors='replace')
+                    store.event(id,{**parse_progress(line),'message':line,'rawReference':'execution.log','source':'stdout_stderr'})
+                    print(redact(line),flush=True)  # Official FunctionCall logs include the scientific child.
+                return bool(block)
             while child.poll() is None:
                 state=interrupted()
                 if cuda and not (folder/'cuda-probe.json').is_file() and time.monotonic()-startup>=120:
                     state='failed';error='CUDA startup exceeded 120 seconds; supervised process stopped. No remaining campaign stages should be launched.'
                 if time.monotonic()-last_sample>=2:
+                    from .telemetry import sample
+                    observed=sample(child.pid)
+                    device_used=(observed.get('device') or {}).get('usedMiB')
+                    if device_used is not None:device_peak=max(device_peak or 0,device_used)
+                    if observed['processRSSMiB'] is not None:host_peak=max(host_peak or 0,observed['processRSSMiB'])
                     usage=gpu_usage();owned=owned_processes(child.pid)&set(usage);used=sum(usage[pid] for pid in owned) if owned else None
                     if used is not None:peak=max(peak or 0,used)
                     last_sample=time.monotonic()
                     ceiling=manifest['budget'].get('gpuMemoryMiB')
                     if ceiling and used is not None and used>ceiling:state='failed';error='Measured GPU allocation exceeded the task ceiling; outputs retained.'
-                    with (folder/'execution.log').open('rb') as source:
-                        source.seek(offset);block=source.read(32000);offset=source.tell()
-                    for line in block.decode(errors='replace').splitlines()[-20:]:store.event(id,parse_progress(line))
-                    store.event(id,{'kind':'resources','peakObservedChildGPU_MiB':peak,'childGPUAttributionAvailable':used is not None,'elapsedSeconds':time.monotonic()-started,'remainingSeconds':max(0,expires-time.time())})
+                    forward()
+                    store.event(id,{'kind':'resources','observation':observed,'peakObservedDeviceGPU_MiB':device_peak,'peakObservedHostRSS_MiB':host_peak,'peakObservedChildGPU_MiB':peak,'childGPUAttributionAvailable':used is not None,'elapsedSeconds':time.monotonic()-started,'remainingSeconds':max(0,expires-time.time())})
                 if state:stop(child);break
                 time.sleep(.15)
+        while forward():pass
+        forward(final=True)
         if state is None and child.returncode!=0:state='failed';error=f'Upstream process exited with code {child.returncode}; inspect execution.log.'
         if cuda:
             receipt=folder/'cuda-probe.json'
             reading=json.loads(receipt.read_text()) if receipt.is_file() else {'passed':False,'reason':error or 'No completed numerical receipt.'}
             provenance.update(cudaProbe=reading,cudaNumericalProbePassed=reading.get('passed') is True)
             if not provenance['cudaNumericalProbePassed'] and state is None:state='failed';error='CUDA numerical check failed before model execution; inspect execution.log.'
-        provenance.update(wallSeconds=time.monotonic()-started,peakObservedChildGPU_MiB=peak,childGPUAttributionAvailable=peak is not None,exitCode=child.returncode)
+        provenance.update(peakObservedDeviceGPU_MiB=device_peak,peakObservedHostRSS_MiB=host_peak,gpuMemoryScopes='Device total and owned-process attribution are separate; unknown attribution remains null.',wallSeconds=time.monotonic()-started,peakObservedChildGPU_MiB=peak,childGPUAttributionAvailable=peak is not None,exitCode=child.returncode)
         (folder/'provenance.json').write_text(canonical(provenance))
         # Preserve partial/rejected outputs without upgrading their acceptance.
         candidates=collect(folder,manifest,provenance)
@@ -128,6 +147,9 @@ def execute(root,id):
             else:state='completed' if any(c['outcome'] in ('accepted','passed_upstream_filters') for c in candidates) else 'no_qualified_candidates'
         result={'candidates':len(candidates),'accepted':sum(c['outcome']=='accepted' for c in candidates),'passedUpstreamFilters':sum(c['outcome']=='passed_upstream_filters' for c in candidates),'wallSeconds':time.monotonic()-started,'peakObservedChildGPU_MiB':peak,'exactStepResume':False,'scientificCUDAQualified':False}
         (folder/'result.json').write_text(canonical(result))
+        from .watchdog import diagnose
+        tail=(folder/'execution.log').read_bytes()[-65536:].decode(errors='replace')
+        (folder/'watchdog.json').write_text(canonical(diagnose(state,error or '',tail,provenance.get('cudaProbe'))))
         package(folder)
         store.finish(id,state,error,result)
     except BaseException as exc:

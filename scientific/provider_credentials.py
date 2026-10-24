@@ -1,6 +1,7 @@
 """Provider secrets in macOS Keychain, never project files, argv or reports."""
 import ctypes as c
 import sys
+import re
 
 SERVICE=b'org.foldstudio.scientific-providers'
 ACCOUNTS={'boltz-api-key','modal-token-id','modal-token-secret'}
@@ -17,7 +18,7 @@ def libraries():
 
 
 def access(account,value=None,remove=False):
-    if account not in ACCOUNTS:raise ValueError('Unknown provider credential slot.')
+    if account not in ACCOUNTS and not re.fullmatch(r'modal-[a-f0-9]{32}-token-(id|secret)',str(account)):raise ValueError('Unknown provider credential slot.')
     sec,cf=libraries();name=account.encode();length=c.c_uint32();data=c.c_void_p();item=c.c_void_p()
     status=sec.SecKeychainFindGenericPassword(None,len(SERVICE),SERVICE,len(name),name,c.byref(length),c.byref(data),c.byref(item))
     try:
