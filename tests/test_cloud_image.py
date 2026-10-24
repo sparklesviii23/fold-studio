@@ -22,5 +22,15 @@ class CloudImageTests(unittest.TestCase):
     def test_durable_resources_hydrated_before_function_serialization(self):
         order=[];app=Mock();resource=Mock();resource.hydrate.side_effect=lambda:order.append('hydrate');app._fold_resources=(resource,);app.deploy.side_effect=lambda:order.append('deploy')
         deploy_app(app);self.assertEqual(order,['hydrate','deploy'])
+    def test_deployment_cannot_replace_an_active_cloud_worker(self):
+        app=Mock();state=Mock();app._fold_resources=(state,);state.put.return_value=False
+        with self.assertRaisesRegex(ValueError,'active campaign/setup'):deploy_app(app)
+        app.deploy.assert_not_called();state.pop.assert_not_called()
+    def test_failed_deployment_releases_only_its_own_claim(self):
+        app=Mock();state=Mock();app._fold_resources=(state,);saved={}
+        state.put.side_effect=lambda key,value,**kwargs:saved.setdefault(key,value) is value
+        state.get.side_effect=saved.get;app.deploy.side_effect=RuntimeError('Synthetic deployment failure')
+        with self.assertRaises(RuntimeError):deploy_app(app)
+        state.pop.assert_called_once_with('writer-lease')
 
 if __name__=='__main__':unittest.main()

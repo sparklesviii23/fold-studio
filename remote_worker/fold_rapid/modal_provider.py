@@ -154,6 +154,11 @@ def submit(config,value,key,approved,maximum_estimate):
 
 
 def deploy_app(app):
-    """Hydrate closure-owned durable objects before serialized function upload."""
+    """Protect active scientific storage while uploading a new deployment."""
     for resource in app._fold_resources:resource.hydrate()
-    return app.deploy()
+    state=app._fold_resources[0]
+    token={'kind':'deployment','request':__import__('uuid').uuid4().hex}
+    if not state.put('writer-lease',token,skip_if_exists=True):raise ValueError('An active campaign/setup owns this cloud app. Wait for it to finish before updating; no worker was cancelled.')
+    try:return app.deploy()
+    finally:
+        if state.get('writer-lease')==token:state.pop('writer-lease')
