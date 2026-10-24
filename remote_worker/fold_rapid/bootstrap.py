@@ -2,6 +2,7 @@
 import json
 import os
 import pathlib
+import signal
 import subprocess
 import sys
 import time
@@ -11,6 +12,18 @@ from .execution import require_cloud
 
 PLAN='bindcraft-dual-mpnn-af2'
 STEPS=(('runtime','bindcraft2'),('runtime','boltzgen'),('models','bindcraft2'),('models','solublempnn'))
+
+
+def execute(command,output,timeout):
+    child=subprocess.Popen(command,stdout=output,stderr=subprocess.STDOUT,stdin=subprocess.DEVNULL,env={**os.environ,'PYTHONDONTWRITEBYTECODE':'1'},start_new_session=True)
+    try:return child.wait(timeout=timeout)
+    except subprocess.TimeoutExpired:
+        # pip/build subprocesses inherit this group; don't commit storage while
+        # a surviving installer still writes to it after its supervisor exits.
+        try:os.killpg(child.pid,signal.SIGKILL)
+        except ProcessLookupError:pass
+        child.wait()
+        raise
 
 
 def describe(plan):
@@ -32,13 +45,13 @@ def run(root,plan,key,approved=False,publish=lambda row:None):
             command=[sys.executable,'-B','-m','fold_rapid.install' if kind=='runtime' else 'fold_rapid.models','--root',str(root),'--engine',engine,'--approve']
             log=folder/(kind+'-'+engine+'.log')
             try:
-                with log.open('ab') as output:result=subprocess.run(command,stdout=output,stderr=subprocess.STDOUT,stdin=subprocess.DEVNULL,env={**os.environ,'PYTHONDONTWRITEBYTECODE':'1'},timeout=max(1,deadline-time.monotonic()))
+                with log.open('ab') as output:exit_code=execute(command,output,timeout=max(1,deadline-time.monotonic()))
             except subprocess.TimeoutExpired:
                 entry.update(state='failed',error='Reviewed CPU setup time allowance exhausted.',finished=time.time(),logArtifact=str(log.relative_to(root)))
                 raise ValueError('CPU setup time allowance exhausted; partial cache and logs retained. No automatic retry.') from None
-            entry.update(state='installed' if result.returncode==0 else 'failed',exitCode=result.returncode,finished=time.time(),logArtifact=str(log.relative_to(root)))
+            entry.update(state='installed' if exit_code==0 else 'failed',exitCode=exit_code,finished=time.time(),logArtifact=str(log.relative_to(root)))
             atomic(path,row);publish(row)
-            if result.returncode:raise ValueError('Remote '+kind+' setup failed for '+engine+'; log and partial cache retained. No automatic retry.')
+            if exit_code:raise ValueError('Remote '+kind+' setup failed for '+engine+'; log and partial cache retained. No automatic retry.')
         from .registry import inventory
         row.update(state='models_cached_gpu_validation_pending',inventory=inventory(root),finished=time.time())
     except Exception as exc:row.update(state='failed',error=str(exc)[:2000],finished=time.time(),automaticRetry=False)
