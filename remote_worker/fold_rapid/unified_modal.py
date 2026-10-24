@@ -10,7 +10,7 @@ from .unified_contract import campaign,estimate,OPERATIONS
 from .contracts import digest,canonical
 
 
-def cost(value,cfg):
+def cost(value,cfg,*,enforce_allowance=True):
     value=campaign(value)
     if value['budget']['seconds']>cfg['maxSeconds']:raise ValueError('Campaign exceeds the deployed coordinator runtime.')
     for e,b in value['stageBudgets'].items():
@@ -21,7 +21,7 @@ def cost(value,cfg):
     if total:
         p=value['budget']['resourcePricing']
         if not math.isclose(p['gpuSecondUSD']*3600,cfg['hourlyEstimateUSD'],rel_tol=0,abs_tol=1e-9) or p['workerCPUs']!=cfg.get('workerCPUs',2) or p['workerMemoryGiB']*1024!=cfg.get('workerMemoryMiB',65536):raise ValueError('Resource prices must match the deployed GPU/CPU/memory profile.')
-        if not total['withinAllowance']:raise ValueError('Projected total resources and safety reserves exceed the approved allowance.')
+        if enforce_allowance and not total['withinAllowance']:raise ValueError('Projected total resources and safety reserves exceed the approved allowance.')
     return {**reviewed,'totalResources':total,'workerHostMemoryMiB':cfg.get('workerMemoryMiB',65536),'workerCPUs':cfg.get('workerCPUs',2),'gpu':cfg['gpu'],'imageDigest':cfg['imageDigest'],'scientificGPUValidated':False}
 
 

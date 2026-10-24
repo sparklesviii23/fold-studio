@@ -97,7 +97,7 @@ def prepare_unified(s,p):
     if 'resourcePricing' in p:budget['resourcePricing']=p['resourcePricing']
     value=campaign({'schemaVersion':1,'kind':'unified','execution':{'mode':'cloud','provider':'modal','localFallback':False},'strategy':p['strategy'],'target':{'format':fmt,'contentBase64':base64.b64encode(raw).decode(),'sha256':record['data']['sha256'],'chains':targets,'label':record['name']},'parents':parents,'generators':generators,'workflow':p['workflow'],'stageBudgets':{e:{'seconds':limits.get(e,p['stageSeconds']),'hourlyEstimateUSD':cfg['hourlyEstimateUSD']} for e in engines},'budget':budget,'seed':p['seed'],'policy':p.get('policy',{}),'constraints':p.get('constraints',{})})
     from fold_rapid.unified_modal import cost
-    quote=cost(value,cfg)
+    quote=cost(value,cfg,enforce_allowance=False)
     row={'id':uuid.uuid4().hex,'kind':'unified','projectId':p['projectId'],'state':'prepared','configuration':cfg,'manifest':value,'manifestSha256':ev.sha(value),'estimate':quote,'blockers':blockers(value),'idempotencyKey':uuid.uuid4().hex,'created':research.utc(),'sourceRecordId':record['id']}
     return public(save(s,row))
 

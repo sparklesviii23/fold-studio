@@ -139,6 +139,18 @@ class NativeUnifiedTests(unittest.TestCase):
         self.assertEqual(out['manifest']['stageBudgets']['af2_multimer']['seconds'],10)
         self.assertGreater(out['estimate']['totalResources']['expectedResourceReservationUSD'],out['estimate']['upperReservationUSD'])
         self.assertIsNone(out['estimate']['totalResources']['providerReportedUSD'])
+    def test_review_over_allowance_is_local_but_dispatch_quote_still_enforces_it(self):
+        import biology_modal
+        from fold_rapid.unified_modal import cost
+        prices={'gpuSecondUSD':1/3600,'cpuCoreSecondUSD':.0000131,'memoryGiBSecondUSD':.00000222,'workerCPUs':2,'workerMemoryGiB':64,'startupSecondsPerStage':60,'safetyUSD':.6,'storageAndControlUSD':.2}
+        out=self.prepared(maxEstimatedUSD=.01,resourcePricing=prices)
+        self.assertEqual(out['state'],'prepared')
+        self.assertFalse(out['estimate']['totalResources']['withinAllowance'])
+        self.assertNotIn('callId',out)
+        stored=biology_modal.read(self.s,{'projectId':self.project,'id':out['id']})
+        with self.assertRaisesRegex(ValueError,'exceed the approved allowance'):
+            cost(stored['manifest'],stored['configuration'])
+
     def test_account_replacement_refused_while_another_request_is_uncertain(self):
         import biology_modal
         out=self.prepared();stored=biology_modal.read(self.s,{'projectId':self.project,'id':out['id']});stored['state']='submission_uncertain';biology_modal.save(self.s,stored)
