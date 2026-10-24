@@ -139,6 +139,16 @@ class NativeUnifiedTests(unittest.TestCase):
         self.assertEqual(out['manifest']['stageBudgets']['af2_multimer']['seconds'],10)
         self.assertGreater(out['estimate']['totalResources']['expectedResourceReservationUSD'],out['estimate']['upperReservationUSD'])
         self.assertIsNone(out['estimate']['totalResources']['providerReportedUSD'])
+    def test_review_uses_saved_hardware_when_form_has_unsaved_profile(self):
+        prices={'gpuSecondUSD':99/3600,'cpuCoreSecondUSD':.0000131,'memoryGiBSecondUSD':.00000222,'workerCPUs':16,'workerMemoryGiB':256,'startupSecondsPerStage':60,'safetyUSD':.6,'storageAndControlUSD':.2}
+        out=self.prepared(maxEstimatedUSD=2,resourcePricing=prices)
+        saved=out['manifest']['budget']['resourcePricing']
+        self.assertEqual(saved['gpuSecondUSD'],1/3600)
+        self.assertEqual(saved['workerCPUs'],2)
+        self.assertEqual(saved['workerMemoryGiB'],64)
+        self.assertEqual(out['estimate']['gpu'],'A10')
+        self.assertEqual(prices['workerCPUs'],16)
+
     def test_review_over_allowance_is_local_but_dispatch_quote_still_enforces_it(self):
         import biology_modal
         from fold_rapid.unified_modal import cost

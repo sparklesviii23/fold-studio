@@ -94,7 +94,14 @@ def prepare_unified(s,p):
     limits=p.get('stageLimitsSeconds',{})
     if not isinstance(limits,dict) or set(limits)-engines:raise ValueError('Runtime limits must refer to selected engines.')
     budget={'seconds':p['seconds'],'maxEstimatedUSD':p['maxEstimatedUSD']}
-    if 'resourcePricing' in p:budget['resourcePricing']=p['resourcePricing']
+    if 'resourcePricing' in p:
+        # Review and execution share the saved deployment's hardware and GPU rate.
+        # Unsaved UI selections must not supply a contradictory billing profile.
+        budget['resourcePricing']={**p['resourcePricing'],
+            'gpuSecondUSD':cfg['hourlyEstimateUSD']/3600,
+            'workerCPUs':cfg.get('workerCPUs',2),
+            'workerMemoryGiB':cfg.get('workerMemoryMiB',65536)/1024}
+
     value=campaign({'schemaVersion':1,'kind':'unified','execution':{'mode':'cloud','provider':'modal','localFallback':False},'strategy':p['strategy'],'target':{'format':fmt,'contentBase64':base64.b64encode(raw).decode(),'sha256':record['data']['sha256'],'chains':targets,'label':record['name']},'parents':parents,'generators':generators,'workflow':p['workflow'],'stageBudgets':{e:{'seconds':limits.get(e,p['stageSeconds']),'hourlyEstimateUSD':cfg['hourlyEstimateUSD']} for e in engines},'budget':budget,'seed':p['seed'],'policy':p.get('policy',{}),'constraints':p.get('constraints',{})})
     from fold_rapid.unified_modal import cost
     quote=cost(value,cfg,enforce_allowance=False)
