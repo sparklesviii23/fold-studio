@@ -1,0 +1,980 @@
+{
+  "repository": "uzh-dqbm-cmi/PRIDICT",
+  "revision": "247bd6f78da5762aa336f1cd8f69194aa8489a03",
+  "license": {
+    "key": "mit",
+    "name": "MIT License",
+    "spdx_id": "MIT",
+    "url": "https://api.github.com/licenses/mit",
+    "node_id": "MDc6TGljZW5zZTEz"
+  },
+  "tree": [
+    {
+      "path": ".gitattributes",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "8c6439594418451844af0cba6b22da97e2d6ac8f",
+      "size": 31,
+      "url": "https://api.github.com/repos/uzh-dqbm-cmi/PRIDICT/git/blobs/8c6439594418451844af0cba6b22da97e2d6ac8f"
+    },
+    {
+      "path": ".gitignore",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "f361ad21ffae38f989ed29b662ce5e10dd5b0ad7",
+      "size": 1836,
+      "url": "https://api.github.com/repos/uzh-dqbm-cmi/PRIDICT/git/blobs/f361ad21ffae38f989ed29b662ce5e10dd5b0ad7"
+    },
+    {
+      "path": "DeepCas9_Final",
+      "mode": "040000",
+      "type": "tree",
+      "sha": "b70eb6a6f3633ce349755ff25f551ea84f6fa4e3",
+      "url": "https://api.github.com/repos/uzh-dqbm-cmi/PRIDICT/git/trees/b70eb6a6f3633ce349755ff25f551ea84f6fa4e3"
+    },
+    {
+      "path": "DeepCas9_Final/PreTrain-Final-False-3-5-7-100-70-40-0.001-550-True-80-60.data-00000-of-00001",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "b318018761b71802091ada0891be1c0fce84f673",
+      "size": 2785580,
+      "url": "https://api.github.com/repos/uzh-dqbm-cmi/PRIDICT/git/blobs/b318018761b71802091ada0891be1c0fce84f673"
+    },
+    {
+      "path": "DeepCas9_Final/PreTrain-Final-False-3-5-7-100-70-40-0.001-550-True-80-60.index",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "4229f0b59969c16e5f455fac82304ece54b9eef0",
+      "size": 1365,
+      "url": "https://api.github.com/repos/uzh-dqbm-cmi/PRIDICT/git/blobs/4229f0b59969c16e5f455fac82304ece54b9eef0"
+    },
+    {
+      "path": "DeepCas9_Final/PreTrain-Final-False-3-5-7-100-70-40-0.001-550-True-80-60.meta",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "5c375182ecc647512f518f176b3b937de62d2c1b",
+      "size": 114817,
+      "url": "https://api.github.com/repos/uzh-dqbm-cmi/PRIDICT/git/blobs/5c375182ecc647512f518f176b3b937de62d2c1b"
+    },
+    {
+      "path": "DeepCas9_TestCode.py",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "44aef26dd0cff2b7382007f5fcfdc456dec514a4",
+      "size": 9749,
+      "url": "https://api.github.com/repos/uzh-dqbm-cmi/PRIDICT/git/blobs/44aef26dd0cff2b7382007f5fcfdc456dec514a4"
+    },
+    {
+      "path": "LICENSE",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "f8c29842c2f877b6c98215012e804269add7c217",
+      "size": 1101,
+      "url": "https://api.github.com/repos/uzh-dqbm-cmi/PRIDICT/git/blobs/f8c29842c2f877b6c98215012e804269add7c217"
+    },
+    {
+      "path": "README.md",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "21247afdb994cddab3f5faa12c5b97c40bbfab0d",
+      "size": 6346,
+      "url": "https://api.github.com/repos/uzh-dqbm-cmi/PRIDICT/git/blobs/21247afdb994cddab3f5faa12c5b97c40bbfab0d"
+    },
+    {
+      "path": "input",
+      "mode": "040000",
+      "type": "tree",
+      "sha": "ee3db5be8c776b29fec16fb3596ddfc9e076cc9e",
+      "url": "https://api.github.com/repos/uzh-dqbm-cmi/PRIDICT/git/trees/ee3db5be8c776b29fec16fb3596ddfc9e076cc9e"
+    },
+    {
+      "path": "input/batch_example_file.csv",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "6d72b8a4aca602e462232ea778a51ddb6a547a77",
+      "size": 916,
+      "url": "https://api.github.com/repos/uzh-dqbm-cmi/PRIDICT/git/blobs/6d72b8a4aca602e462232ea778a51ddb6a547a77"
+    },
+    {
+      "path": "notebooks",
+      "mode": "040000",
+      "type": "tree",
+      "sha": "c3008392f8a5682a5ecd84f1676a7399b72010fe",
+      "url": "https://api.github.com/repos/uzh-dqbm-cmi/PRIDICT/git/trees/c3008392f8a5682a5ecd84f1676a7399b72010fe"
+    },
+    {
+      "path": "notebooks/Prieml_outcomedistrib_trained_schwank_predict_hyongbum.ipynb",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "95cd8601e92b415c3b09c6851f71b09d8083ebc6",
+      "size": 154575,
+      "url": "https://api.github.com/repos/uzh-dqbm-cmi/PRIDICT/git/blobs/95cd8601e92b415c3b09c6851f71b09d8083ebc6"
+    },
+    {
+      "path": "predictions",
+      "mode": "040000",
+      "type": "tree",
+      "sha": "5ad10fa461c7c8bfa416f3bc4cddcf0240d800d2",
+      "url": "https://api.github.com/repos/uzh-dqbm-cmi/PRIDICT/git/trees/5ad10fa461c7c8bfa416f3bc4cddcf0240d800d2"
+    },
+    {
+      "path": "predictions/predictions_stored_here.txt",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "e69de29bb2d1d6434b8b29ae775ad8c2e48c5391",
+      "size": 0,
+      "url": "https://api.github.com/repos/uzh-dqbm-cmi/PRIDICT/git/blobs/e69de29bb2d1d6434b8b29ae775ad8c2e48c5391"
+    },
+    {
+      "path": "pridict_linux.yml",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "ff57fb52d1779a7993a9c7ab4cf2b5ca0a235b46",
+      "size": 458,
+      "url": "https://api.github.com/repos/uzh-dqbm-cmi/PRIDICT/git/blobs/ff57fb52d1779a7993a9c7ab4cf2b5ca0a235b46"
+    },
+    {
+      "path": "pridict_logo.png",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "bbfadb7dece05d2745423e2f1493d808ed52a593",
+      "size": 9194,
+      "url": "https://api.github.com/repos/uzh-dqbm-cmi/PRIDICT/git/blobs/bbfadb7dece05d2745423e2f1493d808ed52a593"
+    },
+    {
+      "path": "pridict_mac.yml",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "18b7f93c0aa82deb231e476fe6c9be98934a9dbf",
+      "size": 2900,
+      "url": "https://api.github.com/repos/uzh-dqbm-cmi/PRIDICT/git/blobs/18b7f93c0aa82deb231e476fe6c9be98934a9dbf"
+    },
+    {
+      "path": "pridict_pegRNA_design.py",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "2f1a4f87d03bbe89e57eb121d09d9ad911b4007d",
+      "size": 63998,
+      "url": "https://api.github.com/repos/uzh-dqbm-cmi/PRIDICT/git/blobs/2f1a4f87d03bbe89e57eb121d09d9ad911b4007d"
+    },
+    {
+      "path": "prieml",
+      "mode": "040000",
+      "type": "tree",
+      "sha": "05ab599f0a7761e30143935670d40823a0d12d96",
+      "url": "https://api.github.com/repos/uzh-dqbm-cmi/PRIDICT/git/trees/05ab599f0a7761e30143935670d40823a0d12d96"
+    },
+    {
+      "path": "prieml/data_preprocess.py",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "b92dc35888e7b2b41d47a2b27f54b9ac7f314e9d",
+      "size": 18428,
+      "url": "https://api.github.com/repos/uzh-dqbm-cmi/PRIDICT/git/blobs/b92dc35888e7b2b41d47a2b27f54b9ac7f314e9d"
+    },
+    {
+      "path": "prieml/dataset.py",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "b646b7617249427dd2857be7753cffe4aeff5b13",
+      "size": 20366,
+      "url": "https://api.github.com/repos/uzh-dqbm-cmi/PRIDICT/git/blobs/b646b7617249427dd2857be7753cffe4aeff5b13"
+    },
+    {
+      "path": "prieml/feature_importance",
+      "mode": "040000",
+      "type": "tree",
+      "sha": "27c00afb779cdeb6e290e92196b5c24b562a35f9",
+      "url": "https://api.github.com/repos/uzh-dqbm-cmi/PRIDICT/git/trees/27c00afb779cdeb6e290e92196b5c24b562a35f9"
+    },
+    {
+      "path": "prieml/feature_importance/ig_explainer.py",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "209221dc52f53a4414e7bb47df7d9807e176b305",
+      "size": 6297,
+      "url": "https://api.github.com/repos/uzh-dqbm-cmi/PRIDICT/git/blobs/209221dc52f53a4414e7bb47df7d9807e176b305"
+    },
+    {
+      "path": "prieml/feature_importance/seqbaseline_generation.py",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "38a64fac8fd325c4a620b688ad2d09f831fd76a0",
+      "size": 6922,
+      "url": "https://api.github.com/repos/uzh-dqbm-cmi/PRIDICT/git/blobs/38a64fac8fd325c4a620b688ad2d09f831fd76a0"
+    },
+    {
+      "path": "prieml/feature_importance/seqviz.py",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "bf04358f06983b682e777e07f0aa767ed8caa2f4",
+      "size": 20952,
+      "url": "https://api.github.com/repos/uzh-dqbm-cmi/PRIDICT/git/blobs/bf04358f06983b682e777e07f0aa767ed8caa2f4"
+    },
+    {
+      "path": "prieml/hyperparam.py",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "ced9ac0b7e6ed8c1439cb5e47fe0c1ace3e9ba1e",
+      "size": 3683,
+      "url": "https://api.github.com/repos/uzh-dqbm-cmi/PRIDICT/git/blobs/ced9ac0b7e6ed8c1439cb5e47fe0c1ace3e9ba1e"
+    },
+    {
+      "path": "prieml/model.py",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "232fc38bdaac759fcae1f0b5f4f3644f6f1ddfdd",
+      "size": 12105,
+      "url": "https://api.github.com/repos/uzh-dqbm-cmi/PRIDICT/git/blobs/232fc38bdaac759fcae1f0b5f4f3644f6f1ddfdd"
+    },
+    {
+      "path": "prieml/predict.py",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "812a1a22dd4c25fd3408820479e7b8e5c349337a",
+      "size": 38517,
+      "url": "https://api.github.com/repos/uzh-dqbm-cmi/PRIDICT/git/blobs/812a1a22dd4c25fd3408820479e7b8e5c349337a"
+    },
+    {
+      "path": "prieml/predict_outcomedistrib.py",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "0818311269e26dd2274231089ec5669b3df86c3d",
+      "size": 38777,
+      "url": "https://api.github.com/repos/uzh-dqbm-cmi/PRIDICT/git/blobs/0818311269e26dd2274231089ec5669b3df86c3d"
+    },
+    {
+      "path": "prieml/rnn",
+      "mode": "040000",
+      "type": "tree",
+      "sha": "6136555a20f6ad3becdec5819b24dbff4fac34a6",
+      "url": "https://api.github.com/repos/uzh-dqbm-cmi/PRIDICT/git/trees/6136555a20f6ad3becdec5819b24dbff4fac34a6"
+    },
+    {
+      "path": "prieml/rnn/rnn.py",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "de91a48d3e5d45219c0bf45034d86ea76402e8b4",
+      "size": 3885,
+      "url": "https://api.github.com/repos/uzh-dqbm-cmi/PRIDICT/git/blobs/de91a48d3e5d45219c0bf45034d86ea76402e8b4"
+    },
+    {
+      "path": "prieml/utilities.py",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "9b9f10a917be8111579b0a40f4547b40ac49ded5",
+      "size": 8513,
+      "url": "https://api.github.com/repos/uzh-dqbm-cmi/PRIDICT/git/blobs/9b9f10a917be8111579b0a40f4547b40ac49ded5"
+    },
+    {
+      "path": "prieml/viz_resources",
+      "mode": "040000",
+      "type": "tree",
+      "sha": "0678c1d047bf54e4da1a8cbf3b7e1202203c9063",
+      "url": "https://api.github.com/repos/uzh-dqbm-cmi/PRIDICT/git/trees/0678c1d047bf54e4da1a8cbf3b7e1202203c9063"
+    },
+    {
+      "path": "prieml/viz_resources/begin.txt",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "b06f605c08039842f3ee6fc389fdb09b8bee9cf6",
+      "size": 1683,
+      "url": "https://api.github.com/repos/uzh-dqbm-cmi/PRIDICT/git/blobs/b06f605c08039842f3ee6fc389fdb09b8bee9cf6"
+    },
+    {
+      "path": "prieml/viz_resources/end.txt",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "2fff76cf956febc8f7f0baa91b8ad24fc5d534c4",
+      "size": 48,
+      "url": "https://api.github.com/repos/uzh-dqbm-cmi/PRIDICT/git/blobs/2fff76cf956febc8f7f0baa91b8ad24fc5d534c4"
+    },
+    {
+      "path": "prieml/viz_resources/header.txt",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "fd74de1c77cbe1c0bb78093fdd510d207e2cbeb0",
+      "size": 148,
+      "url": "https://api.github.com/repos/uzh-dqbm-cmi/PRIDICT/git/blobs/fd74de1c77cbe1c0bb78093fdd510d207e2cbeb0"
+    },
+    {
+      "path": "prieml/viz_resources/jupcellstyle.css",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "885a686a2ba9a54464b86d79d6123b769faf89f6",
+      "size": 565799,
+      "url": "https://api.github.com/repos/uzh-dqbm-cmi/PRIDICT/git/blobs/885a686a2ba9a54464b86d79d6123b769faf89f6"
+    },
+    {
+      "path": "setup.py",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "7575585bdb85ff1bceb257c221f87eaed8823a07",
+      "size": 469,
+      "url": "https://api.github.com/repos/uzh-dqbm-cmi/PRIDICT/git/blobs/7575585bdb85ff1bceb257c221f87eaed8823a07"
+    },
+    {
+      "path": "trained_models",
+      "mode": "040000",
+      "type": "tree",
+      "sha": "795831618f9c0ad5233c951d9f3545fd3ed0059d",
+      "url": "https://api.github.com/repos/uzh-dqbm-cmi/PRIDICT/git/trees/795831618f9c0ad5233c951d9f3545fd3ed0059d"
+    },
+    {
+      "path": "trained_models/schwank_rnnattn",
+      "mode": "040000",
+      "type": "tree",
+      "sha": "055c97dcac0223b5ead1052e2edf725419d7c721",
+      "url": "https://api.github.com/repos/uzh-dqbm-cmi/PRIDICT/git/trees/055c97dcac0223b5ead1052e2edf725419d7c721"
+    },
+    {
+      "path": "trained_models/schwank_rnnattn/v3",
+      "mode": "040000",
+      "type": "tree",
+      "sha": "bd6118eff4ac28d320ecc48a7ad5f60db43c091e",
+      "url": "https://api.github.com/repos/uzh-dqbm-cmi/PRIDICT/git/trees/bd6118eff4ac28d320ecc48a7ad5f60db43c091e"
+    },
+    {
+      "path": "trained_models/schwank_rnnattn/v3/model_exp_version.rtf",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "05d4ad8efd4be1634d425d15f75c1d8a96aea426",
+      "size": 426,
+      "url": "https://api.github.com/repos/uzh-dqbm-cmi/PRIDICT/git/blobs/05d4ad8efd4be1634d425d15f75c1d8a96aea426"
+    },
+    {
+      "path": "trained_models/schwank_rnnattn/v3/train_val",
+      "mode": "040000",
+      "type": "tree",
+      "sha": "eb39f2dfe228e9b04eeb3c96feb98e885f5e06a3",
+      "url": "https://api.github.com/repos/uzh-dqbm-cmi/PRIDICT/git/trees/eb39f2dfe228e9b04eeb3c96feb98e885f5e06a3"
+    },
+    {
+      "path": "trained_models/schwank_rnnattn/v3/train_val/run_0",
+      "mode": "040000",
+      "type": "tree",
+      "sha": "a883b04150cb33daf6abf1b5f600e50f3f148f35",
+      "url": "https://api.github.com/repos/uzh-dqbm-cmi/PRIDICT/git/trees/a883b04150cb33daf6abf1b5f600e50f3f148f35"
+    },
+    {
+      "path": "trained_models/schwank_rnnattn/v3/train_val/run_0/config",
+      "mode": "040000",
+      "type": "tree",
+      "sha": "fcb9306ee9c87bb6ce52b040245a3d5e505a5ac0",
+      "url": "https://api.github.com/repos/uzh-dqbm-cmi/PRIDICT/git/trees/fcb9306ee9c87bb6ce52b040245a3d5e505a5ac0"
+    },
+    {
+      "path": "trained_models/schwank_rnnattn/v3/train_val/run_0/config/exp_options.pkl",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "d07d0f591f0714f03ec9c26ba6241f011123658d",
+      "size": 288,
+      "url": "https://api.github.com/repos/uzh-dqbm-cmi/PRIDICT/git/blobs/d07d0f591f0714f03ec9c26ba6241f011123658d"
+    },
+    {
+      "path": "trained_models/schwank_rnnattn/v3/train_val/run_0/config/mconfig.pkl",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "d8060d33588107e087c020d298ce16258131f2d4",
+      "size": 627,
+      "url": "https://api.github.com/repos/uzh-dqbm-cmi/PRIDICT/git/blobs/d8060d33588107e087c020d298ce16258131f2d4"
+    },
+    {
+      "path": "trained_models/schwank_rnnattn/v3/train_val/run_0/model_statedict",
+      "mode": "040000",
+      "type": "tree",
+      "sha": "f4838dd6c0e27e352cf39d668082fa997aff13e3",
+      "url": "https://api.github.com/repos/uzh-dqbm-cmi/PRIDICT/git/trees/f4838dd6c0e27e352cf39d668082fa997aff13e3"
+    },
+    {
+      "path": "trained_models/schwank_rnnattn/v3/train_val/run_0/model_statedict/best_epoch.pkl",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "b1ba085db4d6dbf332a82264e404bf5ae4ea5010",
+      "size": 25,
+      "url": "https://api.github.com/repos/uzh-dqbm-cmi/PRIDICT/git/blobs/b1ba085db4d6dbf332a82264e404bf5ae4ea5010"
+    },
+    {
+      "path": "trained_models/schwank_rnnattn/v3/train_val/run_0/model_statedict/decoder.pkl",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "84acec9ee64ecd271b5786f8a61e0a22b0ffa81e",
+      "size": 193033,
+      "url": "https://api.github.com/repos/uzh-dqbm-cmi/PRIDICT/git/blobs/84acec9ee64ecd271b5786f8a61e0a22b0ffa81e"
+    },
+    {
+      "path": "trained_models/schwank_rnnattn/v3/train_val/run_0/model_statedict/global_featemb_init_attn.pkl",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "9ab6b0035e31a8ee3df01a0ad0214da449fb0efe",
+      "size": 1144,
+      "url": "https://api.github.com/repos/uzh-dqbm-cmi/PRIDICT/git/blobs/9ab6b0035e31a8ee3df01a0ad0214da449fb0efe"
+    },
+    {
+      "path": "trained_models/schwank_rnnattn/v3/train_val/run_0/model_statedict/global_featemb_mut_attn.pkl",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "96d7e9829939fea29ef4a16622228666c1fcfe99",
+      "size": 1144,
+      "url": "https://api.github.com/repos/uzh-dqbm-cmi/PRIDICT/git/blobs/96d7e9829939fea29ef4a16622228666c1fcfe99"
+    },
+    {
+      "path": "trained_models/schwank_rnnattn/v3/train_val/run_0/model_statedict/init_annot_embed.pkl",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "3a48bb45e5a413c23cb670b0bda4602ccd18ecad",
+      "size": 4563,
+      "url": "https://api.github.com/repos/uzh-dqbm-cmi/PRIDICT/git/blobs/3a48bb45e5a413c23cb670b0bda4602ccd18ecad"
+    },
+    {
+      "path": "trained_models/schwank_rnnattn/v3/train_val/run_0/model_statedict/init_encoder.pkl",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "cdd69f68affb269a4be51946b0901c7fd8412f00",
+      "size": 2129226,
+      "url": "https://api.github.com/repos/uzh-dqbm-cmi/PRIDICT/git/blobs/cdd69f68affb269a4be51946b0901c7fd8412f00"
+    },
+    {
+      "path": "trained_models/schwank_rnnattn/v3/train_val/run_0/model_statedict/local_featemb_init_attn.pkl",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "edb85807ca78d122106b7bf921243c56fbfc5e2a",
+      "size": 1144,
+      "url": "https://api.github.com/repos/uzh-dqbm-cmi/PRIDICT/git/blobs/edb85807ca78d122106b7bf921243c56fbfc5e2a"
+    },
+    {
+      "path": "trained_models/schwank_rnnattn/v3/train_val/run_0/model_statedict/local_featemb_mut_attn.pkl",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "9b93547900dc7cdea13c1aa19c065fe7557336a6",
+      "size": 1144,
+      "url": "https://api.github.com/repos/uzh-dqbm-cmi/PRIDICT/git/blobs/9b93547900dc7cdea13c1aa19c065fe7557336a6"
+    },
+    {
+      "path": "trained_models/schwank_rnnattn/v3/train_val/run_0/model_statedict/mut_annot_embed.pkl",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "577c4dca99f0c07f34f0e75278067d1adb8a53f1",
+      "size": 4170,
+      "url": "https://api.github.com/repos/uzh-dqbm-cmi/PRIDICT/git/blobs/577c4dca99f0c07f34f0e75278067d1adb8a53f1"
+    },
+    {
+      "path": "trained_models/schwank_rnnattn/v3/train_val/run_0/model_statedict/mut_encoder.pkl",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "7904052935ef3c0503772dab076554dad87478b5",
+      "size": 2104650,
+      "url": "https://api.github.com/repos/uzh-dqbm-cmi/PRIDICT/git/blobs/7904052935ef3c0503772dab076554dad87478b5"
+    },
+    {
+      "path": "trained_models/schwank_rnnattn/v3/train_val/run_0/model_statedict/seqlevel_featembeder.pkl",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "831ccc8ea2adad91c1d0447795cbc0e414e5df67",
+      "size": 53047,
+      "url": "https://api.github.com/repos/uzh-dqbm-cmi/PRIDICT/git/blobs/831ccc8ea2adad91c1d0447795cbc0e414e5df67"
+    },
+    {
+      "path": "trained_models/schwank_rnnattn/v3/train_val/run_1",
+      "mode": "040000",
+      "type": "tree",
+      "sha": "8fd2287baa60a8552bda5a5ce35364633a9bc235",
+      "url": "https://api.github.com/repos/uzh-dqbm-cmi/PRIDICT/git/trees/8fd2287baa60a8552bda5a5ce35364633a9bc235"
+    },
+    {
+      "path": "trained_models/schwank_rnnattn/v3/train_val/run_1/config",
+      "mode": "040000",
+      "type": "tree",
+      "sha": "21eb001543e45c0aa12de13f0e68220a1ef223cb",
+      "url": "https://api.github.com/repos/uzh-dqbm-cmi/PRIDICT/git/trees/21eb001543e45c0aa12de13f0e68220a1ef223cb"
+    },
+    {
+      "path": "trained_models/schwank_rnnattn/v3/train_val/run_1/config/exp_options.pkl",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "5f8a80bcc7d843729de4ba617013c303957a9f5f",
+      "size": 288,
+      "url": "https://api.github.com/repos/uzh-dqbm-cmi/PRIDICT/git/blobs/5f8a80bcc7d843729de4ba617013c303957a9f5f"
+    },
+    {
+      "path": "trained_models/schwank_rnnattn/v3/train_val/run_1/config/mconfig.pkl",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "dfc205c6344753bec13b84887e98eed407830dd5",
+      "size": 627,
+      "url": "https://api.github.com/repos/uzh-dqbm-cmi/PRIDICT/git/blobs/dfc205c6344753bec13b84887e98eed407830dd5"
+    },
+    {
+      "path": "trained_models/schwank_rnnattn/v3/train_val/run_1/model_statedict",
+      "mode": "040000",
+      "type": "tree",
+      "sha": "b0102589ee9f650de1e2a5e087042526a9e9ef39",
+      "url": "https://api.github.com/repos/uzh-dqbm-cmi/PRIDICT/git/trees/b0102589ee9f650de1e2a5e087042526a9e9ef39"
+    },
+    {
+      "path": "trained_models/schwank_rnnattn/v3/train_val/run_1/model_statedict/best_epoch.pkl",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "bb93308efc13f57e1c586a34d89c106dbc98f07a",
+      "size": 25,
+      "url": "https://api.github.com/repos/uzh-dqbm-cmi/PRIDICT/git/blobs/bb93308efc13f57e1c586a34d89c106dbc98f07a"
+    },
+    {
+      "path": "trained_models/schwank_rnnattn/v3/train_val/run_1/model_statedict/decoder.pkl",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "f919f227b595fc96148b4a0406ec1998b017c897",
+      "size": 193033,
+      "url": "https://api.github.com/repos/uzh-dqbm-cmi/PRIDICT/git/blobs/f919f227b595fc96148b4a0406ec1998b017c897"
+    },
+    {
+      "path": "trained_models/schwank_rnnattn/v3/train_val/run_1/model_statedict/global_featemb_init_attn.pkl",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "f125c2d3106f2919b1ae2d609f5cb9708d2ba1e2",
+      "size": 1144,
+      "url": "https://api.github.com/repos/uzh-dqbm-cmi/PRIDICT/git/blobs/f125c2d3106f2919b1ae2d609f5cb9708d2ba1e2"
+    },
+    {
+      "path": "trained_models/schwank_rnnattn/v3/train_val/run_1/model_statedict/global_featemb_mut_attn.pkl",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "4c62947e0519b0cecb53ae27954764552f53ba9d",
+      "size": 1144,
+      "url": "https://api.github.com/repos/uzh-dqbm-cmi/PRIDICT/git/blobs/4c62947e0519b0cecb53ae27954764552f53ba9d"
+    },
+    {
+      "path": "trained_models/schwank_rnnattn/v3/train_val/run_1/model_statedict/init_annot_embed.pkl",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "3df9ef1ac5731293f1380aef728267ba7df60639",
+      "size": 4563,
+      "url": "https://api.github.com/repos/uzh-dqbm-cmi/PRIDICT/git/blobs/3df9ef1ac5731293f1380aef728267ba7df60639"
+    },
+    {
+      "path": "trained_models/schwank_rnnattn/v3/train_val/run_1/model_statedict/init_encoder.pkl",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "2127c3fd75eebeafa90bc8bb752c5e62cbd3bbe0",
+      "size": 2129226,
+      "url": "https://api.github.com/repos/uzh-dqbm-cmi/PRIDICT/git/blobs/2127c3fd75eebeafa90bc8bb752c5e62cbd3bbe0"
+    },
+    {
+      "path": "trained_models/schwank_rnnattn/v3/train_val/run_1/model_statedict/local_featemb_init_attn.pkl",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "eff8e6ce8002af3d29341875244788ef5a378e99",
+      "size": 1144,
+      "url": "https://api.github.com/repos/uzh-dqbm-cmi/PRIDICT/git/blobs/eff8e6ce8002af3d29341875244788ef5a378e99"
+    },
+    {
+      "path": "trained_models/schwank_rnnattn/v3/train_val/run_1/model_statedict/local_featemb_mut_attn.pkl",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "df8a7c6e62a67a5a0a9db5516001104544807b10",
+      "size": 1144,
+      "url": "https://api.github.com/repos/uzh-dqbm-cmi/PRIDICT/git/blobs/df8a7c6e62a67a5a0a9db5516001104544807b10"
+    },
+    {
+      "path": "trained_models/schwank_rnnattn/v3/train_val/run_1/model_statedict/mut_annot_embed.pkl",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "39b47ab463faa27a29d4ba4e75974221b2db0d0d",
+      "size": 4170,
+      "url": "https://api.github.com/repos/uzh-dqbm-cmi/PRIDICT/git/blobs/39b47ab463faa27a29d4ba4e75974221b2db0d0d"
+    },
+    {
+      "path": "trained_models/schwank_rnnattn/v3/train_val/run_1/model_statedict/mut_encoder.pkl",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "2d5c89021c64759f8d219a78dde0989248a3e48b",
+      "size": 2104650,
+      "url": "https://api.github.com/repos/uzh-dqbm-cmi/PRIDICT/git/blobs/2d5c89021c64759f8d219a78dde0989248a3e48b"
+    },
+    {
+      "path": "trained_models/schwank_rnnattn/v3/train_val/run_1/model_statedict/seqlevel_featembeder.pkl",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "42b24c4c9ceb53003885c82d56a5752ef2e7fbab",
+      "size": 53047,
+      "url": "https://api.github.com/repos/uzh-dqbm-cmi/PRIDICT/git/blobs/42b24c4c9ceb53003885c82d56a5752ef2e7fbab"
+    },
+    {
+      "path": "trained_models/schwank_rnnattn/v3/train_val/run_2",
+      "mode": "040000",
+      "type": "tree",
+      "sha": "2163b72b1499a9c18554e70fd0e8067bdd1eb2b3",
+      "url": "https://api.github.com/repos/uzh-dqbm-cmi/PRIDICT/git/trees/2163b72b1499a9c18554e70fd0e8067bdd1eb2b3"
+    },
+    {
+      "path": "trained_models/schwank_rnnattn/v3/train_val/run_2/config",
+      "mode": "040000",
+      "type": "tree",
+      "sha": "e6806445c681875dc3bcd42e85ced991712c6256",
+      "url": "https://api.github.com/repos/uzh-dqbm-cmi/PRIDICT/git/trees/e6806445c681875dc3bcd42e85ced991712c6256"
+    },
+    {
+      "path": "trained_models/schwank_rnnattn/v3/train_val/run_2/config/exp_options.pkl",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "39390fc15ad0d1b0641908f60f245c29cf2d0ba3",
+      "size": 288,
+      "url": "https://api.github.com/repos/uzh-dqbm-cmi/PRIDICT/git/blobs/39390fc15ad0d1b0641908f60f245c29cf2d0ba3"
+    },
+    {
+      "path": "trained_models/schwank_rnnattn/v3/train_val/run_2/config/mconfig.pkl",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "dfc205c6344753bec13b84887e98eed407830dd5",
+      "size": 627,
+      "url": "https://api.github.com/repos/uzh-dqbm-cmi/PRIDICT/git/blobs/dfc205c6344753bec13b84887e98eed407830dd5"
+    },
+    {
+      "path": "trained_models/schwank_rnnattn/v3/train_val/run_2/model_statedict",
+      "mode": "040000",
+      "type": "tree",
+      "sha": "9588296ecf2868956dda1cc804510b365c167264",
+      "url": "https://api.github.com/repos/uzh-dqbm-cmi/PRIDICT/git/trees/9588296ecf2868956dda1cc804510b365c167264"
+    },
+    {
+      "path": "trained_models/schwank_rnnattn/v3/train_val/run_2/model_statedict/best_epoch.pkl",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "63681d781a95a786e3c7004d3df5f89b55b72fc5",
+      "size": 25,
+      "url": "https://api.github.com/repos/uzh-dqbm-cmi/PRIDICT/git/blobs/63681d781a95a786e3c7004d3df5f89b55b72fc5"
+    },
+    {
+      "path": "trained_models/schwank_rnnattn/v3/train_val/run_2/model_statedict/decoder.pkl",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "11a9aea00c4edb543868485b0ba02da77977cc3e",
+      "size": 193033,
+      "url": "https://api.github.com/repos/uzh-dqbm-cmi/PRIDICT/git/blobs/11a9aea00c4edb543868485b0ba02da77977cc3e"
+    },
+    {
+      "path": "trained_models/schwank_rnnattn/v3/train_val/run_2/model_statedict/global_featemb_init_attn.pkl",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "416119aef5890800431c0822de080a827e362548",
+      "size": 1144,
+      "url": "https://api.github.com/repos/uzh-dqbm-cmi/PRIDICT/git/blobs/416119aef5890800431c0822de080a827e362548"
+    },
+    {
+      "path": "trained_models/schwank_rnnattn/v3/train_val/run_2/model_statedict/global_featemb_mut_attn.pkl",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "1061d6dd65034b4b69b933e143f81a5109ebebd7",
+      "size": 1144,
+      "url": "https://api.github.com/repos/uzh-dqbm-cmi/PRIDICT/git/blobs/1061d6dd65034b4b69b933e143f81a5109ebebd7"
+    },
+    {
+      "path": "trained_models/schwank_rnnattn/v3/train_val/run_2/model_statedict/init_annot_embed.pkl",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "3a29c1e336db8cdbafedd89b60c1da9d5c0ef275",
+      "size": 4563,
+      "url": "https://api.github.com/repos/uzh-dqbm-cmi/PRIDICT/git/blobs/3a29c1e336db8cdbafedd89b60c1da9d5c0ef275"
+    },
+    {
+      "path": "trained_models/schwank_rnnattn/v3/train_val/run_2/model_statedict/init_encoder.pkl",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "883d24f5373a2d2055757a914e79e789fb4f34f1",
+      "size": 2129226,
+      "url": "https://api.github.com/repos/uzh-dqbm-cmi/PRIDICT/git/blobs/883d24f5373a2d2055757a914e79e789fb4f34f1"
+    },
+    {
+      "path": "trained_models/schwank_rnnattn/v3/train_val/run_2/model_statedict/local_featemb_init_attn.pkl",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "6df96d58b6896e4747ebfa583825c1a9eb15c21b",
+      "size": 1144,
+      "url": "https://api.github.com/repos/uzh-dqbm-cmi/PRIDICT/git/blobs/6df96d58b6896e4747ebfa583825c1a9eb15c21b"
+    },
+    {
+      "path": "trained_models/schwank_rnnattn/v3/train_val/run_2/model_statedict/local_featemb_mut_attn.pkl",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "809520d850e81bb7e3a1e876af3c03e6123220c7",
+      "size": 1144,
+      "url": "https://api.github.com/repos/uzh-dqbm-cmi/PRIDICT/git/blobs/809520d850e81bb7e3a1e876af3c03e6123220c7"
+    },
+    {
+      "path": "trained_models/schwank_rnnattn/v3/train_val/run_2/model_statedict/mut_annot_embed.pkl",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "bc0aceee28592bbd3b066a74fa4fb39a8a9dab48",
+      "size": 4170,
+      "url": "https://api.github.com/repos/uzh-dqbm-cmi/PRIDICT/git/blobs/bc0aceee28592bbd3b066a74fa4fb39a8a9dab48"
+    },
+    {
+      "path": "trained_models/schwank_rnnattn/v3/train_val/run_2/model_statedict/mut_encoder.pkl",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "d655d692a130a78e377e0c1ada354dea15772db9",
+      "size": 2104650,
+      "url": "https://api.github.com/repos/uzh-dqbm-cmi/PRIDICT/git/blobs/d655d692a130a78e377e0c1ada354dea15772db9"
+    },
+    {
+      "path": "trained_models/schwank_rnnattn/v3/train_val/run_2/model_statedict/seqlevel_featembeder.pkl",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "f9c3512b42ea744a09dd273a2c659db4a57ed16e",
+      "size": 53047,
+      "url": "https://api.github.com/repos/uzh-dqbm-cmi/PRIDICT/git/blobs/f9c3512b42ea744a09dd273a2c659db4a57ed16e"
+    },
+    {
+      "path": "trained_models/schwank_rnnattn/v3/train_val/run_3",
+      "mode": "040000",
+      "type": "tree",
+      "sha": "f45a1bca472fd06927b1b915c78f6d209493f44d",
+      "url": "https://api.github.com/repos/uzh-dqbm-cmi/PRIDICT/git/trees/f45a1bca472fd06927b1b915c78f6d209493f44d"
+    },
+    {
+      "path": "trained_models/schwank_rnnattn/v3/train_val/run_3/config",
+      "mode": "040000",
+      "type": "tree",
+      "sha": "32838337f556434c965827c68afbb093a62fbfac",
+      "url": "https://api.github.com/repos/uzh-dqbm-cmi/PRIDICT/git/trees/32838337f556434c965827c68afbb093a62fbfac"
+    },
+    {
+      "path": "trained_models/schwank_rnnattn/v3/train_val/run_3/config/exp_options.pkl",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "aed78cb4bece9889daa721fa6ace72ab541c419b",
+      "size": 288,
+      "url": "https://api.github.com/repos/uzh-dqbm-cmi/PRIDICT/git/blobs/aed78cb4bece9889daa721fa6ace72ab541c419b"
+    },
+    {
+      "path": "trained_models/schwank_rnnattn/v3/train_val/run_3/config/mconfig.pkl",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "dfc205c6344753bec13b84887e98eed407830dd5",
+      "size": 627,
+      "url": "https://api.github.com/repos/uzh-dqbm-cmi/PRIDICT/git/blobs/dfc205c6344753bec13b84887e98eed407830dd5"
+    },
+    {
+      "path": "trained_models/schwank_rnnattn/v3/train_val/run_3/model_statedict",
+      "mode": "040000",
+      "type": "tree",
+      "sha": "b43ecfff973be2a9ef5dec4738b3409b999335ef",
+      "url": "https://api.github.com/repos/uzh-dqbm-cmi/PRIDICT/git/trees/b43ecfff973be2a9ef5dec4738b3409b999335ef"
+    },
+    {
+      "path": "trained_models/schwank_rnnattn/v3/train_val/run_3/model_statedict/best_epoch.pkl",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "88a75cafd732332d789bc555ddbe83fd1dd7d47b",
+      "size": 25,
+      "url": "https://api.github.com/repos/uzh-dqbm-cmi/PRIDICT/git/blobs/88a75cafd732332d789bc555ddbe83fd1dd7d47b"
+    },
+    {
+      "path": "trained_models/schwank_rnnattn/v3/train_val/run_3/model_statedict/decoder.pkl",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "484d614bcce56047730c33330e068ed075d5e943",
+      "size": 193033,
+      "url": "https://api.github.com/repos/uzh-dqbm-cmi/PRIDICT/git/blobs/484d614bcce56047730c33330e068ed075d5e943"
+    },
+    {
+      "path": "trained_models/schwank_rnnattn/v3/train_val/run_3/model_statedict/global_featemb_init_attn.pkl",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "510cc445237c74ff95f88db02525dcf7d14ef9ef",
+      "size": 1144,
+      "url": "https://api.github.com/repos/uzh-dqbm-cmi/PRIDICT/git/blobs/510cc445237c74ff95f88db02525dcf7d14ef9ef"
+    },
+    {
+      "path": "trained_models/schwank_rnnattn/v3/train_val/run_3/model_statedict/global_featemb_mut_attn.pkl",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "7d0ca513ff01cf7e81157b8037b4f9df0aeb5245",
+      "size": 1144,
+      "url": "https://api.github.com/repos/uzh-dqbm-cmi/PRIDICT/git/blobs/7d0ca513ff01cf7e81157b8037b4f9df0aeb5245"
+    },
+    {
+      "path": "trained_models/schwank_rnnattn/v3/train_val/run_3/model_statedict/init_annot_embed.pkl",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "87ea3d951e47132ddd2dc7a82ebd87b9ed546f0d",
+      "size": 4563,
+      "url": "https://api.github.com/repos/uzh-dqbm-cmi/PRIDICT/git/blobs/87ea3d951e47132ddd2dc7a82ebd87b9ed546f0d"
+    },
+    {
+      "path": "trained_models/schwank_rnnattn/v3/train_val/run_3/model_statedict/init_encoder.pkl",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "f92a0fd76aebaa9fabc53e5b2074ad6bc97df62f",
+      "size": 2129226,
+      "url": "https://api.github.com/repos/uzh-dqbm-cmi/PRIDICT/git/blobs/f92a0fd76aebaa9fabc53e5b2074ad6bc97df62f"
+    },
+    {
+      "path": "trained_models/schwank_rnnattn/v3/train_val/run_3/model_statedict/local_featemb_init_attn.pkl",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "b0a384aff2aa4f360aa9770d5c966910159d2ca2",
+      "size": 1144,
+      "url": "https://api.github.com/repos/uzh-dqbm-cmi/PRIDICT/git/blobs/b0a384aff2aa4f360aa9770d5c966910159d2ca2"
+    },
+    {
+      "path": "trained_models/schwank_rnnattn/v3/train_val/run_3/model_statedict/local_featemb_mut_attn.pkl",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "c778ebb5acd07d13f23023aff201f1ca79846286",
+      "size": 1144,
+      "url": "https://api.github.com/repos/uzh-dqbm-cmi/PRIDICT/git/blobs/c778ebb5acd07d13f23023aff201f1ca79846286"
+    },
+    {
+      "path": "trained_models/schwank_rnnattn/v3/train_val/run_3/model_statedict/mut_annot_embed.pkl",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "1938682c34adfcb8f406edbdd0068bc08f6018c1",
+      "size": 4170,
+      "url": "https://api.github.com/repos/uzh-dqbm-cmi/PRIDICT/git/blobs/1938682c34adfcb8f406edbdd0068bc08f6018c1"
+    },
+    {
+      "path": "trained_models/schwank_rnnattn/v3/train_val/run_3/model_statedict/mut_encoder.pkl",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "c883100d7d7b71b7d11cf656621320806c055d54",
+      "size": 2104650,
+      "url": "https://api.github.com/repos/uzh-dqbm-cmi/PRIDICT/git/blobs/c883100d7d7b71b7d11cf656621320806c055d54"
+    },
+    {
+      "path": "trained_models/schwank_rnnattn/v3/train_val/run_3/model_statedict/seqlevel_featembeder.pkl",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "26777cd290eca76dd47ed6cfd2e4a156e91a5183",
+      "size": 53047,
+      "url": "https://api.github.com/repos/uzh-dqbm-cmi/PRIDICT/git/blobs/26777cd290eca76dd47ed6cfd2e4a156e91a5183"
+    },
+    {
+      "path": "trained_models/schwank_rnnattn/v3/train_val/run_4",
+      "mode": "040000",
+      "type": "tree",
+      "sha": "95ec05b205f2750c397aa0fcebf4aa0dc3580ef4",
+      "url": "https://api.github.com/repos/uzh-dqbm-cmi/PRIDICT/git/trees/95ec05b205f2750c397aa0fcebf4aa0dc3580ef4"
+    },
+    {
+      "path": "trained_models/schwank_rnnattn/v3/train_val/run_4/config",
+      "mode": "040000",
+      "type": "tree",
+      "sha": "b6cb5114e91aba524ebe2d919a8eaa7cff5f674f",
+      "url": "https://api.github.com/repos/uzh-dqbm-cmi/PRIDICT/git/trees/b6cb5114e91aba524ebe2d919a8eaa7cff5f674f"
+    },
+    {
+      "path": "trained_models/schwank_rnnattn/v3/train_val/run_4/config/exp_options.pkl",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "9d070a420d008dd0a6c52608c0fec0c6e7662bcf",
+      "size": 288,
+      "url": "https://api.github.com/repos/uzh-dqbm-cmi/PRIDICT/git/blobs/9d070a420d008dd0a6c52608c0fec0c6e7662bcf"
+    },
+    {
+      "path": "trained_models/schwank_rnnattn/v3/train_val/run_4/config/mconfig.pkl",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "dfc205c6344753bec13b84887e98eed407830dd5",
+      "size": 627,
+      "url": "https://api.github.com/repos/uzh-dqbm-cmi/PRIDICT/git/blobs/dfc205c6344753bec13b84887e98eed407830dd5"
+    },
+    {
+      "path": "trained_models/schwank_rnnattn/v3/train_val/run_4/model_statedict",
+      "mode": "040000",
+      "type": "tree",
+      "sha": "e9f08b5acb42305cf446ac2cfcccb8889437dabb",
+      "url": "https://api.github.com/repos/uzh-dqbm-cmi/PRIDICT/git/trees/e9f08b5acb42305cf446ac2cfcccb8889437dabb"
+    },
+    {
+      "path": "trained_models/schwank_rnnattn/v3/train_val/run_4/model_statedict/best_epoch.pkl",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "bb93308efc13f57e1c586a34d89c106dbc98f07a",
+      "size": 25,
+      "url": "https://api.github.com/repos/uzh-dqbm-cmi/PRIDICT/git/blobs/bb93308efc13f57e1c586a34d89c106dbc98f07a"
+    },
+    {
+      "path": "trained_models/schwank_rnnattn/v3/train_val/run_4/model_statedict/decoder.pkl",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "caceacbcd275aa61a111c994ee0787b6f1723fd5",
+      "size": 193033,
+      "url": "https://api.github.com/repos/uzh-dqbm-cmi/PRIDICT/git/blobs/caceacbcd275aa61a111c994ee0787b6f1723fd5"
+    },
+    {
+      "path": "trained_models/schwank_rnnattn/v3/train_val/run_4/model_statedict/global_featemb_init_attn.pkl",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "607722a36c6c3dca95404f3746e8572b3cf9f0d0",
+      "size": 1144,
+      "url": "https://api.github.com/repos/uzh-dqbm-cmi/PRIDICT/git/blobs/607722a36c6c3dca95404f3746e8572b3cf9f0d0"
+    },
+    {
+      "path": "trained_models/schwank_rnnattn/v3/train_val/run_4/model_statedict/global_featemb_mut_attn.pkl",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "58d2313cbd7048af5fca69fa32a83b6d0775ef88",
+      "size": 1144,
+      "url": "https://api.github.com/repos/uzh-dqbm-cmi/PRIDICT/git/blobs/58d2313cbd7048af5fca69fa32a83b6d0775ef88"
+    },
+    {
+      "path": "trained_models/schwank_rnnattn/v3/train_val/run_4/model_statedict/init_annot_embed.pkl",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "42a6f3dc5003a4fd621c732cc99df98919a9ebdd",
+      "size": 4563,
+      "url": "https://api.github.com/repos/uzh-dqbm-cmi/PRIDICT/git/blobs/42a6f3dc5003a4fd621c732cc99df98919a9ebdd"
+    },
+    {
+      "path": "trained_models/schwank_rnnattn/v3/train_val/run_4/model_statedict/init_encoder.pkl",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "4e25e8c683c81ed0924f6b2be948a64262898e16",
+      "size": 2129226,
+      "url": "https://api.github.com/repos/uzh-dqbm-cmi/PRIDICT/git/blobs/4e25e8c683c81ed0924f6b2be948a64262898e16"
+    },
+    {
+      "path": "trained_models/schwank_rnnattn/v3/train_val/run_4/model_statedict/local_featemb_init_attn.pkl",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "a0741b205c61c863c53411c13fde2ac843775e6e",
+      "size": 1144,
+      "url": "https://api.github.com/repos/uzh-dqbm-cmi/PRIDICT/git/blobs/a0741b205c61c863c53411c13fde2ac843775e6e"
+    },
+    {
+      "path": "trained_models/schwank_rnnattn/v3/train_val/run_4/model_statedict/local_featemb_mut_attn.pkl",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "858e05bbccb9d32e2fba1a4853d5bf7c90ffd0b1",
+      "size": 1144,
+      "url": "https://api.github.com/repos/uzh-dqbm-cmi/PRIDICT/git/blobs/858e05bbccb9d32e2fba1a4853d5bf7c90ffd0b1"
+    },
+    {
+      "path": "trained_models/schwank_rnnattn/v3/train_val/run_4/model_statedict/mut_annot_embed.pkl",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "90ac798fed2bba2bfdb09e0fcc95356bee470ab0",
+      "size": 4170,
+      "url": "https://api.github.com/repos/uzh-dqbm-cmi/PRIDICT/git/blobs/90ac798fed2bba2bfdb09e0fcc95356bee470ab0"
+    },
+    {
+      "path": "trained_models/schwank_rnnattn/v3/train_val/run_4/model_statedict/mut_encoder.pkl",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "03432c37c0afd846feedbc903636e9ec18cdf4bc",
+      "size": 2104650,
+      "url": "https://api.github.com/repos/uzh-dqbm-cmi/PRIDICT/git/blobs/03432c37c0afd846feedbc903636e9ec18cdf4bc"
+    },
+    {
+      "path": "trained_models/schwank_rnnattn/v3/train_val/run_4/model_statedict/seqlevel_featembeder.pkl",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "1d725a40391df69837c80856646982062bbda510",
+      "size": 53047,
+      "url": "https://api.github.com/repos/uzh-dqbm-cmi/PRIDICT/git/blobs/1d725a40391df69837c80856646982062bbda510"
+    }
+  ],
+  "source": "https://github.com/uzh-dqbm-cmi/PRIDICT",
+  "weightsDownloaded": false
+}

@@ -1,0 +1,43 @@
+rs3_activity prepared 2345f9dab5c54fccbe8902e60af52c81
+Traceback (most recent call last):
+  File "/Users/vii/Documents/FoldStudio-MetalPort/fold-studio/scripts/qualify-editcraft-models.py", line 51, in <module>
+    if __name__=='__main__':main()
+                            ^^^^^^
+  File "/Users/vii/Documents/FoldStudio-MetalPort/fold-studio/scripts/qualify-editcraft-models.py", line 39, in main
+    if job['state']!='completed':raise RuntimeError(operation+' did not complete; preserve scientific failure and stop this reference sequence.')
+                                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+RuntimeError: rs3_activity did not complete; preserve scientific failure and stop this reference sequence.
+rs3_activity prepared c06e7143e1264660845a8aa3f3881a47
+rs3_activity completed {"publishedREADMEExpected": [-0.90030944, 1.11451622], "actual": [-0.9003094354582534, 1.1145162188484359], "absoluteTolerance": 5e-06, "agrees": true, "isIndependentBenchmark": false}
+bedict_per_base prepared 0cd50bb6cd9f4f60a8265a436cee6555
+bedict_per_base completed {"allFiveRunsRetained": true, "returnedBases": 15, "publishedExpectedNumericValues": null, "isIndependentBenchmark": false}
+Traceback (most recent call last):
+  File "/Users/vii/Documents/FoldStudio-MetalPort/fold-studio/scripts/qualify-editcraft-models.py", line 56, in <module>
+    if __name__=='__main__':main()
+                            ^^^^^^
+  File "/Users/vii/Documents/FoldStudio-MetalPort/fold-studio/scripts/qualify-editcraft-models.py", line 35, in main
+    job=rpc('editcraft_prepare',plan=plan,allowanceUSD=.25);entry={'operation':operation,'id':job['id'],'input':plan,'estimatedUSD':job['estimatedUSD'],'state':'prepared'};evidence['experiments'].append(entry);save()
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/vii/Documents/FoldStudio-MetalPort/fold-studio/scripts/qualify-editcraft-models.py", line 17, in rpc
+    def rpc(action,**payload):return s.dispatch(action,{'projectId':project,**payload})
+                                     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/vii/Documents/FoldStudio-MetalPort/fold-studio/scientific/worker.py", line 568, in dispatch
+    if action in editcraft.ACTIONS:return editcraft.dispatch(self,action,p)
+                                          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/vii/Documents/FoldStudio-MetalPort/fold-studio/scientific/editcraft.py", line 85, in dispatch
+    plan=validate_plan(p['plan']);limit=p.get('allowanceUSD')
+         ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/vii/Documents/FoldStudio-MetalPort/fold-studio/remote_worker/fold_rapid/editcraft_core.py", line 240, in validate_plan
+    validate_input(op,stage['parameters'])
+  File "/Users/vii/Documents/FoldStudio-MetalPort/fold-studio/remote_worker/fold_rapid/editcraft_models.py", line 82, in validate_input
+    if not match:raise ValueError('PRIDICT2 needs one explicit edit and 100–500 unambiguous bases on each side.')
+                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+ValueError: PRIDICT2 needs one explicit edit and 100–500 unambiguous bases on each side.
+pridict2_design prepared 9867d33dbb85425f932eba0a5d9cf87c
+pridict2_design completed {"candidateCount": 765, "foldsPerModel": 5, "modelGroups": ["PRIDICT1_1/exp_2023-08-25_20-55-53", "PRIDICT1_2/exp_2023-08-28_22-22-26"], "publishedExpectedNumericValues": null, "isIndependentBenchmark": false}
+rna_ensemble prepared b2dd0806e4294ad6b7fa2c339d6f5648
+rna_ensemble completed {"expectedMFE": "(((...)))", "mfeStructureMatches": true, "ensembleEnergyAtMostMFE": true, "marginalsBounded": true, "isIndependentBenchmark": false}
+bedict_per_base prepared c111eb1b1ddf4902b5f897aaa1b13820
+bedict_per_base completed {"allFiveRunsRetained": true, "returnedBases": 9, "publishedExpectedNumericValues": null, "isIndependentBenchmark": false}
+rs3_activity prepared 36d22103ac99405d8c698c9070e801e7
+rs3_activity completed {"publishedREADMEExpected": null, "actual": [-0.022648312020885734, 0.5066916908334754], "absoluteTolerance": 5e-06, "agrees": null, "isIndependentBenchmark": false}

@@ -1,0 +1,171 @@
+{
+  "schemaVersion": 1,
+  "recorded": "2026-10-25T22:34:12.820514+00:00",
+  "fullSpecificationComplete": false,
+  "maximumAuthorizedUSD": 3,
+  "providerReportedUSD": null,
+  "referenceReserveEstimatesUSD": 0.8624,
+  "gpuUsed": false,
+  "newMacModelInstallations": false,
+  "completedPublicReferenceRuns": [
+    {
+      "id": "c06e7143e1264660845a8aa3f3881a47",
+      "operation": "rs3_activity",
+      "parameters": {
+        "nuclease": "SpCas9",
+        "tracrRNA": "Hsu2013",
+        "sequences": [
+          {
+            "id": "official_1",
+            "sequence": "GACGAAAGCGACAACGCGTTCATCCGGGCA"
+          },
+          {
+            "id": "official_2",
+            "sequence": "AGAAAACACTAGCATCCCCACCCGCGGACT"
+          }
+        ]
+      },
+      "checks": {
+        "publishedREADMEExpected": [
+          -0.90030944,
+          1.11451622
+        ],
+        "actual": [
+          -0.9003094354582534,
+          1.1145162188484359
+        ],
+        "absoluteTolerance": 5e-06,
+        "agrees": true,
+        "isIndependentBenchmark": false
+      }
+    },
+    {
+      "id": "0cd50bb6cd9f4f60a8265a436cee6555",
+      "operation": "bedict_per_base",
+      "parameters": {
+        "editor": "ABEmax",
+        "sequences": [
+          {
+            "id": "CTRL_HEKsiteNO18",
+            "sequence": "ACACACACACTTAGAATCTG"
+          },
+          {
+            "id": "CTRL_RSF1NO2",
+            "sequence": "ACCCATTAAAGTTGAGGTGA"
+          }
+        ]
+      },
+      "checks": {
+        "allFiveRunsRetained": true,
+        "returnedBases": 15,
+        "publishedExpectedNumericValues": null,
+        "isIndependentBenchmark": false
+      }
+    },
+    {
+      "id": "9867d33dbb85425f932eba0a5d9cf87c",
+      "operation": "pridict2_design",
+      "parameters": {
+        "editSequence": "GCCTGGAGGTGTCTGGGTCCCTCCCCCACCCGACTACTTCACTCTCTGTCCTCTCTGCCCAGGAGCCCAGGATGTGCGAGTTCAAGTGGCTACGGCCGA(G/C)GTGCGAGGCCAGCTCGGGGGCACCGTGGAGCTGCCGTGCCACCTGCTGCCACCTGTTCCTGGACTGTACATCTCCCTGGTGACCTGGCAGCGCCCAGATGCACCTGCGAACCACCAGAATGTGGCCGC",
+        "cellContext": "HEK",
+        "folds": 5
+      },
+      "checks": {
+        "candidateCount": 765,
+        "foldsPerModel": 5,
+        "modelGroups": [
+          "PRIDICT1_1/exp_2023-08-25_20-55-53",
+          "PRIDICT1_2/exp_2023-08-28_22-22-26"
+        ],
+        "publishedExpectedNumericValues": null,
+        "isIndependentBenchmark": false
+      }
+    },
+    {
+      "id": "b2dd0806e4294ad6b7fa2c339d6f5648",
+      "operation": "rna_ensemble",
+      "parameters": {
+        "sequence": "GGGAAACCC",
+        "temperatureC": 37,
+        "pairProbabilityThreshold": 0.001
+      },
+      "checks": {
+        "expectedMFE": "(((...)))",
+        "mfeStructureMatches": true,
+        "ensembleEnergyAtMostMFE": true,
+        "marginalsBounded": true,
+        "isIndependentBenchmark": false
+      }
+    },
+    {
+      "id": "c111eb1b1ddf4902b5f897aaa1b13820",
+      "operation": "bedict_per_base",
+      "parameters": {
+        "editor": "BE4max",
+        "sequences": [
+          {
+            "id": "CTRL_HEKsiteNO18",
+            "sequence": "ACACACACACTTAGAATCTG"
+          },
+          {
+            "id": "CTRL_RSF1NO2",
+            "sequence": "ACCCATTAAAGTTGAGGTGA"
+          }
+        ]
+      },
+      "checks": {
+        "allFiveRunsRetained": true,
+        "returnedBases": 9,
+        "publishedExpectedNumericValues": null,
+        "isIndependentBenchmark": false
+      }
+    },
+    {
+      "id": "36d22103ac99405d8c698c9070e801e7",
+      "operation": "rs3_activity",
+      "parameters": {
+        "nuclease": "SpCas9",
+        "tracrRNA": "Chen2013",
+        "sequences": [
+          {
+            "id": "official_1",
+            "sequence": "GACGAAAGCGACAACGCGTTCATCCGGGCA"
+          },
+          {
+            "id": "official_2",
+            "sequence": "AGAAAACACTAGCATCCCCACCCGCGGACT"
+          }
+        ]
+      },
+      "checks": {
+        "publishedREADMEExpected": null,
+        "actual": [
+          -0.022648312020885734,
+          0.5066916908334754
+        ],
+        "absoluteTolerance": 5e-06,
+        "agrees": null,
+        "isIndependentBenchmark": false
+      }
+    }
+  ],
+  "failedAttemptsPreserved": [
+    "2345f9dab5c54fccbe8902e60af52c81"
+  ],
+  "independentScientificBenchmarkComplete": false,
+  "nativeUpdateInstalled": false,
+  "nativeWorkflowDemonstrated": false,
+  "installationBlocker": "Guard confirms the current app is open. Awaiting user closure; no app or scientific worker was stopped.",
+  "tests": {
+    "backend": 678,
+    "interface": 114,
+    "editcraftOfflineContracts": 25,
+    "productionInterfaceBuildPassed": true
+  },
+  "nextActions": [
+    "Install through scripts/build-local-app.sh once the user closes Fold Studio.",
+    "Launch canonical app through scripts/open-local-app.py; inspect real saved model results, forms, workflow controls, RNA ensemble and inspector behavior.",
+    "Verify non-EditCraft Library integrity against reports/editcraft/data-integrity.json.",
+    "Continue remaining source integration and separately approved independent scientific qualification from docs/EDITCRAFT_FULL_COMPLETION_AUDIT.json."
+  ]
+}

@@ -1,7 +1,7 @@
 """Native EditCraft metadata/IPC. Scientific operations execute only on Modal."""
 import hashlib,json,os,pathlib,subprocess,sys,uuid,datetime
-ACTIONS={'editcraft_state','editcraft_save','editcraft_notebook','editcraft_prepare','editcraft_submit','editcraft_refresh','editcraft_cancel','editcraft_result','editcraft_deploy','editcraft_health','editcraft_import_text'}
-NETWORK={'editcraft_submit','editcraft_refresh','editcraft_cancel','editcraft_result','editcraft_deploy','editcraft_health'}
+ACTIONS={'editcraft_state','editcraft_save','editcraft_notebook','editcraft_prepare','editcraft_submit','editcraft_refresh','editcraft_cancel','editcraft_result','editcraft_deploy','editcraft_health','editcraft_import_text','editcraft_models_prepare'}
+NETWORK={'editcraft_submit','editcraft_refresh','editcraft_cancel','editcraft_result','editcraft_deploy','editcraft_health','editcraft_models_prepare'}
 KINDS={'gene','transcript','variant','sequence','construct','dataset','evidence','workflow','intervention','notebook','model_assessment','report'}
 def utc():return datetime.datetime.now(datetime.timezone.utc).isoformat()
 def canonical(v):return json.dumps(v,sort_keys=True,separators=(',',':'),allow_nan=False)
@@ -42,7 +42,7 @@ def provider(s,action,p,row=None):
  account=row.get('accountId') if row else __import__('cloud_accounts').get(s).get('activeId')
  env={k:v for k,v in os.environ.items() if k not in ('PYTHONHOME','PYTHONPATH','MODAL_TOKEN_ID','MODAL_TOKEN_SECRET','MODAL_CONFIG_PATH','MODAL_PROFILE')}
  env.update(environment(s,account or 'legacy'));env.update(FOLD_EDITCRAFT_CHILD='1',PYTHONDONTWRITEBYTECODE='1')
- child=subprocess.run([str(python),'-B',str(pathlib.Path(__file__).with_name('worker.py')),'--root',str(s.root)],input=canonical({'action':action,'payload':p}),env=env,capture_output=True,text=True,timeout=300 if action=='editcraft_deploy' else 100)
+ child=subprocess.run([str(python),'-B',str(pathlib.Path(__file__).with_name('worker.py')),'--root',str(s.root)],input=canonical({'action':action,'payload':p}),env=env,capture_output=True,text=True,timeout=900 if action=='editcraft_deploy' else 100)
  try:r=json.loads(child.stdout)
  except ValueError:raise ValueError('Provider response is unavailable. Reconnect to the saved identity; do not resubmit.') from None
  if r.get('error'):raise ValueError(r['error'])
@@ -58,7 +58,20 @@ def dispatch(s,action,p):
   latest={}
   for e in entities:latest.setdefault(e['id'],e)
   catalog=json.loads(pathlib.Path(__file__).with_name('editcraft-models.json').read_text())
-  return {'entities':list(latest.values()),'versions':entities,'jobs':[json.loads(r['data']) for r in s.rows('SELECT data FROM editcraft_jobs WHERE project_id=?',(p['projectId'],))],'models':catalog,'operations':[{'id':k,'input':v[0],'output':v[1],'method':v[2]} for k,v in OPS.items()],'deployment':s.setting('editcraftDeployment'),'account':__import__('cloud_accounts').get(s).get('activeId'),'scientificScope':'CPU operation adapters implemented; cloud qualification tracked separately. Trained editor models are not yet connected.'}
+  # Qualification comes from verified saved remote results, not catalogue labels.
+  from fold_rapid.editcraft_models import manifest_sha
+  deployed=s.setting('editcraftDeployment',{});health=deployed.get('health',{});active=__import__('cloud_accounts').get(s).get('activeId')
+  verified_models=health.get('models',{}) if deployed.get('accountId')==active else {}
+  completed=[json.loads(r['data']) for r in s.rows('SELECT data FROM editcraft_jobs')]
+  for model in catalog:
+   key={'rule-set-3':'rs3','be-dict':'bedict','pridict2':'pridict2'}.get(model['id'])
+   if not key:continue
+   model['modelInstalled']=verified_models.get(key,{}).get('manifestSha256')==manifest_sha()
+   runs=[row for row in completed if row.get('accountId')==active and row.get('state')=='completed' and any(stage.get('operation')==model['operation'] and stage.get('result',{}).get('provenance',{}).get('manifestSha256')==manifest_sha() for stage in row.get('result',{}).get('results',{}).values())]
+   model['genuineInferenceTested']=bool(runs);model['cloudExecutionValidated']=bool(runs);model['executionEvidenceIds']=[row['id'] for row in runs]
+   if runs:model.update(state='Executed on cloud · independent benchmark pending',blocker='Genuine pinned-model inference exists. Independent held-out accuracy/calibration and complete native workflow qualification remain unresolved.')
+   elif model['modelInstalled']:model.update(state='Installed · inference qualification pending')
+  return {'entities':list(latest.values()),'versions':entities,'jobs':[json.loads(r['data']) for r in s.rows('SELECT data FROM editcraft_jobs WHERE project_id=?',(p['projectId'],))],'models':catalog,'operations':[{'id':k,'input':v[0],'output':v[1],'method':v[2]} for k,v in OPS.items()],'deployment':s.setting('editcraftDeployment'),'account':__import__('cloud_accounts').get(s).get('activeId'),'scientificScope':'Cloud-only methods. Model installation, genuine execution and independent benchmarking are separate qualification stages.'}
  if action in ('editcraft_save','editcraft_notebook'):
   if action=='editcraft_notebook':p={**p,'kind':'notebook'}
   return save_entity(s,p)
@@ -83,12 +96,23 @@ def dispatch(s,action,p):
   if p.get('approvedCPUDeployment')is not True or p.get('maxApprovedUSD')!=1:raise ValueError('Approve up to $1 CPU deployment and health checks; no GPU or trained models.')
   from fold_rapid.editcraft_modal import deploy
   import contextlib
-  with contextlib.redirect_stdout(sys.stderr):result=deploy()
+  with contextlib.redirect_stdout(sys.stderr):result=deploy(include_models=p.get('includeModelRuntimes') is True)
   receipt={'state':'deployed','checked':utc(),'appId':result['appId'],'health':result['health'],'accountId':__import__('cloud_accounts').get(s).get('activeId')}
   with s.db:s.db.execute('INSERT OR REPLACE INTO settings VALUES(?,?)',('editcraftDeployment',canonical(receipt)))
   return receipt
  control=modal.Function.from_name(APP,'control')
- if action=='editcraft_health':return control.remote('health',{})
+ if action=='editcraft_health':
+  result=control.remote('health',{});receipt=s.setting('editcraftDeployment',{});receipt.update(health=result,checked=utc())
+  with s.db:s.db.execute('INSERT OR REPLACE INTO settings VALUES(?,?)',('editcraftDeployment',canonical(receipt)))
+  return result
+ if action=='editcraft_models_prepare':
+  from fold_rapid.editcraft_models import MANIFEST,manifest_sha
+  models=p.get('models')
+  if p.get('approvedModelDownloads')is not True or p.get('maxApprovedUSD')!=1 or not isinstance(models,list) or not models or len(set(models))!=len(models) or set(models)-set(MANIFEST['models']):raise ValueError('Approve the listed cloud checkpoint downloads and up to $1 CPU setup separately.')
+  deployment=s.setting('editcraftDeployment',{});health=deployment.get('health',{})
+  from fold_rapid.editcraft_modal import source_identity
+  if deployment.get('accountId')!=__import__('cloud_accounts').get(s).get('activeId') or health.get('sourceSha256')!=source_identity() or health.get('modelRuntimesIncluded')is not True:raise ValueError('Deploy this reviewed worker with the isolated model runtimes for the selected account first.')
+  return control.remote('prepare_models',{'models':models,'manifestSha256':manifest_sha(),'approved':True})
  if row is None:raise ValueError('Select an EditCraft experiment.')
  if action=='editcraft_submit':
   from fold_rapid.editcraft_modal import source_identity

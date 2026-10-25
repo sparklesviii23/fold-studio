@@ -3,20 +3,35 @@ import hashlib,json,pathlib,uuid
 from .editcraft_core import validate_plan,run_plan,utc,sha
 APP='fold-editcraft-engine'
 def source_identity():
- return hashlib.sha256(pathlib.Path(__file__).read_bytes()+pathlib.Path(__file__).with_name('editcraft_core.py').read_bytes()+pathlib.Path(__file__).with_name('editcraft_execute.py').read_bytes()).hexdigest()
+ return hashlib.sha256(b''.join(pathlib.Path(__file__).with_name(name).read_bytes() for name in ('editcraft_modal.py','editcraft_core.py','editcraft_execute.py','editcraft_models.py','editcraft_assets.json'))).hexdigest()
 
 
-def build_app():
+def trained_image(base):
+ # Core Python and scientific versions stay unchanged. Historical models get
+ # separate Linux Python 3.10 environments; nothing is installed on the Mac.
+ return (base.apt_install('libgomp1').pip_install('uv==0.8.22').run_commands(
+  'uv python install 3.10.18',
+  'uv venv --python 3.10.18 /opt/rs3-runtime',
+  'uv pip install --python /opt/rs3-runtime/bin/python setuptools==69.5.1 numpy==1.23.5 pandas==1.5.3 scipy==1.10.1 scikit-learn==1.0.2 lightgbm==3.3.5 biopython==1.79 sglearn==1.2.5 seqfold==0.7.7 tqdm==4.65.0 joblib==1.3.1 ViennaRNA==2.7.2',
+  'uv venv --python 3.10.18 /opt/bedict-runtime',
+  'uv pip install --python /opt/bedict-runtime/bin/python torch==2.0.1 --index-url https://download.pytorch.org/whl/cpu',
+  'uv pip install --python /opt/bedict-runtime/bin/python numpy==1.23.5 pandas==1.5.3 scipy==1.10.1 scikit-learn==1.0.2 matplotlib==3.7.2 seaborn==0.12.2 prettytable==3.8.0 tqdm==4.65.0',
+  'uv venv --python 3.10.18 /opt/pridict2-runtime',
+  'uv pip install --python /opt/pridict2-runtime/bin/python torch==2.0.1 --index-url https://download.pytorch.org/whl/cpu',
+  'uv pip install --python /opt/pridict2-runtime/bin/python numpy==1.24.3 biopython==1.81 joblib==1.3.1 matplotlib==3.7.2 pandas==2.0.3 prettytable==3.8.0 primer3-py==2.3.0 scikit-learn==1.3.0 scipy==1.11.1 seaborn==0.12.2 tqdm==4.65.0',
+ ).env({'UV_PYTHON_DOWNLOADS':'never'}))
+
+def build_app(include_models=False):
  import modal
  source=pathlib.Path(__file__).resolve().parents[1]
  image=(modal.Image.debian_slim(python_version='3.12').pip_install('numpy==2.2.6','biopython==1.85','ViennaRNA==2.7.2')
         .add_local_dir(source,'/opt/editcraft',copy=True,ignore=['**/__pycache__/**','**/dist/**','**/*.pyc'])
         .env({'PYTHONPATH':'/opt/editcraft','FOLD_ENGINE_ROLE':'editcraft_cloud'}))
+ model_image=trained_image(image) if include_models else image
  app=modal.App(APP);volume=modal.Volume.from_name('fold-editcraft-research',create_if_missing=True);state=modal.Dict.from_name('fold-editcraft-state',create_if_missing=True)
  def atomic(path,value):
   path.parent.mkdir(parents=True,exist_ok=True);tmp=path.with_suffix('.pending');tmp.write_text(json.dumps(value,allow_nan=False));tmp.replace(path)
- @app.function(image=image,serialized=True,name='analyze',cpu=(2,2),memory=(4096,4096),volumes={'/research':volume},timeout=660,retries=0,min_containers=0,max_containers=1,scaledown_window=10)
- def analyze(plan,key):
+ def analyze_impl(plan,key):
   import os
   validate_plan(plan)
   token={'inputSha256':sha(plan),'state':'running','started':utc()}
@@ -55,16 +70,52 @@ def build_app():
   row['finished']=utc();atomic(folder/'status.json',row);volume.commit();state['job:'+key]=row
   if state.get('writer-lease')==lease:state.pop('writer-lease')
   return row
- @app.function(image=image,serialized=True,name='control',cpu=(1,1),memory=(512,512),volumes={'/research':volume},timeout=60,min_containers=0,max_containers=1,scaledown_window=10,retries=0)
+ @app.function(image=image,serialized=True,name='analyze',cpu=(2,2),memory=(4096,4096),volumes={'/research':volume},timeout=660,retries=0,min_containers=0,max_containers=1,scaledown_window=10)
+ def analyze(plan,key):return analyze_impl(plan,key)
+ @app.function(image=model_image,serialized=True,name='analyze_models',cpu=(2,2),memory=(4096,4096),volumes={'/research':volume},timeout=660,retries=0,min_containers=0,max_containers=1,scaledown_window=10)
+ def analyze_models(plan,key):
+  if not include_models:raise ValueError('Deploy the reviewed isolated model runtimes first.')
+  return analyze_impl(plan,key)
+ @app.function(image=image,serialized=True,name='prepare_models',cpu=(2,2),memory=(4096,4096),volumes={'/research':volume},timeout=660,retries=0,min_containers=0,max_containers=1,scaledown_window=10)
+ def prepare_models(models):
+  from .editcraft_models import install_models
+  lease={'kind':'model_preparation','models':models}
+  if state.get('writer-lease')!=lease and not state.put('writer-lease',lease,skip_if_exists=True):raise ValueError('An EditCraft experiment is active; preserve its data volume.')
+  try:
+   volume.reload();receipts=install_models(models);volume.commit();all_receipts=state.get('model-receipts',{});all_receipts.update(receipts);state['model-receipts']=all_receipts;state['model-preparation']={'state':'completed','models':models,'finished':utc()};return receipts
+  except BaseException as exc:
+   state['model-preparation']={'state':'failed','models':models,'errorType':type(exc).__name__,'finished':utc(),'retry':False};raise
+  finally:
+   if state.get('writer-lease')==lease:state.pop('writer-lease')
+ @app.function(image=image,serialized=True,name='control' ,cpu=(1,1),memory=(512,512),volumes={'/research':volume},timeout=60,min_containers=0,max_containers=1,scaledown_window=10,retries=0)
  def control(operation,payload):
   if operation=='health':
    import Bio,RNA
-   return {'state':'available','engine':'EditCraft','cpuOnly':True,'gpuStarted':False,'biopython':Bio.__version__,'viennarna':RNA.__version__,'scientificBenchmarkComplete':False,'sourceSha256':source_identity()}
+   return {'state':'available','engine':'EditCraft','cpuOnly':True,'gpuStarted':False,'biopython':Bio.__version__,'viennarna':RNA.__version__,'scientificBenchmarkComplete':False,'sourceSha256':source_identity(),'modelRuntimesIncluded':include_models,'models':state.get('model-receipts',{}),'modelPreparation':state.get('model-preparation')}
+  if operation=='prepare_models':
+   from .editcraft_models import MANIFEST,manifest_sha
+   models=payload.get('models')
+   if payload.get('approved') is not True or not isinstance(models,list) or not models or len(set(models))!=len(models) or set(models)-set(MANIFEST['models']):raise ValueError('Approve the exact supported checkpoint downloads.')
+   if payload.get('manifestSha256')!=manifest_sha():raise ValueError('Model preparation source differs from the approved manifest.')
+   old=state.get('model-preparation',{})
+   if old.get('state') in ('submission_uncertain','submitted'):raise ValueError('Model preparation is already claimed; check health instead of repeating it.')
+   lease={'kind':'model_preparation','models':models}
+   if not state.put('writer-lease',lease,skip_if_exists=True):raise ValueError('An EditCraft task is already active.')
+   row={'state':'submission_uncertain','models':models,'started':utc(),'retry':False};state['model-preparation']=row
+   call=prepare_models.spawn(models);row.update(state='submitted',callId=call.object_id);state['model-preparation']=row;return row
   key=payload.get('id','')
   if not isinstance(key,str) or len(key)!=32 or any(c not in '0123456789abcdef' for c in key):raise ValueError('Invalid EditCraft identity.')
   if operation=='submit':
    plan=validate_plan(payload['plan']);expected=sha(plan)
    if payload.get('approved') is not True:raise ValueError('Explicit input-transfer and cost approval required.')
+   needs_models=any(s['operation'] in ('rs3_activity','bedict_per_base','pridict2_design') for s in plan['stages'])
+   if needs_models:
+    from .editcraft_models import OPERATIONS,manifest_sha
+    if not include_models:raise ValueError('Trained model runtimes are not deployed.')
+    receipts=state.get('model-receipts',{})
+    for stage in plan['stages']:
+     model=OPERATIONS.get(stage['operation'])
+     if model and receipts.get(model,{}).get('manifestSha256')!=manifest_sha():raise ValueError('Required model is not prepared for this pinned release.')
    old=state.get('request:'+key)
    if old:
     if old['inputSha256']!=expected:raise ValueError('Idempotency identity conflicts with original input.')
@@ -73,7 +124,7 @@ def build_app():
    if not state.put('request:'+key,record,skip_if_exists=True):raise ValueError('A submission is already being reconciled; never retry automatically.')
    lease={'kind':'editcraft','request':key}
    if not state.put('writer-lease',lease,skip_if_exists=True):raise ValueError('Another EditCraft experiment is queued or running; reconnect instead of submitting.')
-   call=analyze.spawn(plan,key);record.update(state='submitted',callId=call.object_id);state['request:'+key]=record;return record
+   call=(analyze_models if needs_models else analyze).spawn(plan,key);record.update(state='submitted',callId=call.object_id);state['request:'+key]=record;return record
   if operation=='cancel':
    state['cancel:'+key]=True
    original=state.get('request:'+key)
@@ -99,8 +150,8 @@ def build_app():
  app._fold_resources=[state,volume]
  return app
 
-def deploy():
+def deploy(include_models=False):
  from .modal_provider import deploy_app
- app=build_app();deploy_app(app)
+ app=build_app(include_models);deploy_app(app)
  import modal
  return {'appId':app.app_id,'health':modal.Function.from_name(APP,'control').remote('health',{})}

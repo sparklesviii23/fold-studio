@@ -1,0 +1,16 @@
+Traceback (most recent call last):
+  File "/opt/editcraft/fold_rapid/editcraft_models.py", line 161, in <module>
+    execute(sys.argv[2])
+  File "/opt/editcraft/fold_rapid/editcraft_models.py", line 153, in execute
+    value=infer_rs3(p,source) if model=='rs3' else infer_bedict(p,source) if model=='bedict' else infer_pridict2(p,source,folder)
+  File "/opt/editcraft/fold_rapid/editcraft_models.py", line 109, in infer_rs3
+    from rs3.seq import predict_seq
+  File "/research/models/editcraft/rs3/source/rs3/seq.py", line 7, in <module>
+    import sglearn
+  File "/opt/rs3-runtime/lib/python3.10/site-packages/sglearn/__init__.py", line 2, in <module>
+    from .featurization import featurize_guides
+  File "/opt/rs3-runtime/lib/python3.10/site-packages/sglearn/featurization.py", line 3, in <module>
+    from seqfold import dg
+  File "/opt/rs3-runtime/lib/python3.10/site-packages/seqfold/__init__.py", line 2, in <module>
+    from pkg_resources import get_distribution, DistributionNotFound
+ModuleNotFoundError: No module named 'pkg_resources'

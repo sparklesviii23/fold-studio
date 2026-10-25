@@ -8,6 +8,11 @@ describe('native EditCraft workspace',()=>{
   const html=renderToStaticMarkup(<EditCraft projectId="fixture" structures={[]} onOpen={()=>{}} onRefresh={()=>{}}/>);
   expect(html).toContain('GENOME &amp; RNA ENGINEERING');expect(html).toContain('Research Notebook');expect(html).toContain('Workflow Studio');expect(html).toContain('No GPU or trained checkpoints');expect(html).not.toContain('99% editing efficiency');
  });
+ it('lets the shared inspector control hide the domain inspector',()=>{
+  vi.stubGlobal('localStorage',{getItem:()=>null,setItem:()=>{}});
+  const html=renderToStaticMarkup(<EditCraft projectId="fixture" inspectorOpen={false} structures={[]} onOpen={()=>{}} onRefresh={()=>{}}/>);
+  expect(html).toContain('no-inspector');expect(html).not.toContain('Deploy reviewed CPU worker');
+ });
  it('keeps exon rendering inclusive for a single-base exon',()=>{
   const [exon]=transcriptTrack({Exon:[{id:'e',start:101,end:101}]},101,200);
   expect(exon.x).toBe(20);expect(exon.width).toBeCloseTo(9.2);

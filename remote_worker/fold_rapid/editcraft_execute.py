@@ -4,7 +4,7 @@ from .editcraft_core import run_plan
 
 def main(folder):
  if os.environ.get('FOLD_ENGINE_ROLE')!='editcraft_cloud':raise RuntimeError('Production scientific execution requires the selected EditCraft cloud runtime.')
- folder=pathlib.Path(folder);plan=json.loads((folder/'plan.json').read_text())
+ folder=pathlib.Path(folder);os.environ['FOLD_EDITCRAFT_JOB_DIR']=str(folder);plan=json.loads((folder/'plan.json').read_text())
  def checkpoint(event):
   with (folder/'events.jsonl').open('a') as log:log.write(json.dumps(event)+'\n')
  try:

@@ -86,8 +86,9 @@ class CloudCompute5(unittest.TestCase):
    return buffer.getvalue()
   current={**previous,'sourceCommit':'new-local-only-commit'}
   with patch('rapid_remote.artifact',return_value=(archive(current),'unused')):self.assertTrue(require_current_engine(self.s,{'appName':'fixture'}))
-  current['files']['worker/fold_rapid/editcraft_core.py']='c'*64
-  with patch('rapid_remote.artifact',return_value=(archive(current),'unused')):self.assertTrue(require_current_engine(self.s,{'appName':'fixture'}))
+  for module in ('editcraft_core.py','editcraft_modal.py','editcraft_execute.py','editcraft_models.py','editcraft_assets.json'):
+   current['files']['worker/fold_rapid/'+module]='c'*64
+   with patch('rapid_remote.artifact',return_value=(archive(current),'unused')):self.assertTrue(require_current_engine(self.s,{'appName':'fixture'}))
   current['files']={'worker/model.py':'b'*64}
   with patch('rapid_remote.artifact',return_value=(archive(current),'unused')):
    with self.assertRaisesRegex(ValueError,'differs'):require_current_engine(self.s,{'appName':'fixture'})

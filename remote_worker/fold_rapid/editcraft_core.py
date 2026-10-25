@@ -4,7 +4,7 @@ No trained editor scores or invented structures. Coordinate convention is explic
 1-based inclusive except exported BED intervals. Model outputs retain their scope.
 """
 import csv,datetime,hashlib,io,json,math,re,statistics,urllib.parse,urllib.request,xml.etree.ElementTree as ET
-VERSION='0.1.0'
+VERSION='0.2.0'
 OPS={
  'annotated_import':('annotated_sequence','construct_annotations','Biopython GenBank parser'),
  'motif_find':('sequence_motif','motif_annotations','Exact IUPAC motif enumeration; no activity score'),
@@ -12,6 +12,10 @@ OPS={
  'gene_context':('gene_symbol','gene_context','Ensembl REST curated annotation'),
  'sequence_analyze':('sequence','sequence_analysis','Biopython standard genetic code'),
  'rna_fold':('rna','rna_secondary_structure','ViennaRNA minimum free energy'),
+ 'rna_ensemble':('rna','rna_ensemble','ViennaRNA partition function, centroid, MEA and marginal accessibility'),
+ 'rs3_activity':('guide_contexts','guide_activity','Rule Set 3 sequence-only trained model'),
+ 'bedict_per_base':('base_editor_contexts','per_base_edit_predictions','BE-DICT complete five-run ensemble'),
+ 'pridict2_design':('prime_edit_context','prime_edit_predictions','PRIDICT2 original dual-model five-fold ensembles'),
  'variant_cds':('coding_variant','variant_consequence','Reference-checked coding-sequence comparison'),
  'coordinate_map':('genomic_position','transcript_position','Strand-aware exon coordinate mapping'),
  'sequence_align':('sequence_pair','alignment','Biopython PairwiseAligner'),
@@ -191,6 +195,34 @@ def annotation_parse(p):
   if len(records)>10000:raise ValueError('Annotation view accepts at most 10,000 records.')
  return {'format':fmt,'assembly':assembly,'records':records,'coordinateConvention':'1-based inclusive normalized display; BED input converted explicitly','scope':'Format/coordinate parsing, not reference-allele verification or variant-effect prediction.'}
 
+def rna_ensemble(p):
+ import RNA
+ s=sequence(p['sequence'],'RNA')
+ if len(s)>1000 or set(s)-set('ACGU'):raise ValueError('RNA ensemble analysis requires 1–1,000 unambiguous RNA bases.')
+ temp=p.get('temperatureC',37)
+ if type(temp)not in(int,float) or not math.isfinite(temp) or not 0<=temp<=60:raise ValueError('Temperature must be 0–60 °C.')
+ threshold=p.get('pairProbabilityThreshold',.01)
+ if type(threshold)not in(int,float) or not math.isfinite(threshold) or not 0<=threshold<=1:raise ValueError('Pair-probability display threshold must be between 0 and 1.')
+ md=RNA.md();md.temperature=temp;fc=RNA.fold_compound(s,md);mfe_structure,mfe=fc.mfe();fc.exp_params_rescale(mfe);_,energy=fc.pf()
+ centroid,distance=fc.centroid();mea,mea_score=fc.MEA();bpp=fc.bpp();pairs=[];paired=[0.0]*len(s)
+ for i in range(1,len(s)+1):
+  for j in range(i+1,len(s)+1):
+   prob=float(bpp[i][j]);paired[i-1]+=prob;paired[j-1]+=prob
+   if prob>0 and prob>=threshold:pairs.append({'i':i,'j':j,'probability':prob})
+ if len(pairs)>20000:raise ValueError('Too many displayed base pairs; increase the probability threshold.')
+ if any(not math.isfinite(v) or v < -1e-6 or v > 1.00001 for v in paired):raise ValueError('Partition-function marginal probabilities are invalid.')
+ return {'sequence':s,'dotBracket':mfe_structure,'mfeKcalMol':float(mfe),'ensembleFreeEnergyKcalMol':float(energy),'centroid':centroid,'centroidMeanBasePairDistance':float(distance),'meaStructure':mea,'meaScore':float(mea_score),'meanBasePairDistance':float(fc.mean_bp_distance()),'mfeEnsembleProbability':float(fc.pr_structure(mfe_structure)),'pairProbabilities':pairs,'pairProbabilityThreshold':threshold,'unpairedProbabilities':[max(0.,min(1.,1-v)) for v in paired],'temperatureC':temp,'model':'ViennaRNA','version':RNA.__version__,'coordinateConvention':'1-based pair positions; array index + 1 for per-base marginals','scope':'Thermodynamic equilibrium secondary structure. Per-base unpaired marginals are not joint accessibility of an entire oligo-binding window, in-cell structure, RNA half-life or translation rate.'}
+
+def rs3_activity(p):
+ from .editcraft_models import run_external
+ return run_external('rs3_activity',p)
+def bedict_per_base(p):
+ from .editcraft_models import run_external
+ return run_external('bedict_per_base',p)
+def pridict2_design(p):
+ from .editcraft_models import run_external
+ return run_external('pridict2_design',p)
+
 FUNCTIONS={name:globals()[name] for name in OPS}
 def validate_plan(plan):
  if not isinstance(plan,dict) or plan.get('schemaVersion')!=1:raise ValueError('Unsupported EditCraft plan schema.')
@@ -202,9 +234,13 @@ def validate_plan(plan):
   op=stage.get('operation')
   if op not in OPS:raise ValueError('Operation is not executable: '+str(op))
   link=stage.get('inputFrom')
+  if not isinstance(stage.get('parameters'),dict):raise ValueError('Stage parameters must be an object.')
+  if op in ('rs3_activity','bedict_per_base','pridict2_design'):
+   from .editcraft_models import validate_input
+   validate_input(op,stage['parameters'])
   if link:
    if link not in seen:raise ValueError('Dependency must refer to an earlier stage; cycles are prohibited.')
-   compatible={('gene_context','sequence_analyze'),('sequence_analyze','rna_fold')}
+   compatible={('gene_context','sequence_analyze'),('sequence_analyze','rna_fold'),('sequence_analyze','rna_ensemble')}
    if (seen[link],op) not in compatible:raise ValueError('No explicit scientific conversion exists for this handoff.')
   elif not isinstance(stage.get('parameters'),dict):raise ValueError('Stage parameters must be an object.')
   seen[stage['id']]=op
@@ -229,4 +265,4 @@ def run_plan(plan,checkpoint=lambda event:None,cancelled=lambda:False):
   value=FUNCTIONS[stage['operation']](params)
   results[stage['id']]={'operation':stage['operation'],'inputSha256':sha(params),'result':value,'completed':utc()}
   checkpoint({'stageId':stage['id'],'operation':stage['operation'],'state':'completed'})
- return {'schemaVersion':1,'results':results,'provenance':{'engine':'EditCraft','version':VERSION,'inputSha256':sha(plan),'python':sys.version.split()[0],'platform':platform.platform(),'host':platform.node(),'packages':{name:importlib.metadata.version(name) for name in ('biopython','ViennaRNA') if importlib.util.find_spec('Bio' if name=='biopython' else 'RNA')},'completed':utc(),'elapsedSeconds':time.monotonic()-started,'scientificQualification':'Operation-specific tests; no trained editor-model or therapeutic qualification.'}}
+ return {'schemaVersion':1,'results':results,'provenance':{'engine':'EditCraft','version':VERSION,'inputSha256':sha(plan),'python':sys.version.split()[0],'platform':platform.platform(),'host':platform.node(),'packages':{name:importlib.metadata.version(name) for name in ('biopython','ViennaRNA') if importlib.util.find_spec('Bio' if name=='biopython' else 'RNA')},'completed':utc(),'elapsedSeconds':time.monotonic()-started,'scientificQualification':'Operation-specific tests; trained-model execution and independent scientific qualification are tracked separately.'}}

@@ -1,0 +1,3957 @@
+{
+  "repository": "hkimlab/DeepPrime",
+  "revision": "99272383d1420576551d271d865b9972a63466c0",
+  "license": null,
+  "tree": [
+    {
+      "path": ".gitignore",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "6bf81f5532776219b89b05baf582d8b5903e80be",
+      "size": 192,
+      "url": "https://api.github.com/repos/hkimlab/DeepPrime/git/blobs/6bf81f5532776219b89b05baf582d8b5903e80be"
+    },
+    {
+      "path": "DeepPrime.py",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "a8f5b89a683ee302bc25ee59e8f60e8c984fbf4d",
+      "size": 9904,
+      "url": "https://api.github.com/repos/hkimlab/DeepPrime/git/blobs/a8f5b89a683ee302bc25ee59e8f60e8c984fbf4d"
+    },
+    {
+      "path": "README.md",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "fbeeb78d38ed27075025eb5c77275088caf2e2c4",
+      "size": 13019,
+      "url": "https://api.github.com/repos/hkimlab/DeepPrime/git/blobs/fbeeb78d38ed27075025eb5c77275088caf2e2c4"
+    },
+    {
+      "path": "docs",
+      "mode": "040000",
+      "type": "tree",
+      "sha": "9c98192724317078c3bc5b40211575fab46af0b6",
+      "url": "https://api.github.com/repos/hkimlab/DeepPrime/git/trees/9c98192724317078c3bc5b40211575fab46af0b6"
+    },
+    {
+      "path": "docs/images",
+      "mode": "040000",
+      "type": "tree",
+      "sha": "f18611ef550303bfdd41d0e5deafbfb7b2233834",
+      "url": "https://api.github.com/repos/hkimlab/DeepPrime/git/trees/f18611ef550303bfdd41d0e5deafbfb7b2233834"
+    },
+    {
+      "path": "docs/images/DeepPrime_logo.png",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "c23e4a198b196cfda7acfdfd6f98ff0582036a6b",
+      "size": 53890,
+      "url": "https://api.github.com/repos/hkimlab/DeepPrime/git/blobs/c23e4a198b196cfda7acfdfd6f98ff0582036a6b"
+    },
+    {
+      "path": "docs/images/logo.jpg",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "46982072c406238877e5c922de52edefdbea6850",
+      "size": 170809,
+      "url": "https://api.github.com/repos/hkimlab/DeepPrime/git/blobs/46982072c406238877e5c922de52edefdbea6850"
+    },
+    {
+      "path": "example_input",
+      "mode": "040000",
+      "type": "tree",
+      "sha": "64787dc5100a739f64cfb2bde4f1269e60a76fb1",
+      "url": "https://api.github.com/repos/hkimlab/DeepPrime/git/trees/64787dc5100a739f64cfb2bde4f1269e60a76fb1"
+    },
+    {
+      "path": "example_input/dp_code_test.csv",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "0ece82633be55a3c312a8b8e10f55c078f22075e",
+      "size": 2405,
+      "url": "https://api.github.com/repos/hkimlab/DeepPrime/git/blobs/0ece82633be55a3c312a8b8e10f55c078f22075e"
+    },
+    {
+      "path": "models",
+      "mode": "040000",
+      "type": "tree",
+      "sha": "cdb7b6b25da9df918a0650117c5bf365513e3641",
+      "url": "https://api.github.com/repos/hkimlab/DeepPrime/git/trees/cdb7b6b25da9df918a0650117c5bf365513e3641"
+    },
+    {
+      "path": "models/DeepPrime",
+      "mode": "040000",
+      "type": "tree",
+      "sha": "e7c1962d2fb999525bfeb344a285945289420159",
+      "url": "https://api.github.com/repos/hkimlab/DeepPrime/git/trees/e7c1962d2fb999525bfeb344a285945289420159"
+    },
+    {
+      "path": "models/DeepPrime/DP_variant_293T_NRCH-PE2max_Opti_220815",
+      "mode": "040000",
+      "type": "tree",
+      "sha": "3fc6356c612f09761b930ebaff721474dd33a09d",
+      "url": "https://api.github.com/repos/hkimlab/DeepPrime/git/trees/3fc6356c612f09761b930ebaff721474dd33a09d"
+    },
+    {
+      "path": "models/DeepPrime/DP_variant_293T_NRCH-PE2max_Opti_220815/dp_mean.csv",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "3d5fe51bf89554d8fcf666d29472cdfb666899fe",
+      "size": 17,
+      "url": "https://api.github.com/repos/hkimlab/DeepPrime/git/blobs/3d5fe51bf89554d8fcf666d29472cdfb666899fe"
+    },
+    {
+      "path": "models/DeepPrime/DP_variant_293T_NRCH-PE2max_Opti_220815/dp_std.csv",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "9dd80a0fe2565424eff48643f106569ecdbf6b33",
+      "size": 17,
+      "url": "https://api.github.com/repos/hkimlab/DeepPrime/git/blobs/9dd80a0fe2565424eff48643f106569ecdbf6b33"
+    },
+    {
+      "path": "models/DeepPrime/DP_variant_293T_NRCH-PE2max_Opti_220815/final_model_0.pt",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "c29331c934f145efe326496e0bfe6f7ddaea29f6",
+      "size": 1380013,
+      "url": "https://api.github.com/repos/hkimlab/DeepPrime/git/blobs/c29331c934f145efe326496e0bfe6f7ddaea29f6"
+    },
+    {
+      "path": "models/DeepPrime/DP_variant_293T_NRCH-PE2max_Opti_220815/final_model_1.pt",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "75b4e5b4c531bea4710afe5f09c833eb301d1f54",
+      "size": 1380013,
+      "url": "https://api.github.com/repos/hkimlab/DeepPrime/git/blobs/75b4e5b4c531bea4710afe5f09c833eb301d1f54"
+    },
+    {
+      "path": "models/DeepPrime/DP_variant_293T_NRCH-PE2max_Opti_220815/final_model_10.pt",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "c29331c934f145efe326496e0bfe6f7ddaea29f6",
+      "size": 1380013,
+      "url": "https://api.github.com/repos/hkimlab/DeepPrime/git/blobs/c29331c934f145efe326496e0bfe6f7ddaea29f6"
+    },
+    {
+      "path": "models/DeepPrime/DP_variant_293T_NRCH-PE2max_Opti_220815/final_model_11.pt",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "75b4e5b4c531bea4710afe5f09c833eb301d1f54",
+      "size": 1380013,
+      "url": "https://api.github.com/repos/hkimlab/DeepPrime/git/blobs/75b4e5b4c531bea4710afe5f09c833eb301d1f54"
+    },
+    {
+      "path": "models/DeepPrime/DP_variant_293T_NRCH-PE2max_Opti_220815/final_model_12.pt",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "fa2545f4e98b2fc565228977d53d3a0936da1956",
+      "size": 1380013,
+      "url": "https://api.github.com/repos/hkimlab/DeepPrime/git/blobs/fa2545f4e98b2fc565228977d53d3a0936da1956"
+    },
+    {
+      "path": "models/DeepPrime/DP_variant_293T_NRCH-PE2max_Opti_220815/final_model_13.pt",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "06e931637630f278fc255cc33378e8586877dafd",
+      "size": 1380013,
+      "url": "https://api.github.com/repos/hkimlab/DeepPrime/git/blobs/06e931637630f278fc255cc33378e8586877dafd"
+    },
+    {
+      "path": "models/DeepPrime/DP_variant_293T_NRCH-PE2max_Opti_220815/final_model_14.pt",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "a8a08177b16e6812cfb5a7e6875a80a94cd91aba",
+      "size": 1380013,
+      "url": "https://api.github.com/repos/hkimlab/DeepPrime/git/blobs/a8a08177b16e6812cfb5a7e6875a80a94cd91aba"
+    },
+    {
+      "path": "models/DeepPrime/DP_variant_293T_NRCH-PE2max_Opti_220815/final_model_15.pt",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "c29331c934f145efe326496e0bfe6f7ddaea29f6",
+      "size": 1380013,
+      "url": "https://api.github.com/repos/hkimlab/DeepPrime/git/blobs/c29331c934f145efe326496e0bfe6f7ddaea29f6"
+    },
+    {
+      "path": "models/DeepPrime/DP_variant_293T_NRCH-PE2max_Opti_220815/final_model_16.pt",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "75b4e5b4c531bea4710afe5f09c833eb301d1f54",
+      "size": 1380013,
+      "url": "https://api.github.com/repos/hkimlab/DeepPrime/git/blobs/75b4e5b4c531bea4710afe5f09c833eb301d1f54"
+    },
+    {
+      "path": "models/DeepPrime/DP_variant_293T_NRCH-PE2max_Opti_220815/final_model_17.pt",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "fa2545f4e98b2fc565228977d53d3a0936da1956",
+      "size": 1380013,
+      "url": "https://api.github.com/repos/hkimlab/DeepPrime/git/blobs/fa2545f4e98b2fc565228977d53d3a0936da1956"
+    },
+    {
+      "path": "models/DeepPrime/DP_variant_293T_NRCH-PE2max_Opti_220815/final_model_18.pt",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "06e931637630f278fc255cc33378e8586877dafd",
+      "size": 1380013,
+      "url": "https://api.github.com/repos/hkimlab/DeepPrime/git/blobs/06e931637630f278fc255cc33378e8586877dafd"
+    },
+    {
+      "path": "models/DeepPrime/DP_variant_293T_NRCH-PE2max_Opti_220815/final_model_19.pt",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "a8a08177b16e6812cfb5a7e6875a80a94cd91aba",
+      "size": 1380013,
+      "url": "https://api.github.com/repos/hkimlab/DeepPrime/git/blobs/a8a08177b16e6812cfb5a7e6875a80a94cd91aba"
+    },
+    {
+      "path": "models/DeepPrime/DP_variant_293T_NRCH-PE2max_Opti_220815/final_model_2.pt",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "fa2545f4e98b2fc565228977d53d3a0936da1956",
+      "size": 1380013,
+      "url": "https://api.github.com/repos/hkimlab/DeepPrime/git/blobs/fa2545f4e98b2fc565228977d53d3a0936da1956"
+    },
+    {
+      "path": "models/DeepPrime/DP_variant_293T_NRCH-PE2max_Opti_220815/final_model_3.pt",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "06e931637630f278fc255cc33378e8586877dafd",
+      "size": 1380013,
+      "url": "https://api.github.com/repos/hkimlab/DeepPrime/git/blobs/06e931637630f278fc255cc33378e8586877dafd"
+    },
+    {
+      "path": "models/DeepPrime/DP_variant_293T_NRCH-PE2max_Opti_220815/final_model_4.pt",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "a8a08177b16e6812cfb5a7e6875a80a94cd91aba",
+      "size": 1380013,
+      "url": "https://api.github.com/repos/hkimlab/DeepPrime/git/blobs/a8a08177b16e6812cfb5a7e6875a80a94cd91aba"
+    },
+    {
+      "path": "models/DeepPrime/DP_variant_293T_NRCH-PE2max_Opti_220815/final_model_5.pt",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "04f1b305d6930f754f3804fde4b81486a67551b4",
+      "size": 1380013,
+      "url": "https://api.github.com/repos/hkimlab/DeepPrime/git/blobs/04f1b305d6930f754f3804fde4b81486a67551b4"
+    },
+    {
+      "path": "models/DeepPrime/DP_variant_293T_NRCH-PE2max_Opti_220815/final_model_6.pt",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "75b4e5b4c531bea4710afe5f09c833eb301d1f54",
+      "size": 1380013,
+      "url": "https://api.github.com/repos/hkimlab/DeepPrime/git/blobs/75b4e5b4c531bea4710afe5f09c833eb301d1f54"
+    },
+    {
+      "path": "models/DeepPrime/DP_variant_293T_NRCH-PE2max_Opti_220815/final_model_7.pt",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "fa2545f4e98b2fc565228977d53d3a0936da1956",
+      "size": 1380013,
+      "url": "https://api.github.com/repos/hkimlab/DeepPrime/git/blobs/fa2545f4e98b2fc565228977d53d3a0936da1956"
+    },
+    {
+      "path": "models/DeepPrime/DP_variant_293T_NRCH-PE2max_Opti_220815/final_model_8.pt",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "06e931637630f278fc255cc33378e8586877dafd",
+      "size": 1380013,
+      "url": "https://api.github.com/repos/hkimlab/DeepPrime/git/blobs/06e931637630f278fc255cc33378e8586877dafd"
+    },
+    {
+      "path": "models/DeepPrime/DP_variant_293T_NRCH-PE2max_Opti_220815/final_model_9.pt",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "a8a08177b16e6812cfb5a7e6875a80a94cd91aba",
+      "size": 1380013,
+      "url": "https://api.github.com/repos/hkimlab/DeepPrime/git/blobs/a8a08177b16e6812cfb5a7e6875a80a94cd91aba"
+    },
+    {
+      "path": "models/DeepPrime/DP_variant_293T_NRCH-PE2max_Opti_220815/mean.csv",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "e94159bc1078f10788871dabd5f591b73621eb3a",
+      "size": 655,
+      "url": "https://api.github.com/repos/hkimlab/DeepPrime/git/blobs/e94159bc1078f10788871dabd5f591b73621eb3a"
+    },
+    {
+      "path": "models/DeepPrime/DP_variant_293T_NRCH-PE2max_Opti_220815/std.csv",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "2eecd7e246c3c14fd259803705151cdf03581046",
+      "size": 649,
+      "url": "https://api.github.com/repos/hkimlab/DeepPrime/git/blobs/2eecd7e246c3c14fd259803705151cdf03581046"
+    },
+    {
+      "path": "models/DeepPrime/DP_variant_293T_NRCH_PE2_Opti_220428",
+      "mode": "040000",
+      "type": "tree",
+      "sha": "db2ba19bed4bc099ac21f415c6e67dfd1c71c41b",
+      "url": "https://api.github.com/repos/hkimlab/DeepPrime/git/trees/db2ba19bed4bc099ac21f415c6e67dfd1c71c41b"
+    },
+    {
+      "path": "models/DeepPrime/DP_variant_293T_NRCH_PE2_Opti_220428/dp_mean.csv",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "600a49f2b0962bf43846e44164467c1a7ccdeb93",
+      "size": 17,
+      "url": "https://api.github.com/repos/hkimlab/DeepPrime/git/blobs/600a49f2b0962bf43846e44164467c1a7ccdeb93"
+    },
+    {
+      "path": "models/DeepPrime/DP_variant_293T_NRCH_PE2_Opti_220428/dp_std.csv",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "2a583074b6fc384b7d10100016ad7f85f59b6209",
+      "size": 17,
+      "url": "https://api.github.com/repos/hkimlab/DeepPrime/git/blobs/2a583074b6fc384b7d10100016ad7f85f59b6209"
+    },
+    {
+      "path": "models/DeepPrime/DP_variant_293T_NRCH_PE2_Opti_220428/final_model_0.pt",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "3e48ec77f5cb968f255b5ed555c25b5a87d4d4cd",
+      "size": 1380013,
+      "url": "https://api.github.com/repos/hkimlab/DeepPrime/git/blobs/3e48ec77f5cb968f255b5ed555c25b5a87d4d4cd"
+    },
+    {
+      "path": "models/DeepPrime/DP_variant_293T_NRCH_PE2_Opti_220428/final_model_1.pt",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "5d12e4618dc90fca94739dff98d60c40b8ba923f",
+      "size": 1380013,
+      "url": "https://api.github.com/repos/hkimlab/DeepPrime/git/blobs/5d12e4618dc90fca94739dff98d60c40b8ba923f"
+    },
+    {
+      "path": "models/DeepPrime/DP_variant_293T_NRCH_PE2_Opti_220428/final_model_10.pt",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "9c213012f5445ff0b5a54fdc029fdcf3697a1305",
+      "size": 1380013,
+      "url": "https://api.github.com/repos/hkimlab/DeepPrime/git/blobs/9c213012f5445ff0b5a54fdc029fdcf3697a1305"
+    },
+    {
+      "path": "models/DeepPrime/DP_variant_293T_NRCH_PE2_Opti_220428/final_model_11.pt",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "d1e7c45db8fae11914b5d95e6f72972a80d01214",
+      "size": 1380013,
+      "url": "https://api.github.com/repos/hkimlab/DeepPrime/git/blobs/d1e7c45db8fae11914b5d95e6f72972a80d01214"
+    },
+    {
+      "path": "models/DeepPrime/DP_variant_293T_NRCH_PE2_Opti_220428/final_model_12.pt",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "a0a7f4a25f886dc75ef6c1ae46f6ccfd70d9c04e",
+      "size": 1380013,
+      "url": "https://api.github.com/repos/hkimlab/DeepPrime/git/blobs/a0a7f4a25f886dc75ef6c1ae46f6ccfd70d9c04e"
+    },
+    {
+      "path": "models/DeepPrime/DP_variant_293T_NRCH_PE2_Opti_220428/final_model_13.pt",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "a21ec4da7b40817bdb073e8a13156ebc23be1bb6",
+      "size": 1380013,
+      "url": "https://api.github.com/repos/hkimlab/DeepPrime/git/blobs/a21ec4da7b40817bdb073e8a13156ebc23be1bb6"
+    },
+    {
+      "path": "models/DeepPrime/DP_variant_293T_NRCH_PE2_Opti_220428/final_model_14.pt",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "673fe6c84952877c66dc2406318839d8ce11c447",
+      "size": 1380013,
+      "url": "https://api.github.com/repos/hkimlab/DeepPrime/git/blobs/673fe6c84952877c66dc2406318839d8ce11c447"
+    },
+    {
+      "path": "models/DeepPrime/DP_variant_293T_NRCH_PE2_Opti_220428/final_model_15.pt",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "1c7aa91a75c7ca7b1f7860d01ba1e716c94e9a06",
+      "size": 1380013,
+      "url": "https://api.github.com/repos/hkimlab/DeepPrime/git/blobs/1c7aa91a75c7ca7b1f7860d01ba1e716c94e9a06"
+    },
+    {
+      "path": "models/DeepPrime/DP_variant_293T_NRCH_PE2_Opti_220428/final_model_16.pt",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "df94bb9c77e0a84afa3453be3ed5ffd09e117d45",
+      "size": 1380013,
+      "url": "https://api.github.com/repos/hkimlab/DeepPrime/git/blobs/df94bb9c77e0a84afa3453be3ed5ffd09e117d45"
+    },
+    {
+      "path": "models/DeepPrime/DP_variant_293T_NRCH_PE2_Opti_220428/final_model_17.pt",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "f9b3facfa031d226501c27136c6a561d3c05c5d6",
+      "size": 1380013,
+      "url": "https://api.github.com/repos/hkimlab/DeepPrime/git/blobs/f9b3facfa031d226501c27136c6a561d3c05c5d6"
+    },
+    {
+      "path": "models/DeepPrime/DP_variant_293T_NRCH_PE2_Opti_220428/final_model_18.pt",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "c9e4a81b111eaa153162daa408eb878da0faabcc",
+      "size": 1380013,
+      "url": "https://api.github.com/repos/hkimlab/DeepPrime/git/blobs/c9e4a81b111eaa153162daa408eb878da0faabcc"
+    },
+    {
+      "path": "models/DeepPrime/DP_variant_293T_NRCH_PE2_Opti_220428/final_model_19.pt",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "c3b68e94828d7df5305110a5b848cdf39d60caf6",
+      "size": 1380013,
+      "url": "https://api.github.com/repos/hkimlab/DeepPrime/git/blobs/c3b68e94828d7df5305110a5b848cdf39d60caf6"
+    },
+    {
+      "path": "models/DeepPrime/DP_variant_293T_NRCH_PE2_Opti_220428/final_model_2.pt",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "2ac062c807909e5d01704a0b2744b87cc3f3f9be",
+      "size": 1380013,
+      "url": "https://api.github.com/repos/hkimlab/DeepPrime/git/blobs/2ac062c807909e5d01704a0b2744b87cc3f3f9be"
+    },
+    {
+      "path": "models/DeepPrime/DP_variant_293T_NRCH_PE2_Opti_220428/final_model_3.pt",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "541fefc6d99d5f5e63acab905ef1bc674c1624e4",
+      "size": 1380013,
+      "url": "https://api.github.com/repos/hkimlab/DeepPrime/git/blobs/541fefc6d99d5f5e63acab905ef1bc674c1624e4"
+    },
+    {
+      "path": "models/DeepPrime/DP_variant_293T_NRCH_PE2_Opti_220428/final_model_4.pt",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "0eae55b34a6c00d65bc1742fe41243781f5b17d7",
+      "size": 1380013,
+      "url": "https://api.github.com/repos/hkimlab/DeepPrime/git/blobs/0eae55b34a6c00d65bc1742fe41243781f5b17d7"
+    },
+    {
+      "path": "models/DeepPrime/DP_variant_293T_NRCH_PE2_Opti_220428/final_model_5.pt",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "d084653ca0a976b8ee134be3e50ba416208ba231",
+      "size": 1380013,
+      "url": "https://api.github.com/repos/hkimlab/DeepPrime/git/blobs/d084653ca0a976b8ee134be3e50ba416208ba231"
+    },
+    {
+      "path": "models/DeepPrime/DP_variant_293T_NRCH_PE2_Opti_220428/final_model_6.pt",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "61dd6e90146d20ba60e580ff726b7cf3efaadf16",
+      "size": 1380013,
+      "url": "https://api.github.com/repos/hkimlab/DeepPrime/git/blobs/61dd6e90146d20ba60e580ff726b7cf3efaadf16"
+    },
+    {
+      "path": "models/DeepPrime/DP_variant_293T_NRCH_PE2_Opti_220428/final_model_7.pt",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "19d50a77d005b53eae2126953fe928c0e40d7e14",
+      "size": 1380013,
+      "url": "https://api.github.com/repos/hkimlab/DeepPrime/git/blobs/19d50a77d005b53eae2126953fe928c0e40d7e14"
+    },
+    {
+      "path": "models/DeepPrime/DP_variant_293T_NRCH_PE2_Opti_220428/final_model_8.pt",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "73e55eac4829a9e60be15e8a2ea54afb269f7235",
+      "size": 1380013,
+      "url": "https://api.github.com/repos/hkimlab/DeepPrime/git/blobs/73e55eac4829a9e60be15e8a2ea54afb269f7235"
+    },
+    {
+      "path": "models/DeepPrime/DP_variant_293T_NRCH_PE2_Opti_220428/final_model_9.pt",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "26e65faeb448110b13db6838b3797b8d9139fd85",
+      "size": 1380013,
+      "url": "https://api.github.com/repos/hkimlab/DeepPrime/git/blobs/26e65faeb448110b13db6838b3797b8d9139fd85"
+    },
+    {
+      "path": "models/DeepPrime/DP_variant_293T_NRCH_PE2_Opti_220428/mean.csv",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "e94159bc1078f10788871dabd5f591b73621eb3a",
+      "size": 655,
+      "url": "https://api.github.com/repos/hkimlab/DeepPrime/git/blobs/e94159bc1078f10788871dabd5f591b73621eb3a"
+    },
+    {
+      "path": "models/DeepPrime/DP_variant_293T_NRCH_PE2_Opti_220428/std.csv",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "2eecd7e246c3c14fd259803705151cdf03581046",
+      "size": 649,
+      "url": "https://api.github.com/repos/hkimlab/DeepPrime/git/blobs/2eecd7e246c3c14fd259803705151cdf03581046"
+    },
+    {
+      "path": "models/DeepPrime/DP_variant_293T_PE2_Conv_220428",
+      "mode": "040000",
+      "type": "tree",
+      "sha": "428c243d16144baea01e49c8d7e8417519414eec",
+      "url": "https://api.github.com/repos/hkimlab/DeepPrime/git/trees/428c243d16144baea01e49c8d7e8417519414eec"
+    },
+    {
+      "path": "models/DeepPrime/DP_variant_293T_PE2_Conv_220428/dp_mean.csv",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "947a58e0ad3da48cd14998cee9389ccb9cdf31d6",
+      "size": 17,
+      "url": "https://api.github.com/repos/hkimlab/DeepPrime/git/blobs/947a58e0ad3da48cd14998cee9389ccb9cdf31d6"
+    },
+    {
+      "path": "models/DeepPrime/DP_variant_293T_PE2_Conv_220428/dp_std.csv",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "2127b63249ce2aca7bc84edbefcaada96a425d87",
+      "size": 17,
+      "url": "https://api.github.com/repos/hkimlab/DeepPrime/git/blobs/2127b63249ce2aca7bc84edbefcaada96a425d87"
+    },
+    {
+      "path": "models/DeepPrime/DP_variant_293T_PE2_Conv_220428/final_model_0.pt",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "bb2b71cbd2a9510bed7d05b6c1b8159c86e4a99f",
+      "size": 1380013,
+      "url": "https://api.github.com/repos/hkimlab/DeepPrime/git/blobs/bb2b71cbd2a9510bed7d05b6c1b8159c86e4a99f"
+    },
+    {
+      "path": "models/DeepPrime/DP_variant_293T_PE2_Conv_220428/final_model_1.pt",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "e765abef75df1ea2ccffed057d6e9bd048b2e536",
+      "size": 1380013,
+      "url": "https://api.github.com/repos/hkimlab/DeepPrime/git/blobs/e765abef75df1ea2ccffed057d6e9bd048b2e536"
+    },
+    {
+      "path": "models/DeepPrime/DP_variant_293T_PE2_Conv_220428/final_model_10.pt",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "ecf8358479eb94706c696e58f03aac686f914142",
+      "size": 1380013,
+      "url": "https://api.github.com/repos/hkimlab/DeepPrime/git/blobs/ecf8358479eb94706c696e58f03aac686f914142"
+    },
+    {
+      "path": "models/DeepPrime/DP_variant_293T_PE2_Conv_220428/final_model_11.pt",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "55b717f36b178818f98b1b2c52e55542dad443ef",
+      "size": 1380013,
+      "url": "https://api.github.com/repos/hkimlab/DeepPrime/git/blobs/55b717f36b178818f98b1b2c52e55542dad443ef"
+    },
+    {
+      "path": "models/DeepPrime/DP_variant_293T_PE2_Conv_220428/final_model_12.pt",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "acd854967fbdb398129c0bb05eedabacbaaf2fd0",
+      "size": 1380013,
+      "url": "https://api.github.com/repos/hkimlab/DeepPrime/git/blobs/acd854967fbdb398129c0bb05eedabacbaaf2fd0"
+    },
+    {
+      "path": "models/DeepPrime/DP_variant_293T_PE2_Conv_220428/final_model_13.pt",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "b68817252b730d380c8a073d4c4f77cef5e06678",
+      "size": 1380013,
+      "url": "https://api.github.com/repos/hkimlab/DeepPrime/git/blobs/b68817252b730d380c8a073d4c4f77cef5e06678"
+    },
+    {
+      "path": "models/DeepPrime/DP_variant_293T_PE2_Conv_220428/final_model_14.pt",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "275635c7b87de9415ccdc36cf82a15fe7a69ae65",
+      "size": 1380013,
+      "url": "https://api.github.com/repos/hkimlab/DeepPrime/git/blobs/275635c7b87de9415ccdc36cf82a15fe7a69ae65"
+    },
+    {
+      "path": "models/DeepPrime/DP_variant_293T_PE2_Conv_220428/final_model_15.pt",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "77e3bae395b1df2747be2463c792b95ec7180c28",
+      "size": 1380013,
+      "url": "https://api.github.com/repos/hkimlab/DeepPrime/git/blobs/77e3bae395b1df2747be2463c792b95ec7180c28"
+    },
+    {
+      "path": "models/DeepPrime/DP_variant_293T_PE2_Conv_220428/final_model_16.pt",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "50ce25a7263a6059a9e41a72423cece7b6e69e2d",
+      "size": 1380013,
+      "url": "https://api.github.com/repos/hkimlab/DeepPrime/git/blobs/50ce25a7263a6059a9e41a72423cece7b6e69e2d"
+    },
+    {
+      "path": "models/DeepPrime/DP_variant_293T_PE2_Conv_220428/final_model_17.pt",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "4ea39a2ef92d646c49e5f61a3fcb70b357493d77",
+      "size": 1380013,
+      "url": "https://api.github.com/repos/hkimlab/DeepPrime/git/blobs/4ea39a2ef92d646c49e5f61a3fcb70b357493d77"
+    },
+    {
+      "path": "models/DeepPrime/DP_variant_293T_PE2_Conv_220428/final_model_18.pt",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "8740fa16702f70382757b3ebe170e624ff555ec6",
+      "size": 1380013,
+      "url": "https://api.github.com/repos/hkimlab/DeepPrime/git/blobs/8740fa16702f70382757b3ebe170e624ff555ec6"
+    },
+    {
+      "path": "models/DeepPrime/DP_variant_293T_PE2_Conv_220428/final_model_19.pt",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "f3731102c90185257b8769919217565353162ae9",
+      "size": 1380013,
+      "url": "https://api.github.com/repos/hkimlab/DeepPrime/git/blobs/f3731102c90185257b8769919217565353162ae9"
+    },
+    {
+      "path": "models/DeepPrime/DP_variant_293T_PE2_Conv_220428/final_model_2.pt",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "b87cf4a68dd2834ea61b95e09970cf0d5e0db5fa",
+      "size": 1380013,
+      "url": "https://api.github.com/repos/hkimlab/DeepPrime/git/blobs/b87cf4a68dd2834ea61b95e09970cf0d5e0db5fa"
+    },
+    {
+      "path": "models/DeepPrime/DP_variant_293T_PE2_Conv_220428/final_model_3.pt",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "b771d9bed4f227bc8a82b6cef8a0c2aae1b946b8",
+      "size": 1380013,
+      "url": "https://api.github.com/repos/hkimlab/DeepPrime/git/blobs/b771d9bed4f227bc8a82b6cef8a0c2aae1b946b8"
+    },
+    {
+      "path": "models/DeepPrime/DP_variant_293T_PE2_Conv_220428/final_model_4.pt",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "2fba83f19e00ce01c02400e8e537219efd7cbf61",
+      "size": 1380013,
+      "url": "https://api.github.com/repos/hkimlab/DeepPrime/git/blobs/2fba83f19e00ce01c02400e8e537219efd7cbf61"
+    },
+    {
+      "path": "models/DeepPrime/DP_variant_293T_PE2_Conv_220428/final_model_5.pt",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "1bade3111f5bc80532e1341694f7a28fe257183b",
+      "size": 1380013,
+      "url": "https://api.github.com/repos/hkimlab/DeepPrime/git/blobs/1bade3111f5bc80532e1341694f7a28fe257183b"
+    },
+    {
+      "path": "models/DeepPrime/DP_variant_293T_PE2_Conv_220428/final_model_6.pt",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "2c8b549b60a2adaa8c1425b7c7c57402ccb36de2",
+      "size": 1380013,
+      "url": "https://api.github.com/repos/hkimlab/DeepPrime/git/blobs/2c8b549b60a2adaa8c1425b7c7c57402ccb36de2"
+    },
+    {
+      "path": "models/DeepPrime/DP_variant_293T_PE2_Conv_220428/final_model_7.pt",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "6061b0dc1d281e3180f32c4048a1608ea9f2295b",
+      "size": 1380013,
+      "url": "https://api.github.com/repos/hkimlab/DeepPrime/git/blobs/6061b0dc1d281e3180f32c4048a1608ea9f2295b"
+    },
+    {
+      "path": "models/DeepPrime/DP_variant_293T_PE2_Conv_220428/final_model_8.pt",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "b6bb85adbe76b0b7344afb51cd4b6ae6e038048b",
+      "size": 1380013,
+      "url": "https://api.github.com/repos/hkimlab/DeepPrime/git/blobs/b6bb85adbe76b0b7344afb51cd4b6ae6e038048b"
+    },
+    {
+      "path": "models/DeepPrime/DP_variant_293T_PE2_Conv_220428/final_model_9.pt",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "f62ed680e862e31fbd63966d18838a6361cb3e1b",
+      "size": 1380013,
+      "url": "https://api.github.com/repos/hkimlab/DeepPrime/git/blobs/f62ed680e862e31fbd63966d18838a6361cb3e1b"
+    },
+    {
+      "path": "models/DeepPrime/DP_variant_293T_PE2_Conv_220428/mean.csv",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "bd2cac691984f74a83d1587914af20acd75a69bc",
+      "size": 648,
+      "url": "https://api.github.com/repos/hkimlab/DeepPrime/git/blobs/bd2cac691984f74a83d1587914af20acd75a69bc"
+    },
+    {
+      "path": "models/DeepPrime/DP_variant_293T_PE2_Conv_220428/std.csv",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "0c468555234028f8afb226e42cb7abb62b3f1e7f",
+      "size": 652,
+      "url": "https://api.github.com/repos/hkimlab/DeepPrime/git/blobs/0c468555234028f8afb226e42cb7abb62b3f1e7f"
+    },
+    {
+      "path": "models/DeepPrime/DP_variant_293T_PE2max_Opti_220428",
+      "mode": "040000",
+      "type": "tree",
+      "sha": "986a5bd791522da145537d9223c3c3776aeef640",
+      "url": "https://api.github.com/repos/hkimlab/DeepPrime/git/trees/986a5bd791522da145537d9223c3c3776aeef640"
+    },
+    {
+      "path": "models/DeepPrime/DP_variant_293T_PE2max_Opti_220428/dp_mean.csv",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "d7f59ef61ddcdd6e99ce175fa0205e9b7db6e078",
+      "size": 17,
+      "url": "https://api.github.com/repos/hkimlab/DeepPrime/git/blobs/d7f59ef61ddcdd6e99ce175fa0205e9b7db6e078"
+    },
+    {
+      "path": "models/DeepPrime/DP_variant_293T_PE2max_Opti_220428/dp_std.csv",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "3bda063e168a490f1d9971112127adf184273182",
+      "size": 18,
+      "url": "https://api.github.com/repos/hkimlab/DeepPrime/git/blobs/3bda063e168a490f1d9971112127adf184273182"
+    },
+    {
+      "path": "models/DeepPrime/DP_variant_293T_PE2max_Opti_220428/final_model_0.pt",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "f49ddf309bc6ea8c6b8d0debf06a0f2b136a2d46",
+      "size": 1380013,
+      "url": "https://api.github.com/repos/hkimlab/DeepPrime/git/blobs/f49ddf309bc6ea8c6b8d0debf06a0f2b136a2d46"
+    },
+    {
+      "path": "models/DeepPrime/DP_variant_293T_PE2max_Opti_220428/final_model_1.pt",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "e55c9a36ee44bcadb29fcd8a7e6bfbba15184451",
+      "size": 1380013,
+      "url": "https://api.github.com/repos/hkimlab/DeepPrime/git/blobs/e55c9a36ee44bcadb29fcd8a7e6bfbba15184451"
+    },
+    {
+      "path": "models/DeepPrime/DP_variant_293T_PE2max_Opti_220428/final_model_10.pt",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "efd8fc183b39393bc197bfaa30e4077dfbb43bed",
+      "size": 1380013,
+      "url": "https://api.github.com/repos/hkimlab/DeepPrime/git/blobs/efd8fc183b39393bc197bfaa30e4077dfbb43bed"
+    },
+    {
+      "path": "models/DeepPrime/DP_variant_293T_PE2max_Opti_220428/final_model_11.pt",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "3895d538309d03df528786b6c80770a54766d10e",
+      "size": 1380013,
+      "url": "https://api.github.com/repos/hkimlab/DeepPrime/git/blobs/3895d538309d03df528786b6c80770a54766d10e"
+    },
+    {
+      "path": "models/DeepPrime/DP_variant_293T_PE2max_Opti_220428/final_model_12.pt",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "8be01bdd4d4fa4a8fc24d6776099dc1b1635a112",
+      "size": 1380013,
+      "url": "https://api.github.com/repos/hkimlab/DeepPrime/git/blobs/8be01bdd4d4fa4a8fc24d6776099dc1b1635a112"
+    },
+    {
+      "path": "models/DeepPrime/DP_variant_293T_PE2max_Opti_220428/final_model_13.pt",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "6c1522236c67bb7b6a0103e902401e1698cc23d9",
+      "size": 1380013,
+      "url": "https://api.github.com/repos/hkimlab/DeepPrime/git/blobs/6c1522236c67bb7b6a0103e902401e1698cc23d9"
+    },
+    {
+      "path": "models/DeepPrime/DP_variant_293T_PE2max_Opti_220428/final_model_14.pt",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "def960e2d7cc0f238d00722445e3b480550775bc",
+      "size": 1380013,
+      "url": "https://api.github.com/repos/hkimlab/DeepPrime/git/blobs/def960e2d7cc0f238d00722445e3b480550775bc"
+    },
+    {
+      "path": "models/DeepPrime/DP_variant_293T_PE2max_Opti_220428/final_model_15.pt",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "6b934c4227a8ae7a0b72f478b0edf329d30fc66b",
+      "size": 1380013,
+      "url": "https://api.github.com/repos/hkimlab/DeepPrime/git/blobs/6b934c4227a8ae7a0b72f478b0edf329d30fc66b"
+    },
+    {
+      "path": "models/DeepPrime/DP_variant_293T_PE2max_Opti_220428/final_model_16.pt",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "408674a48800874a371fb37f6778ee160b4ef3f2",
+      "size": 1380013,
+      "url": "https://api.github.com/repos/hkimlab/DeepPrime/git/blobs/408674a48800874a371fb37f6778ee160b4ef3f2"
+    },
+    {
+      "path": "models/DeepPrime/DP_variant_293T_PE2max_Opti_220428/final_model_17.pt",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "ea217032eb3b7c9b7b5a7dc84fa5dabab837d7b0",
+      "size": 1380013,
+      "url": "https://api.github.com/repos/hkimlab/DeepPrime/git/blobs/ea217032eb3b7c9b7b5a7dc84fa5dabab837d7b0"
+    },
+    {
+      "path": "models/DeepPrime/DP_variant_293T_PE2max_Opti_220428/final_model_18.pt",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "52b57cba4726c854d16e1e2ba0a377c11e2935d8",
+      "size": 1380013,
+      "url": "https://api.github.com/repos/hkimlab/DeepPrime/git/blobs/52b57cba4726c854d16e1e2ba0a377c11e2935d8"
+    },
+    {
+      "path": "models/DeepPrime/DP_variant_293T_PE2max_Opti_220428/final_model_19.pt",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "abdf3455b4469461c3f099b13063b3fa389479a0",
+      "size": 1380013,
+      "url": "https://api.github.com/repos/hkimlab/DeepPrime/git/blobs/abdf3455b4469461c3f099b13063b3fa389479a0"
+    },
+    {
+      "path": "models/DeepPrime/DP_variant_293T_PE2max_Opti_220428/final_model_2.pt",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "efcd2ab1a92f526a40a370b373ba93a5ccc5ee27",
+      "size": 1380013,
+      "url": "https://api.github.com/repos/hkimlab/DeepPrime/git/blobs/efcd2ab1a92f526a40a370b373ba93a5ccc5ee27"
+    },
+    {
+      "path": "models/DeepPrime/DP_variant_293T_PE2max_Opti_220428/final_model_3.pt",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "ffb97e860bf9c3b0d4d9aeecd7896c1ba3250bac",
+      "size": 1380013,
+      "url": "https://api.github.com/repos/hkimlab/DeepPrime/git/blobs/ffb97e860bf9c3b0d4d9aeecd7896c1ba3250bac"
+    },
+    {
+      "path": "models/DeepPrime/DP_variant_293T_PE2max_Opti_220428/final_model_4.pt",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "f0ceadb327e0978f3e3bc27cae2d262d3c0a2488",
+      "size": 1380013,
+      "url": "https://api.github.com/repos/hkimlab/DeepPrime/git/blobs/f0ceadb327e0978f3e3bc27cae2d262d3c0a2488"
+    },
+    {
+      "path": "models/DeepPrime/DP_variant_293T_PE2max_Opti_220428/final_model_5.pt",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "91583105a76ed16dcbd49c51dbeb3cf6cc5fe57d",
+      "size": 1380013,
+      "url": "https://api.github.com/repos/hkimlab/DeepPrime/git/blobs/91583105a76ed16dcbd49c51dbeb3cf6cc5fe57d"
+    },
+    {
+      "path": "models/DeepPrime/DP_variant_293T_PE2max_Opti_220428/final_model_6.pt",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "c62a8f147d121cd94c8c57a1e0aaab298ac1f34a",
+      "size": 1380013,
+      "url": "https://api.github.com/repos/hkimlab/DeepPrime/git/blobs/c62a8f147d121cd94c8c57a1e0aaab298ac1f34a"
+    },
+    {
+      "path": "models/DeepPrime/DP_variant_293T_PE2max_Opti_220428/final_model_7.pt",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "b4766ceb44a5581e7ab79aa4e2f7fa39397acf56",
+      "size": 1380013,
+      "url": "https://api.github.com/repos/hkimlab/DeepPrime/git/blobs/b4766ceb44a5581e7ab79aa4e2f7fa39397acf56"
+    },
+    {
+      "path": "models/DeepPrime/DP_variant_293T_PE2max_Opti_220428/final_model_8.pt",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "fce913353d7003f506b29793de8ef57421da022b",
+      "size": 1380013,
+      "url": "https://api.github.com/repos/hkimlab/DeepPrime/git/blobs/fce913353d7003f506b29793de8ef57421da022b"
+    },
+    {
+      "path": "models/DeepPrime/DP_variant_293T_PE2max_Opti_220428/final_model_9.pt",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "b8ca5c4eb65ed9bc066fc2779d19e37aa29f7ee9",
+      "size": 1380013,
+      "url": "https://api.github.com/repos/hkimlab/DeepPrime/git/blobs/b8ca5c4eb65ed9bc066fc2779d19e37aa29f7ee9"
+    },
+    {
+      "path": "models/DeepPrime/DP_variant_293T_PE2max_Opti_220428/mean.csv",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "e94159bc1078f10788871dabd5f591b73621eb3a",
+      "size": 655,
+      "url": "https://api.github.com/repos/hkimlab/DeepPrime/git/blobs/e94159bc1078f10788871dabd5f591b73621eb3a"
+    },
+    {
+      "path": "models/DeepPrime/DP_variant_293T_PE2max_Opti_220428/std.csv",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "2eecd7e246c3c14fd259803705151cdf03581046",
+      "size": 649,
+      "url": "https://api.github.com/repos/hkimlab/DeepPrime/git/blobs/2eecd7e246c3c14fd259803705151cdf03581046"
+    },
+    {
+      "path": "models/DeepPrime/DP_variant_293T_PE2max_epegRNA_Opti_220428",
+      "mode": "040000",
+      "type": "tree",
+      "sha": "c2e55b9baf2bf1bb8c63d39955f7d344621b5380",
+      "url": "https://api.github.com/repos/hkimlab/DeepPrime/git/trees/c2e55b9baf2bf1bb8c63d39955f7d344621b5380"
+    },
+    {
+      "path": "models/DeepPrime/DP_variant_293T_PE2max_epegRNA_Opti_220428/dp_mean.csv",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "8ef675b7e7ff5ab12cfaf74b55865111c97b15aa",
+      "size": 17,
+      "url": "https://api.github.com/repos/hkimlab/DeepPrime/git/blobs/8ef675b7e7ff5ab12cfaf74b55865111c97b15aa"
+    },
+    {
+      "path": "models/DeepPrime/DP_variant_293T_PE2max_epegRNA_Opti_220428/dp_std.csv",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "a432df68ea578fb42a01ef01d70294661d121507",
+      "size": 17,
+      "url": "https://api.github.com/repos/hkimlab/DeepPrime/git/blobs/a432df68ea578fb42a01ef01d70294661d121507"
+    },
+    {
+      "path": "models/DeepPrime/DP_variant_293T_PE2max_epegRNA_Opti_220428/final_model_0.pt",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "ee4ce7189a87875c515d15148f7a66f80ce9707c",
+      "size": 1380013,
+      "url": "https://api.github.com/repos/hkimlab/DeepPrime/git/blobs/ee4ce7189a87875c515d15148f7a66f80ce9707c"
+    },
+    {
+      "path": "models/DeepPrime/DP_variant_293T_PE2max_epegRNA_Opti_220428/final_model_1.pt",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "a07d6f0cbc364267e33c92e9e8e42502222e181d",
+      "size": 1380013,
+      "url": "https://api.github.com/repos/hkimlab/DeepPrime/git/blobs/a07d6f0cbc364267e33c92e9e8e42502222e181d"
+    },
+    {
+      "path": "models/DeepPrime/DP_variant_293T_PE2max_epegRNA_Opti_220428/final_model_10.pt",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "ee4ce7189a87875c515d15148f7a66f80ce9707c",
+      "size": 1380013,
+      "url": "https://api.github.com/repos/hkimlab/DeepPrime/git/blobs/ee4ce7189a87875c515d15148f7a66f80ce9707c"
+    },
+    {
+      "path": "models/DeepPrime/DP_variant_293T_PE2max_epegRNA_Opti_220428/final_model_11.pt",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "a07d6f0cbc364267e33c92e9e8e42502222e181d",
+      "size": 1380013,
+      "url": "https://api.github.com/repos/hkimlab/DeepPrime/git/blobs/a07d6f0cbc364267e33c92e9e8e42502222e181d"
+    },
+    {
+      "path": "models/DeepPrime/DP_variant_293T_PE2max_epegRNA_Opti_220428/final_model_12.pt",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "c600a7dd16210f405cfb4dd84a520ab21006429d",
+      "size": 1380013,
+      "url": "https://api.github.com/repos/hkimlab/DeepPrime/git/blobs/c600a7dd16210f405cfb4dd84a520ab21006429d"
+    },
+    {
+      "path": "models/DeepPrime/DP_variant_293T_PE2max_epegRNA_Opti_220428/final_model_13.pt",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "73915df244c8f8ebec2b8d8a7fcdc477b251d586",
+      "size": 1380013,
+      "url": "https://api.github.com/repos/hkimlab/DeepPrime/git/blobs/73915df244c8f8ebec2b8d8a7fcdc477b251d586"
+    },
+    {
+      "path": "models/DeepPrime/DP_variant_293T_PE2max_epegRNA_Opti_220428/final_model_14.pt",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "50a2c6ab4102cf4a81b1ed16f68d79cdec545531",
+      "size": 1380013,
+      "url": "https://api.github.com/repos/hkimlab/DeepPrime/git/blobs/50a2c6ab4102cf4a81b1ed16f68d79cdec545531"
+    },
+    {
+      "path": "models/DeepPrime/DP_variant_293T_PE2max_epegRNA_Opti_220428/final_model_15.pt",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "ee4ce7189a87875c515d15148f7a66f80ce9707c",
+      "size": 1380013,
+      "url": "https://api.github.com/repos/hkimlab/DeepPrime/git/blobs/ee4ce7189a87875c515d15148f7a66f80ce9707c"
+    },
+    {
+      "path": "models/DeepPrime/DP_variant_293T_PE2max_epegRNA_Opti_220428/final_model_16.pt",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "a07d6f0cbc364267e33c92e9e8e42502222e181d",
+      "size": 1380013,
+      "url": "https://api.github.com/repos/hkimlab/DeepPrime/git/blobs/a07d6f0cbc364267e33c92e9e8e42502222e181d"
+    },
+    {
+      "path": "models/DeepPrime/DP_variant_293T_PE2max_epegRNA_Opti_220428/final_model_17.pt",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "4c0888b14064d1572a807323378a4628a6464b79",
+      "size": 1380013,
+      "url": "https://api.github.com/repos/hkimlab/DeepPrime/git/blobs/4c0888b14064d1572a807323378a4628a6464b79"
+    },
+    {
+      "path": "models/DeepPrime/DP_variant_293T_PE2max_epegRNA_Opti_220428/final_model_18.pt",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "73915df244c8f8ebec2b8d8a7fcdc477b251d586",
+      "size": 1380013,
+      "url": "https://api.github.com/repos/hkimlab/DeepPrime/git/blobs/73915df244c8f8ebec2b8d8a7fcdc477b251d586"
+    },
+    {
+      "path": "models/DeepPrime/DP_variant_293T_PE2max_epegRNA_Opti_220428/final_model_19.pt",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "50a2c6ab4102cf4a81b1ed16f68d79cdec545531",
+      "size": 1380013,
+      "url": "https://api.github.com/repos/hkimlab/DeepPrime/git/blobs/50a2c6ab4102cf4a81b1ed16f68d79cdec545531"
+    },
+    {
+      "path": "models/DeepPrime/DP_variant_293T_PE2max_epegRNA_Opti_220428/final_model_2.pt",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "c600a7dd16210f405cfb4dd84a520ab21006429d",
+      "size": 1380013,
+      "url": "https://api.github.com/repos/hkimlab/DeepPrime/git/blobs/c600a7dd16210f405cfb4dd84a520ab21006429d"
+    },
+    {
+      "path": "models/DeepPrime/DP_variant_293T_PE2max_epegRNA_Opti_220428/final_model_3.pt",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "73915df244c8f8ebec2b8d8a7fcdc477b251d586",
+      "size": 1380013,
+      "url": "https://api.github.com/repos/hkimlab/DeepPrime/git/blobs/73915df244c8f8ebec2b8d8a7fcdc477b251d586"
+    },
+    {
+      "path": "models/DeepPrime/DP_variant_293T_PE2max_epegRNA_Opti_220428/final_model_4.pt",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "50a2c6ab4102cf4a81b1ed16f68d79cdec545531",
+      "size": 1380013,
+      "url": "https://api.github.com/repos/hkimlab/DeepPrime/git/blobs/50a2c6ab4102cf4a81b1ed16f68d79cdec545531"
+    },
+    {
+      "path": "models/DeepPrime/DP_variant_293T_PE2max_epegRNA_Opti_220428/final_model_5.pt",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "ee4ce7189a87875c515d15148f7a66f80ce9707c",
+      "size": 1380013,
+      "url": "https://api.github.com/repos/hkimlab/DeepPrime/git/blobs/ee4ce7189a87875c515d15148f7a66f80ce9707c"
+    },
+    {
+      "path": "models/DeepPrime/DP_variant_293T_PE2max_epegRNA_Opti_220428/final_model_6.pt",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "a07d6f0cbc364267e33c92e9e8e42502222e181d",
+      "size": 1380013,
+      "url": "https://api.github.com/repos/hkimlab/DeepPrime/git/blobs/a07d6f0cbc364267e33c92e9e8e42502222e181d"
+    },
+    {
+      "path": "models/DeepPrime/DP_variant_293T_PE2max_epegRNA_Opti_220428/final_model_7.pt",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "c600a7dd16210f405cfb4dd84a520ab21006429d",
+      "size": 1380013,
+      "url": "https://api.github.com/repos/hkimlab/DeepPrime/git/blobs/c600a7dd16210f405cfb4dd84a520ab21006429d"
+    },
+    {
+      "path": "models/DeepPrime/DP_variant_293T_PE2max_epegRNA_Opti_220428/final_model_8.pt",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "73915df244c8f8ebec2b8d8a7fcdc477b251d586",
+      "size": 1380013,
+      "url": "https://api.github.com/repos/hkimlab/DeepPrime/git/blobs/73915df244c8f8ebec2b8d8a7fcdc477b251d586"
+    },
+    {
+      "path": "models/DeepPrime/DP_variant_293T_PE2max_epegRNA_Opti_220428/final_model_9.pt",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "50a2c6ab4102cf4a81b1ed16f68d79cdec545531",
+      "size": 1380013,
+      "url": "https://api.github.com/repos/hkimlab/DeepPrime/git/blobs/50a2c6ab4102cf4a81b1ed16f68d79cdec545531"
+    },
+    {
+      "path": "models/DeepPrime/DP_variant_293T_PE2max_epegRNA_Opti_220428/mean.csv",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "e94159bc1078f10788871dabd5f591b73621eb3a",
+      "size": 655,
+      "url": "https://api.github.com/repos/hkimlab/DeepPrime/git/blobs/e94159bc1078f10788871dabd5f591b73621eb3a"
+    },
+    {
+      "path": "models/DeepPrime/DP_variant_293T_PE2max_epegRNA_Opti_220428/std.csv",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "2eecd7e246c3c14fd259803705151cdf03581046",
+      "size": 649,
+      "url": "https://api.github.com/repos/hkimlab/DeepPrime/git/blobs/2eecd7e246c3c14fd259803705151cdf03581046"
+    },
+    {
+      "path": "models/DeepPrime/DP_variant_293T_PE4max_Opti_220728",
+      "mode": "040000",
+      "type": "tree",
+      "sha": "182bcf0f92f69c38a79db28e34bf8a1f94f0a137",
+      "url": "https://api.github.com/repos/hkimlab/DeepPrime/git/trees/182bcf0f92f69c38a79db28e34bf8a1f94f0a137"
+    },
+    {
+      "path": "models/DeepPrime/DP_variant_293T_PE4max_Opti_220728/dp_mean.csv",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "7ef346e07483553dcab0e57fee461ef36c2545da",
+      "size": 16,
+      "url": "https://api.github.com/repos/hkimlab/DeepPrime/git/blobs/7ef346e07483553dcab0e57fee461ef36c2545da"
+    },
+    {
+      "path": "models/DeepPrime/DP_variant_293T_PE4max_Opti_220728/dp_std.csv",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "62e6b6dcaa31a0c08af224b9b7d58f320c17a092",
+      "size": 18,
+      "url": "https://api.github.com/repos/hkimlab/DeepPrime/git/blobs/62e6b6dcaa31a0c08af224b9b7d58f320c17a092"
+    },
+    {
+      "path": "models/DeepPrime/DP_variant_293T_PE4max_Opti_220728/final_model_0.pt",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "34d2c284a904b53d147308092a4ad5e614341d82",
+      "size": 1380013,
+      "url": "https://api.github.com/repos/hkimlab/DeepPrime/git/blobs/34d2c284a904b53d147308092a4ad5e614341d82"
+    },
+    {
+      "path": "models/DeepPrime/DP_variant_293T_PE4max_Opti_220728/final_model_1.pt",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "2a805fd64d7f2e40a29041ace8d978c1ea47937f",
+      "size": 1380013,
+      "url": "https://api.github.com/repos/hkimlab/DeepPrime/git/blobs/2a805fd64d7f2e40a29041ace8d978c1ea47937f"
+    },
+    {
+      "path": "models/DeepPrime/DP_variant_293T_PE4max_Opti_220728/final_model_10.pt",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "101f21293ae9b52147f38303e43e78998795006d",
+      "size": 1380013,
+      "url": "https://api.github.com/repos/hkimlab/DeepPrime/git/blobs/101f21293ae9b52147f38303e43e78998795006d"
+    },
+    {
+      "path": "models/DeepPrime/DP_variant_293T_PE4max_Opti_220728/final_model_11.pt",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "1de1c7c77b8c07db58f00d76fc0b67d596026f06",
+      "size": 1380013,
+      "url": "https://api.github.com/repos/hkimlab/DeepPrime/git/blobs/1de1c7c77b8c07db58f00d76fc0b67d596026f06"
+    },
+    {
+      "path": "models/DeepPrime/DP_variant_293T_PE4max_Opti_220728/final_model_12.pt",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "cd8087c138e7638dd97b40c78ff1d6d31dd3a302",
+      "size": 1380013,
+      "url": "https://api.github.com/repos/hkimlab/DeepPrime/git/blobs/cd8087c138e7638dd97b40c78ff1d6d31dd3a302"
+    },
+    {
+      "path": "models/DeepPrime/DP_variant_293T_PE4max_Opti_220728/final_model_13.pt",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "ab99b3afd3728acd931171b54fdbe7ae5213f3d8",
+      "size": 1380013,
+      "url": "https://api.github.com/repos/hkimlab/DeepPrime/git/blobs/ab99b3afd3728acd931171b54fdbe7ae5213f3d8"
+    },
+    {
+      "path": "models/DeepPrime/DP_variant_293T_PE4max_Opti_220728/final_model_14.pt",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "3c84abc7fb7bde208616d9e4a8c0e46cfcb89e2d",
+      "size": 1380013,
+      "url": "https://api.github.com/repos/hkimlab/DeepPrime/git/blobs/3c84abc7fb7bde208616d9e4a8c0e46cfcb89e2d"
+    },
+    {
+      "path": "models/DeepPrime/DP_variant_293T_PE4max_Opti_220728/final_model_15.pt",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "c40d02a3bb73d31fb0fb832019cec97485f61eda",
+      "size": 1380013,
+      "url": "https://api.github.com/repos/hkimlab/DeepPrime/git/blobs/c40d02a3bb73d31fb0fb832019cec97485f61eda"
+    },
+    {
+      "path": "models/DeepPrime/DP_variant_293T_PE4max_Opti_220728/final_model_16.pt",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "e24d5a89a29bcf3ebc998c07f96fa4138783fda7",
+      "size": 1380013,
+      "url": "https://api.github.com/repos/hkimlab/DeepPrime/git/blobs/e24d5a89a29bcf3ebc998c07f96fa4138783fda7"
+    },
+    {
+      "path": "models/DeepPrime/DP_variant_293T_PE4max_Opti_220728/final_model_17.pt",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "2d885caed3d187ef72ab526f3e65a3c4e66d19ec",
+      "size": 1380013,
+      "url": "https://api.github.com/repos/hkimlab/DeepPrime/git/blobs/2d885caed3d187ef72ab526f3e65a3c4e66d19ec"
+    },
+    {
+      "path": "models/DeepPrime/DP_variant_293T_PE4max_Opti_220728/final_model_18.pt",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "9d87a16e479e9342c244e30f749fc96e4e76863e",
+      "size": 1380013,
+      "url": "https://api.github.com/repos/hkimlab/DeepPrime/git/blobs/9d87a16e479e9342c244e30f749fc96e4e76863e"
+    },
+    {
+      "path": "models/DeepPrime/DP_variant_293T_PE4max_Opti_220728/final_model_19.pt",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "0b618f8ffcd180dfed084f91df010c1da8d82af7",
+      "size": 1380013,
+      "url": "https://api.github.com/repos/hkimlab/DeepPrime/git/blobs/0b618f8ffcd180dfed084f91df010c1da8d82af7"
+    },
+    {
+      "path": "models/DeepPrime/DP_variant_293T_PE4max_Opti_220728/final_model_2.pt",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "07a1b89c5d6694e47836bc9ef28350223d00632b",
+      "size": 1380013,
+      "url": "https://api.github.com/repos/hkimlab/DeepPrime/git/blobs/07a1b89c5d6694e47836bc9ef28350223d00632b"
+    },
+    {
+      "path": "models/DeepPrime/DP_variant_293T_PE4max_Opti_220728/final_model_3.pt",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "9faecebf515cb284b7393ffa186e92eb69ecffa2",
+      "size": 1380013,
+      "url": "https://api.github.com/repos/hkimlab/DeepPrime/git/blobs/9faecebf515cb284b7393ffa186e92eb69ecffa2"
+    },
+    {
+      "path": "models/DeepPrime/DP_variant_293T_PE4max_Opti_220728/final_model_4.pt",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "131088be2b3ac142c5b281299c4cacda1e0a576d",
+      "size": 1380013,
+      "url": "https://api.github.com/repos/hkimlab/DeepPrime/git/blobs/131088be2b3ac142c5b281299c4cacda1e0a576d"
+    },
+    {
+      "path": "models/DeepPrime/DP_variant_293T_PE4max_Opti_220728/final_model_5.pt",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "5eea4d10601d7a925ca2c68089cab71f7e21ba85",
+      "size": 1380013,
+      "url": "https://api.github.com/repos/hkimlab/DeepPrime/git/blobs/5eea4d10601d7a925ca2c68089cab71f7e21ba85"
+    },
+    {
+      "path": "models/DeepPrime/DP_variant_293T_PE4max_Opti_220728/final_model_6.pt",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "cdf0f3b74a7083b402e3f67e02bc9b64f8863525",
+      "size": 1380013,
+      "url": "https://api.github.com/repos/hkimlab/DeepPrime/git/blobs/cdf0f3b74a7083b402e3f67e02bc9b64f8863525"
+    },
+    {
+      "path": "models/DeepPrime/DP_variant_293T_PE4max_Opti_220728/final_model_7.pt",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "4747bdf7e47b73f3db68eab2d04f63a826881f7e",
+      "size": 1380013,
+      "url": "https://api.github.com/repos/hkimlab/DeepPrime/git/blobs/4747bdf7e47b73f3db68eab2d04f63a826881f7e"
+    },
+    {
+      "path": "models/DeepPrime/DP_variant_293T_PE4max_Opti_220728/final_model_8.pt",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "b6ee7eba3ae9572ecbb144829e8f0c7eb3482e54",
+      "size": 1380013,
+      "url": "https://api.github.com/repos/hkimlab/DeepPrime/git/blobs/b6ee7eba3ae9572ecbb144829e8f0c7eb3482e54"
+    },
+    {
+      "path": "models/DeepPrime/DP_variant_293T_PE4max_Opti_220728/final_model_9.pt",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "90769bdca8a44afc76f17bc16813b6d7065db1bc",
+      "size": 1380013,
+      "url": "https://api.github.com/repos/hkimlab/DeepPrime/git/blobs/90769bdca8a44afc76f17bc16813b6d7065db1bc"
+    },
+    {
+      "path": "models/DeepPrime/DP_variant_293T_PE4max_Opti_220728/mean.csv",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "e94159bc1078f10788871dabd5f591b73621eb3a",
+      "size": 655,
+      "url": "https://api.github.com/repos/hkimlab/DeepPrime/git/blobs/e94159bc1078f10788871dabd5f591b73621eb3a"
+    },
+    {
+      "path": "models/DeepPrime/DP_variant_293T_PE4max_Opti_220728/std.csv",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "2eecd7e246c3c14fd259803705151cdf03581046",
+      "size": 649,
+      "url": "https://api.github.com/repos/hkimlab/DeepPrime/git/blobs/2eecd7e246c3c14fd259803705151cdf03581046"
+    },
+    {
+      "path": "models/DeepPrime/DP_variant_293T_PE4max_epegRNA_Opti_220428",
+      "mode": "040000",
+      "type": "tree",
+      "sha": "477661cb92832f15036633c087177d79d98351b8",
+      "url": "https://api.github.com/repos/hkimlab/DeepPrime/git/trees/477661cb92832f15036633c087177d79d98351b8"
+    },
+    {
+      "path": "models/DeepPrime/DP_variant_293T_PE4max_epegRNA_Opti_220428/dp_mean.csv",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "3a677d609b353744ca99ebe3c7d6d7885e921363",
+      "size": 18,
+      "url": "https://api.github.com/repos/hkimlab/DeepPrime/git/blobs/3a677d609b353744ca99ebe3c7d6d7885e921363"
+    },
+    {
+      "path": "models/DeepPrime/DP_variant_293T_PE4max_epegRNA_Opti_220428/dp_std.csv",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "f1878c45a381ccb029af52435cb54ca645204cad",
+      "size": 18,
+      "url": "https://api.github.com/repos/hkimlab/DeepPrime/git/blobs/f1878c45a381ccb029af52435cb54ca645204cad"
+    },
+    {
+      "path": "models/DeepPrime/DP_variant_293T_PE4max_epegRNA_Opti_220428/final_model_0.pt",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "6b792fda0a6beb53965cdcd7b8b1b5812a87389f",
+      "size": 1380013,
+      "url": "https://api.github.com/repos/hkimlab/DeepPrime/git/blobs/6b792fda0a6beb53965cdcd7b8b1b5812a87389f"
+    },
+    {
+      "path": "models/DeepPrime/DP_variant_293T_PE4max_epegRNA_Opti_220428/final_model_1.pt",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "b8ec9a8ed68785162c4daf10a70be32629a69977",
+      "size": 1380013,
+      "url": "https://api.github.com/repos/hkimlab/DeepPrime/git/blobs/b8ec9a8ed68785162c4daf10a70be32629a69977"
+    },
+    {
+      "path": "models/DeepPrime/DP_variant_293T_PE4max_epegRNA_Opti_220428/final_model_10.pt",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "6b792fda0a6beb53965cdcd7b8b1b5812a87389f",
+      "size": 1380013,
+      "url": "https://api.github.com/repos/hkimlab/DeepPrime/git/blobs/6b792fda0a6beb53965cdcd7b8b1b5812a87389f"
+    },
+    {
+      "path": "models/DeepPrime/DP_variant_293T_PE4max_epegRNA_Opti_220428/final_model_11.pt",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "b8ec9a8ed68785162c4daf10a70be32629a69977",
+      "size": 1380013,
+      "url": "https://api.github.com/repos/hkimlab/DeepPrime/git/blobs/b8ec9a8ed68785162c4daf10a70be32629a69977"
+    },
+    {
+      "path": "models/DeepPrime/DP_variant_293T_PE4max_epegRNA_Opti_220428/final_model_12.pt",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "fd3e6bef4fad69edfb1d06b0eed72646a64c756d",
+      "size": 1380013,
+      "url": "https://api.github.com/repos/hkimlab/DeepPrime/git/blobs/fd3e6bef4fad69edfb1d06b0eed72646a64c756d"
+    },
+    {
+      "path": "models/DeepPrime/DP_variant_293T_PE4max_epegRNA_Opti_220428/final_model_13.pt",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "471b223b3fe0f0f31084e1608f1704cf08fd1af4",
+      "size": 1380013,
+      "url": "https://api.github.com/repos/hkimlab/DeepPrime/git/blobs/471b223b3fe0f0f31084e1608f1704cf08fd1af4"
+    },
+    {
+      "path": "models/DeepPrime/DP_variant_293T_PE4max_epegRNA_Opti_220428/final_model_14.pt",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "7c92f0c9880bdd9e8d62c744e70da4949c6fced5",
+      "size": 1380013,
+      "url": "https://api.github.com/repos/hkimlab/DeepPrime/git/blobs/7c92f0c9880bdd9e8d62c744e70da4949c6fced5"
+    },
+    {
+      "path": "models/DeepPrime/DP_variant_293T_PE4max_epegRNA_Opti_220428/final_model_15.pt",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "6b792fda0a6beb53965cdcd7b8b1b5812a87389f",
+      "size": 1380013,
+      "url": "https://api.github.com/repos/hkimlab/DeepPrime/git/blobs/6b792fda0a6beb53965cdcd7b8b1b5812a87389f"
+    },
+    {
+      "path": "models/DeepPrime/DP_variant_293T_PE4max_epegRNA_Opti_220428/final_model_16.pt",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "b8ec9a8ed68785162c4daf10a70be32629a69977",
+      "size": 1380013,
+      "url": "https://api.github.com/repos/hkimlab/DeepPrime/git/blobs/b8ec9a8ed68785162c4daf10a70be32629a69977"
+    },
+    {
+      "path": "models/DeepPrime/DP_variant_293T_PE4max_epegRNA_Opti_220428/final_model_17.pt",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "fd3e6bef4fad69edfb1d06b0eed72646a64c756d",
+      "size": 1380013,
+      "url": "https://api.github.com/repos/hkimlab/DeepPrime/git/blobs/fd3e6bef4fad69edfb1d06b0eed72646a64c756d"
+    },
+    {
+      "path": "models/DeepPrime/DP_variant_293T_PE4max_epegRNA_Opti_220428/final_model_18.pt",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "471b223b3fe0f0f31084e1608f1704cf08fd1af4",
+      "size": 1380013,
+      "url": "https://api.github.com/repos/hkimlab/DeepPrime/git/blobs/471b223b3fe0f0f31084e1608f1704cf08fd1af4"
+    },
+    {
+      "path": "models/DeepPrime/DP_variant_293T_PE4max_epegRNA_Opti_220428/final_model_19.pt",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "7c92f0c9880bdd9e8d62c744e70da4949c6fced5",
+      "size": 1380013,
+      "url": "https://api.github.com/repos/hkimlab/DeepPrime/git/blobs/7c92f0c9880bdd9e8d62c744e70da4949c6fced5"
+    },
+    {
+      "path": "models/DeepPrime/DP_variant_293T_PE4max_epegRNA_Opti_220428/final_model_2.pt",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "fd3e6bef4fad69edfb1d06b0eed72646a64c756d",
+      "size": 1380013,
+      "url": "https://api.github.com/repos/hkimlab/DeepPrime/git/blobs/fd3e6bef4fad69edfb1d06b0eed72646a64c756d"
+    },
+    {
+      "path": "models/DeepPrime/DP_variant_293T_PE4max_epegRNA_Opti_220428/final_model_3.pt",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "471b223b3fe0f0f31084e1608f1704cf08fd1af4",
+      "size": 1380013,
+      "url": "https://api.github.com/repos/hkimlab/DeepPrime/git/blobs/471b223b3fe0f0f31084e1608f1704cf08fd1af4"
+    },
+    {
+      "path": "models/DeepPrime/DP_variant_293T_PE4max_epegRNA_Opti_220428/final_model_4.pt",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "7c92f0c9880bdd9e8d62c744e70da4949c6fced5",
+      "size": 1380013,
+      "url": "https://api.github.com/repos/hkimlab/DeepPrime/git/blobs/7c92f0c9880bdd9e8d62c744e70da4949c6fced5"
+    },
+    {
+      "path": "models/DeepPrime/DP_variant_293T_PE4max_epegRNA_Opti_220428/final_model_5.pt",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "6b792fda0a6beb53965cdcd7b8b1b5812a87389f",
+      "size": 1380013,
+      "url": "https://api.github.com/repos/hkimlab/DeepPrime/git/blobs/6b792fda0a6beb53965cdcd7b8b1b5812a87389f"
+    },
+    {
+      "path": "models/DeepPrime/DP_variant_293T_PE4max_epegRNA_Opti_220428/final_model_6.pt",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "b8ec9a8ed68785162c4daf10a70be32629a69977",
+      "size": 1380013,
+      "url": "https://api.github.com/repos/hkimlab/DeepPrime/git/blobs/b8ec9a8ed68785162c4daf10a70be32629a69977"
+    },
+    {
+      "path": "models/DeepPrime/DP_variant_293T_PE4max_epegRNA_Opti_220428/final_model_7.pt",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "fd3e6bef4fad69edfb1d06b0eed72646a64c756d",
+      "size": 1380013,
+      "url": "https://api.github.com/repos/hkimlab/DeepPrime/git/blobs/fd3e6bef4fad69edfb1d06b0eed72646a64c756d"
+    },
+    {
+      "path": "models/DeepPrime/DP_variant_293T_PE4max_epegRNA_Opti_220428/final_model_8.pt",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "471b223b3fe0f0f31084e1608f1704cf08fd1af4",
+      "size": 1380013,
+      "url": "https://api.github.com/repos/hkimlab/DeepPrime/git/blobs/471b223b3fe0f0f31084e1608f1704cf08fd1af4"
+    },
+    {
+      "path": "models/DeepPrime/DP_variant_293T_PE4max_epegRNA_Opti_220428/final_model_9.pt",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "7c92f0c9880bdd9e8d62c744e70da4949c6fced5",
+      "size": 1380013,
+      "url": "https://api.github.com/repos/hkimlab/DeepPrime/git/blobs/7c92f0c9880bdd9e8d62c744e70da4949c6fced5"
+    },
+    {
+      "path": "models/DeepPrime/DP_variant_293T_PE4max_epegRNA_Opti_220428/mean.csv",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "e94159bc1078f10788871dabd5f591b73621eb3a",
+      "size": 655,
+      "url": "https://api.github.com/repos/hkimlab/DeepPrime/git/blobs/e94159bc1078f10788871dabd5f591b73621eb3a"
+    },
+    {
+      "path": "models/DeepPrime/DP_variant_293T_PE4max_epegRNA_Opti_220428/std.csv",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "2eecd7e246c3c14fd259803705151cdf03581046",
+      "size": 649,
+      "url": "https://api.github.com/repos/hkimlab/DeepPrime/git/blobs/2eecd7e246c3c14fd259803705151cdf03581046"
+    },
+    {
+      "path": "models/DeepPrime/DP_variant_A549_PE2max_Opti_221114",
+      "mode": "040000",
+      "type": "tree",
+      "sha": "a3b30b2a25c1adbd0ff209dd36facef6b4cefeee",
+      "url": "https://api.github.com/repos/hkimlab/DeepPrime/git/trees/a3b30b2a25c1adbd0ff209dd36facef6b4cefeee"
+    },
+    {
+      "path": "models/DeepPrime/DP_variant_A549_PE2max_Opti_221114/dp_mean.csv",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "012c67814b6d60d83b7920e1ca9acfed2387971c",
+      "size": 18,
+      "url": "https://api.github.com/repos/hkimlab/DeepPrime/git/blobs/012c67814b6d60d83b7920e1ca9acfed2387971c"
+    },
+    {
+      "path": "models/DeepPrime/DP_variant_A549_PE2max_Opti_221114/dp_std.csv",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "30a90e5200715274d0ccf88480b7afb35e855e74",
+      "size": 18,
+      "url": "https://api.github.com/repos/hkimlab/DeepPrime/git/blobs/30a90e5200715274d0ccf88480b7afb35e855e74"
+    },
+    {
+      "path": "models/DeepPrime/DP_variant_A549_PE2max_Opti_221114/final_model_0.pt",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "10cdb532dd8fa8b216ffce627b1831595757f673",
+      "size": 1380013,
+      "url": "https://api.github.com/repos/hkimlab/DeepPrime/git/blobs/10cdb532dd8fa8b216ffce627b1831595757f673"
+    },
+    {
+      "path": "models/DeepPrime/DP_variant_A549_PE2max_Opti_221114/final_model_1.pt",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "9afc98512802594af4e601a743d343fa013d26f2",
+      "size": 1380013,
+      "url": "https://api.github.com/repos/hkimlab/DeepPrime/git/blobs/9afc98512802594af4e601a743d343fa013d26f2"
+    },
+    {
+      "path": "models/DeepPrime/DP_variant_A549_PE2max_Opti_221114/final_model_10.pt",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "10cdb532dd8fa8b216ffce627b1831595757f673",
+      "size": 1380013,
+      "url": "https://api.github.com/repos/hkimlab/DeepPrime/git/blobs/10cdb532dd8fa8b216ffce627b1831595757f673"
+    },
+    {
+      "path": "models/DeepPrime/DP_variant_A549_PE2max_Opti_221114/final_model_11.pt",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "9afc98512802594af4e601a743d343fa013d26f2",
+      "size": 1380013,
+      "url": "https://api.github.com/repos/hkimlab/DeepPrime/git/blobs/9afc98512802594af4e601a743d343fa013d26f2"
+    },
+    {
+      "path": "models/DeepPrime/DP_variant_A549_PE2max_Opti_221114/final_model_12.pt",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "6c44ca806b5e0462022ffb39d38b45b5daf8f24d",
+      "size": 1380013,
+      "url": "https://api.github.com/repos/hkimlab/DeepPrime/git/blobs/6c44ca806b5e0462022ffb39d38b45b5daf8f24d"
+    },
+    {
+      "path": "models/DeepPrime/DP_variant_A549_PE2max_Opti_221114/final_model_13.pt",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "f3a95e191ee0f0db53f7da844bf997b315cc1d1d",
+      "size": 1380013,
+      "url": "https://api.github.com/repos/hkimlab/DeepPrime/git/blobs/f3a95e191ee0f0db53f7da844bf997b315cc1d1d"
+    },
+    {
+      "path": "models/DeepPrime/DP_variant_A549_PE2max_Opti_221114/final_model_14.pt",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "42970b07448c3a49bef1736aed36eea6b26c61ab",
+      "size": 1380013,
+      "url": "https://api.github.com/repos/hkimlab/DeepPrime/git/blobs/42970b07448c3a49bef1736aed36eea6b26c61ab"
+    },
+    {
+      "path": "models/DeepPrime/DP_variant_A549_PE2max_Opti_221114/final_model_15.pt",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "10cdb532dd8fa8b216ffce627b1831595757f673",
+      "size": 1380013,
+      "url": "https://api.github.com/repos/hkimlab/DeepPrime/git/blobs/10cdb532dd8fa8b216ffce627b1831595757f673"
+    },
+    {
+      "path": "models/DeepPrime/DP_variant_A549_PE2max_Opti_221114/final_model_16.pt",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "9afc98512802594af4e601a743d343fa013d26f2",
+      "size": 1380013,
+      "url": "https://api.github.com/repos/hkimlab/DeepPrime/git/blobs/9afc98512802594af4e601a743d343fa013d26f2"
+    },
+    {
+      "path": "models/DeepPrime/DP_variant_A549_PE2max_Opti_221114/final_model_17.pt",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "6c44ca806b5e0462022ffb39d38b45b5daf8f24d",
+      "size": 1380013,
+      "url": "https://api.github.com/repos/hkimlab/DeepPrime/git/blobs/6c44ca806b5e0462022ffb39d38b45b5daf8f24d"
+    },
+    {
+      "path": "models/DeepPrime/DP_variant_A549_PE2max_Opti_221114/final_model_18.pt",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "f3a95e191ee0f0db53f7da844bf997b315cc1d1d",
+      "size": 1380013,
+      "url": "https://api.github.com/repos/hkimlab/DeepPrime/git/blobs/f3a95e191ee0f0db53f7da844bf997b315cc1d1d"
+    },
+    {
+      "path": "models/DeepPrime/DP_variant_A549_PE2max_Opti_221114/final_model_19.pt",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "42970b07448c3a49bef1736aed36eea6b26c61ab",
+      "size": 1380013,
+      "url": "https://api.github.com/repos/hkimlab/DeepPrime/git/blobs/42970b07448c3a49bef1736aed36eea6b26c61ab"
+    },
+    {
+      "path": "models/DeepPrime/DP_variant_A549_PE2max_Opti_221114/final_model_2.pt",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "6c44ca806b5e0462022ffb39d38b45b5daf8f24d",
+      "size": 1380013,
+      "url": "https://api.github.com/repos/hkimlab/DeepPrime/git/blobs/6c44ca806b5e0462022ffb39d38b45b5daf8f24d"
+    },
+    {
+      "path": "models/DeepPrime/DP_variant_A549_PE2max_Opti_221114/final_model_3.pt",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "f3a95e191ee0f0db53f7da844bf997b315cc1d1d",
+      "size": 1380013,
+      "url": "https://api.github.com/repos/hkimlab/DeepPrime/git/blobs/f3a95e191ee0f0db53f7da844bf997b315cc1d1d"
+    },
+    {
+      "path": "models/DeepPrime/DP_variant_A549_PE2max_Opti_221114/final_model_4.pt",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "42970b07448c3a49bef1736aed36eea6b26c61ab",
+      "size": 1380013,
+      "url": "https://api.github.com/repos/hkimlab/DeepPrime/git/blobs/42970b07448c3a49bef1736aed36eea6b26c61ab"
+    },
+    {
+      "path": "models/DeepPrime/DP_variant_A549_PE2max_Opti_221114/final_model_5.pt",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "10cdb532dd8fa8b216ffce627b1831595757f673",
+      "size": 1380013,
+      "url": "https://api.github.com/repos/hkimlab/DeepPrime/git/blobs/10cdb532dd8fa8b216ffce627b1831595757f673"
+    },
+    {
+      "path": "models/DeepPrime/DP_variant_A549_PE2max_Opti_221114/final_model_6.pt",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "9afc98512802594af4e601a743d343fa013d26f2",
+      "size": 1380013,
+      "url": "https://api.github.com/repos/hkimlab/DeepPrime/git/blobs/9afc98512802594af4e601a743d343fa013d26f2"
+    },
+    {
+      "path": "models/DeepPrime/DP_variant_A549_PE2max_Opti_221114/final_model_7.pt",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "6c44ca806b5e0462022ffb39d38b45b5daf8f24d",
+      "size": 1380013,
+      "url": "https://api.github.com/repos/hkimlab/DeepPrime/git/blobs/6c44ca806b5e0462022ffb39d38b45b5daf8f24d"
+    },
+    {
+      "path": "models/DeepPrime/DP_variant_A549_PE2max_Opti_221114/final_model_8.pt",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "f3a95e191ee0f0db53f7da844bf997b315cc1d1d",
+      "size": 1380013,
+      "url": "https://api.github.com/repos/hkimlab/DeepPrime/git/blobs/f3a95e191ee0f0db53f7da844bf997b315cc1d1d"
+    },
+    {
+      "path": "models/DeepPrime/DP_variant_A549_PE2max_Opti_221114/final_model_9.pt",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "42970b07448c3a49bef1736aed36eea6b26c61ab",
+      "size": 1380013,
+      "url": "https://api.github.com/repos/hkimlab/DeepPrime/git/blobs/42970b07448c3a49bef1736aed36eea6b26c61ab"
+    },
+    {
+      "path": "models/DeepPrime/DP_variant_A549_PE2max_Opti_221114/mean.csv",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "e94159bc1078f10788871dabd5f591b73621eb3a",
+      "size": 655,
+      "url": "https://api.github.com/repos/hkimlab/DeepPrime/git/blobs/e94159bc1078f10788871dabd5f591b73621eb3a"
+    },
+    {
+      "path": "models/DeepPrime/DP_variant_A549_PE2max_Opti_221114/std.csv",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "2eecd7e246c3c14fd259803705151cdf03581046",
+      "size": 649,
+      "url": "https://api.github.com/repos/hkimlab/DeepPrime/git/blobs/2eecd7e246c3c14fd259803705151cdf03581046"
+    },
+    {
+      "path": "models/DeepPrime/DP_variant_A549_PE2max_epegRNA_Opti_220428",
+      "mode": "040000",
+      "type": "tree",
+      "sha": "de5b951956a62599dee8aab4fc6aecd62ef3891a",
+      "url": "https://api.github.com/repos/hkimlab/DeepPrime/git/trees/de5b951956a62599dee8aab4fc6aecd62ef3891a"
+    },
+    {
+      "path": "models/DeepPrime/DP_variant_A549_PE2max_epegRNA_Opti_220428/dp_mean.csv",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "75816cb7037f0049328a1446bb884799a16fd0ab",
+      "size": 17,
+      "url": "https://api.github.com/repos/hkimlab/DeepPrime/git/blobs/75816cb7037f0049328a1446bb884799a16fd0ab"
+    },
+    {
+      "path": "models/DeepPrime/DP_variant_A549_PE2max_epegRNA_Opti_220428/dp_std.csv",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "fbb009d65c9b5fe981a8e9de102a2f362b129e5c",
+      "size": 17,
+      "url": "https://api.github.com/repos/hkimlab/DeepPrime/git/blobs/fbb009d65c9b5fe981a8e9de102a2f362b129e5c"
+    },
+    {
+      "path": "models/DeepPrime/DP_variant_A549_PE2max_epegRNA_Opti_220428/final_model_0.pt",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "5f8f05a6abff24c264226670462fe6b323b245cc",
+      "size": 1380013,
+      "url": "https://api.github.com/repos/hkimlab/DeepPrime/git/blobs/5f8f05a6abff24c264226670462fe6b323b245cc"
+    },
+    {
+      "path": "models/DeepPrime/DP_variant_A549_PE2max_epegRNA_Opti_220428/final_model_1.pt",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "5a27dec6370fcead1e763fa2eee2020ba4843043",
+      "size": 1380013,
+      "url": "https://api.github.com/repos/hkimlab/DeepPrime/git/blobs/5a27dec6370fcead1e763fa2eee2020ba4843043"
+    },
+    {
+      "path": "models/DeepPrime/DP_variant_A549_PE2max_epegRNA_Opti_220428/final_model_10.pt",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "5f8f05a6abff24c264226670462fe6b323b245cc",
+      "size": 1380013,
+      "url": "https://api.github.com/repos/hkimlab/DeepPrime/git/blobs/5f8f05a6abff24c264226670462fe6b323b245cc"
+    },
+    {
+      "path": "models/DeepPrime/DP_variant_A549_PE2max_epegRNA_Opti_220428/final_model_11.pt",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "5a27dec6370fcead1e763fa2eee2020ba4843043",
+      "size": 1380013,
+      "url": "https://api.github.com/repos/hkimlab/DeepPrime/git/blobs/5a27dec6370fcead1e763fa2eee2020ba4843043"
+    },
+    {
+      "path": "models/DeepPrime/DP_variant_A549_PE2max_epegRNA_Opti_220428/final_model_12.pt",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "1e777108d2206c439cdb1e5115313f282073dea4",
+      "size": 1380013,
+      "url": "https://api.github.com/repos/hkimlab/DeepPrime/git/blobs/1e777108d2206c439cdb1e5115313f282073dea4"
+    },
+    {
+      "path": "models/DeepPrime/DP_variant_A549_PE2max_epegRNA_Opti_220428/final_model_13.pt",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "19f61d69ac06fd74c7ac12270076df6e24535277",
+      "size": 1380013,
+      "url": "https://api.github.com/repos/hkimlab/DeepPrime/git/blobs/19f61d69ac06fd74c7ac12270076df6e24535277"
+    },
+    {
+      "path": "models/DeepPrime/DP_variant_A549_PE2max_epegRNA_Opti_220428/final_model_14.pt",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "d4086f139d4c4915ee103cdfb0e530cd9b03f191",
+      "size": 1380013,
+      "url": "https://api.github.com/repos/hkimlab/DeepPrime/git/blobs/d4086f139d4c4915ee103cdfb0e530cd9b03f191"
+    },
+    {
+      "path": "models/DeepPrime/DP_variant_A549_PE2max_epegRNA_Opti_220428/final_model_15.pt",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "5f8f05a6abff24c264226670462fe6b323b245cc",
+      "size": 1380013,
+      "url": "https://api.github.com/repos/hkimlab/DeepPrime/git/blobs/5f8f05a6abff24c264226670462fe6b323b245cc"
+    },
+    {
+      "path": "models/DeepPrime/DP_variant_A549_PE2max_epegRNA_Opti_220428/final_model_16.pt",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "5a27dec6370fcead1e763fa2eee2020ba4843043",
+      "size": 1380013,
+      "url": "https://api.github.com/repos/hkimlab/DeepPrime/git/blobs/5a27dec6370fcead1e763fa2eee2020ba4843043"
+    },
+    {
+      "path": "models/DeepPrime/DP_variant_A549_PE2max_epegRNA_Opti_220428/final_model_17.pt",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "1e777108d2206c439cdb1e5115313f282073dea4",
+      "size": 1380013,
+      "url": "https://api.github.com/repos/hkimlab/DeepPrime/git/blobs/1e777108d2206c439cdb1e5115313f282073dea4"
+    },
+    {
+      "path": "models/DeepPrime/DP_variant_A549_PE2max_epegRNA_Opti_220428/final_model_18.pt",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "19f61d69ac06fd74c7ac12270076df6e24535277",
+      "size": 1380013,
+      "url": "https://api.github.com/repos/hkimlab/DeepPrime/git/blobs/19f61d69ac06fd74c7ac12270076df6e24535277"
+    },
+    {
+      "path": "models/DeepPrime/DP_variant_A549_PE2max_epegRNA_Opti_220428/final_model_19.pt",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "d4086f139d4c4915ee103cdfb0e530cd9b03f191",
+      "size": 1380013,
+      "url": "https://api.github.com/repos/hkimlab/DeepPrime/git/blobs/d4086f139d4c4915ee103cdfb0e530cd9b03f191"
+    },
+    {
+      "path": "models/DeepPrime/DP_variant_A549_PE2max_epegRNA_Opti_220428/final_model_2.pt",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "1e777108d2206c439cdb1e5115313f282073dea4",
+      "size": 1380013,
+      "url": "https://api.github.com/repos/hkimlab/DeepPrime/git/blobs/1e777108d2206c439cdb1e5115313f282073dea4"
+    },
+    {
+      "path": "models/DeepPrime/DP_variant_A549_PE2max_epegRNA_Opti_220428/final_model_3.pt",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "19f61d69ac06fd74c7ac12270076df6e24535277",
+      "size": 1380013,
+      "url": "https://api.github.com/repos/hkimlab/DeepPrime/git/blobs/19f61d69ac06fd74c7ac12270076df6e24535277"
+    },
+    {
+      "path": "models/DeepPrime/DP_variant_A549_PE2max_epegRNA_Opti_220428/final_model_4.pt",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "d4086f139d4c4915ee103cdfb0e530cd9b03f191",
+      "size": 1380013,
+      "url": "https://api.github.com/repos/hkimlab/DeepPrime/git/blobs/d4086f139d4c4915ee103cdfb0e530cd9b03f191"
+    },
+    {
+      "path": "models/DeepPrime/DP_variant_A549_PE2max_epegRNA_Opti_220428/final_model_5.pt",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "5f8f05a6abff24c264226670462fe6b323b245cc",
+      "size": 1380013,
+      "url": "https://api.github.com/repos/hkimlab/DeepPrime/git/blobs/5f8f05a6abff24c264226670462fe6b323b245cc"
+    },
+    {
+      "path": "models/DeepPrime/DP_variant_A549_PE2max_epegRNA_Opti_220428/final_model_6.pt",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "5a27dec6370fcead1e763fa2eee2020ba4843043",
+      "size": 1380013,
+      "url": "https://api.github.com/repos/hkimlab/DeepPrime/git/blobs/5a27dec6370fcead1e763fa2eee2020ba4843043"
+    },
+    {
+      "path": "models/DeepPrime/DP_variant_A549_PE2max_epegRNA_Opti_220428/final_model_7.pt",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "1e777108d2206c439cdb1e5115313f282073dea4",
+      "size": 1380013,
+      "url": "https://api.github.com/repos/hkimlab/DeepPrime/git/blobs/1e777108d2206c439cdb1e5115313f282073dea4"
+    },
+    {
+      "path": "models/DeepPrime/DP_variant_A549_PE2max_epegRNA_Opti_220428/final_model_8.pt",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "19f61d69ac06fd74c7ac12270076df6e24535277",
+      "size": 1380013,
+      "url": "https://api.github.com/repos/hkimlab/DeepPrime/git/blobs/19f61d69ac06fd74c7ac12270076df6e24535277"
+    },
+    {
+      "path": "models/DeepPrime/DP_variant_A549_PE2max_epegRNA_Opti_220428/final_model_9.pt",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "d4086f139d4c4915ee103cdfb0e530cd9b03f191",
+      "size": 1380013,
+      "url": "https://api.github.com/repos/hkimlab/DeepPrime/git/blobs/d4086f139d4c4915ee103cdfb0e530cd9b03f191"
+    },
+    {
+      "path": "models/DeepPrime/DP_variant_A549_PE2max_epegRNA_Opti_220428/mean.csv",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "e94159bc1078f10788871dabd5f591b73621eb3a",
+      "size": 655,
+      "url": "https://api.github.com/repos/hkimlab/DeepPrime/git/blobs/e94159bc1078f10788871dabd5f591b73621eb3a"
+    },
+    {
+      "path": "models/DeepPrime/DP_variant_A549_PE2max_epegRNA_Opti_220428/std.csv",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "2eecd7e246c3c14fd259803705151cdf03581046",
+      "size": 649,
+      "url": "https://api.github.com/repos/hkimlab/DeepPrime/git/blobs/2eecd7e246c3c14fd259803705151cdf03581046"
+    },
+    {
+      "path": "models/DeepPrime/DP_variant_A549_PE4max_Opti_220728",
+      "mode": "040000",
+      "type": "tree",
+      "sha": "234a2253cfb5dd7b569eb60ffe6c3f9fd75f9ca8",
+      "url": "https://api.github.com/repos/hkimlab/DeepPrime/git/trees/234a2253cfb5dd7b569eb60ffe6c3f9fd75f9ca8"
+    },
+    {
+      "path": "models/DeepPrime/DP_variant_A549_PE4max_Opti_220728/dp_mean.csv",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "215ad81bd1e99a4e61d778df3ccb1e0b741b07a6",
+      "size": 17,
+      "url": "https://api.github.com/repos/hkimlab/DeepPrime/git/blobs/215ad81bd1e99a4e61d778df3ccb1e0b741b07a6"
+    },
+    {
+      "path": "models/DeepPrime/DP_variant_A549_PE4max_Opti_220728/dp_std.csv",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "9079fabbdd7a603b581be847dfc8ff55ab32e935",
+      "size": 17,
+      "url": "https://api.github.com/repos/hkimlab/DeepPrime/git/blobs/9079fabbdd7a603b581be847dfc8ff55ab32e935"
+    },
+    {
+      "path": "models/DeepPrime/DP_variant_A549_PE4max_Opti_220728/final_model_0.pt",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "e0a72c50ee17ebb9c502f54bfd6eaddb75968a9c",
+      "size": 1380013,
+      "url": "https://api.github.com/repos/hkimlab/DeepPrime/git/blobs/e0a72c50ee17ebb9c502f54bfd6eaddb75968a9c"
+    },
+    {
+      "path": "models/DeepPrime/DP_variant_A549_PE4max_Opti_220728/final_model_1.pt",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "8c8ed4ee41f809ee04ce69b0d3e460fcbdcc4f36",
+      "size": 1380013,
+      "url": "https://api.github.com/repos/hkimlab/DeepPrime/git/blobs/8c8ed4ee41f809ee04ce69b0d3e460fcbdcc4f36"
+    },
+    {
+      "path": "models/DeepPrime/DP_variant_A549_PE4max_Opti_220728/final_model_10.pt",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "71506c51b24ce82a19057475db9d37f535fe4f89",
+      "size": 1380013,
+      "url": "https://api.github.com/repos/hkimlab/DeepPrime/git/blobs/71506c51b24ce82a19057475db9d37f535fe4f89"
+    },
+    {
+      "path": "models/DeepPrime/DP_variant_A549_PE4max_Opti_220728/final_model_11.pt",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "3f2eba352e22bf09bcb21688f5fe26deae20fabb",
+      "size": 1380013,
+      "url": "https://api.github.com/repos/hkimlab/DeepPrime/git/blobs/3f2eba352e22bf09bcb21688f5fe26deae20fabb"
+    },
+    {
+      "path": "models/DeepPrime/DP_variant_A549_PE4max_Opti_220728/final_model_12.pt",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "b1b1da9d1e369179f69cee6dada79a434c81747d",
+      "size": 1380013,
+      "url": "https://api.github.com/repos/hkimlab/DeepPrime/git/blobs/b1b1da9d1e369179f69cee6dada79a434c81747d"
+    },
+    {
+      "path": "models/DeepPrime/DP_variant_A549_PE4max_Opti_220728/final_model_13.pt",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "3c550dc3e77cd758afcf47e7bfe76397ba0d085b",
+      "size": 1380013,
+      "url": "https://api.github.com/repos/hkimlab/DeepPrime/git/blobs/3c550dc3e77cd758afcf47e7bfe76397ba0d085b"
+    },
+    {
+      "path": "models/DeepPrime/DP_variant_A549_PE4max_Opti_220728/final_model_14.pt",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "884f40b0492ce1639f7823c682152cb867864a25",
+      "size": 1380013,
+      "url": "https://api.github.com/repos/hkimlab/DeepPrime/git/blobs/884f40b0492ce1639f7823c682152cb867864a25"
+    },
+    {
+      "path": "models/DeepPrime/DP_variant_A549_PE4max_Opti_220728/final_model_15.pt",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "acc6cc9efd2643cbdb88ccb3fdc6158c293ce657",
+      "size": 1380013,
+      "url": "https://api.github.com/repos/hkimlab/DeepPrime/git/blobs/acc6cc9efd2643cbdb88ccb3fdc6158c293ce657"
+    },
+    {
+      "path": "models/DeepPrime/DP_variant_A549_PE4max_Opti_220728/final_model_16.pt",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "08fce56b40f073d75ed437d7f012f7bb7a13d0bb",
+      "size": 1380013,
+      "url": "https://api.github.com/repos/hkimlab/DeepPrime/git/blobs/08fce56b40f073d75ed437d7f012f7bb7a13d0bb"
+    },
+    {
+      "path": "models/DeepPrime/DP_variant_A549_PE4max_Opti_220728/final_model_17.pt",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "34f836639c2a0c9e115b38d47a28455e33c98373",
+      "size": 1380013,
+      "url": "https://api.github.com/repos/hkimlab/DeepPrime/git/blobs/34f836639c2a0c9e115b38d47a28455e33c98373"
+    },
+    {
+      "path": "models/DeepPrime/DP_variant_A549_PE4max_Opti_220728/final_model_18.pt",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "b0550fc84cda4eb7ceebb55b4e6ba03533b7aa62",
+      "size": 1380013,
+      "url": "https://api.github.com/repos/hkimlab/DeepPrime/git/blobs/b0550fc84cda4eb7ceebb55b4e6ba03533b7aa62"
+    },
+    {
+      "path": "models/DeepPrime/DP_variant_A549_PE4max_Opti_220728/final_model_19.pt",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "5325a55e8a5edeaa0c7636cb5c67d75cc67ec415",
+      "size": 1380013,
+      "url": "https://api.github.com/repos/hkimlab/DeepPrime/git/blobs/5325a55e8a5edeaa0c7636cb5c67d75cc67ec415"
+    },
+    {
+      "path": "models/DeepPrime/DP_variant_A549_PE4max_Opti_220728/final_model_2.pt",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "8e81f2a3c0ecdb51a0b5ea0cacc5cfa5ae8c48eb",
+      "size": 1380013,
+      "url": "https://api.github.com/repos/hkimlab/DeepPrime/git/blobs/8e81f2a3c0ecdb51a0b5ea0cacc5cfa5ae8c48eb"
+    },
+    {
+      "path": "models/DeepPrime/DP_variant_A549_PE4max_Opti_220728/final_model_3.pt",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "fd942762d9f5ac57bc071e1c1ec02bbad3ff5c6b",
+      "size": 1380013,
+      "url": "https://api.github.com/repos/hkimlab/DeepPrime/git/blobs/fd942762d9f5ac57bc071e1c1ec02bbad3ff5c6b"
+    },
+    {
+      "path": "models/DeepPrime/DP_variant_A549_PE4max_Opti_220728/final_model_4.pt",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "fd14833315b944ac9cd56df8ccc10c1085e0d68c",
+      "size": 1380013,
+      "url": "https://api.github.com/repos/hkimlab/DeepPrime/git/blobs/fd14833315b944ac9cd56df8ccc10c1085e0d68c"
+    },
+    {
+      "path": "models/DeepPrime/DP_variant_A549_PE4max_Opti_220728/final_model_5.pt",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "66fa3cf4c0739d0749b16c014419a9e93563370a",
+      "size": 1380013,
+      "url": "https://api.github.com/repos/hkimlab/DeepPrime/git/blobs/66fa3cf4c0739d0749b16c014419a9e93563370a"
+    },
+    {
+      "path": "models/DeepPrime/DP_variant_A549_PE4max_Opti_220728/final_model_6.pt",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "e13347e4c9b13464b0e43f25d2e7b2d8c487daf5",
+      "size": 1380013,
+      "url": "https://api.github.com/repos/hkimlab/DeepPrime/git/blobs/e13347e4c9b13464b0e43f25d2e7b2d8c487daf5"
+    },
+    {
+      "path": "models/DeepPrime/DP_variant_A549_PE4max_Opti_220728/final_model_7.pt",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "58d5c90fc1326dd9adbaa2a83f1bf5052868299a",
+      "size": 1380013,
+      "url": "https://api.github.com/repos/hkimlab/DeepPrime/git/blobs/58d5c90fc1326dd9adbaa2a83f1bf5052868299a"
+    },
+    {
+      "path": "models/DeepPrime/DP_variant_A549_PE4max_Opti_220728/final_model_8.pt",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "57916e5b117fdc246fb50cbc0f81d5b83bd54841",
+      "size": 1380013,
+      "url": "https://api.github.com/repos/hkimlab/DeepPrime/git/blobs/57916e5b117fdc246fb50cbc0f81d5b83bd54841"
+    },
+    {
+      "path": "models/DeepPrime/DP_variant_A549_PE4max_Opti_220728/final_model_9.pt",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "1baf5525f5a26c150217bd599ece22661a133131",
+      "size": 1380013,
+      "url": "https://api.github.com/repos/hkimlab/DeepPrime/git/blobs/1baf5525f5a26c150217bd599ece22661a133131"
+    },
+    {
+      "path": "models/DeepPrime/DP_variant_A549_PE4max_Opti_220728/mean.csv",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "e94159bc1078f10788871dabd5f591b73621eb3a",
+      "size": 655,
+      "url": "https://api.github.com/repos/hkimlab/DeepPrime/git/blobs/e94159bc1078f10788871dabd5f591b73621eb3a"
+    },
+    {
+      "path": "models/DeepPrime/DP_variant_A549_PE4max_Opti_220728/std.csv",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "2eecd7e246c3c14fd259803705151cdf03581046",
+      "size": 649,
+      "url": "https://api.github.com/repos/hkimlab/DeepPrime/git/blobs/2eecd7e246c3c14fd259803705151cdf03581046"
+    },
+    {
+      "path": "models/DeepPrime/DP_variant_A549_PE4max_epegRNA_Opti_220428",
+      "mode": "040000",
+      "type": "tree",
+      "sha": "c4d8de83e132e9e5d31fa02fdc1a963b103ac9f9",
+      "url": "https://api.github.com/repos/hkimlab/DeepPrime/git/trees/c4d8de83e132e9e5d31fa02fdc1a963b103ac9f9"
+    },
+    {
+      "path": "models/DeepPrime/DP_variant_A549_PE4max_epegRNA_Opti_220428/dp_mean.csv",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "170bed3e461c5a608cb5dccab25eb315842bfbc1",
+      "size": 18,
+      "url": "https://api.github.com/repos/hkimlab/DeepPrime/git/blobs/170bed3e461c5a608cb5dccab25eb315842bfbc1"
+    },
+    {
+      "path": "models/DeepPrime/DP_variant_A549_PE4max_epegRNA_Opti_220428/dp_std.csv",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "cd9348bfad35a66f2694dd3a940db18b5d5c23a2",
+      "size": 17,
+      "url": "https://api.github.com/repos/hkimlab/DeepPrime/git/blobs/cd9348bfad35a66f2694dd3a940db18b5d5c23a2"
+    },
+    {
+      "path": "models/DeepPrime/DP_variant_A549_PE4max_epegRNA_Opti_220428/final_model_0.pt",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "aea474f3736286ac2b4bdad3962cb70e3b565abd",
+      "size": 1380013,
+      "url": "https://api.github.com/repos/hkimlab/DeepPrime/git/blobs/aea474f3736286ac2b4bdad3962cb70e3b565abd"
+    },
+    {
+      "path": "models/DeepPrime/DP_variant_A549_PE4max_epegRNA_Opti_220428/final_model_1.pt",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "209c7f93dadc6c255a89843997837c1fb0036747",
+      "size": 1380013,
+      "url": "https://api.github.com/repos/hkimlab/DeepPrime/git/blobs/209c7f93dadc6c255a89843997837c1fb0036747"
+    },
+    {
+      "path": "models/DeepPrime/DP_variant_A549_PE4max_epegRNA_Opti_220428/final_model_10.pt",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "aea474f3736286ac2b4bdad3962cb70e3b565abd",
+      "size": 1380013,
+      "url": "https://api.github.com/repos/hkimlab/DeepPrime/git/blobs/aea474f3736286ac2b4bdad3962cb70e3b565abd"
+    },
+    {
+      "path": "models/DeepPrime/DP_variant_A549_PE4max_epegRNA_Opti_220428/final_model_11.pt",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "209c7f93dadc6c255a89843997837c1fb0036747",
+      "size": 1380013,
+      "url": "https://api.github.com/repos/hkimlab/DeepPrime/git/blobs/209c7f93dadc6c255a89843997837c1fb0036747"
+    },
+    {
+      "path": "models/DeepPrime/DP_variant_A549_PE4max_epegRNA_Opti_220428/final_model_12.pt",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "16645ef3afa90c83e72ef3b5d2f4c0c84c3fc2cb",
+      "size": 1380013,
+      "url": "https://api.github.com/repos/hkimlab/DeepPrime/git/blobs/16645ef3afa90c83e72ef3b5d2f4c0c84c3fc2cb"
+    },
+    {
+      "path": "models/DeepPrime/DP_variant_A549_PE4max_epegRNA_Opti_220428/final_model_13.pt",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "3305d6f27f1871830dafc26cbce3bd332bbd037c",
+      "size": 1380013,
+      "url": "https://api.github.com/repos/hkimlab/DeepPrime/git/blobs/3305d6f27f1871830dafc26cbce3bd332bbd037c"
+    },
+    {
+      "path": "models/DeepPrime/DP_variant_A549_PE4max_epegRNA_Opti_220428/final_model_14.pt",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "9cb717f6af5ee7b9ccd28f6ff75f5f1f83dd5f9f",
+      "size": 1380013,
+      "url": "https://api.github.com/repos/hkimlab/DeepPrime/git/blobs/9cb717f6af5ee7b9ccd28f6ff75f5f1f83dd5f9f"
+    },
+    {
+      "path": "models/DeepPrime/DP_variant_A549_PE4max_epegRNA_Opti_220428/final_model_15.pt",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "aea474f3736286ac2b4bdad3962cb70e3b565abd",
+      "size": 1380013,
+      "url": "https://api.github.com/repos/hkimlab/DeepPrime/git/blobs/aea474f3736286ac2b4bdad3962cb70e3b565abd"
+    },
+    {
+      "path": "models/DeepPrime/DP_variant_A549_PE4max_epegRNA_Opti_220428/final_model_16.pt",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "209c7f93dadc6c255a89843997837c1fb0036747",
+      "size": 1380013,
+      "url": "https://api.github.com/repos/hkimlab/DeepPrime/git/blobs/209c7f93dadc6c255a89843997837c1fb0036747"
+    },
+    {
+      "path": "models/DeepPrime/DP_variant_A549_PE4max_epegRNA_Opti_220428/final_model_17.pt",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "16645ef3afa90c83e72ef3b5d2f4c0c84c3fc2cb",
+      "size": 1380013,
+      "url": "https://api.github.com/repos/hkimlab/DeepPrime/git/blobs/16645ef3afa90c83e72ef3b5d2f4c0c84c3fc2cb"
+    },
+    {
+      "path": "models/DeepPrime/DP_variant_A549_PE4max_epegRNA_Opti_220428/final_model_18.pt",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "3305d6f27f1871830dafc26cbce3bd332bbd037c",
+      "size": 1380013,
+      "url": "https://api.github.com/repos/hkimlab/DeepPrime/git/blobs/3305d6f27f1871830dafc26cbce3bd332bbd037c"
+    },
+    {
+      "path": "models/DeepPrime/DP_variant_A549_PE4max_epegRNA_Opti_220428/final_model_19.pt",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "9cb717f6af5ee7b9ccd28f6ff75f5f1f83dd5f9f",
+      "size": 1380013,
+      "url": "https://api.github.com/repos/hkimlab/DeepPrime/git/blobs/9cb717f6af5ee7b9ccd28f6ff75f5f1f83dd5f9f"
+    },
+    {
+      "path": "models/DeepPrime/DP_variant_A549_PE4max_epegRNA_Opti_220428/final_model_2.pt",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "16645ef3afa90c83e72ef3b5d2f4c0c84c3fc2cb",
+      "size": 1380013,
+      "url": "https://api.github.com/repos/hkimlab/DeepPrime/git/blobs/16645ef3afa90c83e72ef3b5d2f4c0c84c3fc2cb"
+    },
+    {
+      "path": "models/DeepPrime/DP_variant_A549_PE4max_epegRNA_Opti_220428/final_model_3.pt",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "3305d6f27f1871830dafc26cbce3bd332bbd037c",
+      "size": 1380013,
+      "url": "https://api.github.com/repos/hkimlab/DeepPrime/git/blobs/3305d6f27f1871830dafc26cbce3bd332bbd037c"
+    },
+    {
+      "path": "models/DeepPrime/DP_variant_A549_PE4max_epegRNA_Opti_220428/final_model_4.pt",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "9cb717f6af5ee7b9ccd28f6ff75f5f1f83dd5f9f",
+      "size": 1380013,
+      "url": "https://api.github.com/repos/hkimlab/DeepPrime/git/blobs/9cb717f6af5ee7b9ccd28f6ff75f5f1f83dd5f9f"
+    },
+    {
+      "path": "models/DeepPrime/DP_variant_A549_PE4max_epegRNA_Opti_220428/final_model_5.pt",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "aea474f3736286ac2b4bdad3962cb70e3b565abd",
+      "size": 1380013,
+      "url": "https://api.github.com/repos/hkimlab/DeepPrime/git/blobs/aea474f3736286ac2b4bdad3962cb70e3b565abd"
+    },
+    {
+      "path": "models/DeepPrime/DP_variant_A549_PE4max_epegRNA_Opti_220428/final_model_6.pt",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "209c7f93dadc6c255a89843997837c1fb0036747",
+      "size": 1380013,
+      "url": "https://api.github.com/repos/hkimlab/DeepPrime/git/blobs/209c7f93dadc6c255a89843997837c1fb0036747"
+    },
+    {
+      "path": "models/DeepPrime/DP_variant_A549_PE4max_epegRNA_Opti_220428/final_model_7.pt",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "16645ef3afa90c83e72ef3b5d2f4c0c84c3fc2cb",
+      "size": 1380013,
+      "url": "https://api.github.com/repos/hkimlab/DeepPrime/git/blobs/16645ef3afa90c83e72ef3b5d2f4c0c84c3fc2cb"
+    },
+    {
+      "path": "models/DeepPrime/DP_variant_A549_PE4max_epegRNA_Opti_220428/final_model_8.pt",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "3305d6f27f1871830dafc26cbce3bd332bbd037c",
+      "size": 1380013,
+      "url": "https://api.github.com/repos/hkimlab/DeepPrime/git/blobs/3305d6f27f1871830dafc26cbce3bd332bbd037c"
+    },
+    {
+      "path": "models/DeepPrime/DP_variant_A549_PE4max_epegRNA_Opti_220428/final_model_9.pt",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "9cb717f6af5ee7b9ccd28f6ff75f5f1f83dd5f9f",
+      "size": 1380013,
+      "url": "https://api.github.com/repos/hkimlab/DeepPrime/git/blobs/9cb717f6af5ee7b9ccd28f6ff75f5f1f83dd5f9f"
+    },
+    {
+      "path": "models/DeepPrime/DP_variant_A549_PE4max_epegRNA_Opti_220428/mean.csv",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "e94159bc1078f10788871dabd5f591b73621eb3a",
+      "size": 655,
+      "url": "https://api.github.com/repos/hkimlab/DeepPrime/git/blobs/e94159bc1078f10788871dabd5f591b73621eb3a"
+    },
+    {
+      "path": "models/DeepPrime/DP_variant_A549_PE4max_epegRNA_Opti_220428/std.csv",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "2eecd7e246c3c14fd259803705151cdf03581046",
+      "size": 649,
+      "url": "https://api.github.com/repos/hkimlab/DeepPrime/git/blobs/2eecd7e246c3c14fd259803705151cdf03581046"
+    },
+    {
+      "path": "models/DeepPrime/DP_variant_DLD1_NRCHPE4max_Opti_220728",
+      "mode": "040000",
+      "type": "tree",
+      "sha": "30eab451c04db511d8ac537dd247b1e0322a4249",
+      "url": "https://api.github.com/repos/hkimlab/DeepPrime/git/trees/30eab451c04db511d8ac537dd247b1e0322a4249"
+    },
+    {
+      "path": "models/DeepPrime/DP_variant_DLD1_NRCHPE4max_Opti_220728/dp_mean.csv",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "fc49943ac1cfa2fe5285bf1fd3d9ca86314ba919",
+      "size": 17,
+      "url": "https://api.github.com/repos/hkimlab/DeepPrime/git/blobs/fc49943ac1cfa2fe5285bf1fd3d9ca86314ba919"
+    },
+    {
+      "path": "models/DeepPrime/DP_variant_DLD1_NRCHPE4max_Opti_220728/dp_std.csv",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "a41de4b2af5c26670befb25c86e8bc534490cffb",
+      "size": 18,
+      "url": "https://api.github.com/repos/hkimlab/DeepPrime/git/blobs/a41de4b2af5c26670befb25c86e8bc534490cffb"
+    },
+    {
+      "path": "models/DeepPrime/DP_variant_DLD1_NRCHPE4max_Opti_220728/final_model_0.pt",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "e658d943c175b9240c8f1b70fdb3cf364e1fe60f",
+      "size": 1380013,
+      "url": "https://api.github.com/repos/hkimlab/DeepPrime/git/blobs/e658d943c175b9240c8f1b70fdb3cf364e1fe60f"
+    },
+    {
+      "path": "models/DeepPrime/DP_variant_DLD1_NRCHPE4max_Opti_220728/final_model_1.pt",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "b77a01ff4c82d52737e1b9aa1d2c21b5050361a1",
+      "size": 1380013,
+      "url": "https://api.github.com/repos/hkimlab/DeepPrime/git/blobs/b77a01ff4c82d52737e1b9aa1d2c21b5050361a1"
+    },
+    {
+      "path": "models/DeepPrime/DP_variant_DLD1_NRCHPE4max_Opti_220728/final_model_10.pt",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "c08dc9f2d8f302c6fc8a84cf000e1967e7d3b0d9",
+      "size": 1380013,
+      "url": "https://api.github.com/repos/hkimlab/DeepPrime/git/blobs/c08dc9f2d8f302c6fc8a84cf000e1967e7d3b0d9"
+    },
+    {
+      "path": "models/DeepPrime/DP_variant_DLD1_NRCHPE4max_Opti_220728/final_model_11.pt",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "8fbe7b9ec3499325682abe646f4319c8e4378d7a",
+      "size": 1380013,
+      "url": "https://api.github.com/repos/hkimlab/DeepPrime/git/blobs/8fbe7b9ec3499325682abe646f4319c8e4378d7a"
+    },
+    {
+      "path": "models/DeepPrime/DP_variant_DLD1_NRCHPE4max_Opti_220728/final_model_12.pt",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "36b2a8f47bc34a488c6e4b6ea4537468471da796",
+      "size": 1380013,
+      "url": "https://api.github.com/repos/hkimlab/DeepPrime/git/blobs/36b2a8f47bc34a488c6e4b6ea4537468471da796"
+    },
+    {
+      "path": "models/DeepPrime/DP_variant_DLD1_NRCHPE4max_Opti_220728/final_model_13.pt",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "4510b3133aa41d1a52423f92625282db3c66281e",
+      "size": 1380013,
+      "url": "https://api.github.com/repos/hkimlab/DeepPrime/git/blobs/4510b3133aa41d1a52423f92625282db3c66281e"
+    },
+    {
+      "path": "models/DeepPrime/DP_variant_DLD1_NRCHPE4max_Opti_220728/final_model_14.pt",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "03bfb5ef48239f69972da3625c14207dc08962ff",
+      "size": 1380013,
+      "url": "https://api.github.com/repos/hkimlab/DeepPrime/git/blobs/03bfb5ef48239f69972da3625c14207dc08962ff"
+    },
+    {
+      "path": "models/DeepPrime/DP_variant_DLD1_NRCHPE4max_Opti_220728/final_model_15.pt",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "5ad28754b5fd9bbef4a5f787539c81970a23ffd1",
+      "size": 1380013,
+      "url": "https://api.github.com/repos/hkimlab/DeepPrime/git/blobs/5ad28754b5fd9bbef4a5f787539c81970a23ffd1"
+    },
+    {
+      "path": "models/DeepPrime/DP_variant_DLD1_NRCHPE4max_Opti_220728/final_model_16.pt",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "64c181bca2152ad6c10bf0d7d83e6291b552eb0f",
+      "size": 1380013,
+      "url": "https://api.github.com/repos/hkimlab/DeepPrime/git/blobs/64c181bca2152ad6c10bf0d7d83e6291b552eb0f"
+    },
+    {
+      "path": "models/DeepPrime/DP_variant_DLD1_NRCHPE4max_Opti_220728/final_model_17.pt",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "337a38d7280ee15a0c6ac777c61f9427c44ec791",
+      "size": 1380013,
+      "url": "https://api.github.com/repos/hkimlab/DeepPrime/git/blobs/337a38d7280ee15a0c6ac777c61f9427c44ec791"
+    },
+    {
+      "path": "models/DeepPrime/DP_variant_DLD1_NRCHPE4max_Opti_220728/final_model_18.pt",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "c139d606fa21e68d1f73ae0c456f0b45a36757e2",
+      "size": 1380013,
+      "url": "https://api.github.com/repos/hkimlab/DeepPrime/git/blobs/c139d606fa21e68d1f73ae0c456f0b45a36757e2"
+    },
+    {
+      "path": "models/DeepPrime/DP_variant_DLD1_NRCHPE4max_Opti_220728/final_model_19.pt",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "582e16f65195a0c7fba9b6cd6e7e3801527d6d62",
+      "size": 1380013,
+      "url": "https://api.github.com/repos/hkimlab/DeepPrime/git/blobs/582e16f65195a0c7fba9b6cd6e7e3801527d6d62"
+    },
+    {
+      "path": "models/DeepPrime/DP_variant_DLD1_NRCHPE4max_Opti_220728/final_model_2.pt",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "3a6a70bdb7d259de5a290777981d48bcb93ea40f",
+      "size": 1380013,
+      "url": "https://api.github.com/repos/hkimlab/DeepPrime/git/blobs/3a6a70bdb7d259de5a290777981d48bcb93ea40f"
+    },
+    {
+      "path": "models/DeepPrime/DP_variant_DLD1_NRCHPE4max_Opti_220728/final_model_3.pt",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "f0c547f38dc7f9fce742f29ecd4e763040d5baf8",
+      "size": 1380013,
+      "url": "https://api.github.com/repos/hkimlab/DeepPrime/git/blobs/f0c547f38dc7f9fce742f29ecd4e763040d5baf8"
+    },
+    {
+      "path": "models/DeepPrime/DP_variant_DLD1_NRCHPE4max_Opti_220728/final_model_4.pt",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "63405b1c461fc51a0f952648f51cf94aec72cffc",
+      "size": 1380013,
+      "url": "https://api.github.com/repos/hkimlab/DeepPrime/git/blobs/63405b1c461fc51a0f952648f51cf94aec72cffc"
+    },
+    {
+      "path": "models/DeepPrime/DP_variant_DLD1_NRCHPE4max_Opti_220728/final_model_5.pt",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "d063d403ab2f7debc4ce5f92e0cd8976b2ed9d38",
+      "size": 1380013,
+      "url": "https://api.github.com/repos/hkimlab/DeepPrime/git/blobs/d063d403ab2f7debc4ce5f92e0cd8976b2ed9d38"
+    },
+    {
+      "path": "models/DeepPrime/DP_variant_DLD1_NRCHPE4max_Opti_220728/final_model_6.pt",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "131326363ae3b84bda8cb4d1d8eb085ca32bdb78",
+      "size": 1380013,
+      "url": "https://api.github.com/repos/hkimlab/DeepPrime/git/blobs/131326363ae3b84bda8cb4d1d8eb085ca32bdb78"
+    },
+    {
+      "path": "models/DeepPrime/DP_variant_DLD1_NRCHPE4max_Opti_220728/final_model_7.pt",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "b585e0917e01d0dba8377777dac86e2a91cfb1cf",
+      "size": 1380013,
+      "url": "https://api.github.com/repos/hkimlab/DeepPrime/git/blobs/b585e0917e01d0dba8377777dac86e2a91cfb1cf"
+    },
+    {
+      "path": "models/DeepPrime/DP_variant_DLD1_NRCHPE4max_Opti_220728/final_model_8.pt",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "966f20ea48b2c3ad7baf5241d706d43070691451",
+      "size": 1380013,
+      "url": "https://api.github.com/repos/hkimlab/DeepPrime/git/blobs/966f20ea48b2c3ad7baf5241d706d43070691451"
+    },
+    {
+      "path": "models/DeepPrime/DP_variant_DLD1_NRCHPE4max_Opti_220728/final_model_9.pt",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "1bee1da9155ffe4859237fb2f308d89afdca3e61",
+      "size": 1380013,
+      "url": "https://api.github.com/repos/hkimlab/DeepPrime/git/blobs/1bee1da9155ffe4859237fb2f308d89afdca3e61"
+    },
+    {
+      "path": "models/DeepPrime/DP_variant_DLD1_NRCHPE4max_Opti_220728/mean.csv",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "e94159bc1078f10788871dabd5f591b73621eb3a",
+      "size": 655,
+      "url": "https://api.github.com/repos/hkimlab/DeepPrime/git/blobs/e94159bc1078f10788871dabd5f591b73621eb3a"
+    },
+    {
+      "path": "models/DeepPrime/DP_variant_DLD1_NRCHPE4max_Opti_220728/std.csv",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "2eecd7e246c3c14fd259803705151cdf03581046",
+      "size": 649,
+      "url": "https://api.github.com/repos/hkimlab/DeepPrime/git/blobs/2eecd7e246c3c14fd259803705151cdf03581046"
+    },
+    {
+      "path": "models/DeepPrime/DP_variant_DLD1_PE2max_Opti_221114",
+      "mode": "040000",
+      "type": "tree",
+      "sha": "de56a413b3ce54d1b7d9abd6e0a63f7fab8a6cac",
+      "url": "https://api.github.com/repos/hkimlab/DeepPrime/git/trees/de56a413b3ce54d1b7d9abd6e0a63f7fab8a6cac"
+    },
+    {
+      "path": "models/DeepPrime/DP_variant_DLD1_PE2max_Opti_221114/dp_mean.csv",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "104420276607a29b9edf769cc521f301f150db50",
+      "size": 18,
+      "url": "https://api.github.com/repos/hkimlab/DeepPrime/git/blobs/104420276607a29b9edf769cc521f301f150db50"
+    },
+    {
+      "path": "models/DeepPrime/DP_variant_DLD1_PE2max_Opti_221114/dp_std.csv",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "a6b3376367386fc8406853367b61c21e7806633f",
+      "size": 17,
+      "url": "https://api.github.com/repos/hkimlab/DeepPrime/git/blobs/a6b3376367386fc8406853367b61c21e7806633f"
+    },
+    {
+      "path": "models/DeepPrime/DP_variant_DLD1_PE2max_Opti_221114/final_model_0.pt",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "e95b61fc830ab92e38067542cb1823612a2706c6",
+      "size": 1380013,
+      "url": "https://api.github.com/repos/hkimlab/DeepPrime/git/blobs/e95b61fc830ab92e38067542cb1823612a2706c6"
+    },
+    {
+      "path": "models/DeepPrime/DP_variant_DLD1_PE2max_Opti_221114/final_model_1.pt",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "2d1add97c17251fecb6e6004be93c2a0e27e173c",
+      "size": 1380013,
+      "url": "https://api.github.com/repos/hkimlab/DeepPrime/git/blobs/2d1add97c17251fecb6e6004be93c2a0e27e173c"
+    },
+    {
+      "path": "models/DeepPrime/DP_variant_DLD1_PE2max_Opti_221114/final_model_10.pt",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "e95b61fc830ab92e38067542cb1823612a2706c6",
+      "size": 1380013,
+      "url": "https://api.github.com/repos/hkimlab/DeepPrime/git/blobs/e95b61fc830ab92e38067542cb1823612a2706c6"
+    },
+    {
+      "path": "models/DeepPrime/DP_variant_DLD1_PE2max_Opti_221114/final_model_11.pt",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "2d1add97c17251fecb6e6004be93c2a0e27e173c",
+      "size": 1380013,
+      "url": "https://api.github.com/repos/hkimlab/DeepPrime/git/blobs/2d1add97c17251fecb6e6004be93c2a0e27e173c"
+    },
+    {
+      "path": "models/DeepPrime/DP_variant_DLD1_PE2max_Opti_221114/final_model_12.pt",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "9f2907b89ef15d584fa20370f5a10a5e0692ee89",
+      "size": 1380013,
+      "url": "https://api.github.com/repos/hkimlab/DeepPrime/git/blobs/9f2907b89ef15d584fa20370f5a10a5e0692ee89"
+    },
+    {
+      "path": "models/DeepPrime/DP_variant_DLD1_PE2max_Opti_221114/final_model_13.pt",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "e40ac2dae6fbbd07a3570f6ed1b661d1b447b6af",
+      "size": 1380013,
+      "url": "https://api.github.com/repos/hkimlab/DeepPrime/git/blobs/e40ac2dae6fbbd07a3570f6ed1b661d1b447b6af"
+    },
+    {
+      "path": "models/DeepPrime/DP_variant_DLD1_PE2max_Opti_221114/final_model_14.pt",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "b0f9cda5a0e16de52c3f161582d77b2b21426a78",
+      "size": 1380013,
+      "url": "https://api.github.com/repos/hkimlab/DeepPrime/git/blobs/b0f9cda5a0e16de52c3f161582d77b2b21426a78"
+    },
+    {
+      "path": "models/DeepPrime/DP_variant_DLD1_PE2max_Opti_221114/final_model_15.pt",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "e95b61fc830ab92e38067542cb1823612a2706c6",
+      "size": 1380013,
+      "url": "https://api.github.com/repos/hkimlab/DeepPrime/git/blobs/e95b61fc830ab92e38067542cb1823612a2706c6"
+    },
+    {
+      "path": "models/DeepPrime/DP_variant_DLD1_PE2max_Opti_221114/final_model_16.pt",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "2d1add97c17251fecb6e6004be93c2a0e27e173c",
+      "size": 1380013,
+      "url": "https://api.github.com/repos/hkimlab/DeepPrime/git/blobs/2d1add97c17251fecb6e6004be93c2a0e27e173c"
+    },
+    {
+      "path": "models/DeepPrime/DP_variant_DLD1_PE2max_Opti_221114/final_model_17.pt",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "9f2907b89ef15d584fa20370f5a10a5e0692ee89",
+      "size": 1380013,
+      "url": "https://api.github.com/repos/hkimlab/DeepPrime/git/blobs/9f2907b89ef15d584fa20370f5a10a5e0692ee89"
+    },
+    {
+      "path": "models/DeepPrime/DP_variant_DLD1_PE2max_Opti_221114/final_model_18.pt",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "e40ac2dae6fbbd07a3570f6ed1b661d1b447b6af",
+      "size": 1380013,
+      "url": "https://api.github.com/repos/hkimlab/DeepPrime/git/blobs/e40ac2dae6fbbd07a3570f6ed1b661d1b447b6af"
+    },
+    {
+      "path": "models/DeepPrime/DP_variant_DLD1_PE2max_Opti_221114/final_model_19.pt",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "b0f9cda5a0e16de52c3f161582d77b2b21426a78",
+      "size": 1380013,
+      "url": "https://api.github.com/repos/hkimlab/DeepPrime/git/blobs/b0f9cda5a0e16de52c3f161582d77b2b21426a78"
+    },
+    {
+      "path": "models/DeepPrime/DP_variant_DLD1_PE2max_Opti_221114/final_model_2.pt",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "9f2907b89ef15d584fa20370f5a10a5e0692ee89",
+      "size": 1380013,
+      "url": "https://api.github.com/repos/hkimlab/DeepPrime/git/blobs/9f2907b89ef15d584fa20370f5a10a5e0692ee89"
+    },
+    {
+      "path": "models/DeepPrime/DP_variant_DLD1_PE2max_Opti_221114/final_model_3.pt",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "e40ac2dae6fbbd07a3570f6ed1b661d1b447b6af",
+      "size": 1380013,
+      "url": "https://api.github.com/repos/hkimlab/DeepPrime/git/blobs/e40ac2dae6fbbd07a3570f6ed1b661d1b447b6af"
+    },
+    {
+      "path": "models/DeepPrime/DP_variant_DLD1_PE2max_Opti_221114/final_model_4.pt",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "b0f9cda5a0e16de52c3f161582d77b2b21426a78",
+      "size": 1380013,
+      "url": "https://api.github.com/repos/hkimlab/DeepPrime/git/blobs/b0f9cda5a0e16de52c3f161582d77b2b21426a78"
+    },
+    {
+      "path": "models/DeepPrime/DP_variant_DLD1_PE2max_Opti_221114/final_model_5.pt",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "e95b61fc830ab92e38067542cb1823612a2706c6",
+      "size": 1380013,
+      "url": "https://api.github.com/repos/hkimlab/DeepPrime/git/blobs/e95b61fc830ab92e38067542cb1823612a2706c6"
+    },
+    {
+      "path": "models/DeepPrime/DP_variant_DLD1_PE2max_Opti_221114/final_model_6.pt",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "2d1add97c17251fecb6e6004be93c2a0e27e173c",
+      "size": 1380013,
+      "url": "https://api.github.com/repos/hkimlab/DeepPrime/git/blobs/2d1add97c17251fecb6e6004be93c2a0e27e173c"
+    },
+    {
+      "path": "models/DeepPrime/DP_variant_DLD1_PE2max_Opti_221114/final_model_7.pt",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "9f2907b89ef15d584fa20370f5a10a5e0692ee89",
+      "size": 1380013,
+      "url": "https://api.github.com/repos/hkimlab/DeepPrime/git/blobs/9f2907b89ef15d584fa20370f5a10a5e0692ee89"
+    },
+    {
+      "path": "models/DeepPrime/DP_variant_DLD1_PE2max_Opti_221114/final_model_8.pt",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "e40ac2dae6fbbd07a3570f6ed1b661d1b447b6af",
+      "size": 1380013,
+      "url": "https://api.github.com/repos/hkimlab/DeepPrime/git/blobs/e40ac2dae6fbbd07a3570f6ed1b661d1b447b6af"
+    },
+    {
+      "path": "models/DeepPrime/DP_variant_DLD1_PE2max_Opti_221114/final_model_9.pt",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "b0f9cda5a0e16de52c3f161582d77b2b21426a78",
+      "size": 1380013,
+      "url": "https://api.github.com/repos/hkimlab/DeepPrime/git/blobs/b0f9cda5a0e16de52c3f161582d77b2b21426a78"
+    },
+    {
+      "path": "models/DeepPrime/DP_variant_DLD1_PE2max_Opti_221114/mean.csv",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "e94159bc1078f10788871dabd5f591b73621eb3a",
+      "size": 655,
+      "url": "https://api.github.com/repos/hkimlab/DeepPrime/git/blobs/e94159bc1078f10788871dabd5f591b73621eb3a"
+    },
+    {
+      "path": "models/DeepPrime/DP_variant_DLD1_PE2max_Opti_221114/std.csv",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "2eecd7e246c3c14fd259803705151cdf03581046",
+      "size": 649,
+      "url": "https://api.github.com/repos/hkimlab/DeepPrime/git/blobs/2eecd7e246c3c14fd259803705151cdf03581046"
+    },
+    {
+      "path": "models/DeepPrime/DP_variant_DLD1_PE4max_Opti_220728",
+      "mode": "040000",
+      "type": "tree",
+      "sha": "f147a2eefcf13fe635a21fd7cde3cdc92c36a65e",
+      "url": "https://api.github.com/repos/hkimlab/DeepPrime/git/trees/f147a2eefcf13fe635a21fd7cde3cdc92c36a65e"
+    },
+    {
+      "path": "models/DeepPrime/DP_variant_DLD1_PE4max_Opti_220728/dp_mean.csv",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "783dc5ae015d9959eb7716c298454aecb35b6640",
+      "size": 18,
+      "url": "https://api.github.com/repos/hkimlab/DeepPrime/git/blobs/783dc5ae015d9959eb7716c298454aecb35b6640"
+    },
+    {
+      "path": "models/DeepPrime/DP_variant_DLD1_PE4max_Opti_220728/dp_std.csv",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "cc0871c90e3fc484447425b05454f83759e4ecb2",
+      "size": 18,
+      "url": "https://api.github.com/repos/hkimlab/DeepPrime/git/blobs/cc0871c90e3fc484447425b05454f83759e4ecb2"
+    },
+    {
+      "path": "models/DeepPrime/DP_variant_DLD1_PE4max_Opti_220728/final_model_0.pt",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "977e845a470c1715a45978cb728539b3cef716f0",
+      "size": 1380013,
+      "url": "https://api.github.com/repos/hkimlab/DeepPrime/git/blobs/977e845a470c1715a45978cb728539b3cef716f0"
+    },
+    {
+      "path": "models/DeepPrime/DP_variant_DLD1_PE4max_Opti_220728/final_model_1.pt",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "95f10f8135d703323809d266a3e8b0c44667fb52",
+      "size": 1380013,
+      "url": "https://api.github.com/repos/hkimlab/DeepPrime/git/blobs/95f10f8135d703323809d266a3e8b0c44667fb52"
+    },
+    {
+      "path": "models/DeepPrime/DP_variant_DLD1_PE4max_Opti_220728/final_model_10.pt",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "65a88fff4468a34037715f72fc4559abccb2cc4d",
+      "size": 1380013,
+      "url": "https://api.github.com/repos/hkimlab/DeepPrime/git/blobs/65a88fff4468a34037715f72fc4559abccb2cc4d"
+    },
+    {
+      "path": "models/DeepPrime/DP_variant_DLD1_PE4max_Opti_220728/final_model_11.pt",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "0071587556595c82e06b5db9f53d108c6cd6fbe1",
+      "size": 1380013,
+      "url": "https://api.github.com/repos/hkimlab/DeepPrime/git/blobs/0071587556595c82e06b5db9f53d108c6cd6fbe1"
+    },
+    {
+      "path": "models/DeepPrime/DP_variant_DLD1_PE4max_Opti_220728/final_model_12.pt",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "cc86fa497bba98b75b913622e9a7efbba7516c51",
+      "size": 1380013,
+      "url": "https://api.github.com/repos/hkimlab/DeepPrime/git/blobs/cc86fa497bba98b75b913622e9a7efbba7516c51"
+    },
+    {
+      "path": "models/DeepPrime/DP_variant_DLD1_PE4max_Opti_220728/final_model_13.pt",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "02a878ec26376abb42c93a378a4cbf02daeedfaa",
+      "size": 1380013,
+      "url": "https://api.github.com/repos/hkimlab/DeepPrime/git/blobs/02a878ec26376abb42c93a378a4cbf02daeedfaa"
+    },
+    {
+      "path": "models/DeepPrime/DP_variant_DLD1_PE4max_Opti_220728/final_model_14.pt",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "9be026cd6ea19520d1336adbb564ae1962c8f54e",
+      "size": 1380013,
+      "url": "https://api.github.com/repos/hkimlab/DeepPrime/git/blobs/9be026cd6ea19520d1336adbb564ae1962c8f54e"
+    },
+    {
+      "path": "models/DeepPrime/DP_variant_DLD1_PE4max_Opti_220728/final_model_15.pt",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "9b3a85f55386f768e46cee73f7cb7e77e5e666c6",
+      "size": 1380013,
+      "url": "https://api.github.com/repos/hkimlab/DeepPrime/git/blobs/9b3a85f55386f768e46cee73f7cb7e77e5e666c6"
+    },
+    {
+      "path": "models/DeepPrime/DP_variant_DLD1_PE4max_Opti_220728/final_model_16.pt",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "fc72f8bd088a71ecbd2f57d3d66a970eca542d31",
+      "size": 1380013,
+      "url": "https://api.github.com/repos/hkimlab/DeepPrime/git/blobs/fc72f8bd088a71ecbd2f57d3d66a970eca542d31"
+    },
+    {
+      "path": "models/DeepPrime/DP_variant_DLD1_PE4max_Opti_220728/final_model_17.pt",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "2943abb0157e7bd0bdacfad3815344f548f75f3f",
+      "size": 1380013,
+      "url": "https://api.github.com/repos/hkimlab/DeepPrime/git/blobs/2943abb0157e7bd0bdacfad3815344f548f75f3f"
+    },
+    {
+      "path": "models/DeepPrime/DP_variant_DLD1_PE4max_Opti_220728/final_model_18.pt",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "8b9e3cd5a54c7c2e762f028a7ef4db60482f7bf9",
+      "size": 1380013,
+      "url": "https://api.github.com/repos/hkimlab/DeepPrime/git/blobs/8b9e3cd5a54c7c2e762f028a7ef4db60482f7bf9"
+    },
+    {
+      "path": "models/DeepPrime/DP_variant_DLD1_PE4max_Opti_220728/final_model_19.pt",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "06335371f0d1ac669d55484f16c0afdf244c071c",
+      "size": 1380013,
+      "url": "https://api.github.com/repos/hkimlab/DeepPrime/git/blobs/06335371f0d1ac669d55484f16c0afdf244c071c"
+    },
+    {
+      "path": "models/DeepPrime/DP_variant_DLD1_PE4max_Opti_220728/final_model_2.pt",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "e112c834e0fad3260a11c08f3db9a51f59969449",
+      "size": 1380013,
+      "url": "https://api.github.com/repos/hkimlab/DeepPrime/git/blobs/e112c834e0fad3260a11c08f3db9a51f59969449"
+    },
+    {
+      "path": "models/DeepPrime/DP_variant_DLD1_PE4max_Opti_220728/final_model_3.pt",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "b346450e2e2523ed3e62bc76d735b2f93be58a74",
+      "size": 1380013,
+      "url": "https://api.github.com/repos/hkimlab/DeepPrime/git/blobs/b346450e2e2523ed3e62bc76d735b2f93be58a74"
+    },
+    {
+      "path": "models/DeepPrime/DP_variant_DLD1_PE4max_Opti_220728/final_model_4.pt",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "774b40c94af383c5140fa0bbff4095240b8b7290",
+      "size": 1380013,
+      "url": "https://api.github.com/repos/hkimlab/DeepPrime/git/blobs/774b40c94af383c5140fa0bbff4095240b8b7290"
+    },
+    {
+      "path": "models/DeepPrime/DP_variant_DLD1_PE4max_Opti_220728/final_model_5.pt",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "05c23feb16b3c0ef300e52bbadf2e5bb57d890fb",
+      "size": 1380013,
+      "url": "https://api.github.com/repos/hkimlab/DeepPrime/git/blobs/05c23feb16b3c0ef300e52bbadf2e5bb57d890fb"
+    },
+    {
+      "path": "models/DeepPrime/DP_variant_DLD1_PE4max_Opti_220728/final_model_6.pt",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "7e564f97f62d0e414c5c0507a4aa581668ec64fc",
+      "size": 1380013,
+      "url": "https://api.github.com/repos/hkimlab/DeepPrime/git/blobs/7e564f97f62d0e414c5c0507a4aa581668ec64fc"
+    },
+    {
+      "path": "models/DeepPrime/DP_variant_DLD1_PE4max_Opti_220728/final_model_7.pt",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "540d89e56b545d4ee686d4ea318dfce51ad7c084",
+      "size": 1380013,
+      "url": "https://api.github.com/repos/hkimlab/DeepPrime/git/blobs/540d89e56b545d4ee686d4ea318dfce51ad7c084"
+    },
+    {
+      "path": "models/DeepPrime/DP_variant_DLD1_PE4max_Opti_220728/final_model_8.pt",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "fc33c6cf93146746109d117cb38d51c04ac2c2ea",
+      "size": 1380013,
+      "url": "https://api.github.com/repos/hkimlab/DeepPrime/git/blobs/fc33c6cf93146746109d117cb38d51c04ac2c2ea"
+    },
+    {
+      "path": "models/DeepPrime/DP_variant_DLD1_PE4max_Opti_220728/final_model_9.pt",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "1ae5d33e396569d9833a0d238170e35b7965992e",
+      "size": 1380013,
+      "url": "https://api.github.com/repos/hkimlab/DeepPrime/git/blobs/1ae5d33e396569d9833a0d238170e35b7965992e"
+    },
+    {
+      "path": "models/DeepPrime/DP_variant_DLD1_PE4max_Opti_220728/mean.csv",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "e94159bc1078f10788871dabd5f591b73621eb3a",
+      "size": 655,
+      "url": "https://api.github.com/repos/hkimlab/DeepPrime/git/blobs/e94159bc1078f10788871dabd5f591b73621eb3a"
+    },
+    {
+      "path": "models/DeepPrime/DP_variant_DLD1_PE4max_Opti_220728/std.csv",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "2eecd7e246c3c14fd259803705151cdf03581046",
+      "size": 649,
+      "url": "https://api.github.com/repos/hkimlab/DeepPrime/git/blobs/2eecd7e246c3c14fd259803705151cdf03581046"
+    },
+    {
+      "path": "models/DeepPrime/DP_variant_HCT116_PE2_Opti_220428",
+      "mode": "040000",
+      "type": "tree",
+      "sha": "75c3fdf2af825816368c48f7c089026b06d13787",
+      "url": "https://api.github.com/repos/hkimlab/DeepPrime/git/trees/75c3fdf2af825816368c48f7c089026b06d13787"
+    },
+    {
+      "path": "models/DeepPrime/DP_variant_HCT116_PE2_Opti_220428/dp_mean.csv",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "f5643561d855b68941312418e8351dbc73cdfe6a",
+      "size": 18,
+      "url": "https://api.github.com/repos/hkimlab/DeepPrime/git/blobs/f5643561d855b68941312418e8351dbc73cdfe6a"
+    },
+    {
+      "path": "models/DeepPrime/DP_variant_HCT116_PE2_Opti_220428/dp_std.csv",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "12f1556336133beb568894cd68a45bb8f60273b5",
+      "size": 17,
+      "url": "https://api.github.com/repos/hkimlab/DeepPrime/git/blobs/12f1556336133beb568894cd68a45bb8f60273b5"
+    },
+    {
+      "path": "models/DeepPrime/DP_variant_HCT116_PE2_Opti_220428/final_model_0.pt",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "d03d5a625549a49beb3096f0e986e63c9c08eadb",
+      "size": 1380013,
+      "url": "https://api.github.com/repos/hkimlab/DeepPrime/git/blobs/d03d5a625549a49beb3096f0e986e63c9c08eadb"
+    },
+    {
+      "path": "models/DeepPrime/DP_variant_HCT116_PE2_Opti_220428/final_model_1.pt",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "321dd005bdb4654440eb232c81e70e6c9ff1e1e8",
+      "size": 1380013,
+      "url": "https://api.github.com/repos/hkimlab/DeepPrime/git/blobs/321dd005bdb4654440eb232c81e70e6c9ff1e1e8"
+    },
+    {
+      "path": "models/DeepPrime/DP_variant_HCT116_PE2_Opti_220428/final_model_10.pt",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "1962470fb0b58ecf087492d79b3bd42c8e9cc8f0",
+      "size": 1380013,
+      "url": "https://api.github.com/repos/hkimlab/DeepPrime/git/blobs/1962470fb0b58ecf087492d79b3bd42c8e9cc8f0"
+    },
+    {
+      "path": "models/DeepPrime/DP_variant_HCT116_PE2_Opti_220428/final_model_11.pt",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "3951540d258effc369ada74450ecd9cef3efa05b",
+      "size": 1380013,
+      "url": "https://api.github.com/repos/hkimlab/DeepPrime/git/blobs/3951540d258effc369ada74450ecd9cef3efa05b"
+    },
+    {
+      "path": "models/DeepPrime/DP_variant_HCT116_PE2_Opti_220428/final_model_12.pt",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "2088484e3579b1d24fa400190f628d58efd66070",
+      "size": 1380013,
+      "url": "https://api.github.com/repos/hkimlab/DeepPrime/git/blobs/2088484e3579b1d24fa400190f628d58efd66070"
+    },
+    {
+      "path": "models/DeepPrime/DP_variant_HCT116_PE2_Opti_220428/final_model_13.pt",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "145383fb4ab9d8c828c8694c3667ff1558d51f27",
+      "size": 1380013,
+      "url": "https://api.github.com/repos/hkimlab/DeepPrime/git/blobs/145383fb4ab9d8c828c8694c3667ff1558d51f27"
+    },
+    {
+      "path": "models/DeepPrime/DP_variant_HCT116_PE2_Opti_220428/final_model_14.pt",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "7b75a7b105da4037407d0bbdd061a374908f8375",
+      "size": 1380013,
+      "url": "https://api.github.com/repos/hkimlab/DeepPrime/git/blobs/7b75a7b105da4037407d0bbdd061a374908f8375"
+    },
+    {
+      "path": "models/DeepPrime/DP_variant_HCT116_PE2_Opti_220428/final_model_15.pt",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "467f585c0b660a8f928f458165bd85eb68e324db",
+      "size": 1380013,
+      "url": "https://api.github.com/repos/hkimlab/DeepPrime/git/blobs/467f585c0b660a8f928f458165bd85eb68e324db"
+    },
+    {
+      "path": "models/DeepPrime/DP_variant_HCT116_PE2_Opti_220428/final_model_16.pt",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "c2a4f1682bb247a394c8440af65a7f605438f13e",
+      "size": 1380013,
+      "url": "https://api.github.com/repos/hkimlab/DeepPrime/git/blobs/c2a4f1682bb247a394c8440af65a7f605438f13e"
+    },
+    {
+      "path": "models/DeepPrime/DP_variant_HCT116_PE2_Opti_220428/final_model_17.pt",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "5495cc259f3c096f6ecae255e3f70764e8a12850",
+      "size": 1380013,
+      "url": "https://api.github.com/repos/hkimlab/DeepPrime/git/blobs/5495cc259f3c096f6ecae255e3f70764e8a12850"
+    },
+    {
+      "path": "models/DeepPrime/DP_variant_HCT116_PE2_Opti_220428/final_model_18.pt",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "aa7c97d739715d2b44d1726d2eeb2b53bfba02dc",
+      "size": 1380013,
+      "url": "https://api.github.com/repos/hkimlab/DeepPrime/git/blobs/aa7c97d739715d2b44d1726d2eeb2b53bfba02dc"
+    },
+    {
+      "path": "models/DeepPrime/DP_variant_HCT116_PE2_Opti_220428/final_model_19.pt",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "0535af73dbe4847688814d5b26efc36d227eeae4",
+      "size": 1380013,
+      "url": "https://api.github.com/repos/hkimlab/DeepPrime/git/blobs/0535af73dbe4847688814d5b26efc36d227eeae4"
+    },
+    {
+      "path": "models/DeepPrime/DP_variant_HCT116_PE2_Opti_220428/final_model_2.pt",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "05d39e0582e91dff932ae2c624b4d4bfff1be00a",
+      "size": 1380013,
+      "url": "https://api.github.com/repos/hkimlab/DeepPrime/git/blobs/05d39e0582e91dff932ae2c624b4d4bfff1be00a"
+    },
+    {
+      "path": "models/DeepPrime/DP_variant_HCT116_PE2_Opti_220428/final_model_3.pt",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "5500ad02a4143c0bf76178a6f6bc3edc98da3930",
+      "size": 1380013,
+      "url": "https://api.github.com/repos/hkimlab/DeepPrime/git/blobs/5500ad02a4143c0bf76178a6f6bc3edc98da3930"
+    },
+    {
+      "path": "models/DeepPrime/DP_variant_HCT116_PE2_Opti_220428/final_model_4.pt",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "61bc1344aa988a2329c0d6243c41cebb0a4602e5",
+      "size": 1380013,
+      "url": "https://api.github.com/repos/hkimlab/DeepPrime/git/blobs/61bc1344aa988a2329c0d6243c41cebb0a4602e5"
+    },
+    {
+      "path": "models/DeepPrime/DP_variant_HCT116_PE2_Opti_220428/final_model_5.pt",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "0afeac299213de9e2988153d8207d1eb678ed8fa",
+      "size": 1380013,
+      "url": "https://api.github.com/repos/hkimlab/DeepPrime/git/blobs/0afeac299213de9e2988153d8207d1eb678ed8fa"
+    },
+    {
+      "path": "models/DeepPrime/DP_variant_HCT116_PE2_Opti_220428/final_model_6.pt",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "1532a3642dc6d9caf27bd196e80cce2664efd01b",
+      "size": 1380013,
+      "url": "https://api.github.com/repos/hkimlab/DeepPrime/git/blobs/1532a3642dc6d9caf27bd196e80cce2664efd01b"
+    },
+    {
+      "path": "models/DeepPrime/DP_variant_HCT116_PE2_Opti_220428/final_model_7.pt",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "2e41be827e03d80bb06b3fe0787df11d986d8079",
+      "size": 1380013,
+      "url": "https://api.github.com/repos/hkimlab/DeepPrime/git/blobs/2e41be827e03d80bb06b3fe0787df11d986d8079"
+    },
+    {
+      "path": "models/DeepPrime/DP_variant_HCT116_PE2_Opti_220428/final_model_8.pt",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "0147b452a15f50d9665bf7ae0c076d19875a2d37",
+      "size": 1380013,
+      "url": "https://api.github.com/repos/hkimlab/DeepPrime/git/blobs/0147b452a15f50d9665bf7ae0c076d19875a2d37"
+    },
+    {
+      "path": "models/DeepPrime/DP_variant_HCT116_PE2_Opti_220428/final_model_9.pt",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "563373d752d6974d57e02b4733ad315974a13866",
+      "size": 1380013,
+      "url": "https://api.github.com/repos/hkimlab/DeepPrime/git/blobs/563373d752d6974d57e02b4733ad315974a13866"
+    },
+    {
+      "path": "models/DeepPrime/DP_variant_HCT116_PE2_Opti_220428/mean.csv",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "e94159bc1078f10788871dabd5f591b73621eb3a",
+      "size": 655,
+      "url": "https://api.github.com/repos/hkimlab/DeepPrime/git/blobs/e94159bc1078f10788871dabd5f591b73621eb3a"
+    },
+    {
+      "path": "models/DeepPrime/DP_variant_HCT116_PE2_Opti_220428/std.csv",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "2eecd7e246c3c14fd259803705151cdf03581046",
+      "size": 649,
+      "url": "https://api.github.com/repos/hkimlab/DeepPrime/git/blobs/2eecd7e246c3c14fd259803705151cdf03581046"
+    },
+    {
+      "path": "models/DeepPrime/DP_variant_HeLa_PE2max_Opti_220815",
+      "mode": "040000",
+      "type": "tree",
+      "sha": "81223e1caede3937a5d7f620bdee8e0823d8973d",
+      "url": "https://api.github.com/repos/hkimlab/DeepPrime/git/trees/81223e1caede3937a5d7f620bdee8e0823d8973d"
+    },
+    {
+      "path": "models/DeepPrime/DP_variant_HeLa_PE2max_Opti_220815/dp_mean.csv",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "175e5f7bb56d8dfb1b30a47f1e215c61ca0ed549",
+      "size": 18,
+      "url": "https://api.github.com/repos/hkimlab/DeepPrime/git/blobs/175e5f7bb56d8dfb1b30a47f1e215c61ca0ed549"
+    },
+    {
+      "path": "models/DeepPrime/DP_variant_HeLa_PE2max_Opti_220815/dp_std.csv",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "79f8011c46133c0509b1bf26b05fbf0b065b1735",
+      "size": 17,
+      "url": "https://api.github.com/repos/hkimlab/DeepPrime/git/blobs/79f8011c46133c0509b1bf26b05fbf0b065b1735"
+    },
+    {
+      "path": "models/DeepPrime/DP_variant_HeLa_PE2max_Opti_220815/final_model_0.pt",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "90b99c06c2e92586d4dbea3f423b96c93d95682b",
+      "size": 1380013,
+      "url": "https://api.github.com/repos/hkimlab/DeepPrime/git/blobs/90b99c06c2e92586d4dbea3f423b96c93d95682b"
+    },
+    {
+      "path": "models/DeepPrime/DP_variant_HeLa_PE2max_Opti_220815/final_model_1.pt",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "5403976d6a93af51bb4335803286c0bb5264730a",
+      "size": 1380013,
+      "url": "https://api.github.com/repos/hkimlab/DeepPrime/git/blobs/5403976d6a93af51bb4335803286c0bb5264730a"
+    },
+    {
+      "path": "models/DeepPrime/DP_variant_HeLa_PE2max_Opti_220815/final_model_10.pt",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "90b99c06c2e92586d4dbea3f423b96c93d95682b",
+      "size": 1380013,
+      "url": "https://api.github.com/repos/hkimlab/DeepPrime/git/blobs/90b99c06c2e92586d4dbea3f423b96c93d95682b"
+    },
+    {
+      "path": "models/DeepPrime/DP_variant_HeLa_PE2max_Opti_220815/final_model_11.pt",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "5403976d6a93af51bb4335803286c0bb5264730a",
+      "size": 1380013,
+      "url": "https://api.github.com/repos/hkimlab/DeepPrime/git/blobs/5403976d6a93af51bb4335803286c0bb5264730a"
+    },
+    {
+      "path": "models/DeepPrime/DP_variant_HeLa_PE2max_Opti_220815/final_model_12.pt",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "4cfd1845bf205f7d1352c44d9a86c054b0d84132",
+      "size": 1380013,
+      "url": "https://api.github.com/repos/hkimlab/DeepPrime/git/blobs/4cfd1845bf205f7d1352c44d9a86c054b0d84132"
+    },
+    {
+      "path": "models/DeepPrime/DP_variant_HeLa_PE2max_Opti_220815/final_model_13.pt",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "c37020306e6043ebe1bfc797238d2f70ce721068",
+      "size": 1380013,
+      "url": "https://api.github.com/repos/hkimlab/DeepPrime/git/blobs/c37020306e6043ebe1bfc797238d2f70ce721068"
+    },
+    {
+      "path": "models/DeepPrime/DP_variant_HeLa_PE2max_Opti_220815/final_model_14.pt",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "a507d559ea22167a97c3602e76b8b0b2b02fb0f2",
+      "size": 1380013,
+      "url": "https://api.github.com/repos/hkimlab/DeepPrime/git/blobs/a507d559ea22167a97c3602e76b8b0b2b02fb0f2"
+    },
+    {
+      "path": "models/DeepPrime/DP_variant_HeLa_PE2max_Opti_220815/final_model_15.pt",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "90b99c06c2e92586d4dbea3f423b96c93d95682b",
+      "size": 1380013,
+      "url": "https://api.github.com/repos/hkimlab/DeepPrime/git/blobs/90b99c06c2e92586d4dbea3f423b96c93d95682b"
+    },
+    {
+      "path": "models/DeepPrime/DP_variant_HeLa_PE2max_Opti_220815/final_model_16.pt",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "5403976d6a93af51bb4335803286c0bb5264730a",
+      "size": 1380013,
+      "url": "https://api.github.com/repos/hkimlab/DeepPrime/git/blobs/5403976d6a93af51bb4335803286c0bb5264730a"
+    },
+    {
+      "path": "models/DeepPrime/DP_variant_HeLa_PE2max_Opti_220815/final_model_17.pt",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "4cfd1845bf205f7d1352c44d9a86c054b0d84132",
+      "size": 1380013,
+      "url": "https://api.github.com/repos/hkimlab/DeepPrime/git/blobs/4cfd1845bf205f7d1352c44d9a86c054b0d84132"
+    },
+    {
+      "path": "models/DeepPrime/DP_variant_HeLa_PE2max_Opti_220815/final_model_18.pt",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "c37020306e6043ebe1bfc797238d2f70ce721068",
+      "size": 1380013,
+      "url": "https://api.github.com/repos/hkimlab/DeepPrime/git/blobs/c37020306e6043ebe1bfc797238d2f70ce721068"
+    },
+    {
+      "path": "models/DeepPrime/DP_variant_HeLa_PE2max_Opti_220815/final_model_19.pt",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "a507d559ea22167a97c3602e76b8b0b2b02fb0f2",
+      "size": 1380013,
+      "url": "https://api.github.com/repos/hkimlab/DeepPrime/git/blobs/a507d559ea22167a97c3602e76b8b0b2b02fb0f2"
+    },
+    {
+      "path": "models/DeepPrime/DP_variant_HeLa_PE2max_Opti_220815/final_model_2.pt",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "4cfd1845bf205f7d1352c44d9a86c054b0d84132",
+      "size": 1380013,
+      "url": "https://api.github.com/repos/hkimlab/DeepPrime/git/blobs/4cfd1845bf205f7d1352c44d9a86c054b0d84132"
+    },
+    {
+      "path": "models/DeepPrime/DP_variant_HeLa_PE2max_Opti_220815/final_model_3.pt",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "c37020306e6043ebe1bfc797238d2f70ce721068",
+      "size": 1380013,
+      "url": "https://api.github.com/repos/hkimlab/DeepPrime/git/blobs/c37020306e6043ebe1bfc797238d2f70ce721068"
+    },
+    {
+      "path": "models/DeepPrime/DP_variant_HeLa_PE2max_Opti_220815/final_model_4.pt",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "a507d559ea22167a97c3602e76b8b0b2b02fb0f2",
+      "size": 1380013,
+      "url": "https://api.github.com/repos/hkimlab/DeepPrime/git/blobs/a507d559ea22167a97c3602e76b8b0b2b02fb0f2"
+    },
+    {
+      "path": "models/DeepPrime/DP_variant_HeLa_PE2max_Opti_220815/final_model_5.pt",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "90b99c06c2e92586d4dbea3f423b96c93d95682b",
+      "size": 1380013,
+      "url": "https://api.github.com/repos/hkimlab/DeepPrime/git/blobs/90b99c06c2e92586d4dbea3f423b96c93d95682b"
+    },
+    {
+      "path": "models/DeepPrime/DP_variant_HeLa_PE2max_Opti_220815/final_model_6.pt",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "5403976d6a93af51bb4335803286c0bb5264730a",
+      "size": 1380013,
+      "url": "https://api.github.com/repos/hkimlab/DeepPrime/git/blobs/5403976d6a93af51bb4335803286c0bb5264730a"
+    },
+    {
+      "path": "models/DeepPrime/DP_variant_HeLa_PE2max_Opti_220815/final_model_7.pt",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "4cfd1845bf205f7d1352c44d9a86c054b0d84132",
+      "size": 1380013,
+      "url": "https://api.github.com/repos/hkimlab/DeepPrime/git/blobs/4cfd1845bf205f7d1352c44d9a86c054b0d84132"
+    },
+    {
+      "path": "models/DeepPrime/DP_variant_HeLa_PE2max_Opti_220815/final_model_8.pt",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "c37020306e6043ebe1bfc797238d2f70ce721068",
+      "size": 1380013,
+      "url": "https://api.github.com/repos/hkimlab/DeepPrime/git/blobs/c37020306e6043ebe1bfc797238d2f70ce721068"
+    },
+    {
+      "path": "models/DeepPrime/DP_variant_HeLa_PE2max_Opti_220815/final_model_9.pt",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "a507d559ea22167a97c3602e76b8b0b2b02fb0f2",
+      "size": 1380013,
+      "url": "https://api.github.com/repos/hkimlab/DeepPrime/git/blobs/a507d559ea22167a97c3602e76b8b0b2b02fb0f2"
+    },
+    {
+      "path": "models/DeepPrime/DP_variant_HeLa_PE2max_Opti_220815/mean.csv",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "e94159bc1078f10788871dabd5f591b73621eb3a",
+      "size": 655,
+      "url": "https://api.github.com/repos/hkimlab/DeepPrime/git/blobs/e94159bc1078f10788871dabd5f591b73621eb3a"
+    },
+    {
+      "path": "models/DeepPrime/DP_variant_HeLa_PE2max_Opti_220815/std.csv",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "2eecd7e246c3c14fd259803705151cdf03581046",
+      "size": 649,
+      "url": "https://api.github.com/repos/hkimlab/DeepPrime/git/blobs/2eecd7e246c3c14fd259803705151cdf03581046"
+    },
+    {
+      "path": "models/DeepPrime/DP_variant_MDA_PE2_Opti_220428",
+      "mode": "040000",
+      "type": "tree",
+      "sha": "3f70e216629ed5e97dfbb8890ee23b9a5361f9f3",
+      "url": "https://api.github.com/repos/hkimlab/DeepPrime/git/trees/3f70e216629ed5e97dfbb8890ee23b9a5361f9f3"
+    },
+    {
+      "path": "models/DeepPrime/DP_variant_MDA_PE2_Opti_220428/dp_mean.csv",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "7e95a12e5180102b99c4ab2895d1bfe7dfc116f3",
+      "size": 18,
+      "url": "https://api.github.com/repos/hkimlab/DeepPrime/git/blobs/7e95a12e5180102b99c4ab2895d1bfe7dfc116f3"
+    },
+    {
+      "path": "models/DeepPrime/DP_variant_MDA_PE2_Opti_220428/dp_std.csv",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "1adb5551cf0721a478f15fc9924d37a229b49044",
+      "size": 18,
+      "url": "https://api.github.com/repos/hkimlab/DeepPrime/git/blobs/1adb5551cf0721a478f15fc9924d37a229b49044"
+    },
+    {
+      "path": "models/DeepPrime/DP_variant_MDA_PE2_Opti_220428/final_model_0.pt",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "ee06e336a939c30827f097b978041a553b4c98ad",
+      "size": 1380013,
+      "url": "https://api.github.com/repos/hkimlab/DeepPrime/git/blobs/ee06e336a939c30827f097b978041a553b4c98ad"
+    },
+    {
+      "path": "models/DeepPrime/DP_variant_MDA_PE2_Opti_220428/final_model_1.pt",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "bb4b333d2d78ef10e2be120959c8aee53918359f",
+      "size": 1380013,
+      "url": "https://api.github.com/repos/hkimlab/DeepPrime/git/blobs/bb4b333d2d78ef10e2be120959c8aee53918359f"
+    },
+    {
+      "path": "models/DeepPrime/DP_variant_MDA_PE2_Opti_220428/final_model_10.pt",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "eaa23177227d12807e099055f6233caae3f26aad",
+      "size": 1380013,
+      "url": "https://api.github.com/repos/hkimlab/DeepPrime/git/blobs/eaa23177227d12807e099055f6233caae3f26aad"
+    },
+    {
+      "path": "models/DeepPrime/DP_variant_MDA_PE2_Opti_220428/final_model_11.pt",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "56105208fef5e7cf727751485f860422ca7db4b3",
+      "size": 1380013,
+      "url": "https://api.github.com/repos/hkimlab/DeepPrime/git/blobs/56105208fef5e7cf727751485f860422ca7db4b3"
+    },
+    {
+      "path": "models/DeepPrime/DP_variant_MDA_PE2_Opti_220428/final_model_12.pt",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "932049cf4497d53fba9b09eb62ca3e6ccdc21e2b",
+      "size": 1380013,
+      "url": "https://api.github.com/repos/hkimlab/DeepPrime/git/blobs/932049cf4497d53fba9b09eb62ca3e6ccdc21e2b"
+    },
+    {
+      "path": "models/DeepPrime/DP_variant_MDA_PE2_Opti_220428/final_model_13.pt",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "2327e9c855d08a4453c7fceba792d21bcd888ff5",
+      "size": 1380013,
+      "url": "https://api.github.com/repos/hkimlab/DeepPrime/git/blobs/2327e9c855d08a4453c7fceba792d21bcd888ff5"
+    },
+    {
+      "path": "models/DeepPrime/DP_variant_MDA_PE2_Opti_220428/final_model_14.pt",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "d925190ccbeae950c9a9b374b22bc54115bf63b7",
+      "size": 1380013,
+      "url": "https://api.github.com/repos/hkimlab/DeepPrime/git/blobs/d925190ccbeae950c9a9b374b22bc54115bf63b7"
+    },
+    {
+      "path": "models/DeepPrime/DP_variant_MDA_PE2_Opti_220428/final_model_15.pt",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "4a07d5e45a120159443d284d3b782011971074c6",
+      "size": 1380013,
+      "url": "https://api.github.com/repos/hkimlab/DeepPrime/git/blobs/4a07d5e45a120159443d284d3b782011971074c6"
+    },
+    {
+      "path": "models/DeepPrime/DP_variant_MDA_PE2_Opti_220428/final_model_16.pt",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "15b975fbcdf7830971cb8b5cb463130c79a146ea",
+      "size": 1380013,
+      "url": "https://api.github.com/repos/hkimlab/DeepPrime/git/blobs/15b975fbcdf7830971cb8b5cb463130c79a146ea"
+    },
+    {
+      "path": "models/DeepPrime/DP_variant_MDA_PE2_Opti_220428/final_model_17.pt",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "a04bdb87146d8238e9d93e6068bb67792c2c8bf9",
+      "size": 1380013,
+      "url": "https://api.github.com/repos/hkimlab/DeepPrime/git/blobs/a04bdb87146d8238e9d93e6068bb67792c2c8bf9"
+    },
+    {
+      "path": "models/DeepPrime/DP_variant_MDA_PE2_Opti_220428/final_model_18.pt",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "ead103671f8da235d3907324091f45c63c215861",
+      "size": 1380013,
+      "url": "https://api.github.com/repos/hkimlab/DeepPrime/git/blobs/ead103671f8da235d3907324091f45c63c215861"
+    },
+    {
+      "path": "models/DeepPrime/DP_variant_MDA_PE2_Opti_220428/final_model_19.pt",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "c760b49b1e165b4b4a0e601bddb6f0840a76e90b",
+      "size": 1380013,
+      "url": "https://api.github.com/repos/hkimlab/DeepPrime/git/blobs/c760b49b1e165b4b4a0e601bddb6f0840a76e90b"
+    },
+    {
+      "path": "models/DeepPrime/DP_variant_MDA_PE2_Opti_220428/final_model_2.pt",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "af6afd395dd5d617b031bf7faf4293bd043b6f69",
+      "size": 1380013,
+      "url": "https://api.github.com/repos/hkimlab/DeepPrime/git/blobs/af6afd395dd5d617b031bf7faf4293bd043b6f69"
+    },
+    {
+      "path": "models/DeepPrime/DP_variant_MDA_PE2_Opti_220428/final_model_3.pt",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "ad01a3fad524a92f39aaeab369eb4cbab86eabd5",
+      "size": 1380013,
+      "url": "https://api.github.com/repos/hkimlab/DeepPrime/git/blobs/ad01a3fad524a92f39aaeab369eb4cbab86eabd5"
+    },
+    {
+      "path": "models/DeepPrime/DP_variant_MDA_PE2_Opti_220428/final_model_4.pt",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "a43fd2d10ac30662f094a8f6499095d7527906fa",
+      "size": 1380013,
+      "url": "https://api.github.com/repos/hkimlab/DeepPrime/git/blobs/a43fd2d10ac30662f094a8f6499095d7527906fa"
+    },
+    {
+      "path": "models/DeepPrime/DP_variant_MDA_PE2_Opti_220428/final_model_5.pt",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "b227231bd2059e600703a5c5b6dae573a3f8d357",
+      "size": 1380013,
+      "url": "https://api.github.com/repos/hkimlab/DeepPrime/git/blobs/b227231bd2059e600703a5c5b6dae573a3f8d357"
+    },
+    {
+      "path": "models/DeepPrime/DP_variant_MDA_PE2_Opti_220428/final_model_6.pt",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "2a7904431eac4349bcd3af7cd528b39e271a78b8",
+      "size": 1380013,
+      "url": "https://api.github.com/repos/hkimlab/DeepPrime/git/blobs/2a7904431eac4349bcd3af7cd528b39e271a78b8"
+    },
+    {
+      "path": "models/DeepPrime/DP_variant_MDA_PE2_Opti_220428/final_model_7.pt",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "ca94ee40ce27202210c09f2db067c9a7663bff67",
+      "size": 1380013,
+      "url": "https://api.github.com/repos/hkimlab/DeepPrime/git/blobs/ca94ee40ce27202210c09f2db067c9a7663bff67"
+    },
+    {
+      "path": "models/DeepPrime/DP_variant_MDA_PE2_Opti_220428/final_model_8.pt",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "92f524a6687c8068c90fc7649d543ca46fafb5f5",
+      "size": 1380013,
+      "url": "https://api.github.com/repos/hkimlab/DeepPrime/git/blobs/92f524a6687c8068c90fc7649d543ca46fafb5f5"
+    },
+    {
+      "path": "models/DeepPrime/DP_variant_MDA_PE2_Opti_220428/final_model_9.pt",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "31668c18c2364d633176b86ea0efeee4856f1540",
+      "size": 1380013,
+      "url": "https://api.github.com/repos/hkimlab/DeepPrime/git/blobs/31668c18c2364d633176b86ea0efeee4856f1540"
+    },
+    {
+      "path": "models/DeepPrime/DP_variant_MDA_PE2_Opti_220428/mean.csv",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "e94159bc1078f10788871dabd5f591b73621eb3a",
+      "size": 655,
+      "url": "https://api.github.com/repos/hkimlab/DeepPrime/git/blobs/e94159bc1078f10788871dabd5f591b73621eb3a"
+    },
+    {
+      "path": "models/DeepPrime/DP_variant_MDA_PE2_Opti_220428/std.csv",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "2eecd7e246c3c14fd259803705151cdf03581046",
+      "size": 649,
+      "url": "https://api.github.com/repos/hkimlab/DeepPrime/git/blobs/2eecd7e246c3c14fd259803705151cdf03581046"
+    },
+    {
+      "path": "models/DeepPrime/DP_variant_NIH_NRCHPE4max_Opti_220815",
+      "mode": "040000",
+      "type": "tree",
+      "sha": "67223ee81d0d01b244195fdcaf5e49c8a0628040",
+      "url": "https://api.github.com/repos/hkimlab/DeepPrime/git/trees/67223ee81d0d01b244195fdcaf5e49c8a0628040"
+    },
+    {
+      "path": "models/DeepPrime/DP_variant_NIH_NRCHPE4max_Opti_220815/dp_mean.csv",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "52275a87700675193bc2145f387ef7f6182239db",
+      "size": 17,
+      "url": "https://api.github.com/repos/hkimlab/DeepPrime/git/blobs/52275a87700675193bc2145f387ef7f6182239db"
+    },
+    {
+      "path": "models/DeepPrime/DP_variant_NIH_NRCHPE4max_Opti_220815/dp_std.csv",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "edd80c80d1b166625f12187fbff32408d9ce193f",
+      "size": 17,
+      "url": "https://api.github.com/repos/hkimlab/DeepPrime/git/blobs/edd80c80d1b166625f12187fbff32408d9ce193f"
+    },
+    {
+      "path": "models/DeepPrime/DP_variant_NIH_NRCHPE4max_Opti_220815/final_model_0.pt",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "57b35f6b5f3bfabbcc2eb80131de44022903f399",
+      "size": 1380013,
+      "url": "https://api.github.com/repos/hkimlab/DeepPrime/git/blobs/57b35f6b5f3bfabbcc2eb80131de44022903f399"
+    },
+    {
+      "path": "models/DeepPrime/DP_variant_NIH_NRCHPE4max_Opti_220815/final_model_1.pt",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "51c9231989fbb2ecfe1c8916f79b58485d97b69f",
+      "size": 1380013,
+      "url": "https://api.github.com/repos/hkimlab/DeepPrime/git/blobs/51c9231989fbb2ecfe1c8916f79b58485d97b69f"
+    },
+    {
+      "path": "models/DeepPrime/DP_variant_NIH_NRCHPE4max_Opti_220815/final_model_10.pt",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "57b35f6b5f3bfabbcc2eb80131de44022903f399",
+      "size": 1380013,
+      "url": "https://api.github.com/repos/hkimlab/DeepPrime/git/blobs/57b35f6b5f3bfabbcc2eb80131de44022903f399"
+    },
+    {
+      "path": "models/DeepPrime/DP_variant_NIH_NRCHPE4max_Opti_220815/final_model_11.pt",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "51c9231989fbb2ecfe1c8916f79b58485d97b69f",
+      "size": 1380013,
+      "url": "https://api.github.com/repos/hkimlab/DeepPrime/git/blobs/51c9231989fbb2ecfe1c8916f79b58485d97b69f"
+    },
+    {
+      "path": "models/DeepPrime/DP_variant_NIH_NRCHPE4max_Opti_220815/final_model_12.pt",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "f33089a11a9caa0670d4156c259d278b88c5bfc0",
+      "size": 1380013,
+      "url": "https://api.github.com/repos/hkimlab/DeepPrime/git/blobs/f33089a11a9caa0670d4156c259d278b88c5bfc0"
+    },
+    {
+      "path": "models/DeepPrime/DP_variant_NIH_NRCHPE4max_Opti_220815/final_model_13.pt",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "14c51037077a6dd94b313010d81a65f4a2fb3260",
+      "size": 1380013,
+      "url": "https://api.github.com/repos/hkimlab/DeepPrime/git/blobs/14c51037077a6dd94b313010d81a65f4a2fb3260"
+    },
+    {
+      "path": "models/DeepPrime/DP_variant_NIH_NRCHPE4max_Opti_220815/final_model_14.pt",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "864ed363003c1e40e53f7baf1a85c26d30036eab",
+      "size": 1380013,
+      "url": "https://api.github.com/repos/hkimlab/DeepPrime/git/blobs/864ed363003c1e40e53f7baf1a85c26d30036eab"
+    },
+    {
+      "path": "models/DeepPrime/DP_variant_NIH_NRCHPE4max_Opti_220815/final_model_15.pt",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "57b35f6b5f3bfabbcc2eb80131de44022903f399",
+      "size": 1380013,
+      "url": "https://api.github.com/repos/hkimlab/DeepPrime/git/blobs/57b35f6b5f3bfabbcc2eb80131de44022903f399"
+    },
+    {
+      "path": "models/DeepPrime/DP_variant_NIH_NRCHPE4max_Opti_220815/final_model_16.pt",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "51c9231989fbb2ecfe1c8916f79b58485d97b69f",
+      "size": 1380013,
+      "url": "https://api.github.com/repos/hkimlab/DeepPrime/git/blobs/51c9231989fbb2ecfe1c8916f79b58485d97b69f"
+    },
+    {
+      "path": "models/DeepPrime/DP_variant_NIH_NRCHPE4max_Opti_220815/final_model_17.pt",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "f33089a11a9caa0670d4156c259d278b88c5bfc0",
+      "size": 1380013,
+      "url": "https://api.github.com/repos/hkimlab/DeepPrime/git/blobs/f33089a11a9caa0670d4156c259d278b88c5bfc0"
+    },
+    {
+      "path": "models/DeepPrime/DP_variant_NIH_NRCHPE4max_Opti_220815/final_model_18.pt",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "9a9ca7cecca384fa07d9715f7272f5a3833f2019",
+      "size": 1380013,
+      "url": "https://api.github.com/repos/hkimlab/DeepPrime/git/blobs/9a9ca7cecca384fa07d9715f7272f5a3833f2019"
+    },
+    {
+      "path": "models/DeepPrime/DP_variant_NIH_NRCHPE4max_Opti_220815/final_model_19.pt",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "864ed363003c1e40e53f7baf1a85c26d30036eab",
+      "size": 1380013,
+      "url": "https://api.github.com/repos/hkimlab/DeepPrime/git/blobs/864ed363003c1e40e53f7baf1a85c26d30036eab"
+    },
+    {
+      "path": "models/DeepPrime/DP_variant_NIH_NRCHPE4max_Opti_220815/final_model_2.pt",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "f33089a11a9caa0670d4156c259d278b88c5bfc0",
+      "size": 1380013,
+      "url": "https://api.github.com/repos/hkimlab/DeepPrime/git/blobs/f33089a11a9caa0670d4156c259d278b88c5bfc0"
+    },
+    {
+      "path": "models/DeepPrime/DP_variant_NIH_NRCHPE4max_Opti_220815/final_model_3.pt",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "9a9ca7cecca384fa07d9715f7272f5a3833f2019",
+      "size": 1380013,
+      "url": "https://api.github.com/repos/hkimlab/DeepPrime/git/blobs/9a9ca7cecca384fa07d9715f7272f5a3833f2019"
+    },
+    {
+      "path": "models/DeepPrime/DP_variant_NIH_NRCHPE4max_Opti_220815/final_model_4.pt",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "864ed363003c1e40e53f7baf1a85c26d30036eab",
+      "size": 1380013,
+      "url": "https://api.github.com/repos/hkimlab/DeepPrime/git/blobs/864ed363003c1e40e53f7baf1a85c26d30036eab"
+    },
+    {
+      "path": "models/DeepPrime/DP_variant_NIH_NRCHPE4max_Opti_220815/final_model_5.pt",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "57b35f6b5f3bfabbcc2eb80131de44022903f399",
+      "size": 1380013,
+      "url": "https://api.github.com/repos/hkimlab/DeepPrime/git/blobs/57b35f6b5f3bfabbcc2eb80131de44022903f399"
+    },
+    {
+      "path": "models/DeepPrime/DP_variant_NIH_NRCHPE4max_Opti_220815/final_model_6.pt",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "51c9231989fbb2ecfe1c8916f79b58485d97b69f",
+      "size": 1380013,
+      "url": "https://api.github.com/repos/hkimlab/DeepPrime/git/blobs/51c9231989fbb2ecfe1c8916f79b58485d97b69f"
+    },
+    {
+      "path": "models/DeepPrime/DP_variant_NIH_NRCHPE4max_Opti_220815/final_model_7.pt",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "f33089a11a9caa0670d4156c259d278b88c5bfc0",
+      "size": 1380013,
+      "url": "https://api.github.com/repos/hkimlab/DeepPrime/git/blobs/f33089a11a9caa0670d4156c259d278b88c5bfc0"
+    },
+    {
+      "path": "models/DeepPrime/DP_variant_NIH_NRCHPE4max_Opti_220815/final_model_8.pt",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "9a9ca7cecca384fa07d9715f7272f5a3833f2019",
+      "size": 1380013,
+      "url": "https://api.github.com/repos/hkimlab/DeepPrime/git/blobs/9a9ca7cecca384fa07d9715f7272f5a3833f2019"
+    },
+    {
+      "path": "models/DeepPrime/DP_variant_NIH_NRCHPE4max_Opti_220815/final_model_9.pt",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "864ed363003c1e40e53f7baf1a85c26d30036eab",
+      "size": 1380013,
+      "url": "https://api.github.com/repos/hkimlab/DeepPrime/git/blobs/864ed363003c1e40e53f7baf1a85c26d30036eab"
+    },
+    {
+      "path": "models/DeepPrime/DP_variant_NIH_NRCHPE4max_Opti_220815/mean.csv",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "e94159bc1078f10788871dabd5f591b73621eb3a",
+      "size": 655,
+      "url": "https://api.github.com/repos/hkimlab/DeepPrime/git/blobs/e94159bc1078f10788871dabd5f591b73621eb3a"
+    },
+    {
+      "path": "models/DeepPrime/DP_variant_NIH_NRCHPE4max_Opti_220815/std.csv",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "2eecd7e246c3c14fd259803705151cdf03581046",
+      "size": 649,
+      "url": "https://api.github.com/repos/hkimlab/DeepPrime/git/blobs/2eecd7e246c3c14fd259803705151cdf03581046"
+    },
+    {
+      "path": "models/DeepPrime/DeepPrime_base",
+      "mode": "040000",
+      "type": "tree",
+      "sha": "59b1d96b4a925402baa294060a91f5d5da30030a",
+      "url": "https://api.github.com/repos/hkimlab/DeepPrime/git/trees/59b1d96b4a925402baa294060a91f5d5da30030a"
+    },
+    {
+      "path": "models/DeepPrime/DeepPrime_base/dp_mean.csv",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "9f09ea41330df69bee0d60928a2b94eb6d22e2bd",
+      "size": 18,
+      "url": "https://api.github.com/repos/hkimlab/DeepPrime/git/blobs/9f09ea41330df69bee0d60928a2b94eb6d22e2bd"
+    },
+    {
+      "path": "models/DeepPrime/DeepPrime_base/dp_std.csv",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "03ab16b443e03c3b670d814cdd52cc9a5a4f37a0",
+      "size": 17,
+      "url": "https://api.github.com/repos/hkimlab/DeepPrime/git/blobs/03ab16b443e03c3b670d814cdd52cc9a5a4f37a0"
+    },
+    {
+      "path": "models/DeepPrime/DeepPrime_base/mean.csv",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "e94159bc1078f10788871dabd5f591b73621eb3a",
+      "size": 655,
+      "url": "https://api.github.com/repos/hkimlab/DeepPrime/git/blobs/e94159bc1078f10788871dabd5f591b73621eb3a"
+    },
+    {
+      "path": "models/DeepPrime/DeepPrime_base/model_0.pt",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "e1e8538a0abf60d3a56334aca6a2186b0e6cb9d8",
+      "size": 1380013,
+      "url": "https://api.github.com/repos/hkimlab/DeepPrime/git/blobs/e1e8538a0abf60d3a56334aca6a2186b0e6cb9d8"
+    },
+    {
+      "path": "models/DeepPrime/DeepPrime_base/model_1.pt",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "df1183dde8e220994f48ad1a3aba91208bf496ad",
+      "size": 1380013,
+      "url": "https://api.github.com/repos/hkimlab/DeepPrime/git/blobs/df1183dde8e220994f48ad1a3aba91208bf496ad"
+    },
+    {
+      "path": "models/DeepPrime/DeepPrime_base/model_2.pt",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "fedfa2a45f33c29e35a5f59d3f9b6b1c411e2c58",
+      "size": 1380013,
+      "url": "https://api.github.com/repos/hkimlab/DeepPrime/git/blobs/fedfa2a45f33c29e35a5f59d3f9b6b1c411e2c58"
+    },
+    {
+      "path": "models/DeepPrime/DeepPrime_base/model_3.pt",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "5e2e85642f5f7f0d45527910d39aeb16e55527fc",
+      "size": 1380013,
+      "url": "https://api.github.com/repos/hkimlab/DeepPrime/git/blobs/5e2e85642f5f7f0d45527910d39aeb16e55527fc"
+    },
+    {
+      "path": "models/DeepPrime/DeepPrime_base/model_4.pt",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "8cce4d7e3a52306fe9e2daa5a24eab570b5b52f6",
+      "size": 1380013,
+      "url": "https://api.github.com/repos/hkimlab/DeepPrime/git/blobs/8cce4d7e3a52306fe9e2daa5a24eab570b5b52f6"
+    },
+    {
+      "path": "models/DeepPrime/DeepPrime_base/std.csv",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "2eecd7e246c3c14fd259803705151cdf03581046",
+      "size": 649,
+      "url": "https://api.github.com/repos/hkimlab/DeepPrime/git/blobs/2eecd7e246c3c14fd259803705151cdf03581046"
+    },
+    {
+      "path": "models/DeepPrime/DeepPrime_off",
+      "mode": "040000",
+      "type": "tree",
+      "sha": "f0b60bad293787dfd8f196d8d4d8778bda0a208d",
+      "url": "https://api.github.com/repos/hkimlab/DeepPrime/git/trees/f0b60bad293787dfd8f196d8d4d8778bda0a208d"
+    },
+    {
+      "path": "models/DeepPrime/DeepPrime_off/final_model_0.pt",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "436de432eb1746fdd0c36ef08b12aef608fde476",
+      "size": 1380013,
+      "url": "https://api.github.com/repos/hkimlab/DeepPrime/git/blobs/436de432eb1746fdd0c36ef08b12aef608fde476"
+    },
+    {
+      "path": "models/DeepPrime/DeepPrime_off/final_model_1.pt",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "013c137d604931adaaf6eb6f6cd5c1f0fb02a341",
+      "size": 1380013,
+      "url": "https://api.github.com/repos/hkimlab/DeepPrime/git/blobs/013c137d604931adaaf6eb6f6cd5c1f0fb02a341"
+    },
+    {
+      "path": "models/DeepPrime/DeepPrime_off/final_model_2.pt",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "2394cda3de30bba78ba507f6593a9e08ded35e16",
+      "size": 1380013,
+      "url": "https://api.github.com/repos/hkimlab/DeepPrime/git/blobs/2394cda3de30bba78ba507f6593a9e08ded35e16"
+    },
+    {
+      "path": "models/DeepPrime/DeepPrime_off/final_model_3.pt",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "432891f9508e293c5300888c7ae097c70aaa7bbd",
+      "size": 1380013,
+      "url": "https://api.github.com/repos/hkimlab/DeepPrime/git/blobs/432891f9508e293c5300888c7ae097c70aaa7bbd"
+    },
+    {
+      "path": "models/DeepPrime/DeepPrime_off/final_model_4.pt",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "4f4769f46faf4cab135834bf34dcf444aa27c70e",
+      "size": 1380013,
+      "url": "https://api.github.com/repos/hkimlab/DeepPrime/git/blobs/4f4769f46faf4cab135834bf34dcf444aa27c70e"
+    },
+    {
+      "path": "models/DeepPrime/DeepPrime_off/mean.csv",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "e94159bc1078f10788871dabd5f591b73621eb3a",
+      "size": 655,
+      "url": "https://api.github.com/repos/hkimlab/DeepPrime/git/blobs/e94159bc1078f10788871dabd5f591b73621eb3a"
+    },
+    {
+      "path": "models/DeepPrime/DeepPrime_off/std.csv",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "2eecd7e246c3c14fd259803705151cdf03581046",
+      "size": 649,
+      "url": "https://api.github.com/repos/hkimlab/DeepPrime/git/blobs/2eecd7e246c3c14fd259803705151cdf03581046"
+    },
+    {
+      "path": "models/DeepPrime/__init__.py",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "e69de29bb2d1d6434b8b29ae775ad8c2e48c5391",
+      "size": 0,
+      "url": "https://api.github.com/repos/hkimlab/DeepPrime/git/blobs/e69de29bb2d1d6434b8b29ae775ad8c2e48c5391"
+    },
+    {
+      "path": "models/DeepSpCas9",
+      "mode": "040000",
+      "type": "tree",
+      "sha": "879de912cfbe1dc5831bfc0bae1c6d1dd307d64b",
+      "url": "https://api.github.com/repos/hkimlab/DeepPrime/git/trees/879de912cfbe1dc5831bfc0bae1c6d1dd307d64b"
+    },
+    {
+      "path": "models/DeepSpCas9/PreTrain-Final-3-5-7-100-70-40-0.001-550-80-60.data-00000-of-00001",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "b318018761b71802091ada0891be1c0fce84f673",
+      "size": 2785580,
+      "url": "https://api.github.com/repos/hkimlab/DeepPrime/git/blobs/b318018761b71802091ada0891be1c0fce84f673"
+    },
+    {
+      "path": "models/DeepSpCas9/PreTrain-Final-3-5-7-100-70-40-0.001-550-80-60.index",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "4229f0b59969c16e5f455fac82304ece54b9eef0",
+      "size": 1365,
+      "url": "https://api.github.com/repos/hkimlab/DeepPrime/git/blobs/4229f0b59969c16e5f455fac82304ece54b9eef0"
+    },
+    {
+      "path": "models/DeepSpCas9/PreTrain-Final-3-5-7-100-70-40-0.001-550-80-60.meta",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "5c375182ecc647512f518f176b3b937de62d2c1b",
+      "size": 114817,
+      "url": "https://api.github.com/repos/hkimlab/DeepPrime/git/blobs/5c375182ecc647512f518f176b3b937de62d2c1b"
+    },
+    {
+      "path": "models/DeepSpCas9/__init__.py",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "e69de29bb2d1d6434b8b29ae775ad8c2e48c5391",
+      "size": 0,
+      "url": "https://api.github.com/repos/hkimlab/DeepPrime/git/blobs/e69de29bb2d1d6434b8b29ae775ad8c2e48c5391"
+    },
+    {
+      "path": "models/load_model.py",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "2fe6e9a94524349cf02b53e3cf200859f7bdacf2",
+      "size": 2708,
+      "url": "https://api.github.com/repos/hkimlab/DeepPrime/git/blobs/2fe6e9a94524349cf02b53e3cf200859f7bdacf2"
+    },
+    {
+      "path": "requirements.txt",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "062f1bea514b719e26a35a491ef62ddf75b72a85",
+      "size": 3275,
+      "url": "https://api.github.com/repos/hkimlab/DeepPrime/git/blobs/062f1bea514b719e26a35a491ef62ddf75b72a85"
+    },
+    {
+      "path": "src",
+      "mode": "040000",
+      "type": "tree",
+      "sha": "df533ade34f925a9b1b0908c98a38e873272f2f4",
+      "url": "https://api.github.com/repos/hkimlab/DeepPrime/git/trees/df533ade34f925a9b1b0908c98a38e873272f2f4"
+    },
+    {
+      "path": "src/__pycache__",
+      "mode": "040000",
+      "type": "tree",
+      "sha": "3af586268f7bad5c677d5b305c67d54beca50870",
+      "url": "https://api.github.com/repos/hkimlab/DeepPrime/git/trees/3af586268f7bad5c677d5b305c67d54beca50870"
+    },
+    {
+      "path": "src/__pycache__/biofeat.cpython-38.pyc",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "25580f6edfbed45f357af132391b535d35dda8b6",
+      "size": 13943,
+      "url": "https://api.github.com/repos/hkimlab/DeepPrime/git/blobs/25580f6edfbed45f357af132391b535d35dda8b6"
+    },
+    {
+      "path": "src/__pycache__/dprime.cpython-38.pyc",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "f97e82efdcc2c618043f0fef1bb3d726d6ead568",
+      "size": 3325,
+      "url": "https://api.github.com/repos/hkimlab/DeepPrime/git/blobs/f97e82efdcc2c618043f0fef1bb3d726d6ead568"
+    },
+    {
+      "path": "src/__pycache__/dspcas9.cpython-38.pyc",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "db5d01a32d814a366d0bce61cc0b0d153ea8cbe0",
+      "size": 4970,
+      "url": "https://api.github.com/repos/hkimlab/DeepPrime/git/blobs/db5d01a32d814a366d0bce61cc0b0d153ea8cbe0"
+    },
+    {
+      "path": "src/__pycache__/utils.cpython-38.pyc",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "46ba8cf21609887a14a1ccea661ee5874e562e7b",
+      "size": 3744,
+      "url": "https://api.github.com/repos/hkimlab/DeepPrime/git/blobs/46ba8cf21609887a14a1ccea661ee5874e562e7b"
+    },
+    {
+      "path": "src/biofeat.py",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "832a3eae838f99152385f614aaae81093b160f62",
+      "size": 24662,
+      "url": "https://api.github.com/repos/hkimlab/DeepPrime/git/blobs/832a3eae838f99152385f614aaae81093b160f62"
+    },
+    {
+      "path": "src/dprime.py",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "d222499916ca5464d0e234b428c355f1328a4bc8",
+      "size": 3931,
+      "url": "https://api.github.com/repos/hkimlab/DeepPrime/git/blobs/d222499916ca5464d0e234b428c355f1328a4bc8"
+    },
+    {
+      "path": "src/dspcas9.py",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "8a349b80d39a9db3d80d30e8958207c98538724e",
+      "size": 7259,
+      "url": "https://api.github.com/repos/hkimlab/DeepPrime/git/blobs/8a349b80d39a9db3d80d30e8958207c98538724e"
+    },
+    {
+      "path": "src/utils.py",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "20c027b20ce49627eac2620aae96001392011f5e",
+      "size": 3830,
+      "url": "https://api.github.com/repos/hkimlab/DeepPrime/git/blobs/20c027b20ce49627eac2620aae96001392011f5e"
+    }
+  ],
+  "source": "https://github.com/hkimlab/DeepPrime",
+  "weightsDownloaded": false
+}

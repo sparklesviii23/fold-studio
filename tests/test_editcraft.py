@@ -69,5 +69,6 @@ class NativeTests(unittest.TestCase):
  def test_no_catalogue_name_is_substituted_for_an_engine(self):
   state=self.call('editcraft_state');names=[m['name'] for m in state['models']]
   self.assertIn('AlphaGenome',names);self.assertIn('PRIDICT2',names)
-  for m in state['models']:self.assertFalse(m['scientificallyBenchmarked']);self.assertFalse(m['cloudExecutionValidated'])
+  for m in state['models']:
+   self.assertFalse(m['scientificallyBenchmarked']);self.assertEqual(m['cloudExecutionValidated'],m['id'] in ('viennarna','ensembl'))
   self.assertNotIn('DeepPrime',[op['id'] for op in state['operations']])

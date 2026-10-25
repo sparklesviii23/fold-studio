@@ -1,0 +1,600 @@
+{
+  "repository": "maxwshen/be_predict_bystander",
+  "revision": "31aadd04a25c604857c7592b226ee987e9e20b31",
+  "license": null,
+  "tree": [
+    {
+      "path": "README.md",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "896fb48b0d6ca58521c509014ad0a768a40c7d91",
+      "size": 3476,
+      "url": "https://api.github.com/repos/maxwshen/be_predict_bystander/git/blobs/896fb48b0d6ca58521c509014ad0a768a40c7d91"
+    },
+    {
+      "path": "__init__.py",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "fd90bcd17c1f42b9eeee859d69cb375127c5ae4b",
+      "size": 21,
+      "url": "https://api.github.com/repos/maxwshen/be_predict_bystander/git/blobs/fd90bcd17c1f42b9eeee859d69cb375127c5ae4b"
+    },
+    {
+      "path": "editor_profiles.csv",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "5ecd928724d9a0533d9dd419a84ee3efc20c175a",
+      "size": 225,
+      "url": "https://api.github.com/repos/maxwshen/be_predict_bystander/git/blobs/5ecd928724d9a0533d9dd419a84ee3efc20c175a"
+    },
+    {
+      "path": "model_ABE.py",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "26ae7122645be376c28bcf8770223e5b18c939fa",
+      "size": 18001,
+      "url": "https://api.github.com/repos/maxwshen/be_predict_bystander/git/blobs/26ae7122645be376c28bcf8770223e5b18c939fa"
+    },
+    {
+      "path": "model_CBE.py",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "6fb31255e734b25654c0988c2b919de19b05842c",
+      "size": 18001,
+      "url": "https://api.github.com/repos/maxwshen/be_predict_bystander/git/blobs/6fb31255e734b25654c0988c2b919de19b05842c"
+    },
+    {
+      "path": "models.csv",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "7e90b383e384c193092e4426b5628345bf3b56f3",
+      "size": 2494,
+      "url": "https://api.github.com/repos/maxwshen/be_predict_bystander/git/blobs/7e90b383e384c193092e4426b5628345bf3b56f3"
+    },
+    {
+      "path": "params",
+      "mode": "040000",
+      "type": "tree",
+      "sha": "710924b6b7c9e07911b2ac014beb56d8e92f2741",
+      "url": "https://api.github.com/repos/maxwshen/be_predict_bystander/git/trees/710924b6b7c9e07911b2ac014beb56d8e92f2741"
+    },
+    {
+      "path": "params/_log_HEK293T_12kChar_ABE-CP1040_0_190524_enc_64x2_dec_256x2_nc_r5_d0.05.out",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "68197e6c8d57043d55f11a7c18e9c1e60cd444c0",
+      "size": 28204,
+      "url": "https://api.github.com/repos/maxwshen/be_predict_bystander/git/blobs/68197e6c8d57043d55f11a7c18e9c1e60cd444c0"
+    },
+    {
+      "path": "params/_log_HEK293T_12kChar_ABE_0_190524_enc_64x2_dec_256x2_nc_r5_d0.05.out",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "1a14b0f6c1872cd805f32c545b282d7973e80982",
+      "size": 28197,
+      "url": "https://api.github.com/repos/maxwshen/be_predict_bystander/git/blobs/1a14b0f6c1872cd805f32c545b282d7973e80982"
+    },
+    {
+      "path": "params/_log_HEK293T_12kChar_AID_0_190524_enc_64x2_dec_256x2_nc_r5_d0.05.out",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "2cc6e34e14e939945af87a97d5899ef62326e565",
+      "size": 28193,
+      "url": "https://api.github.com/repos/maxwshen/be_predict_bystander/git/blobs/2cc6e34e14e939945af87a97d5899ef62326e565"
+    },
+    {
+      "path": "params/_log_HEK293T_12kChar_BE4-CP1028_0_190524_enc_64x2_dec_256x2_nc_r5_d0.05.out",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "86be9cf9e674e6c71b3d4b97b18685c7391720b6",
+      "size": 28200,
+      "url": "https://api.github.com/repos/maxwshen/be_predict_bystander/git/blobs/86be9cf9e674e6c71b3d4b97b18685c7391720b6"
+    },
+    {
+      "path": "params/_log_HEK293T_12kChar_BE4_0_190524_enc_64x2_dec_256x2_nc_r5_d0.05.out",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "c65314143591313c6edf59c05aa62e3f333f17b6",
+      "size": 28193,
+      "url": "https://api.github.com/repos/maxwshen/be_predict_bystander/git/blobs/c65314143591313c6edf59c05aa62e3f333f17b6"
+    },
+    {
+      "path": "params/_log_HEK293T_12kChar_BE4max_H47ES48A_0_190723_enc_64x2_dec_256x2_nc_r5_d0.05.out",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "409101f73a5b3fbad56afd354efb93d75a8efe16",
+      "size": 28205,
+      "url": "https://api.github.com/repos/maxwshen/be_predict_bystander/git/blobs/409101f73a5b3fbad56afd354efb93d75a8efe16"
+    },
+    {
+      "path": "params/_log_HEK293T_12kChar_CDA_0_190524_enc_64x2_dec_256x2_nc_r5_d0.05.out",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "b5bd252050f88a26042983a4ba1bb9b62cd78e22",
+      "size": 28193,
+      "url": "https://api.github.com/repos/maxwshen/be_predict_bystander/git/blobs/b5bd252050f88a26042983a4ba1bb9b62cd78e22"
+    },
+    {
+      "path": "params/_log_HEK293T_12kChar_eA3A_0_190524_enc_64x2_dec_256x2_nc_r5_d0.05.out",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "2831cd70f2bb6042b93f76da6fcd653f9e285234",
+      "size": 28194,
+      "url": "https://api.github.com/repos/maxwshen/be_predict_bystander/git/blobs/2831cd70f2bb6042b93f76da6fcd653f9e285234"
+    },
+    {
+      "path": "params/_log_HEK293T_12kChar_eA3A_noUGI_0_200212_enc_64x2_dec_256x2_nc_r5_d0.05.out",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "bfa8ddeda20a1e11d01bc2d7ee7ecde6cf95aa89",
+      "size": 28200,
+      "url": "https://api.github.com/repos/maxwshen/be_predict_bystander/git/blobs/bfa8ddeda20a1e11d01bc2d7ee7ecde6cf95aa89"
+    },
+    {
+      "path": "params/_log_HEK293T_12kChar_eA3Amax_T44DS45A_0_190723_enc_64x2_dec_256x2_nc_r5_d0.05.out",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "bbada356d2916ddb8228c17fdccc28ac8e0e8d9d",
+      "size": 28206,
+      "url": "https://api.github.com/repos/maxwshen/be_predict_bystander/git/blobs/bbada356d2916ddb8228c17fdccc28ac8e0e8d9d"
+    },
+    {
+      "path": "params/_log_HEK293T_12kChar_evoAPOBEC_0_190524_enc_64x2_dec_256x2_nc_r5_d0.05.out",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "4418b3820f3c4d3b883ed1caf616730ab6c31020",
+      "size": 28199,
+      "url": "https://api.github.com/repos/maxwshen/be_predict_bystander/git/blobs/4418b3820f3c4d3b883ed1caf616730ab6c31020"
+    },
+    {
+      "path": "params/_log_mES_12kChar_689_noUGI_0_200212_enc_64x2_dec_256x2_nc_r5_d0.05.out",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "bbb4c2a421d6ba46f68635f86b1626f38b67afad",
+      "size": 28195,
+      "url": "https://api.github.com/repos/maxwshen/be_predict_bystander/git/blobs/bbb4c2a421d6ba46f68635f86b1626f38b67afad"
+    },
+    {
+      "path": "params/_log_mES_12kChar_ABE-CP1040_0_190524_enc_64x2_dec_256x2_nc_r5_d0.05.out",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "b51a6271775c282e24ba6a0d77402c25aa1081d4",
+      "size": 28200,
+      "url": "https://api.github.com/repos/maxwshen/be_predict_bystander/git/blobs/b51a6271775c282e24ba6a0d77402c25aa1081d4"
+    },
+    {
+      "path": "params/_log_mES_12kChar_ABE8_0_200115_enc_64x2_dec_256x2_nc_r5_d0.05.out",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "81b7044598bec1b91f705a269a03eb13210b619f",
+      "size": 28194,
+      "url": "https://api.github.com/repos/maxwshen/be_predict_bystander/git/blobs/81b7044598bec1b91f705a269a03eb13210b619f"
+    },
+    {
+      "path": "params/_log_mES_12kChar_ABE_0_190524_enc_64x2_dec_256x2_nc_r5_d0.05.out",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "cce34dcd3023c62e7011d246cf1ec482d7cba8db",
+      "size": 28192,
+      "url": "https://api.github.com/repos/maxwshen/be_predict_bystander/git/blobs/cce34dcd3023c62e7011d246cf1ec482d7cba8db"
+    },
+    {
+      "path": "params/_log_mES_12kChar_AID_0_190524_enc_64x2_dec_256x2_nc_r5_d0.05.out",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "2f28b56e763906b7c1dc29d05e49fecac97cf2e1",
+      "size": 19100,
+      "url": "https://api.github.com/repos/maxwshen/be_predict_bystander/git/blobs/2f28b56e763906b7c1dc29d05e49fecac97cf2e1"
+    },
+    {
+      "path": "params/_log_mES_12kChar_APOBEC1_noUGI_0_200212_enc_64x2_dec_256x2_nc_r5_d0.05.out",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "07565e63c4682e52207adf5607b02a89dc26af10",
+      "size": 28199,
+      "url": "https://api.github.com/repos/maxwshen/be_predict_bystander/git/blobs/07565e63c4682e52207adf5607b02a89dc26af10"
+    },
+    {
+      "path": "params/_log_mES_12kChar_BE4-CP1028_0_190524_enc_64x2_dec_256x2_nc_r5_d0.05.out",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "2476d72069be8b4f2b9ac350c4f00d6857c1a9e7",
+      "size": 28196,
+      "url": "https://api.github.com/repos/maxwshen/be_predict_bystander/git/blobs/2476d72069be8b4f2b9ac350c4f00d6857c1a9e7"
+    },
+    {
+      "path": "params/_log_mES_12kChar_BE4_0_190524_enc_64x2_dec_256x2_nc_r5_d0.05.out",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "7f05b20267460030ba2fd01d91c5bba9a4de3e2f",
+      "size": 28189,
+      "url": "https://api.github.com/repos/maxwshen/be_predict_bystander/git/blobs/7f05b20267460030ba2fd01d91c5bba9a4de3e2f"
+    },
+    {
+      "path": "params/_log_mES_12kChar_BE4_H47ES48A_0_190829_enc_64x2_dec_256x2_nc_r5_d0.05.out",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "2008b8273827a72f002f827a33787b15dea460ac",
+      "size": 28198,
+      "url": "https://api.github.com/repos/maxwshen/be_predict_bystander/git/blobs/2008b8273827a72f002f827a33787b15dea460ac"
+    },
+    {
+      "path": "params/_log_mES_12kChar_CDA_0_190524_enc_64x2_dec_256x2_nc_r5_d0.05.out",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "5924e35dbb7113008d81eae75baf20ad2fe9a4a1",
+      "size": 26912,
+      "url": "https://api.github.com/repos/maxwshen/be_predict_bystander/git/blobs/5924e35dbb7113008d81eae75baf20ad2fe9a4a1"
+    },
+    {
+      "path": "params/_log_mES_12kChar_D2_APOBEC1_UDGX_UDGX_0_200212_enc_64x2_dec_256x2_nc_r5_d0.05.out",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "195e63adbfb7064cb54bcf19657ef41bb47b2679",
+      "size": 28206,
+      "url": "https://api.github.com/repos/maxwshen/be_predict_bystander/git/blobs/195e63adbfb7064cb54bcf19657ef41bb47b2679"
+    },
+    {
+      "path": "params/_log_mES_12kChar_Rb_eA3A_UDGX_0_200212_enc_64x2_dec_256x2_nc_r5_d0.05.out",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "6ec6a7fbf6b395ce71e7b94ea7feebcbab10f0c6",
+      "size": 28198,
+      "url": "https://api.github.com/repos/maxwshen/be_predict_bystander/git/blobs/6ec6a7fbf6b395ce71e7b94ea7feebcbab10f0c6"
+    },
+    {
+      "path": "params/_log_mES_12kChar_Rb_eA3A_UDGX_HF_0_200212_enc_64x2_dec_256x2_nc_r5_d0.05.out",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "ee60882363657291e3a62d9619e40c00a9b1c733",
+      "size": 28199,
+      "url": "https://api.github.com/repos/maxwshen/be_predict_bystander/git/blobs/ee60882363657291e3a62d9619e40c00a9b1c733"
+    },
+    {
+      "path": "params/_log_mES_12kChar_UDGX_689_UDGX_Rb_0_200212_enc_64x2_dec_256x2_nc_r5_d0.05.out",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "c8a96c4bfcc642b7607e9789513fca70b73f7f08",
+      "size": 28202,
+      "url": "https://api.github.com/repos/maxwshen/be_predict_bystander/git/blobs/c8a96c4bfcc642b7607e9789513fca70b73f7f08"
+    },
+    {
+      "path": "params/_log_mES_12kChar_UDGX_APOBEC1_UDGX_HF_0_200212_enc_64x2_dec_256x2_nc_r5_d0.05.out",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "28f921d041a2193ca99eb0bc89f7654f6bce44c5",
+      "size": 28206,
+      "url": "https://api.github.com/repos/maxwshen/be_predict_bystander/git/blobs/28f921d041a2193ca99eb0bc89f7654f6bce44c5"
+    },
+    {
+      "path": "params/_log_mES_12kChar_UDGX_ee_UDGX_UDGX_0_200212_enc_64x2_dec_256x2_nc_r5_d0.05.out",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "280407c597068f6773f80d9f6a97da8c4fc001d5",
+      "size": 28202,
+      "url": "https://api.github.com/repos/maxwshen/be_predict_bystander/git/blobs/280407c597068f6773f80d9f6a97da8c4fc001d5"
+    },
+    {
+      "path": "params/_log_mES_12kChar_eA3A_0_190524_enc_64x2_dec_256x2_nc_r5_d0.05.out",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "90f865c840389ec3292f80c2e52a294ef5cdb353",
+      "size": 28190,
+      "url": "https://api.github.com/repos/maxwshen/be_predict_bystander/git/blobs/90f865c840389ec3292f80c2e52a294ef5cdb353"
+    },
+    {
+      "path": "params/_log_mES_12kChar_eA3A_T31AT44A_0_190829_enc_64x2_dec_256x2_nc_r5_d0.05.out",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "536b5d295148177665842ed38048912055c12d85",
+      "size": 28199,
+      "url": "https://api.github.com/repos/maxwshen/be_predict_bystander/git/blobs/536b5d295148177665842ed38048912055c12d85"
+    },
+    {
+      "path": "params/_log_mES_12kChar_eA3A_T31A_0_190829_enc_64x2_dec_256x2_nc_r5_d0.05.out",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "910f8f82b3b1f4f78f92f49c7bcb7ec312429dca",
+      "size": 28195,
+      "url": "https://api.github.com/repos/maxwshen/be_predict_bystander/git/blobs/910f8f82b3b1f4f78f92f49c7bcb7ec312429dca"
+    },
+    {
+      "path": "params/_log_mES_12kChar_eA3A_noUGI_dead_0_200212_enc_64x2_dec_256x2_nc_r5_d0.05.out",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "109871c22d41b2aa9c33352686742d2e1bc304b9",
+      "size": 28201,
+      "url": "https://api.github.com/repos/maxwshen/be_predict_bystander/git/blobs/109871c22d41b2aa9c33352686742d2e1bc304b9"
+    },
+    {
+      "path": "params/_log_mES_12kChar_ee_noUGI_0_200212_enc_64x2_dec_256x2_nc_r5_d0.05.out",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "5a109f9dc32e4e3935ef9a887b835f8383384913",
+      "size": 28193,
+      "url": "https://api.github.com/repos/maxwshen/be_predict_bystander/git/blobs/5a109f9dc32e4e3935ef9a887b835f8383384913"
+    },
+    {
+      "path": "params/_log_mES_12kChar_evoAPOBEC_0_190524_enc_64x2_dec_256x2_nc_r5_d0.05.out",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "bba7c8defedac516980ce8ebd3bf8b22574ff0b3",
+      "size": 27197,
+      "url": "https://api.github.com/repos/maxwshen/be_predict_bystander/git/blobs/bba7c8defedac516980ce8ebd3bf8b22574ff0b3"
+    },
+    {
+      "path": "params/model_HEK293T_12kChar_ABE-CP1040_0_190524_enc_64x2_dec_256x2_nc_r5_d0.05_epoch_23_statedict.pt",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "b0df04edcdc2a43aeb1670ed03d597577a174421",
+      "size": 563068,
+      "url": "https://api.github.com/repos/maxwshen/be_predict_bystander/git/blobs/b0df04edcdc2a43aeb1670ed03d597577a174421"
+    },
+    {
+      "path": "params/model_HEK293T_12kChar_ABE_0_190524_enc_64x2_dec_256x2_nc_r5_d0.05_epoch_89_statedict.pt",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "c2d550d27d7c48362eb6caff724a54ab717e7069",
+      "size": 563068,
+      "url": "https://api.github.com/repos/maxwshen/be_predict_bystander/git/blobs/c2d550d27d7c48362eb6caff724a54ab717e7069"
+    },
+    {
+      "path": "params/model_HEK293T_12kChar_AID_0_190524_enc_64x2_dec_256x2_nc_r5_d0.05_epoch_51_statedict.pt",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "ada143fda09d85a32205efddc19b156b914d48a9",
+      "size": 563068,
+      "url": "https://api.github.com/repos/maxwshen/be_predict_bystander/git/blobs/ada143fda09d85a32205efddc19b156b914d48a9"
+    },
+    {
+      "path": "params/model_HEK293T_12kChar_BE4-CP1028_0_190524_enc_64x2_dec_256x2_nc_r5_d0.05_epoch_52_statedict.pt",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "a20301874d01d1638b086af7ff86d588e163732a",
+      "size": 563068,
+      "url": "https://api.github.com/repos/maxwshen/be_predict_bystander/git/blobs/a20301874d01d1638b086af7ff86d588e163732a"
+    },
+    {
+      "path": "params/model_HEK293T_12kChar_BE4_0_190524_enc_64x2_dec_256x2_nc_r5_d0.05_epoch_71_statedict.pt",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "78cc0d792a54aeea0fdb0f62d655a8eb0892ea23",
+      "size": 563068,
+      "url": "https://api.github.com/repos/maxwshen/be_predict_bystander/git/blobs/78cc0d792a54aeea0fdb0f62d655a8eb0892ea23"
+    },
+    {
+      "path": "params/model_HEK293T_12kChar_BE4max_H47ES48A_0_190723_enc_64x2_dec_256x2_nc_r5_d0.05_epoch_15_statedict.pt",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "0662264919c323386d89468be8af5cdaf12e8ea3",
+      "size": 563068,
+      "url": "https://api.github.com/repos/maxwshen/be_predict_bystander/git/blobs/0662264919c323386d89468be8af5cdaf12e8ea3"
+    },
+    {
+      "path": "params/model_HEK293T_12kChar_CDA_0_190524_enc_64x2_dec_256x2_nc_r5_d0.05_epoch_45_statedict.pt",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "4ace5cd560e57f6dd6badcb1cec45f7fb2291dc6",
+      "size": 563068,
+      "url": "https://api.github.com/repos/maxwshen/be_predict_bystander/git/blobs/4ace5cd560e57f6dd6badcb1cec45f7fb2291dc6"
+    },
+    {
+      "path": "params/model_HEK293T_12kChar_eA3A_0_190524_enc_64x2_dec_256x2_nc_r5_d0.05_epoch_37_statedict.pt",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "68cbefa69ee72f6524a4890bba5b28fc12a011f6",
+      "size": 563068,
+      "url": "https://api.github.com/repos/maxwshen/be_predict_bystander/git/blobs/68cbefa69ee72f6524a4890bba5b28fc12a011f6"
+    },
+    {
+      "path": "params/model_HEK293T_12kChar_eA3A_noUGI_0_200212_enc_64x2_dec_256x2_nc_r5_d0.05_epoch_287_statedict.pt",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "b387a446ef24435c076fba48de9cf608ff6c9b8e",
+      "size": 563068,
+      "url": "https://api.github.com/repos/maxwshen/be_predict_bystander/git/blobs/b387a446ef24435c076fba48de9cf608ff6c9b8e"
+    },
+    {
+      "path": "params/model_HEK293T_12kChar_eA3Amax_T44DS45A_0_190723_enc_64x2_dec_256x2_nc_r5_d0.05_epoch_54_statedict.pt",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "e059430b438466ce6b5c599dc5155d99188d91a6",
+      "size": 563068,
+      "url": "https://api.github.com/repos/maxwshen/be_predict_bystander/git/blobs/e059430b438466ce6b5c599dc5155d99188d91a6"
+    },
+    {
+      "path": "params/model_HEK293T_12kChar_evoAPOBEC_0_190524_enc_64x2_dec_256x2_nc_r5_d0.05_epoch_53_statedict.pt",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "409929e2eec396921b2195f512de25a98a3d226c",
+      "size": 563068,
+      "url": "https://api.github.com/repos/maxwshen/be_predict_bystander/git/blobs/409929e2eec396921b2195f512de25a98a3d226c"
+    },
+    {
+      "path": "params/model_mES_12kChar_689_noUGI_0_200212_enc_64x2_dec_256x2_nc_r5_d0.05_epoch_298_statedict.pt",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "b212d4767ca8a31e7ab20f6f4449480ec5ef95bb",
+      "size": 563068,
+      "url": "https://api.github.com/repos/maxwshen/be_predict_bystander/git/blobs/b212d4767ca8a31e7ab20f6f4449480ec5ef95bb"
+    },
+    {
+      "path": "params/model_mES_12kChar_ABE-CP1040_0_190524_enc_64x2_dec_256x2_nc_r5_d0.05_epoch_34_statedict.pt",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "d00b259c46cf30f36a1093ac2dc4c685420a0569",
+      "size": 563068,
+      "url": "https://api.github.com/repos/maxwshen/be_predict_bystander/git/blobs/d00b259c46cf30f36a1093ac2dc4c685420a0569"
+    },
+    {
+      "path": "params/model_mES_12kChar_ABE8_0_200115_enc_64x2_dec_256x2_nc_r5_d0.05_epoch_96_statedict.pt",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "9616f88fc5263927f774d03618a59386ab69058b",
+      "size": 563068,
+      "url": "https://api.github.com/repos/maxwshen/be_predict_bystander/git/blobs/9616f88fc5263927f774d03618a59386ab69058b"
+    },
+    {
+      "path": "params/model_mES_12kChar_ABE_0_190524_enc_64x2_dec_256x2_nc_r5_d0.05_epoch_118_statedict.pt",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "d4207c7488ab6068316f8f995f73a19c23289d05",
+      "size": 563068,
+      "url": "https://api.github.com/repos/maxwshen/be_predict_bystander/git/blobs/d4207c7488ab6068316f8f995f73a19c23289d05"
+    },
+    {
+      "path": "params/model_mES_12kChar_AID_0_190524_enc_64x2_dec_256x2_nc_r5_d0.05_epoch_65_statedict.pt",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "e0e7e72b60827b62eadd4866d7973776435c9235",
+      "size": 563068,
+      "url": "https://api.github.com/repos/maxwshen/be_predict_bystander/git/blobs/e0e7e72b60827b62eadd4866d7973776435c9235"
+    },
+    {
+      "path": "params/model_mES_12kChar_APOBEC1_noUGI_0_200212_enc_64x2_dec_256x2_nc_r5_d0.05_epoch_286_statedict.pt",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "f29ac5abe70c718d7092fbec1b5e532969f28702",
+      "size": 563068,
+      "url": "https://api.github.com/repos/maxwshen/be_predict_bystander/git/blobs/f29ac5abe70c718d7092fbec1b5e532969f28702"
+    },
+    {
+      "path": "params/model_mES_12kChar_BE4-CP1028_0_190524_enc_64x2_dec_256x2_nc_r5_d0.05_epoch_74_statedict.pt",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "5e098fa06ff9daca3728ca09d7d899243ab30492",
+      "size": 563068,
+      "url": "https://api.github.com/repos/maxwshen/be_predict_bystander/git/blobs/5e098fa06ff9daca3728ca09d7d899243ab30492"
+    },
+    {
+      "path": "params/model_mES_12kChar_BE4_0_190524_enc_64x2_dec_256x2_nc_r5_d0.05_epoch_64_statedict.pt",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "5c8fcc689d9f36017112244549348407548d5c6a",
+      "size": 563068,
+      "url": "https://api.github.com/repos/maxwshen/be_predict_bystander/git/blobs/5c8fcc689d9f36017112244549348407548d5c6a"
+    },
+    {
+      "path": "params/model_mES_12kChar_BE4_H47ES48A_0_190829_enc_64x2_dec_256x2_nc_r5_d0.05_epoch_133_statedict.pt",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "894db374cbc40e808b8e8106eeb3dd50caaf71bf",
+      "size": 563068,
+      "url": "https://api.github.com/repos/maxwshen/be_predict_bystander/git/blobs/894db374cbc40e808b8e8106eeb3dd50caaf71bf"
+    },
+    {
+      "path": "params/model_mES_12kChar_CDA_0_190524_enc_64x2_dec_256x2_nc_r5_d0.05_epoch_49_statedict.pt",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "168551bbea56088f45ff1f9767b7ee8fd10c4bc1",
+      "size": 563068,
+      "url": "https://api.github.com/repos/maxwshen/be_predict_bystander/git/blobs/168551bbea56088f45ff1f9767b7ee8fd10c4bc1"
+    },
+    {
+      "path": "params/model_mES_12kChar_D2_APOBEC1_UDGX_UDGX_0_200212_enc_64x2_dec_256x2_nc_r5_d0.05_epoch_292_statedict.pt",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "29cd046f7c892d8bc6d17bec74c0a84ceb65ca93",
+      "size": 563068,
+      "url": "https://api.github.com/repos/maxwshen/be_predict_bystander/git/blobs/29cd046f7c892d8bc6d17bec74c0a84ceb65ca93"
+    },
+    {
+      "path": "params/model_mES_12kChar_Rb_eA3A_UDGX_0_200212_enc_64x2_dec_256x2_nc_r5_d0.05_epoch_271_statedict.pt",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "57b0c36c26d5ad7450699293b7cd62f020cf7b99",
+      "size": 563068,
+      "url": "https://api.github.com/repos/maxwshen/be_predict_bystander/git/blobs/57b0c36c26d5ad7450699293b7cd62f020cf7b99"
+    },
+    {
+      "path": "params/model_mES_12kChar_Rb_eA3A_UDGX_HF_0_200212_enc_64x2_dec_256x2_nc_r5_d0.05_epoch_222_statedict.pt",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "8a14c1840c1cac680c4fe487410a085d58287661",
+      "size": 563068,
+      "url": "https://api.github.com/repos/maxwshen/be_predict_bystander/git/blobs/8a14c1840c1cac680c4fe487410a085d58287661"
+    },
+    {
+      "path": "params/model_mES_12kChar_UDGX_689_UDGX_Rb_0_200212_enc_64x2_dec_256x2_nc_r5_d0.05_epoch_244_statedict.pt",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "b73ecc674f5fedba628af483ce7781e7097a094f",
+      "size": 563068,
+      "url": "https://api.github.com/repos/maxwshen/be_predict_bystander/git/blobs/b73ecc674f5fedba628af483ce7781e7097a094f"
+    },
+    {
+      "path": "params/model_mES_12kChar_UDGX_APOBEC1_UDGX_HF_0_200212_enc_64x2_dec_256x2_nc_r5_d0.05_epoch_298_statedict.pt",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "e10fa91f0f85736b2c1afeaf9fffe07dfe44dc8f",
+      "size": 563068,
+      "url": "https://api.github.com/repos/maxwshen/be_predict_bystander/git/blobs/e10fa91f0f85736b2c1afeaf9fffe07dfe44dc8f"
+    },
+    {
+      "path": "params/model_mES_12kChar_UDGX_ee_UDGX_UDGX_0_200212_enc_64x2_dec_256x2_nc_r5_d0.05_epoch_242_statedict.pt",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "81777778d284edbede3352563198e606566987da",
+      "size": 563068,
+      "url": "https://api.github.com/repos/maxwshen/be_predict_bystander/git/blobs/81777778d284edbede3352563198e606566987da"
+    },
+    {
+      "path": "params/model_mES_12kChar_eA3A_0_190524_enc_64x2_dec_256x2_nc_r5_d0.05_epoch_157_statedict.pt",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "3ac658d5fba5149e2c87406bbe1945744366e8f8",
+      "size": 563068,
+      "url": "https://api.github.com/repos/maxwshen/be_predict_bystander/git/blobs/3ac658d5fba5149e2c87406bbe1945744366e8f8"
+    },
+    {
+      "path": "params/model_mES_12kChar_eA3A_T31AT44A_0_190829_enc_64x2_dec_256x2_nc_r5_d0.05_epoch_239_statedict.pt",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "e28cdfff6385b9c44c7f95b8ca3babd41b1ff38a",
+      "size": 563068,
+      "url": "https://api.github.com/repos/maxwshen/be_predict_bystander/git/blobs/e28cdfff6385b9c44c7f95b8ca3babd41b1ff38a"
+    },
+    {
+      "path": "params/model_mES_12kChar_eA3A_T31A_0_190829_enc_64x2_dec_256x2_nc_r5_d0.05_epoch_281_statedict.pt",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "a8900e00b34601149c2f1d194230e54f261e19cc",
+      "size": 563068,
+      "url": "https://api.github.com/repos/maxwshen/be_predict_bystander/git/blobs/a8900e00b34601149c2f1d194230e54f261e19cc"
+    },
+    {
+      "path": "params/model_mES_12kChar_eA3A_noUGI_dead_0_200212_enc_64x2_dec_256x2_nc_r5_d0.05_epoch_264_statedict.pt",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "634af9781400ab1a3a280d239772daa801c1dba5",
+      "size": 563068,
+      "url": "https://api.github.com/repos/maxwshen/be_predict_bystander/git/blobs/634af9781400ab1a3a280d239772daa801c1dba5"
+    },
+    {
+      "path": "params/model_mES_12kChar_ee_noUGI_0_200212_enc_64x2_dec_256x2_nc_r5_d0.05_epoch_244_statedict.pt",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "e5651db47eb913b4f8bef89d611b8fc5b719c6ed",
+      "size": 563068,
+      "url": "https://api.github.com/repos/maxwshen/be_predict_bystander/git/blobs/e5651db47eb913b4f8bef89d611b8fc5b719c6ed"
+    },
+    {
+      "path": "params/model_mES_12kChar_evoAPOBEC_0_190524_enc_64x2_dec_256x2_nc_r5_d0.05_epoch_59_statedict.pt",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "2a840cdc076df2170c9d55f82aaf4ee6c62fac33",
+      "size": 563068,
+      "url": "https://api.github.com/repos/maxwshen/be_predict_bystander/git/blobs/2a840cdc076df2170c9d55f82aaf4ee6c62fac33"
+    },
+    {
+      "path": "predict.py",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "ad34c0eeb41816e5dc7f7e422c403b70a62601ad",
+      "size": 12310,
+      "url": "https://api.github.com/repos/maxwshen/be_predict_bystander/git/blobs/ad34c0eeb41816e5dc7f7e422c403b70a62601ad"
+    }
+  ],
+  "source": "https://github.com/maxwshen/be_predict_bystander",
+  "weightsDownloaded": false
+}
