@@ -52,7 +52,7 @@ from fold_rapid import runner,hardware
 hardware.inventory=lambda:{'detected':True,'devices':[{'fixture':True}]}
 import platform
 platform.system=lambda:'Linux'
-runner.prepare=lambda *args:{'command':[sys.executable,'must-not-run.py'],'environment':{'PYTHONPATH':sys.argv[3]},'models':{}}
+runner.prepare=lambda *args,**kwargs:{'command':[sys.executable,'must-not-run.py'],'environment':{'PYTHONPATH':sys.argv[3]},'models':{}}
 runner.execute(pathlib.Path(sys.argv[1]),sys.argv[2])
 """
             process=subprocess.Popen([sys.executable,'-c',code,str(store.root),id,str(fake)],env={**os.environ,'PYTHONPATH':str(ROOT/'remote_worker')},stdout=subprocess.DEVNULL,stderr=subprocess.DEVNULL)

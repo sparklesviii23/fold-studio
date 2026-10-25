@@ -91,7 +91,10 @@ def require_current_engine(s,cfg,account_id=None):
             if hashlib.sha256(previous_bytes).hexdigest()==status.get('sourceManifestSha256'):
                 previous=json.loads(previous_bytes);current=json.loads(manifest_bytes)
                 annotations={'sourceCommit','sourceTreeIncludesUncommittedWorker'}
-                same_source=bool(current.get('files')) and {k:v for k,v in previous.items() if k not in annotations}=={k:v for k,v in current.items() if k not in annotations}
+                independent={'worker/fold_rapid/editcraft_core.py','worker/fold_rapid/editcraft_modal.py','worker/fold_rapid/editcraft_execute.py'}
+                def protein_release(value):
+                    return {k:({name:checksum for name,checksum in v.items() if name not in independent} if k=='files' else v) for k,v in value.items() if k not in annotations}
+                same_source=bool(current.get('files')) and protein_release(previous)==protein_release(current)
 
     if status.get('state')!='deployed' or status.get('appName')!=cfg['appName'] or not same_source or status.get('accountId')!=account_id:
         raise ValueError('The deployed cloud engine differs from this reviewed source/account. Approve an idle CPU deployment update before any new paid campaign; existing results are preserved.')

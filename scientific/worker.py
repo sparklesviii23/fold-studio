@@ -28,6 +28,7 @@ import cloud_shell
 import cloud_accounts
 import cloud_monitor
 import cloud_audit
+import editcraft
 import execution_policy
 import modal_account
 import biology_modal
@@ -150,12 +151,15 @@ class Service:
         if self.db.execute("SELECT 1 FROM sqlite_master WHERE name='biology_modal_jobs'").fetchone():
             states=[json.loads(row['data']).get('state') for row in self.rows('SELECT data FROM biology_modal_jobs WHERE project_id=?',(p['id'],))]
             if any(state not in ('prepared','completed','failed','cancelled','interrupted','rejected','finished','partial','COMPLETED','PARTIALLY_COMPLETE','FAILED','CANCELLED') for state in states):raise ValueError('Stop or reconcile remote Modal jobs before deleting this project.')
+        if self.db.execute("SELECT 1 FROM sqlite_master WHERE name='editcraft_jobs'").fetchone():
+            states=[json.loads(row['data']).get('state') for row in self.rows('SELECT data FROM editcraft_jobs WHERE project_id=?',(p['id'],))]
+            if any(state not in ('prepared','completed','failed','cancelled','deadline_exceeded') for state in states):raise ValueError('Stop or reconcile EditCraft cloud experiments before deleting this project.')
         active = self.db.execute("SELECT 1 FROM jobs WHERE project_id=? AND state IN ('running','queued','installing')",(p['id'],)).fetchone()
         if active: raise ValueError('Cancel active jobs before deleting the project.')
         lab=intelligence.Lab(self)
         if self.db.execute("SELECT 1 FROM intelligence_tasks WHERE project_id=? AND state IN ('running','queued')",(p['id'],)).fetchone():raise ValueError('Cancel active intelligence tasks before deleting the project.')
         for table in ['intelligence_tasks','intelligence_assignments','intelligence_candidates','intelligence_hotspots','intelligence_confidence']:self.db.execute('DELETE FROM '+table+' WHERE project_id=?',(p['id'],))
-        for table in ['evolution_events','evolution_candidates','evolution_manifests','biology_api_requests','biology_modal_jobs','biology_evidence']:
+        for table in ['evolution_events','evolution_candidates','evolution_manifests','biology_api_requests','biology_modal_jobs','biology_evidence','editcraft_entities','editcraft_jobs']:
             if self.db.execute('SELECT 1 FROM sqlite_master WHERE name=?',(table,)).fetchone():self.db.execute('DELETE FROM '+table+' WHERE project_id=?',(p['id'],))
         # File assets remain until an explicit future garbage collection; deletion is metadata-only.
         Observatory(self)
@@ -561,6 +565,7 @@ class Service:
         if action not in ACTIONS: raise ValueError('Unsupported scientific action.')
         if action in cloud_shell.ACTIONS:return cloud_shell.dispatch(self,action,p)
         if action in cloud_accounts.ACTIONS:return cloud_accounts.dispatch(self,action,p)
+        if action in editcraft.ACTIONS:return editcraft.dispatch(self,action,p)
         if action in cloud_monitor.ACTIONS:return cloud_monitor.dispatch(self,action,p)
         if action in cloud_audit.ACTIONS:return cloud_audit.dispatch(self,action,p)
         if action in cloud_deployment.ACTIONS:return cloud_deployment.dispatch(self,action,p)
@@ -590,7 +595,7 @@ class Service:
 
 ACTIONS={'record_update','record_remove','record_restore','library','setting_set','project_create','project_update','project_delete','record_save','sequence_save','mutate','fasta_parse','fasta_import','uniprot_search','uniprot_get','structures','structure_download','import_structure','asset_read','compute','install_engine','prediction_start','prediction_resources','job_read','job_cancel','cloud_prepare','cloud_opened','cloud_import','export_project','export_file','reconcile'}
 
-ACTIONS |= cloud_shell.ACTIONS | cloud_accounts.ACTIONS | cloud_monitor.ACTIONS | cloud_audit.ACTIONS | cloud_deployment.ACTIONS | execution_policy.ACTIONS | modal_account.ACTIONS | peptide_chemistry.ACTIONS | biology_modal.ACTIONS | biology_agent.ACTIONS | biology_evidence.ACTIONS | biology_pipeline.ACTIONS | boltz_api_adapter.ACTIONS | evolution.ACTIONS | research.ACTIONS | cinema.ACTIONS | rapid_remote.ACTIONS | cloud_compute.ACTIONS | dynamics.ACTIONS | ligand.ACTIONS | mpnn.ACTIONS | fold_engine.ACTIONS | OBSERVATORY_ACTIONS | PEPTIDE_ACTIONS | molecular_graph.ACTIONS | intelligence.ACTIONS
+ACTIONS |= editcraft.ACTIONS | cloud_shell.ACTIONS | cloud_accounts.ACTIONS | cloud_monitor.ACTIONS | cloud_audit.ACTIONS | cloud_deployment.ACTIONS | execution_policy.ACTIONS | modal_account.ACTIONS | peptide_chemistry.ACTIONS | biology_modal.ACTIONS | biology_agent.ACTIONS | biology_evidence.ACTIONS | biology_pipeline.ACTIONS | boltz_api_adapter.ACTIONS | evolution.ACTIONS | research.ACTIONS | cinema.ACTIONS | rapid_remote.ACTIONS | cloud_compute.ACTIONS | dynamics.ACTIONS | ligand.ACTIONS | mpnn.ACTIONS | fold_engine.ACTIONS | OBSERVATORY_ACTIONS | PEPTIDE_ACTIONS | molecular_graph.ACTIONS | intelligence.ACTIONS
 
 def execute_job(service,id):
     job=service.job(id); p=job['data']; folder=service.root/'jobs'/id
