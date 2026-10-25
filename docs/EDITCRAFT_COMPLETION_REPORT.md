@@ -30,7 +30,7 @@ PrimeDesign's applicable dual academic/for-profit license eligibility is unresol
 
 New source includes model-specific guide/base/prime forms, genuine result tables, full result/provenance inspection, ensemble RNA curves/structures, editable ordered workflow cards, typed handoff selection, dependency-preserving reorder/remove controls and advanced parameter access. Registry model installation and execution labels derive from verified receipts and saved results. The shared inspector button controls the EditCraft inspector; the unrelated protein sequence inspector no longer duplicates it.
 
-**Not yet installed or graphically accepted:** the current app remains open, and its guarded installer refuses replacement. No open app or scientific worker was stopped. Awaiting the user's requested closure. Existing molecular viewer, PDB coordinates, lighting, camera controls and protein workflows were not replaced.
+**Installed and checked after the user saved and closed the app.** The canonical signed build was replaced through the guarded installer. Native checks confirmed the guide form → editable workflow → local review path, disabled launch without both approvals, inspector visibility control, saved guide/base result tables and genuine RNA ensemble plots. No new paid scientific workload was launched during these checks. Full scientific workflow certification remains separate. Existing molecular viewer, PDB coordinates, lighting, camera controls and protein workflows were not replaced.
 
 The workflow remains an ordered typed editor, not a full branching graph system. Rich notebooks, complete multiscale linked scenes, interactive genome/RNA browsing and publication-quality PDF/DOCX reports remain incomplete.
 
@@ -52,16 +52,16 @@ A fixed evidence-aware, typed reference workflow and intervention notes exist. T
 
 ## H. Tests
 
-- 678 backend tests passed.
-- 114 interface tests passed.
+- 679 backend tests passed.
+- 115 interface tests passed.
 - 25 EditCraft offline contract/metadata tests are included in the backend total; mocks are not scientific evidence.
 - Production TypeScript/Vite build passed.
 - Six genuine public cloud reference calculations completed, reported separately above.
-- Full native graphical acceptance remains pending installation.
+- Native form/result/plot checks passed; complete platform acceptance is still unfinished.
 
 ## I. Research integrity and storage
 
-The real research root and all original model assets were preserved. No validation directory was treated as a fixture, no release ZIP or backup app was created, and no new local scientific model weights were downloaded. A non-EditCraft Library manifest of 16 existing records was recorded before installation in `reports/editcraft/data-integrity.json`; post-install comparison remains pending. New cloud outputs add normal analysis/notebook records without replacing previous records.
+The real research root and all original model assets were preserved. No validation directory was treated as a fixture, no release ZIP or backup app was created, and no new local scientific model weights were downloaded. A non-EditCraft Library manifest of 16 existing records was recorded before installation in `reports/editcraft/data-integrity.json`; post-install comparison matches exactly. New cloud outputs add normal analysis/notebook records without replacing previous records.
 
 ## J. Scientific limitations
 
@@ -69,8 +69,14 @@ Reference reproduction, genuine inference, independent benchmarking and a demons
 
 ## K. Exact continuation
 
-1. When Fold Studio is closed, run only `scripts/build-local-app.sh` to update the single canonical app.
+1. The single canonical app has been updated with `scripts/build-local-app.sh`; preserve that policy for subsequent changes.
 2. Launch with `scripts/open-local-app.py` and the existing real data root.
 3. Inspect real saved model results and the new forms/workflow/RNA plots; verify the shared inspector, Library/notebook links and preserved molecular viewer.
 4. Compare Library integrity and record screenshots/actual native acceptance.
 5. Continue the detailed audit's missing scientific engines, genome reference assets, experimental/single-cell/pathway workflows, original Intelligence, full visualizers and publication reports. Prepare concrete resource scopes and obtain additional spending/download approvals before further paid science. Keep full completion false.
+
+## Ribosome loading fix found during native inspection
+
+The genuine 4V9D scene contains 146,921 atoms. Its complete authenticated native response is 105,969,696 bytes, exceeding the previous 96 MiB transport bound. The scene-only bound is now 256 MiB while other endpoints remain at 10 MiB, and the existing 250,000-atom/mesh bounds remain unchanged. A real full response now parses with all atoms and geometry digests retained; no atom removal, coordinate editing, mesh decimation or viewer replacement occurred. Boundary regression tests and the measured transport receipt are in `tests/test_observatory.py` and `reports/editcraft/ribosome-transfer.json`. Native rendered verification is recorded separately.
+
+Final startup note: after the last guarded update, the app process is waiting in the system file-open call for its Documents research database. The user was asked to acknowledge any macOS Documents-access prompt. Prior native form/result/RNA checks passed; the final ribosome render and corrected configuration-label inspection remain pending.

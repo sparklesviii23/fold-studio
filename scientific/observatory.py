@@ -91,7 +91,10 @@ class Observatory:
         request=urllib.request.Request(url,data=body,headers=headers)
         try:
             with urllib.request.urlopen(request,timeout=timeout) as response:
-                limit=96*1024**2 if path.startswith('/fold/scene') else 10*1024**2
+                # Full atom metadata plus mmCIF can exceed 96 MiB within the
+                # existing 250,000-atom renderer bound (4V9D is ~101 MiB).
+                # Keep the scene bounded separately; other endpoints stay small.
+                limit=256*1024**2 if urllib.parse.urlsplit(path).path=='/fold/scene' else 10*1024**2
                 raw=response.read(limit+1)
                 if len(raw)>limit:raise ValueError('Native response exceeds the bounded transfer limit.')
                 return json.loads(raw)

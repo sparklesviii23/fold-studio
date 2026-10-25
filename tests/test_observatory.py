@@ -20,6 +20,20 @@ class ObservatoryTests(unittest.TestCase):
             request=send.call_args[0][0]
             mime=BytesParser(policy=default).parsebytes(('Content-Type: '+request.headers['Content-type']+'\r\n\r\n').encode()+request.data)
             self.assertEqual([p.get_payload(decode=True).decode() for p in mime.iter_parts()],commands)
+    def test_full_ribosome_scene_budget_does_not_expand_other_endpoints(self):
+        self.o.write_connection({'port':51234,'token':'test'})
+        class LargeSceneJSON(bytes):
+            def __len__(self):return 105969696  # measured 4V9D transport size
+        with patch('observatory.urllib.request.urlopen') as send:
+            response=send.return_value.__enter__.return_value
+            response.read.return_value=LargeSceneJSON(b'{"models":[]}')
+            self.assertEqual(self.o.request('/fold/scene?known=old'),{'models':[]})
+            with self.assertRaisesRegex(ValueError,'bounded transfer'):self.o.request('/fold/state')
+        class OverBudgetJSON(bytes):
+            def __len__(self):return 256*1024**2+1
+        with patch('observatory.urllib.request.urlopen') as send:
+            send.return_value.__enter__.return_value.read.return_value=OverBudgetJSON(b'{}')
+            with self.assertRaisesRegex(ValueError,'bounded transfer'):self.o.request('/fold/scene')
     def test_native_session_asset_is_in_project_archive_and_checksum_checked(self):
         asset='native-session-qa.cxs';content=b'Native ChimeraX test session bytes'
         path=self.s.root/'assets'/asset;path.write_bytes(content)
