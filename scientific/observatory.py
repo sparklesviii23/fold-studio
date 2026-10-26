@@ -150,7 +150,16 @@ class Observatory:
         result=self.request('/fold/catalog',timeout=120);return {**result,'version':status['version'],'sessionId':status['sessionId']}
     def chimerax_state(self,p):
         result=self.request('/fold/state')
-        result['mapping']=[m for m in self.s.setting('chimeraxMapping',[]) if m['sessionId']==result['sessionId']]
+        # Native model numbers can be reused after close/open. Keep the latest
+        # link to the actual current source; historical links remain provenance,
+        # not additional live mappings for a reopened structure.
+        models={m['id']:m for m in result['models']};links={}
+        for link in self.s.setting('chimeraxMapping',[]):
+            model=models.get(link['modelId'])
+            if link['sessionId']!=result['sessionId'] or model is None:continue
+            if result.get('bridgeVersion',0)>=4 and model.get('sourceSha256')!=link['sourceSha256']:continue
+            links[(link['modelId'],link['structureId'])]=link
+        result['mapping']=list(links.values())
         return result
     def chimerax_atoms(self,p):
         model=str(p['modelId'])
@@ -259,7 +268,7 @@ class Observatory:
         mapped=[{'structureId':record['id'],'sourceSha256':record['data']['sha256'],'sessionId':before['sessionId'],'modelId':m['id'],'positionsSha256':m['positionsSha256']} for m in models if m['sourceSha256']==record['data']['sha256']]
         if ensemble:
             if len(models)!=1 or models[0]['coordsets']!=len(ensemble['frameIds']) or models[0]['atoms']!=ensemble['atomsPerFrame']:raise ValueError('Native ensemble frame or atom counts differ from the validated source.')
-        self.s.db.execute('INSERT OR REPLACE INTO settings VALUES(?,?)',('chimeraxMapping',json.dumps([m for m in self.s.setting('chimeraxMapping',[]) if m['sessionId']==before['sessionId']]+mapped)));self.s.db.commit()
+        self.s.db.execute('INSERT OR REPLACE INTO settings VALUES(?,?)',('chimeraxMapping',json.dumps([m for m in before['mapping'] if m['modelId'] not in {n['modelId'] for n in mapped}]+mapped)));self.s.db.commit()
         if mapped:
             self.s.db.execute('INSERT OR REPLACE INTO settings VALUES(?,?)',('foldActiveModel',json.dumps(mapped[0])));self.s.db.commit()
         return {**result,'mapping':mapped,'syncStatus':'Authoritative engine model opened; FOLD scene refresh required'}

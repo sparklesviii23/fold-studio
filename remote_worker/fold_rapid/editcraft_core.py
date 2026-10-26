@@ -4,7 +4,7 @@ No trained editor scores or invented structures. Coordinate convention is explic
 1-based inclusive except exported BED intervals. Model outputs retain their scope.
 """
 import csv,datetime,hashlib,io,json,math,re,statistics,urllib.parse,urllib.request,xml.etree.ElementTree as ET
-VERSION='0.2.0'
+VERSION='0.3.0'
 OPS={
  'annotated_import':('annotated_sequence','construct_annotations','Biopython GenBank parser'),
  'motif_find':('sequence_motif','motif_annotations','Exact IUPAC motif enumeration; no activity score'),
@@ -16,6 +16,9 @@ OPS={
  'rs3_activity':('guide_contexts','guide_activity','Rule Set 3 sequence-only trained model'),
  'bedict_per_base':('base_editor_contexts','per_base_edit_predictions','BE-DICT complete five-run ensemble'),
  'pridict2_design':('prime_edit_context','prime_edit_predictions','PRIDICT2 original dual-model five-fold ensembles'),
+ 'cas_offinder':('guide_reference_search','off_target_matches','Cas-OFFinder 2.4.1 OpenCL CPU sequence-match enumeration'),
+ 'reference_window':('reference_interval','reference_sequence','Exact pinned assembly sequence and strand-aware coordinates'),
+ 'variant_vep':('genomic_snv','variant_annotation','Assembly- and allele-checked Ensembl VEP consequence annotation'),
  'variant_cds':('coding_variant','variant_consequence','Reference-checked coding-sequence comparison'),
  'coordinate_map':('genomic_position','transcript_position','Strand-aware exon coordinate mapping'),
  'sequence_align':('sequence_pair','alignment','Biopython PairwiseAligner'),
@@ -222,6 +225,15 @@ def bedict_per_base(p):
 def pridict2_design(p):
  from .editcraft_models import run_external
  return run_external('pridict2_design',p)
+def cas_offinder(p):
+ from .editcraft_offtargets import execute
+ return execute(p)
+def reference_window(p):
+ from .editcraft_offtargets import reference_window as retrieve
+ return retrieve(p)
+def variant_vep(p):
+ from .editcraft_variants import annotate
+ return annotate(p)
 
 FUNCTIONS={name:globals()[name] for name in OPS}
 def validate_plan(plan):
@@ -238,6 +250,15 @@ def validate_plan(plan):
   if op in ('rs3_activity','bedict_per_base','pridict2_design'):
    from .editcraft_models import validate_input
    validate_input(op,stage['parameters'])
+  if op=='cas_offinder':
+   from .editcraft_offtargets import validate_input
+   validate_input(stage['parameters'])
+  if op=='reference_window':
+   from .editcraft_offtargets import validate_window
+   validate_window(stage['parameters'])
+  if op=='variant_vep':
+   from .editcraft_variants import validate_input
+   validate_input(stage['parameters'])
   if link:
    if link not in seen:raise ValueError('Dependency must refer to an earlier stage; cycles are prohibited.')
    compatible={('gene_context','sequence_analyze'),('sequence_analyze','rna_fold'),('sequence_analyze','rna_ensemble')}

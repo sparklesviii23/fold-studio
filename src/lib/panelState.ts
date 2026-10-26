@@ -6,7 +6,7 @@ export function restoredMode(mode: unknown): 'floating'|'left'|'right'|'bottom' 
   return openModes.includes(mode as any) ? mode as ReturnType<typeof restoredMode> : 'floating';
 }
 export function defaultPanels(): PanelState[] {
-  return tools.map((tool, i) => ({id:tool.id, x:550, y:86+i*8, width:['console','python'].includes(tool.id)?760:['tools','analysis','imaging','editing'].includes(tool.id)?500:400, height:tool.id==='console'?380:560, mode:'hidden', pin:false, z:2}));
+  return tools.map((tool, i) => ({id:tool.id, x:550, y:86+i*8, width:['console','python'].includes(tool.id)?760:['tools','analysis','imaging','editing','biology'].includes(tool.id)?500:400, height:tool.id==='console'?380:560, mode:'hidden', pin:false, z:2}));
 }
 export function restorePanels(value: unknown): PanelState[] {
   const saved = Array.isArray(value) ? value : [];

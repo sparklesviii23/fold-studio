@@ -3,7 +3,7 @@ import hashlib,json,pathlib,uuid
 from .editcraft_core import validate_plan,run_plan,utc,sha
 APP='fold-editcraft-engine'
 def source_identity():
- return hashlib.sha256(b''.join(pathlib.Path(__file__).with_name(name).read_bytes() for name in ('editcraft_modal.py','editcraft_core.py','editcraft_execute.py','editcraft_models.py','editcraft_assets.json'))).hexdigest()
+ return hashlib.sha256(b''.join(pathlib.Path(__file__).with_name(name).read_bytes() for name in ('editcraft_modal.py','editcraft_core.py','editcraft_execute.py','editcraft_models.py','editcraft_assets.json','editcraft_toolchain.py','editcraft_toolchain.json','editcraft_offtargets.py','editcraft_variants.py'))).hexdigest()
 
 
 def trained_image(base):
@@ -21,13 +21,19 @@ def trained_image(base):
   'uv pip install --python /opt/pridict2-runtime/bin/python numpy==1.24.3 biopython==1.81 joblib==1.3.1 matplotlib==3.7.2 pandas==2.0.3 prettytable==3.8.0 primer3-py==2.3.0 scikit-learn==1.3.0 scipy==1.11.1 seaborn==0.12.2 tqdm==4.65.0',
  ).env({'UV_PYTHON_DOWNLOADS':'never'}))
 
-def build_app(include_models=False):
+def tool_image(base):
+ return (base.apt_install('cmake','g++','ocl-icd-opencl-dev','pocl-opencl-icd','clinfo')
+         .run_commands('python -B -m fold_rapid.editcraft_toolchain')
+         .env({'POCL_MAX_PTHREAD_COUNT':'2','OMP_NUM_THREADS':'2'}))
+
+def build_app(include_models=False,include_tools=False):
  import modal
  source=pathlib.Path(__file__).resolve().parents[1]
  image=(modal.Image.debian_slim(python_version='3.12').pip_install('numpy==2.2.6','biopython==1.85','ViennaRNA==2.7.2')
         .add_local_dir(source,'/opt/editcraft',copy=True,ignore=['**/__pycache__/**','**/dist/**','**/*.pyc'])
         .env({'PYTHONPATH':'/opt/editcraft','FOLD_ENGINE_ROLE':'editcraft_cloud'}))
  model_image=trained_image(image) if include_models else image
+ scientific_tools_image=tool_image(model_image) if include_tools else model_image
  app=modal.App(APP);volume=modal.Volume.from_name('fold-editcraft-research',create_if_missing=True);state=modal.Dict.from_name('fold-editcraft-state',create_if_missing=True)
  def atomic(path,value):
   path.parent.mkdir(parents=True,exist_ok=True);tmp=path.with_suffix('.pending');tmp.write_text(json.dumps(value,allow_nan=False));tmp.replace(path)
@@ -76,6 +82,21 @@ def build_app(include_models=False):
  def analyze_models(plan,key):
   if not include_models:raise ValueError('Deploy the reviewed isolated model runtimes first.')
   return analyze_impl(plan,key)
+ @app.function(image=scientific_tools_image,serialized=True,name='analyze_tools',cpu=(2,2),memory=(4096,4096),volumes={'/research':volume},timeout=660,retries=0,min_containers=0,max_containers=1,scaledown_window=10)
+ def analyze_tools(plan,key):
+  if not include_tools:raise ValueError('Deploy the reviewed Cas-OFFinder CPU runtime first.')
+  return analyze_impl(plan,key)
+ @app.function(image=image,serialized=True,name='prepare_reference',cpu=(2,2),memory=(4096,4096),volumes={'/research':volume},timeout=660,retries=0,min_containers=0,max_containers=1,scaledown_window=10)
+ def prepare_reference(identity):
+  from .editcraft_toolchain import prepare_reference as install_reference
+  lease={'kind':'reference_preparation','reference':identity}
+  if state.get('writer-lease')!=lease:raise ValueError('Reference preparation does not own the approved volume lease.')
+  try:
+   volume.reload();receipt=install_reference(identity);volume.commit();receipts=state.get('reference-receipts',{});receipts[identity]=receipt;state['reference-receipts']=receipts;state['reference-preparation']={'state':'completed','reference':identity,'finished':utc()};return receipt
+  except BaseException as exc:
+   state['reference-preparation']={'state':'failed','reference':identity,'errorType':type(exc).__name__,'finished':utc(),'retry':False};raise
+  finally:
+   if state.get('writer-lease')==lease:state.pop('writer-lease')
  @app.function(image=image,serialized=True,name='prepare_models',cpu=(2,2),memory=(4096,4096),volumes={'/research':volume},timeout=660,retries=0,min_containers=0,max_containers=1,scaledown_window=10)
  def prepare_models(models):
   from .editcraft_models import install_models
@@ -91,7 +112,18 @@ def build_app(include_models=False):
  def control(operation,payload):
   if operation=='health':
    import Bio,RNA
-   return {'state':'available','engine':'EditCraft','cpuOnly':True,'gpuStarted':False,'biopython':Bio.__version__,'viennarna':RNA.__version__,'scientificBenchmarkComplete':False,'sourceSha256':source_identity(),'modelRuntimesIncluded':include_models,'models':state.get('model-receipts',{}),'modelPreparation':state.get('model-preparation')}
+   from .editcraft_toolchain import manifest_sha as tool_manifest_sha
+   return {'state':'available','engine':'EditCraft','cpuOnly':True,'gpuStarted':False,'biopython':Bio.__version__,'viennarna':RNA.__version__,'scientificBenchmarkComplete':False,'sourceSha256':source_identity(),'modelRuntimesIncluded':include_models,'models':state.get('model-receipts',{}),'modelPreparation':state.get('model-preparation'),'toolRuntimesIncluded':include_tools,'toolManifestSha256':tool_manifest_sha(),'references':state.get('reference-receipts',{}),'referencePreparation':state.get('reference-preparation'),'activeTask':state.get('writer-lease')}
+  if operation=='prepare_reference':
+   from .editcraft_toolchain import MANIFEST,manifest_sha as tool_manifest_sha
+   identity=payload.get('referenceId')
+   if payload.get('approved') is not True or identity not in MANIFEST['references'] or payload.get('manifestSha256')!=tool_manifest_sha():raise ValueError('Approve the exact reviewed assembly download and CPU preparation.')
+   old=state.get('reference-preparation',{})
+   if old.get('state') in ('submission_uncertain','submitted'):raise ValueError('Reference preparation is already claimed; check health without repeating it.')
+   lease={'kind':'reference_preparation','reference':identity}
+   if not state.put('writer-lease',lease,skip_if_exists=True):raise ValueError('An EditCraft task already owns the reference volume.')
+   row={'state':'submission_uncertain','reference':identity,'started':utc(),'retry':False};state['reference-preparation']=row
+   call=prepare_reference.spawn(identity);row.update(state='submitted',callId=call.object_id);state['reference-preparation']=row;return row
   if operation=='prepare_models':
    from .editcraft_models import MANIFEST,manifest_sha
    models=payload.get('models')
@@ -109,6 +141,12 @@ def build_app(include_models=False):
    plan=validate_plan(payload['plan']);expected=sha(plan)
    if payload.get('approved') is not True:raise ValueError('Explicit input-transfer and cost approval required.')
    needs_models=any(s['operation'] in ('rs3_activity','bedict_per_base','pridict2_design') for s in plan['stages'])
+   needs_tools=any(s['operation']=='cas_offinder' for s in plan['stages'])
+   if needs_tools and not include_tools:raise ValueError('The pinned Cas-OFFinder CPU runtime is not deployed.')
+   from .editcraft_toolchain import verify_reference
+   for stage in plan['stages']:
+    if stage['operation']=='reference_window' or stage['operation']=='cas_offinder' and stage['parameters']['reference']['kind']=='catalog':
+     ref=stage['parameters']['reference'];volume.reload();verify_reference(ref['id'],ref['fastaSha256'])
    if needs_models:
     from .editcraft_models import OPERATIONS,manifest_sha
     if not include_models:raise ValueError('Trained model runtimes are not deployed.')
@@ -124,7 +162,7 @@ def build_app(include_models=False):
    if not state.put('request:'+key,record,skip_if_exists=True):raise ValueError('A submission is already being reconciled; never retry automatically.')
    lease={'kind':'editcraft','request':key}
    if not state.put('writer-lease',lease,skip_if_exists=True):raise ValueError('Another EditCraft experiment is queued or running; reconnect instead of submitting.')
-   call=(analyze_models if needs_models else analyze).spawn(plan,key);record.update(state='submitted',callId=call.object_id);state['request:'+key]=record;return record
+   call=(analyze_tools if needs_tools else analyze_models if needs_models else analyze).spawn(plan,key);record.update(state='submitted',callId=call.object_id);state['request:'+key]=record;return record
   if operation=='cancel':
    state['cancel:'+key]=True
    original=state.get('request:'+key)
@@ -150,8 +188,10 @@ def build_app(include_models=False):
  app._fold_resources=[state,volume]
  return app
 
-def deploy(include_models=False):
+def deploy(include_models=False,include_tools=False):
  from .modal_provider import deploy_app
- app=build_app(include_models);deploy_app(app)
  import modal
+ # deploy_app already acquires the shared scientific writer lease atomically.
+ # Taking it here as well would make the guarded deployment reject itself.
+ app=build_app(include_models,include_tools);deploy_app(app)
  return {'appId':app.app_id,'health':modal.Function.from_name(APP,'control').remote('health',{})}

@@ -1,0 +1,9 @@
+import {describe,it,expect} from 'vitest';
+import {rememberChainVisibility,restoreChainVisibility} from './chainVisibility';
+import type {EngineModel} from './engineScene';
+const model={id:'7',instance:'real-object',geometry:'unchanged',atoms:[{chain:'A',spec:'#7/A:1@P',shown:true,ribbonShown:true},{chain:'A',spec:"#7/A:1@O5'",shown:true,ribbonShown:true},{chain:'A',spec:'#7/A:80@O',shown:false,ribbonShown:false},{chain:'B',spec:'#7/B:1@P',shown:true,ribbonShown:true}]} as unknown as EngineModel;
+describe('native polymer visibility',()=>{
+ it('restores atom and ribbon exceptions without showing water or other chains',()=>{const saved=rememberChainVisibility(model,'A');expect(saved.atoms).toHaveLength(3);expect(saved.ribbons).toEqual([['#7/A:1',true],['#7/A:80',false]]);expect(restoreChainVisibility(model,saved)).toEqual(['show #7/A atoms','hide #7/A:80@O atoms','hide #7/A cartoons','show #7/A:1 cartoons']);});
+ it('refuses model replacement, coordinate changes, missing chains and command injection',()=>{const saved=rememberChainVisibility(model,'A');for(const change of [{instance:'replaced'},{geometry:'edited'},{id:'9'}])expect(()=>restoreChainVisibility({...model,...change},saved)).toThrow('geometry changed');expect(()=>rememberChainVisibility(model,'missing')).toThrow('absent');expect(()=>rememberChainVisibility(model,'A;delete')).toThrow('identifier');});
+ it('restores fully hidden representations and bounds long exception commands',()=>{const m={...model,atoms:Array.from({length:400},(_,i)=>({...model.atoms[0],spec:'#7/A:1@X'+i,shown:i<100,ribbonShown:false}))};const result=restoreChainVisibility(m,rememberChainVisibility(m,'A'));expect(result[0]).toBe('hide #7/A atoms');expect(result[1].split('|')).toHaveLength(100);expect(result.at(-1)).toBe('hide #7/A cartoons');});
+});

@@ -1,5 +1,5 @@
 import type {AtomRecord} from './types';
-export interface EngineAtom {key:string;spec:string;index:number;chain:string;labelChain:string;residue:number;label:number|null;insertion:string;residueName:string;atom:string;element:string;serial:number;altLoc:string;xyz:[number,number,number];bFactor:number;occupancy:number;radius:number;color:number[];ribbonColor:number[];shown:boolean;ribbonShown:boolean;style:number;selected:boolean;secondaryStructure:number}
+export interface EngineAtom {polymerType?:string;key:string;spec:string;index:number;chain:string;labelChain:string;residue:number;label:number|null;insertion:string;residueName:string;atom:string;element:string;serial:number;altLoc:string;xyz:[number,number,number];bFactor:number;occupancy:number;radius:number;color:number[];ribbonColor:number[];shown:boolean;ribbonShown:boolean;style:number;selected:boolean;secondaryStructure:number}
 export interface EngineModel {id:string;instance:string;name:string;geometry:string;appearance:string;display:boolean;atoms:EngineAtom[];bonds:{a:number;b:number;shown:boolean;radius:number}[];cif:string;chains:{id:string;spec:string;residues:number}[];coordsets:number[];activeCoordset:number}
 export interface EngineMesh {id:string;name:string;revision:string;vertices:string;triangles:string;normals:string|null;color:number[];colors:string|null;vertexCount:number;triangleCount:number}
 export interface EngineScene {schemaVersion:1;sessionId:string;revision:string;cameraRevision:string;camera:{name:string;position:number[];target:number[];direction:number[];matrix:number[][];fieldOfView:number;fieldWidth:number|null};models?:EngineModel[];meshes?:EngineMesh[];pseudobonds?:{id:string;name:string;a:number[];b:number[];length:number;color:number[];radius:number}[];labels?:{id:string;text:string;xyz:[number,number,number];color:number[];height:number}[];unsupported:{id:string;name:string;reason:string}[];engineGui:boolean;lighting:{ambient:number;key:number;fill:number};rendering:string}
@@ -13,7 +13,7 @@ export function validateScene(scene:EngineScene){
  }
 }
 export function chartAtom(a:EngineAtom,model:EngineModel,unit:number):AtomRecord{
- return {key:a.key,chain:a.chain,authChain:a.chain,label:a.label??0,auth:a.residue,insertion:a.insertion,name:a.residueName,one:'X',xyz:a.xyz,bFactor:a.bFactor,unit,index:a.index,atomName:a.atom,element:a.element,occupancy:a.occupancy,altLoc:a.altLoc,serial:a.serial,operatorName:'Engine #'+model.id,modelIndex:unit,nativeModelId:model.id,nativeSpec:a.spec};
+ return {polymerType:a.polymerType,key:a.key,chain:a.chain,authChain:a.chain,label:a.label??0,auth:a.residue,insertion:a.insertion,name:a.residueName,one:'X',xyz:a.xyz,bFactor:a.bFactor,unit,index:a.index,atomName:a.atom,element:a.element,occupancy:a.occupancy,altLoc:a.altLoc,serial:a.serial,operatorName:'Engine #'+model.id,modelIndex:unit,nativeModelId:model.id,nativeSpec:a.spec};
 }
 export function nativeSelectionSpec(atoms:AtomRecord[],keys:string[]){const wanted=new Set(keys);return atoms.filter(a=>wanted.has(a.key)).map(a=>a.nativeSpec).filter(Boolean).join('|');}
 export function nativeCamera(scene:EngineScene){

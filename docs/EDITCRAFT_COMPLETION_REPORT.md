@@ -4,7 +4,7 @@
 
 ## A. Requirements coverage
 
-`EDITCRAFT_FULL_COMPLETION_AUDIT.md` and `.json` map all 89 numbered sections across the original specification, laboratory addendum and completion directive. The JSON retains 1,349 acceptance paragraphs with stable requirement IDs, source document hashes, source files, backend/UI/deployment states, tests, real evidence and remaining work. All section-level full acceptance flags remain false.
+`EDITCRAFT_FULL_COMPLETION_AUDIT.md` and `.json` map all 130 numbered sections across the original specification, laboratory addendum and completion directive. The JSON retains the original 1,349 acceptance paragraphs and appends Directives VII/VIII for 1,933 total paragraphs with stable requirement IDs, source document hashes, source files, backend/UI/deployment states, tests, real evidence and remaining work. All section-level full acceptance flags remain false.
 
 ## B. Executing scientific engines
 
@@ -52,8 +52,8 @@ A fixed evidence-aware, typed reference workflow and intervention notes exist. T
 
 ## H. Tests
 
-- 679 backend tests passed.
-- 115 interface tests passed.
+- 716 backend tests passed.
+- 135 interface tests passed.
 - 25 EditCraft offline contract/metadata tests are included in the backend total; mocks are not scientific evidence.
 - Production TypeScript/Vite build passed.
 - Six genuine public cloud reference calculations completed, reported separately above.
@@ -80,3 +80,16 @@ Reference reproduction, genuine inference, independent benchmarking and a demons
 The genuine 4V9D scene contains 146,921 atoms. Its complete authenticated native response is 105,969,696 bytes, exceeding the previous 96 MiB transport bound. The scene-only bound is now 256 MiB while other endpoints remain at 10 MiB, and the existing 250,000-atom/mesh bounds remain unchanged. A real full response now parses with all atoms and geometry digests retained; no atom removal, coordinate editing, mesh decimation or viewer replacement occurred. Boundary regression tests and the measured transport receipt are in `tests/test_observatory.py` and `reports/editcraft/ribosome-transfer.json`. Native rendered verification is recorded separately.
 
 Final startup verification: after the user allowed Documents access, the workspace loaded. The complete 146,921-atom ribosome was visibly rendered with the scene synchronized. The final build also visibly identifies saved Rule Set 3 tracrRNA, BE-DICT editor/five-run ensemble, and PRIDICT2 HEK/K562 contexts with all 765 result rows. No new scientific campaign was launched.
+
+
+## Latest wider-engine integration
+
+The native DNA/RNA work now preserves polymer identity and chemical modifications, links real saved RNA MFE/centroid/MEA/probability outputs to exact native residues, and verifies all 146,921 ribosome coordinates against source identities (maximum difference 3.26e−14 Å). The original 16 structure-record metadata and asset checksums still match exactly. The 18-criterion native acceptance matrix is separate and incomplete; prior rendered cases do not certify every camera, interaction, ensemble or protein regression.
+
+The genuine Cas-OFFinder 2.4.1 CPU runtime is now deployed and four approved reference calculations completed, including both-strand/mismatch and circular-origin oracle checks and a verified whole bacterial assembly. Complete evidence and limitations: `EDITCRAFT_OFFTARGET_ENGINE.md`, `reports/editcraft/offtarget-validation.json`. Human genome assets/qualification and the other requested CRISPR methods remain unfinished.
+
+Assembly-checked Ensembl VEP annotation for explicit human SNVs is implemented and deployed, including native forms and original result/provenance tables. Its six API contract tests passed and the separately approved public Modal CPU reference completed. The original three transcript rows and HTTP responses are retained, and the result table was inspected in the installed app. No clinical or functional-effect benchmark is claimed.
+
+The single current app was rebuilt with the guarded installer, verified and relaunched. macOS requested Documents access again because the ad-hoc signing hash changed; the user allowed access and native off-target/VEP form, review and result checks passed. Complete molecular camera/measurement and regression acceptance remains pending. The cloud reference results are already saved and no GPU work is running from this integration.
+
+The authoritative closure report now keeps 130 sections and all 1,933 paragraphs without deleting original scope. Counts distinguish unreviewed clauses from reviewed implementation and narrow full acceptance. Full directive completion remains false: remaining scientific engines, experimental/single-cell/pathway workflows, Intelligence Core, full workflow graph, publishing and end-to-end qualification require further implementation.

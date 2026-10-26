@@ -1,4 +1,4 @@
-import { Atom, Blend, ChartNoAxesColumnIncreasing, GitCompareArrows, Layers, Orbit, PanelTop, ScanLine, Settings2, Terminal, Waypoints, Search, Boxes, FlaskConical, Microscope, Code2, Wrench } from 'lucide-react';
+import { Dna, Atom, Blend, ChartNoAxesColumnIncreasing, GitCompareArrows, Layers, Orbit, PanelTop, ScanLine, Settings2, Terminal, Waypoints, Search, Boxes, FlaskConical, Microscope, Code2, Wrench } from 'lucide-react';
 export const tools = [
  {id:'tools',name:'Scientific Tools',description:'Search installed commands, full parameters, formats and extensions',icon:Search},
  {id:'models',name:'Models',description:'Manage the authoritative scientific scene',icon:Boxes},
@@ -7,6 +7,7 @@ export const tools = [
  {id:'imaging',name:'Imaging Laboratory',description:'Density maps, native contours and fitting',icon:Microscope},
  {id:'python',name:'Scientific Python',description:'Real ChimeraX Python APIs in a FOLD interface',icon:Code2},
  {id:'appearance',name:'Appearance',description:'Representations, chain visibility and scientific color',icon:Blend},
+ {id:'biology',name:'DNA, RNA & Ribosome',description:'Observed polymers, nucleotide selection and structural discovery',icon:Dna},
  {id:'atoms',name:'Atomic Explorer',description:'Atoms, side chains and the Atomic Lens',icon:Atom},
  {id:'confidence',name:'Confidence',description:'Source pLDDT, actual prediction arrays and error matrices',icon:ChartNoAxesColumnIncreasing},
  {id:'interactions',name:'Interactions',description:'Exact atom geometry and neighboring contacts',icon:Waypoints},

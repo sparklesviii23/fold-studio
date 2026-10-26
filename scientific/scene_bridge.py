@@ -6,6 +6,7 @@ Scientific imports, exports, calculations and sessions remain native ChimeraX.
 """
 import base64, contextlib, hashlib, io, json, math, traceback
 import numpy as np
+from polymer_identity import chemical_identity
 
 def digest(value):
     return hashlib.sha256(json.dumps(value,sort_keys=True,separators=(',',':'),allow_nan=False).encode()).hexdigest()
@@ -66,9 +67,12 @@ class SceneBridge:
             chain_specs[chain.chain_id]=chain.string(style='command',include_structure=True)
             for i,residue in enumerate(chain.residues,1):
                 if residue is not None:seq_index[residue]=i
-        rows=[];bonds=[];residues={};site=[];entities={};components={}
+        rows=[];bonds=[];residues={};site=[];entities={};components={};identities={}
         for i,(a,xyz) in enumerate(zip(native_atoms,coords)):
             r=a.residue;chain=r.chain_id
+            if r not in identities:
+                identities[r]=chemical_identity(r.name,'L-peptide linking' if r.polymer_type==Residue.PT_AMINO else '',atom_names=[atom.name for atom in r.atoms])
+            polymer_kind=identities[r]['polymerType']
             if chain not in chains:chains[chain]='C'+str(len(chains)+1)
             polymer=r.polymer_type!=Residue.PT_NONE
             entity_key=(chain,'polymer' if polymer else r.name)
@@ -81,25 +85,31 @@ class SceneBridge:
             style=int(a.draw_mode)
             row={'key':key,'spec':a.string(style='command',omit_structure=False),'index':i,'chain':chain,'labelChain':chains[chain],
                 'residue':r.number,'label':label,'insertion':r.insertion_code,'residueName':r.name,
-                'atom':a.name,'element':a.element.name,'serial':a.serial_number,'altLoc':a.alt_loc.strip(),
+                'polymerType':polymer_kind,'atom':a.name,'element':a.element.name,'serial':a.serial_number,'altLoc':a.alt_loc.strip(),
                 'xyz':list(map(float,xyz)),'bFactor':float(a.bfactor),'occupancy':float(a.occupancy),
                 'radius':float(a.radius),'color':[int(v) for v in a.color],
                 'ribbonColor':[int(v) for v in r.ribbon_color],
                 'shown':bool(a.display),'ribbonShown':bool(r.ribbon_display),
                 'style':style,'selected':bool(a.selected),'secondaryStructure':int(r.ss_type)}
             rows.append(row);residues[r]=row
-            components[r.name]=('L-peptide linking' if r.polymer_type==Residue.PT_AMINO else 'RNA linking') if polymer else 'non-polymer'
+            components[r.name]={'Protein':'L-peptide linking','DNA':'DNA linking','RNA':'RNA linking'}.get(polymer_kind,'other') if polymer else 'non-polymer'
             site.append(['ATOM' if polymer else 'HETATM',i+1,a.element.name,a.name,a.alt_loc.strip() or None,r.name,chains[chain],entity,label,r.insertion_code or None,
                 *(format(float(v),'.10g') for v in xyz),float(a.occupancy),float(a.bfactor),r.number,r.name,chain,a.name,1])
         for bond in model.bonds:
             a,b=bond.atoms
             if a in index and b in index:bonds.append({'a':index[a],'b':index[b],'shown':bool(bond.display),'radius':float(bond.radius)})
-        geometry=digest({'atoms':[{k:a[k] for k in ('key','chain','labelChain','residue','label','insertion','residueName','atom','element','altLoc','xyz','bFactor','occupancy','secondaryStructure')} for a in rows],'bonds':bonds})
+        geometry=digest({'atoms':[{k:a[k] for k in ('key','chain','labelChain','residue','label','insertion','residueName','atom','element','altLoc','xyz','bFactor','occupancy','secondaryStructure','polymerType')} for a in rows],'bonds':bonds})
         cache=self.cache.get(model.id_string)
         if not cache or cache['geometry']!=geometry:
             cif='data_fold_native_view\n#\n'
             cif+=loop(['_entity.id','_entity.type'],[(value,'polymer' if key[1]=='polymer' else 'non-polymer') for key,value in entities.items()])
-            cif+=loop(['_entity_poly.entity_id','_entity_poly.type'],[(value,'polypeptide(L)' if any(r.chain_id==key[0] and r.polymer_type==Residue.PT_AMINO for r in residues) else 'polyribonucleotide') for key,value in entities.items() if key[1]=='polymer'])
+            poly_types=[]
+            for key,value in entities.items():
+                if key[1]!='polymer':continue
+                kinds={identities[r]['polymerType'] for r in residues if r.chain_id==key[0] and r.polymer_type!=Residue.PT_NONE}
+                kind='Protein' if kinds=={'Protein'} else 'DNA' if kinds=={'DNA'} else 'RNA' if kinds=={'RNA'} else 'DNA/RNA hybrid' if kinds and kinds<={'DNA','RNA','DNA/RNA hybrid'} else 'other'
+                poly_types.append((value,{'Protein':'polypeptide(L)','DNA':'polydeoxyribonucleotide','RNA':'polyribonucleotide','DNA/RNA hybrid':'polydeoxyribonucleotide/polyribonucleotide hybrid'}.get(kind,'other')))
+            cif+=loop(['_entity_poly.entity_id','_entity_poly.type'],poly_types)
             cif+=loop(['_chem_comp.id','_chem_comp.type','_chem_comp.mon_nstd_flag','_chem_comp.name'],[(name,kind,'n',name) for name,kind in components.items()])
             names=['group_PDB','id','type_symbol','label_atom_id','label_alt_id','label_comp_id','label_asym_id','label_entity_id','label_seq_id','pdbx_PDB_ins_code','Cartn_x','Cartn_y','Cartn_z','occupancy','B_iso_or_equiv','auth_seq_id','auth_comp_id','auth_asym_id','auth_atom_id','pdbx_PDB_model_num']
             cif+=loop(['_atom_site.'+name for name in names],site)

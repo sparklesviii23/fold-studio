@@ -9,6 +9,15 @@ class ObservatoryTests(unittest.TestCase):
     def setUp(self):
         self.temp=tempfile.TemporaryDirectory();self.s=Service(self.temp.name);self.project=self.s.project_create({'name':'Research'});self.o=Observatory(self.s)
     def tearDown(self):self.s.db.close();self.temp.cleanup()
+    def test_reused_model_numbers_do_not_retain_stale_or_duplicate_source_maps(self):
+        links=[{'sessionId':'s','modelId':'1','structureId':'old','sourceSha256':'old','positionsSha256':'old'}, {'sessionId':'s','modelId':'1','structureId':'ribosome','sourceSha256':'current','positionsSha256':'xyz'}, {'sessionId':'s','modelId':'1','structureId':'ribosome','sourceSha256':'current','positionsSha256':'xyz'}, {'sessionId':'s','modelId':'2','structureId':'closed','sourceSha256':'closed','positionsSha256':'gone'}]
+        self.s.db.execute('INSERT OR REPLACE INTO settings VALUES(?,?)',('chimeraxMapping',json.dumps(links)));self.s.db.commit()
+        state={'sessionId':'s','bridgeVersion':4,'models':[{'id':'1','sourceSha256':'current','positionsSha256':'edited'}]}
+        with patch.object(self.o,'request',return_value=state):result=self.o.chimerax_state({})
+        self.assertEqual(result['mapping'],[links[2]])
+        # Original coordinates remain the reference even after real native edits;
+        # the sequence selector must refuse that changed-coordinate map.
+        self.assertNotEqual(result['mapping'][0]['positionsSha256'],result['models'][0]['positionsSha256'])
     def test_multiline_transport_preserves_separate_native_commands(self):
         self.o.write_connection({'port':51234,'token':'test'})
         from email.parser import BytesParser

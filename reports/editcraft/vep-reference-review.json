@@ -1,0 +1,353 @@
+{
+  "state": "completed",
+  "job": {
+    "accountId": null,
+    "allowanceUSD": 0.25,
+    "cloudOnly": true,
+    "created": "2026-10-26T13:48:11.884571+00:00",
+    "estimatedUSD": 0.1126,
+    "externalSources": [
+      "Ensembl"
+    ],
+    "gpuStarted": false,
+    "id": "46479b605558401e84c5a1671cb84abe",
+    "inputSha256": "c5ca08949c94dfa67841a64e6eb5d126ff7b33e66905d8494b1befeeb4e173a4",
+    "plan": {
+      "schemaVersion": 1,
+      "seconds": 300,
+      "stages": [
+        {
+          "id": "reference",
+          "operation": "variant_vep",
+          "parameters": {
+            "alt": "A",
+            "assembly": "GRCh37",
+            "chromosome": "21",
+            "position": 26960070,
+            "ref": "G"
+          }
+        }
+      ]
+    },
+    "pricingBasis": "Review before launch: 2 CPU cores at $0.0000131/core/s, 4 GiB at $0.00000222/GiB/s, 60s startup and $0.10 reserve. Estimate, not provider balance or billing cap.",
+    "projectId": "a8def624-3640-49e8-89cc-7012f1e8d924",
+    "remote": {
+      "inputSha256": "c5ca08949c94dfa67841a64e6eb5d126ff7b33e66905d8494b1befeeb4e173a4",
+      "state": "completed",
+      "started": "2026-10-26T13:57:52.936175+00:00",
+      "id": "46479b605558401e84c5a1671cb84abe",
+      "events": [
+        {
+          "stageId": "reference",
+          "operation": "variant_vep",
+          "state": "running",
+          "time": "2026-10-26T13:57:56.707276+00:00"
+        },
+        {
+          "stageId": "reference",
+          "operation": "variant_vep",
+          "state": "completed",
+          "time": "2026-10-26T13:58:01.966165+00:00"
+        }
+      ],
+      "cloudOnly": true,
+      "gpuStarted": false,
+      "updated": "2026-10-26T13:58:01.966205+00:00",
+      "resultSha256": "276e0d31646bcf984d4e8a71f1f900ddabdae32af202d65371f500bc8bf191ee",
+      "finished": "2026-10-26T13:58:04.256457+00:00"
+    },
+    "state": "completed",
+    "result": {
+      "schemaVersion": 1,
+      "results": {
+        "reference": {
+          "operation": "variant_vep",
+          "inputSha256": "a4b0bcbe5839dc2d4cad103521f89e663298d585d3d6ed8880ee3ed14e114970",
+          "result": {
+            "method": "Ensembl Variant Effect Predictor REST",
+            "variant": {
+              "alt": "A",
+              "assembly": "GRCh37",
+              "chromosome": "21",
+              "position": 26960070,
+              "ref": "G"
+            },
+            "assemblyName": "GRCh37.p13",
+            "referenceAlleleVerified": true,
+            "referenceSequenceRecord": {
+              "query": "21:26960070..26960070:1",
+              "id": "chromosome:GRCh37:21:26960070:26960070:1",
+              "molecule": "dna",
+              "seq": "G"
+            },
+            "ensemblDataReleases": {
+              "releases": [
+                116
+              ]
+            },
+            "mostSevereConsequence": "missense_variant",
+            "transcriptConsequences": [
+              {
+                "polyphen_prediction": "benign",
+                "hgvsc": "ENST00000307301.7:c.1001C>T",
+                "biotype": "protein_coding",
+                "strand": -1,
+                "consequence_terms": [
+                  "missense_variant"
+                ],
+                "gene_id": "ENSG00000154719",
+                "sift_prediction": "tolerated_low_confidence",
+                "cdna_start": 1043,
+                "impact": "MODERATE",
+                "transcript_id": "ENST00000307301.7",
+                "cds_start": 1001,
+                "amino_acids": "T/M",
+                "cds_end": 1001,
+                "protein_start": 334,
+                "hgnc_id": 14027,
+                "gene_symbol_source": "HGNC",
+                "hgvsp": "ENSP00000305682.7:p.Thr334Met",
+                "codons": "aCg/aTg",
+                "gene_symbol": "MRPL39",
+                "polyphen_score": 0.102,
+                "cdna_end": 1043,
+                "protein_end": 334,
+                "sift_score": 0.23,
+                "variant_allele": "A"
+              },
+              {
+                "gene_symbol_source": "HGNC",
+                "consequence_terms": [
+                  "intron_variant"
+                ],
+                "gene_id": "ENSG00000154719",
+                "strand": -1,
+                "hgnc_id": 14027,
+                "biotype": "protein_coding",
+                "hgvsc": "ENST00000352957.4:c.969+1077C>T",
+                "transcript_id": "ENST00000352957.4",
+                "impact": "MODIFIER",
+                "variant_allele": "A",
+                "gene_symbol": "MRPL39"
+              },
+              {
+                "impact": "MODIFIER",
+                "variant_allele": "A",
+                "gene_symbol": "LINC00515",
+                "distance": 4432,
+                "consequence_terms": [
+                  "upstream_gene_variant"
+                ],
+                "gene_symbol_source": "HGNC",
+                "gene_id": "ENSG00000260583",
+                "strand": -1,
+                "hgnc_id": 16019,
+                "biotype": "antisense",
+                "transcript_id": "ENST00000567517.1"
+              }
+            ],
+            "originalVEPResult": {
+              "end": 26960070,
+              "allele_string": "G/A",
+              "most_severe_consequence": "missense_variant",
+              "transcript_consequences": [
+                {
+                  "polyphen_prediction": "benign",
+                  "hgvsc": "ENST00000307301.7:c.1001C>T",
+                  "biotype": "protein_coding",
+                  "strand": -1,
+                  "consequence_terms": [
+                    "missense_variant"
+                  ],
+                  "gene_id": "ENSG00000154719",
+                  "sift_prediction": "tolerated_low_confidence",
+                  "cdna_start": 1043,
+                  "impact": "MODERATE",
+                  "transcript_id": "ENST00000307301.7",
+                  "cds_start": 1001,
+                  "amino_acids": "T/M",
+                  "cds_end": 1001,
+                  "protein_start": 334,
+                  "hgnc_id": 14027,
+                  "gene_symbol_source": "HGNC",
+                  "hgvsp": "ENSP00000305682.7:p.Thr334Met",
+                  "codons": "aCg/aTg",
+                  "gene_symbol": "MRPL39",
+                  "polyphen_score": 0.102,
+                  "cdna_end": 1043,
+                  "protein_end": 334,
+                  "sift_score": 0.23,
+                  "variant_allele": "A"
+                },
+                {
+                  "gene_symbol_source": "HGNC",
+                  "consequence_terms": [
+                    "intron_variant"
+                  ],
+                  "gene_id": "ENSG00000154719",
+                  "strand": -1,
+                  "hgnc_id": 14027,
+                  "biotype": "protein_coding",
+                  "hgvsc": "ENST00000352957.4:c.969+1077C>T",
+                  "transcript_id": "ENST00000352957.4",
+                  "impact": "MODIFIER",
+                  "variant_allele": "A",
+                  "gene_symbol": "MRPL39"
+                },
+                {
+                  "impact": "MODIFIER",
+                  "variant_allele": "A",
+                  "gene_symbol": "LINC00515",
+                  "distance": 4432,
+                  "consequence_terms": [
+                    "upstream_gene_variant"
+                  ],
+                  "gene_symbol_source": "HGNC",
+                  "gene_id": "ENSG00000260583",
+                  "strand": -1,
+                  "hgnc_id": 16019,
+                  "biotype": "antisense",
+                  "transcript_id": "ENST00000567517.1"
+                }
+              ],
+              "colocated_variants": [
+                {
+                  "seq_region_name": "21",
+                  "end": 26960070,
+                  "start": 26960070,
+                  "phenotype_or_disease": 1,
+                  "var_synonyms": {
+                    "COSMIC": [
+                      "COSM8502927"
+                    ]
+                  },
+                  "allele_string": "COSMIC_MUTATION",
+                  "strand": 1,
+                  "somatic": 1,
+                  "id": "COSV100220924"
+                },
+                {
+                  "id": "rs116645811",
+                  "allele_string": "G/A",
+                  "strand": 1,
+                  "start": 26960070,
+                  "end": 26960070,
+                  "frequencies": {
+                    "A": {
+                      "gnomadg_fin": 0,
+                      "eas": 0,
+                      "gnomadg_eas": 0.0001928,
+                      "gnomade_afr": 0.0002392,
+                      "gnomade_fin": 0,
+                      "gnomadg_remaining": 0.0004726,
+                      "gnomadg_sas": 0.00269,
+                      "gnomadg": 0.000151,
+                      "eur": 0.001,
+                      "gnomade_eas": 5.04e-05,
+                      "gnomadg_asj": 0,
+                      "gnomadg_amr": 6.539e-05,
+                      "gnomadg_mid": 0,
+                      "gnomade_sas": 0.002714,
+                      "gnomade_remaining": 0.0001822,
+                      "af": 0.0014,
+                      "gnomade_mid": 0.0001734,
+                      "gnomadg_ami": 0,
+                      "gnomadg_nfe": 2.94e-05,
+                      "gnomade": 0.0001883,
+                      "gnomade_asj": 3.827e-05,
+                      "gnomade_amr": 0,
+                      "gnomade_nfe": 1.62e-05,
+                      "sas": 0.0051,
+                      "afr": 0.0008,
+                      "gnomadg_afr": 0.0001203,
+                      "amr": 0
+                    }
+                  },
+                  "seq_region_name": "21"
+                }
+              ],
+              "seq_region_name": "21",
+              "strand": 1,
+              "start": 26960070,
+              "input": "21 26960070 fold_variant G A . . .",
+              "id": "fold_variant",
+              "assembly_name": "GRCh37"
+            },
+            "sources": [
+              {
+                "url": "https://grch37.rest.ensembl.org/info/assembly/homo_sapiens?content-type=application/json",
+                "method": "GET",
+                "requestBodySha256": null,
+                "responseSha256": "eb30fa878b4dae917dc2cbfd9610841ed9113776266548fcc10ce573dd067776",
+                "retrieved": "2026-10-26T13:57:56.052707+00:00",
+                "rawResponseJSON": "{\"assembly_date\":\"2009-02\",\"assembly_name\":\"GRCh37.p13\",\"assembly_accession\":\"GCA_000001405.14\",\"genebuild_start_date\":\"2010-07-Ensembl\",\"karyotype\":[\"1\",\"2\",\"3\",\"4\",\"5\",\"6\",\"7\",\"8\",\"9\",\"10\",\"11\",\"12\",\"13\",\"14\",\"15\",\"16\",\"17\",\"18\",\"19\",\"20\",\"21\",\"22\",\"X\",\"Y\",\"MT\"],\"coord_system_versions\":[\"GRCh37\",\"NCBI36\",\"NCBI35\",\"NCBI34\",\"GRCh38\"],\"genebuild_last_geneset_update\":\"2013-09\",\"top_level_region\":[{\"coord_system\":\"chromosome\",\"length\":16569,\"name\":\"MT\"},{\"name\":\"11\",\"length\":135006516,\"coord_system\":\"chromosome\"},{\"length\":48129895,\"coord_system\":\"chromosome\",\"name\":\"21\"},{\"name\":\"7\",\"coord_system\":\"chromosome\",\"length\":159138663},{\"coord_system\":\"chromosome\",\"length\":59373566,\"name\":\"Y\"},{\"coord_system\":\"chromosome\",\"length\":243199373,\"name\":\"2\"},{\"name\":\"17\",\"coord_system\":\"chromosome\",\"length\":81195210},{\"length\":51304566,\"coord_system\":\"chromosome\",\"name\":\"22\"},{\"name\":\"1\",\"coord_system\":\"chromosome\",\"length\":249250621},{\"name\":\"18\",\"coord_system\":\"chromosome\",\"length\":78077248},{\"name\":\"13\",\"length\":115169878,\"coord_system\":\"chromosome\"},{\"name\":\"16\",\"length\":90354753,\"coord_system\":\"chromosome\"},{\"name\":\"6\",\"length\":171115067,\"coord_system\":\"chromosome\"},{\"coord_system\":\"chromosome\",\"length\":155270560,\"name\":\"X\"},{\"name\":\"3\",\"coord_system\":\"chromosome\",\"length\":198022430},{\"length\":141213431,\"coord_system\":\"chromosome\",\"name\":\"9\"},{\"length\":133851895,\"coord_system\":\"chromosome\",\"name\":\"12\"},{\"length\":107349540,\"coord_system\":\"chromosome\",\"name\":\"14\"},{\"name\":\"15\",\"coord_system\":\"chromosome\",\"length\":102531392},{\"coord_system\":\"chromosome\",\"length\":63025520,\"name\":\"20\"},{\"name\":\"8\",\"length\":146364022,\"coord_system\":\"chromosome\"},{\"name\":\"4\",\"coord_system\":\"chromosome\",\"length\":191154276},{\"name\":\"10\",\"coord_system\":\"chromosome\",\"length\":135534747},{\"name\":\"19\",\"length\":59128983,\"coord_system\":\"chromosome\"},{\"coord_system\":\"chromosome\",\"length\":180915260,\"name\":\"5\"},{\"length\":41001,\"coord_system\":\"supercontig\",\"name\":\"GL000206.1\"},{\"name\":\"GL000204.1\",\"length\":81310,\"coord_system\":\"supercontig\"},{\"name\":\"GL000246.1\",\"coord_system\":\"supercontig\",\"length\":38154},{\"name\":\"GL000196.1\",\"length\":38914,\"coord_system\":\"supercontig\"},{\"name\":\"GL000222.1\",\"coord_system\":\"supercontig\",\"length\":186861},{\"name\":\"GL000192.1\",\"coord_system\":\"supercontig\",\"length\":547496},{\"name\":\"GL000198.1\",\"coord_system\":\"supercontig\",\"length\":90085},{\"length\":19913,\"coord_system\":\"supercontig\",\"name\":\"GL000229.1\"},{\"coord_system\":\"supercontig\",\"length\":128374,\"name\":\"GL000227.1\"},{\"coord_system\":\"supercontig\",\"length\":4262,\"name\":\"GL000207.1\"},{\"coord_system\":\"supercontig\",\"length\":161802,\"name\":\"GL000220.1\"},{\"name\":\"GL000224.1\",\"length\":179693,\"coord_system\":\"supercontig\"},{\"name\":\"GL000240.1\",\"coord_system\":\"supercontig\",\"length\":41933},{\"coord_system\":\"supercontig\",\"length\":39939,\"name\":\"GL000238.1\"},{\"name\":\"GL000213.1\",\"length\":164239,\"coord_system\":\"supercontig\"},{\"name\":\"GL000234.1\",\"coord_system\":\"supercontig\",\"length\":40531},{\"name\":\"GL000225.1\",\"coord_system\":\"supercontig\",\"length\":211173},{\"name\":\"GL000247.1\",\"length\":36422,\"coord_system\":\"supercontig\"},{\"length\":34474,\"coord_system\":\"supercontig\",\"name\":\"GL000235.1\"},{\"name\":\"GL000194.1\",\"length\":191469,\"coord_system\":\"supercontig\"},{\"length\":161147,\"coord_system\":\"supercontig\",\"name\":\"GL000218.1\"},{\"name\":\"GL000223.1\",\"length\":180455,\"coord_system\":\"supercontig\"},{\"length\":27386,\"coord_system\":\"supercontig\",\"name\":\"GL000231.1\"},{\"coord_system\":\"supercontig\",\"length\":155397,\"name\":\"GL000221.1\"},{\"name\":\"GL000209.1\",\"coord_system\":\"supercontig\",\"length\":159169},{\"name\":\"GL000243.1\",\"length\":43341,\"coord_system\":\"supercontig\"},{\"coord_system\":\"supercontig\",\"length\":172294,\"name\":\"GL000216.1\"},{\"name\":\"GL000199.1\",\"coord_system\":\"supercontig\",\"length\":169874},{\"coord_system\":\"supercontig\",\"length\":38502,\"name\":\"GL000249.1\"},{\"name\":\"GL000205.1\",\"length\":174588,\"coord_system\":\"supercontig\"},{\"name\":\"GL000219.1\",\"coord_system\":\"supercontig\",\"length\":179198},{\"coord_system\":\"supercontig\",\"length\":37498,\"name\":\"GL000203.1\"},{\"name\":\"GL000202.1\",\"length\":40103,\"coord_system\":\"supercontig\"},{\"name\":\"GL000245.1\",\"coord_system\":\"supercontig\",\"length\":36651},{\"coord_system\":\"supercontig\",\"length\":45941,\"name\":\"GL000233.1\"},{\"coord_system\":\"supercontig\",\"length\":15008,\"name\":\"GL000226.1\"},{\"name\":\"GL000242.1\",\"coord_system\":\"supercontig\",\"length\":43523},{\"name\":\"GL000211.1\",\"length\":166566,\"coord_system\":\"supercontig\"},{\"name\":\"GL000244.1\",\"coord_system\":\"supercontig\",\"length\":39929},{\"name\":\"GL000212.1\",\"coord_system\":\"supercontig\",\"length\":186858},{\"length\":43691,\"coord_system\":\"supercontig\",\"name\":\"GL000230.1\"},{\"name\":\"GL000214.1\",\"length\":137718,\"coord_system\":\"supercontig\"},{\"name\":\"GL000193.1\",\"coord_system\":\"supercontig\",\"length\":189789},{\"name\":\"GL000236.1\",\"coord_system\":\"supercontig\",\"length\":41934},{\"coord_system\":\"supercontig\",\"length\":33824,\"name\":\"GL000239.1\"},{\"name\":\"GL000200.1\",\"coord_system\":\"supercontig\",\"length\":187035},{\"name\":\"GL000232.1\",\"length\":40652,\"coord_system\":\"supercontig\"},{\"name\":\"GL000215.1\",\"coord_system\":\"supercontig\",\"length\":172545},{\"name\":\"GL000241.1\",\"coord_system\":\"supercontig\",\"length\":42152},{\"length\":39786,\"coord_system\":\"supercontig\",\"name\":\"GL000248.1\"},{\"length\":36148,\"coord_system\":\"supercontig\",\"name\":\"GL000201.1\"},{\"length\":45867,\"coord_system\":\"supercontig\",\"name\":\"GL000237.1\"},{\"name\":\"GL000228.1\",\"coord_system\":\"supercontig\",\"length\":129120},{\"name\":\"GL000195.1\",\"coord_system\":\"supercontig\",\"length\":182896},{\"name\":\"GL000210.1\",\"length\":27682,\"coord_system\":\"supercontig\"},{\"name\":\"GL000208.1\",\"length\":92689,\"coord_system\":\"supercontig\"},{\"name\":\"GL000191.1\",\"length\":106433,\"coord_system\":\"supercontig\"},{\"coord_system\":\"supercontig\",\"length\":172149,\"name\":\"GL000217.1\"},{\"coord_system\":\"supercontig\",\"length\":37175,\"name\":\"GL000197.1\"}],\"genebuild_method\":\"full_genebuild\",\"golden_path\":3098825702,\"default_coord_system_version\":\"GRCh37\",\"genebuild_initial_release_date\":\"2011-04\"}"
+              },
+              {
+                "url": "https://grch37.rest.ensembl.org/info/data?content-type=application/json",
+                "method": "GET",
+                "requestBodySha256": null,
+                "responseSha256": "86e87c46ae1a424702676493d024d0508ce60f6c951b0b2803ce10269e09c20c",
+                "retrieved": "2026-10-26T13:57:56.159125+00:00",
+                "rawResponseJSON": "{\"releases\":[116]}"
+              },
+              {
+                "url": "https://grch37.rest.ensembl.org/sequence/region/homo_sapiens/21:26960070..26960070:1?content-type=application/json",
+                "method": "GET",
+                "requestBodySha256": null,
+                "responseSha256": "f06ac2df82f128d3f7b22321562e4b916199f5c202ec159b566f1f0bfb1e1b89",
+                "retrieved": "2026-10-26T13:57:56.264280+00:00",
+                "rawResponseJSON": "{\"query\":\"21:26960070..26960070:1\",\"id\":\"chromosome:GRCh37:21:26960070:26960070:1\",\"molecule\":\"dna\",\"seq\":\"G\"}"
+              },
+              {
+                "url": "https://grch37.rest.ensembl.org/vep/homo_sapiens/region?hgvs=1&transcript_version=1",
+                "method": "POST",
+                "requestBodySha256": "bfc191c90fbf1a3cea2634b081c2d1150fbdf3c684561e08b6503219d112f47d",
+                "responseSha256": "3cc10ef9e4a1ec4ff02ccf707abf0fff701bf9376e47b73007909a048a83be20",
+                "retrieved": "2026-10-26T13:57:56.448874+00:00",
+                "rawResponseJSON": "[{\"end\":26960070,\"allele_string\":\"G/A\",\"most_severe_consequence\":\"missense_variant\",\"transcript_consequences\":[{\"polyphen_prediction\":\"benign\",\"hgvsc\":\"ENST00000307301.7:c.1001C>T\",\"biotype\":\"protein_coding\",\"strand\":-1,\"consequence_terms\":[\"missense_variant\"],\"gene_id\":\"ENSG00000154719\",\"sift_prediction\":\"tolerated_low_confidence\",\"cdna_start\":1043,\"impact\":\"MODERATE\",\"transcript_id\":\"ENST00000307301.7\",\"cds_start\":1001,\"amino_acids\":\"T/M\",\"cds_end\":1001,\"protein_start\":334,\"hgnc_id\":14027,\"gene_symbol_source\":\"HGNC\",\"hgvsp\":\"ENSP00000305682.7:p.Thr334Met\",\"codons\":\"aCg/aTg\",\"gene_symbol\":\"MRPL39\",\"polyphen_score\":0.102,\"cdna_end\":1043,\"protein_end\":334,\"sift_score\":0.23,\"variant_allele\":\"A\"},{\"gene_symbol_source\":\"HGNC\",\"consequence_terms\":[\"intron_variant\"],\"gene_id\":\"ENSG00000154719\",\"strand\":-1,\"hgnc_id\":14027,\"biotype\":\"protein_coding\",\"hgvsc\":\"ENST00000352957.4:c.969+1077C>T\",\"transcript_id\":\"ENST00000352957.4\",\"impact\":\"MODIFIER\",\"variant_allele\":\"A\",\"gene_symbol\":\"MRPL39\"},{\"impact\":\"MODIFIER\",\"variant_allele\":\"A\",\"gene_symbol\":\"LINC00515\",\"distance\":4432,\"consequence_terms\":[\"upstream_gene_variant\"],\"gene_symbol_source\":\"HGNC\",\"gene_id\":\"ENSG00000260583\",\"strand\":-1,\"hgnc_id\":16019,\"biotype\":\"antisense\",\"transcript_id\":\"ENST00000567517.1\"}],\"colocated_variants\":[{\"seq_region_name\":\"21\",\"end\":26960070,\"start\":26960070,\"phenotype_or_disease\":1,\"var_synonyms\":{\"COSMIC\":[\"COSM8502927\"]},\"allele_string\":\"COSMIC_MUTATION\",\"strand\":1,\"somatic\":1,\"id\":\"COSV100220924\"},{\"id\":\"rs116645811\",\"allele_string\":\"G/A\",\"strand\":1,\"start\":26960070,\"end\":26960070,\"frequencies\":{\"A\":{\"gnomadg_fin\":0,\"eas\":0,\"gnomadg_eas\":0.0001928,\"gnomade_afr\":0.0002392,\"gnomade_fin\":0,\"gnomadg_remaining\":0.0004726,\"gnomadg_sas\":0.00269,\"gnomadg\":0.000151,\"eur\":0.001,\"gnomade_eas\":5.04e-05,\"gnomadg_asj\":0,\"gnomadg_amr\":6.539e-05,\"gnomadg_mid\":0,\"gnomade_sas\":0.002714,\"gnomade_remaining\":0.0001822,\"af\":0.0014,\"gnomade_mid\":0.0001734,\"gnomadg_ami\":0,\"gnomadg_nfe\":2.94e-05,\"gnomade\":0.0001883,\"gnomade_asj\":3.827e-05,\"gnomade_amr\":0,\"gnomade_nfe\":1.62e-05,\"sas\":0.0051,\"afr\":0.0008,\"gnomadg_afr\":0.0001203,\"amr\":0}},\"seq_region_name\":\"21\"}],\"seq_region_name\":\"21\",\"strand\":1,\"start\":26960070,\"input\":\"21 26960070 fold_variant G A . . .\",\"id\":\"fold_variant\",\"assembly_name\":\"GRCh37\"}]"
+              }
+            ],
+            "evidence": "computational_prediction",
+            "coordinateConvention": "1-based forward genomic SNV coordinates, explicitly selected assembly; transcript consequences retain original transcript IDs, versions, strand and HGVSc/HGVSp where returned.",
+            "scope": "Reference-checked VEP consequence annotation for a human SNV. Consequence terms and IMPACT labels are annotations, not measured molecular effects, calibrated pathogenicity, editor performance or treatment efficacy. No indel normalization, liftover, haplotype, clinical interpretation or structural variant support inferred."
+          },
+          "completed": "2026-10-26T13:57:56.449033+00:00"
+        }
+      },
+      "provenance": {
+        "engine": "EditCraft",
+        "version": "0.3.0",
+        "inputSha256": "c5ca08949c94dfa67841a64e6eb5d126ff7b33e66905d8494b1befeeb4e173a4",
+        "python": "3.12.10",
+        "platform": "Linux-4.19.0-gvisor-x86_64-with-glibc2.36",
+        "host": "modal",
+        "packages": {
+          "biopython": "1.85",
+          "ViennaRNA": "2.7.2"
+        },
+        "completed": "2026-10-26T13:57:56.468744+00:00",
+        "elapsedSeconds": 0.7225018570000001,
+        "scientificQualification": "Operation-specific tests; trained-model execution and independent scientific qualification are tracked separately."
+      }
+    },
+    "resultEntityId": "44aa9784a0114bb7b5e2d078478898a8",
+    "notebookId": "d4d6d41758584fedbc64db6da3cb34af"
+  },
+  "primaryReference": "https://grch37.rest.ensembl.org/documentation/info/vep_region_post",
+  "purpose": "Official public example: reference allele and original transcript consequences. No private inputs, GPU, models or additional deployment.",
+  "launchApproved": true,
+  "maximumApprovedUSD": 0.25,
+  "approvedScope": "One official public GRCh37 21:26960070 G>A CPU reference. No GPU, model downloads or deployment.",
+  "providerReportedUSD": null,
+  "referenceChecks": {
+    "referenceAlleleVerified": true,
+    "assemblyPreserved": true,
+    "coordinatePreserved": true,
+    "allelesAgreeWithIndependentCuratedReference": true,
+    "originalTranscriptRowsRetained": true,
+    "transcriptCount": 3,
+    "completeHTTPResponsesRetained": true,
+    "independentFunctionalEffectBenchmark": false
+  },
+  "finished": "2026-10-26T13:58:10.475406+00:00"
+}

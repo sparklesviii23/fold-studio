@@ -6,13 +6,15 @@ import type { AtomRecord, Item, Residue } from '../lib/types';
 import MolecularConsole from './MolecularConsole';
 import {ScientificLab,ScientificPython,ScientificToolsLibrary} from './ScientificLabs';
 import ConfidencePanel from './ConfidencePanel';
+import MolecularBiologyPanel from './MolecularBiologyPanel';
 import ComparisonPanel from './ComparisonPanel';
-export interface ObservatoryView {scientificScene?:any;projectId:string;item:Item|null;structures:Item[];atoms:AtomRecord[];residues:Residue[];selected:string[];representation:string;coloring:string;hiddenChains:string[];lensRadius:number|null;entries:any[];pae:any;confidenceMetrics:any;preferences:{solid:boolean;shortcut:string};draft:string;draftEngine:'viewer'|'chimerax'}
+export interface ObservatoryView {sourceReady?:boolean;scientificScene?:any;projectId:string;item:Item|null;structures:Item[];atoms:AtomRecord[];residues:Residue[];selected:string[];representation:string;coloring:string;hiddenChains:string[];lensRadius:number|null;entries:any[];pae:any;confidenceMetrics:any;preferences:{solid:boolean;shortcut:string};draft:string;draftEngine:'viewer'|'chimerax'}
 export type PanelAction=(type:string,value?:any)=>Promise<any>;
 export default function ScientificPanels({id,view:v,action}:{id:string;view:ObservatoryView;action:PanelAction}){
  const [filter,setFilter]=useState(''),[name,setName]=useState(''),[note,setNote]=useState(''),[noteId,setNoteId]=useState<string|undefined>(),[model,setModel]=useState('1');
  const selected=v.atoms.filter(a=>v.selected.includes(a.key)),anchor=selected.at(-1),chains=[...new Set(v.atoms.map(a=>a.chain))];
  const act=(type:string,value?:any)=>action(type,value).catch(e=>action('error',String(e)));
+ if(id==='biology')return <MolecularBiologyPanel view={v} action={action}/>;
  if(id==='console')return <><div className="panel-inline-tools"><button disabled={!v.item} className="text-button" onClick={()=>act('nativeLink')}>Open current structure in engine</button><button className="text-button" onClick={()=>act('nativeFocus')}>Refresh visible scene <ArrowUpRight size={12}/></button></div><MolecularConsole projectId={v.projectId} structureId={v.item?.id} sourceSha256={v.item?.data.sha256} draft={v.draft} draftEngine={v.draftEngine} onLocal={command=>action('localCommand',command)} onNative={r=>action('nativeResult',r)} onError={message=>act('error',message)}/></>;
  if(['appearance','analysis','interactions','models','editing','imaging','simulation'].includes(id))return <ScientificLab id={id} view={v} action={action}/>;
  if(id==='python')return <ScientificPython projectId={v.projectId} onError={message=>act('error',message)}/>;

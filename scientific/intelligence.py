@@ -34,7 +34,7 @@ def angle(a,b,c):
  u,v=sub(a,b),sub(c,b);n=math.sqrt(dot(u,u)*dot(v,v))
  return math.degrees(math.acos(max(-1,min(1,dot(u,v)/n)))) if n>1e-12 else None
 
-def cif_tokens(text):
+def cif_tokens(text,typed=False):
  """CIF 1.1 lexical rules: quote ends only at whitespace; semicolon text at column 1."""
  i=0;n=len(text)
  while i<n:
@@ -44,15 +44,15 @@ def cif_tokens(text):
   if text[i]==';' and (i==0 or text[i-1]=='\n'):
    end=text.find('\n;',i+1)
    if end<0:raise ValueError('Unterminated CIF text field.')
-   yield text[i+1:end];i=end+2;continue
+   yield (text[i+1:end],True) if typed else text[i+1:end];i=end+2;continue
   if text[i] in "'\"":
    q=text[i];start=i+1;i+=1
    while i<n and not(text[i]==q and (i+1==n or text[i+1].isspace())):i+=1
    if i==n:raise ValueError('Unterminated CIF quoted field.')
-   yield text[start:i];i+=1;continue
+   yield (text[start:i],True) if typed else text[start:i];i+=1;continue
   start=i
   while i<n and not text[i].isspace():i+=1
-  yield text[start:i]
+  yield (text[start:i],False) if typed else text[start:i]
 
 def atom_rows(text,fmt):
  if fmt=='pdb':

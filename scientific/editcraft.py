@@ -1,7 +1,7 @@
 """Native EditCraft metadata/IPC. Scientific operations execute only on Modal."""
 import hashlib,json,os,pathlib,subprocess,sys,uuid,datetime
-ACTIONS={'editcraft_state','editcraft_save','editcraft_notebook','editcraft_prepare','editcraft_submit','editcraft_refresh','editcraft_cancel','editcraft_result','editcraft_deploy','editcraft_health','editcraft_import_text','editcraft_models_prepare'}
-NETWORK={'editcraft_submit','editcraft_refresh','editcraft_cancel','editcraft_result','editcraft_deploy','editcraft_health','editcraft_models_prepare'}
+ACTIONS={'editcraft_state','editcraft_save','editcraft_notebook','editcraft_prepare','editcraft_submit','editcraft_refresh','editcraft_cancel','editcraft_result','editcraft_deploy','editcraft_health','editcraft_import_text','editcraft_models_prepare','editcraft_reference_prepare'}
+NETWORK={'editcraft_submit','editcraft_refresh','editcraft_cancel','editcraft_result','editcraft_deploy','editcraft_health','editcraft_models_prepare','editcraft_reference_prepare'}
 KINDS={'gene','transcript','variant','sequence','construct','dataset','evidence','workflow','intervention','notebook','model_assessment','report'}
 def utc():return datetime.datetime.now(datetime.timezone.utc).isoformat()
 def canonical(v):return json.dumps(v,sort_keys=True,separators=(',',':'),allow_nan=False)
@@ -71,7 +71,15 @@ def dispatch(s,action,p):
    model['genuineInferenceTested']=bool(runs);model['cloudExecutionValidated']=bool(runs);model['executionEvidenceIds']=[row['id'] for row in runs]
    if runs:model.update(state='Executed on cloud · independent benchmark pending',blocker='Genuine pinned-model inference exists. Independent held-out accuracy/calibration and complete native workflow qualification remain unresolved.')
    elif model['modelInstalled']:model.update(state='Installed · inference qualification pending')
-  return {'entities':list(latest.values()),'versions':entities,'jobs':[json.loads(r['data']) for r in s.rows('SELECT data FROM editcraft_jobs WHERE project_id=?',(p['projectId'],))],'models':catalog,'operations':[{'id':k,'input':v[0],'output':v[1],'method':v[2]} for k,v in OPS.items()],'deployment':s.setting('editcraftDeployment'),'account':__import__('cloud_accounts').get(s).get('activeId'),'scientificScope':'Cloud-only methods. Model installation, genuine execution and independent benchmarking are separate qualification stages.'}
+  from fold_rapid.editcraft_toolchain import MANIFEST,manifest_sha as tool_manifest_sha
+  matching_health=health if deployed.get('accountId')==active else {}
+  for model in catalog:
+   if model['id']=='cas-offinder':
+    runs=[row for row in completed if row.get('accountId')==active and row.get('state')=='completed' and any(stage.get('operation')=='cas_offinder' and stage.get('result',{}).get('provenance',{}).get('manifestSha256')==tool_manifest_sha() for stage in row.get('result',{}).get('results',{}).values())]
+    installed=matching_health.get('toolRuntimesIncluded') is True and matching_health.get('toolManifestSha256')==tool_manifest_sha()
+    model.update(adapterImplemented=True,operation='cas_offinder',modelInstalled=installed,genuineInferenceTested=bool(runs),cloudExecutionValidated=bool(runs),executionEvidenceIds=[r['id'] for r in runs],state='Executed on cloud · reference validation recorded separately' if runs else 'Runtime deployed · qualification pending' if installed else 'Adapter implemented · cloud qualification pending',blocker='Only verified reference coverage is searched. Human genome assemblies, bulges, genomic annotation and cleavage probability models remain separate requirements.')
+  references=[{'id':key,**spec,'receipt':matching_health.get('references',{}).get(key)} for key,spec in MANIFEST['references'].items()]
+  return {'entities':list(latest.values()),'versions':entities,'jobs':[json.loads(r['data']) for r in s.rows('SELECT data FROM editcraft_jobs WHERE project_id=?',(p['projectId'],))],'models':catalog,'references':references,'operations':[{'id':k,'input':v[0],'output':v[1],'method':v[2]} for k,v in OPS.items()],'deployment':s.setting('editcraftDeployment'),'account':active,'scientificScope':'Cloud-only methods. Model installation, genuine execution and independent benchmarking are separate qualification stages.'}
  if action in ('editcraft_save','editcraft_notebook'):
   if action=='editcraft_notebook':p={**p,'kind':'notebook'}
   return save_entity(s,p)
@@ -86,7 +94,7 @@ def dispatch(s,action,p):
   if type(limit)not in(int,float) or not .01<=limit<=10:raise ValueError('Choose a CPU analysis allowance between $0.01 and $10.')
   # Explicit reviewed CPU/memory reserve; provider invoice remains separate.
   estimate=round((plan['seconds']+60)*(2*.0000131+4*.00000222)+.10,4)
-  row={'id':uuid.uuid4().hex,'projectId':p['projectId'],'state':'prepared','plan':plan,'inputSha256':digest(plan),'created':utc(),'allowanceUSD':limit,'estimatedUSD':estimate,'accountId':__import__('cloud_accounts').get(s).get('activeId'),'cloudOnly':True,'gpuStarted':False,'externalSources':[op for op in ('Ensembl' if any(x['operation']=='gene_context' for x in plan['stages']) else None,'NCBI PubMed' if any(x['operation']=='literature' for x in plan['stages']) else None) if op],'pricingBasis':'Review before launch: 2 CPU cores at $0.0000131/core/s, 4 GiB at $0.00000222/GiB/s, 60s startup and $0.10 reserve. Estimate, not provider balance or billing cap.'}
+  row={'id':uuid.uuid4().hex,'projectId':p['projectId'],'state':'prepared','plan':plan,'inputSha256':digest(plan),'created':utc(),'allowanceUSD':limit,'estimatedUSD':estimate,'accountId':__import__('cloud_accounts').get(s).get('activeId'),'cloudOnly':True,'gpuStarted':False,'externalSources':[op for op in ('Ensembl' if any(x['operation'] in ('gene_context','variant_vep') for x in plan['stages']) else None,'NCBI PubMed' if any(x['operation']=='literature' for x in plan['stages']) else None) if op],'pricingBasis':'Review before launch: 2 CPU cores at $0.0000131/core/s, 4 GiB at $0.00000222/GiB/s, 60s startup and $0.10 reserve. Estimate, not provider balance or billing cap.'}
   return save_job(s,row)
  row=job(s,p) if p.get('id') else None
  if action in NETWORK and not os.environ.get('FOLD_EDITCRAFT_CHILD'):return provider(s,action,p,row)
@@ -96,7 +104,7 @@ def dispatch(s,action,p):
   if p.get('approvedCPUDeployment')is not True or p.get('maxApprovedUSD')!=1:raise ValueError('Approve up to $1 CPU deployment and health checks; no GPU or trained models.')
   from fold_rapid.editcraft_modal import deploy
   import contextlib
-  with contextlib.redirect_stdout(sys.stderr):result=deploy(include_models=p.get('includeModelRuntimes') is True)
+  with contextlib.redirect_stdout(sys.stderr):result=deploy(include_models=p.get('includeModelRuntimes') is True,include_tools=p.get('includeToolRuntimes') is True)
   receipt={'state':'deployed','checked':utc(),'appId':result['appId'],'health':result['health'],'accountId':__import__('cloud_accounts').get(s).get('activeId')}
   with s.db:s.db.execute('INSERT OR REPLACE INTO settings VALUES(?,?)',('editcraftDeployment',canonical(receipt)))
   return receipt
@@ -113,6 +121,13 @@ def dispatch(s,action,p):
   from fold_rapid.editcraft_modal import source_identity
   if deployment.get('accountId')!=__import__('cloud_accounts').get(s).get('activeId') or health.get('sourceSha256')!=source_identity() or health.get('modelRuntimesIncluded')is not True:raise ValueError('Deploy this reviewed worker with the isolated model runtimes for the selected account first.')
   return control.remote('prepare_models',{'models':models,'manifestSha256':manifest_sha(),'approved':True})
+ if action=='editcraft_reference_prepare':
+  from fold_rapid.editcraft_toolchain import MANIFEST,manifest_sha as tool_manifest_sha
+  from fold_rapid.editcraft_modal import source_identity
+  identity=p.get('referenceId');deployment=s.setting('editcraftDeployment',{})
+  if p.get('approvedReferenceDownload') is not True or p.get('maxApprovedUSD')!=.5 or identity not in MANIFEST['references']:raise ValueError('Approve this exact public reference download and up to $0.50 CPU preparation; no scientific search starts.')
+  if deployment.get('accountId')!=__import__('cloud_accounts').get(s).get('activeId') or deployment.get('health',{}).get('sourceSha256')!=source_identity():raise ValueError('Deploy this reviewed reference adapter for the selected account first.')
+  return control.remote('prepare_reference',{'referenceId':identity,'manifestSha256':tool_manifest_sha(),'approved':True})
  if row is None:raise ValueError('Select an EditCraft experiment.')
  if action=='editcraft_submit':
   from fold_rapid.editcraft_modal import source_identity
