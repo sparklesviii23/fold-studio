@@ -1,0 +1,890 @@
+{
+  "state": "CHECKPOINTING",
+  "localId": "fb621be777fd47ba962c550e810de7e0",
+  "projectId": "0e985c2f-7583-4634-a416-c525790da308",
+  "maximumApprovedUSD": 7,
+  "gpu": "A100-40GB",
+  "fullFabScientificQualificationPassed": false,
+  "manifestSha256": "7f2b12cf86c80a5f257fd0164a76b8138752352b2b5f6b8c985289e5009c664d",
+  "started": "2026-10-26T22:08:26.020741+00:00",
+  "attempts": 1,
+  "scope": "One full original Fab cloud attempt, complete public hPDL1 target, independent dual-MPNN proposals and held-out AF2. No model downloads, automatic retries or GPU upgrades. Full Fab scientific acceptance including framework/domain/disulfide validation remains separate.",
+  "submission": {
+    "accountId": null,
+    "blockers": [],
+    "configuration": {
+      "appName": "fold-rapid-cloud-engine",
+      "gpu": "A100-40GB",
+      "hourlyEstimateUSD": 2.0988,
+      "imageDigest": "nvidia/cuda:13.0.2-runtime-ubuntu24.04@sha256:6a0e31b59e70890446f2c17356d6efc0d54260090a8c63d6ca7c2ad049db95d2",
+      "imageRecipe": "rapid-cuda13-core-v1",
+      "maxSeconds": 7200,
+      "modelVolumeName": "fold-rapid-cloud-engine-models",
+      "setupMaxSeconds": 900,
+      "stateName": "fold-rapid-cloud-engine-state",
+      "volumeName": "fold-rapid-cloud-engine-data",
+      "workerCPUs": 2,
+      "workerMemoryMiB": 64536
+    },
+    "created": "2026-10-26T21:57:01.445567+00:00",
+    "estimate": {
+      "stages": [
+        {
+          "engine": "bindcraft2",
+          "maximumCalls": 1,
+          "secondsPerCall": 2700,
+          "estimatedUSD": 1.5741
+        },
+        {
+          "engine": "solublempnn",
+          "maximumCalls": 1,
+          "secondsPerCall": 180,
+          "estimatedUSD": 0.10494000000000002
+        },
+        {
+          "engine": "proteinmpnn",
+          "maximumCalls": 1,
+          "secondsPerCall": 180,
+          "estimatedUSD": 0.10494000000000002
+        },
+        {
+          "engine": "af2_multimer",
+          "maximumCalls": 3,
+          "secondsPerCall": 900,
+          "estimatedUSD": 1.5741
+        }
+      ],
+      "upperReservationUSD": 3.35808,
+      "allowanceUSD": 7,
+      "billingScope": "Reviewed stage runtime rates only; CPU orchestrator, cold starts, memory, storage and network add charges. Provider workspace budget required for billing protection.",
+      "externalAPIIncluded": false,
+      "policy": "Sequential modular workers; warm execution requires measured qualification.",
+      "totalResources": {
+        "expectedResourceReservationUSD": 5.54282163125,
+        "fixedCoordinatorStorageSafetyUSD": 0.958256,
+        "allowanceUSD": 7,
+        "withinAllowance": true,
+        "providerReportedUSD": null,
+        "method": "Reviewed requested/hard-limit CPU, memory and GPU rates; full stage runtimes, startup reserves, coordinator ceiling, storage/control and safety margin. Elapsed estimates are not provider billing.",
+        "pricing": {
+          "cpuCoreSecondUSD": 1.31e-05,
+          "gpuSecondUSD": 0.0005830000000000001,
+          "memoryGiBSecondUSD": 2.22e-06,
+          "safetyUSD": 0.6,
+          "startupSecondsPerStage": 60,
+          "storageAndControlUSD": 0.2,
+          "workerCPUs": 2,
+          "workerMemoryGiB": 63.0234375
+        }
+      },
+      "workerHostMemoryMiB": 64536,
+      "workerCPUs": 2,
+      "gpu": "A100-40GB",
+      "imageDigest": "nvidia/cuda:13.0.2-runtime-ubuntu24.04@sha256:6a0e31b59e70890446f2c17356d6efc0d54260090a8c63d6ca7c2ad049db95d2",
+      "scientificGPUValidated": false
+    },
+    "id": "fb621be777fd47ba962c550e810de7e0",
+    "idempotencyKey": "e8642bbaf8644404ba2aa95bcd3164eb",
+    "kind": "unified",
+    "manifest": {
+      "budget": {
+        "maxEstimatedUSD": 7,
+        "resourcePricing": {
+          "cpuCoreSecondUSD": 1.31e-05,
+          "gpuSecondUSD": 0.0005830000000000001,
+          "memoryGiBSecondUSD": 2.22e-06,
+          "safetyUSD": 0.6,
+          "startupSecondsPerStage": 60,
+          "storageAndControlUSD": 0.2,
+          "workerCPUs": 2,
+          "workerMemoryGiB": 63.0234375
+        },
+        "seconds": 7200
+      },
+      "constraints": {},
+      "execution": {
+        "localFallback": false,
+        "mode": "cloud",
+        "provider": "modal"
+      },
+      "generators": [
+        {
+          "design": {
+            "attempts": 1,
+            "count": 1,
+            "modality": "Fab"
+          },
+          "engine": "bindcraft2"
+        }
+      ],
+      "kind": "unified",
+      "parents": [],
+      "policy": {
+        "rounds": 1
+      },
+      "schemaVersion": 1,
+      "seed": 42,
+      "stageBudgets": {
+        "af2_multimer": {
+          "hourlyEstimateUSD": 2.0988,
+          "seconds": 900
+        },
+        "bindcraft2": {
+          "hourlyEstimateUSD": 2.0988,
+          "seconds": 2700
+        },
+        "proteinmpnn": {
+          "hourlyEstimateUSD": 2.0988,
+          "seconds": 180
+        },
+        "solublempnn": {
+          "hourlyEstimateUSD": 2.0988,
+          "seconds": 180
+        }
+      },
+      "strategy": "de_novo",
+      "target": {
+        "chains": [
+          "A"
+        ],
+        "format": "pdb",
+        "label": "Full original hPDL1 \u00b7 Fab target",
+        "sha256": "d3c95434dcadf26d005340b15bd92be61e101ed921478c26f2a5550f198e61f6"
+      },
+      "workflow": {
+        "count": 1,
+        "diagnosticRejectedParents": false,
+        "predictors": [
+          "af2_multimer"
+        ],
+        "redesign": [
+          "proteinmpnn",
+          "solublempnn"
+        ],
+        "rosetta": false
+      }
+    },
+    "manifestSha256": "7f2b12cf86c80a5f257fd0164a76b8138752352b2b5f6b8c985289e5009c664d",
+    "projectId": "0e985c2f-7583-4634-a416-c525790da308",
+    "sourceRecordId": "931a6eef-e063-4b4e-b634-20007c13182f",
+    "state": "submitted",
+    "claimed": "2026-10-26T22:08:26.062273+00:00",
+    "callId": "fc-01M5X43ZVHFT6JJMJMMQY5ACD7",
+    "provider": "modal",
+    "scientificGPUValidated": false
+  },
+  "latest": {
+    "accountId": null,
+    "blockers": [],
+    "callId": "fc-01M5X43ZVHFT6JJMJMMQY5ACD7",
+    "campaignId": "3f3e6771f7846d6387e1476c6a20a6ed",
+    "checked": "2026-10-26T22:18:35.462304+00:00",
+    "claimed": "2026-10-26T22:08:26.062273+00:00",
+    "configuration": {
+      "appName": "fold-rapid-cloud-engine",
+      "gpu": "A100-40GB",
+      "hourlyEstimateUSD": 2.0988,
+      "imageDigest": "nvidia/cuda:13.0.2-runtime-ubuntu24.04@sha256:6a0e31b59e70890446f2c17356d6efc0d54260090a8c63d6ca7c2ad049db95d2",
+      "imageRecipe": "rapid-cuda13-core-v1",
+      "maxSeconds": 7200,
+      "modelVolumeName": "fold-rapid-cloud-engine-models",
+      "setupMaxSeconds": 900,
+      "stateName": "fold-rapid-cloud-engine-state",
+      "volumeName": "fold-rapid-cloud-engine-data",
+      "workerCPUs": 2,
+      "workerMemoryMiB": 64536
+    },
+    "created": "2026-10-26T21:57:01.445567+00:00",
+    "estimate": {
+      "allowanceUSD": 7,
+      "billingScope": "Reviewed stage runtime rates only; CPU orchestrator, cold starts, memory, storage and network add charges. Provider workspace budget required for billing protection.",
+      "externalAPIIncluded": false,
+      "gpu": "A100-40GB",
+      "imageDigest": "nvidia/cuda:13.0.2-runtime-ubuntu24.04@sha256:6a0e31b59e70890446f2c17356d6efc0d54260090a8c63d6ca7c2ad049db95d2",
+      "policy": "Sequential modular workers; warm execution requires measured qualification.",
+      "scientificGPUValidated": false,
+      "stages": [
+        {
+          "engine": "bindcraft2",
+          "estimatedUSD": 1.5741,
+          "maximumCalls": 1,
+          "secondsPerCall": 2700
+        },
+        {
+          "engine": "solublempnn",
+          "estimatedUSD": 0.10494000000000002,
+          "maximumCalls": 1,
+          "secondsPerCall": 180
+        },
+        {
+          "engine": "proteinmpnn",
+          "estimatedUSD": 0.10494000000000002,
+          "maximumCalls": 1,
+          "secondsPerCall": 180
+        },
+        {
+          "engine": "af2_multimer",
+          "estimatedUSD": 1.5741,
+          "maximumCalls": 3,
+          "secondsPerCall": 900
+        }
+      ],
+      "totalResources": {
+        "allowanceUSD": 7,
+        "expectedResourceReservationUSD": 5.54282163125,
+        "fixedCoordinatorStorageSafetyUSD": 0.958256,
+        "method": "Reviewed requested/hard-limit CPU, memory and GPU rates; full stage runtimes, startup reserves, coordinator ceiling, storage/control and safety margin. Elapsed estimates are not provider billing.",
+        "pricing": {
+          "cpuCoreSecondUSD": 1.31e-05,
+          "gpuSecondUSD": 0.0005830000000000001,
+          "memoryGiBSecondUSD": 2.22e-06,
+          "safetyUSD": 0.6,
+          "startupSecondsPerStage": 60,
+          "storageAndControlUSD": 0.2,
+          "workerCPUs": 2,
+          "workerMemoryGiB": 63.0234375
+        },
+        "providerReportedUSD": null,
+        "withinAllowance": true
+      },
+      "upperReservationUSD": 3.35808,
+      "workerCPUs": 2,
+      "workerHostMemoryMiB": 64536
+    },
+    "id": "fb621be777fd47ba962c550e810de7e0",
+    "idempotencyKey": "e8642bbaf8644404ba2aa95bcd3164eb",
+    "kind": "unified",
+    "manifest": {
+      "budget": {
+        "maxEstimatedUSD": 7,
+        "resourcePricing": {
+          "cpuCoreSecondUSD": 1.31e-05,
+          "gpuSecondUSD": 0.0005830000000000001,
+          "memoryGiBSecondUSD": 2.22e-06,
+          "safetyUSD": 0.6,
+          "startupSecondsPerStage": 60,
+          "storageAndControlUSD": 0.2,
+          "workerCPUs": 2,
+          "workerMemoryGiB": 63.0234375
+        },
+        "seconds": 7200
+      },
+      "constraints": {},
+      "execution": {
+        "localFallback": false,
+        "mode": "cloud",
+        "provider": "modal"
+      },
+      "generators": [
+        {
+          "design": {
+            "attempts": 1,
+            "count": 1,
+            "modality": "Fab"
+          },
+          "engine": "bindcraft2"
+        }
+      ],
+      "kind": "unified",
+      "parents": [],
+      "policy": {
+        "rounds": 1
+      },
+      "schemaVersion": 1,
+      "seed": 42,
+      "stageBudgets": {
+        "af2_multimer": {
+          "hourlyEstimateUSD": 2.0988,
+          "seconds": 900
+        },
+        "bindcraft2": {
+          "hourlyEstimateUSD": 2.0988,
+          "seconds": 2700
+        },
+        "proteinmpnn": {
+          "hourlyEstimateUSD": 2.0988,
+          "seconds": 180
+        },
+        "solublempnn": {
+          "hourlyEstimateUSD": 2.0988,
+          "seconds": 180
+        }
+      },
+      "strategy": "de_novo",
+      "target": {
+        "chains": [
+          "A"
+        ],
+        "format": "pdb",
+        "label": "Full original hPDL1 \u00b7 Fab target",
+        "sha256": "d3c95434dcadf26d005340b15bd92be61e101ed921478c26f2a5550f198e61f6"
+      },
+      "workflow": {
+        "count": 1,
+        "diagnosticRejectedParents": false,
+        "predictors": [
+          "af2_multimer"
+        ],
+        "redesign": [
+          "proteinmpnn",
+          "solublempnn"
+        ],
+        "rosetta": false
+      }
+    },
+    "manifestSha256": "7f2b12cf86c80a5f257fd0164a76b8138752352b2b5f6b8c985289e5009c664d",
+    "projectId": "0e985c2f-7583-4634-a416-c525790da308",
+    "provider": "modal",
+    "remote": {
+      "campaignId": "3f3e6771f7846d6387e1476c6a20a6ed",
+      "candidateIds": [],
+      "created": "2026-10-26T22:08:36.945033+00:00",
+      "estimate": {
+        "allowanceUSD": 7,
+        "billingScope": "Reviewed stage runtime rates only; CPU orchestrator, cold starts, memory, storage and network add charges. Provider workspace budget required for billing protection.",
+        "externalAPIIncluded": false,
+        "policy": "Sequential modular workers; warm execution requires measured qualification.",
+        "stages": [
+          {
+            "engine": "bindcraft2",
+            "estimatedUSD": 1.5741,
+            "maximumCalls": 1,
+            "secondsPerCall": 2700
+          },
+          {
+            "engine": "solublempnn",
+            "estimatedUSD": 0.10494000000000002,
+            "maximumCalls": 1,
+            "secondsPerCall": 180
+          },
+          {
+            "engine": "proteinmpnn",
+            "estimatedUSD": 0.10494000000000002,
+            "maximumCalls": 1,
+            "secondsPerCall": 180
+          },
+          {
+            "engine": "af2_multimer",
+            "estimatedUSD": 1.5741,
+            "maximumCalls": 3,
+            "secondsPerCall": 900
+          }
+        ],
+        "upperReservationUSD": 3.35808
+      },
+      "events": [
+        {
+          "cursor": 1,
+          "message": "Validating scientific handoffs",
+          "state": "VALIDATING",
+          "time": "2026-10-26T22:08:36.954251+00:00"
+        },
+        {
+          "cursor": 2,
+          "message": "Approved workload queued",
+          "state": "QUEUED",
+          "time": "2026-10-26T22:08:36.962572+00:00"
+        },
+        {
+          "cursor": 3,
+          "message": "Automatic compatible scientific stages started",
+          "state": "RUNNING",
+          "time": "2026-10-26T22:08:41.111889+00:00"
+        },
+        {
+          "cursor": 4,
+          "message": "Dispatching bindcraft2",
+          "state": "RUNNING",
+          "time": "2026-10-26T22:08:44.935386+00:00"
+        },
+        {
+          "cursor": 6,
+          "message": "Saved bindcraft2 execution identity",
+          "state": "CHECKPOINTING",
+          "time": "2026-10-26T22:08:50.647226+00:00"
+        },
+        {
+          "cursor": 7,
+          "message": "Saved bindcraft2 execution identity",
+          "state": "CHECKPOINTING",
+          "time": "2026-10-26T22:08:59.268252+00:00"
+        },
+        {
+          "cursor": 8,
+          "message": "Saved bindcraft2 execution identity",
+          "state": "CHECKPOINTING",
+          "time": "2026-10-26T22:09:03.193225+00:00"
+        },
+        {
+          "cursor": 9,
+          "message": "Saved bindcraft2 execution identity",
+          "state": "CHECKPOINTING",
+          "time": "2026-10-26T22:09:09.319602+00:00"
+        },
+        {
+          "cursor": 10,
+          "message": "Saved bindcraft2 execution identity",
+          "state": "CHECKPOINTING",
+          "time": "2026-10-26T22:09:19.706596+00:00"
+        },
+        {
+          "cursor": 11,
+          "message": "Saved bindcraft2 execution identity",
+          "state": "CHECKPOINTING",
+          "time": "2026-10-26T22:09:30.268985+00:00"
+        },
+        {
+          "cursor": 12,
+          "message": "Saved bindcraft2 execution identity",
+          "state": "CHECKPOINTING",
+          "time": "2026-10-26T22:09:40.446731+00:00"
+        },
+        {
+          "cursor": 13,
+          "message": "Saved bindcraft2 execution identity",
+          "state": "CHECKPOINTING",
+          "time": "2026-10-26T22:09:51.076244+00:00"
+        },
+        {
+          "cursor": 14,
+          "message": "Saved bindcraft2 execution identity",
+          "state": "CHECKPOINTING",
+          "time": "2026-10-26T22:10:01.763053+00:00"
+        },
+        {
+          "cursor": 15,
+          "message": "Saved bindcraft2 execution identity",
+          "state": "CHECKPOINTING",
+          "time": "2026-10-26T22:10:12.654575+00:00"
+        },
+        {
+          "cursor": 16,
+          "message": "Saved bindcraft2 execution identity",
+          "state": "CHECKPOINTING",
+          "time": "2026-10-26T22:10:23.533001+00:00"
+        },
+        {
+          "cursor": 17,
+          "message": "Saved bindcraft2 execution identity",
+          "state": "CHECKPOINTING",
+          "time": "2026-10-26T22:10:34.991816+00:00"
+        },
+        {
+          "cursor": 18,
+          "message": "Saved bindcraft2 execution identity",
+          "state": "CHECKPOINTING",
+          "time": "2026-10-26T22:10:45.748706+00:00"
+        },
+        {
+          "cursor": 19,
+          "message": "Saved bindcraft2 execution identity",
+          "state": "CHECKPOINTING",
+          "time": "2026-10-26T22:10:56.705589+00:00"
+        },
+        {
+          "cursor": 20,
+          "message": "Saved bindcraft2 execution identity",
+          "state": "CHECKPOINTING",
+          "time": "2026-10-26T22:11:08.062263+00:00"
+        },
+        {
+          "cursor": 21,
+          "message": "Saved bindcraft2 execution identity",
+          "state": "CHECKPOINTING",
+          "time": "2026-10-26T22:11:18.377368+00:00"
+        },
+        {
+          "cursor": 22,
+          "message": "Saved bindcraft2 execution identity",
+          "state": "CHECKPOINTING",
+          "time": "2026-10-26T22:11:28.774741+00:00"
+        },
+        {
+          "cursor": 23,
+          "message": "Saved bindcraft2 execution identity",
+          "state": "CHECKPOINTING",
+          "time": "2026-10-26T22:11:39.001455+00:00"
+        },
+        {
+          "cursor": 24,
+          "message": "Saved bindcraft2 execution identity",
+          "state": "CHECKPOINTING",
+          "time": "2026-10-26T22:11:49.440727+00:00"
+        },
+        {
+          "cursor": 25,
+          "message": "Saved bindcraft2 execution identity",
+          "state": "CHECKPOINTING",
+          "time": "2026-10-26T22:11:59.982767+00:00"
+        },
+        {
+          "cursor": 26,
+          "message": "Saved bindcraft2 execution identity",
+          "state": "CHECKPOINTING",
+          "time": "2026-10-26T22:12:10.630623+00:00"
+        },
+        {
+          "cursor": 27,
+          "message": "Saved bindcraft2 execution identity",
+          "state": "CHECKPOINTING",
+          "time": "2026-10-26T22:12:20.937353+00:00"
+        },
+        {
+          "cursor": 28,
+          "message": "Saved bindcraft2 execution identity",
+          "state": "CHECKPOINTING",
+          "time": "2026-10-26T22:12:31.511148+00:00"
+        },
+        {
+          "cursor": 29,
+          "message": "Saved bindcraft2 execution identity",
+          "state": "CHECKPOINTING",
+          "time": "2026-10-26T22:12:41.754842+00:00"
+        },
+        {
+          "cursor": 30,
+          "message": "Saved bindcraft2 execution identity",
+          "state": "CHECKPOINTING",
+          "time": "2026-10-26T22:12:52.340318+00:00"
+        },
+        {
+          "cursor": 31,
+          "message": "Saved bindcraft2 execution identity",
+          "state": "CHECKPOINTING",
+          "time": "2026-10-26T22:13:02.621814+00:00"
+        },
+        {
+          "cursor": 32,
+          "message": "Saved bindcraft2 execution identity",
+          "state": "CHECKPOINTING",
+          "time": "2026-10-26T22:13:12.973240+00:00"
+        },
+        {
+          "cursor": 33,
+          "message": "Saved bindcraft2 execution identity",
+          "state": "CHECKPOINTING",
+          "time": "2026-10-26T22:13:23.180061+00:00"
+        },
+        {
+          "cursor": 34,
+          "message": "Saved bindcraft2 execution identity",
+          "state": "CHECKPOINTING",
+          "time": "2026-10-26T22:13:34.075600+00:00"
+        },
+        {
+          "cursor": 35,
+          "message": "Saved bindcraft2 execution identity",
+          "state": "CHECKPOINTING",
+          "time": "2026-10-26T22:13:44.432704+00:00"
+        },
+        {
+          "cursor": 36,
+          "message": "Saved bindcraft2 execution identity",
+          "state": "CHECKPOINTING",
+          "time": "2026-10-26T22:13:54.715983+00:00"
+        },
+        {
+          "cursor": 37,
+          "message": "Saved bindcraft2 execution identity",
+          "state": "CHECKPOINTING",
+          "time": "2026-10-26T22:14:04.957190+00:00"
+        },
+        {
+          "cursor": 38,
+          "message": "Saved bindcraft2 execution identity",
+          "state": "CHECKPOINTING",
+          "time": "2026-10-26T22:14:14.973661+00:00"
+        },
+        {
+          "cursor": 39,
+          "message": "Saved bindcraft2 execution identity",
+          "state": "CHECKPOINTING",
+          "time": "2026-10-26T22:14:25.394975+00:00"
+        },
+        {
+          "cursor": 40,
+          "message": "Saved bindcraft2 execution identity",
+          "state": "CHECKPOINTING",
+          "time": "2026-10-26T22:14:35.850701+00:00"
+        },
+        {
+          "cursor": 41,
+          "message": "Saved bindcraft2 execution identity",
+          "state": "CHECKPOINTING",
+          "time": "2026-10-26T22:14:46.155393+00:00"
+        },
+        {
+          "cursor": 42,
+          "message": "Saved bindcraft2 execution identity",
+          "state": "CHECKPOINTING",
+          "time": "2026-10-26T22:14:56.598640+00:00"
+        },
+        {
+          "cursor": 43,
+          "message": "Saved bindcraft2 execution identity",
+          "state": "CHECKPOINTING",
+          "time": "2026-10-26T22:15:07.363122+00:00"
+        },
+        {
+          "cursor": 44,
+          "message": "Saved bindcraft2 execution identity",
+          "state": "CHECKPOINTING",
+          "time": "2026-10-26T22:15:17.851101+00:00"
+        },
+        {
+          "cursor": 45,
+          "message": "Saved bindcraft2 execution identity",
+          "state": "CHECKPOINTING",
+          "time": "2026-10-26T22:15:28.600588+00:00"
+        },
+        {
+          "cursor": 46,
+          "message": "Saved bindcraft2 execution identity",
+          "state": "CHECKPOINTING",
+          "time": "2026-10-26T22:15:38.976003+00:00"
+        },
+        {
+          "cursor": 47,
+          "message": "Saved bindcraft2 execution identity",
+          "state": "CHECKPOINTING",
+          "time": "2026-10-26T22:15:49.781950+00:00"
+        },
+        {
+          "cursor": 48,
+          "message": "Saved bindcraft2 execution identity",
+          "state": "CHECKPOINTING",
+          "time": "2026-10-26T22:16:00.345716+00:00"
+        },
+        {
+          "cursor": 49,
+          "message": "Saved bindcraft2 execution identity",
+          "state": "CHECKPOINTING",
+          "time": "2026-10-26T22:16:10.883468+00:00"
+        },
+        {
+          "cursor": 50,
+          "message": "Saved bindcraft2 execution identity",
+          "state": "CHECKPOINTING",
+          "time": "2026-10-26T22:16:21.505310+00:00"
+        },
+        {
+          "cursor": 51,
+          "message": "Saved bindcraft2 execution identity",
+          "state": "CHECKPOINTING",
+          "time": "2026-10-26T22:16:32.799542+00:00"
+        },
+        {
+          "cursor": 52,
+          "message": "Saved bindcraft2 execution identity",
+          "state": "CHECKPOINTING",
+          "time": "2026-10-26T22:16:43.636195+00:00"
+        },
+        {
+          "cursor": 53,
+          "message": "Saved bindcraft2 execution identity",
+          "state": "CHECKPOINTING",
+          "time": "2026-10-26T22:16:54.250495+00:00"
+        },
+        {
+          "cursor": 54,
+          "message": "Saved bindcraft2 execution identity",
+          "state": "CHECKPOINTING",
+          "time": "2026-10-26T22:17:04.581239+00:00"
+        },
+        {
+          "cursor": 55,
+          "message": "Saved bindcraft2 execution identity",
+          "state": "CHECKPOINTING",
+          "time": "2026-10-26T22:17:15.400154+00:00"
+        },
+        {
+          "cursor": 56,
+          "message": "Saved bindcraft2 execution identity",
+          "state": "CHECKPOINTING",
+          "time": "2026-10-26T22:17:25.512187+00:00"
+        },
+        {
+          "cursor": 57,
+          "message": "Saved bindcraft2 execution identity",
+          "state": "CHECKPOINTING",
+          "time": "2026-10-26T22:17:35.922052+00:00"
+        },
+        {
+          "cursor": 58,
+          "message": "Saved bindcraft2 execution identity",
+          "state": "CHECKPOINTING",
+          "time": "2026-10-26T22:17:46.271262+00:00"
+        },
+        {
+          "cursor": 59,
+          "message": "Saved bindcraft2 execution identity",
+          "state": "CHECKPOINTING",
+          "time": "2026-10-26T22:17:56.925176+00:00"
+        },
+        {
+          "cursor": 60,
+          "message": "Saved bindcraft2 execution identity",
+          "state": "CHECKPOINTING",
+          "time": "2026-10-26T22:18:07.367173+00:00"
+        },
+        {
+          "cursor": 61,
+          "message": "Saved bindcraft2 execution identity",
+          "state": "CHECKPOINTING",
+          "time": "2026-10-26T22:18:17.686074+00:00"
+        },
+        {
+          "cursor": 62,
+          "message": "Saved bindcraft2 execution identity",
+          "state": "CHECKPOINTING",
+          "time": "2026-10-26T22:18:28.813355+00:00"
+        }
+      ],
+      "executionLocation": {
+        "controllerLocation": "remote",
+        "hostname": "modal",
+        "localFallback": false,
+        "mode": "cloud",
+        "platform": "Linux-4.19.0-gvisor-x86_64-with-glibc2.39",
+        "provider": "modal"
+      },
+      "executionPolicy": "modular_sequential",
+      "executionPolicyBasis": "No measured warm-worker comparison exists.",
+      "manifest": {
+        "budget": {
+          "maxEstimatedUSD": 7,
+          "resourcePricing": {
+            "cpuCoreSecondUSD": 1.31e-05,
+            "gpuSecondUSD": 0.0005830000000000001,
+            "memoryGiBSecondUSD": 2.22e-06,
+            "safetyUSD": 0.6,
+            "startupSecondsPerStage": 60,
+            "storageAndControlUSD": 0.2,
+            "workerCPUs": 2,
+            "workerMemoryGiB": 63.0234375
+          },
+          "seconds": 7200
+        },
+        "constraints": {},
+        "execution": {
+          "localFallback": false,
+          "mode": "cloud",
+          "provider": "modal"
+        },
+        "generators": [
+          {
+            "design": {
+              "attempts": 1,
+              "count": 1,
+              "modality": "Fab"
+            },
+            "engine": "bindcraft2"
+          }
+        ],
+        "kind": "unified",
+        "parents": [],
+        "policy": {
+          "rounds": 1
+        },
+        "schemaVersion": 1,
+        "seed": 42,
+        "stageBudgets": {
+          "af2_multimer": {
+            "hourlyEstimateUSD": 2.0988,
+            "seconds": 900
+          },
+          "bindcraft2": {
+            "hourlyEstimateUSD": 2.0988,
+            "seconds": 2700
+          },
+          "proteinmpnn": {
+            "hourlyEstimateUSD": 2.0988,
+            "seconds": 180
+          },
+          "solublempnn": {
+            "hourlyEstimateUSD": 2.0988,
+            "seconds": 180
+          }
+        },
+        "strategy": "de_novo",
+        "target": {
+          "chains": [
+            "A"
+          ],
+          "format": "pdb",
+          "label": "Full original hPDL1 \u00b7 Fab target",
+          "sha256": "d3c95434dcadf26d005340b15bd92be61e101ed921478c26f2a5550f198e61f6"
+        },
+        "workflow": {
+          "count": 1,
+          "diagnosticRejectedParents": false,
+          "predictors": [
+            "af2_multimer"
+          ],
+          "redesign": [
+            "proteinmpnn",
+            "solublempnn"
+          ],
+          "rosetta": false
+        }
+      },
+      "manifestSha256": "7f2b12cf86c80a5f257fd0164a76b8138752352b2b5f6b8c985289e5009c664d",
+      "qualifiedCandidates": [],
+      "reservationsUSD": 1.5741,
+      "resourceReservationsUSD": 3.0258052062500003,
+      "revision": 62,
+      "scientificCloudQualified": false,
+      "stages": [
+        {
+          "callId": "fc-01M5X44NSQ3XDCJQAAB75TCGVD",
+          "engine": "bindcraft2",
+          "jobId": "ddac6e4aca924936b4c7d8de8585def7",
+          "liveEstimatedWithSafetyUSD": 1.2475281380880994,
+          "manifestSha256": "1a7c198d4678f99ca3b004c7cf94a350e6bced28da3b1f5f032be07bebe5cd90",
+          "observedRemoteSeconds": 580.045247005,
+          "parentCandidate": null,
+          "providerReportedUSD": null,
+          "reservedUSD": 1.5741,
+          "resourceReservationUSD": 2.0675492062500003,
+          "stageId": "a285c74172c19f8d3db0768925baa4a9",
+          "started": "2026-10-26T22:08:44.935364+00:00",
+          "state": "RUNNING",
+          "live": {
+            "state": "running",
+            "jobId": "ddac6e4aca924936b4c7d8de8585def7",
+            "lastEvent": {
+              "kind": "resources",
+              "observation": {
+                "timestampUnix": 1793053114.6010034,
+                "scientificPID": 30,
+                "device": {
+                  "name": "NVIDIA A100-SXM4-40GB",
+                  "uuid": "GPU-24402849-95d4-d03a-045d-a66a36838bb2",
+                  "totalMiB": 40960.0,
+                  "usedMiB": 21275.0,
+                  "utilizationPercent": 91.0,
+                  "memoryUtilizationPercent": 39.0,
+                  "scope": "device_total_not_attributed_to_scientific_process"
+                },
+                "processRSSMiB": 7566.390625,
+                "errors": []
+              },
+              "peakObservedDeviceGPU_MiB": 21275.0,
+              "peakObservedHostRSS_MiB": 7566.390625,
+              "peakObservedChildGPU_MiB": null,
+              "childGPUAttributionAvailable": false,
+              "elapsedSeconds": 575.624593718,
+              "remainingSeconds": 2124.075560569763
+            }
+          }
+        }
+      ],
+      "state": "CHECKPOINTING",
+      "updated": "2026-10-26T22:18:28.813355+00:00"
+    },
+    "scientificGPUValidated": false,
+    "sourceRecordId": "931a6eef-e063-4b4e-b634-20007c13182f",
+    "state": "CHECKPOINTING"
+  },
+  "checked": "2026-10-26T22:18:35.465711+00:00"
+}

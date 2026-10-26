@@ -163,6 +163,8 @@ def plan(s,p):
 def start(s,p):
     if p.get('approved') is not True:raise ValueError('Approve the bounded local scientific computation first.')
     value=plan(s,p)
+    import scientific_capabilities as capabilities
+    capabilities.enforce(s,'biology_pipeline_start',{'projectId':p['projectId'],'structureId':value['structureId']})
     s.db.execute('BEGIN IMMEDIATE')
     if s.active():s.db.rollback();raise ValueError('Another local scientific job is active; no competing model calculation started.')
     job=s.job_new({'projectId':p['projectId'],'name':'Molecular evolution · '+ev.Evolution(s).candidate(p['projectId'],p['candidateId'])['name'],'manifest':value,'stages':[],'children':[],'descendants':[],'qualifiedCandidates':[]},'bgmee','queued')
@@ -295,6 +297,8 @@ def evaluate(s,job,candidate,source_record,source_path,targets,predictors,check)
 def run(s,id):
     job=s.job(id)
     if job['engine']!='bgmee' or job['state'] not in ('queued','running'):raise ValueError('Biology campaign cannot run in this state.')
+    import scientific_capabilities as capabilities
+    capabilities.enforce(s,'biology_pipeline_start',{'projectId':job['project_id'],'structureId':job['data']['manifest']['structureId']})
     s._compute_owner=id
     manifest=job['data']['manifest'];deadline=time.monotonic()+manifest['seconds'];folder=s.root/'jobs'/id
     folder.mkdir(exist_ok=True);s.job_update(id,'running',{'started':research.utc()});stages=[];descendants=[];children=[];rounds=[];retained=[]

@@ -6,6 +6,8 @@ from campaign_inputs import snapshots,verify
 def prepare(engine,p):
  if set(p)-{'id','projectId','name','seed'}:raise ValueError('Unsupported repeat-run field.')
  job=engine.campaign(p);engine.s.project(p['projectId'])
+ from scientific_capabilities import require_local_allowed
+ require_local_allowed(job)
  if job['state'] in ('preparing','queued','running'):raise ValueError('Wait for the current run to finish before preparing a repeat.')
  preparation=job['data'].get('preparation')
  if not preparation:raise ValueError('This campaign has no saved preparation to repeat.')

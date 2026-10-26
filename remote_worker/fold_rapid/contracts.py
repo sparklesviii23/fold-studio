@@ -45,7 +45,7 @@ def target_bytes(target):
     return raw
 
 def manifest(value):
-    fields(value, ('schemaVersion','engine','operation','target','design','seed','budget','mode'), ('settings','parentCandidates','biology'))
+    fields(value, ('schemaVersion','engine','operation','target','design','seed','budget','mode'), ('settings','parentCandidates','biology','scientificDomain'))
     if value['schemaVersion']!=1 or type(value['schemaVersion']) is not int:
         raise ValueError('Unsupported scientific manifest version.')
     allowed={'bindcraft2':('design',), 'boltzgen':('design',), 'proteinmpnn':('redesign',), 'af2_multimer':('evaluate',), 'structure_screen':('screen',)}
@@ -53,6 +53,8 @@ def manifest(value):
     allowed.update({name:(operation,) for name,operation in BIO_ENGINES.items()})
     if value['engine'] not in allowed or value['operation'] not in allowed[value['engine']]:
         raise ValueError('Unsupported engine operation; no replacement engine will be used.')
+    if 'scientificDomain' in value and value['scientificDomain']!='full_fab':raise ValueError('Unknown scientific execution domain.')
+    if value.get('scientificDomain')=='full_fab' and value['engine']=='bindcraft2' and value['design'].get('modality')!='Fab':raise ValueError('Full Fab gradient refinement requires a qualified two-chain protocol; single-chain seeded refinement is disabled.')
     if value['mode'] not in ('reference','rapid','exploration','precision'):
         raise ValueError('Unknown scheduling mode.')
     fields(value['budget'], ('seconds',), ('maxCost','hourlyPrice','gpuMemoryMiB'))
@@ -64,12 +66,17 @@ def manifest(value):
         raise ValueError('A verified hourly price is required to enforce a spending estimate.')
     if 'gpuMemoryMiB' in value['budget']:integer(value['budget']['gpuMemoryMiB'],512,200000,'GPU memory ceiling')
     integer(value['seed'],0,2**31-1,'Random seed')
-    fields(value['design'], ('modality','lengths','count','attempts'), ('hotspots','designChains','temperature'))
+    fields(value['design'], ('modality','count','attempts'), ('lengths','hotspots','designChains','temperature'))
     d=value['design']
-    if d['modality'] not in ('peptide','binder'):raise ValueError('Only peptide and binder CUDA reference contracts are implemented.')
-    if not isinstance(d['lengths'],list) or not 1<=len(d['lengths'])<=2:raise ValueError('Supply one binder length or inclusive bounds.')
-    for length in d['lengths']:integer(length,4,500,'Binder length')
-    if d['lengths']!=sorted(d['lengths']):raise ValueError('Length bounds must be ordered.')
+    if d['modality']=='Fab':
+        if value['engine']!='bindcraft2' or value['operation']!='design':raise ValueError('Full Fab generation requires the original BindCraft2 scaffold protocol.')
+        if 'lengths' in d or d.get('designChains'):raise ValueError('Full Fab uses complete upstream heavy/light chains and CDR edits; free binder lengths or replacement scaffold chains are not allowed.')
+        if value.get('biology') or value.get('settings'):raise ValueError('Full Fab uses the original unmodified scientific preset; seeded single-chain biology and arbitrary overrides are not qualified.')
+    else:
+        if d['modality'] not in ('peptide','binder'):raise ValueError('Unsupported molecular format.')
+        if not isinstance(d.get('lengths'),list) or not 1<=len(d['lengths'])<=2:raise ValueError('Supply one binder length or inclusive bounds.')
+        for length in d['lengths']:integer(length,4,500,'Binder length')
+        if d['lengths']!=sorted(d['lengths']):raise ValueError('Length bounds must be ordered.')
     integer(d['count'],1,10000,'Candidate count');integer(d['attempts'],1,100000,'Attempt count')
     if not isinstance(value.get('settings',{}),dict):raise ValueError('Scientific settings must be an object.')
     # Scientific loss/filter overrides are allowed. Paths, launch topology and

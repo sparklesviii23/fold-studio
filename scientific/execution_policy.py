@@ -1,5 +1,6 @@
 """Client dispatch firewall: selecting cloud never invokes a Mac scientific stage."""
 import json
+import scientific_capabilities
 
 ACTIONS={'execution_backend_get','execution_backend_select'}
 # File preparation, editing and viewer rendering remain native. Scientific
@@ -20,6 +21,7 @@ def selected(s):
 
 
 def enforce(s,action,payload):
+    scientific_capabilities.enforce(s,action,payload)
     mode=selected(s)['mode'];requested=payload.get('executionMode') if isinstance(payload,dict) else None
     cloud=mode!='local' or requested in ('cloud','modal','vast')
     if not cloud:return
@@ -31,7 +33,7 @@ def enforce(s,action,payload):
 
 
 def dispatch(s,action,p):
-    if action=='execution_backend_get':return {**selected(s),'localScientificFallback':False,'cloudControllerLocation':'remote'}
+    if action=='execution_backend_get':return {**selected(s),'localScientificFallback':False,'cloudControllerLocation':'remote','fullFab':scientific_capabilities.FAB_POLICY}
     if action=='execution_backend_select':
         mode=p.get('mode')
         if mode not in ('local','modal','vast'):raise ValueError('Choose Local Apple Metal, Cloud Modal or Cloud Vast.')

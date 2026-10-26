@@ -8,6 +8,8 @@ def runtime(s):
  return os.environ.get('FOLD_BINDCRAFT_PYTHON') or s.setting('bindcraftPython') or str(bundled if bundled.is_file() else s.root/'engine/bindcraft/bin/python')
 
 def start(s,p):
+ from scientific_capabilities import enforce
+ enforce(s,'mpnn_start',p)
  if set(p)-{'projectId','structureId','designChains','count','seed','temperature','variant','designResidues','tiedChains','omitAminoAcids','aminoAcidBias','positionConstraints'}:raise ValueError('Unsupported ProteinMPNN field.')
  engine=fe.Engine(s);shared=engine.fold_structure(p);st=shared['structure'];chains=p.get('designChains')
  if not isinstance(chains,list) or not chains or any(not isinstance(ch,str) for ch in chains) or len(set(chains))!=len(chains):raise ValueError('Select distinct chains to redesign.')
@@ -37,6 +39,8 @@ def start(s,p):
 
 def run(s,id):
  job=s.job(id);data=job['data'];folder=s.root/'jobs'/id
+ from scientific_capabilities import enforce
+ enforce(s,'mpnn_start',{'projectId':job['project_id'],'structureId':data.get('source',{}).get('structureId')})
  if job['engine']!='proteinmpnn' or job['state'] not in ('queued','running'):raise ValueError('Job cannot execute in this state.')
  try:
   s.job_update(id,'running',{'stage':'inference','started':fe.mi.now()})

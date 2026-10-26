@@ -366,6 +366,8 @@ class Service:
             self.db.rollback(); raise ValueError('Another local job is active.')
         return self.spawn(self.job_new(p,'setup','installing'),'--install')
     def prediction_start(self,p):
+        import scientific_capabilities
+        scientific_capabilities.enforce(self,'prediction_start',p)
         if self.active(): raise ValueError('One local process at a time. Wait for the current job or cancel it.')
         chains=parse_fasta(p['fasta']); total=sum(len(c['sequence']) for c in chains)
         if total>1500: raise ValueError('This 24 GB workstation limits local predictions to 1,500 total residues. Smaller inputs may still exhaust memory.')
@@ -476,6 +478,8 @@ class Service:
         return {'job':self.job(job['id']),'structures':imported}
     def export_project(self,p):
         self.project(p['id']); library=self.library({}); data={'format':'fold-studio-project-v1','exported':now(),'project':self.project(p['id']),'records':[r for r in library['records'] if r['project_id']==p['id']],'jobs':[j for j in library['jobs'] if j['project_id']==p['id']]}
+        if self.db.execute("SELECT 1 FROM sqlite_master WHERE name='scientific_record_domains'").fetchone():
+            data['scientificExecutionDomains']=[dict(row) for row in self.rows('SELECT d.* FROM scientific_record_domains d JOIN records r ON r.id=d.record_id WHERE r.project_id=? ORDER BY d.record_id,d.domain,d.source',(p['id'],))]
         research=Observatory(self)
         data['researchViews']=research.observatory_library({'projectId':p['id']})
         data['commandHistory']=research.console_history({'projectId':p['id']})
@@ -601,6 +605,8 @@ ACTIONS |= molecular_observatory.ACTIONS | editcraft.ACTIONS | cloud_shell.ACTIO
 
 def execute_job(service,id):
     job=service.job(id); p=job['data']; folder=service.root/'jobs'/id
+    import scientific_capabilities
+    scientific_capabilities.enforce(service,'prediction_start',p)
     service.job_update(id,'running',{'started':now()})
     def cancelled(signum,frame):
         service.job_update(id,'cancelled',{'finished':now()}); raise SystemExit(143)

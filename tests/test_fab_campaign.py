@@ -37,21 +37,24 @@ class FabPreparation(unittest.TestCase):
         job=self.s.dispatch('bindcraft_prepare',self.fab_config())
         for profile in ('experimental-cpu-float32-scaffold','experimental-cpu-float32-ensemble','experimental-metal-float32-ensemble'):
             with self.subTest(profile=profile),patch.object(self.s,'spawn') as spawn:
-                with self.assertRaisesRegex(ValueError,'Full Fab AMME'):
+                with self.assertRaisesRegex(ValueError,'cloud-only'):
                     self.s.dispatch('bindcraft_start',{'id':job['id'],'projectId':self.project['id'],'profile':profile})
                 spawn.assert_not_called()
         self.assertEqual(self.s.job(job['id'])['state'],'prepared')
 
-    def test_native_profile_exposes_unchanged_memory_ceiling_and_keeps_validation_gate(self):
+    def test_fab_is_cloud_only_even_if_the_retired_flag_is_overridden(self):
         status=self.s.dispatch('fold_engine_status',{})
-        self.assertTrue(status['fabMemory']['enabled'])
-        self.assertEqual(status['fabMemory']['taskMemoryCeilingGiB'],14)
-        self.assertEqual(status['fabMemory']['profile'],'experimental-cpu-fab-amme')
+        self.assertFalse(status['fabMemory']['enabled'])
+        self.assertFalse(status['fabExecution']['localExecutionAllowed'])
+        self.assertEqual(status['fabMemory']['historicalTaskMemoryCeilingGiB'],14)
+        self.assertNotIn('experimental-cpu-fab-amme',status['engines'][0]['profiles'])
         job=self.s.dispatch('bindcraft_prepare',self.fab_config())
-        with patch('amme_campaign.NATIVE_ENABLED',False),patch.object(self.s,'spawn') as spawn:
-            with self.assertRaisesRegex(ValueError,'pending guarded'):
+        with patch('amme_campaign.NATIVE_ENABLED',True),patch.object(self.s,'spawn') as spawn:
+            with self.assertRaisesRegex(ValueError,'cloud-only'):
                 self.s.dispatch('bindcraft_start',{'id':job['id'],'projectId':self.project['id'],'profile':'experimental-cpu-fab-amme'})
             spawn.assert_not_called()
+        self.assertEqual(self.s.job(job['id'])['state'],'prepared')
+
 
 
 del Fixtures

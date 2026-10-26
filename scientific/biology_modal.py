@@ -183,7 +183,11 @@ def dispatch(s,action,p):
             release=prepare_release(s.root/'cloud-engine-source',rapid_remote.artifact()[0]);worker_source=release/'worker'
         from fold_rapid.modal_provider import deploy_app
         app=contract()[2](cfg,worker_source=worker_source);result=deploy_app(app)
-        return {'state':'deployed','appId':app.app_id,'result':str(result),'scientificGPUValidated':False,'configuration':cfg}
+        health=unified_control(cfg,'inventory',{})
+        from cloud_accounts import get
+        from cloud_deployment import record_verified
+        receipt=record_verified(s,cfg,health,app.app_id,get(s).get('activeId'))
+        return {'state':'deployed','appId':app.app_id,'result':str(result),'scientificGPUValidated':False,'configuration':cfg,'health':health,'deploymentReceipt':receipt}
     if action=='biology_modal_setup':
         if p.get('approvedSetupCost') is not True or p.get('kind')=='models' and p.get('approvedModelDownload') is not True:raise ValueError('Approve CPU setup costs and model downloads separately.')
         if p.get('engine') not in ('bindcraft2','proteinmpnn','af2_multimer','boltzgen','solublempnn','esmfold2','esmfold2_fast') or p.get('kind') not in ('runtime','models'):raise ValueError('Unsupported provider setup request.')

@@ -57,7 +57,11 @@ def prepare(root, job, manifest, *, cache_root=None):
         # Original settings resolver owns scientific defaults. Only target,
         # requested format/lengths/attempt budget/seed/output are translated.
         if any(not str(v).lstrip('-').isdigit() for values in d.get('hotspots',{}).values() for v in values):raise ValueError('BindCraft hotspot insertion-code translation needs an explicitly validated construct; no residue renumbering is inferred.')
-        settings={**manifest.get('settings',{}),'targets':[{'name':'target','target_path':str(target),'chains':','.join(manifest['target']['chains']),'hotspots':','.join(chain+str(v) for chain in manifest['target']['chains'] for v in d.get('hotspots',{}).get(chain,[]))}], 'modality':[d['modality']], 'binder_lengths':d['lengths'],'campaign_seed':manifest['seed'],'number_of_final_designs':d['count'],'max_trajectories':d['attempts'],'project_folder':str(output),'resume':False}
+        settings={**manifest.get('settings',{}),'targets':[{'name':'target','target_path':str(target),'chains':','.join(manifest['target']['chains']),'hotspots':','.join(chain+str(v) for chain in manifest['target']['chains'] for v in d.get('hotspots',{}).get(chain,[]))}], 'modality':[d['modality']], 'campaign_seed':manifest['seed'],'number_of_final_designs':d['count'],'max_trajectories':d['attempts'],'project_folder':str(output),'resume':False}
+        if d['modality']=='Fab':
+            from .fab import prepare as prepare_fab
+            settings.update(prepare_fab(job,source))
+        else:settings['binder_lengths']=d['lengths']
         (job/'execution-settings.json').write_text(canonical(settings))
         command=[python,str(source/'bindcraft.py'),'design',str(job/'execution-settings.json')]
         if manifest.get('biology'):
@@ -189,6 +193,11 @@ def collect(job, manifest, provenance):
         flags={k:str(v).lower() in ('true','1','1.0') for k,v in row.items() if k.startswith('pass_') and k.endswith('_filter')}
         outcome=row.get('outcome','passed_upstream_filters' if flags and all(flags.values()) else 'rejected' if flags else 'unclassified')
         record={'schemaVersion':1,'candidateId':key,'generator':engine,'upstreamId':row.get(id_key),'parentCandidates':manifest.get('parentCandidates',[]), 'binderSequence':sequence or None,'binderLength':len(sequence.replace('/','')) if sequence else None,'target':{'sha256':manifest['target']['sha256'],'chains':manifest['target']['chains'],'mappingArtifact':'target-mapping.json'},'coordinates':{'artifact':str(path.relative_to(job)),'sha256':digest(raw),'mapping':mapping,'chainRoles':roles} if raw else None,'metrics':row,'metricNamespace':engine,'outcome':outcome,'rejectionReasons':row.get('failed_filters',','.join(k for k,v in flags.items() if not v)),'seed':manifest['seed'],'provenance':provenance,'independentEvaluationHistory':[row] if engine=='af2_multimer' else [],'sequenceRedesignHistory':[row] if engine=='proteinmpnn' else [],'biologicalValidation':'Not experimentally validated; predictions do not establish binding or inhibition.'}
+        if manifest['design']['modality']=='Fab':
+            from .fab import validate_output
+            validate_output(record)
+            record['executionPolicy']={'domain':'full_fab','localExecutionAllowed':False,'approvalRequired':True}
+        if manifest.get('scientificDomain')=='full_fab':record['executionPolicy']={'domain':'full_fab','localExecutionAllowed':False,'approvalRequired':True}
         record['sequenceScreen']={'canonical':bool(sequence) and set(sequence.replace('/',''))<=set('ACDEFGHIKLMNPQRSTVWY'),'scope':'Sequence identity check only; no binding prediction.'}
         if exposure:record['af2ModelExposure']=exposure
         dest=job/'candidates'/f'{key}.json';dest.parent.mkdir(exist_ok=True)

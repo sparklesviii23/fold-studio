@@ -1,0 +1,29 @@
+.................................................................................Starting Boltz-2 MPS inference. No synthetic progress.
+["/private/var/folders/5x/qplr05xd0rzc27j08rssczcc0000gn/T/tmp9vk6eipx/engine/venv/bin/python", "-B", "-c", "from boltz.main import cli; cli()", "predict", "/private/var/folders/5x/qplr05xd0rzc27j08rssczcc0000gn/T/tmp9vk6eipx/jobs/b3daf85e-1b9c-4fac-8c6a-3bbe25743d52/input.yaml", "--accelerator", "mps", "--model", "boltz2", "--cache", "/private/var/folders/5x/qplr05xd0rzc27j08rssczcc0000gn/T/tmp9vk6eipx/engine/models", "--out_dir", "/private/var/folders/5x/qplr05xd0rzc27j08rssczcc0000gn/T/tmp9vk6eipx/jobs/b3daf85e-1b9c-4fac-8c6a-3bbe25743d52/output", "--output_format", "mmcif", "--recycling_steps", "1", "--sampling_steps", "10", "--diffusion_samples", "1", "--max_parallel_samples", "1", "--num_workers", "0", "--seed", "42"]
+ERROR: Boltz exited with code 1. Review the execution log. Reduce sequence size for out-of-memory errors.
+..............................................................FOLD_CAMPAIGN_RUN {"jobId": "2506a40c-c4f2-4513-9265-823efec42736", "recoveryNumber": 0}
+BindCraft CPU error: Upstream campaign failed with exit code 1. Review execution.log.
+.FOLD_CAMPAIGN_RUN {"jobId": "2f2aa322-1032-4926-bbca-728a273c9edc", "recoveryNumber": 0}
+.FOLD_CAMPAIGN_RUN {"jobId": "ea6bccef-6773-4cbb-bb48-bca1577336b5", "recoveryNumber": 0}
+FOLD_CAMPAIGN_INTERRUPTED {"source": "subprocess_returncode", "exitCode": -2, "signal": "SIGINT", "cause": "not_reported"}
+FOLD_CAMPAIGN_RUN {"jobId": "dba529af-5930-41aa-8217-bd02461a17df", "recoveryNumber": 0}
+FOLD_CAMPAIGN_INTERRUPTED {"source": "subprocess_returncode", "exitCode": -15, "signal": "SIGTERM", "cause": "not_reported"}
+FOLD_CAMPAIGN_RUN {"jobId": "285e6986-89f4-4c82-bd16-8314d3307e74", "recoveryNumber": 0}
+FOLD_CAMPAIGN_INTERRUPTED {"source": "subprocess_returncode", "exitCode": -9, "signal": "SIGKILL", "cause": "not_reported"}
+...........................................................................................................RAPID CUDA startup · solublempnn
+...RAPID CUDA startup · solublempnn
+RAPID CUDA numerical check passed; starting original model entry point
+.......OpenMM pilot error: Dynamics runner or saved input changed after queueing.
+.........OpenMM pilot error: Synthetic runtime failure
+.OpenMM pilot error: Dynamics runner or saved input changed after queueing.
+.....................................................................................................................................................................................Ligand preparation error: Ligand runner or saved input changed after queueing.
+...............FOLD_CAMPAIGN_RUN {"jobId": "9ddbdad1-92c4-4534-9401-9840a8966f29", "recoveryNumber": 0}
+BindCraft CPU error: Execution settings changed after queueing.
+.....................................ProteinMPNN error: runtime failure
+...........FOLD_CAMPAIGN_RUN {"jobId": "f2461ac8-910e-4860-84d1-4655eb0d75a8", "recoveryNumber": 0}
+BindCraft CPU error: Prepared source changed.
+......................................................................................................................................................................................................................................................
+----------------------------------------------------------------------
+Ran 762 tests in 30.622s
+
+OK

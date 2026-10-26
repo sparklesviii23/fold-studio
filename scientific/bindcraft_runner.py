@@ -7,6 +7,8 @@ if precision not in ('upstream','float32') or (backend=='metal' and precision!='
 os.environ['JAX_PLATFORMS']=backend;os.environ['XLA_PYTHON_CLIENT_PREALLOCATE']='false';sys.dont_write_bytecode=True
 BASE=pathlib.Path(__file__).resolve().parents[1];sys.path.insert(0,str(BASE/'vendor/bindcraft2'))
 if __name__=='__main__':
+ from scientific_capabilities import require_local_settings_allowed
+ require_local_settings_allowed(json.loads(pathlib.Path(sys.argv[1]).read_text()),BASE/'vendor/bindcraft2')
  from fold_engine import verify_source
  source=verify_source()
  if backend=='metal':

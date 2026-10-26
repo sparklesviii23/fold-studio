@@ -14,6 +14,42 @@ def write(path,value):
     temp=path.with_suffix('.pending');temp.write_text(json.dumps(value,allow_nan=False));temp.replace(path)
 
 
+def record_verified(s,cfg,health,app_id,account_id):
+    """Bind a real health-checked deployment to the exact reviewed source.
+
+    Internal only: public callers cannot supply an invented health receipt.
+    Both deployment entry points must produce the same launch-admission proof.
+    """
+    import hashlib,rapid_remote
+    from fold_rapid.cloud_image import prepare_release
+    from fold_rapid.contracts import canonical,digest
+    if health.get('controllerLocation')!='remote' or health.get('provider')!='modal' or not health.get('deploymentReachable'):
+        raise ValueError('A genuine remote Modal controller inventory is required.')
+    folder=s.root/'cloud-engine-deployment';folder.mkdir(mode=0o700,exist_ok=True)
+    with (folder/'deployment.lock').open('a+') as lock:
+        fcntl.flock(lock,fcntl.LOCK_EX)
+        path=folder/'status.json'
+        if path.exists():
+            prior=json.loads(path.read_text())
+            if prior.get('state') in ('queued','building','checking'):
+                raise ValueError('An existing deployment is still being reconciled; receipt not replaced.')
+        # Reconcile the actual currently approved archive, never a caller-supplied
+        # manifest/hash. This cache contains source only, no research/model data.
+        release=prepare_release(folder/'source',rapid_remote.artifact()[0])
+        source=release/'worker'
+        expected=digest(canonical({str(p.relative_to(source)):digest(p.read_bytes()) for p in sorted((source/'fold_rapid').glob('*.py'))}).encode())
+        if health.get('sourceCodeSha256')!=expected:
+            raise ValueError('Remote scientific source differs; no launch receipt recorded.')
+        if account_id!=__import__('cloud_accounts').get(s).get('activeId'):
+            raise ValueError('Deployment account changed; no launch receipt recorded.')
+        value={'state':'deployed','appName':cfg['appName'],'appId':app_id,'accountId':account_id,
+               'sourceManifestSha256':hashlib.sha256((release/'release.json').read_bytes()).hexdigest(),
+               'health':health,'deploymentVerified':True,'gpuStarted':False,'modelDownloads':False,
+               'scientificCloudQualified':False,'finished':time.time(),'recordSource':'health_checked_modal_deployment'}
+        write(path,value)
+    return value
+
+
 def dispatch(s,action,p):
     s.project(p['projectId']);folder=s.root/'cloud-engine-deployment';folder.mkdir(mode=0o700,exist_ok=True);path=folder/'status.json'
     if action=='cloud_engine_deployment_status':return json.loads(path.read_text()) if path.is_file() else {'state':'not_deployed','scientificCloudQualified':False}

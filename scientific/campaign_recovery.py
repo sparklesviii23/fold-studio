@@ -25,6 +25,8 @@ def effective_fab_compiler_flags(runtime,source,existing):
 def prepare(engine,p):
  if set(p)-{'id','projectId'}:raise ValueError('Campaign recovery preserves the profile, seeds, scientific settings and original attempt budget.')
  job=engine.campaign(p);data=job['data'];folder=engine.s.root/'jobs'/job['id']
+ from scientific_capabilities import require_local_allowed
+ require_local_allowed(job)
  if job['state'] not in STATES or not data.get('executionSettingsSha256') or not data.get('profile'):raise ValueError('Choose an interrupted, cancelled or failed native campaign with saved execution settings.')
  # A dead worker parent can leave its scientific child alive. Check the original
  # process group as well as the exact worker/job command before touching output.

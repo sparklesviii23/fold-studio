@@ -32,6 +32,8 @@ def start(engine,p,recovery=None):
  if p.get('profile') not in profiles:raise ValueError('Native binder-design execution is blocked without an explicit experimental execution profile.')
  backend,precision,ensemble=profiles[p['profile']]
  s=engine.s;job=engine.campaign(p)
+ from scientific_capabilities import require_local_allowed
+ require_local_allowed(p);require_local_allowed(job)
  if job['state']!=('prepared' if recovery is None else recovery['job']['state']):raise ValueError('Only a prepared, unexecuted campaign can start.')
  if s.active():raise ValueError('Another local compute job is active.')
  prep=job['data']['preparation']
@@ -149,6 +151,8 @@ def start(engine,p,recovery=None):
 
 def run(s,id):
  job=s.job(id);data=job['data'];folder=s.root/'jobs'/id
+ from scientific_capabilities import require_local_allowed
+ require_local_allowed(job)
  if job['engine']!='bindcraft2' or job['state'] not in ('queued','running'):raise ValueError('Campaign cannot execute in this state.')
  try:
   print('FOLD_CAMPAIGN_RUN '+json.dumps({'jobId':id,'recoveryNumber':len(data.get('recoveryHistory',[]))}),flush=True)

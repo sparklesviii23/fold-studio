@@ -13,7 +13,7 @@ import time
 import weakref
 
 POLICY = 'fab-cpu-ssd-v1'
-NATIVE_ENABLED = True  # Experimental: full gradient + matched-input repeated-step validation; complete trajectory validation remains pending.
+NATIVE_ENABLED = False  # Archived local Fab research. Ultimate directive requires cloud-only production execution.
 SCHEDULER_FLAG = '--xla_cpu_scheduler_type=CPU_SCHEDULER_TYPE_MEMORY_OPTIMIZED'
 FOOTPRINT_LIMIT = 14 * 1024**3
 SSD_QUOTA = 10 * 1024**3

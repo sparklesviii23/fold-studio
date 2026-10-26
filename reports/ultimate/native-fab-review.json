@@ -1,0 +1,98 @@
+{
+  "scope": "Observed native full-Fab review only. No cloud submission or scientific execution.",
+  "jobId": "610f0d7f0e8f4665a77c5b974cddaa37",
+  "state": "prepared",
+  "sourceRecordId": "931a6eef-e063-4b4e-b634-20007c13182f",
+  "sourceSha256": "d3c95434dcadf26d005340b15bd92be61e101ed921478c26f2a5550f198e61f6",
+  "targetChains": [
+    "A"
+  ],
+  "generator": [
+    {
+      "design": {
+        "attempts": 1,
+        "count": 1,
+        "modality": "Fab"
+      },
+      "engine": "bindcraft2"
+    }
+  ],
+  "workflow": {
+    "count": 1,
+    "diagnosticRejectedParents": false,
+    "predictors": [
+      "af2_multimer"
+    ],
+    "redesign": [
+      "proteinmpnn",
+      "solublempnn"
+    ],
+    "rosetta": false
+  },
+  "reviewEstimate": {
+    "allowanceUSD": 5,
+    "billingScope": "Reviewed stage runtime rates only; CPU orchestrator, cold starts, memory, storage and network add charges. Provider workspace budget required for billing protection.",
+    "externalAPIIncluded": false,
+    "gpu": "A100-40GB",
+    "imageDigest": "nvidia/cuda:13.0.2-runtime-ubuntu24.04@sha256:6a0e31b59e70890446f2c17356d6efc0d54260090a8c63d6ca7c2ad049db95d2",
+    "policy": "Sequential modular workers; warm execution requires measured qualification.",
+    "scientificGPUValidated": false,
+    "stages": [
+      {
+        "engine": "bindcraft2",
+        "estimatedUSD": 0.5247,
+        "maximumCalls": 1,
+        "secondsPerCall": 900
+      },
+      {
+        "engine": "proteinmpnn",
+        "estimatedUSD": 0.10494000000000002,
+        "maximumCalls": 1,
+        "secondsPerCall": 180
+      },
+      {
+        "engine": "solublempnn",
+        "estimatedUSD": 0.10494000000000002,
+        "maximumCalls": 1,
+        "secondsPerCall": 180
+      },
+      {
+        "engine": "af2_multimer",
+        "estimatedUSD": 1.5741,
+        "maximumCalls": 3,
+        "secondsPerCall": 900
+      }
+    ],
+    "totalResources": {
+      "allowanceUSD": 5,
+      "expectedResourceReservationUSD": 4.115291975,
+      "fixedCoordinatorStorageSafetyUSD": 0.8791279999999999,
+      "method": "Reviewed requested/hard-limit CPU, memory and GPU rates; full stage runtimes, startup reserves, coordinator ceiling, storage/control and safety margin. Elapsed estimates are not provider billing.",
+      "pricing": {
+        "cpuCoreSecondUSD": 1.31e-05,
+        "gpuSecondUSD": 0.0005830000000000001,
+        "memoryGiBSecondUSD": 2.22e-06,
+        "safetyUSD": 0.6,
+        "startupSecondsPerStage": 60,
+        "storageAndControlUSD": 0.2,
+        "workerCPUs": 2,
+        "workerMemoryGiB": 63.0234375
+      },
+      "providerReportedUSD": null,
+      "withinAllowance": true
+    },
+    "upperReservationUSD": 2.3086800000000003,
+    "workerCPUs": 2,
+    "workerHostMemoryMiB": 64536
+  },
+  "cloudCallCreated": false,
+  "observedUI": [
+    "Fab format labelled cloud-only",
+    "No arbitrary binder length input",
+    "BoltzGen Fab generation disabled",
+    "Full original hPDL1 115-residue chain A selected",
+    "Campaign review ready",
+    "Saved locally; no upload/GPU started",
+    "Transfer and workload unchecked; launch disabled"
+  ]
+}

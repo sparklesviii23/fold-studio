@@ -130,11 +130,15 @@ def open_candidate(s,row,id):
     raw=base64.b64decode(coordinate['contentBase64'],validate=True);sha=hashlib.sha256(raw).hexdigest()
     if sha!=coordinate['sha256']:raise ValueError('Candidate coordinate checksum mismatch.')
     s.db.execute('CREATE TABLE IF NOT EXISTS removed_records(id TEXT PRIMARY KEY)')
+    import scientific_capabilities
+    def retain_domain(record):
+        scientific_capabilities.associate_record_domain(s,record['id'],node,'verified_cloud_preview:'+id)
+        return record
     for record in s.rows("SELECT * FROM records WHERE project_id=? AND kind='structure' AND id NOT IN (SELECT id FROM removed_records)",(row['projectId'],)):
         data=json.loads(record['data'])
-        if data.get('sha256')==sha:return {**dict(record),'data':data}
+        if data.get('sha256')==sha:return retain_domain({**dict(record),'data':data})
     folder=s.root/'cloud-previews';folder.mkdir(exist_ok=True);path=folder/(sha+'.'+coordinate['format']);path.write_bytes(raw)
-    return s.import_structure({'projectId':row['projectId'],'path':str(path),'name':node['generator']+' · cloud candidate '+id[:8],'source':'Verified RAPID cloud candidate','metadata':{'campaignId':row['campaignId'],'candidateId':id,'upstreamOutcome':node.get('nativeCandidate',{}).get('outcome'),'independentQualification':False}})
+    return retain_domain(s.import_structure({'projectId':row['projectId'],'path':str(path),'name':node['generator']+' · cloud candidate '+id[:8],'source':'Verified RAPID cloud candidate','metadata':{'campaignId':row['campaignId'],'candidateId':id,'upstreamOutcome':node.get('nativeCandidate',{}).get('outcome'),'independentQualification':False}}))
 
 def console(s,row,text):
     _,redact=modules()
