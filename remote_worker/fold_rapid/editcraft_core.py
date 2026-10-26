@@ -20,6 +20,7 @@ OPS={
  'reference_window':('reference_interval','reference_sequence','Exact pinned assembly sequence and strand-aware coordinates'),
  'variant_vep':('genomic_snv','variant_annotation','Assembly- and allele-checked Ensembl VEP consequence annotation'),
  'scanpy_analysis':('h5ad_counts','single_cell_analysis','Pinned Scanpy QC, normalization, PCA, UMAP, Leiden and exploratory cluster markers'),
+ 'pathway_enrichment':('explicit_gene_sets','pathway_enrichment','Explicit-background hypergeometric over-representation with BH/BY adjustment'),
  'variant_cds':('coding_variant','variant_consequence','Reference-checked coding-sequence comparison'),
  'coordinate_map':('genomic_position','transcript_position','Strand-aware exon coordinate mapping'),
  'sequence_align':('sequence_pair','alignment','Biopython PairwiseAligner'),
@@ -238,6 +239,9 @@ def variant_vep(p):
 def scanpy_analysis(p):
  from .editcraft_singlecell import execute
  return execute(p)
+def pathway_enrichment(p):
+ from .editcraft_pathways import execute
+ return execute(p)
 
 def resources(plan):
  return {'cpu':2,'memoryGiB':8 if any(s['operation']=='scanpy_analysis' for s in plan['stages']) else 4,'gpu':False}
@@ -268,6 +272,9 @@ def validate_plan(plan):
    validate_input(stage['parameters'])
   if op=='scanpy_analysis':
    from .editcraft_singlecell import validate_input
+   validate_input(stage['parameters'])
+  if op=='pathway_enrichment':
+   from .editcraft_pathways import validate_input
    validate_input(stage['parameters'])
   if link:
    if link not in seen:raise ValueError('Dependency must refer to an earlier stage; cycles are prohibited.')

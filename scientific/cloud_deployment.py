@@ -91,7 +91,7 @@ def require_current_engine(s,cfg,account_id=None):
             if hashlib.sha256(previous_bytes).hexdigest()==status.get('sourceManifestSha256'):
                 previous=json.loads(previous_bytes);current=json.loads(manifest_bytes)
                 annotations={'sourceCommit','sourceTreeIncludesUncommittedWorker'}
-                independent={'worker/fold_rapid/editcraft_core.py','worker/fold_rapid/editcraft_modal.py','worker/fold_rapid/editcraft_execute.py','worker/fold_rapid/editcraft_models.py','worker/fold_rapid/editcraft_assets.json','worker/fold_rapid/editcraft_toolchain.py','worker/fold_rapid/editcraft_toolchain.json','worker/fold_rapid/editcraft_offtargets.py','worker/fold_rapid/editcraft_variants.py','worker/fold_rapid/editcraft_singlecell.py','worker/fold_rapid/editcraft_cell_assets.json','worker/fold_rapid/editcraft_process.py'}
+                independent={'worker/fold_rapid/editcraft_core.py','worker/fold_rapid/editcraft_modal.py','worker/fold_rapid/editcraft_execute.py','worker/fold_rapid/editcraft_models.py','worker/fold_rapid/editcraft_assets.json','worker/fold_rapid/editcraft_toolchain.py','worker/fold_rapid/editcraft_toolchain.json','worker/fold_rapid/editcraft_offtargets.py','worker/fold_rapid/editcraft_variants.py','worker/fold_rapid/editcraft_singlecell.py','worker/fold_rapid/editcraft_cell_assets.json','worker/fold_rapid/editcraft_process.py','worker/fold_rapid/editcraft_pathways.py'}
                 def protein_release(value):
                     return {k:({name:checksum for name,checksum in v.items() if name not in independent} if k=='files' else v) for k,v in value.items() if k not in annotations}
                 same_source=bool(current.get('files')) and protein_release(previous)==protein_release(current)

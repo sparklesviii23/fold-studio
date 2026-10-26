@@ -52,8 +52,8 @@ A fixed evidence-aware, typed reference workflow and intervention notes exist. T
 
 ## H. Tests
 
-- 736 backend tests passed in the latest single-cell update.
-- 140 interface tests passed in the latest single-cell update.
+- 742 backend tests passed in the latest single-cell update.
+- 143 interface tests passed in the latest single-cell update.
 - EditCraft offline contract, container, transfer and process-cleanup tests are included in the backend total; mocks are not scientific evidence.
 - Production TypeScript/Vite build passed.
 - Six genuine public cloud reference calculations completed, reported separately above.
@@ -102,3 +102,12 @@ The isolated Scanpy CPU pipeline now executes genuine raw-count QC, normalizatio
 The first legacy-format parser failure is preserved, followed by a separately approved successful scientific attempt. A mounted-volume path guard correction verified the saved artifact without rerunning science. Native QC totals, UMAP, gene colouring, cluster selection, barcode lookup and dry-review approvals were observed in Fold Studio. The new distribution/population views and final current build are tracked in the native receipt. No GPU, model weights or private uploads were used. Actual provider charges remain unknown; both approved scopes together allow up to $3.25.
 
 This implements the Scanpy slice. scvi-tools, Pertpy, public perturbation integration, donor-aware contrasts, batch diagnostics, cell-type inference, pathway enrichment and independent biological benchmarks remain unfinished, alongside the wider scientific engines, Intelligence Core, publishing and full end-to-end acceptance.
+
+
+## Explicit-background pathway-analysis checkpoint
+
+The Systems Biology form and cloud operation now accept measured/testable gene backgrounds and attributed GMT collections, preserving identifier identities and the complete hypothesis family. Log-space hypergeometric tails and BH/BY adjustment passed independent finite-null tests and 111 comparisons with existing official SciPy. The separately approved 2-CPU/4-GiB cloud job `f0a38cbf98454007acef24005d7cb4bb` completed both correction stages with exact finite-null agreement. This is mathematical execution qualification, not biological pathway validation. No curated collection, model or private dataset was downloaded/uploaded. Details: `EDITCRAFT_PATHWAY_ENGINE.md`.
+
+Native explicit input fields, missing-GMT feedback and the actual saved numerical result table were observed. A final stage selector keeps later same-operation workflow results inspectable; its final native check is recorded separately. Curated Reactome/GO/STRING/BioGRID ingestion, biological reference cases, interaction graphs, perturbation context and mechanistic systems models remain unfinished.
+
+Final native pathway acceptance: both correction stages are selectable and retain the expected saved probabilities; the five exact original Scanpy cluster-5 markers transfer into a draft without inventing a background. The original single-cell result was restored and remained intact. These checks do not accept the missing curated biological collections, network graphs or full directive.

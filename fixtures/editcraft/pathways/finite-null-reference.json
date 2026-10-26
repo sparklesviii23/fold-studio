@@ -1,0 +1,28 @@
+{
+  "scope": "Synthetic finite null population, not biological evidence or a curated pathway collection.",
+  "parameters": {
+    "genes": ["g1", "g2", "g3"],
+    "background": ["g1", "g2", "g3", "g4", "g5", "g6", "g7", "g8", "g9", "g10"],
+    "geneSets": [
+      {"id": "selected", "genes": ["g1", "g2", "g3"]},
+      {"id": "no_overlap", "genes": ["g8", "g9"]},
+      {"id": "outside", "genes": ["other"]}
+    ],
+    "collection": {
+      "name": "Finite-population numerical reference",
+      "version": "1",
+      "source": "Original hand-enumerated numerical test; no biological gene collection",
+      "organism": "Synthetic identifiers; no organism",
+      "identifierNamespace": "synthetic g1–g10",
+      "license": "CC0 original numerical fixture"
+    },
+    "multipleTesting": "BH",
+    "alpha": 0.05
+  },
+  "expected": {
+    "selectedRawP": 0.008333333333333333,
+    "selectedBHAdjustedP": 0.025,
+    "selectedBYAdjustedP": 0.04583333333333333,
+    "explanation": "One of C(10,3)=120 draws contains all three selected members; three supplied hypotheses are retained. BH is 3/120 and BY multiplies by 1+1/2+1/3."
+  }
+}

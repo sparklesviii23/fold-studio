@@ -3,7 +3,7 @@ import hashlib,json,pathlib,uuid
 from .editcraft_core import validate_plan,run_plan,utc,sha
 APP='fold-editcraft-engine'
 def source_identity():
- return hashlib.sha256(b''.join(pathlib.Path(__file__).with_name(name).read_bytes() for name in ('editcraft_modal.py','editcraft_core.py','editcraft_execute.py','editcraft_models.py','editcraft_assets.json','editcraft_toolchain.py','editcraft_toolchain.json','editcraft_offtargets.py','editcraft_variants.py','editcraft_singlecell.py','editcraft_cell_assets.json','editcraft_process.py'))).hexdigest()
+ return hashlib.sha256(b''.join(pathlib.Path(__file__).with_name(name).read_bytes() for name in ('editcraft_modal.py','editcraft_core.py','editcraft_execute.py','editcraft_models.py','editcraft_assets.json','editcraft_toolchain.py','editcraft_toolchain.json','editcraft_offtargets.py','editcraft_variants.py','editcraft_singlecell.py','editcraft_cell_assets.json','editcraft_process.py','editcraft_pathways.py'))).hexdigest()
 
 
 def trained_image(base):
