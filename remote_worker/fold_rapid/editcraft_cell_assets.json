@@ -1,0 +1,27 @@
+{
+  "schemaVersion": 1,
+  "method": "Scanpy CPU research workflow",
+  "publication": "https://doi.org/10.1186/s13059-017-1382-0",
+  "repository": "https://github.com/scverse/scanpy",
+  "license": "BSD-3-Clause",
+  "runtime": {"scanpy":"1.11.5","anndata":"0.12.2","numpy":"2.2.6","scipy":"1.15.3","pandas":"2.2.3","h5py":"3.14.0","scikit-learn":"1.6.1","numba":"0.61.2","umap-learn":"0.5.9.post2","pynndescent":"0.5.13","igraph":"0.11.8","leidenalg":"0.10.2","statsmodels":"0.14.5","zarr":"2.18.7"},
+  "cpu": 2,
+  "memoryGiB": 8,
+  "datasets": {
+    "pbmc3k": {
+      "name": "PBMC3k · healthy human donor",
+      "url": "https://falexwolf.de/data/pbmc3k_raw.h5ad",
+      "bytes": 5855727,
+      "sha256": "89a96f1beaa2dd83a687666d3f19a4513ac27a2a2d12581fcd77afed7ea653a1",
+      "cells": 2700,
+      "genes": 32738,
+      "organism": "Homo sapiens",
+      "reference": "hg19 as recorded by the upstream Scanpy loader",
+      "source": "https://www.10xgenomics.com/datasets/3-k-pbm-cs-from-a-healthy-donor-1-standard-1-1-0",
+      "loaderSource": "https://github.com/scverse/scanpy/blob/1.11.5/src/scanpy/datasets/_datasets.py",
+      "license": "CC-BY-4.0",
+      "attribution": "10x Genomics, 3k PBMCs from a Healthy Donor (2016); H5AD conversion distributed by Scanpy's official pbmc3k loader.",
+      "scope": "One healthy donor. No perturbation labels, independent donor replicates or tumor microenvironment inferred."
+    }
+  }
+}

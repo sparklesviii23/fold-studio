@@ -22,7 +22,7 @@ All new scientific calculations ran on Modal CPU. No GPU, trained-model installa
 
 ## C. Missing or blocked engines
 
-The model JSON registry distinguishes implemented adapters from discovered methods. CRISPOR/CHOPCHOP/GuideScan2/CRISPick/Cas-OFFinder/CRISPRitz, additional CRISPR predictors, RNA targeting/editing/ASO predictors, splice/regulatory/foundation models, CRISPResso2/MAGeCK and single-cell/pathway tools are not complete executing integrations. Their adapters, reference assets, runtimes and benchmarks remain engineering work; discovery labels are not integrations.
+The model JSON registry distinguishes implemented adapters from discovered methods. CRISPOR/CHOPCHOP/GuideScan2/CRISPick/CRISPRitz, additional CRISPR predictors, RNA targeting/editing/ASO predictors, splice/regulatory/foundation models, CRISPResso2/MAGeCK and further single-cell/pathway tools are not complete executing integrations. The separately documented Cas-OFFinder, VEP and Scanpy paths now execute genuine references; this does not complete their wider ecosystems. Their adapters, reference assets, runtimes and benchmarks remain engineering work; discovery labels are not integrations.
 
 PrimeDesign's applicable dual academic/for-profit license eligibility is unresolved. BE-Hive refers to separate use terms not yet established. Other methods need source/checkpoint-specific license review rather than a generic assertion of permission. Larger genome assets, GPU models and further paid qualification require concrete, separately approved resource scopes.
 
@@ -52,9 +52,9 @@ A fixed evidence-aware, typed reference workflow and intervention notes exist. T
 
 ## H. Tests
 
-- 716 backend tests passed.
-- 135 interface tests passed.
-- 25 EditCraft offline contract/metadata tests are included in the backend total; mocks are not scientific evidence.
+- 736 backend tests passed in the latest single-cell update.
+- 140 interface tests passed in the latest single-cell update.
+- EditCraft offline contract, container, transfer and process-cleanup tests are included in the backend total; mocks are not scientific evidence.
 - Production TypeScript/Vite build passed.
 - Six genuine public cloud reference calculations completed, reported separately above.
 - Native form/result/plot checks passed; complete platform acceptance is still unfinished.
@@ -93,3 +93,12 @@ Assembly-checked Ensembl VEP annotation for explicit human SNVs is implemented a
 The single current app was rebuilt with the guarded installer, verified and relaunched. macOS requested Documents access again because the ad-hoc signing hash changed; the user allowed access and native off-target/VEP form, review and result checks passed. Complete molecular camera/measurement and regression acceptance remains pending. The cloud reference results are already saved and no GPU work is running from this integration.
 
 The authoritative closure report now keeps 130 sections and all 1,933 paragraphs without deleting original scope. Counts distinguish unreviewed clauses from reviewed implementation and narrow full acceptance. Full directive completion remains false: remaining scientific engines, experimental/single-cell/pathway workflows, Intelligence Core, full workflow graph, publishing and end-to-end qualification require further implementation.
+
+
+## Single-cell implementation checkpoint
+
+The isolated Scanpy CPU pipeline now executes genuine raw-count QC, normalization, PCA, UMAP, Leiden and exploratory cluster markers. The approved PBMC3k reference retained 2,638 of 2,700 cells and 13,714 features in seven computed clusters. Actual expression/cell correspondence, QC thresholds, full-population means and exact processed H5AD round-trip checks passed. The 15,278,743-byte processed artifact was streamed and matched its original SHA-256. Full evidence: `EDITCRAFT_SINGLECELL_ENGINE.md` and `reports/editcraft/singlecell-validation.json`.
+
+The first legacy-format parser failure is preserved, followed by a separately approved successful scientific attempt. A mounted-volume path guard correction verified the saved artifact without rerunning science. Native QC totals, UMAP, gene colouring, cluster selection, barcode lookup and dry-review approvals were observed in Fold Studio. The new distribution/population views and final current build are tracked in the native receipt. No GPU, model weights or private uploads were used. Actual provider charges remain unknown; both approved scopes together allow up to $3.25.
+
+This implements the Scanpy slice. scvi-tools, Pertpy, public perturbation integration, donor-aware contrasts, batch diagnostics, cell-type inference, pathway enrichment and independent biological benchmarks remain unfinished, alongside the wider scientific engines, Intelligence Core, publishing and full end-to-end acceptance.

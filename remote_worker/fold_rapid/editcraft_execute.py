@@ -11,7 +11,10 @@ def main(folder):
   result=run_plan(plan,checkpoint)
   (folder/'result.pending').write_text(json.dumps(result,allow_nan=False));(folder/'result.pending').replace(folder/'result.json')
  except BaseException as exc:
-  # Do not print raw genomic inputs or source-specific private error messages.
+  # Never print private inputs/messages to provider logs. Keep the actual failure
+  # in the same owner-scoped research volume for explicit in-app inspection.
+  import traceback
+  (folder/'failure.private.json').write_text(json.dumps({'errorType':type(exc).__name__,'message':str(exc),'traceback':traceback.format_exc(),'privacy':'Owner-scoped scientific diagnostic; not emitted to provider logs.'}))
   (folder/'failure.json').write_text(json.dumps({'errorType':type(exc).__name__,'error':'Scientific operation failed; inspect its input requirements.'}));return 1
  return 0
 if __name__=='__main__':sys.exit(main(sys.argv[1]))

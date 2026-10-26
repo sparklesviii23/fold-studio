@@ -3,7 +3,7 @@ import hashlib,json,pathlib,uuid
 from .editcraft_core import validate_plan,run_plan,utc,sha
 APP='fold-editcraft-engine'
 def source_identity():
- return hashlib.sha256(b''.join(pathlib.Path(__file__).with_name(name).read_bytes() for name in ('editcraft_modal.py','editcraft_core.py','editcraft_execute.py','editcraft_models.py','editcraft_assets.json','editcraft_toolchain.py','editcraft_toolchain.json','editcraft_offtargets.py','editcraft_variants.py'))).hexdigest()
+ return hashlib.sha256(b''.join(pathlib.Path(__file__).with_name(name).read_bytes() for name in ('editcraft_modal.py','editcraft_core.py','editcraft_execute.py','editcraft_models.py','editcraft_assets.json','editcraft_toolchain.py','editcraft_toolchain.json','editcraft_offtargets.py','editcraft_variants.py','editcraft_singlecell.py','editcraft_cell_assets.json','editcraft_process.py'))).hexdigest()
 
 
 def trained_image(base):
@@ -22,18 +22,27 @@ def trained_image(base):
  ).env({'UV_PYTHON_DOWNLOADS':'never'}))
 
 def tool_image(base):
+ source=pathlib.Path(__file__).parent
  return (base.apt_install('cmake','g++','ocl-icd-opencl-dev','pocl-opencl-icd','clinfo')
-         .run_commands('python -B -m fold_rapid.editcraft_toolchain')
+         .add_local_file(source/'editcraft_toolchain.py','/opt/tool-bootstrap/editcraft_toolchain.py',copy=True)
+         .add_local_file(source/'editcraft_toolchain.json','/opt/tool-bootstrap/editcraft_toolchain.json',copy=True)
+         .run_commands('python -B /opt/tool-bootstrap/editcraft_toolchain.py')
          .env({'POCL_MAX_PTHREAD_COUNT':'2','OMP_NUM_THREADS':'2'}))
 
-def build_app(include_models=False,include_tools=False):
+def build_app(include_models=False,include_tools=False,include_singlecell=False):
  import modal
  source=pathlib.Path(__file__).resolve().parents[1]
- image=(modal.Image.debian_slim(python_version='3.12').pip_install('numpy==2.2.6','biopython==1.85','ViennaRNA==2.7.2')
-        .add_local_dir(source,'/opt/editcraft',copy=True,ignore=['**/__pycache__/**','**/dist/**','**/*.pyc'])
-        .env({'PYTHONPATH':'/opt/editcraft','FOLD_ENGINE_ROLE':'editcraft_cloud'}))
- model_image=trained_image(image) if include_models else image
- scientific_tools_image=tool_image(model_image) if include_tools else model_image
+ runtime=(modal.Image.debian_slim(python_version='3.12').pip_install('numpy==2.2.6','biopython==1.85','ViennaRNA==2.7.2').env({'FOLD_ENGINE_ROLE':'editcraft_cloud'}))
+ def attach_code(base):return base.add_local_dir(source,'/opt/editcraft',copy=True,ignore=['**/__pycache__/**','**/dist/**','**/*.pyc']).env({'PYTHONPATH':'/opt/editcraft'})
+ # Scientific dependency layers precede application source. Editing a parser or
+ # form no longer reinstalls the historical model dependencies on every update.
+ model_runtime=trained_image(runtime) if include_models else runtime
+ image=attach_code(runtime);model_image=attach_code(model_runtime)
+ scientific_tools_image=attach_code(tool_image(model_runtime)) if include_tools else model_image
+ if include_singlecell:
+  from .editcraft_singlecell import MANIFEST as cell_manifest
+  cells_image=attach_code(runtime.pip_install(*[name+'=='+version for name,version in cell_manifest['runtime'].items()]).env({'NUMBA_NUM_THREADS':'2','OMP_NUM_THREADS':'2','OPENBLAS_NUM_THREADS':'2','MKL_NUM_THREADS':'2','HDF5_PLUGIN_PATH':''}))
+ else:cells_image=image
  app=modal.App(APP);volume=modal.Volume.from_name('fold-editcraft-research',create_if_missing=True);state=modal.Dict.from_name('fold-editcraft-state',create_if_missing=True)
  def atomic(path,value):
   path.parent.mkdir(parents=True,exist_ok=True);tmp=path.with_suffix('.pending');tmp.write_text(json.dumps(value,allow_nan=False));tmp.replace(path)
@@ -68,10 +77,11 @@ def build_app(include_models=False,include_tools=False):
    if child.returncode:raise RuntimeError('Scientific subprocess failed')
    result=json.loads((folder/'result.json').read_text());row.update(state='completed',resultSha256=sha(result))
   except BaseException as exc:
-   if child and child.poll() is None:
-    os.killpg(child.pid,signal.SIGTERM)
-    try:child.wait(timeout=5)
-    except subprocess.TimeoutExpired:os.killpg(child.pid,signal.SIGKILL);child.wait()
+   if child:
+    # Even an exited interpreter can leave a scientific grandchild in its group.
+    # Terminate that owned group before releasing the writer lease.
+    from .editcraft_process import terminate_owned_group
+    terminate_owned_group(child)
    row.update(state='cancelled' if isinstance(exc,InterruptedError) else 'deadline_exceeded' if isinstance(exc,TimeoutError) else 'failed',errorType=type(exc).__name__,error='Scientific operation stopped; inspect its input requirements or deadline. No automatic retry.')
   row['finished']=utc();atomic(folder/'status.json',row);volume.commit();state['job:'+key]=row
   if state.get('writer-lease')==lease:state.pop('writer-lease')
@@ -86,6 +96,21 @@ def build_app(include_models=False,include_tools=False):
  def analyze_tools(plan,key):
   if not include_tools:raise ValueError('Deploy the reviewed Cas-OFFinder CPU runtime first.')
   return analyze_impl(plan,key)
+ @app.function(image=cells_image,serialized=True,name='analyze_singlecell',cpu=(2,2),memory=(8192,8192),volumes={'/research':volume},timeout=660,retries=0,min_containers=0,max_containers=1,scaledown_window=10)
+ def analyze_singlecell(plan,key):
+  if not include_singlecell:raise ValueError('Deploy the reviewed isolated Scanpy CPU runtime first.')
+  return analyze_impl(plan,key)
+ @app.function(image=image,serialized=True,name='prepare_dataset',cpu=(2,2),memory=(1024,1024),volumes={'/research':volume},timeout=180,retries=0,min_containers=0,max_containers=1,scaledown_window=10)
+ def prepare_dataset(payload):
+  from .editcraft_singlecell import prepare_dataset as install_dataset
+  lease={'kind':'dataset_preparation','sha256':payload['expectedSha256']}
+  if state.get('writer-lease')!=lease:raise ValueError('Dataset preparation does not own the approved scientific volume lease.')
+  try:
+   volume.reload();receipt=install_dataset(payload['source']);volume.commit();receipts=state.get('dataset-receipts',{});receipts[receipt['sha256']]=receipt;state['dataset-receipts']=receipts;state['dataset-preparation']={'state':'completed','sha256':receipt['sha256'],'finished':utc()};return receipt
+  except BaseException as exc:
+   state['dataset-preparation']={'state':'failed','sha256':payload['expectedSha256'],'errorType':type(exc).__name__,'finished':utc(),'retry':False};raise
+  finally:
+   if state.get('writer-lease')==lease:state.pop('writer-lease')
  @app.function(image=image,serialized=True,name='prepare_reference',cpu=(2,2),memory=(4096,4096),volumes={'/research':volume},timeout=660,retries=0,min_containers=0,max_containers=1,scaledown_window=10)
  def prepare_reference(identity):
   from .editcraft_toolchain import prepare_reference as install_reference
@@ -113,7 +138,21 @@ def build_app(include_models=False,include_tools=False):
   if operation=='health':
    import Bio,RNA
    from .editcraft_toolchain import manifest_sha as tool_manifest_sha
-   return {'state':'available','engine':'EditCraft','cpuOnly':True,'gpuStarted':False,'biopython':Bio.__version__,'viennarna':RNA.__version__,'scientificBenchmarkComplete':False,'sourceSha256':source_identity(),'modelRuntimesIncluded':include_models,'models':state.get('model-receipts',{}),'modelPreparation':state.get('model-preparation'),'toolRuntimesIncluded':include_tools,'toolManifestSha256':tool_manifest_sha(),'references':state.get('reference-receipts',{}),'referencePreparation':state.get('reference-preparation'),'activeTask':state.get('writer-lease')}
+   from .editcraft_singlecell import manifest_sha as cell_manifest_sha
+   return {'state':'available','engine':'EditCraft','cpuOnly':True,'gpuStarted':False,'biopython':Bio.__version__,'viennarna':RNA.__version__,'scientificBenchmarkComplete':False,'sourceSha256':source_identity(),'modelRuntimesIncluded':include_models,'models':state.get('model-receipts',{}),'modelPreparation':state.get('model-preparation'),'toolRuntimesIncluded':include_tools,'toolManifestSha256':tool_manifest_sha(),'references':state.get('reference-receipts',{}),'referencePreparation':state.get('reference-preparation'),'singlecellRuntimesIncluded':include_singlecell,'cellManifestSha256':cell_manifest_sha(),'datasets':state.get('dataset-receipts',{}),'datasetPreparation':state.get('dataset-preparation'),'activeTask':state.get('writer-lease')}
+  if operation=='prepare_dataset':
+   from .editcraft_singlecell import MANIFEST as cells,manifest_sha as cell_manifest_sha
+   source=payload.get('source',{});expected=payload.get('expectedSha256')
+   if payload.get('approved') is not True or payload.get('manifestSha256')!=cell_manifest_sha():raise ValueError('Approve this exact dataset transfer and preparation cost.')
+   if source.get('kind')=='public':
+    if source.get('id') not in cells['datasets'] or cells['datasets'][source['id']]['sha256']!=expected:raise ValueError('Public dataset identity differs from the approved reference.')
+   elif source.get('kind')=='upload':
+    if source.get('sha256')!=expected:raise ValueError('Uploaded dataset differs from the approved checksum.')
+   else:raise ValueError('Unsupported dataset source.')
+   lease={'kind':'dataset_preparation','sha256':expected}
+   if not state.put('writer-lease',lease,skip_if_exists=True):raise ValueError('A scientific task already owns the data volume. Reconnect instead of resubmitting.')
+   row={'state':'submission_uncertain','sha256':expected,'started':utc(),'retry':False};state['dataset-preparation']=row
+   call=prepare_dataset.spawn(payload);row.update(state='submitted',callId=call.object_id);state['dataset-preparation']=row;return row
   if operation=='prepare_reference':
    from .editcraft_toolchain import MANIFEST,manifest_sha as tool_manifest_sha
    identity=payload.get('referenceId')
@@ -142,6 +181,12 @@ def build_app(include_models=False,include_tools=False):
    if payload.get('approved') is not True:raise ValueError('Explicit input-transfer and cost approval required.')
    needs_models=any(s['operation'] in ('rs3_activity','bedict_per_base','pridict2_design') for s in plan['stages'])
    needs_tools=any(s['operation']=='cas_offinder' for s in plan['stages'])
+   needs_cells=any(s['operation']=='scanpy_analysis' for s in plan['stages'])
+   if needs_cells:
+    if not include_singlecell:raise ValueError('The isolated Scanpy CPU runtime is not deployed.')
+    from .editcraft_singlecell import verify_dataset
+    for stage in plan['stages']:
+     if stage['operation']=='scanpy_analysis':volume.reload();verify_dataset(stage['parameters']['datasetSha256'])
    if needs_tools and not include_tools:raise ValueError('The pinned Cas-OFFinder CPU runtime is not deployed.')
    from .editcraft_toolchain import verify_reference
    for stage in plan['stages']:
@@ -162,7 +207,7 @@ def build_app(include_models=False,include_tools=False):
    if not state.put('request:'+key,record,skip_if_exists=True):raise ValueError('A submission is already being reconciled; never retry automatically.')
    lease={'kind':'editcraft','request':key}
    if not state.put('writer-lease',lease,skip_if_exists=True):raise ValueError('Another EditCraft experiment is queued or running; reconnect instead of submitting.')
-   call=(analyze_tools if needs_tools else analyze_models if needs_models else analyze).spawn(plan,key);record.update(state='submitted',callId=call.object_id);state['request:'+key]=record;return record
+   call=(analyze_singlecell if needs_cells else analyze_tools if needs_tools else analyze_models if needs_models else analyze).spawn(plan,key);record.update(state='submitted',callId=call.object_id);state['request:'+key]=record;return record
   if operation=='cancel':
    state['cancel:'+key]=True
    original=state.get('request:'+key)
@@ -174,24 +219,35 @@ def build_app(include_models=False,include_tools=False):
    row={**row,'state':'cancelled','cancellationRequested':utc(),'billingStopped':False}
    state['job:'+key]=row
    return row
-  if operation not in ('status','result'):raise ValueError('Unsupported EditCraft control operation.')
+  if operation not in ('status','result','artifact_info','diagnostics'):raise ValueError('Unsupported EditCraft control operation.')
   row=state.get('job:'+key)
   if row is None:
    volume.reload();file=pathlib.Path('/research')/key/'status.json'
    row=json.loads(file.read_text()) if file.is_file() else state.get('request:'+key) or {'id':key,'state':'not_observed','retry':False}
-  if operation=='result':
+  if operation=='diagnostics':
+   if row.get('state') not in ('failed','deadline_exceeded','cancelled'):raise ValueError('Failure details are available only for a stopped experiment.')
+   volume.reload();file=pathlib.Path('/research')/key/'failure.private.json'
+   if not file.is_file():return {'available':False,'message':'This earlier/interrupted worker did not retain a private traceback; no diagnostic was invented.','scientificCalculationStarted':False}
+   if file.stat().st_size>1024**2:raise ValueError('Private diagnostic exceeds its bounded retrieval size.')
+   return {'available':True,'diagnostic':json.loads(file.read_text()),'scientificCalculationStarted':False}
+  if operation in ('result','artifact_info'):
    if row.get('state')!='completed':raise ValueError('No completed result available.')
    volume.reload();data=json.loads((pathlib.Path('/research')/key/'result.json').read_text())
    if sha(data)!=row['resultSha256']:raise ValueError('Result checksum mismatch.')
+   if operation=='artifact_info':
+    from .editcraft_singlecell import artifact_info
+    artifacts=[value['result'].get('artifact') for value in data['results'].values() if value.get('operation')=='scanpy_analysis' and value['result'].get('artifact',{}).get('sha256')==payload.get('artifactSha256')]
+    if len(artifacts)!=1:raise ValueError('Choose one exact processed artifact from this completed experiment.')
+    return artifact_info(artifacts[0],key)
    return {'status':row,'result':data}
   return row
  app._fold_resources=[state,volume]
  return app
 
-def deploy(include_models=False,include_tools=False):
+def deploy(include_models=False,include_tools=False,include_singlecell=False):
  from .modal_provider import deploy_app
  import modal
  # deploy_app already acquires the shared scientific writer lease atomically.
  # Taking it here as well would make the guarded deployment reject itself.
- app=build_app(include_models,include_tools);deploy_app(app)
+ app=build_app(include_models,include_tools,include_singlecell);deploy_app(app)
  return {'appId':app.app_id,'health':modal.Function.from_name(APP,'control').remote('health',{})}

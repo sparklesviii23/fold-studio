@@ -19,6 +19,7 @@ OPS={
  'cas_offinder':('guide_reference_search','off_target_matches','Cas-OFFinder 2.4.1 OpenCL CPU sequence-match enumeration'),
  'reference_window':('reference_interval','reference_sequence','Exact pinned assembly sequence and strand-aware coordinates'),
  'variant_vep':('genomic_snv','variant_annotation','Assembly- and allele-checked Ensembl VEP consequence annotation'),
+ 'scanpy_analysis':('h5ad_counts','single_cell_analysis','Pinned Scanpy QC, normalization, PCA, UMAP, Leiden and exploratory cluster markers'),
  'variant_cds':('coding_variant','variant_consequence','Reference-checked coding-sequence comparison'),
  'coordinate_map':('genomic_position','transcript_position','Strand-aware exon coordinate mapping'),
  'sequence_align':('sequence_pair','alignment','Biopython PairwiseAligner'),
@@ -234,6 +235,12 @@ def reference_window(p):
 def variant_vep(p):
  from .editcraft_variants import annotate
  return annotate(p)
+def scanpy_analysis(p):
+ from .editcraft_singlecell import execute
+ return execute(p)
+
+def resources(plan):
+ return {'cpu':2,'memoryGiB':8 if any(s['operation']=='scanpy_analysis' for s in plan['stages']) else 4,'gpu':False}
 
 FUNCTIONS={name:globals()[name] for name in OPS}
 def validate_plan(plan):
@@ -259,12 +266,16 @@ def validate_plan(plan):
   if op=='variant_vep':
    from .editcraft_variants import validate_input
    validate_input(stage['parameters'])
+  if op=='scanpy_analysis':
+   from .editcraft_singlecell import validate_input
+   validate_input(stage['parameters'])
   if link:
    if link not in seen:raise ValueError('Dependency must refer to an earlier stage; cycles are prohibited.')
    compatible={('gene_context','sequence_analyze'),('sequence_analyze','rna_fold'),('sequence_analyze','rna_ensemble')}
    if (seen[link],op) not in compatible:raise ValueError('No explicit scientific conversion exists for this handoff.')
   elif not isinstance(stage.get('parameters'),dict):raise ValueError('Stage parameters must be an object.')
   seen[stage['id']]=op
+ if 'scanpy_analysis' in seen.values() and any(op in ('rs3_activity','bedict_per_base','pridict2_design','cas_offinder') for op in seen.values()):raise ValueError('Single-cell stages use their isolated CPU environment. Review trained-model or OpenCL tool stages as a separate experiment; no unqualified mixed runtime is inferred.')
  if type(plan.get('seconds'))is not int or not 30<=plan['seconds']<=600:raise ValueError('Set a 30–600 second CPU deadline.')
  return plan
 
@@ -283,7 +294,12 @@ def run_plan(plan,checkpoint=lambda event:None,cancelled=lambda:False):
     params.update(sequence=cds,kind='DNA')
    else:params.update(sequence=previous['rna'],kind='RNA')
   checkpoint({'stageId':stage['id'],'operation':stage['operation'],'state':'running'})
-  value=FUNCTIONS[stage['operation']](params)
+  import os
+  previous_stage=os.environ.get('FOLD_EDITCRAFT_STAGE_ID');os.environ['FOLD_EDITCRAFT_STAGE_ID']=stage['id']
+  try:value=FUNCTIONS[stage['operation']](params)
+  finally:
+   if previous_stage is None:os.environ.pop('FOLD_EDITCRAFT_STAGE_ID',None)
+   else:os.environ['FOLD_EDITCRAFT_STAGE_ID']=previous_stage
   results[stage['id']]={'operation':stage['operation'],'inputSha256':sha(params),'result':value,'completed':utc()}
   checkpoint({'stageId':stage['id'],'operation':stage['operation'],'state':'completed'})
  return {'schemaVersion':1,'results':results,'provenance':{'engine':'EditCraft','version':VERSION,'inputSha256':sha(plan),'python':sys.version.split()[0],'platform':platform.platform(),'host':platform.node(),'packages':{name:importlib.metadata.version(name) for name in ('biopython','ViennaRNA') if importlib.util.find_spec('Bio' if name=='biopython' else 'RNA')},'completed':utc(),'elapsedSeconds':time.monotonic()-started,'scientificQualification':'Operation-specific tests; trained-model execution and independent scientific qualification are tracked separately.'}}
