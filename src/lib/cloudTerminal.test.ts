@@ -9,3 +9,25 @@ describe('cloud terminal transport',()=>{
 
 import {activityMessage,redactCommand} from './cloudTerminal';
 it('renders recorded journal operations as readable activity without inventing metrics',()=>{expect(activityMessage({...event(1),message:JSON.stringify({operation:'REDESIGN',candidateId:'a'.repeat(64)})})).toBe('New sequence redesign retained · aaaaaaaaaaaa');expect(activityMessage(event(1))).toBe(event(1).message);expect(redactCommand('API_KEY=private-value')).not.toContain('private-value');});
+
+describe('structured worker events inside genuine Modal stdout',()=>{
+ const options={search:'',engine:'',severity:'',stage:'',after:0,raw:false};
+ const wrapped=(category:string,message:string):CloudEvent=>({...event(1),campaignId:'campaign',message:'RAPID_EVENT '+JSON.stringify({campaignId:'campaign',stageId:'stage',engine:'bindcraft2',category,message,severity:'warning'})});
+ it('hides resource envelopes only in Scientific Activity while preserving exact raw output',()=>{
+  const row=wrapped('resources','{"observation":{"usedMiB":123}}'),original=JSON.stringify(row);
+  expect(filterEvents([row],options)).toEqual([]);
+  expect(filterEvents([row],{...options,raw:true})).toEqual([row]);expect(JSON.stringify(row)).toBe(original);
+ });
+ it('shows actual model text and severity with the original cursor and identity',()=>{
+  const row=wrapped('model_output','Original trajectory rejected by i_pTM');
+  const output=filterEvents([row],{...options,search:'rejected',severity:'warning'});
+  expect(output).toHaveLength(1);expect(output[0].message).toBe('Original trajectory rejected by i_pTM');
+  expect(output[0].eventId).toBe(row.eventId);expect(output[0].cursor).toBe(row.cursor);expect(output[0].timestamp).toBe(row.timestamp);
+ });
+ it('does not trust an envelope from another campaign or invalid JSON',()=>{
+  const original=wrapped('resources','fixture');
+  for(const message of [original.message.replace('"campaign"','"other"'),'RAPID_EVENT {invalid']){
+   const row={...original,message};expect(filterEvents([row],options)).toEqual([row]);
+  }
+ });
+});
