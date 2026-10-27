@@ -19,8 +19,8 @@ Focused interface tests (4) and TypeScript passed. The guarded native build succ
 - Acceptance: stage selection controls the exported JSON; the original saved stage remains byte-for-byte equivalent after JSON round-trip; the report states that a background hash is not the full background list. No calculation starts.
 - Verified: focused interface tests and TypeScript pass; final guarded app build and signing passed; export button was not clicked in the native app. No new cloud or biological evidence claimed.
 
-## Staged next ticket: SVG membership export
+## Completed ticket: SVG membership export
 
 - Modules: `src/components/PathwayMembership.tsx`, `src/components/EditCraftPathways.tsx`, their focused tests.
 - Acceptance: exact bounded edges; escaped labels; original input/source/collection/background hashes and omitted counts in metadata; vector export clearly disclaims interaction and causality.
-- Verified: six focused interface tests and TypeScript pass. Guarded build and signing passed; native verification awaits Documents access for the newly signed app.
+- Verified: six focused interface tests and TypeScript pass. Guarded build and signing passed. Native export of the saved finite-population reference produced valid SVG XML with the exact three displayed edges and four original hashes; zero nodes were omitted. The companion JSON retained all three tested rows and matching source/input hashes.

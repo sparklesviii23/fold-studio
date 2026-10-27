@@ -93291,7 +93291,7 @@
         "src/components/EditCraft.tsx"
       ],
       "implementationState": "partially_implemented",
-      "uiState": "Saved pathway results display a bounded interactive graph of exact tested-set/overlap-gene membership; export the exact saved stage/result JSON and a standalone bounded SVG with input/source hashes and omission counts. No topology or causal links are inferred.",
+      "uiState": "Saved pathway results display a bounded interactive graph of exact tested-set/overlap-gene membership; export the exact saved stage/result JSON and a standalone bounded SVG with input/source hashes and omission counts. The synthetic-reference SVG and JSON exports were checked in the native app. No topology or causal links are inferred.",
       "scientificComputationState": "See original clause evidence; no new qualification inferred.",
       "modalDeploymentState": "Not reverified by this audit migration.",
       "validationState": "reviewed",
@@ -93301,7 +93301,7 @@
       ],
       "evidenceArtifacts": [
         "docs/EDITCRAFT_PATHWAY_ENGINE.md",
-      "src/components/PathwayMembership.test.tsx",
+        "src/components/PathwayMembership.test.tsx",
         {
           "path": "reports/editcraft/pathway-numerical-reference.json",
           "sha256": "d08b6cb1a4ca3964bb91d626ac2af6ff359a2ea47be989592df7d9acc89b8375"
@@ -93313,6 +93313,10 @@
         {
           "path": "reports/editcraft/native-pathway-workflow.json",
           "sha256": "8ac031051b2e97a721776d4552c49327e8926b65bf4312368891139b03b2e1c4"
+        },
+        {
+          "path": "reports/editcraft/pathway-native-export-validation.json",
+          "sha256": "66c49b0e0c36863e853cda808813cc9efa660e350e1d8b5242d371b9ad6ee70a"
         }
       ],
       "remainingWork": "Complete verified Reactome/GO/STRING/BioGRID ingestion, biological benchmarks, actual interaction topology, network analyses, perturbation/variant context and dynamic models. Current method has mathematical/reference execution evidence and an exact-membership graph only.",

@@ -32,10 +32,10 @@ A bounded interactive membership graph is implemented for actual saved enrichmen
 
 The closely related pathway export preserves the exact selected saved stage and labels the missing full background list. Focused tests pass; final guarded package and signature checks passed; no native export-file click was performed.
 
+## Installed SVG graph export
+
+`PathwayMembership.tsx` and `EditCraftPathways.tsx` now prepare a bounded standalone SVG containing exact displayed membership edges, original source/input hashes and omitted-node counts. Six focused interface tests and TypeScript pass. The guarded installer passed and replaced the single current app after the user unlocked the Mac and the idle app/worker exited normally. Native verification passed on the saved finite-population pathway reference: the exported SVG was parsed as valid XML with exactly three reported edges, four original hashes and zero omitted nodes. The saved JSON export contained all three original tested rows and matching input/source hashes. The app is open on the original research root. No paid compute or Fab work occurred. No paid compute or Fab work occurred.
+
 ## Next independent ticket
 
-Add SVG export of the bounded pathway membership graph, including its exact displayed nodes, edges, original result/source hashes and omission counts. Scope: `src/components/PathwayMembership.tsx`, `src/components/EditCraftPathways.tsx` and focused tests. Do not imply the SVG is complete pathway topology or independent biological evidence. No cloud work required.
-
-## Staged SVG graph export
-
-`PathwayMembership.tsx` and `EditCraftPathways.tsx` now prepare a bounded standalone SVG containing exact displayed membership edges, original source/input hashes and omitted-node counts. Six focused interface tests and TypeScript pass. The guarded installer passed and replaced the single current app after the user unlocked the Mac and the idle app/worker exited normally. Native verification is waiting for macOS Documents access on the newly signed build. No paid compute or Fab work occurred.
+Add local GMT file import to the existing pathway form with explicit collection attribution and input-size validation. Scope: `src/components/EditCraftPathways.tsx`, existing file chooser/read API and focused tests. Do not auto-download collections or infer identifier mappings.
