@@ -34,6 +34,7 @@ import execution_policy
 import modal_account
 import biology_modal
 import peptide_chemistry
+import project_archive
 
 AA = 'ACDEFGHIKLMNPQRSTVWY'
 MAX_FILE = 100 * 1024 * 1024
@@ -546,9 +547,11 @@ class Service:
             temporary.replace(path)
         finally:temporary.unlink(missing_ok=True)
         return str(path)
+    def project_archive_inspect(self,p):
+        return project_archive.inspect_archive(p)
     def export_file(self,p):
         path=pathlib.Path(p['path'])
-        if path.suffix.lower() not in ['.json','.fasta','.fa','.png','.svg','.pdb','.cif','.mmcif','.txt','.py','.cxc','.pdf','.csv','.md','.sdf']: raise ValueError('Unsupported export format.')
+        if path.suffix.lower() not in ['.json','.fasta','.fa','.png','.svg','.pdb','.cif','.mmcif','.txt','.py','.cxc','.pdf','.csv','.tsv','.md','.sdf']: raise ValueError('Unsupported export format.')
         if p.get('asset'):
             asset=str(p['asset'])
             if pathlib.Path(asset).name!=asset: raise ValueError('Invalid asset identifier.')
@@ -599,7 +602,7 @@ class Service:
         if action in PEPTIDE_ACTIONS: return Peptides(self).dispatch(action,p)
         return getattr(self,action)(p)
 
-ACTIONS={'record_update','record_remove','record_restore','library','setting_set','project_create','project_update','project_delete','record_save','sequence_save','mutate','fasta_parse','fasta_import','uniprot_search','uniprot_get','structures','structure_download','import_structure','asset_read','compute','install_engine','prediction_start','prediction_resources','job_read','job_cancel','cloud_prepare','cloud_opened','cloud_import','export_project','export_file','reconcile'}
+ACTIONS={'record_update','record_remove','record_restore','library','setting_set','project_create','project_update','project_delete','record_save','sequence_save','mutate','fasta_parse','fasta_import','uniprot_search','uniprot_get','structures','structure_download','import_structure','asset_read','compute','install_engine','prediction_start','prediction_resources','job_read','job_cancel','cloud_prepare','cloud_opened','cloud_import','export_project','project_archive_inspect','export_file','reconcile'}
 
 ACTIONS |= molecular_observatory.ACTIONS | editcraft.ACTIONS | cloud_shell.ACTIONS | cloud_accounts.ACTIONS | cloud_monitor.ACTIONS | cloud_audit.ACTIONS | cloud_deployment.ACTIONS | execution_policy.ACTIONS | modal_account.ACTIONS | peptide_chemistry.ACTIONS | biology_modal.ACTIONS | biology_agent.ACTIONS | biology_evidence.ACTIONS | biology_pipeline.ACTIONS | boltz_api_adapter.ACTIONS | evolution.ACTIONS | research.ACTIONS | cinema.ACTIONS | rapid_remote.ACTIONS | cloud_compute.ACTIONS | dynamics.ACTIONS | ligand.ACTIONS | mpnn.ACTIONS | fold_engine.ACTIONS | OBSERVATORY_ACTIONS | PEPTIDE_ACTIONS | molecular_graph.ACTIONS | intelligence.ACTIONS
 

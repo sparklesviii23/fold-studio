@@ -17,3 +17,13 @@ class TrajectoryMetrics(unittest.TestCase):
    with self.subTest(frames=frames),self.assertRaises(ValueError):coordinate_metrics(frames)
  def test_small_raw_motion_does_not_require_a_rigid_fit(self):
   result=coordinate_metrics([[[0,0,0]],[[0,2,0]]],False);self.assertEqual(result['rmsdAngstrom'],[0,2]);self.assertEqual(result['rmsfAngstrom'],[1])
+
+ def test_gyration_matches_known_equal_mass_geometry(self):
+  result=coordinate_metrics([[[-2,0,0],[2,0,0]],[[-4,0,0],[4,0,0]]],False)
+  self.assertEqual(result['radiusOfGyrationAngstrom'],[2,4]);self.assertEqual(result['units'],'Å');self.assertIn('equal Cα mass weights',result['radiusOfGyrationMethod'])
+ def test_gyration_is_rigid_motion_and_alignment_invariant(self):
+  frames=[[[0,0,0],[2,0,0],[0,1,0]],[[7,-3,2],[7,-1,2],[6,-3,2]]]
+  raw=coordinate_metrics(frames,False);fitted=coordinate_metrics(frames,True)
+  self.assertAlmostEqual(raw['radiusOfGyrationAngstrom'][0],(10/9)**.5)
+  self.assertAlmostEqual(raw['radiusOfGyrationAngstrom'][0],raw['radiusOfGyrationAngstrom'][1])
+  self.assertEqual(raw['radiusOfGyrationAngstrom'],fitted['radiusOfGyrationAngstrom'])

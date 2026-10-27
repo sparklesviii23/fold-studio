@@ -17,6 +17,7 @@ describe('explicit pathway input',()=>{
   expect(html).toContain('No observed overlap connects');
   expect(html).toContain('Export this exact pathway result');
   expect(html).toContain('Export displayed membership graph');
+  expect(html).toContain('Export all tested sets · TSV');
  });
  it('exports the original saved stage without inventing missing background identifiers',()=>{
   const stage={operation:'pathway_enrichment',result:{method:'One-sided hypergeometric over-representation',rows:[{id:'set_1',overlapGenes:['g1'],adjustedPValue:.04}],backgroundSha256:'a'.repeat(64),sourceSha256:'b'.repeat(64)}};

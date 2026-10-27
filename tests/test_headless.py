@@ -33,5 +33,13 @@ class HeadlessTests(unittest.TestCase):
         for suffix in ('.py','.cxc'):
             path=pathlib.Path(self.temp.name)/('research'+suffix);text='print("scientific")\n' if suffix=='.py' else 'color #1/A cyan target c\n'
             self.s.export_file({'path':str(path),'text':text});self.assertEqual(path.read_text(),text)
+    def test_tsv_export_preserves_table_and_quoted_fields(self):
+        import csv
+        path=pathlib.Path(self.temp.name)/'pathways.tsv'
+        text='id\tpValue\tcollection\r\nset_1\t1e-250\t"Source\nwith ""quotes"""\r\n'
+        self.s.export_file({'path':str(path),'text':text})
+        self.assertEqual(path.read_bytes(),text.encode())
+        with path.open(newline='') as stream: rows=list(csv.DictReader(stream,delimiter='\t'))
+        self.assertEqual(rows,[{'id':'set_1','pValue':'1e-250','collection':'Source\nwith "quotes"'}])
 
 if __name__=='__main__':unittest.main()

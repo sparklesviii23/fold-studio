@@ -1,0 +1,64 @@
+{
+  "schemaVersion": 1,
+  "date": "2026-10-27",
+  "scope": "Consolidated non-Fab implementation batch; existing full-platform audit retained",
+  "fullPlatformComplete": false,
+  "fabDeferred": true,
+  "completedFeatures": [
+    "Native-verified attributed local GMT chooser/cancellation; isolated text/name/checksum preservation",
+    "Complete saved pathway family TSV export with logs, underflow flags, attribution and spreadsheet text protection",
+    "Per-frame equal-mass observed C-alpha radius of gyration in saved trajectory analysis",
+    "Saved RDKit ligand/conformer inspector with checksum-verifying SDF and summary JSON exports",
+    "Bounded read-only Fold project archive CRC/SHA-256/reference integrity review",
+    "Read-only mmCIF unit-cell geometry, reported symmetry, original values/source identity and JSON export"
+  ],
+  "verified": {
+    "focusedBackendTests": 18,
+    "focusedInterfaceTests": 21,
+    "typeScript": "passed",
+    "guardedBuild": "passed",
+    "signatureAndPackage": "passed",
+    "scientificModulesChecked": 61,
+    "nativeArchiveReview": true,
+    "nativeUnitCell1BNA": true,
+    "nativeGyrationNumericalReference": true,
+    "nativeLigandInspectorAndSDFHash": true,
+    "nativePathwayTSV": "Awaiting original library Documents access; original shared extension failure was corrected and backend-tested"
+  },
+  "evidence": [
+    "reports/ultimate/consolidated-native-acceptance.json",
+    "reports/editcraft/pathway-table-export-validation.json",
+    "reports/ultimate/consolidated-batch-build.log"
+  ],
+  "requirementScopesAdvanced": [
+    "VII-14-C004",
+    "VII-22-C003",
+    "VII-25-C003",
+    "UL-MAT-062-C004"
+  ],
+  "broadRequirementsFullyClosed": [],
+  "scientificLimits": [
+    "Artificial trajectory geometry verifies arithmetic/integration, not biological dynamics",
+    "Existing genuine ethanol reference is technical conformer evidence, not docking/affinity or toxicology",
+    "1BNA reference confirms reported cell handling, not independent symmetry or full materials simulation",
+    "Archive review does not restore projects or replay jobs; ZIP CRC is not authenticity or scientific validation",
+    "Systems biology still needs authenticated curated collections, biological benchmarks and actual network topology"
+  ],
+  "remainingDomains": [
+    "Protein and multi-engine scientific qualification/independent evaluation",
+    "Broader EditCraft/experimental sequencing/single-cell/causal-context engines",
+    "Docking/screening/free-energy and broader simulation validation",
+    "Periodic materials/quantum engines beyond reported unit-cell inspection",
+    "Publishing/workflow/registry/project re-import and production/fresh-machine qualification"
+  ],
+  "costs": {
+    "newPaidWork": false,
+    "newCloudCampaignsStarted": 0,
+    "newModelsDownloaded": 0,
+    "providerInventoryOrBillingQueried": false,
+    "providerCharges": "Not queried; no new cloud spend initiated"
+  },
+  "installation": "Single canonical current app updated through guarded installer; no backup app or automatic archive created",
+  "originalResearchData": "Native tests used a separate /tmp QA root; real research root was not used as a synthetic fixture",
+  "next": "Finish original-library TSV save check after Documents permission, then a separately tested archive re-import package with nonexecuting job semantics."
+}

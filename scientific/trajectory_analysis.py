@@ -24,8 +24,8 @@ def analyze(s,p):
    if process.returncode:raise ValueError(process.stderr.strip().splitlines()[-1] if process.stderr.strip() else 'Motion analysis failed.')
    result=json.loads((folder/'result.json').read_text())
   if result['inputSha256']!=record['data']['sha256'] or result['runnerSha256']!=runner_sha or fe.checksum(runner.read_bytes())!=runner_sha or fe.checksum(path.read_bytes())!=record['data']['sha256']:raise ValueError('Motion source or calculation implementation changed.')
-  if result['frameIds']!=expected['frameIds'] or len(result['rmsdAngstrom'])!=len(expected['frameIds']) or len(result['rmsfAngstrom'])!=len(result['atoms']):raise ValueError('Motion result correspondence differs from its source.')
-  if any(not math.isfinite(v) or v<0 for v in result['rmsdAngstrom']+result['rmsfAngstrom']):raise ValueError('Motion calculation returned invalid values.')
+  if result['frameIds']!=expected['frameIds'] or len(result['rmsdAngstrom'])!=len(expected['frameIds']) or len(result['rmsfAngstrom'])!=len(result['atoms']) or len(result.get('radiusOfGyrationAngstrom',[]))!=len(expected['frameIds']):raise ValueError('Motion result correspondence differs from its source.')
+  if any(not math.isfinite(v) or v<0 for v in result['rmsdAngstrom']+result['rmsfAngstrom']+result['radiusOfGyrationAngstrom']):raise ValueError('Motion calculation returned invalid values.')
   dynamics=record['data'].get('metadata',{}).get('dynamics',{});receipt=dynamics.get('receipt',{});series=receipt.get('series',[])
   if dynamics.get('artifact')=='trajectory.pdb' and receipt.get('artifacts',{}).get('trajectory.pdb')==record['data']['sha256'] and [row.get('frameId') for row in series]==result['frameIds']:
    result['physicalTimePs']=[row['timePs'] for row in series];result['timeSource']='Matching saved OpenMM trajectory receipt; not inferred from MODEL IDs.'

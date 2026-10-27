@@ -6,6 +6,8 @@ def coordinate_metrics(frames,align=True):
  points=np.asarray(frames,dtype=np.float64)
  if points.ndim!=3 or points.shape[0]<2 or points.shape[1]<1 or points.shape[2]!=3 or not np.isfinite(points).all():raise ValueError('Motion analysis needs at least two finite frames with matching XYZ atoms.')
  if points.shape[0]*points.shape[1]>200000:raise ValueError('Motion analysis supports at most 200,000 selected atom/frame pairs.')
+ # All selected sites are carbon Cα atoms, so equal mass and equal site weights coincide.
+ gyration=np.sqrt(np.mean(np.sum((points-points.mean(axis=1,keepdims=True))**2,axis=2),axis=1))
  reference=points[0];center=reference.mean(axis=0);centered=reference-center;determinants=[];coordinates=[]
  if align and (points.shape[1]<3 or np.linalg.matrix_rank(centered,tol=1e-10)<2):raise ValueError('Rigid alignment needs at least three noncollinear reference atoms. Disable alignment for raw displacement.')
  for frame in points:
@@ -15,7 +17,7 @@ def coordinate_metrics(frames,align=True):
    u,_,vt=np.linalg.svd(shifted.T@centered);correction=np.eye(3);correction[2,2]=1. if np.linalg.det(u@vt)>=0 else -1.;rotation=u@correction@vt;determinants.append(float(np.linalg.det(rotation)));coordinates.append(shifted@rotation+center)
   else:coordinates.append(frame.copy())
  coordinates=np.asarray(coordinates);rmsd=np.sqrt(np.mean(np.sum((coordinates-reference)**2,axis=2),axis=1));mean=coordinates.mean(axis=0);rmsf=np.sqrt(np.mean(np.sum((coordinates-mean)**2,axis=2),axis=0))
- return {'alignment':'proper rigid least-squares fit to first saved frame' if align else 'none; includes whole-body translation and rotation','referenceFrameIndex':0,'units':'Å','rmsdAngstrom':rmsd.tolist(),'rmsfAngstrom':rmsf.tolist(),'rotationDeterminants':determinants,'averaging':'Equal frame weights; population mean-square fluctuations divided by N, not N−1. RMSF uses the mean of the analyzed coordinates.','limitations':['Frame motion alone does not establish equilibration, flexibility in solution, stability, binding or statistical uncertainty.']}
+ return {'alignment':'proper rigid least-squares fit to first saved frame' if align else 'none; includes whole-body translation and rotation','referenceFrameIndex':0,'units':'Å','rmsdAngstrom':rmsd.tolist(),'rmsfAngstrom':rmsf.tolist(),'radiusOfGyrationAngstrom':gyration.tolist(),'radiusOfGyrationMethod':'Root mean-square distance of observed canonical protein Cα sites from their per-frame centroid; equal Cα mass weights. Computed before alignment; excludes solvent, side chains, other atoms and unobserved sites.','rotationDeterminants':determinants,'averaging':'Equal frame weights; population mean-square fluctuations divided by N, not N−1. RMSF uses the mean of the analyzed coordinates.','limitations':['Frame motion alone does not establish equilibration, flexibility in solution, stability, binding or statistical uncertainty.']}
 
 def run(request_path,output_path):
  import hashlib,json,pathlib,sys,time

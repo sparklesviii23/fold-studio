@@ -93289,19 +93289,24 @@
         "src/components/EditCraftPathways.tsx",
       "src/components/PathwayMembership.tsx",
         "scientific/editcraft.py",
-        "src/components/EditCraft.tsx"
+        "src/components/EditCraft.tsx",
+        "src/components/pathwayTableExport.ts",
+        "scientific/worker.py"
       ],
       "implementationState": "partially_implemented",
-      "uiState": "Saved pathway results display a bounded interactive graph of exact tested-set/overlap-gene membership; export the exact saved stage/result JSON and a standalone bounded SVG with input/source hashes and omission counts. The synthetic-reference SVG and JSON exports were checked in the native app. Local GMT selection and checksum preservation are implemented and package-verified; native inspection verified the chooser and cancellation, with preservation tested in isolation. No topology or causal links are inferred.",
+      "uiState": "Saved pathway results display a bounded interactive graph of exact tested-set/overlap-gene membership; export the exact saved stage/result JSON and a standalone bounded SVG with input/source hashes and omission counts. The synthetic-reference SVG and JSON exports were checked in the native app. Local GMT selection and checksum preservation are implemented and package-verified; native inspection verified the chooser and cancellation, with preservation tested in isolation. A full-family TSV spreadsheet export is implemented with original probability/log fields, underflow flags, source hashes and formula-safe text; seven focused interface tests and TypeScript passed, with guarded packaging/signing passed. Saved numerical-reference conversion retained all three rows, probabilities and provenance; native TSV file click is not yet verified. No topology or causal links are inferred.",
       "scientificComputationState": "See original clause evidence; no new qualification inferred.",
       "modalDeploymentState": "Not reverified by this audit migration.",
       "validationState": "reviewed",
       "tests": [
         "tests/test_editcraft_pathways.py",
-        "src/components/EditCraftPathways.test.tsx"
+        "src/components/EditCraftPathways.test.tsx",
+        "src/components/pathwayTableExport.test.ts",
+        "tests/test_headless.py"
       ],
       "evidenceArtifacts": [
         "docs/EDITCRAFT_PATHWAY_ENGINE.md",
+        "reports/editcraft/pathway-table-export-validation.json",
         "src/components/PathwayMembership.test.tsx",
         {
           "path": "reports/editcraft/pathway-numerical-reference.json",
@@ -97575,14 +97580,23 @@
       "expectedFunctionality": "- PDF.\n- DOCX.\n- Markdown.\n- CSV/TSV.\n- JSON.\n- FASTA.\n- VCF.\n- Structure files.\n- Publication-quality scientific figures.",
       "acceptanceCriteria": "- PDF.\n- DOCX.\n- Markdown.\n- CSV/TSV.\n- JSON.\n- FASTA.\n- VCF.\n- Structure files.\n- Publication-quality scientific figures.",
       "acceptanceCriterionSha256": "35527c3e154ea1d0e2d9dd9d6beea27a0424fbf9f0c6fd51441c6fd75ec062ce",
-      "existingSourceFiles": [],
-      "implementationState": "not_started",
-      "uiState": "Clause-specific review pending; inherited section context is not acceptance.",
+      "existingSourceFiles": [
+        "src/components/pathwayTableExport.ts",
+        "src/components/EditCraftPathways.tsx",
+        "scientific/worker.py"
+      ],
+      "implementationState": "partially_implemented",
+      "uiState": "Pathway TSV exports include the complete saved tested family, original numeric/log probabilities, underflow flags, collection attribution and provenance hashes. Formula-like text is made safe for spreadsheets; exact JSON remains available. Existing other formats retain their prior scope. Full publishing-format coverage remains partial.",
       "scientificComputationState": "See original clause evidence; no new qualification inferred.",
       "modalDeploymentState": "Not reverified by this audit migration.",
-      "validationState": "unreviewed",
-      "tests": [],
-      "evidenceArtifacts": [],
+      "validationState": "reviewed",
+      "tests": [
+        "src/components/pathwayTableExport.test.ts",
+        "tests/test_headless.py"
+      ],
+      "evidenceArtifacts": [
+        "reports/ultimate/consolidated-native-acceptance.json"
+      ],
       "remainingWork": "Perform clause-specific source and evidence review, then implement and verify every requested subitem. Section-level evidence is context only, not clause acceptance.",
       "externalDependencies": {
         "scientificDependencies": [],
@@ -99045,14 +99059,22 @@
       "expectedFunctionality": "- User authorization.\n- Project isolation.\n- Secure cloud transfer.\n- Credential isolation.\n- Secret redaction.\n- Data retention controls.\n- Access logging.\n- Research provenance.\n- Artifact checksums.",
       "acceptanceCriteria": "- User authorization.\n- Project isolation.\n- Secure cloud transfer.\n- Credential isolation.\n- Secret redaction.\n- Data retention controls.\n- Access logging.\n- Research provenance.\n- Artifact checksums.",
       "acceptanceCriterionSha256": "c26076252d4870736d2e491c222d8a942114070369f4ceeacc4b6b5706fdccbc",
-      "existingSourceFiles": [],
-      "implementationState": "not_started",
-      "uiState": "Clause-specific review pending; inherited section context is not acceptance.",
+      "existingSourceFiles": [
+        "scientific/project_archive.py",
+        "src/components/ProjectArchiveReview.tsx"
+      ],
+      "implementationState": "partially_implemented",
+      "uiState": "Added native read-only project ZIP review: bounded counts/sizes, unsafe/duplicate/case-conflicting/symlink/encrypted entry refusal, full ZIP CRC reading, declared asset SHA-256 and structure/SDF/ChimeraX scene-reference checks. No extraction, import or archived job execution. Existing project isolation/privacy requirements remain partial.",
       "scientificComputationState": "See original clause evidence; no new qualification inferred.",
       "modalDeploymentState": "Not reverified by this audit migration.",
-      "validationState": "unreviewed",
-      "tests": [],
-      "evidenceArtifacts": [],
+      "validationState": "reviewed",
+      "tests": [
+        "tests/test_project_archive_review.py",
+        "src/components/ProjectArchiveReview.test.tsx"
+      ],
+      "evidenceArtifacts": [
+        "reports/ultimate/consolidated-native-acceptance.json"
+      ],
       "remainingWork": "Perform clause-specific source and evidence review, then implement and verify every requested subitem. Section-level evidence is context only, not clause acceptance.",
       "externalDependencies": {
         "scientificDependencies": [],
@@ -115805,14 +115827,23 @@
       "expectedFunctionality": "- Periodic crystals.\n- Unit cells.\n- Materials structures.\n- Polymer systems.\n- Surfaces.\n- Slabs.\n- Interfaces.\n- Defects.\n- Molecular mixtures.\n- Solids.\n- Liquids.\n- Materials trajectories.\n- Electronic structure data.\n- Scientific property datasets.",
       "acceptanceCriteria": "- Periodic crystals.\n- Unit cells.\n- Materials structures.\n- Polymer systems.\n- Surfaces.\n- Slabs.\n- Interfaces.\n- Defects.\n- Molecular mixtures.\n- Solids.\n- Liquids.\n- Materials trajectories.\n- Electronic structure data.\n- Scientific property datasets.",
       "acceptanceCriterionSha256": "077bb70843b7b531ab177cbe64036ea0ac74d682d4d29ac42ac375234670157c",
-      "existingSourceFiles": [],
-      "implementationState": "Not implemented",
-      "uiState": "Not implemented; no empty workspace added.",
+      "existingSourceFiles": [
+        "src/lib/crystalCell.ts",
+        "src/components/CrystalCellInspection.tsx",
+        "src/components/ResearchLibrary.tsx"
+      ],
+      "implementationState": "partially_implemented",
+      "uiState": "Saved mmCIF unit-cell inspection reuses Mol* CIF parsing, validates reported lengths/angles, derives lattice vectors and volume in Angstrom units, retains uncertainty text/reported symmetry and recorded-source/parsed-text hashes. Native 1BNA inspection matched volume 66497.854 Angstrom cubed. This does not implement periodic simulation, symmetry determination or the wider materials scene requirements.",
       "scientificComputationState": "No materials-specific qualified execution.",
       "modalDeploymentState": "No materials-specific qualified deployment.",
-      "validationState": "Not validated",
-      "tests": [],
-      "evidenceArtifacts": [],
+      "validationState": "reviewed",
+      "tests": [
+        "src/lib/crystalCell.test.ts",
+        "src/components/CrystalCellInspection.test.tsx"
+      ],
+      "evidenceArtifacts": [
+        "reports/ultimate/consolidated-native-acceptance.json"
+      ],
       "remainingWork": "Implement the scoped real data model, computation where applicable, native workflow and reference acceptance; preserve periodic source coordinates and category memberships.",
       "externalDependencies": {
         "scientific": "Select appropriate original engine/data and independently validate this specific material class."
