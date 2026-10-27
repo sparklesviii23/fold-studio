@@ -9,6 +9,16 @@ export function membershipGraph(rows:MembershipRow[],maximumSets=8,maximumGenes=
  return {sets,genes,edges:sets.flatMap(row=>row.overlapGenes.filter(gene=>visible.has(gene)).map(gene=>({set:row.id,gene}))),omittedSets:eligible.length-sets.length,omittedGenes:new Set(sets.flatMap(row=>row.overlapGenes)).size-genes.length};
 }
 
+const xml=(value:string)=>value.replace(/[&<>"']/g,char=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&apos;'}[char]!));
+export function membershipSvg(rows:MembershipRow[],source:{inputSha256?:string;sourceSha256?:string;collectionSha256?:string;backgroundSha256?:string}){
+ const graph=membershipGraph(rows),height=Math.max(210,Math.max(graph.sets.length,graph.genes.length)*30+50);
+ const setY=(i:number)=>35+(i+.5)*(height-70)/Math.max(1,graph.sets.length);
+ const geneY=(i:number)=>35+(i+.5)*(height-70)/Math.max(1,graph.genes.length);
+ const bySet=new Map(graph.sets.map((row,i)=>[row.id,i])),byGene=new Map(graph.genes.map((gene,i)=>[gene,i]));
+ const provenance=JSON.stringify({inputSha256:source.inputSha256??null,sourceSha256:source.sourceSha256??null,collectionSha256:source.collectionSha256??null,backgroundSha256:source.backgroundSha256??null,omittedSets:graph.omittedSets,omittedGenes:graph.omittedGenes,displayedSets:graph.sets.length,displayedGenes:graph.genes.length,displayedEdges:graph.edges.length});
+ return `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 ${height}" role="img"><title>Reported input–set membership</title><desc>Exact saved overlap identifiers only; membership is not a physical interaction, activity or causal link. Bounded display; see metadata for omitted counts.</desc><metadata>${xml(provenance)}</metadata><rect width="720" height="${height}" fill="#0c2138"/>${graph.edges.map(edge=>`<line x1="252" y1="${setY(bySet.get(edge.set)!)}" x2="468" y2="${geneY(byGene.get(edge.gene)!)}" stroke="#85b9d8"><title>${xml(edge.set)} contains ${xml(edge.gene)}</title></line>`).join('')}${graph.sets.map((row,i)=>`<text x="18" y="${setY(i)+5}" fill="#e9f3ff" font-size="12"><title>${xml(row.id)}</title>${xml(row.id.length>31?row.id.slice(0,28)+'…':row.id)}</text>`).join('')}${graph.genes.map((gene,i)=>`<text x="478" y="${geneY(i)+5}" fill="#e9f3ff" font-size="12"><title>${xml(gene)}</title>${xml(gene.length>31?gene.slice(0,28)+'…':gene)}</text>`).join('')}</svg>`;
+}
+
 export default function PathwayMembership({rows}:{rows:MembershipRow[]}){
  const [selected,setSelected]=useState<string|null>(null),graph=membershipGraph(rows);
  if(!graph.edges.length)return <p>No observed overlap connects the selected genes to these tested sets.</p>;

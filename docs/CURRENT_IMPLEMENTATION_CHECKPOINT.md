@@ -35,3 +35,7 @@ The closely related pathway export preserves the exact selected saved stage and 
 ## Next independent ticket
 
 Add SVG export of the bounded pathway membership graph, including its exact displayed nodes, edges, original result/source hashes and omission counts. Scope: `src/components/PathwayMembership.tsx`, `src/components/EditCraftPathways.tsx` and focused tests. Do not imply the SVG is complete pathway topology or independent biological evidence. No cloud work required.
+
+## Staged SVG graph export
+
+`PathwayMembership.tsx` and `EditCraftPathways.tsx` now prepare a bounded standalone SVG containing exact displayed membership edges, original source/input hashes and omitted-node counts. Six focused interface tests and TypeScript pass. This change is **not installed or native-verified**: the Mac locked while the current app and workers were open, so the guarded installer cannot replace them. Wait for user unlock and normal app close; do not force-quit the app or workers. No paid compute or Fab work occurred.
