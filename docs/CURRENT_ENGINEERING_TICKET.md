@@ -23,4 +23,4 @@ Focused interface tests (4) and TypeScript passed. The guarded native build succ
 
 - Modules: `src/components/PathwayMembership.tsx`, `src/components/EditCraftPathways.tsx`, their focused tests.
 - Acceptance: exact bounded edges; escaped labels; original input/source/collection/background hashes and omitted counts in metadata; vector export clearly disclaims interaction and causality.
-- Verified: six focused interface tests and TypeScript pass. Native build is blocked by the locked Mac with an open app/worker; preserve that app and install after it is normally closed.
+- Verified: six focused interface tests and TypeScript pass. Guarded build and signing passed; native verification awaits Documents access for the newly signed app.

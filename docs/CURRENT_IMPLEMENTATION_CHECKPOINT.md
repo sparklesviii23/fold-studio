@@ -38,4 +38,4 @@ Add SVG export of the bounded pathway membership graph, including its exact disp
 
 ## Staged SVG graph export
 
-`PathwayMembership.tsx` and `EditCraftPathways.tsx` now prepare a bounded standalone SVG containing exact displayed membership edges, original source/input hashes and omitted-node counts. Six focused interface tests and TypeScript pass. This change is **not installed or native-verified**: the Mac locked while the current app and workers were open, so the guarded installer cannot replace them. Wait for user unlock and normal app close; do not force-quit the app or workers. No paid compute or Fab work occurred.
+`PathwayMembership.tsx` and `EditCraftPathways.tsx` now prepare a bounded standalone SVG containing exact displayed membership edges, original source/input hashes and omitted-node counts. Six focused interface tests and TypeScript pass. The guarded installer passed and replaced the single current app after the user unlocked the Mac and the idle app/worker exited normally. Native verification is waiting for macOS Documents access on the newly signed build. No paid compute or Fab work occurred.
