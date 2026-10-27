@@ -7,3 +7,9 @@
 - Keep one shared Boltz model store at that live root's `engine/models`. Other validation roots may link to it. Never remove a differing model on the assumption that it is a duplicate.
 - GPU CUDA images and build virtual machines are optional developer artifacts, not local app dependencies. Build these only for explicit deployment/qualification work and remove temporary local images, environments and caches when finished. Do not download models or export multi-GB image archives automatically.
 - Keep genuine scientific result evidence; do not claim that storage cleanup validates model accuracy or completes the unfinished GPU/Fab work.
+
+# Current development strategy
+
+Read `docs/CURRENT_IMPLEMENTATION_CHECKPOINT.md` before continuing. Full Fab is deferred by explicit user instruction: no local optimization, numerical debugging, memory profiling, porting, further cloud execution or automatic retries until the user explicitly resumes Fab. Preserve all code, outputs and research data.
+
+Complete one small, independently testable feature per task. Reuse existing code, inspect only relevant files and run focused tests. Do not download models, launch paid compute or run large benchmarks without explicit approval. Record blockers and move to an independent task. Keep checkpoints concise; do not interpret the master specification as permission to work indefinitely on one subsystem.

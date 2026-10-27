@@ -1,0 +1,2475 @@
+{
+  "state": "completed",
+  "started": "2026-10-26T22:52:31.397093+00:00",
+  "jobId": "9afbe604-2a6b-46b8-8579-27f1527afb14",
+  "root": "/Users/vii/Documents/FoldStudio-MetalPort/validation/mpnn-immutable-results",
+  "projectId": "1b2b2bb1-b0d9-42b1-860f-636e6736fd0d",
+  "sourceRecordId": "f778c2b9-5248-4f80-b7d4-fd998bd8c5c6",
+  "sourceSha256": "77cc242d0ad5bdd72499f00f343d3fa9e2c3a1fc8bac93fa09b6fa6ad3c05fdb",
+  "sourceFixture": "Original upstream public hIL2R_beta_gamma.pdb",
+  "observedResidues": 387,
+  "designChains": [
+    "A"
+  ],
+  "fixedContextChains": [
+    "B"
+  ],
+  "mutableObservedResidues": [
+    "[\"A\",32,\"\"]",
+    "[\"A\",33,\"\"]",
+    "[\"A\",34,\"\"]",
+    "[\"A\",35,\"\"]"
+  ],
+  "scope": "Genuine existing trained ProteinMPNN CPU inference through persistent queue, new immutable request/source/checkpoint admission, host result validation and atomic library import. No weights downloaded; no AF2/Fab calculation or paid compute. This is not fold/binding or solubility validation.",
+  "job": {
+    "id": "9afbe604-2a6b-46b8-8579-27f1527afb14",
+    "project_id": "1b2b2bb1-b0d9-42b1-860f-636e6736fd0d",
+    "name": "ProteinMPNN \u00b7 Public hIL2R beta/gamma \u00b7 original upstream reference",
+    "engine": "proteinmpnn",
+    "state": "completed",
+    "data": {
+      "projectId": "1b2b2bb1-b0d9-42b1-860f-636e6736fd0d",
+      "name": "ProteinMPNN \u00b7 Public hIL2R beta/gamma \u00b7 original upstream reference",
+      "source": {
+        "structureId": "f778c2b9-5248-4f80-b7d4-fd998bd8c5c6",
+        "projectId": "1b2b2bb1-b0d9-42b1-860f-636e6736fd0d",
+        "sha256": "77cc242d0ad5bdd72499f00f343d3fa9e2c3a1fc8bac93fa09b6fa6ad3c05fdb",
+        "format": "pdb",
+        "model": "1"
+      },
+      "count": 2,
+      "seed": 314159,
+      "temperature": 0.1,
+      "variant": "negative",
+      "designChains": [
+        "A"
+      ],
+      "constraints": {
+        "schemaVersion": 1,
+        "residues": {
+          "A": [
+            {
+              "id": "[\"A\",32,\"\"]",
+              "number": 32,
+              "aminoAcid": "S",
+              "design": true
+            },
+            {
+              "id": "[\"A\",33,\"\"]",
+              "number": 33,
+              "aminoAcid": "Q",
+              "design": true
+            },
+            {
+              "id": "[\"A\",34,\"\"]",
+              "number": 34,
+              "aminoAcid": "F",
+              "design": true
+            },
+            {
+              "id": "[\"A\",35,\"\"]",
+              "number": 35,
+              "aminoAcid": "T",
+              "design": true
+            },
+            {
+              "id": "[\"A\",36,\"\"]",
+              "number": 36,
+              "aminoAcid": "C",
+              "design": false
+            },
+            {
+              "id": "[\"A\",37,\"\"]",
+              "number": 37,
+              "aminoAcid": "F",
+              "design": false
+            },
+            {
+              "id": "[\"A\",38,\"\"]",
+              "number": 38,
+              "aminoAcid": "Y",
+              "design": false
+            },
+            {
+              "id": "[\"A\",39,\"\"]",
+              "number": 39,
+              "aminoAcid": "N",
+              "design": false
+            },
+            {
+              "id": "[\"A\",40,\"\"]",
+              "number": 40,
+              "aminoAcid": "S",
+              "design": false
+            },
+            {
+              "id": "[\"A\",41,\"\"]",
+              "number": 41,
+              "aminoAcid": "R",
+              "design": false
+            },
+            {
+              "id": "[\"A\",42,\"\"]",
+              "number": 42,
+              "aminoAcid": "A",
+              "design": false
+            },
+            {
+              "id": "[\"A\",43,\"\"]",
+              "number": 43,
+              "aminoAcid": "Q",
+              "design": false
+            },
+            {
+              "id": "[\"A\",44,\"\"]",
+              "number": 44,
+              "aminoAcid": "I",
+              "design": false
+            },
+            {
+              "id": "[\"A\",45,\"\"]",
+              "number": 45,
+              "aminoAcid": "S",
+              "design": false
+            },
+            {
+              "id": "[\"A\",46,\"\"]",
+              "number": 46,
+              "aminoAcid": "C",
+              "design": false
+            },
+            {
+              "id": "[\"A\",47,\"\"]",
+              "number": 47,
+              "aminoAcid": "V",
+              "design": false
+            },
+            {
+              "id": "[\"A\",48,\"\"]",
+              "number": 48,
+              "aminoAcid": "W",
+              "design": false
+            },
+            {
+              "id": "[\"A\",49,\"\"]",
+              "number": 49,
+              "aminoAcid": "S",
+              "design": false
+            },
+            {
+              "id": "[\"A\",50,\"\"]",
+              "number": 50,
+              "aminoAcid": "Q",
+              "design": false
+            },
+            {
+              "id": "[\"A\",57,\"\"]",
+              "number": 57,
+              "aminoAcid": "T",
+              "design": false
+            },
+            {
+              "id": "[\"A\",58,\"\"]",
+              "number": 58,
+              "aminoAcid": "S",
+              "design": false
+            },
+            {
+              "id": "[\"A\",59,\"\"]",
+              "number": 59,
+              "aminoAcid": "C",
+              "design": false
+            },
+            {
+              "id": "[\"A\",60,\"\"]",
+              "number": 60,
+              "aminoAcid": "Q",
+              "design": false
+            },
+            {
+              "id": "[\"A\",61,\"\"]",
+              "number": 61,
+              "aminoAcid": "V",
+              "design": false
+            },
+            {
+              "id": "[\"A\",62,\"\"]",
+              "number": 62,
+              "aminoAcid": "H",
+              "design": false
+            },
+            {
+              "id": "[\"A\",63,\"\"]",
+              "number": 63,
+              "aminoAcid": "A",
+              "design": false
+            },
+            {
+              "id": "[\"A\",64,\"\"]",
+              "number": 64,
+              "aminoAcid": "W",
+              "design": false
+            },
+            {
+              "id": "[\"A\",65,\"\"]",
+              "number": 65,
+              "aminoAcid": "P",
+              "design": false
+            },
+            {
+              "id": "[\"A\",66,\"\"]",
+              "number": 66,
+              "aminoAcid": "D",
+              "design": false
+            },
+            {
+              "id": "[\"A\",67,\"\"]",
+              "number": 67,
+              "aminoAcid": "R",
+              "design": false
+            },
+            {
+              "id": "[\"A\",68,\"\"]",
+              "number": 68,
+              "aminoAcid": "R",
+              "design": false
+            },
+            {
+              "id": "[\"A\",69,\"\"]",
+              "number": 69,
+              "aminoAcid": "R",
+              "design": false
+            },
+            {
+              "id": "[\"A\",70,\"\"]",
+              "number": 70,
+              "aminoAcid": "W",
+              "design": false
+            },
+            {
+              "id": "[\"A\",71,\"\"]",
+              "number": 71,
+              "aminoAcid": "Q",
+              "design": false
+            },
+            {
+              "id": "[\"A\",72,\"\"]",
+              "number": 72,
+              "aminoAcid": "Q",
+              "design": false
+            },
+            {
+              "id": "[\"A\",73,\"\"]",
+              "number": 73,
+              "aminoAcid": "T",
+              "design": false
+            },
+            {
+              "id": "[\"A\",74,\"\"]",
+              "number": 74,
+              "aminoAcid": "C",
+              "design": false
+            },
+            {
+              "id": "[\"A\",75,\"\"]",
+              "number": 75,
+              "aminoAcid": "E",
+              "design": false
+            },
+            {
+              "id": "[\"A\",76,\"\"]",
+              "number": 76,
+              "aminoAcid": "L",
+              "design": false
+            },
+            {
+              "id": "[\"A\",77,\"\"]",
+              "number": 77,
+              "aminoAcid": "L",
+              "design": false
+            },
+            {
+              "id": "[\"A\",78,\"\"]",
+              "number": 78,
+              "aminoAcid": "P",
+              "design": false
+            },
+            {
+              "id": "[\"A\",79,\"\"]",
+              "number": 79,
+              "aminoAcid": "V",
+              "design": false
+            },
+            {
+              "id": "[\"A\",80,\"\"]",
+              "number": 80,
+              "aminoAcid": "S",
+              "design": false
+            },
+            {
+              "id": "[\"A\",81,\"\"]",
+              "number": 81,
+              "aminoAcid": "Q",
+              "design": false
+            },
+            {
+              "id": "[\"A\",82,\"\"]",
+              "number": 82,
+              "aminoAcid": "A",
+              "design": false
+            },
+            {
+              "id": "[\"A\",83,\"\"]",
+              "number": 83,
+              "aminoAcid": "S",
+              "design": false
+            },
+            {
+              "id": "[\"A\",84,\"\"]",
+              "number": 84,
+              "aminoAcid": "W",
+              "design": false
+            },
+            {
+              "id": "[\"A\",85,\"\"]",
+              "number": 85,
+              "aminoAcid": "A",
+              "design": false
+            },
+            {
+              "id": "[\"A\",86,\"\"]",
+              "number": 86,
+              "aminoAcid": "C",
+              "design": false
+            },
+            {
+              "id": "[\"A\",87,\"\"]",
+              "number": 87,
+              "aminoAcid": "N",
+              "design": false
+            },
+            {
+              "id": "[\"A\",88,\"\"]",
+              "number": 88,
+              "aminoAcid": "L",
+              "design": false
+            },
+            {
+              "id": "[\"A\",89,\"\"]",
+              "number": 89,
+              "aminoAcid": "I",
+              "design": false
+            },
+            {
+              "id": "[\"A\",90,\"\"]",
+              "number": 90,
+              "aminoAcid": "L",
+              "design": false
+            },
+            {
+              "id": "[\"A\",91,\"\"]",
+              "number": 91,
+              "aminoAcid": "G",
+              "design": false
+            },
+            {
+              "id": "[\"A\",92,\"\"]",
+              "number": 92,
+              "aminoAcid": "A",
+              "design": false
+            },
+            {
+              "id": "[\"A\",93,\"\"]",
+              "number": 93,
+              "aminoAcid": "P",
+              "design": false
+            },
+            {
+              "id": "[\"A\",94,\"\"]",
+              "number": 94,
+              "aminoAcid": "D",
+              "design": false
+            },
+            {
+              "id": "[\"A\",95,\"\"]",
+              "number": 95,
+              "aminoAcid": "S",
+              "design": false
+            },
+            {
+              "id": "[\"A\",96,\"\"]",
+              "number": 96,
+              "aminoAcid": "Q",
+              "design": false
+            },
+            {
+              "id": "[\"A\",97,\"\"]",
+              "number": 97,
+              "aminoAcid": "K",
+              "design": false
+            },
+            {
+              "id": "[\"A\",98,\"\"]",
+              "number": 98,
+              "aminoAcid": "L",
+              "design": false
+            },
+            {
+              "id": "[\"A\",99,\"\"]",
+              "number": 99,
+              "aminoAcid": "T",
+              "design": false
+            },
+            {
+              "id": "[\"A\",100,\"\"]",
+              "number": 100,
+              "aminoAcid": "T",
+              "design": false
+            },
+            {
+              "id": "[\"A\",101,\"\"]",
+              "number": 101,
+              "aminoAcid": "V",
+              "design": false
+            },
+            {
+              "id": "[\"A\",102,\"\"]",
+              "number": 102,
+              "aminoAcid": "D",
+              "design": false
+            },
+            {
+              "id": "[\"A\",103,\"\"]",
+              "number": 103,
+              "aminoAcid": "I",
+              "design": false
+            },
+            {
+              "id": "[\"A\",104,\"\"]",
+              "number": 104,
+              "aminoAcid": "V",
+              "design": false
+            },
+            {
+              "id": "[\"A\",105,\"\"]",
+              "number": 105,
+              "aminoAcid": "T",
+              "design": false
+            },
+            {
+              "id": "[\"A\",106,\"\"]",
+              "number": 106,
+              "aminoAcid": "L",
+              "design": false
+            },
+            {
+              "id": "[\"A\",107,\"\"]",
+              "number": 107,
+              "aminoAcid": "R",
+              "design": false
+            },
+            {
+              "id": "[\"A\",108,\"\"]",
+              "number": 108,
+              "aminoAcid": "V",
+              "design": false
+            },
+            {
+              "id": "[\"A\",109,\"\"]",
+              "number": 109,
+              "aminoAcid": "L",
+              "design": false
+            },
+            {
+              "id": "[\"A\",110,\"\"]",
+              "number": 110,
+              "aminoAcid": "C",
+              "design": false
+            },
+            {
+              "id": "[\"A\",111,\"\"]",
+              "number": 111,
+              "aminoAcid": "R",
+              "design": false
+            },
+            {
+              "id": "[\"A\",112,\"\"]",
+              "number": 112,
+              "aminoAcid": "E",
+              "design": false
+            },
+            {
+              "id": "[\"A\",113,\"\"]",
+              "number": 113,
+              "aminoAcid": "G",
+              "design": false
+            },
+            {
+              "id": "[\"A\",114,\"\"]",
+              "number": 114,
+              "aminoAcid": "V",
+              "design": false
+            },
+            {
+              "id": "[\"A\",115,\"\"]",
+              "number": 115,
+              "aminoAcid": "R",
+              "design": false
+            },
+            {
+              "id": "[\"A\",116,\"\"]",
+              "number": 116,
+              "aminoAcid": "W",
+              "design": false
+            },
+            {
+              "id": "[\"A\",117,\"\"]",
+              "number": 117,
+              "aminoAcid": "R",
+              "design": false
+            },
+            {
+              "id": "[\"A\",118,\"\"]",
+              "number": 118,
+              "aminoAcid": "V",
+              "design": false
+            },
+            {
+              "id": "[\"A\",119,\"\"]",
+              "number": 119,
+              "aminoAcid": "M",
+              "design": false
+            },
+            {
+              "id": "[\"A\",120,\"\"]",
+              "number": 120,
+              "aminoAcid": "A",
+              "design": false
+            },
+            {
+              "id": "[\"A\",121,\"\"]",
+              "number": 121,
+              "aminoAcid": "I",
+              "design": false
+            },
+            {
+              "id": "[\"A\",122,\"\"]",
+              "number": 122,
+              "aminoAcid": "Q",
+              "design": false
+            },
+            {
+              "id": "[\"A\",123,\"\"]",
+              "number": 123,
+              "aminoAcid": "D",
+              "design": false
+            },
+            {
+              "id": "[\"A\",124,\"\"]",
+              "number": 124,
+              "aminoAcid": "F",
+              "design": false
+            },
+            {
+              "id": "[\"A\",125,\"\"]",
+              "number": 125,
+              "aminoAcid": "K",
+              "design": false
+            },
+            {
+              "id": "[\"A\",126,\"\"]",
+              "number": 126,
+              "aminoAcid": "P",
+              "design": false
+            },
+            {
+              "id": "[\"A\",127,\"\"]",
+              "number": 127,
+              "aminoAcid": "F",
+              "design": false
+            },
+            {
+              "id": "[\"A\",128,\"\"]",
+              "number": 128,
+              "aminoAcid": "E",
+              "design": false
+            },
+            {
+              "id": "[\"A\",129,\"\"]",
+              "number": 129,
+              "aminoAcid": "N",
+              "design": false
+            },
+            {
+              "id": "[\"A\",130,\"\"]",
+              "number": 130,
+              "aminoAcid": "L",
+              "design": false
+            },
+            {
+              "id": "[\"A\",131,\"\"]",
+              "number": 131,
+              "aminoAcid": "R",
+              "design": false
+            },
+            {
+              "id": "[\"A\",132,\"\"]",
+              "number": 132,
+              "aminoAcid": "L",
+              "design": false
+            },
+            {
+              "id": "[\"A\",133,\"\"]",
+              "number": 133,
+              "aminoAcid": "M",
+              "design": false
+            },
+            {
+              "id": "[\"A\",134,\"\"]",
+              "number": 134,
+              "aminoAcid": "A",
+              "design": false
+            },
+            {
+              "id": "[\"A\",135,\"\"]",
+              "number": 135,
+              "aminoAcid": "P",
+              "design": false
+            },
+            {
+              "id": "[\"A\",136,\"\"]",
+              "number": 136,
+              "aminoAcid": "I",
+              "design": false
+            },
+            {
+              "id": "[\"A\",137,\"\"]",
+              "number": 137,
+              "aminoAcid": "S",
+              "design": false
+            },
+            {
+              "id": "[\"A\",138,\"\"]",
+              "number": 138,
+              "aminoAcid": "L",
+              "design": false
+            },
+            {
+              "id": "[\"A\",139,\"\"]",
+              "number": 139,
+              "aminoAcid": "Q",
+              "design": false
+            },
+            {
+              "id": "[\"A\",140,\"\"]",
+              "number": 140,
+              "aminoAcid": "V",
+              "design": false
+            },
+            {
+              "id": "[\"A\",141,\"\"]",
+              "number": 141,
+              "aminoAcid": "V",
+              "design": false
+            },
+            {
+              "id": "[\"A\",142,\"\"]",
+              "number": 142,
+              "aminoAcid": "H",
+              "design": false
+            },
+            {
+              "id": "[\"A\",143,\"\"]",
+              "number": 143,
+              "aminoAcid": "V",
+              "design": false
+            },
+            {
+              "id": "[\"A\",144,\"\"]",
+              "number": 144,
+              "aminoAcid": "E",
+              "design": false
+            },
+            {
+              "id": "[\"A\",145,\"\"]",
+              "number": 145,
+              "aminoAcid": "T",
+              "design": false
+            },
+            {
+              "id": "[\"A\",146,\"\"]",
+              "number": 146,
+              "aminoAcid": "H",
+              "design": false
+            },
+            {
+              "id": "[\"A\",147,\"\"]",
+              "number": 147,
+              "aminoAcid": "R",
+              "design": false
+            },
+            {
+              "id": "[\"A\",148,\"\"]",
+              "number": 148,
+              "aminoAcid": "C",
+              "design": false
+            },
+            {
+              "id": "[\"A\",149,\"\"]",
+              "number": 149,
+              "aminoAcid": "N",
+              "design": false
+            },
+            {
+              "id": "[\"A\",150,\"\"]",
+              "number": 150,
+              "aminoAcid": "I",
+              "design": false
+            },
+            {
+              "id": "[\"A\",151,\"\"]",
+              "number": 151,
+              "aminoAcid": "S",
+              "design": false
+            },
+            {
+              "id": "[\"A\",152,\"\"]",
+              "number": 152,
+              "aminoAcid": "W",
+              "design": false
+            },
+            {
+              "id": "[\"A\",153,\"\"]",
+              "number": 153,
+              "aminoAcid": "E",
+              "design": false
+            },
+            {
+              "id": "[\"A\",154,\"\"]",
+              "number": 154,
+              "aminoAcid": "I",
+              "design": false
+            },
+            {
+              "id": "[\"A\",155,\"\"]",
+              "number": 155,
+              "aminoAcid": "S",
+              "design": false
+            },
+            {
+              "id": "[\"A\",156,\"\"]",
+              "number": 156,
+              "aminoAcid": "Q",
+              "design": false
+            },
+            {
+              "id": "[\"A\",157,\"\"]",
+              "number": 157,
+              "aminoAcid": "A",
+              "design": false
+            },
+            {
+              "id": "[\"A\",158,\"\"]",
+              "number": 158,
+              "aminoAcid": "S",
+              "design": false
+            },
+            {
+              "id": "[\"A\",159,\"\"]",
+              "number": 159,
+              "aminoAcid": "H",
+              "design": false
+            },
+            {
+              "id": "[\"A\",160,\"\"]",
+              "number": 160,
+              "aminoAcid": "Y",
+              "design": false
+            },
+            {
+              "id": "[\"A\",161,\"\"]",
+              "number": 161,
+              "aminoAcid": "F",
+              "design": false
+            },
+            {
+              "id": "[\"A\",162,\"\"]",
+              "number": 162,
+              "aminoAcid": "E",
+              "design": false
+            },
+            {
+              "id": "[\"A\",163,\"\"]",
+              "number": 163,
+              "aminoAcid": "R",
+              "design": false
+            },
+            {
+              "id": "[\"A\",164,\"\"]",
+              "number": 164,
+              "aminoAcid": "H",
+              "design": false
+            },
+            {
+              "id": "[\"A\",165,\"\"]",
+              "number": 165,
+              "aminoAcid": "L",
+              "design": false
+            },
+            {
+              "id": "[\"A\",166,\"\"]",
+              "number": 166,
+              "aminoAcid": "E",
+              "design": false
+            },
+            {
+              "id": "[\"A\",167,\"\"]",
+              "number": 167,
+              "aminoAcid": "F",
+              "design": false
+            },
+            {
+              "id": "[\"A\",168,\"\"]",
+              "number": 168,
+              "aminoAcid": "E",
+              "design": false
+            },
+            {
+              "id": "[\"A\",169,\"\"]",
+              "number": 169,
+              "aminoAcid": "A",
+              "design": false
+            },
+            {
+              "id": "[\"A\",170,\"\"]",
+              "number": 170,
+              "aminoAcid": "R",
+              "design": false
+            },
+            {
+              "id": "[\"A\",171,\"\"]",
+              "number": 171,
+              "aminoAcid": "T",
+              "design": false
+            },
+            {
+              "id": "[\"A\",172,\"\"]",
+              "number": 172,
+              "aminoAcid": "L",
+              "design": false
+            },
+            {
+              "id": "[\"A\",173,\"\"]",
+              "number": 173,
+              "aminoAcid": "S",
+              "design": false
+            },
+            {
+              "id": "[\"A\",174,\"\"]",
+              "number": 174,
+              "aminoAcid": "P",
+              "design": false
+            },
+            {
+              "id": "[\"A\",175,\"\"]",
+              "number": 175,
+              "aminoAcid": "G",
+              "design": false
+            },
+            {
+              "id": "[\"A\",176,\"\"]",
+              "number": 176,
+              "aminoAcid": "H",
+              "design": false
+            },
+            {
+              "id": "[\"A\",177,\"\"]",
+              "number": 177,
+              "aminoAcid": "T",
+              "design": false
+            },
+            {
+              "id": "[\"A\",178,\"\"]",
+              "number": 178,
+              "aminoAcid": "W",
+              "design": false
+            },
+            {
+              "id": "[\"A\",179,\"\"]",
+              "number": 179,
+              "aminoAcid": "E",
+              "design": false
+            },
+            {
+              "id": "[\"A\",180,\"\"]",
+              "number": 180,
+              "aminoAcid": "E",
+              "design": false
+            },
+            {
+              "id": "[\"A\",181,\"\"]",
+              "number": 181,
+              "aminoAcid": "A",
+              "design": false
+            },
+            {
+              "id": "[\"A\",182,\"\"]",
+              "number": 182,
+              "aminoAcid": "P",
+              "design": false
+            },
+            {
+              "id": "[\"A\",183,\"\"]",
+              "number": 183,
+              "aminoAcid": "L",
+              "design": false
+            },
+            {
+              "id": "[\"A\",184,\"\"]",
+              "number": 184,
+              "aminoAcid": "L",
+              "design": false
+            },
+            {
+              "id": "[\"A\",185,\"\"]",
+              "number": 185,
+              "aminoAcid": "T",
+              "design": false
+            },
+            {
+              "id": "[\"A\",186,\"\"]",
+              "number": 186,
+              "aminoAcid": "L",
+              "design": false
+            },
+            {
+              "id": "[\"A\",187,\"\"]",
+              "number": 187,
+              "aminoAcid": "K",
+              "design": false
+            },
+            {
+              "id": "[\"A\",188,\"\"]",
+              "number": 188,
+              "aminoAcid": "Q",
+              "design": false
+            },
+            {
+              "id": "[\"A\",189,\"\"]",
+              "number": 189,
+              "aminoAcid": "K",
+              "design": false
+            },
+            {
+              "id": "[\"A\",190,\"\"]",
+              "number": 190,
+              "aminoAcid": "Q",
+              "design": false
+            },
+            {
+              "id": "[\"A\",191,\"\"]",
+              "number": 191,
+              "aminoAcid": "E",
+              "design": false
+            },
+            {
+              "id": "[\"A\",192,\"\"]",
+              "number": 192,
+              "aminoAcid": "W",
+              "design": false
+            },
+            {
+              "id": "[\"A\",193,\"\"]",
+              "number": 193,
+              "aminoAcid": "I",
+              "design": false
+            },
+            {
+              "id": "[\"A\",194,\"\"]",
+              "number": 194,
+              "aminoAcid": "C",
+              "design": false
+            },
+            {
+              "id": "[\"A\",195,\"\"]",
+              "number": 195,
+              "aminoAcid": "L",
+              "design": false
+            },
+            {
+              "id": "[\"A\",196,\"\"]",
+              "number": 196,
+              "aminoAcid": "E",
+              "design": false
+            },
+            {
+              "id": "[\"A\",197,\"\"]",
+              "number": 197,
+              "aminoAcid": "T",
+              "design": false
+            },
+            {
+              "id": "[\"A\",198,\"\"]",
+              "number": 198,
+              "aminoAcid": "L",
+              "design": false
+            },
+            {
+              "id": "[\"A\",199,\"\"]",
+              "number": 199,
+              "aminoAcid": "T",
+              "design": false
+            },
+            {
+              "id": "[\"A\",200,\"\"]",
+              "number": 200,
+              "aminoAcid": "P",
+              "design": false
+            },
+            {
+              "id": "[\"A\",201,\"\"]",
+              "number": 201,
+              "aminoAcid": "D",
+              "design": false
+            },
+            {
+              "id": "[\"A\",202,\"\"]",
+              "number": 202,
+              "aminoAcid": "T",
+              "design": false
+            },
+            {
+              "id": "[\"A\",203,\"\"]",
+              "number": 203,
+              "aminoAcid": "Q",
+              "design": false
+            },
+            {
+              "id": "[\"A\",204,\"\"]",
+              "number": 204,
+              "aminoAcid": "Y",
+              "design": false
+            },
+            {
+              "id": "[\"A\",205,\"\"]",
+              "number": 205,
+              "aminoAcid": "E",
+              "design": false
+            },
+            {
+              "id": "[\"A\",206,\"\"]",
+              "number": 206,
+              "aminoAcid": "F",
+              "design": false
+            },
+            {
+              "id": "[\"A\",207,\"\"]",
+              "number": 207,
+              "aminoAcid": "Q",
+              "design": false
+            },
+            {
+              "id": "[\"A\",208,\"\"]",
+              "number": 208,
+              "aminoAcid": "V",
+              "design": false
+            },
+            {
+              "id": "[\"A\",209,\"\"]",
+              "number": 209,
+              "aminoAcid": "R",
+              "design": false
+            },
+            {
+              "id": "[\"A\",210,\"\"]",
+              "number": 210,
+              "aminoAcid": "V",
+              "design": false
+            },
+            {
+              "id": "[\"A\",211,\"\"]",
+              "number": 211,
+              "aminoAcid": "K",
+              "design": false
+            },
+            {
+              "id": "[\"A\",212,\"\"]",
+              "number": 212,
+              "aminoAcid": "P",
+              "design": false
+            },
+            {
+              "id": "[\"A\",213,\"\"]",
+              "number": 213,
+              "aminoAcid": "L",
+              "design": false
+            },
+            {
+              "id": "[\"A\",214,\"\"]",
+              "number": 214,
+              "aminoAcid": "Q",
+              "design": false
+            },
+            {
+              "id": "[\"A\",215,\"\"]",
+              "number": 215,
+              "aminoAcid": "G",
+              "design": false
+            },
+            {
+              "id": "[\"A\",216,\"\"]",
+              "number": 216,
+              "aminoAcid": "E",
+              "design": false
+            },
+            {
+              "id": "[\"A\",217,\"\"]",
+              "number": 217,
+              "aminoAcid": "F",
+              "design": false
+            },
+            {
+              "id": "[\"A\",218,\"\"]",
+              "number": 218,
+              "aminoAcid": "T",
+              "design": false
+            },
+            {
+              "id": "[\"A\",219,\"\"]",
+              "number": 219,
+              "aminoAcid": "T",
+              "design": false
+            },
+            {
+              "id": "[\"A\",220,\"\"]",
+              "number": 220,
+              "aminoAcid": "W",
+              "design": false
+            },
+            {
+              "id": "[\"A\",221,\"\"]",
+              "number": 221,
+              "aminoAcid": "S",
+              "design": false
+            },
+            {
+              "id": "[\"A\",222,\"\"]",
+              "number": 222,
+              "aminoAcid": "P",
+              "design": false
+            },
+            {
+              "id": "[\"A\",223,\"\"]",
+              "number": 223,
+              "aminoAcid": "W",
+              "design": false
+            },
+            {
+              "id": "[\"A\",224,\"\"]",
+              "number": 224,
+              "aminoAcid": "S",
+              "design": false
+            },
+            {
+              "id": "[\"A\",225,\"\"]",
+              "number": 225,
+              "aminoAcid": "Q",
+              "design": false
+            },
+            {
+              "id": "[\"A\",226,\"\"]",
+              "number": 226,
+              "aminoAcid": "P",
+              "design": false
+            },
+            {
+              "id": "[\"A\",227,\"\"]",
+              "number": 227,
+              "aminoAcid": "L",
+              "design": false
+            },
+            {
+              "id": "[\"A\",228,\"\"]",
+              "number": 228,
+              "aminoAcid": "A",
+              "design": false
+            },
+            {
+              "id": "[\"A\",229,\"\"]",
+              "number": 229,
+              "aminoAcid": "F",
+              "design": false
+            },
+            {
+              "id": "[\"A\",230,\"\"]",
+              "number": 230,
+              "aminoAcid": "R",
+              "design": false
+            },
+            {
+              "id": "[\"A\",231,\"\"]",
+              "number": 231,
+              "aminoAcid": "T",
+              "design": false
+            },
+            {
+              "id": "[\"A\",232,\"\"]",
+              "number": 232,
+              "aminoAcid": "K",
+              "design": false
+            },
+            {
+              "id": "[\"A\",233,\"\"]",
+              "number": 233,
+              "aminoAcid": "P",
+              "design": false
+            }
+          ],
+          "B": [
+            {
+              "id": "[\"B\",56,\"\"]",
+              "number": 56,
+              "aminoAcid": "P",
+              "design": false
+            },
+            {
+              "id": "[\"B\",57,\"\"]",
+              "number": 57,
+              "aminoAcid": "L",
+              "design": false
+            },
+            {
+              "id": "[\"B\",58,\"\"]",
+              "number": 58,
+              "aminoAcid": "P",
+              "design": false
+            },
+            {
+              "id": "[\"B\",59,\"\"]",
+              "number": 59,
+              "aminoAcid": "E",
+              "design": false
+            },
+            {
+              "id": "[\"B\",60,\"\"]",
+              "number": 60,
+              "aminoAcid": "V",
+              "design": false
+            },
+            {
+              "id": "[\"B\",61,\"\"]",
+              "number": 61,
+              "aminoAcid": "Q",
+              "design": false
+            },
+            {
+              "id": "[\"B\",62,\"\"]",
+              "number": 62,
+              "aminoAcid": "C",
+              "design": false
+            },
+            {
+              "id": "[\"B\",63,\"\"]",
+              "number": 63,
+              "aminoAcid": "F",
+              "design": false
+            },
+            {
+              "id": "[\"B\",64,\"\"]",
+              "number": 64,
+              "aminoAcid": "V",
+              "design": false
+            },
+            {
+              "id": "[\"B\",65,\"\"]",
+              "number": 65,
+              "aminoAcid": "F",
+              "design": false
+            },
+            {
+              "id": "[\"B\",66,\"\"]",
+              "number": 66,
+              "aminoAcid": "N",
+              "design": false
+            },
+            {
+              "id": "[\"B\",67,\"\"]",
+              "number": 67,
+              "aminoAcid": "V",
+              "design": false
+            },
+            {
+              "id": "[\"B\",68,\"\"]",
+              "number": 68,
+              "aminoAcid": "E",
+              "design": false
+            },
+            {
+              "id": "[\"B\",69,\"\"]",
+              "number": 69,
+              "aminoAcid": "Y",
+              "design": false
+            },
+            {
+              "id": "[\"B\",70,\"\"]",
+              "number": 70,
+              "aminoAcid": "M",
+              "design": false
+            },
+            {
+              "id": "[\"B\",71,\"\"]",
+              "number": 71,
+              "aminoAcid": "N",
+              "design": false
+            },
+            {
+              "id": "[\"B\",72,\"\"]",
+              "number": 72,
+              "aminoAcid": "C",
+              "design": false
+            },
+            {
+              "id": "[\"B\",73,\"\"]",
+              "number": 73,
+              "aminoAcid": "T",
+              "design": false
+            },
+            {
+              "id": "[\"B\",74,\"\"]",
+              "number": 74,
+              "aminoAcid": "W",
+              "design": false
+            },
+            {
+              "id": "[\"B\",75,\"\"]",
+              "number": 75,
+              "aminoAcid": "Q",
+              "design": false
+            },
+            {
+              "id": "[\"B\",76,\"\"]",
+              "number": 76,
+              "aminoAcid": "S",
+              "design": false
+            },
+            {
+              "id": "[\"B\",77,\"\"]",
+              "number": 77,
+              "aminoAcid": "S",
+              "design": false
+            },
+            {
+              "id": "[\"B\",78,\"\"]",
+              "number": 78,
+              "aminoAcid": "S",
+              "design": false
+            },
+            {
+              "id": "[\"B\",79,\"\"]",
+              "number": 79,
+              "aminoAcid": "E",
+              "design": false
+            },
+            {
+              "id": "[\"B\",80,\"\"]",
+              "number": 80,
+              "aminoAcid": "P",
+              "design": false
+            },
+            {
+              "id": "[\"B\",81,\"\"]",
+              "number": 81,
+              "aminoAcid": "Q",
+              "design": false
+            },
+            {
+              "id": "[\"B\",82,\"\"]",
+              "number": 82,
+              "aminoAcid": "P",
+              "design": false
+            },
+            {
+              "id": "[\"B\",83,\"\"]",
+              "number": 83,
+              "aminoAcid": "T",
+              "design": false
+            },
+            {
+              "id": "[\"B\",84,\"\"]",
+              "number": 84,
+              "aminoAcid": "N",
+              "design": false
+            },
+            {
+              "id": "[\"B\",85,\"\"]",
+              "number": 85,
+              "aminoAcid": "L",
+              "design": false
+            },
+            {
+              "id": "[\"B\",86,\"\"]",
+              "number": 86,
+              "aminoAcid": "T",
+              "design": false
+            },
+            {
+              "id": "[\"B\",87,\"\"]",
+              "number": 87,
+              "aminoAcid": "L",
+              "design": false
+            },
+            {
+              "id": "[\"B\",88,\"\"]",
+              "number": 88,
+              "aminoAcid": "H",
+              "design": false
+            },
+            {
+              "id": "[\"B\",89,\"\"]",
+              "number": 89,
+              "aminoAcid": "Y",
+              "design": false
+            },
+            {
+              "id": "[\"B\",90,\"\"]",
+              "number": 90,
+              "aminoAcid": "W",
+              "design": false
+            },
+            {
+              "id": "[\"B\",91,\"\"]",
+              "number": 91,
+              "aminoAcid": "Y",
+              "design": false
+            },
+            {
+              "id": "[\"B\",92,\"\"]",
+              "number": 92,
+              "aminoAcid": "K",
+              "design": false
+            },
+            {
+              "id": "[\"B\",93,\"\"]",
+              "number": 93,
+              "aminoAcid": "N",
+              "design": false
+            },
+            {
+              "id": "[\"B\",94,\"\"]",
+              "number": 94,
+              "aminoAcid": "S",
+              "design": false
+            },
+            {
+              "id": "[\"B\",95,\"\"]",
+              "number": 95,
+              "aminoAcid": "D",
+              "design": false
+            },
+            {
+              "id": "[\"B\",96,\"\"]",
+              "number": 96,
+              "aminoAcid": "N",
+              "design": false
+            },
+            {
+              "id": "[\"B\",97,\"\"]",
+              "number": 97,
+              "aminoAcid": "D",
+              "design": false
+            },
+            {
+              "id": "[\"B\",98,\"\"]",
+              "number": 98,
+              "aminoAcid": "K",
+              "design": false
+            },
+            {
+              "id": "[\"B\",99,\"\"]",
+              "number": 99,
+              "aminoAcid": "V",
+              "design": false
+            },
+            {
+              "id": "[\"B\",100,\"\"]",
+              "number": 100,
+              "aminoAcid": "Q",
+              "design": false
+            },
+            {
+              "id": "[\"B\",101,\"\"]",
+              "number": 101,
+              "aminoAcid": "K",
+              "design": false
+            },
+            {
+              "id": "[\"B\",102,\"\"]",
+              "number": 102,
+              "aminoAcid": "C",
+              "design": false
+            },
+            {
+              "id": "[\"B\",103,\"\"]",
+              "number": 103,
+              "aminoAcid": "S",
+              "design": false
+            },
+            {
+              "id": "[\"B\",104,\"\"]",
+              "number": 104,
+              "aminoAcid": "H",
+              "design": false
+            },
+            {
+              "id": "[\"B\",105,\"\"]",
+              "number": 105,
+              "aminoAcid": "Y",
+              "design": false
+            },
+            {
+              "id": "[\"B\",106,\"\"]",
+              "number": 106,
+              "aminoAcid": "L",
+              "design": false
+            },
+            {
+              "id": "[\"B\",107,\"\"]",
+              "number": 107,
+              "aminoAcid": "F",
+              "design": false
+            },
+            {
+              "id": "[\"B\",108,\"\"]",
+              "number": 108,
+              "aminoAcid": "S",
+              "design": false
+            },
+            {
+              "id": "[\"B\",109,\"\"]",
+              "number": 109,
+              "aminoAcid": "E",
+              "design": false
+            },
+            {
+              "id": "[\"B\",110,\"\"]",
+              "number": 110,
+              "aminoAcid": "E",
+              "design": false
+            },
+            {
+              "id": "[\"B\",111,\"\"]",
+              "number": 111,
+              "aminoAcid": "I",
+              "design": false
+            },
+            {
+              "id": "[\"B\",112,\"\"]",
+              "number": 112,
+              "aminoAcid": "T",
+              "design": false
+            },
+            {
+              "id": "[\"B\",113,\"\"]",
+              "number": 113,
+              "aminoAcid": "S",
+              "design": false
+            },
+            {
+              "id": "[\"B\",114,\"\"]",
+              "number": 114,
+              "aminoAcid": "G",
+              "design": false
+            },
+            {
+              "id": "[\"B\",115,\"\"]",
+              "number": 115,
+              "aminoAcid": "C",
+              "design": false
+            },
+            {
+              "id": "[\"B\",116,\"\"]",
+              "number": 116,
+              "aminoAcid": "Q",
+              "design": false
+            },
+            {
+              "id": "[\"B\",117,\"\"]",
+              "number": 117,
+              "aminoAcid": "L",
+              "design": false
+            },
+            {
+              "id": "[\"B\",118,\"\"]",
+              "number": 118,
+              "aminoAcid": "Q",
+              "design": false
+            },
+            {
+              "id": "[\"B\",119,\"\"]",
+              "number": 119,
+              "aminoAcid": "K",
+              "design": false
+            },
+            {
+              "id": "[\"B\",120,\"\"]",
+              "number": 120,
+              "aminoAcid": "K",
+              "design": false
+            },
+            {
+              "id": "[\"B\",121,\"\"]",
+              "number": 121,
+              "aminoAcid": "E",
+              "design": false
+            },
+            {
+              "id": "[\"B\",122,\"\"]",
+              "number": 122,
+              "aminoAcid": "I",
+              "design": false
+            },
+            {
+              "id": "[\"B\",123,\"\"]",
+              "number": 123,
+              "aminoAcid": "H",
+              "design": false
+            },
+            {
+              "id": "[\"B\",124,\"\"]",
+              "number": 124,
+              "aminoAcid": "L",
+              "design": false
+            },
+            {
+              "id": "[\"B\",125,\"\"]",
+              "number": 125,
+              "aminoAcid": "Y",
+              "design": false
+            },
+            {
+              "id": "[\"B\",126,\"\"]",
+              "number": 126,
+              "aminoAcid": "Q",
+              "design": false
+            },
+            {
+              "id": "[\"B\",127,\"\"]",
+              "number": 127,
+              "aminoAcid": "T",
+              "design": false
+            },
+            {
+              "id": "[\"B\",128,\"\"]",
+              "number": 128,
+              "aminoAcid": "F",
+              "design": false
+            },
+            {
+              "id": "[\"B\",129,\"\"]",
+              "number": 129,
+              "aminoAcid": "V",
+              "design": false
+            },
+            {
+              "id": "[\"B\",130,\"\"]",
+              "number": 130,
+              "aminoAcid": "V",
+              "design": false
+            },
+            {
+              "id": "[\"B\",131,\"\"]",
+              "number": 131,
+              "aminoAcid": "Q",
+              "design": false
+            },
+            {
+              "id": "[\"B\",132,\"\"]",
+              "number": 132,
+              "aminoAcid": "L",
+              "design": false
+            },
+            {
+              "id": "[\"B\",133,\"\"]",
+              "number": 133,
+              "aminoAcid": "Q",
+              "design": false
+            },
+            {
+              "id": "[\"B\",134,\"\"]",
+              "number": 134,
+              "aminoAcid": "D",
+              "design": false
+            },
+            {
+              "id": "[\"B\",135,\"\"]",
+              "number": 135,
+              "aminoAcid": "P",
+              "design": false
+            },
+            {
+              "id": "[\"B\",136,\"\"]",
+              "number": 136,
+              "aminoAcid": "R",
+              "design": false
+            },
+            {
+              "id": "[\"B\",137,\"\"]",
+              "number": 137,
+              "aminoAcid": "E",
+              "design": false
+            },
+            {
+              "id": "[\"B\",138,\"\"]",
+              "number": 138,
+              "aminoAcid": "P",
+              "design": false
+            },
+            {
+              "id": "[\"B\",139,\"\"]",
+              "number": 139,
+              "aminoAcid": "R",
+              "design": false
+            },
+            {
+              "id": "[\"B\",140,\"\"]",
+              "number": 140,
+              "aminoAcid": "R",
+              "design": false
+            },
+            {
+              "id": "[\"B\",141,\"\"]",
+              "number": 141,
+              "aminoAcid": "Q",
+              "design": false
+            },
+            {
+              "id": "[\"B\",142,\"\"]",
+              "number": 142,
+              "aminoAcid": "A",
+              "design": false
+            },
+            {
+              "id": "[\"B\",143,\"\"]",
+              "number": 143,
+              "aminoAcid": "T",
+              "design": false
+            },
+            {
+              "id": "[\"B\",144,\"\"]",
+              "number": 144,
+              "aminoAcid": "Q",
+              "design": false
+            },
+            {
+              "id": "[\"B\",145,\"\"]",
+              "number": 145,
+              "aminoAcid": "M",
+              "design": false
+            },
+            {
+              "id": "[\"B\",146,\"\"]",
+              "number": 146,
+              "aminoAcid": "L",
+              "design": false
+            },
+            {
+              "id": "[\"B\",147,\"\"]",
+              "number": 147,
+              "aminoAcid": "K",
+              "design": false
+            },
+            {
+              "id": "[\"B\",148,\"\"]",
+              "number": 148,
+              "aminoAcid": "L",
+              "design": false
+            },
+            {
+              "id": "[\"B\",149,\"\"]",
+              "number": 149,
+              "aminoAcid": "Q",
+              "design": false
+            },
+            {
+              "id": "[\"B\",150,\"\"]",
+              "number": 150,
+              "aminoAcid": "N",
+              "design": false
+            },
+            {
+              "id": "[\"B\",151,\"\"]",
+              "number": 151,
+              "aminoAcid": "L",
+              "design": false
+            },
+            {
+              "id": "[\"B\",152,\"\"]",
+              "number": 152,
+              "aminoAcid": "V",
+              "design": false
+            },
+            {
+              "id": "[\"B\",153,\"\"]",
+              "number": 153,
+              "aminoAcid": "I",
+              "design": false
+            },
+            {
+              "id": "[\"B\",154,\"\"]",
+              "number": 154,
+              "aminoAcid": "P",
+              "design": false
+            },
+            {
+              "id": "[\"B\",155,\"\"]",
+              "number": 155,
+              "aminoAcid": "W",
+              "design": false
+            },
+            {
+              "id": "[\"B\",156,\"\"]",
+              "number": 156,
+              "aminoAcid": "A",
+              "design": false
+            },
+            {
+              "id": "[\"B\",157,\"\"]",
+              "number": 157,
+              "aminoAcid": "P",
+              "design": false
+            },
+            {
+              "id": "[\"B\",158,\"\"]",
+              "number": 158,
+              "aminoAcid": "E",
+              "design": false
+            },
+            {
+              "id": "[\"B\",159,\"\"]",
+              "number": 159,
+              "aminoAcid": "N",
+              "design": false
+            },
+            {
+              "id": "[\"B\",160,\"\"]",
+              "number": 160,
+              "aminoAcid": "L",
+              "design": false
+            },
+            {
+              "id": "[\"B\",161,\"\"]",
+              "number": 161,
+              "aminoAcid": "T",
+              "design": false
+            },
+            {
+              "id": "[\"B\",162,\"\"]",
+              "number": 162,
+              "aminoAcid": "L",
+              "design": false
+            },
+            {
+              "id": "[\"B\",163,\"\"]",
+              "number": 163,
+              "aminoAcid": "H",
+              "design": false
+            },
+            {
+              "id": "[\"B\",164,\"\"]",
+              "number": 164,
+              "aminoAcid": "K",
+              "design": false
+            },
+            {
+              "id": "[\"B\",165,\"\"]",
+              "number": 165,
+              "aminoAcid": "L",
+              "design": false
+            },
+            {
+              "id": "[\"B\",166,\"\"]",
+              "number": 166,
+              "aminoAcid": "S",
+              "design": false
+            },
+            {
+              "id": "[\"B\",167,\"\"]",
+              "number": 167,
+              "aminoAcid": "E",
+              "design": false
+            },
+            {
+              "id": "[\"B\",168,\"\"]",
+              "number": 168,
+              "aminoAcid": "S",
+              "design": false
+            },
+            {
+              "id": "[\"B\",169,\"\"]",
+              "number": 169,
+              "aminoAcid": "Q",
+              "design": false
+            },
+            {
+              "id": "[\"B\",170,\"\"]",
+              "number": 170,
+              "aminoAcid": "L",
+              "design": false
+            },
+            {
+              "id": "[\"B\",171,\"\"]",
+              "number": 171,
+              "aminoAcid": "E",
+              "design": false
+            },
+            {
+              "id": "[\"B\",172,\"\"]",
+              "number": 172,
+              "aminoAcid": "L",
+              "design": false
+            },
+            {
+              "id": "[\"B\",173,\"\"]",
+              "number": 173,
+              "aminoAcid": "N",
+              "design": false
+            },
+            {
+              "id": "[\"B\",174,\"\"]",
+              "number": 174,
+              "aminoAcid": "W",
+              "design": false
+            },
+            {
+              "id": "[\"B\",175,\"\"]",
+              "number": 175,
+              "aminoAcid": "N",
+              "design": false
+            },
+            {
+              "id": "[\"B\",176,\"\"]",
+              "number": 176,
+              "aminoAcid": "N",
+              "design": false
+            },
+            {
+              "id": "[\"B\",177,\"\"]",
+              "number": 177,
+              "aminoAcid": "R",
+              "design": false
+            },
+            {
+              "id": "[\"B\",178,\"\"]",
+              "number": 178,
+              "aminoAcid": "F",
+              "design": false
+            },
+            {
+              "id": "[\"B\",179,\"\"]",
+              "number": 179,
+              "aminoAcid": "L",
+              "design": false
+            },
+            {
+              "id": "[\"B\",180,\"\"]",
+              "number": 180,
+              "aminoAcid": "N",
+              "design": false
+            },
+            {
+              "id": "[\"B\",181,\"\"]",
+              "number": 181,
+              "aminoAcid": "H",
+              "design": false
+            },
+            {
+              "id": "[\"B\",182,\"\"]",
+              "number": 182,
+              "aminoAcid": "C",
+              "design": false
+            },
+            {
+              "id": "[\"B\",183,\"\"]",
+              "number": 183,
+              "aminoAcid": "L",
+              "design": false
+            },
+            {
+              "id": "[\"B\",184,\"\"]",
+              "number": 184,
+              "aminoAcid": "E",
+              "design": false
+            },
+            {
+              "id": "[\"B\",185,\"\"]",
+              "number": 185,
+              "aminoAcid": "H",
+              "design": false
+            },
+            {
+              "id": "[\"B\",186,\"\"]",
+              "number": 186,
+              "aminoAcid": "L",
+              "design": false
+            },
+            {
+              "id": "[\"B\",187,\"\"]",
+              "number": 187,
+              "aminoAcid": "V",
+              "design": false
+            },
+            {
+              "id": "[\"B\",188,\"\"]",
+              "number": 188,
+              "aminoAcid": "Q",
+              "design": false
+            },
+            {
+              "id": "[\"B\",189,\"\"]",
+              "number": 189,
+              "aminoAcid": "Y",
+              "design": false
+            },
+            {
+              "id": "[\"B\",190,\"\"]",
+              "number": 190,
+              "aminoAcid": "R",
+              "design": false
+            },
+            {
+              "id": "[\"B\",191,\"\"]",
+              "number": 191,
+              "aminoAcid": "T",
+              "design": false
+            },
+            {
+              "id": "[\"B\",192,\"\"]",
+              "number": 192,
+              "aminoAcid": "D",
+              "design": false
+            },
+            {
+              "id": "[\"B\",193,\"\"]",
+              "number": 193,
+              "aminoAcid": "W",
+              "design": false
+            },
+            {
+              "id": "[\"B\",194,\"\"]",
+              "number": 194,
+              "aminoAcid": "D",
+              "design": false
+            },
+            {
+              "id": "[\"B\",195,\"\"]",
+              "number": 195,
+              "aminoAcid": "H",
+              "design": false
+            },
+            {
+              "id": "[\"B\",196,\"\"]",
+              "number": 196,
+              "aminoAcid": "S",
+              "design": false
+            },
+            {
+              "id": "[\"B\",197,\"\"]",
+              "number": 197,
+              "aminoAcid": "W",
+              "design": false
+            },
+            {
+              "id": "[\"B\",198,\"\"]",
+              "number": 198,
+              "aminoAcid": "T",
+              "design": false
+            },
+            {
+              "id": "[\"B\",199,\"\"]",
+              "number": 199,
+              "aminoAcid": "E",
+              "design": false
+            },
+            {
+              "id": "[\"B\",200,\"\"]",
+              "number": 200,
+              "aminoAcid": "Q",
+              "design": false
+            },
+            {
+              "id": "[\"B\",201,\"\"]",
+              "number": 201,
+              "aminoAcid": "S",
+              "design": false
+            },
+            {
+              "id": "[\"B\",202,\"\"]",
+              "number": 202,
+              "aminoAcid": "V",
+              "design": false
+            },
+            {
+              "id": "[\"B\",203,\"\"]",
+              "number": 203,
+              "aminoAcid": "D",
+              "design": false
+            },
+            {
+              "id": "[\"B\",204,\"\"]",
+              "number": 204,
+              "aminoAcid": "Y",
+              "design": false
+            },
+            {
+              "id": "[\"B\",205,\"\"]",
+              "number": 205,
+              "aminoAcid": "R",
+              "design": false
+            },
+            {
+              "id": "[\"B\",206,\"\"]",
+              "number": 206,
+              "aminoAcid": "H",
+              "design": false
+            },
+            {
+              "id": "[\"B\",207,\"\"]",
+              "number": 207,
+              "aminoAcid": "K",
+              "design": false
+            },
+            {
+              "id": "[\"B\",208,\"\"]",
+              "number": 208,
+              "aminoAcid": "F",
+              "design": false
+            },
+            {
+              "id": "[\"B\",209,\"\"]",
+              "number": 209,
+              "aminoAcid": "S",
+              "design": false
+            },
+            {
+              "id": "[\"B\",210,\"\"]",
+              "number": 210,
+              "aminoAcid": "L",
+              "design": false
+            },
+            {
+              "id": "[\"B\",211,\"\"]",
+              "number": 211,
+              "aminoAcid": "P",
+              "design": false
+            },
+            {
+              "id": "[\"B\",212,\"\"]",
+              "number": 212,
+              "aminoAcid": "S",
+              "design": false
+            },
+            {
+              "id": "[\"B\",213,\"\"]",
+              "number": 213,
+              "aminoAcid": "V",
+              "design": false
+            },
+            {
+              "id": "[\"B\",214,\"\"]",
+              "number": 214,
+              "aminoAcid": "D",
+              "design": false
+            },
+            {
+              "id": "[\"B\",215,\"\"]",
+              "number": 215,
+              "aminoAcid": "G",
+              "design": false
+            },
+            {
+              "id": "[\"B\",216,\"\"]",
+              "number": 216,
+              "aminoAcid": "Q",
+              "design": false
+            },
+            {
+              "id": "[\"B\",217,\"\"]",
+              "number": 217,
+              "aminoAcid": "K",
+              "design": false
+            },
+            {
+              "id": "[\"B\",218,\"\"]",
+              "number": 218,
+              "aminoAcid": "R",
+              "design": false
+            },
+            {
+              "id": "[\"B\",219,\"\"]",
+              "number": 219,
+              "aminoAcid": "Y",
+              "design": false
+            },
+            {
+              "id": "[\"B\",220,\"\"]",
+              "number": 220,
+              "aminoAcid": "T",
+              "design": false
+            },
+            {
+              "id": "[\"B\",221,\"\"]",
+              "number": 221,
+              "aminoAcid": "F",
+              "design": false
+            },
+            {
+              "id": "[\"B\",222,\"\"]",
+              "number": 222,
+              "aminoAcid": "R",
+              "design": false
+            },
+            {
+              "id": "[\"B\",223,\"\"]",
+              "number": 223,
+              "aminoAcid": "V",
+              "design": false
+            },
+            {
+              "id": "[\"B\",224,\"\"]",
+              "number": 224,
+              "aminoAcid": "R",
+              "design": false
+            },
+            {
+              "id": "[\"B\",225,\"\"]",
+              "number": 225,
+              "aminoAcid": "S",
+              "design": false
+            },
+            {
+              "id": "[\"B\",226,\"\"]",
+              "number": 226,
+              "aminoAcid": "R",
+              "design": false
+            },
+            {
+              "id": "[\"B\",227,\"\"]",
+              "number": 227,
+              "aminoAcid": "F",
+              "design": false
+            },
+            {
+              "id": "[\"B\",228,\"\"]",
+              "number": 228,
+              "aminoAcid": "N",
+              "design": false
+            },
+            {
+              "id": "[\"B\",229,\"\"]",
+              "number": 229,
+              "aminoAcid": "P",
+              "design": false
+            },
+            {
+              "id": "[\"B\",230,\"\"]",
+              "number": 230,
+              "aminoAcid": "L",
+              "design": false
+            },
+            {
+              "id": "[\"B\",231,\"\"]",
+              "number": 231,
+              "aminoAcid": "C",
+              "design": false
+            },
+            {
+              "id": "[\"B\",232,\"\"]",
+              "number": 232,
+              "aminoAcid": "G",
+              "design": false
+            },
+            {
+              "id": "[\"B\",233,\"\"]",
+              "number": 233,
+              "aminoAcid": "S",
+              "design": false
+            },
+            {
+              "id": "[\"B\",234,\"\"]",
+              "number": 234,
+              "aminoAcid": "A",
+              "design": false
+            },
+            {
+              "id": "[\"B\",235,\"\"]",
+              "number": 235,
+              "aminoAcid": "Q",
+              "design": false
+            },
+            {
+              "id": "[\"B\",236,\"\"]",
+              "number": 236,
+              "aminoAcid": "H",
+              "design": false
+            },
+            {
+              "id": "[\"B\",237,\"\"]",
+              "number": 237,
+              "aminoAcid": "W",
+              "design": false
+            },
+            {
+              "id": "[\"B\",238,\"\"]",
+              "number": 238,
+              "aminoAcid": "S",
+              "design": false
+            },
+            {
+              "id": "[\"B\",239,\"\"]",
+              "number": 239,
+              "aminoAcid": "E",
+              "design": false
+            },
+            {
+              "id": "[\"B\",240,\"\"]",
+              "number": 240,
+              "aminoAcid": "W",
+              "design": false
+            },
+            {
+              "id": "[\"B\",241,\"\"]",
+              "number": 241,
+              "aminoAcid": "S",
+              "design": false
+            },
+            {
+              "id": "[\"B\",242,\"\"]",
+              "number": 242,
+              "aminoAcid": "H",
+              "design": false
+            },
+            {
+              "id": "[\"B\",243,\"\"]",
+              "number": 243,
+              "aminoAcid": "P",
+              "design": false
+            },
+            {
+              "id": "[\"B\",244,\"\"]",
+              "number": 244,
+              "aminoAcid": "I",
+              "design": false
+            },
+            {
+              "id": "[\"B\",245,\"\"]",
+              "number": 245,
+              "aminoAcid": "H",
+              "design": false
+            },
+            {
+              "id": "[\"B\",246,\"\"]",
+              "number": 246,
+              "aminoAcid": "W",
+              "design": false
+            }
+          ]
+        },
+        "tiedChains": [],
+        "omitAminoAcids": "W",
+        "aminoAcidBias": {},
+        "mapping": "Observed source chain order and residue numbers verified against the upstream parser; ties use within-chain positions, not inferred homology."
+      },
+      "upstreamRevision": "c0ee638d11bc010817c2c97ee58ed5c323e664e2",
+      "runtime": "/Users/vii/Documents/FoldStudio-MetalPort/validation/RAPID Foundation Engine/FOLD STUDIO Metal Dev.app/Contents/Resources/runtime/bin/python3.12",
+      "sequences": {
+        "A": "SQFTCFYNSRAQISCVWSQTSCQVHAWPDRRRWQQTCELLPVSQASWACNLILGAPDSQKLTTVDIVTLRVLCREGVRWRVMAIQDFKPFENLRLMAPISLQVVHVETHRCNISWEISQASHYFERHLEFEARTLSPGHTWEEAPLLTLKQKQEWICLETLTPDTQYEFQVRVKPLQGEFTTWSPWSQPLAFRTKP",
+        "B": "PLPEVQCFVFNVEYMNCTWQSSSEPQPTNLTLHYWYKNSDNDKVQKCSHYLFSEEITSGCQLQKKEIHLYQTFVVQLQDPREPRRQATQMLKLQNLVIPWAPENLTLHKLSESQLELNWNNRFLNHCLEHLVQYRTDWDHSWTEQSVDYRHKFSLPSVDGQKRYTFRVRSRFNPLCGSAQHWSEWSHPIHW"
+      },
+      "outputs": [
+        "552d36e1-2441-4352-b7e7-c54d5df8738e",
+        "2cd38121-ca3a-4187-9271-f0306a6f6447"
+      ],
+      "inputFile": "input.pdb",
+      "requestSha256": "6f18e267983e91ba40948ae09a53486b62a77a6b6d04d2c3019e7e159e20a2a4",
+      "runnerSha256": "ec02cf89cbdf2d5837bb17581858afc616ec6ddb4cd3a08b59c28301d025175a",
+      "checkpointSha256": "b166276f80a45cb3de24bceb3b47b2f47a60ff654660f09837cd775846411ad1",
+      "sourceManifestSha256": "8f06e409dac335261d2505361f4358e2b4df389b8f85a497967406d8c4af4277",
+      "pid": 87412,
+      "workerPath": "/Users/vii/Documents/FoldStudio-MetalPort/fold-studio/scientific/worker.py",
+      "logAsset": "/Users/vii/Documents/FoldStudio-MetalPort/validation/mpnn-immutable-results/jobs/9afbe604-2a6b-46b8-8579-27f1527afb14/execution.log",
+      "candidateSummaries": [
+        {
+          "candidateId": "3af6867335087c56d62ea3a248c53c19e483625bc42943234a8973e106e5faae",
+          "sample": 1,
+          "chains": {
+            "A": "SSFTCFYNSRAQISCVWSQTSCQVHAWPDRRRWQQTCELLPVSQASWACNLILGAPDSQKLTTVDIVTLRVLCREGVRWRVMAIQDFKPFENLRLMAPISLQVVHVETHRCNISWEISQASHYFERHLEFEARTLSPGHTWEEAPLLTLKQKQEWICLETLTPDTQYEFQVRVKPLQGEFTTWSPWSQPLAFRTKP"
+          },
+          "fixedContextChains": [
+            "B"
+          ],
+          "sequenceIdentitySha256": "55cba0c1f8e49666903d8ea53f7d68b41f4419a255ed2523073e48ae9da3ca20",
+          "duplicateOfSample": null,
+          "metrics": {
+            "score": 1.7063862085342407,
+            "seqid": 0.9974160194396973
+          },
+          "metricNamespace": "ProteinMPNN sequence-model metrics",
+          "structurePredicted": false,
+          "requiresFreshStructuralPrediction": true
+        },
+        {
+          "candidateId": "e35ba018a65b84147a8eeb40217719bdf6595611562facc89b70775da6444eb6",
+          "sample": 2,
+          "chains": {
+            "A": "SSFTCFYNSRAQISCVWSQTSCQVHAWPDRRRWQQTCELLPVSQASWACNLILGAPDSQKLTTVDIVTLRVLCREGVRWRVMAIQDFKPFENLRLMAPISLQVVHVETHRCNISWEISQASHYFERHLEFEARTLSPGHTWEEAPLLTLKQKQEWICLETLTPDTQYEFQVRVKPLQGEFTTWSPWSQPLAFRTKP"
+          },
+          "fixedContextChains": [
+            "B"
+          ],
+          "sequenceIdentitySha256": "55cba0c1f8e49666903d8ea53f7d68b41f4419a255ed2523073e48ae9da3ca20",
+          "duplicateOfSample": 1,
+          "metrics": {
+            "score": 1.7035325765609741,
+            "seqid": 0.9974160194396973
+          },
+          "metricNamespace": "ProteinMPNN sequence-model metrics",
+          "structurePredicted": false,
+          "requiresFreshStructuralPrediction": true
+        }
+      ],
+      "resultSha256": "27a21d882e6f2574446aead97b36342e31cc584550e7aa01e68bd13ced8bc49d",
+      "structurePredicted": false,
+      "requiresFreshStructuralPrediction": true,
+      "stage": "completed",
+      "finished": "2026-10-26T22:52:36.269335+00:00",
+      "resultSummary": {
+        "execution": "cpu",
+        "devices": [
+          "cpu:0"
+        ],
+        "timing": {
+          "loadSeconds": 0.28107633301988244,
+          "inferenceIncludingCompilationSeconds": 1.3653342921752483,
+          "totalSeconds": 1.6464106251951307
+        },
+        "peakProcessRSSBytes": 664879104,
+        "checkpointSha256": "b166276f80a45cb3de24bceb3b47b2f47a60ff654660f09837cd775846411ad1",
+        "limitations": [
+          "Fixed-backbone sequence redesign only; no new coordinates, folding validation or binding prediction.",
+          "Scores are upstream sequence-model metrics, not affinity or experimental validation.",
+          "Backend is reported explicitly; this output alone does not establish cross-backend parity."
+        ]
+      }
+    },
+    "created": "2026-10-26T22:52:31.390844+00:00",
+    "updated": "2026-10-26T22:52:36.269482+00:00"
+  },
+  "checked": "2026-10-26T22:52:36.420172+00:00",
+  "checks": {
+    "twoIndependentSamples": true,
+    "twoRedesignedSequenceRecords": true,
+    "freshPredictionRequired": true,
+    "exactSourceIdentity": true,
+    "checkpointAndRequestProvenance": true
+  }
+}
