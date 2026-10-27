@@ -31,3 +31,7 @@ Choose one small independent item from the backlog. Inspect only relevant files 
 A bounded interactive membership graph is implemented for actual saved enrichment rows. It shows only returned overlaps, discloses omitted nodes, preserves the full table and distinguishes membership from interaction or causation. Four focused interface tests, TypeScript and native inspection of the saved three-edge finite-population result passed. Biological pathway qualification, curated databases and true interaction networks remain open. No cloud job or paid compute was started.
 
 The closely related pathway export preserves the exact selected saved stage and labels the missing full background list. Focused tests pass; final guarded package and signature checks passed; no native export-file click was performed.
+
+## Next independent ticket
+
+Add SVG export of the bounded pathway membership graph, including its exact displayed nodes, edges, original result/source hashes and omission counts. Scope: `src/components/PathwayMembership.tsx`, `src/components/EditCraftPathways.tsx` and focused tests. Do not imply the SVG is complete pathway topology or independent biological evidence. No cloud work required.
