@@ -16,7 +16,7 @@ Updated 2026-10-27. Branch: `project-omega/ultimate-completion`.
 - ProteinMPNN sample inspection, immutable result checks, provenance export and complete-context prediction draft: committed `56084c6`, installed and native-verified with the two saved hIL2R samples. No new prediction or binding claim. Focused checks: 21 backend, four interface, TypeScript.
 - Pathway membership graph, exact saved-stage JSON and bounded SVG export: installed and native-verified against the saved synthetic finite-population result. Three exact edges and original hashes preserved; no interaction/causality claim. Native evidence: `reports/editcraft/pathway-native-export-validation.json`; commit `caf4b37`.
 - Attributed local GMT import: committed `4bef519`, installed; native chooser and cancellation verified on the saved EditCraft project. Isolated backend test verifies original text/name/SHA-256 preservation; five interface tests and TypeScript passed. No fixture imported into real data.
-- Full-family pathway TSV export: installed. Includes all tested sets, original probabilities/logs/underflow flags, overlap identities, attribution and hashes; formula-like text is safely prefixed, with exact archival JSON available. Seven focused interface tests and TypeScript passed. Local conversion of the actual saved numerical cloud result retained three rows, exact probabilities, collection and all four source/input hashes. Evidence: `reports/editcraft/pathway-table-export-validation.json`. Native TSV file click not yet verified.
+- Full-family pathway TSV export: installed. Includes all tested sets, original probabilities/logs/underflow flags, overlap identities, attribution and hashes; formula-like text is safely prefixed, with exact archival JSON available. Seven focused interface tests and TypeScript passed. Local conversion of the actual saved numerical cloud result retained three rows, exact probabilities, collection and all four source/input hashes. Evidence: `reports/editcraft/pathway-table-export-validation.json`. Native TSV export passed on the original saved numerical reference: all three rows, probabilities, attribution and four hashes matched; exported bytes matched the local reference.
 
 ## Scientific status and limits
 
@@ -29,8 +29,10 @@ Updated 2026-10-27. Branch: `project-omega/ultimate-completion`.
 
 The user’s maximum-execution directive authorizes parallel independent packages and one consolidated update near batch end. Added trajectory Cα gyration, saved ligand/conformer inspection and SDF export, bounded read-only project archive integrity review and genuine mmCIF unit-cell inspection. 18 focused backend tests, 21 focused interface tests and TypeScript passed. The consolidated guarded build/signing passed with 61 scientific modules. Native checks passed in an isolated QA library for all four new packages, including a checksum-matching ligand SDF. Evidence: `reports/ultimate/implementation-batch.json`, `reports/ultimate/consolidated-native-acceptance.json`.
 
-The current app has been reopened with the original research root; macOS Documents access is pending. One request is outstanding for the final native TSV save check. Do not rebuild while waiting. The broad audit remains partial; no paid compute, model download or Fab work occurred.
+The current app is open on the original research root. Documents access was granted and the final native TSV export passed; its SHA-256 matched the local reference. The broad audit remains partial; no paid compute, model download or Fab work occurred.
 
 ## Next task
 
-Complete native TSV file-export inspection when the saved library is accessible, then choose one independent user-visible unblocked requirement from the audit. Inspect relevant files only, reuse existing code and run focused tests. Paid work and model downloads require fresh approval. Do not resume Fab.
+Next independent package: project archive re-import with explicit identity remapping, transactional rollback and no archived job execution. Inspect relevant files only, reuse existing code and run focused tests. Paid work and model downloads require fresh approval. Do not resume Fab.
+
+Consolidated implementation checkpoint: `01a9904`; native acceptance evidence updated after that commit.

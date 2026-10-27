@@ -14,9 +14,9 @@
 
 18 focused backend tests, 21 focused interface tests and TypeScript pass. Consolidated guarded installation/signing passed, checking 61 scientific modules. Native QA passed for archive review, genuine 1BNA cell geometry, actual saved ethanol inspection/SDF export and an explicitly artificial trajectory with both gyration values equal to sqrt(1.125) Å. The isolated QA library preserved original genuine ligand bytes; no fixture entered real research data.
 
-## Outstanding native action
+## Native acceptance complete for this batch
 
-The original research library is awaiting macOS Documents permission after the new local signature. One asynchronous request is pending. Finish the saved finite-population pathway TSV export and compare every row/hash. Do not rebuild while waiting. No further source change is needed for this check.
+The original EditCraft research project reopened after Documents permission. The installed TSV export wrote all three saved tested sets with exact numeric probabilities, overlap identities, collection attribution and all four hashes. Its SHA-256 exactly matched the independently generated local reference. No synthetic fixture entered the real library. The app remains open on the original research root.
 
 ## Scope and evidence
 
