@@ -14,5 +14,6 @@ describe('explicit pathway input',()=>{
   const result={rows:[],selectedCount:3,backgroundCount:10,testedFamilySize:3,multipleTesting:'BH',collection:{name:'Synthetic finite reference',version:'1',organism:'Synthetic',identifierNamespace:'test'},scope:'Numerical reference only',collectionVerification:'Unverified biological attribution'};
   const html=renderToStaticMarkup(<EditCraftPathways outputs={['BH','BY'].map(method=>({operation:'pathway_enrichment',result:{...result,multipleTesting:method}}))} onDraft={()=>{}}/>);
   expect(html).toContain('Enrichment stage to inspect');expect(html).toContain('Stage 1');expect(html).toContain('Stage 2');expect(html).toContain('BY');
+  expect(html).toContain('No observed overlap connects');
  });
 });
