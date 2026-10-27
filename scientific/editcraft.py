@@ -92,7 +92,7 @@ def dispatch(s,action,p):
   return save_entity(s,p)
  if action=='editcraft_import_text':
   file=pathlib.Path(p['path']).expanduser()
-  if file.suffix.lower() not in ('.fa','.fasta','.fna','.gb','.gbk','.gff','.gtf','.bed','.vcf','.csv','.tsv','.fastq','.fq','.txt','.json'):raise ValueError('Unsupported biological research file.')
+  if file.suffix.lower() not in ('.fa','.fasta','.fna','.gb','.gbk','.gff','.gtf','.bed','.vcf','.csv','.tsv','.gmt','.fastq','.fq','.txt','.json'):raise ValueError('Unsupported biological research file.')
   if file.stat().st_size>4*1024**2:raise ValueError('This bounded import accepts files up to 4 MiB. Large dataset streaming is not yet connected.')
   return save_entity(s,{'projectId':p['projectId'],'kind':'dataset','name':file.name,'data':{'text':file.read_text(),'format':file.suffix.lower()[1:],'sha256':hashlib.sha256(file.read_bytes()).hexdigest(),'source':'user_import','analysisPerformed':False}})
  if action=='editcraft_dataset_import':

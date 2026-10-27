@@ -1,5 +1,5 @@
 """EditCraft contracts and metadata fixtures; no paid compute or local model install."""
-import copy,json,pathlib,sys,tempfile,unittest
+import copy,hashlib,json,pathlib,sys,tempfile,unittest
 from unittest.mock import patch,MagicMock
 ROOT=pathlib.Path(__file__).resolve().parents[1];sys.path[:0]=[str(ROOT/'scientific'),str(ROOT/'remote_worker')]
 from worker import Service
@@ -62,6 +62,8 @@ class NativeTests(unittest.TestCase):
  def test_import_is_bounded_file_preservation_only(self):
   p=self.root/'fixture.fasta';p.write_text('>synthetic\nATGGCC\n')
   r=self.call('editcraft_import_text',path=str(p));self.assertEqual(r['data']['text'],p.read_text());self.assertFalse(r['data']['analysisPerformed'])
+  gmt=self.root/'sets.gmt';gmt.write_text('set_A\tprovided source\tg1\tg2\n')
+  saved=self.call('editcraft_import_text',path=str(gmt));self.assertEqual(saved['data']['text'],gmt.read_text());self.assertEqual(saved['data']['format'],'gmt');self.assertEqual(saved['data']['sha256'],hashlib.sha256(gmt.read_bytes()).hexdigest());self.assertFalse(saved['data']['analysisPerformed'])
  def test_all_domain_actions_are_allowed_by_the_native_host(self):
   host=(ROOT/'src-tauri/src/main.rs').read_text()
   for action in editcraft.ACTIONS:self.assertIn('"'+action+'"',host)

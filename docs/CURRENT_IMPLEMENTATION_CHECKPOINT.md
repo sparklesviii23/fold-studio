@@ -34,8 +34,12 @@ The closely related pathway export preserves the exact selected saved stage and 
 
 ## Installed SVG graph export
 
-`PathwayMembership.tsx` and `EditCraftPathways.tsx` now prepare a bounded standalone SVG containing exact displayed membership edges, original source/input hashes and omitted-node counts. Six focused interface tests and TypeScript pass. The guarded installer passed and replaced the single current app after the user unlocked the Mac and the idle app/worker exited normally. Native verification passed on the saved finite-population pathway reference: the exported SVG was parsed as valid XML with exactly three reported edges, four original hashes and zero omitted nodes. The saved JSON export contained all three original tested rows and matching input/source hashes. The app is open on the original research root. No paid compute or Fab work occurred. No paid compute or Fab work occurred.
+`PathwayMembership.tsx` and `EditCraftPathways.tsx` now prepare a bounded standalone SVG containing exact displayed membership edges, original source/input hashes and omitted-node counts. Six focused interface tests and TypeScript pass. The guarded installer passed and replaced the single current app after the user unlocked the Mac and the idle app/worker exited normally. Native verification passed on the saved finite-population pathway reference: the exported SVG was parsed as valid XML with exactly three reported edges, four original hashes and zero omitted nodes. The saved JSON export contained all three original tested rows and matching input/source hashes. The app is open on the original research root. No paid compute or Fab work occurred.
 
 ## Next independent ticket
 
 Add local GMT file import to the existing pathway form with explicit collection attribution and input-size validation. Scope: `src/components/EditCraftPathways.tsx`, existing file chooser/read API and focused tests. Do not auto-download collections or infer identifier mappings.
+
+## Local GMT collection ticket
+
+The existing bounded research-file importer accepts `.gmt` and stores its original text, file name and SHA-256 without starting cloud work. The pathway form can select that saved file, validate GMT structure and carry its source-file identity into the reviewed collection metadata; manual edits clear the imported identity. One focused backend import test, five focused interface tests, TypeScript and guarded packaging passed. Native inspection passed: the saved EditCraft project loaded, the import button opened the native file chooser, and Cancel returned to the unchanged form. Backend preservation was tested in isolation; no native file import into real research data was performed. No test fixture was imported into the user's research project.

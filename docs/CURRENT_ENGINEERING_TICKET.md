@@ -24,3 +24,11 @@ Focused interface tests (4) and TypeScript passed. The guarded native build succ
 - Modules: `src/components/PathwayMembership.tsx`, `src/components/EditCraftPathways.tsx`, their focused tests.
 - Acceptance: exact bounded edges; escaped labels; original input/source/collection/background hashes and omitted counts in metadata; vector export clearly disclaims interaction and causality.
 - Verified: six focused interface tests and TypeScript pass. Guarded build and signing passed. Native export of the saved finite-population reference produced valid SVG XML with the exact three displayed edges and four original hashes; zero nodes were omitted. The companion JSON retained all three tested rows and matching source/input hashes.
+
+## Current ticket: local GMT import
+
+- Objective: choose a local GMT file for pathway enrichment while keeping its exact text, file name and SHA-256 in the research record.
+- Modules: `scientific/editcraft.py`, `src/components/EditCraft.tsx`, `src/components/EditCraftPathways.tsx`, focused tests.
+- Acceptance: bounded `.gmt` import through the existing native chooser; case-preserving GMT parse; source checksum retained only while the imported text is unchanged; user must supply collection source, organism, namespace and license; no analysis starts on import.
+- Verified: one focused backend test, five focused interface tests, TypeScript and guarded app package/signature checks. Native inspection confirmed the saved project, import button, native chooser and safe cancellation. The file preservation test used isolated data.
+- Dependencies: user-selected local file. No cloud, model download or paid compute.

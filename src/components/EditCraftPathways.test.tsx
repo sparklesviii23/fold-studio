@@ -1,6 +1,6 @@
 import {describe,it,expect} from 'vitest';
 import {renderToStaticMarkup} from 'react-dom/server';
-import EditCraftPathways,{parseGMT,pathwayResultExport} from './EditCraftPathways';
+import EditCraftPathways,{collectionWithFileSource,parseGMT,pathwayResultExport} from './EditCraftPathways';
 describe('explicit pathway input',()=>{
  it('retains exact collection identifiers without implicit gene mapping',()=>{
   expect(parseGMT('set_1\tProvided source\tG1\tg2')).toEqual([{id:'set_1',description:'Provided source',genes:['G1','g2']}]);
@@ -24,5 +24,12 @@ describe('explicit pathway input',()=>{
   expect(payload.savedStage).toEqual(stage);
   expect(payload.scope).toContain('not the complete background gene list');
   expect(()=>pathwayResultExport({operation:'pathway_enrichment'})).toThrow();
+ });
+ it('keeps an imported GMT checksum separate from user-supplied collection attribution',()=>{
+  const collection={name:'User collection',source:'Provided laboratory source'};
+  expect(collectionWithFileSource(collection,{name:'sets.gmt',sha256:'a'.repeat(64)})).toEqual({...collection,sourceFileName:'sets.gmt',sourceFileSha256:'a'.repeat(64)});
+  expect(collectionWithFileSource(collection,null)).toEqual(collection);
+  const html=renderToStaticMarkup(<EditCraftPathways outputs={[]} onDraft={()=>{}} onImportGMT={async()=>null}/>);
+  expect(html).toContain('Import local GMT collection');expect(html).toContain('Collection source / attribution');
  });
 });
