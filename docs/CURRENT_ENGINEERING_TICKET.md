@@ -11,3 +11,10 @@
 ## Verification
 
 Focused interface tests (4) and TypeScript passed. The guarded native build succeeded. In the saved finite-population reference, the app displayed exactly three edges (`selected` to `g1`, `g2`, `g3`) and selecting the set exposed those three identifiers. This is mathematical fixture evidence, not biological pathway validation.
+
+## Closely related follow-up: exact result export
+
+- Objective: export the selected completed pathway stage in full without inventing missing background identifiers.
+- Modules: `src/components/EditCraftPathways.tsx` and its focused test.
+- Acceptance: stage selection controls the exported JSON; the original saved stage remains byte-for-byte equivalent after JSON round-trip; the report states that a background hash is not the full background list. No calculation starts.
+- Verified: focused interface tests and TypeScript pass; final guarded app build and signing passed; export button was not clicked in the native app. No new cloud or biological evidence claimed.
