@@ -1,0 +1,85 @@
+{
+  "projectId": "79ea760a-a419-488e-b574-f42860aa74ce",
+  "jobId": "241321ef12484f33bc8e0b6a25135996",
+  "state": "completed",
+  "plan": {
+    "schemaVersion": 1,
+    "seconds": 300,
+    "stages": [
+      {
+        "id": "unpairable",
+        "operation": "rna_cofold",
+        "parameters": {
+          "sequenceA": "AAAAAAAA",
+          "sequenceB": "AAAAAAAA",
+          "temperatureC": 37,
+          "context": "Synthetic thermodynamic QA only; no organism, biological target, delivery or antimicrobial hypothesis."
+        }
+      },
+      {
+        "id": "complementary",
+        "operation": "rna_cofold",
+        "parameters": {
+          "sequenceA": "GGGGGGGG",
+          "sequenceB": "CCCCCCCC",
+          "temperatureC": 37,
+          "context": "Synthetic thermodynamic QA only; no organism, biological target, delivery or antimicrobial hypothesis."
+        }
+      }
+    ]
+  },
+  "estimatedAnalysisUSD": 0.1126,
+  "maximumTotalApprovedUSD": 1.25,
+  "deploymentAllowanceUSD": 1,
+  "analysisAllowanceUSD": 0.25,
+  "providerReportedUSD": null,
+  "correctedDeploymentSourceSha256": "978c6090fff17e076db99644f962ea921a913180aa3e140acd341337c17ad70e",
+  "inputSha256": "3155e87ac41425a8095b50df78273f0d9339b8b75054865c72caef439fb302a3",
+  "noAutomaticRetries": true,
+  "submission": {
+    "id": "241321ef12484f33bc8e0b6a25135996",
+    "state": "submitted",
+    "inputSha256": "3155e87ac41425a8095b50df78273f0d9339b8b75054865c72caef439fb302a3",
+    "callId": "fc-01M626EQ52YBF32E35D3SE4E1Z"
+  },
+  "latestStatus": {
+    "inputSha256": "3155e87ac41425a8095b50df78273f0d9339b8b75054865c72caef439fb302a3",
+    "state": "completed",
+    "started": "2026-10-28T21:25:31.597378+00:00",
+    "id": "241321ef12484f33bc8e0b6a25135996",
+    "events": [
+      {
+        "stageId": "unpairable",
+        "operation": "rna_cofold",
+        "state": "running",
+        "time": "2026-10-28T21:25:34.385901+00:00"
+      },
+      {
+        "stageId": "unpairable",
+        "operation": "rna_cofold",
+        "state": "completed",
+        "time": "2026-10-28T21:25:36.390092+00:00"
+      },
+      {
+        "stageId": "complementary",
+        "operation": "rna_cofold",
+        "state": "running",
+        "time": "2026-10-28T21:25:37.966331+00:00"
+      },
+      {
+        "stageId": "complementary",
+        "operation": "rna_cofold",
+        "state": "completed",
+        "time": "2026-10-28T21:25:39.398661+00:00"
+      }
+    ],
+    "cloudOnly": true,
+    "gpuStarted": false,
+    "updated": "2026-10-28T21:25:39.398686+00:00",
+    "resultSha256": "484a9266fd590e8445f42e4f8d1ccf091f86d79b5b8d848e9d699f1804934c23",
+    "finished": "2026-10-28T21:25:41.211337+00:00"
+  },
+  "resultEntityId": "6444ac54422a48529e22d9211bace2c8",
+  "notebookId": "b4e07f0a16834ff78d70c3c1ac5a4cb3",
+  "referenceAssertionsPassed": true
+}

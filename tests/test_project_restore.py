@@ -25,3 +25,13 @@ class RestoreTests(unittest.TestCase):
    return real(a,b)
   with patch('project_restore.os.link',side_effect=fail_second),self.assertRaises(OSError):self.target.dispatch('project_archive_import',self.payload())
   self.assertEqual(self.target.library({})['projects'],[]);self.assertEqual(self.target.library({})['records'],[]);self.assertEqual(list((self.target.root/'assets').iterdir()),[]);self.assertEqual(project_restore.rows(self.target),[])
+ def test_genome_reference_roundtrip_remaps_operational_reference_and_sources(self):
+  fasta=self.root/'reference.fna';fasta.write_text('>chrom\nACGTTGCA\n');gff=self.root/'reference.gff3';gff.write_text('chrom\tfixture\tgene\t2\t5\t.\t-\t.\tID=g1\n')
+  reference=self.source.dispatch('genome_import',{'projectId':self.project,'fastaPath':str(fasta),'gffPath':str(gff),'metadata':{'organism':'Artificial roundtrip fixture','assembly':'Test','source':'Synthetic data'},'circularReplicons':['chrom']})
+  request={'projectId':self.project,'id':reference['id'],'replicon':'chrom','start':7,'end':2,'strand':'-'};expected=self.source.dispatch('genome_region',request)
+  self.source.dispatch('genome_region_save',{**request,'expectedSequenceSha256':expected['sequenceSha256']})
+  self.source.export_project({'id':self.project,'path':str(self.archive)});self.sha=inspect_archive({'path':str(self.archive)})['archiveSha256']
+  restored=self.target.dispatch('project_archive_import',self.payload());references=self.target.dispatch('genome_list',{'projectId':restored['projectId']});self.assertEqual(len(references),1);new=references[0];self.assertNotEqual(new['id'],reference['id'])
+  actual=self.target.dispatch('genome_region',{**request,'projectId':restored['projectId'],'id':new['id']});self.assertEqual(actual['dna'],expected['dna'])
+  library=self.target.library({})['records'];interval=next(r for r in library if r['data'].get('domain')=='genome_interval');self.assertEqual(interval['data']['result']['referenceId'],new['id'])
+  self.assertNotEqual(new['sources'][0]['asset'],reference['sources'][0]['asset']);self.assertEqual(new['sources'][0]['sha256'],reference['sources'][0]['sha256'])

@@ -79,7 +79,7 @@ def inspect_archive(parameters):
                 for source in reference['sources']:
                     if not isinstance(source,dict):raise ValueError('Invalid genome source receipt.')
                     name,sha,size=(source.get(key) for key in ('file','sha256','bytes'))
-                    if (not isinstance(name,str) or not re.fullmatch(r'genomes/[a-f0-9-]{36}\.(fasta|gff3)',name) or name in declared or name not in names or not re.fullmatch('[a-f0-9]{64}',str(sha)) or type(size) is not int or not 0<=size<=32*1024**2 or archive.getinfo(name).file_size!=size):raise ValueError('Genome source integrity receipt is invalid or missing.')
+                    if (not isinstance(name,str) or not re.fullmatch(r'genomes/[a-f0-9-]{36}\.(fasta|gff3|gb|embl|gtf|bed)(\.gz)?',name) or name in declared or name not in names or not re.fullmatch('[a-f0-9]{64}',str(sha)) or type(size) is not int or not 0<=size<=32*1024**2 or archive.getinfo(name).file_size!=size):raise ValueError('Genome source integrity receipt is invalid or missing.')
                     declared[name]=sha;genome_count+=1
             def check_reference(name, sha):
                 if (not isinstance(name, str) or pathlib.PurePath(name).name != name

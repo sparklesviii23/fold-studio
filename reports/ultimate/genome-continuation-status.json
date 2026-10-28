@@ -1,0 +1,106 @@
+{
+  "schemaVersion": 1,
+  "updatedUTC": "2026-10-28T21:42:50.988328+00:00",
+  "fullPlatformComplete": false,
+  "fullGenomeRNAComplete": false,
+  "fab": "EXCLUDED_FROM_THIS_SESSION",
+  "subagentsUsed": false,
+  "implemented": [
+    "Annotation-directed CDS assembly with phase/strand/circular-order checks and explicit Biopython code 1/11 translation",
+    "Explicit-exon transcript assembly; no inferred mature transcript",
+    "GenBank/EMBL and gzip source imports with original bytes retained",
+    "Bounded GTF normalization and BED3\u2013BED6 interval import; no discarded block/CDS semantics",
+    "Attribution- and condition-preserving gene-evidence CSV import and exact gene lookup",
+    "Forward-reference variant verification with optional explicit-CDS codon comparison",
+    "Supplied-annotation genome tracks with bounded coordinate navigation and circular-origin fragments",
+    "Operational genome restoration through transactional project archive import",
+    "CSV assay ingestion preserving original bytes and biological/technical replicate identities",
+    "Supplied-RNA ViennaRNA cofold execution, strand-specific pairs and finite-INF handling; historical invalid energy labelled without altering receipts"
+  ],
+  "verification": {
+    "backendDiscovered": 57,
+    "backendPassed": 56,
+    "backendSkipped": 1,
+    "interfacePassed": 11,
+    "typeScript": "passed",
+    "packageAndSignature": "passed",
+    "packagedScientificModules": 70,
+    "nativeCDSTranslation": "passed: code 11, complete mode, 2463 bases, 820 residues",
+    "nativeRNAResults": "passed: original and corrected receipts selectable; unavailable energy and -19 kcal/mol with 8 pairs displayed",
+    "nativeNavigation": "passed: real NC_000913.3 tracks, 1\u20134000 to 4001\u20138000, zoom to 5001\u20137000; 9 supplied annotations in each observed window",
+    "nativeGenBank": "passed: official NC_000964.3 import through native file chooser, 4,215,606 circular bases/9,076 annotation rows and exact source hash"
+  },
+  "referenceEvidence": [
+    "reports/ultimate/genome-product-reference.json",
+    "reports/ultimate/genbank-reference-validation.json",
+    "reports/ultimate/bsub-reference-validation.json"
+  ],
+  "scientificScope": "Reference sequence reproduction and numerical RNA execution checks; no independent biological efficacy, affinity, essentiality or model benchmark claims.",
+  "cloud": {
+    "firstJob": "4af5fd4285a34cdc80005a2d9b49df50",
+    "firstOutcome": "completed but adapter mishandled finite INF; raw receipt retained unchanged",
+    "correctedJob": "241321ef12484f33bc8e0b6a25135996",
+    "correctedOutcome": "completed; both numerical assertions passed",
+    "totalApprovedMaximumUSD": 2.5,
+    "analysisEstimatesCombinedUSD": 0.2252,
+    "setupAllowancesCombinedUSD": 2,
+    "actualProviderCharges": null,
+    "GPUAllocated": false,
+    "modelDownloads": false,
+    "activeScopedScientificJobs": 0,
+    "noAutomaticRetries": true
+  },
+  "preservation": "reports/ultimate/genome-continuation-preservation.json",
+  "remaining": [
+    "Broader genomic formats (VCF-linked tracks, BAM/CRAM/GFA), streaming and human-genome indexing",
+    "Authoritative organism/assembly discovery and additional references",
+    "Authentic condition-specific essentiality datasets and independent biological RNA-interaction benchmarks",
+    "Additional RNA interaction/foundation models and full genome-to-RNA research workflows",
+    "Other unfinished non-Fab scientific engines remain tracked in original master audit"
+  ],
+  "currentApp": "/Users/vii/Documents/FoldStudio-MetalPort/current/FOLD STUDIO Metal Dev.app",
+  "next": "Commit verified batch and continue the next independent unblocked genome/sequence capability.",
+  "nativeAcceptance": {
+    "originalProject": "9ee9514a-8868-4f2d-8570-5c41d45a2ee8",
+    "nativeCDS": {
+      "reference": "NC_000913.3",
+      "protein": "NP_414543.1",
+      "bases": 2463,
+      "residues": 820,
+      "code": 11,
+      "completeMode": true
+    },
+    "nativeRNA": {
+      "originalReceiptSelectable": true,
+      "correctedReceiptSelectable": true,
+      "originalInvalidEnergyWarning": true,
+      "correctedNoPairEnergyUnavailable": true,
+      "pairedEnergyKcalMol": -19,
+      "interstrandPairs": 8
+    },
+    "navigation": {
+      "first": [
+        1,
+        4000
+      ],
+      "next": [
+        4001,
+        8000
+      ],
+      "zoomIn": [
+        5001,
+        7000
+      ],
+      "overlappingAnnotationRowsObserved": 9,
+      "originalResearchRecordsModified": false
+    },
+    "bsubGenBankImport": {
+      "projectId": "f73a6318-e7d4-40c9-98b3-757cf5829546",
+      "name": "Genome Reference \u00b7 B. subtilis 168",
+      "referenceId": "2dc7464c-8d39-4a16-b130-da1cafa6f437",
+      "originalGenBankSha256": "ccff5abf1544569c800d7f100ca518c12f591bd768708198ea8b67171f4f058a",
+      "nativeCountsMatch": true,
+      "sourceOriginalPreserved": true
+    }
+  }
+}

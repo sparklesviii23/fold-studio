@@ -1,0 +1,142 @@
+{
+  "schemaVersion": 1,
+  "results": {
+    "unpairable": {
+      "operation": "rna_cofold",
+      "inputSha256": "3b3bdddb71a59126feb38d35b5839b6af89f49267c0ae9224e9cb1971c5d5c50",
+      "result": {
+        "sequenceA": "AAAAAAAA",
+        "sequenceB": "AAAAAAAA",
+        "sequenceASha256": "c34ab6abb7b2bb595bc25c3b388c872fd1d575819a8f55cc689510285e212385",
+        "sequenceBSha256": "c34ab6abb7b2bb595bc25c3b388c872fd1d575819a8f55cc689510285e212385",
+        "dotBracket": "................",
+        "displayDotBracket": "........&........",
+        "strandBreakAfter": 8,
+        "pairs": [],
+        "interstrandPairs": [],
+        "complexMfeKcalMol": 100000.0,
+        "sequenceAMfeKcalMol": 0.0,
+        "sequenceBMfeKcalMol": 0.0,
+        "sequenceAMfeStructure": "........",
+        "sequenceBMfeStructure": "........",
+        "deltaMfeRelativeToSeparateFoldsKcalMol": 100000.0,
+        "temperatureC": 37,
+        "model": "ViennaRNA cofold MFE",
+        "version": "2.7.2",
+        "suppliedContext": "Synthetic thermodynamic QA only; no organism, biological target, delivery or antimicrobial hypothesis.",
+        "coordinateConvention": "1-based within each supplied RNA for interstrand pairs; pairs uses concatenated strand coordinates without ampersand",
+        "scope": "Two supplied RNA strands under the recorded ViennaRNA equilibrium model. MFE energy differences are not binding constants, joint target accessibility, intracellular interaction, transcript suppression, growth inhibition or bactericidal efficacy. No sequences, targets or delivery constructs were designed or optimized."
+      },
+      "completed": "2026-10-28T21:15:56.220068+00:00"
+    },
+    "complementary": {
+      "operation": "rna_cofold",
+      "inputSha256": "15b2e1921092451e3b61d9141555e4655ea7331728c3999657994015f7178e32",
+      "result": {
+        "sequenceA": "GGGGGGGG",
+        "sequenceB": "CCCCCCCC",
+        "sequenceASha256": "4fee2e0dd4a59ac5c78ea7b1a0c9da98aa271393696a0cedc4cf4528d27c0b9c",
+        "sequenceBSha256": "acea9bbeb39f5ff3651c74794b588e60fa3c73cc48a5ee7b5b5561dacba9582a",
+        "dotBracket": "(((((((())))))))",
+        "displayDotBracket": "((((((((&))))))))",
+        "strandBreakAfter": 8,
+        "pairs": [
+          [
+            8,
+            9
+          ],
+          [
+            7,
+            10
+          ],
+          [
+            6,
+            11
+          ],
+          [
+            5,
+            12
+          ],
+          [
+            4,
+            13
+          ],
+          [
+            3,
+            14
+          ],
+          [
+            2,
+            15
+          ],
+          [
+            1,
+            16
+          ]
+        ],
+        "interstrandPairs": [
+          {
+            "sequenceAPosition": 8,
+            "sequenceBPosition": 1
+          },
+          {
+            "sequenceAPosition": 7,
+            "sequenceBPosition": 2
+          },
+          {
+            "sequenceAPosition": 6,
+            "sequenceBPosition": 3
+          },
+          {
+            "sequenceAPosition": 5,
+            "sequenceBPosition": 4
+          },
+          {
+            "sequenceAPosition": 4,
+            "sequenceBPosition": 5
+          },
+          {
+            "sequenceAPosition": 3,
+            "sequenceBPosition": 6
+          },
+          {
+            "sequenceAPosition": 2,
+            "sequenceBPosition": 7
+          },
+          {
+            "sequenceAPosition": 1,
+            "sequenceBPosition": 8
+          }
+        ],
+        "complexMfeKcalMol": -19.0,
+        "sequenceAMfeKcalMol": 0.0,
+        "sequenceBMfeKcalMol": 0.0,
+        "sequenceAMfeStructure": "........",
+        "sequenceBMfeStructure": "........",
+        "deltaMfeRelativeToSeparateFoldsKcalMol": -19.0,
+        "temperatureC": 37,
+        "model": "ViennaRNA cofold MFE",
+        "version": "2.7.2",
+        "suppliedContext": "Synthetic thermodynamic QA only; no organism, biological target, delivery or antimicrobial hypothesis.",
+        "coordinateConvention": "1-based within each supplied RNA for interstrand pairs; pairs uses concatenated strand coordinates without ampersand",
+        "scope": "Two supplied RNA strands under the recorded ViennaRNA equilibrium model. MFE energy differences are not binding constants, joint target accessibility, intracellular interaction, transcript suppression, growth inhibition or bactericidal efficacy. No sequences, targets or delivery constructs were designed or optimized."
+      },
+      "completed": "2026-10-28T21:15:56.222540+00:00"
+    }
+  },
+  "provenance": {
+    "engine": "EditCraft",
+    "version": "0.4.0",
+    "inputSha256": "3155e87ac41425a8095b50df78273f0d9339b8b75054865c72caef439fb302a3",
+    "python": "3.12.10",
+    "platform": "Linux-4.19.0-gvisor-x86_64-with-glibc2.36",
+    "host": "modal",
+    "packages": {
+      "biopython": "1.85",
+      "ViennaRNA": "2.7.2"
+    },
+    "completed": "2026-10-28T21:15:56.240406+00:00",
+    "elapsedSeconds": 0.2612703040000004,
+    "scientificQualification": "Operation-specific tests; trained-model execution and independent scientific qualification are tracked separately."
+  }
+}

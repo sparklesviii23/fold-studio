@@ -46,4 +46,18 @@ class GenomeTests(unittest.TestCase):
   with zipfile.ZipFile(archive) as z:
    data=json.loads(z.read('project.json'))
    for source in data['genomeReferences'][0]['sources']:self.assertEqual(hashlib.sha256(z.read(source['file'])).hexdigest(),source['sha256'])
+ def test_gzip_import_preserves_original_bytes_and_exports_valid_manifest(self):
+  import gzip,zipfile,hashlib
+  from project_archive import inspect_archive
+  compressed=self.root/'ref.fna.gz';raw=gzip.compress(self.fa.read_bytes());compressed.write_bytes(raw)
+  row=self.s.dispatch('genome_import',{'projectId':self.project,'fastaPath':str(compressed),'metadata':{'organism':'Artificial gzip reference','assembly':'fixture','source':'Synthetic test'}})
+  self.assertEqual(row['sources'][0]['sha256'],hashlib.sha256(raw).hexdigest());self.assertEqual(row['sources'][0]['encoding'],'gzip')
+  result=self.s.dispatch('genome_region',{'projectId':self.project,'id':row['id'],'replicon':'chrom','start':1,'end':4});self.assertEqual(result['dna'],'ACGT')
+  archive=self.root/'compressed.zip';self.s.export_project({'id':self.project,'path':str(archive)});self.assertEqual(inspect_archive({'path':str(archive)})['verifiedGenomeSourceCount'],1)
+  with zipfile.ZipFile(archive) as z:self.assertEqual(z.read('genomes/'+row['sources'][0]['asset']),raw)
+ def test_gzip_expansion_is_bounded(self):
+  import gzip
+  from unittest.mock import patch
+  from genome_workspace import decode_reference
+  with patch('genome_workspace.LIMIT',10),self.assertRaisesRegex(ValueError,'Expanded'):decode_reference(gzip.compress(b'A'*11),'gzip')
 if __name__=='__main__':unittest.main()

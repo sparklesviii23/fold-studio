@@ -113,7 +113,31 @@ def import_archive(s,p):
                 raw=archive.read(asset['file'])
                 if hashlib.sha256(raw).hexdigest()!=asset['sha256']:raise ValueError('Asset checksum changed after review.')
                 (staging/renamed).write_bytes(raw)
-            id_fields={'id','projectId','project_id','recordId','record_id','structureId','structure_id','parentRecordId','parentId','sourceRecordId','sourceStructureId','targetStructureId','derivedFrom','outputs','recordIds','structureIds','sourceRecordIds'}
+            genomes=data.get('genomeReferences',[]);genome_files=[];genome_asset_names=set()
+            if genomes:
+                from genome_workspace import fasta,annotations,decode_reference
+                (staging/'genomes').mkdir()
+                for genome in genomes:
+                    old_id=genome.get('id')
+                    if not canonical_id(old_id) or old_id in mapping or genome.get('projectId')!=old_project:raise ValueError('Archived genome identity conflicts with its project or records.')
+                    mapping[old_id]=str(uuid.uuid4());texts={}
+                    for item in genome['sources']:
+                        original=item.get('asset')
+                        if not isinstance(original,str) or item['file']!='genomes/'+original or original in asset_mapping:raise ValueError('Genome source identity is ambiguous.')
+                        suffix=''.join(pathlib.Path(original).suffixes)
+                        if not re.fullmatch(r'\.(fasta|gff3|gb|embl|gtf|bed)(\.gz)?',suffix):raise ValueError('Unsupported archived genome asset format.')
+                        renamed=str(uuid.uuid4())+suffix;asset_mapping[original]=renamed;raw=archive.read(item['file'])
+                        if hashlib.sha256(raw).hexdigest()!=item['sha256']:raise ValueError('Archived genome checksum differs.')
+                        if item['kind'] in texts:raise ValueError('Duplicated genome source kind.')
+                        texts[item['kind']]=decode_reference(raw,item.get('encoding'));(staging/'genomes'/renamed).write_bytes(raw);genome_files.append(renamed);genome_asset_names.add(original)
+                    if 'fasta' not in texts:raise ValueError('Archived genome has no reference FASTA.')
+                    sequences=fasta(texts['fasta']);circular=genome.get('circularReplicons')
+                    if not isinstance(circular,list) or set(circular)-set(sequences):raise ValueError('Invalid archived replicon topology.')
+                    features=annotations(texts.get('gff3',''),sequences,circular)
+                    reported={r['id']:(r['length'],r['sha256']) for r in genome.get('replicons',[])}
+                    actual={key:(len(value),hashlib.sha256(value.encode()).hexdigest()) for key,value in sequences.items()}
+                    if reported!=actual or genome.get('featureCount')!=len(features):raise ValueError('Archived genome metadata differs from its actual sequences/annotations.')
+            id_fields={'id','projectId','project_id','referenceId','reference_id','recordId','record_id','structureId','structure_id','parentRecordId','parentId','sourceRecordId','sourceStructureId','targetStructureId','derivedFrom','outputs','recordIds','structureIds','sourceRecordIds'}
             asset_fields={'asset','sdfAsset','coordinateAsset','inputAsset'}
             def remap(value,field=None):
                 if isinstance(value,str):
@@ -130,6 +154,12 @@ def import_archive(s,p):
                     'originalDataSha256':hashlib.sha256(json.dumps(record['data'],sort_keys=True,separators=(',',':'),allow_nan=False).encode()).hexdigest(),
                     'scope':'Library identities remapped; original scientific receipt and identifiers retained in the source archive snapshot.'}
                 restored.append((mapping[record['id']],project_id,record['kind'],record['name'],json.dumps(info,allow_nan=False),record.get('created') or created))
+            restored_genomes=[]
+            for genome in genomes:
+                value=remap(genome)
+                for item in value['sources']:item.pop('file',None);item.pop('bytes',None)
+                value['archiveOrigin']={'snapshotId':snapshot_id,'sourceArchiveSha256':review['archiveSha256'],'originalReferenceId':genome['id']}
+                restored_genomes.append((value['id'],project_id,json.dumps(value,allow_nan=False)))
         meta={'sourceProjectName':project['name'],'recordCount':len(restored),'archivedJobCount':len(data['jobs']),
               'retainedSections':sorted(key for key in data if key not in ('format','exported','project','records','assetManifest')),'identityMap':mapping,'assetMap':asset_mapping}
         s.db.execute('BEGIN IMMEDIATE')
@@ -140,17 +170,26 @@ def import_archive(s,p):
             if not isinstance(notes,str):raise ValueError('Invalid project notes.')
             s.db.execute('INSERT INTO projects VALUES(?,?,?,?,?)',(project_id,name.strip(),notes,created,created))
             s.db.executemany('INSERT INTO records VALUES(?,?,?,?,?,?)',restored)
+            if restored_genomes:
+                s.db.execute('CREATE TABLE IF NOT EXISTS genome_references(id TEXT PRIMARY KEY,project_id TEXT,data TEXT)')
+                s.db.executemany('INSERT INTO genome_references VALUES(?,?,?)',restored_genomes)
             original_asset=snapshot_id+'.zip'
             s.db.execute('INSERT INTO '+TABLE+' VALUES(?,?,?,?,?,?,?)',(snapshot_id,project_id,review['archiveSha256'],review['fileName'],original_asset,json.dumps(meta),created))
-            for renamed in asset_mapping.values():
+            for original,renamed in asset_mapping.items():
+                if original in genome_asset_names:continue
                 target=s.root/'assets'/renamed;os.link(staging/renamed,target);published.append(target)
+            if genome_files:
+                genome_folder=s.root/'genome-assets';genome_folder.mkdir(exist_ok=True)
+                if genome_folder.is_symlink():raise ValueError('Genome asset storage must be a real directory.')
+                for renamed in genome_files:
+                    target=genome_folder/renamed;os.link(staging/'genomes'/renamed,target);published.append(target)
             target=folder/original_asset;os.link(source,target);published.append(target)
             s.db.commit()
         except Exception:
             s.db.rollback()
             for path in published:path.unlink(missing_ok=True)
             raise
-    return {'state':'imported_library_copy','projectId':project_id,'projectName':name.strip(),'recordCount':len(restored),'archivedJobCount':len(data['jobs']),
+    return {'state':'imported_library_copy','projectId':project_id,'projectName':name.strip(),'recordCount':len(restored),'restoredGenomeReferences':len(restored_genomes),'archivedJobCount':len(data['jobs']),
             'snapshotId':snapshot_id,'archiveSha256':review['archiveSha256'],'identityMap':mapping,'scope':SCOPE}
 
 

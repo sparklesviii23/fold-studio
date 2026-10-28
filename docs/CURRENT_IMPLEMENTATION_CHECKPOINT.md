@@ -1,46 +1,39 @@
 # Current Fold Studio implementation checkpoint
 
-Updated 2026-10-27. Branch: `project-omega/ultimate-completion`.
+Updated 2026-10-28. Branch: `project-omega/ultimate-completion`.
 
-**Fab is deferred by explicit user instruction. Do not develop, debug, profile, port or execute Fab. Preserve all code, outputs, models and research data.**
+Fab is **EXCLUDED_FROM_THIS_SESSION**. Do not develop, inspect, debug, profile, port or execute Fab. Preserve all historical code, scientific data and outputs. The user prohibits subagents of every kind; work alone.
 
-## Current installation and data
+## Installation and preservation
 
-- One canonical app: `../current/FOLD STUDIO Metal Dev.app`. Always use `scripts/build-local-app.sh` and `scripts/open-local-app.py`; replace only when idle. No backup apps or automatic ZIPs.
-- Real research root: `../validation/bindcraft-fab-amme-native`; never use it as disposable test data.
-- Latest guarded build passed, including signing, package integrity and imports of 60 scientific modules. Build log: `reports/ultimate/pathway-table-build.log`. A nonfatal rust-objcopy/libLLVM warning persists.
-- Existing unrelated generated logs/provider evidence under `reports/ultimate/` and `reports/cache-benchmark/` remain uncommitted and untouched.
+- Exactly one app: `../current/FOLD STUDIO Metal Dev.app`. Use `scripts/build-local-app.sh` and `scripts/open-local-app.py`; replace only when idle. No backup apps or automatic ZIPs.
+- Real Library: `../validation/bindcraft-fab-amme-native`; never treat it as disposable QA data.
+- Consolidated genome navigation/formats build passed with 70 packaged scientific modules and valid signing: `reports/ultimate/genome-navigation-build.log`. One nonfatal rust-objcopy/libLLVM warning remains.
+- Read-only preservation check retains all 16 baseline structure records, identical metadata digest and original coordinate hashes: `reports/ultimate/genome-continuation-preservation.json`.
+- Unrelated historical generated logs, cache-benchmark receipts and Fab evidence remain untouched/uncommitted. Do not stage them automatically.
 
-## Recent completed non-Fab work
+## Completed non-Fab source and scoped evidence
 
-- ProteinMPNN sample inspection, immutable result checks, provenance export and complete-context prediction draft: committed `56084c6`, installed and native-verified with the two saved hIL2R samples. No new prediction or binding claim. Focused checks: 21 backend, four interface, TypeScript.
-- Pathway membership graph, exact saved-stage JSON and bounded SVG export: installed and native-verified against the saved synthetic finite-population result. Three exact edges and original hashes preserved; no interaction/causality claim. Native evidence: `reports/editcraft/pathway-native-export-validation.json`; commit `caf4b37`.
-- Attributed local GMT import: committed `4bef519`, installed; native chooser and cancellation verified on the saved EditCraft project. Isolated backend test verifies original text/name/SHA-256 preservation; five interface tests and TypeScript passed. No fixture imported into real data.
-- Full-family pathway TSV export: installed. Includes all tested sets, original probabilities/logs/underflow flags, overlap identities, attribution and hashes; formula-like text is safely prefixed, with exact archival JSON available. Seven focused interface tests and TypeScript passed. Local conversion of the actual saved numerical cloud result retained three rows, exact probabilities, collection and all four source/input hashes. Evidence: `reports/editcraft/pathway-table-export-validation.json`. Native TSV export passed on the original saved numerical reference: all three rows, probabilities, attribution and four hashes matched; exported bytes matched the local reference.
+- Existing trajectory, ligand, crystallographic, notebook, assay statistics, pathways and archive-inspection capabilities remain in place; prior evidence is linked from `reports/ultimate/implementation-batch.json` and the master audit.
+- Attributed FASTA/GFF3/gzip reference workspace; both-strand and circular-origin extraction/search; saved regions and JSON/FASTA export.
+- CDS segment assembly with phase/strand/order checks; explicit-exon transcript assembly; isolated Biopython code 1/11 translation with complete/partial modes. No mature transcript or exceptional translation inferred.
+- GenBank/EMBL import preserving originals and derived annotations. GTF supports explicit gene/transcript IDs without inventing missing parents or appending separate stop-codon rows. BED3–BED6 supports intervals; unsupported blocks/empty features are rejected.
+- Condition/strain/citation-preserving gene-evidence CSV, without inferred essentiality. Forward-reference variant checks and optional explicit-CDS consequences, without clinical/fitness inference.
+- Genome tracks show supplied overlapping annotations and strands, clipped/unrolled circular windows, bounded navigation and annotation selection.
+- Genome references become operational after safe project archive import, with new IDs, original source hashes and rollback; archived jobs remain inert.
+- Assay CSV import retains original bytes/SHA and explicit biological/technical replicate/group identities; unit/endpoint mismatches fail before saving.
+- Supplied-RNA cofold CPU execution includes strand-specific pairs and unavailable-energy handling. Historical invalid energy receipts are labelled, never overwritten.
 
-## Scientific status and limits
+## Verification
 
-- Pathways remain partial: authentic curated collection ingestion/biological benchmarking, genuine interaction topology and dynamic models remain open. Current numerical reference is synthetic and does not establish biological validation.
-- Last Fab campaign `fb621be7` / Modal `3f3e6771f7846d6387e1476c6a20a6ed` completed with original mutate i_pTM rejection (0.37), zero accepted candidates and no downstream MPNN/AF2. Preserve it; no retry authorized.
-- No new paid work, cloud jobs, model downloads or Fab work was started in these tickets. No running campaign is recorded in saved receipts; live provider state/billing was not queried. Previous Fab follow-up remains paused.
-- The full platform is unfinished. `docs/FOLD_STUDIO_ULTIMATE_COMPLETION_AUDIT.json` retains the broader backlog; do not infer scientific completion from test counts or UI controls.
+- Focused continuation suite: **56 passed, one optional SciPy reference skipped**, 11 interface tests passed; TypeScript passed. Logs: `reports/ultimate/genome-continuation-tests.log` and `genome-continuation-interface.log`.
+- Genuine E. coli NC_000913.3 CDS translation exactly reproduces 820-residue NP_414543.1. GenBank conversion reproduces it too. Native code-11 complete-CDS calculation displayed 2463 bases/820 residues.
+- Genuine B. subtilis 168 NC_000964.3: 4,215,606 circular bases, 9,076 converted annotation rows, exact upstream translations for one plus- and one minus-strand CDS. Isolated reference QA; no essentiality/efficacy claim. See `reports/ultimate/bsub-reference-validation.json`.
+- Two explicitly authorized numerical RNA plans completed on Modal CPU. First run exposed a finite-INF reporting bug; corrected run `241321ef12484f33bc8e0b6a25135996` passed: no-pair energy unavailable, complementary pair −19 kcal/mol/eight interstrand pairs. Both original receipts and notebooks retained and native-verified. No GPU, model download or private upload. Combined analysis estimates $0.2252 plus two setup charges; total approved allowance $2.50, actual provider billing unknown. No active scoped scientific jobs.
+- Final native genome-navigation acceptance passed (real tracks, next-window and zoom controls); source/build status is not a completed scientific-platform claim. Batch evidence: `reports/ultimate/genome-continuation-status.json`.
 
-## Consolidated implementation batch
+## Remaining and next work
 
-The user’s maximum-execution directive authorizes parallel independent packages and one consolidated update near batch end. Added trajectory Cα gyration, saved ligand/conformer inspection and SDF export, bounded read-only project archive integrity review and genuine mmCIF unit-cell inspection. 18 focused backend tests, 21 focused interface tests and TypeScript passed. The consolidated guarded build/signing passed with 61 scientific modules. Native checks passed in an isolated QA library for all four new packages, including a checksum-matching ligand SDF. Evidence: `reports/ultimate/implementation-batch.json`, `reports/ultimate/consolidated-native-acceptance.json`.
+Full platform/Genome-RNA acceptance remains false; see `docs/EDITCRAFT_FULL_COMPLETION_AUDIT.json` and `docs/FOLD_STUDIO_ULTIMATE_COMPLETION_AUDIT.json`. Missing work includes large-genome streaming/indexing, authoritative organism/assembly discovery, broader genomic formats, authentic essentiality datasets, additional RNA interaction/foundation models and independent biological validation, plus other non-Fab engines in the original audit. Do not invent a completion percentage.
 
-The current app is open on the original research root. Documents access was granted and the final native TSV export passed; its SHA-256 matched the local reference. The broad audit remains partial; no paid compute, model download or Fab work occurred.
-
-## Next task
-
-Next independent package: project archive re-import with explicit identity remapping, transactional rollback and no archived job execution. Inspect relevant files only, reuse existing code and run focused tests. Paid work and model downloads require fresh approval. Do not resume Fab.
-
-Consolidated implementation checkpoint: `01a9904`; native acceptance evidence updated after that commit.
-
-## Genome-first continuation · 2026-10-28
-
-Latest user instruction: no subagents of any kind; work alone. Fab remains excluded. Current source includes a functional attributed FASTA/GFF3 reference workspace, strand/circular-region extraction, annotation/sequence search, interval persistence and reproducible exports. Genuine NCBI E. coli K-12 MG1655 genome/GFF3 qualification is recorded in `reports/ultimate/genome-reference-validation.json`. The core genome workflow has six focused tests; prior uncommitted notebook/assay/crystal/archive-copy work is preserved and covered by focused checks. Full bacterial RNA/essentiality/model qualification remains incomplete. The consolidated native build passed and the canonical app was updated; inspect `docs/CURRENT_ENGINEERING_TICKET.md` and `reports/ultimate/genome-first-build.log` before any further build. Native reference browsing and saved gene-interval inspection now passed; do not repeat this build. No new paid work or Fab changes.
-
-A genuine public reference project now exists in the real Library: `Genome Reference · E. coli K-12 MG1655` (9ee9514a-8868-4f2d-8570-5c41d45a2ee8), NC_000913.3 / GCF_000005845.2 with 9,523 supplied annotations. This is actual requested reference data, not a synthetic test fixture. Original research records were not overwritten. Genome-first status: `reports/ultimate/genome-first-status.json`.
-
-Native genome acceptance passed: actual genome project selected, genuine counts displayed, thrA interval searched/extracted and saved through the app with a matching sequence hash. See genome-first-status.json. This does not complete the full Genome/RNA specification; next priority is segmented CDS/transcript extraction with phase-correct translation, followed by genuine RNA interaction qualification.
+Native tracks/navigation acceptance passed. Commit the current consolidated source/evidence. Continue the next independent unblocked genome/sequence task. Fresh explicit approval is required for additional paid work, model downloads or retries; the two RNA authorizations are spent. Do not resume Fab.

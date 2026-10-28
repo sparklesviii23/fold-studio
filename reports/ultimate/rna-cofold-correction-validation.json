@@ -1,0 +1,24 @@
+{
+  "status": "captured-output correction verified; corrected cloud execution pending fresh authorization",
+  "originalCloudResultSha256": "e550f58266df0c71d3112a8a88957c7869335dff7e01635e6e5d3c3273206751",
+  "correctedAdapterSha256": "94e51aa277d57ad1a11cbabe38caefa3eee9ab62d22ea3cce378352f006c0d94",
+  "rawReceiptModified": false,
+  "newInferenceExecuted": false,
+  "derivedInterpretation": {
+    "unpairable": {
+      "intermolecularMfeState": "no_interstrand_mfe_returned",
+      "engineRawMfeReturnValue": 100000.0,
+      "complexMfeKcalMol": null,
+      "deltaMfeRelativeToSeparateFoldsKcalMol": null,
+      "energyInterpretation": "Without an interstrand MFE, complex energy and energy difference are unavailable. The raw engine value is retained for diagnostics only and can be a nonphysical infinity sentinel."
+    },
+    "complementary": {
+      "intermolecularMfeState": "interstrand_mfe_returned",
+      "engineRawMfeReturnValue": -19.0,
+      "complexMfeKcalMol": -19.0,
+      "deltaMfeRelativeToSeparateFoldsKcalMol": -19.0,
+      "energyInterpretation": "Without an interstrand MFE, complex energy and energy difference are unavailable. The raw engine value is retained for diagnostics only and can be a nonphysical infinity sentinel."
+    }
+  },
+  "limitation": "Original deployed adapter incorrectly reported ViennaRNA finite INF sentinel as physical energy. Original receipt retained unchanged. No corrected end-to-end acceptance claimed."
+}

@@ -4,7 +4,7 @@ No trained editor scores or invented structures. Coordinate convention is explic
 1-based inclusive except exported BED intervals. Model outputs retain their scope.
 """
 import csv,datetime,hashlib,io,json,math,re,statistics,urllib.parse,urllib.request,xml.etree.ElementTree as ET
-VERSION='0.3.0'
+VERSION='0.4.0'
 OPS={
  'annotated_import':('annotated_sequence','construct_annotations','Biopython GenBank parser'),
  'motif_find':('sequence_motif','motif_annotations','Exact IUPAC motif enumeration; no activity score'),
@@ -13,6 +13,7 @@ OPS={
  'sequence_analyze':('sequence','sequence_analysis','Biopython standard genetic code'),
  'rna_fold':('rna','rna_secondary_structure','ViennaRNA minimum free energy'),
  'rna_ensemble':('rna','rna_ensemble','ViennaRNA partition function, centroid, MEA and marginal accessibility'),
+ 'rna_cofold':('supplied_rna_pair','rna_complex_mfe','ViennaRNA two-strand minimum-free-energy structure; no affinity or efficacy inference'),
  'rs3_activity':('guide_contexts','guide_activity','Rule Set 3 sequence-only trained model'),
  'bedict_per_base':('base_editor_contexts','per_base_edit_predictions','BE-DICT complete five-run ensemble'),
  'pridict2_design':('prime_edit_context','prime_edit_predictions','PRIDICT2 original dual-model five-fold ensembles'),
@@ -120,6 +121,47 @@ def rna_fold(p):
   if c=='(':stack.append(i)
   elif c==')':pairs.append([stack.pop(),i])
  return {'sequence':s,'dotBracket':structure,'mfeKcalMol':float(energy),'pairs':pairs,'temperatureC':temp,'model':'ViennaRNA','version':RNA.__version__,'scope':'Thermodynamic secondary-structure prediction; not a measured structure or 3D atomic coordinates.'}
+
+def cofold_pairs(structure,length_a,length_b):
+ normalized=structure.replace('&','')
+ if len(normalized)!=length_a+length_b or set(normalized)-set('.()'):raise ValueError('Unexpected cofold structure correspondence.')
+ stack=[];pairs=[];inter=[]
+ for index,symbol in enumerate(normalized,1):
+  if symbol=='(':stack.append(index)
+  elif symbol==')':
+   if not stack:raise ValueError('Unbalanced cofold structure.')
+   left=stack.pop();pairs.append([left,index])
+   if left<=length_a<index:inter.append({'sequenceAPosition':left,'sequenceBPosition':index-length_a})
+ if stack:raise ValueError('Unbalanced cofold structure.')
+ return normalized,pairs,inter
+
+def validate_cofold(p):
+ if not isinstance(p,dict) or any(not isinstance(p.get(key),str) for key in ('sequenceA','sequenceB')):raise ValueError('Supply both RNA sequences explicitly.')
+ a=re.sub(r'\s+','',p['sequenceA']).upper();b=re.sub(r'\s+','',p['sequenceB']).upper();temp=p.get('temperatureC',37)
+ if not a or not b:raise ValueError('Both supplied RNA strands must be nonempty.')
+ if max(len(a),len(b))>250 or set(a+b)-set('ACGU'):raise ValueError('Cofold requires two supplied unambiguous RNAs, each 1–250 bases.')
+ if type(temp)not in(int,float) or not math.isfinite(temp) or not 0<=temp<=60:raise ValueError('Temperature must be 0–60 °C.')
+ if not isinstance(p.get('context',''),str) or len(p.get('context',''))>1000:raise ValueError('Supply at most 1,000 characters of original research context.')
+ return a,b,temp
+
+def cofold_energy_state(energy,energy_a,energy_b,interstrand_pairs):
+ if not all(math.isfinite(float(value)) for value in (energy,energy_a,energy_b)):raise ValueError('Non-finite RNA MFE return value.')
+ # A cofold return without interstrand pairs does not describe a bound complex.
+ # In particular, ViennaRNA can return its finite INF sentinel (100000 kcal/mol).
+ present=bool(interstrand_pairs)
+ if present and energy>=100000:raise ValueError('Interstrand pairs conflict with the RNA engine infinity sentinel.')
+ return {'intermolecularMfeState':'interstrand_mfe_returned' if present else 'no_interstrand_mfe_returned','engineRawMfeReturnValue':float(energy),'complexMfeKcalMol':float(energy) if present else None,'deltaMfeRelativeToSeparateFoldsKcalMol':float(energy-energy_a-energy_b) if present else None,'energyInterpretation':'Without an interstrand MFE, complex energy and energy difference are unavailable. The raw engine value is retained for diagnostics only and can be a nonphysical infinity sentinel.'}
+
+def rna_cofold(p):
+ import RNA
+ a,b,temp=validate_cofold(p)
+ md=RNA.md();md.temperature=temp
+ structure,energy=RNA.fold_compound(a+'&'+b,md).mfe()
+ monomer_a,energy_a=RNA.fold_compound(a,md).mfe();monomer_b,energy_b=RNA.fold_compound(b,md).mfe()
+ if not all(math.isfinite(float(v)) for v in (energy,energy_a,energy_b)):raise ValueError('ViennaRNA returned non-finite free energies.')
+ normalized,pairs,inter=cofold_pairs(structure,len(a),len(b))
+ energy_state=cofold_energy_state(energy,energy_a,energy_b,inter)
+ return {'sequenceA':a,'sequenceB':b,'sequenceASha256':hashlib.sha256(a.encode()).hexdigest(),'sequenceBSha256':hashlib.sha256(b.encode()).hexdigest(),'dotBracket':normalized,'displayDotBracket':normalized[:len(a)]+'&'+normalized[len(a):],'strandBreakAfter':len(a),'pairs':pairs,'interstrandPairs':inter,**energy_state,'sequenceAMfeKcalMol':float(energy_a),'sequenceBMfeKcalMol':float(energy_b),'sequenceAMfeStructure':monomer_a,'sequenceBMfeStructure':monomer_b,'temperatureC':temp,'model':'ViennaRNA cofold MFE','version':RNA.__version__,'suppliedContext':p.get('context',''),'coordinateConvention':'1-based within each supplied RNA for interstrand pairs; pairs uses concatenated strand coordinates without ampersand','scope':'Two supplied RNA strands under the recorded ViennaRNA equilibrium model. MFE energy differences are not binding constants, joint target accessibility, intracellular interaction, transcript suppression, growth inhibition or bactericidal efficacy. No sequences, targets or delivery constructs were designed or optimized.'}
 
 def sequence_align(p):
  from Bio.Align import PairwiseAligner
@@ -258,6 +300,22 @@ def validate_plan(plan):
   if op not in OPS:raise ValueError('Operation is not executable: '+str(op))
   link=stage.get('inputFrom')
   if not isinstance(stage.get('parameters'),dict):raise ValueError('Stage parameters must be an object.')
+  if op=='rna_cofold':validate_cofold(stage['parameters'])
+  if op in ('rna_fold','rna_ensemble') and not link:
+   params=stage['parameters'];text=params.get('sequence')
+   if not isinstance(text,str):raise ValueError('Supply an RNA sequence before review.')
+   if text.lstrip().startswith('>'):
+    lines=text.lstrip().splitlines()
+    if sum(line.startswith('>') for line in lines)!=1:raise ValueError('Choose one RNA FASTA record.')
+    text=''.join(lines[1:])
+   value=re.sub(r'\s+','',text).upper();limit=2000 if op=='rna_fold' else 1000
+   alphabet='ACGURYSWKMBDHVN' if op=='rna_fold' else 'ACGU'
+   if not 1<=len(value)<=limit or set(value)-set(alphabet):raise ValueError('RNA analysis requires a valid sequence of at most '+str(limit)+' bases for this operation.')
+   temperature=params.get('temperatureC',37)
+   if type(temperature)not in(int,float) or not math.isfinite(temperature) or not 0<=temperature<=60:raise ValueError('Temperature must be 0–60 °C.')
+   if op=='rna_ensemble':
+    threshold=params.get('pairProbabilityThreshold',.01)
+    if type(threshold)not in(int,float) or not math.isfinite(threshold) or not 0<=threshold<=1:raise ValueError('Base-pair probability display threshold must lie between zero and one.')
   if op in ('rs3_activity','bedict_per_base','pridict2_design'):
    from .editcraft_models import validate_input
    validate_input(op,stage['parameters'])
@@ -300,6 +358,8 @@ def run_plan(plan,checkpoint=lambda event:None,cancelled=lambda:False):
     if not cds:raise ValueError('Selected reference has no retrieved CDS.')
     params.update(sequence=cds,kind='DNA')
    else:params.update(sequence=previous['rna'],kind='RNA')
+  if stage['operation'] in ('rna_fold','rna_ensemble','rna_cofold'):
+   validate_plan({'schemaVersion':1,'seconds':plan['seconds'],'stages':[{'id':stage['id'],'operation':stage['operation'],'parameters':params}]})
   checkpoint({'stageId':stage['id'],'operation':stage['operation'],'state':'running'})
   import os
   previous_stage=os.environ.get('FOLD_EDITCRAFT_STAGE_ID');os.environ['FOLD_EDITCRAFT_STAGE_ID']=stage['id']

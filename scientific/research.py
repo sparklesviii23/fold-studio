@@ -14,7 +14,7 @@ import uuid
 import intelligence as mi
 import assay_statistics
 
-ACTIONS = {'research_candidate', 'research_annotation', 'research_assay_save', 'research_assay_summary', 'research_full_target', 'research_full_scene', 'research_contacts', 'research_export', 'research_variants', 'research_screen_plan'}
+ACTIONS = {'research_candidate', 'research_annotation', 'research_assay_save', 'research_assay_summary', 'research_assay_import', 'research_full_target', 'research_full_scene', 'research_contacts', 'research_export', 'research_variants', 'research_screen_plan'}
 KD = dict(zip('ACDEFGHIKLMNPQRSTVWY', [1.8,2.5,-3.5,-3.5,2.8,-0.4,-3.2,4.5,-3.9,3.8,1.9,-3.5,-1.6,-3.5,-4.5,-0.8,-0.7,4.2,-0.9,-1.3]))
 
 
@@ -118,6 +118,19 @@ class Research:
         return self.save(record,'pose_contacts',{'binderChains':sorted(set(binders)),'targetChains':sorted(set(targets)),'cutoffAngstrom':4,'pairs':len(pairs),'atomPairs':pairs,'atoms':list(marked.values()),'method':'Observed heavy-atom centre distance ≤4.0 Å in the saved pose. No hydrogen-bond, energy or binding inference. Presentation translations do not change this source assessment.'})
 
     def research_assay_save(self, p):
+        record,value=self.assay_value(p)
+        return self.save(record,'assay',value)
+
+    def research_assay_import(self,p):
+        import assay_csv
+        if set(p)-{'projectId','structureId','name','concentrationUnit','responseUnit','conditions','endpoint','path','csvText'}:raise ValueError('Unsupported CSV import field.')
+        rows,source=assay_csv.read(p)
+        payload={key:value for key,value in p.items() if key not in ('path','csvText')}
+        record,value=self.assay_value({**payload,'rows':rows,'replicateDesign':'explicit_biological_technical'})
+        value['sourceCSV']=source
+        return self.save(record,'assay',value)
+
+    def assay_value(self, p):
         if set(p)-{'projectId','structureId','name','concentrationUnit','responseUnit','conditions','rows','replicateDesign','endpoint'}:
             raise ValueError('Unsupported assay field; declare the endpoint, units and replicate design explicitly.')
         record, _ = self.source(p)
@@ -146,8 +159,8 @@ class Research:
         response_unit=str(p.get('responseUnit','')).strip()
         if not response_unit or len(response_unit)>100:
             raise ValueError('Identify the response unit, including arbitrary units when appropriate.')
-        return self.save(record, 'assay', {'name': name, 'concentrationUnit': unit, 'responseUnit': response_unit,
-                    'conditions': str(p.get('conditions',''))[:10000], 'rows': clean, **({'replicateDesign':design,'endpoint':endpoint} if design else {}), 'evidence': 'user-supplied measurements; unverified; no affinity fit inferred'})
+        return record, {'name': name, 'concentrationUnit': unit, 'responseUnit': response_unit,
+                    'conditions': str(p.get('conditions',''))[:10000], 'rows': clean, **({'replicateDesign':design,'endpoint':endpoint} if design else {}), 'evidence': 'user-supplied measurements; unverified; no affinity fit inferred'}
 
     def research_assay_summary(self, p):
         if set(p)-{'projectId','structureId','assayId'}:
