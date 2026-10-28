@@ -1,23 +1,22 @@
-# Current engineering batch · 2026-10-27
+# Genome-first implementation · 2026-10-28
 
-**Fab remains fully deferred.** User requested parallel independent features and one consolidated installation near batch end. No paid compute or downloads were performed.
+User explicitly prohibits every kind of subagent. No agents remain active. Fab and visual redesign are excluded.
 
-## Implemented and tested
+## Implemented source
 
-- Pathway TSV: every tested set; exact saved probabilities/logs/underflow flags and provenance. Shared exporter now accepts `.tsv`; native check caught this missing format and justified one correction install before the batch strategy changed.
-- Trajectory gyration: per-frame equal-mass observed Cα radius in Å, source-pinned and calculated before alignment, with analytical and child-process tests.
-- Ligand results: actual saved RDKit properties, conformer energy/convergence and preparation provenance; checksum-verifying SDF and summary JSON exports.
-- Project archives: read-only bounded CRC/SHA-256 review and record/SDF/ChimeraX scene-reference checks; no extraction, import or job launch.
-- Unit cells: actual mmCIF cell lengths/angles, lattice vectors/volume, nominal uncertainties and reported symmetry, source identity and JSON export.
+- Local Genome & RNA Laboratory in existing Genome Explorer: attributed FASTA/GFF3 import (32 MiB each), source-byte SHA-256 preservation, explicit replicon topology, annotation lookup, both-strand exact DNA search, 1-based inclusive/circular-origin interval extraction, immutable interval saving, JSON/FASTA export and existing RNA-ensemble review handoff. Gene annotations are supplied, never inferred; RNA alphabet conversion does not establish mature transcripts.
+- Genome references and original sources are included in project ZIP export and validated by the archive inspector.
+- Prior uncommitted notebook, assay and crystal functionality is preserved. Source tests pass; full native acceptance is still pending. No new agents were invoked after the prohibition.
+- Archive Library-copy backend and basic button implemented: new IDs/assets, mapped record relationships, duplicates handled idempotently, transactional rollback, exact original ZIP retained and carried into subsequent exports. Archived jobs/domain state stay inert in the original snapshot, not live execution tables. This is not complete operational restoration of every scientific domain.
 
-## Verification
+## Evidence
 
-18 focused backend tests, 21 focused interface tests and TypeScript pass. Consolidated guarded installation/signing passed, checking 61 scientific modules. Native QA passed for archive review, genuine 1BNA cell geometry, actual saved ethanol inspection/SDF export and an explicitly artificial trajectory with both gyration values equal to sqrt(1.125) Å. The isolated QA library preserved original genuine ligand bytes; no fixture entered real research data.
+`reports/ultimate/genome-reference-validation.json`: genuine NCBI NC_000913.3 (4,641,652 bases) and ASM584v2 GFF3 (9,523 rows), supplied thrA gene 337–2799 (+), exact 2,463-base interval saved and verified. Qualification used isolated temporary libraries, not the real research root. No essentiality, RNA interaction or antimicrobial efficacy is claimed.
 
-## Native acceptance complete for this batch
+Focused verification: 23 backend cases discovered, 22 passed and one optional SciPy reference skipped; two additional archive restore tests passed; 13 interface tests and TypeScript passed. Guarded consolidated packaging/signing passed (64 scientific modules); the single installed app was replaced. Native genome controls passed: genuine reference counts, thrA search, exact 2,463-base interval and save to Library with a matching SHA-256. See `reports/ultimate/genome-first-status.json`.
 
-The original EditCraft research project reopened after Documents permission. The installed TSV export wrote all three saved tested sets with exact numeric probabilities, overlap identities, collection attribution and all four hashes. Its SHA-256 exactly matched the independently generated local reference. No synthetic fixture entered the real library. The app remains open on the original research root.
+## Remaining priority-zero scope
 
-## Scope and evidence
+Genuine transcript/CDS assembly across annotation segments and phase handling; GenBank/EMBL/compressed imports; authoritative organism/assembly search; essentiality evidence with conditions; RNA interaction models and real execution qualification; broader genome formats/large-genome indexing. Current GFF selection extracts an exact interval only. Public FASTA/GFF reference files are under /tmp, not trained model downloads. No paid compute was started.
 
-`reports/ultimate/implementation-batch.json` and `reports/ultimate/consolidated-native-acceptance.json` record the batch. Updated requirement scopes: VII-14-C004, VII-22-C003, VII-25-C003, UL-MAT-062-C004. Each broad requirement remains partial; arithmetic/technical references do not establish biological validation or full platform acceptance. The next independent package is project archive re-import with explicit identity remapping and no archived job execution.
+No subagents were used after the latest prohibition; collaboration inventory confirmed none active. The app is open on `Genome Reference · E. coli K-12 MG1655` in Genome Explorer. Existing assay CSV follow-up remains unfinished; no operative CSV import is claimed. Transcript/CDS phase assembly and real RNA interaction execution are the next priority tasks.

@@ -1,0 +1,13 @@
+import {useMemo,useState} from 'react';
+import {exportFile} from '../lib/api';
+import type {UnitCellInspection,Vector3} from '../lib/crystalCell';
+import {replicateFractionalSites,replicationCif} from '../lib/crystalReplication';
+
+export default function CrystalFractionalSites({cell,onError}:{cell:UnitCellInspection;onError:(message:string)=>void}){
+ const [repeats,setRepeats]=useState<Vector3>([1,1,1]);
+ const derived=useMemo(()=>{try{return {result:replicateFractionalSites(cell,repeats),error:''};}catch(e){return {result:null,error:String(e)};}},[cell,repeats]);
+ const source=cell.fractionalSites;
+ if(source?.state!=='reported')return <p className="caption">{source?.scope??'Reported fractional sites were not recorded in this inspection.'}</p>;
+ const result=derived.result;
+ return <details><summary>Reported fractional sites · translational copies</summary><p>{source.sites.length} reported atom sites</p><p className="caption">{source.scope}</p><div style={{overflowX:'auto'}}><table><thead><tr><th>Source row</th><th>Reported label</th><th>Reported type</th><th>Fractional x</th><th>Fractional y</th><th>Fractional z</th><th>Occupancy</th></tr></thead><tbody>{source.sites.slice(0,100).map(site=><tr key={site.sourceRow}><td>{site.sourceRow}</td><td>{site.label}</td><td>{site.typeSymbol}</td>{site.reportedFractional.map((value,i)=><td key={i}>{value}</td>)}<td>{site.occupancy}</td></tr>)}</tbody></table></div><p className="caption">At most 100 source rows are shown. Exports retain every selected site and source-row mapping. Boundary and overlapping sites are not merged.</p><div className="button-row">{repeats.map((value,i)=><label key={i}>Copies along {['a','b','c'][i]}<select value={value} onChange={event=>setRepeats(repeats.map((n,j)=>i===j?Number(event.target.value):n) as Vector3)}>{[1,2,3].map(n=><option key={n} value={n}>{n}</option>)}</select></label>)}</div>{derived.error&&<p role="alert">{derived.error}</p>}{result&&<><p>{result.sites.length} translated sites · cell volume {result.volumeAngstromCubed.toPrecision(8)} Å³</p><p className="caption">{result.scope}</p><div className="button-row"><button className="button" onClick={async()=>{try{await exportFile('fold-translated-fractional-sites.json',{text:JSON.stringify(result,null,2)});}catch(e){onError(String(e));}}}>Export translated sites and provenance · JSON</button><button className="button" onClick={async()=>{try{await exportFile('fold-translated-fractional-sites.cif',{text:replicationCif(result)});}catch(e){onError(String(e));}}}>Export translated site coordinates · CIF</button></div></>}</details>;
+}

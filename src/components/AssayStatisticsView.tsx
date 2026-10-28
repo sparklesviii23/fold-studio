@@ -1,0 +1,9 @@
+export interface AssaySummary {
+ assayName:string;endpoint:string;responseUnit:string;concentrationUnit:string;assaySha256:string;sourceSha256:string;summarySourceSha256?:string;
+ groups:{sampleGroup:string;concentration:number;biologicalUnits:number;rawReadings:number;mean:number;sampleSD:number|null;standardError:number|null;confidenceInterval95:[number,number]|null;intervalDegreesOfFreedom:number|null;intervalIsConservative:boolean}[];
+ method:string;intervalMethod:string;limitations:string[];
+}
+const value=(v:number|null)=>v===null?'Not estimable':v.toPrecision(6);
+export default function AssayStatisticsView({summary}:{summary:AssaySummary}){
+ return <div><h4>{summary.endpoint} · {summary.responseUnit}</h4><div style={{overflowX:'auto'}}><table><thead><tr><th>Sample group / control</th><th>Dose · {summary.concentrationUnit}</th><th>Biological n</th><th>Raw readings</th><th>Mean · {summary.responseUnit}</th><th>Biological SD</th><th>SEM</th><th>Pointwise 95% interval</th></tr></thead><tbody>{summary.groups.map((group,i)=><tr key={i}><td>{group.sampleGroup}</td><td>{group.concentration}</td><td>{group.biologicalUnits}</td><td>{group.rawReadings}</td><td>{value(group.mean)}</td><td>{value(group.sampleSD)}</td><td>{value(group.standardError)}</td><td>{group.confidenceInterval95?group.confidenceInterval95.map(value).join(' to ')+(group.intervalIsConservative?' · conservative':''):'Not estimable'}</td></tr>)}</tbody></table></div><p className="caption">{summary.method}</p><p className="caption">{summary.intervalMethod}</p><ul className="caption">{summary.limitations.map((text,i)=><li key={i}>{text}</li>)}</ul><p className="caption mono" style={{overflowWrap:'anywhere'}}>Assay SHA-256: {summary.assaySha256}<br/>Coordinate source SHA-256: {summary.sourceSha256}{summary.summarySourceSha256&&<><br/>Summary implementation SHA-256: {summary.summarySourceSha256}</>}</p></div>;
+}

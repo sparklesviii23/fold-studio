@@ -8,6 +8,7 @@ describe('reported crystallographic cell',()=>{
   const result=await inspectUnitCell(text,sha);
   expect(result.lengthsAngstrom).toEqual([24.87,40.39,66.2]);expect(result.anglesDegrees).toEqual([90,90,90]);expect(result.volumeAngstromCubed).toBeCloseTo(24.87*40.39*66.2,8);
   expect(result.reportedSymmetry['_symmetry.space_group_name_H-M']).toBe('P 21 21 21');expect(result.reportedSymmetry['_symmetry.Int_Tables_number']).toBe('19');expect(result.parsedTextSha256).toBe(sha);
+  expect(result.fractionalSites?.state).toBe('unavailable');expect(result.fractionalSites?.scope).toContain('not converted implicitly');
  });
  it('reads an actual CIF scalar category, uncertainty notation and quoted symmetry with provenance',async()=>{
   const text=cif(['10.0(2)','10','10','90','90','90'])+"_symmetry.space_group_name_H-M 'P 1'\n_symmetry.Int_Tables_number 1\n";

@@ -1,0 +1,51 @@
+{
+  "schemaVersion": 1,
+  "date": "2026-10-28",
+  "subagentsUsedAfterUserProhibition": false,
+  "fab": "EXCLUDED_FROM_THIS_SESSION",
+  "genomeWorkspace": "partial",
+  "implemented": [
+    "Local attributed FASTA/GFF3 import with preserved source hashes",
+    "Replicon identity, length, explicit circular topology and annotation search",
+    "Strand-aware 1-based inclusive interval extraction including circular origins",
+    "Bounded exact sequence search on both strands",
+    "Saved interval records, JSON/FASTA export and existing RNA ensemble review handoff",
+    "Project exports include original genome source files and verify their hashes"
+  ],
+  "realReferenceEvidence": "reports/ultimate/genome-reference-validation.json",
+  "publicReferenceProject": {
+    "id": "9ee9514a-8868-4f2d-8570-5c41d45a2ee8",
+    "name": "Genome Reference \u00b7 E. coli K-12 MG1655",
+    "referenceId": "a409eb77-0875-4ca0-826a-c089310ab24c",
+    "bases": 4641652,
+    "suppliedAnnotationRows": 9523,
+    "nativeGene": "thrA: NC_000913.3 337\u20132799 (+), 2463 bases"
+  },
+  "verification": {
+    "focusedBackendPassed": 24,
+    "optionalBackendSkipped": 1,
+    "focusedInterfacePassed": 15,
+    "typeScript": "passed",
+    "packageAndSignature": "passed",
+    "packagedScientificModules": 64,
+    "nativeGenomeControls": "passed: assembly/replicon counts, gene search, exact thrA interval and native save with matching sequence hash",
+    "nativeSavedRecordId": "84b5ef75-6a9c-4ca3-adc7-bcd34e850409"
+  },
+  "priorWorkIntegrated": [
+    "Atomic notebook entity/library version publication and search/export UI",
+    "Endpoint-aware biological/technical replicate summaries",
+    "Fractional crystal-site translation/exports and reciprocal-plane spacing",
+    "Archive Library-copy import, duplicate handling, exact source retention and transaction rollback"
+  ],
+  "limitations": [
+    "Genome gene inspector currently extracts annotation intervals, not spliced/phase-corrected CDS products",
+    "No essentiality evidence ingested or qualified RNA-interaction calculation yet",
+    "No full organism reference search, GenBank/EMBL/compressed/BAM/CRAM parser integration",
+    "Archive jobs/domain execution state remains inert in retained snapshots; not universal operational project restoration",
+    "Assay CSV import follow-up not implemented; no scientific qualification inferred from these software tests"
+  ],
+  "newPaidComputeStarted": false,
+  "newModelsDownloaded": false,
+  "installation": "Single canonical app updated through guarded installer; no backup app created",
+  "remainingSourceState": "Meaningful source changes will be committed; unrelated historical logs preserved"
+}

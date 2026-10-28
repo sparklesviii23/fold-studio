@@ -7,12 +7,14 @@ import datetime
 import hashlib
 import json
 import math
+import pathlib
 import re
 import uuid
 
 import intelligence as mi
+import assay_statistics
 
-ACTIONS = {'research_candidate', 'research_annotation', 'research_assay_save', 'research_full_target', 'research_full_scene', 'research_contacts', 'research_export', 'research_variants', 'research_screen_plan'}
+ACTIONS = {'research_candidate', 'research_annotation', 'research_assay_save', 'research_assay_summary', 'research_full_target', 'research_full_scene', 'research_contacts', 'research_export', 'research_variants', 'research_screen_plan'}
 KD = dict(zip('ACDEFGHIKLMNPQRSTVWY', [1.8,2.5,-3.5,-3.5,2.8,-0.4,-3.2,4.5,-3.9,3.8,1.9,-3.5,-1.6,-3.5,-4.5,-0.8,-0.7,4.2,-0.9,-1.3]))
 
 
@@ -116,14 +118,27 @@ class Research:
         return self.save(record,'pose_contacts',{'binderChains':sorted(set(binders)),'targetChains':sorted(set(targets)),'cutoffAngstrom':4,'pairs':len(pairs),'atomPairs':pairs,'atoms':list(marked.values()),'method':'Observed heavy-atom centre distance ≤4.0 Å in the saved pose. No hydrogen-bond, energy or binding inference. Presentation translations do not change this source assessment.'})
 
     def research_assay_save(self, p):
+        if set(p)-{'projectId','structureId','name','concentrationUnit','responseUnit','conditions','rows','replicateDesign','endpoint'}:
+            raise ValueError('Unsupported assay field; declare the endpoint, units and replicate design explicitly.')
         record, _ = self.source(p)
         name = str(p.get('name', '')).strip()
         unit = str(p.get('concentrationUnit', ''))
         rows = p.get('rows')
         if not name or len(name)>200 or unit not in ('M','mM','µM','nM','pM') or not isinstance(rows, list) or not 1<=len(rows)<=10000:
             raise ValueError('Supply an assay name, concentration unit and 1–10,000 measurement rows.')
-        clean = []
-        for row in rows:
+        design = p.get('replicateDesign')
+        endpoint = None
+        if design is not None and design != 'explicit_biological_technical':
+            raise ValueError('Unsupported replicate design.')
+        if design:
+            endpoint = assay_statistics.identifier(p.get('endpoint'), 'measured endpoint')
+            response_unit = assay_statistics.identifier(p.get('responseUnit'), 'response unit')
+            clean = assay_statistics.explicit_rows(rows, endpoint, response_unit)
+        else:
+            clean = []
+        for row in ([] if design else rows):
+            if not isinstance(row, dict):
+                raise ValueError('Each measurement must be an object.')
             concentration, response = row.get('concentration'), row.get('response')
             if any(type(v) not in (float,int) or not math.isfinite(v) for v in (concentration,response)) or concentration<0:
                 raise ValueError('Measurements must be finite numbers with nonnegative concentration.')
@@ -132,7 +147,26 @@ class Research:
         if not response_unit or len(response_unit)>100:
             raise ValueError('Identify the response unit, including arbitrary units when appropriate.')
         return self.save(record, 'assay', {'name': name, 'concentrationUnit': unit, 'responseUnit': response_unit,
-                    'conditions': str(p.get('conditions',''))[:10000], 'rows': clean, 'evidence': 'user-supplied measurements; unverified; no affinity fit inferred'})
+                    'conditions': str(p.get('conditions',''))[:10000], 'rows': clean, **({'replicateDesign':design,'endpoint':endpoint} if design else {}), 'evidence': 'user-supplied measurements; unverified; no affinity fit inferred'})
+
+    def research_assay_summary(self, p):
+        if set(p)-{'projectId','structureId','assayId'}:
+            raise ValueError('Choose one saved assay; the replicate method is fixed and recorded.')
+        record, _ = self.source(p)
+        evidence = self.evidence(record['id'])
+        assay = next((item for item in evidence if item['kind']=='assay' and item['id']==p.get('assayId')), None)
+        if assay is None:
+            raise ValueError('Choose an assay saved on this exact structure in the current project.')
+        if assay['data'].get('sourceSha256') != record['data']['sha256']:
+            raise ValueError('The assay source identity differs from the current coordinate record.')
+        assay_sha = hashlib.sha256(canonical(assay['data']).encode()).hexdigest()
+        implementation_sha = hashlib.sha256(pathlib.Path(assay_statistics.__file__).read_bytes()).hexdigest()
+        previous = next((item for item in evidence if item['kind']=='assay_summary' and item['data'].get('assayId')==assay['id'] and item['data'].get('assaySha256')==assay_sha and item['data'].get('algorithm')==assay_statistics.VERSION and item['data'].get('summarySourceSha256')==implementation_sha), None)
+        if previous:
+            return previous
+        summary = assay_statistics.summarize(assay['data'])
+        return self.save(record, 'assay_summary', {**summary, 'assayId':assay['id'], 'assayName':assay['data']['name'], 'assaySha256':assay_sha, 'summarySourceSha256':implementation_sha,
+                                                'classification':'Descriptive analysis of supplied experimental readings; not independently certified observations'})
 
     def research_full_target(self, p):
         record, path = self.source(p)

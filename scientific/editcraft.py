@@ -24,15 +24,20 @@ def save_entity(s,p):
  if not isinstance(data,dict) or len(canonical(data))>4*1024**2:raise ValueError('Entity must be a bounded structured record.')
  id=p.get('id') or uuid.uuid4().hex
  with s.db:
+  # Serialize optimistic version checks and publish the mirrored Library record atomically.
+  if not s.db.in_transaction:s.db.execute('BEGIN IMMEDIATE')
+  s.project(p['projectId'])
   rows=s.rows('SELECT version,data FROM editcraft_entities WHERE id=? AND project_id=? ORDER BY version DESC',(id,p['projectId']))
   latest=rows[0] if rows else None
   if latest and p.get('parentVersion')!=latest['version']:raise ValueError('This entity has a newer version. Reload before saving another revision.')
   if not latest and p.get('id'):raise ValueError('Entity identity is absent from this project.')
   row={'id':id,'projectId':p['projectId'],'kind':kind,'name':name,'version':(latest['version'] if latest else 0)+1,'data':data,'parentVersion':latest['version'] if latest else None,'created':utc(),'sha256':digest(data)}
   s.db.execute('INSERT INTO editcraft_entities VALUES(?,?,?,?)',(id,p['projectId'],row['version'],canonical(row)))
- # Unified Library entry: append each immutable research version.
- library=s.record_save({'projectId':p['projectId'],'kind':'analysis','name':name+' · v'+str(row['version']),'data':{'domain':'editcraft','entityId':id,'version':row['version'],'entityKind':kind,'sha256':row['sha256'],'record':row}})
- row['libraryRecordId']=library['id'];return row
+  library_id=str(uuid.uuid4());date=utc()
+  library_data={'domain':'editcraft','entityId':id,'version':row['version'],'entityKind':kind,'sha256':row['sha256'],'record':row}
+  s.db.execute('INSERT INTO records VALUES(?,?,?,?,?,?)',(library_id,p['projectId'],'analysis',name+' · v'+str(row['version']),json.dumps(library_data),date))
+  s.db.execute('UPDATE projects SET updated=? WHERE id=?',(date,p['projectId']))
+ row['libraryRecordId']=library_id;return row
 
 def provider(s,action,p,row=None):
  import biology_providers

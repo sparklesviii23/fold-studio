@@ -37,7 +37,7 @@ def inspect_archive(parameters):
                 if (member.is_absolute() or '..' in member.parts or '\\' in entry.filename
                         or str(member) != entry.filename.rstrip('/') or not member.parts
                         or stat.S_ISLNK(mode) or entry.flag_bits & 1
-                        or entry.file_size > MAX_MEMBER):
+                        or entry.file_size > (MAX_ARCHIVE if entry.filename.startswith('snapshots/') else MAX_MEMBER)):
                     raise ValueError('Archive has unsafe, encrypted or oversized entries.')
             if 'project.json' not in names or archive.getinfo('project.json').file_size > MAX_MANIFEST:
                 raise ValueError('A bounded project.json manifest is required.')
@@ -61,6 +61,26 @@ def inspect_archive(parameters):
                         or archive.getinfo(name).file_size != size):
                     raise ValueError('Asset integrity receipt is invalid or its file is missing.')
                 declared[name] = sha
+            snapshots=data.get('importedArchives',[])
+            if not isinstance(snapshots,list):raise ValueError('Invalid retained archive manifest.')
+            for snapshot in snapshots:
+                if not isinstance(snapshot,dict):raise ValueError('Invalid retained archive receipt.')
+                name,sha,size=(snapshot.get(key) for key in ('file','sha256','bytes'))
+                if (not isinstance(name,str) or not re.fullmatch(r'snapshots/[a-f0-9-]{36}\.zip',name)
+                        or name in declared or name not in names or type(size) is not int or size<0
+                        or archive.getinfo(name).file_size!=size or not re.fullmatch('[a-f0-9]{64}',str(sha))):
+                    raise ValueError('Retained archive checksum receipt is invalid or missing.')
+                declared[name]=sha
+            genomes=data.get('genomeReferences',[])
+            if not isinstance(genomes,list):raise ValueError('Invalid genome reference manifest.')
+            genome_count=0
+            for reference in genomes:
+                if not isinstance(reference,dict) or not isinstance(reference.get('sources'),list):raise ValueError('Invalid genome source receipt.')
+                for source in reference['sources']:
+                    if not isinstance(source,dict):raise ValueError('Invalid genome source receipt.')
+                    name,sha,size=(source.get(key) for key in ('file','sha256','bytes'))
+                    if (not isinstance(name,str) or not re.fullmatch(r'genomes/[a-f0-9-]{36}\.(fasta|gff3)',name) or name in declared or name not in names or not re.fullmatch('[a-f0-9]{64}',str(sha)) or type(size) is not int or not 0<=size<=32*1024**2 or archive.getinfo(name).file_size!=size):raise ValueError('Genome source integrity receipt is invalid or missing.')
+                    declared[name]=sha;genome_count+=1
             def check_reference(name, sha):
                 if (not isinstance(name, str) or pathlib.PurePath(name).name != name
                         or not re.fullmatch('[a-f0-9]{64}', str(sha))
@@ -95,7 +115,8 @@ def inspect_archive(parameters):
                     count = 0
                     while block := saved.read(1024**2):
                         count += len(block)
-                        if count > min(entry.file_size, MAX_MEMBER):
+                        limit=MAX_ARCHIVE if entry.filename.startswith('snapshots/') else MAX_MEMBER
+                        if count > min(entry.file_size, limit):
                             raise ValueError('Archive member exceeded its declared size.')
                         digest.update(block)
                 if count != entry.file_size:
@@ -109,5 +130,5 @@ def inspect_archive(parameters):
                     'archiveSha256': archive_hash, 'archiveBytes': before.st_size,
                     'expandedBytes': sum(entry.file_size for entry in entries), 'entryCount': len(entries),
                     'projectName': project['name'], 'recordCount': len(records), 'jobCount': len(jobs),
-                    'verifiedAssetCount': len(declared), 'crcCheckedFiles': len(entries),
+                    'verifiedAssetCount': sum(name.startswith('assets/') for name in declared), 'verifiedSnapshotCount':len(snapshots), 'verifiedGenomeSourceCount':genome_count, 'crcCheckedFiles': len(entries),
                     'scope': 'Read-only ZIP CRC and declared asset SHA-256 checks. No files extracted, records imported, jobs resumed or code executed. Saved scientific results and undeclared job artifacts are not independently scientifically validated.'}

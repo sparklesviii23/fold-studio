@@ -36,3 +36,11 @@ The current app is open on the original research root. Documents access was gran
 Next independent package: project archive re-import with explicit identity remapping, transactional rollback and no archived job execution. Inspect relevant files only, reuse existing code and run focused tests. Paid work and model downloads require fresh approval. Do not resume Fab.
 
 Consolidated implementation checkpoint: `01a9904`; native acceptance evidence updated after that commit.
+
+## Genome-first continuation · 2026-10-28
+
+Latest user instruction: no subagents of any kind; work alone. Fab remains excluded. Current source includes a functional attributed FASTA/GFF3 reference workspace, strand/circular-region extraction, annotation/sequence search, interval persistence and reproducible exports. Genuine NCBI E. coli K-12 MG1655 genome/GFF3 qualification is recorded in `reports/ultimate/genome-reference-validation.json`. The core genome workflow has six focused tests; prior uncommitted notebook/assay/crystal/archive-copy work is preserved and covered by focused checks. Full bacterial RNA/essentiality/model qualification remains incomplete. The consolidated native build passed and the canonical app was updated; inspect `docs/CURRENT_ENGINEERING_TICKET.md` and `reports/ultimate/genome-first-build.log` before any further build. Native reference browsing and saved gene-interval inspection now passed; do not repeat this build. No new paid work or Fab changes.
+
+A genuine public reference project now exists in the real Library: `Genome Reference · E. coli K-12 MG1655` (9ee9514a-8868-4f2d-8570-5c41d45a2ee8), NC_000913.3 / GCF_000005845.2 with 9,523 supplied annotations. This is actual requested reference data, not a synthetic test fixture. Original research records were not overwritten. Genome-first status: `reports/ultimate/genome-first-status.json`.
+
+Native genome acceptance passed: actual genome project selected, genuine counts displayed, thrA interval searched/extracted and saved through the app with a matching sequence hash. See genome-first-status.json. This does not complete the full Genome/RNA specification; next priority is segmented CDS/transcript extraction with phase-correct translation, followed by genuine RNA interaction qualification.
