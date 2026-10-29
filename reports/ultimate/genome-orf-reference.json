@@ -1,0 +1,75 @@
+{
+  "state": "passed",
+  "reference": "NC_000913.3 supplied ThrA CDS / NP_414543.1",
+  "queryScope": "Original complete 2463-base CDS interval, code 11, minimum 820 residues",
+  "exactAnnotatedORFReproduced": true,
+  "result": {
+    "translationTable": 11,
+    "biopythonVersion": "1.88",
+    "eligibleStartCodons": [
+      "ATA",
+      "ATC",
+      "ATG",
+      "ATT",
+      "CTG",
+      "GTG",
+      "TTG"
+    ],
+    "stopCodons": [
+      "TAA",
+      "TAG",
+      "TGA"
+    ],
+    "minimumResidues": 820,
+    "orfs": [
+      {
+        "strand": "+",
+        "windowFrameOffsetZeroBased": 0,
+        "windowStart": 1,
+        "windowEnd": 2463,
+        "startCodon": "ATG",
+        "terminalStopCodon": "TGA",
+        "residuesExcludingTerminalStop": 820,
+        "replicon": "NC_000913.3",
+        "genomicStart": 337,
+        "genomicEnd": 2799
+      }
+    ],
+    "total": 1,
+    "omitted": 0,
+    "displayOrder": "first 200 in strand/frame/terminal-stop discovery order; not ranked",
+    "coordinateConvention": "Window coordinates are 1-based inclusive on its forward DNA. Strand and frame refer to this supplied window, not the absolute assembly frame. Genomic end may be unrolled across an explicitly circular origin.",
+    "referenceId": "a409eb77-0875-4ca0-826a-c089310ab24c",
+    "metadata": {
+      "organism": "Escherichia coli str. K-12 substr. MG1655",
+      "assembly": "GCF_000005845.2 / NC_000913.3",
+      "source": "NCBI RefSeq ASM584v2 GFF3 and NCBI EFetch FASTA; public reference imported 2026-10-28"
+    },
+    "sources": [
+      {
+        "kind": "fasta",
+        "fileName": "fold-reference-NC_000913.3.fasta",
+        "asset": "2731d086-f52b-457c-872e-9b482d839a41.fasta",
+        "sha256": "6b195feda4c66140f6762742eb8b30c2652f02b45878b174f5b00ef85ecc95d7"
+      },
+      {
+        "kind": "gff3",
+        "fileName": "fold-reference-NC_000913.3.gff3",
+        "asset": "fd7d3a1d-e1a3-4b6e-84fb-36021309e87f.gff3",
+        "sha256": "68d25735ccde6d37af68613dca57a588ae69423f0ecee99b0f29d596eff7accb"
+      }
+    ],
+    "window": {
+      "replicon": "NC_000913.3",
+      "start": 337,
+      "end": 2799,
+      "length": 2463,
+      "strand": "+"
+    },
+    "sequenceSha256": "ac909e561c7fddba46db1efed30c25217f9bd61229b0a9be3e46b58b754f359a",
+    "implementationSha256": "ed0e4af1e9d376f9c78d95c524783739bbecd5e2aa08709452c99e70b99b62fe",
+    "scope": "Complete start-to-stop ORFs in six frames of this supplied window, using recorded Biopython codon tables. Every eligible nested start is counted; partial boundary ORFs are not reported. This is sequence enumeration, not gene prediction, expression, protein-function or essentiality evidence. No ORF is designed or optimized."
+  },
+  "recordsSaved": false,
+  "limitation": "Coordinate/codon enumeration agrees with this reference CDS; no novel gene or biological activity predicted."
+}

@@ -37,3 +37,12 @@ Fab is **EXCLUDED_FROM_THIS_SESSION**. Do not develop, inspect, debug, profile, 
 Full platform/Genome-RNA acceptance remains false; see `docs/EDITCRAFT_FULL_COMPLETION_AUDIT.json` and `docs/FOLD_STUDIO_ULTIMATE_COMPLETION_AUDIT.json`. Missing work includes large-genome streaming/indexing, authoritative organism/assembly discovery, broader genomic formats, authentic essentiality datasets, additional RNA interaction/foundation models and independent biological validation, plus other non-Fab engines in the original audit. Do not invent a completion percentage.
 
 Native tracks/navigation acceptance passed. Commit the current consolidated source/evidence. Continue the next independent unblocked genome/sequence task. Fresh explicit approval is required for additional paid work, model downloads or retries; the two RNA authorizations are spent. Do not resume Fab.
+
+
+## Follow-up batch · 29 October
+
+Commit `8d7ad30` contains the verified genome/RNA batch above. Genuine B. subtilis reference was imported through the app into project `f73a6318-e7d4-40c9-98b3-757cf5829546`, reference `2dc7464c-8d39-4a16-b130-da1cafa6f437`; exact original GenBank bytes retained.
+
+Next source batch adds explicit-allele VCF import/position tracks and complete six-frame ORF enumeration using existing Biopython. VCF preserves original bytes/filters and detects source/parsed-row changes; no symbolic-variant/genotype/clinical interpretation. ORFs use explicit code 1/11, include nested starts and exclude partial boundary ORFs; no gene/function/essentiality prediction. 23 focused backend and four interface checks passed, TypeScript passed. Authentic ThrA interval reproduces the known 820-residue ORF: `reports/ultimate/genome-orf-reference.json`.
+
+Final guarded follow-up build/signing passed with 72 scientific modules: `reports/ultimate/genome-vcf-orf-build.log`. Native VCF import, unchanged original bytes, position track and Biopython ORF computation all passed in `/tmp/fold-genome-vcf-qa/library`; two expected ORFs at 1–9 (+) and 13–21 (-). Evidence: `reports/ultimate/genome-vcf-native-acceptance.json`. No fixture was saved into real research. The app currently uses the isolated QA Library; restore the original root through the normal launch script before ending work. No new paid work in this follow-up batch.

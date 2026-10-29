@@ -1,7 +1,7 @@
 """Local reference inspection. No inferred genes, essentiality or RNA-target design."""
 import hashlib,json,pathlib,uuid,datetime,urllib.parse,gzip,io
 LIMIT=32*1024**2
-ACTIONS={'genome_import','genome_list','genome_region','genome_features','genome_search','genome_region_save','genome_product','genome_product_save','genome_import_annotated','genome_evidence_import','genome_evidence','genome_variant','genome_variant_save'}
+ACTIONS={'genome_import','genome_list','genome_region','genome_features','genome_search','genome_region_save','genome_product','genome_product_save','genome_import_annotated','genome_evidence_import','genome_evidence','genome_variant','genome_variant_save','genome_vcf_import','genome_orfs'}
 COMPLEMENT=str.maketrans('ACGTRYSWKMBDHVN','TGCAYRSWMKVHDBN')
 def reverse_complement(text):return text.translate(COMPLEMENT)[::-1]
 def fasta(text):
@@ -120,6 +120,12 @@ def dispatch(s,action,p):
   if value['sequenceSha256']!=p.get('expectedSequenceSha256'):raise ValueError('Region differs from the inspected sequence; inspect it again.')
   return s.record_save({'projectId':p['projectId'],'kind':'analysis','name':str(p.get('name','Saved genomic interval'))[:200],'data':{'domain':'genome_interval','result':value}})
  row,sequences,features=load(s,p)
+ if action=='genome_orfs':
+  from genome_orfs import analyze
+  return analyze(s,p,row,sequences)
+ if action=='genome_vcf_import':
+  from genome_vcf import import_vcf
+  return import_vcf(s,p,row,sequences)
  if action=='genome_variant':
   from genome_variants import inspect
   return inspect(s,p,row,sequences,features)
@@ -147,7 +153,8 @@ def dispatch(s,action,p):
   else:replicon,start,end,strand=p.get('replicon'),p.get('start'),p.get('end'),p.get('strand','+')
   if replicon not in sequences:raise ValueError('Choose a known reference replicon.')
   value=region(sequences[replicon],start,end,strand,replicon in row['circularReplicons'])
-  return {'referenceId':row['id'],'metadata':row['metadata'],'sources':row['sources'],'replicon':replicon,'start':start,'end':end,'strand':strand,'coordinateConvention':'1-based inclusive; origin traversal only for explicitly circular references','feature':feature,'annotationWindow':window_annotations(features,replicon,start,len(value),len(sequences[replicon]),replicon in row['circularReplicons']),'dna':value,'rnaAlphabet':value.replace('T','U'),'sequenceSha256':hashlib.sha256(value.encode()).hexdigest(),'scope':'Exact oriented genomic interval. RNA alphabet conversion is not evidence of a mature/spliced or expressed transcript. GFF CDS phase is reported, not silently used to infer protein products.'}
+  from genome_vcf import window as variant_window
+  return {'referenceId':row['id'],'metadata':row['metadata'],'sources':row['sources'],'replicon':replicon,'variantWindow':variant_window(s,p['projectId'],row['id'],replicon,start,len(value),len(sequences[replicon]),replicon in row['circularReplicons']),'start':start,'end':end,'strand':strand,'coordinateConvention':'1-based inclusive; origin traversal only for explicitly circular references','feature':feature,'annotationWindow':window_annotations(features,replicon,start,len(value),len(sequences[replicon]),replicon in row['circularReplicons']),'dna':value,'rnaAlphabet':value.replace('T','U'),'sequenceSha256':hashlib.sha256(value.encode()).hexdigest(),'scope':'Exact oriented genomic interval. RNA alphabet conversion is not evidence of a mature/spliced or expressed transcript. GFF CDS phase is reported, not silently used to infer protein products.'}
  if action=='genome_search':
   query=p.get('sequence','').upper()
   if not 1<=len(query)<=1000 or set(query)-set('ACGT'):raise ValueError('Exact sequence search requires 1–1,000 unambiguous DNA bases.')

@@ -15,7 +15,9 @@
     "Supplied-annotation genome tracks with bounded coordinate navigation and circular-origin fragments",
     "Operational genome restoration through transactional project archive import",
     "CSV assay ingestion preserving original bytes and biological/technical replicate identities",
-    "Supplied-RNA ViennaRNA cofold execution, strand-specific pairs and finite-INF handling; historical invalid energy labelled without altering receipts"
+    "Supplied-RNA ViennaRNA cofold execution, strand-specific pairs and finite-INF handling; historical invalid energy labelled without altering receipts",
+    "Explicit-allele VCFv4.2/4.3 import with exact REF matching, original compressed bytes, source/parsed-row checksums, duplicate detection and separate position tracks; genotype fields retained without interpretation",
+    "Complete ORF enumeration on six frames using explicit Biopython genetic code 1/11, nested starts, both strands and circular-window coordinate mapping"
   ],
   "verification": {
     "backendDiscovered": 57,
@@ -24,11 +26,19 @@
     "interfacePassed": 11,
     "typeScript": "passed",
     "packageAndSignature": "passed",
-    "packagedScientificModules": 70,
+    "packagedScientificModules": 72,
     "nativeCDSTranslation": "passed: code 11, complete mode, 2463 bases, 820 residues",
     "nativeRNAResults": "passed: original and corrected receipts selectable; unavailable energy and -19 kcal/mol with 8 pairs displayed",
     "nativeNavigation": "passed: real NC_000913.3 tracks, 1\u20134000 to 4001\u20138000, zoom to 5001\u20137000; 9 supplied annotations in each observed window",
-    "nativeGenBank": "passed: official NC_000964.3 import through native file chooser, 4,215,606 circular bases/9,076 annotation rows and exact source hash"
+    "nativeGenBank": "passed: official NC_000964.3 import through native file chooser, 4,215,606 circular bases/9,076 annotation rows and exact source hash",
+    "vcfOrfFollowup": {
+      "focusedBackendPassed": 23,
+      "focusedInterfacePassed": 4,
+      "typeScript": "passed",
+      "ORFRealReference": "exact 820-residue complete ORF at NC_000913.3:337\u20132799 reproduced",
+      "nativeAcceptance": "passed in isolated QA Library: exact original VCF, one multiallelic position track, packaged Biopython two-strand ORF computation",
+      "evidence": "reports/ultimate/genome-vcf-native-acceptance.json"
+    }
   },
   "referenceEvidence": [
     "reports/ultimate/genome-product-reference.json",
@@ -52,7 +62,7 @@
   },
   "preservation": "reports/ultimate/genome-continuation-preservation.json",
   "remaining": [
-    "Broader genomic formats (VCF-linked tracks, BAM/CRAM/GFA), streaming and human-genome indexing",
+    "Broader genomic formats (symbolic/structural VCF, genotype interpretation, BAM/CRAM/GFA), streaming and human-genome indexing",
     "Authoritative organism/assembly discovery and additional references",
     "Authentic condition-specific essentiality datasets and independent biological RNA-interaction benchmarks",
     "Additional RNA interaction/foundation models and full genome-to-RNA research workflows",
