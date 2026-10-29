@@ -21,10 +21,15 @@ def dispatch(s,action,p):
  if p.get('targetReference') is not None:
   import genome_workspace
   ref=p['targetReference']
-  if not isinstance(ref,dict) or set(ref)!={'referenceId','replicon','start','end','strand'} or p.get('alphabet')!='DNA':raise ValueError('Reference alignment requires one explicit DNA coordinate interval.')
-  value=genome_workspace.dispatch(s,'genome_region',{'projectId':p['projectId'],'id':ref['referenceId'],**{k:v for k,v in ref.items() if k!='referenceId'}})
+  if not isinstance(ref,dict) or set(ref)-{'referenceId','replicon','start','end','strand','storageKind'} or not {'referenceId','replicon','start','end','strand'}.issubset(ref) or p.get('alphabet')!='DNA':raise ValueError('Reference alignment requires one explicit DNA coordinate interval.')
+  coordinates={'projectId':p['projectId'],'id':ref['referenceId'],**{k:ref[k] for k in ('replicon','start','end','strand')}}
+  if ref.get('storageKind')=='indexed_fasta':
+   import genomic_io
+   value=genomic_io.dispatch(s,'indexed_genome_region',coordinates)
+  elif ref.get('storageKind') is None:value=genome_workspace.dispatch(s,'genome_region',coordinates)
+  else:raise ValueError('Unknown target reference storage kind.')
   if p.get('target')!=value['dna']:raise ValueError('The selected reference interval differs from the target sequence; reload the interval.')
-  context={**ref,'sequenceSha256':value['sequenceSha256'],'sources':value['sources'],'scope':'Target offsets refer to the exact oriented supplied interval, not to a genome-wide mapping or an inferred ortholog.'}
+  context={**ref,'sequenceSha256':value['sequenceSha256'],'sources':value.get('sources') or [value['sourceFile']],'scope':'Target offsets refer to the exact oriented supplied interval, not to a genome-wide mapping or an inferred ortholog.'}
  request=validate(p);implementation=hashlib.sha256(pathlib.Path(__file__).read_bytes()).hexdigest()
  # Include the executing library version in the cache receipt returned by the runner.
  result=subprocess.run([s.engine_python(),'-I','-B',str(pathlib.Path(__file__).resolve())],input=json.dumps(request),capture_output=True,text=True,timeout=30)

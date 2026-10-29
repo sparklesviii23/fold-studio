@@ -1,0 +1,88 @@
+{
+  "observed": "2026-10-29T15:51:23.621800+00:00",
+  "library": "/tmp/fold-indexed-reference-qa/library",
+  "scope": "Actual installed native controls, isolated data only; operation-specific reference checks, not broad scientific certification.",
+  "indexedReferenceWindow": {
+    "recordId": "df39fccc-0aa2-4313-8b95-1bfe6933f17c",
+    "referenceId": "7ccfc46e-a4ee-4624-af0d-9b85689b4ff9",
+    "start": 337,
+    "end": 2799,
+    "strand": "+",
+    "bases": 2463,
+    "sourceSha256": "6b195feda4c66140f6762742eb8b30c2652f02b45878b174f5b00ef85ecc95d7",
+    "savedThroughNativeControl": true
+  },
+  "typedAlignmentHandoff": {
+    "recordId": "438308c4-afa0-4b8c-ba5c-174762faa6a1",
+    "score": 48,
+    "sourceContext": {
+      "end": 2799,
+      "referenceId": "7ccfc46e-a4ee-4624-af0d-9b85689b4ff9",
+      "replicon": "NC_000913.3",
+      "start": 337,
+      "storageKind": "indexed_fasta",
+      "strand": "+",
+      "sequenceSha256": "ac909e561c7fddba46db1efed30c25217f9bd61229b0a9be3e46b58b754f359a",
+      "sources": [
+        {
+          "asset": "genomic-6b195feda4c66140f6762742eb8b30c2652f02b45878b174f5b00ef85ecc95d7.fasta",
+          "bytes": 4708035,
+          "indexAsset": "genomic-6b195feda4c66140f6762742eb8b30c2652f02b45878b174f5b00ef85ecc95d7.fai",
+          "indexSha256": "5cd8dd1492468aefb50cd82859b4aea4ba0d67134c85068bb5d6086ac3acf867",
+          "originalName": "2731d086-f52b-457c-872e-9b482d839a41.fasta",
+          "sha256": "6b195feda4c66140f6762742eb8b30c2652f02b45878b174f5b00ef85ecc95d7"
+        }
+      ],
+      "scope": "Target offsets refer to the exact oriented supplied interval, not to a genome-wide mapping or an inferred ortholog."
+    },
+    "nativeFormOpenedAndTargetFilled": true
+  },
+  "periodicModel": {
+    "recordId": "361cfb35-5256-49ca-b062-fc40c42519c9",
+    "state": "bounded_trajectory_completed",
+    "frames": 11,
+    "durationPs": 0.10000000000000007,
+    "initialPotentialKJMol": -0.9396318793296814,
+    "request": {
+      "boxLengthsNm": [
+        3,
+        3,
+        3
+      ],
+      "cutoffNm": 1,
+      "epsilonKJMol": 1,
+      "frictionPerPs": 1,
+      "massDalton": 40,
+      "positionsNm": [
+        [
+          0.1,
+          0.1,
+          0.1
+        ],
+        [
+          2.7,
+          0.1,
+          0.1
+        ]
+      ],
+      "reportInterval": 10,
+      "seed": 42,
+      "sigmaNm": 0.34,
+      "stepPs": 0.001,
+      "steps": 100,
+      "temperatureK": 100
+    },
+    "scope": "User-defined single-species spherical-particle model and short nonequilibrium trajectory. No chemical bonds, electrostatics, quantum effects, parameter fitting, structural optimization, equilibrated material properties, phase stability or real-material predictive accuracy are inferred. Initial positions remain in the request; saved trajectory positions are unwrapped Cartesian coordinates in nm. No thermalization or energy-conservation certification."
+  },
+  "BAMImport": {
+    "recordId": "a5114e83-2a2c-48cf-8daa-a5d52aa23ba1",
+    "format": "bam",
+    "records": 2,
+    "sourceSha256": "36dcb0d7738ee5ae71233e3fb98f6ecaed8464add6c0ad4985b8df653030bf33",
+    "originalBytesPreserved": true,
+    "scope": "Explicitly synthetic numerical format fixture; not genomic biological qualification."
+  },
+  "paidComputeStarted": false,
+  "trainedModelDownloads": false,
+  "FabWork": false
+}

@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "updated": "2026-10-29T03:54:07.518300+00:00",
+  "updated": "2026-10-29T15:53:05.360187+00:00",
   "complete": false,
   "scientificCertification": false,
   "completionPercentage": null,
@@ -47,6 +47,13 @@
       "id": "legacy-audit",
       "path": "docs/EDITCRAFT_FULL_COMPLETION_AUDIT.json",
       "sha256": "da98b7da2a61e545fbc84acaa7dfcec90de52e3b6d89a1be6c94a982011c3c54"
+    },
+    {
+      "id": "GENOME_FIRST",
+      "path": "docs/specifications/FOLD_STUDIO_GENOME_FIRST.md",
+      "sha256": "c669b56127c65b20b7a1708ac6ee548d86d38f3f9fb83b32509dd4cd3d3a306b",
+      "lines": 2122,
+      "inventoryState": "Source retained; complete semantic deduplication remains pending."
     }
   ],
   "legacyRequirementCount": 1933,
@@ -127308,6 +127315,96 @@
       "implementationState": "implemented_scoped",
       "scientificCertification": false,
       "nativeControlState": "Executed through the installed native app in an isolated Library; scientific-continuation-native-acceptance.json records exact observed results."
+    },
+    {
+      "capability": "Managed indexed large FASTA references",
+      "sourceSections": [
+        "GENOME_FIRST:4.2",
+        "GENOME_FIRST:4.4",
+        "GENOME_FIRST:4.6"
+      ],
+      "scope": "Stream/hash retained uncompressed FASTA up to the explicit 8 GiB bound; HTSlib indexed windows, circular and reverse-strand extraction, source/index checksums, exact export and bounded operational archive restoration.",
+      "sourceFiles": [
+        "scientific/genomic_io.py",
+        "src/components/GenomicIO.tsx",
+        "vendor/genomics-runtime.json"
+      ],
+      "evidence": [
+        "reports/ultimate/genomic-io-tests.log",
+        "reports/ultimate/indexed-reference-validation.json",
+        "reports/ultimate/genomic-periodic-native-acceptance.json"
+      ],
+      "remaining": "8 GiB is an admission bound, not a whole-human-genome benchmark. No indexed annotation attachment/BGZF/whole-genome mapping; archive originals above 100 MiB must export separately.",
+      "updated": "2026-10-29",
+      "implementationState": "implemented_scoped",
+      "nativeControlState": "Executed through the installed native app in an isolated Library.",
+      "scientificCertification": false
+    },
+    {
+      "capability": "SAM/BAM alignment inspection",
+      "sourceSections": [
+        "GENOME_FIRST:4.2"
+      ],
+      "scope": "Actual HTSlib SAM/BAM parsing, retained original bytes/header, record flags, MAPQ and CIGAR summaries; bounded inputs and no remote reference resolution.",
+      "sourceFiles": [
+        "scientific/genomic_io.py",
+        "src/components/GenomicIO.tsx"
+      ],
+      "evidence": [
+        "reports/ultimate/genomic-io-tests.log",
+        "reports/ultimate/genomic-alignment-reference.json",
+        "reports/ultimate/genomic-periodic-native-acceptance.json"
+      ],
+      "remaining": "CRAM, unique-fragment counting, coverage, mapping, expression and variant calling remain unimplemented/unqualified.",
+      "updated": "2026-10-29",
+      "implementationState": "implemented_scoped",
+      "nativeControlState": "Executed through the installed native app in an isolated Library.",
+      "scientificCertification": false
+    },
+    {
+      "capability": "Indexed interval scientific handoffs",
+      "sourceSections": [
+        "GENOME_FIRST:4.5",
+        "GENOME_FIRST:4.6"
+      ],
+      "scope": "Save exact interval with verified source identity; explicit native transfer to Biopython alignment and RNA review, rechecking source coordinates/bytes before alignment.",
+      "sourceFiles": [
+        "scientific/genomic_io.py",
+        "scientific/sequence_alignment.py",
+        "src/components/GenomicIO.tsx",
+        "src/components/SequenceAlignment.tsx"
+      ],
+      "evidence": [
+        "reports/ultimate/genomic-io-tests.log",
+        "reports/ultimate/sequence-indexed-handoff-regression.log",
+        "reports/ultimate/genomic-periodic-native-acceptance.json"
+      ],
+      "remaining": "This is a scoped typed handoff, not the complete general multi-engine graph/recovery/parallel-execution system.",
+      "updated": "2026-10-29",
+      "implementationState": "implemented_scoped",
+      "nativeControlState": "Executed through the installed native app in an isolated Library.",
+      "scientificCertification": false
+    },
+    {
+      "capability": "Explicit periodic Lennard-Jones simulation",
+      "requirementIds": [
+        "UL-MAT-065-C001",
+        "UL-MAT-065-C002"
+      ],
+      "scope": "Genuine OpenMM fixed periodic energy/forces or bounded Langevin trajectory for 2\u201364 identical spherical particles with explicit parameters/units/seed, shared jobs/cancellation and saved original/unwrapped coordinates.",
+      "sourceFiles": [
+        "scientific/periodic_dynamics.py",
+        "src/components/PeriodicDynamics.tsx"
+      ],
+      "evidence": [
+        "reports/ultimate/periodic-dynamics-tests.log",
+        "reports/ultimate/genomic-periodic-native-acceptance.json"
+      ],
+      "remaining": "Only the stated model is qualified against its pair formula. No general material force field, equilibration, bulk-property prediction, phonons, barostat, chemical bonding or full simulation viewer.",
+      "updated": "2026-10-29",
+      "implementationState": "implemented_scoped",
+      "nativeControlState": "Executed through the installed native app in an isolated Library.",
+      "scientificCertification": false
     }
   ]
 }

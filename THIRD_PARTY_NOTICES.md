@@ -74,3 +74,7 @@ including h5py's bundled HDF5 and compression-library notices. Exact public
 wheel URLs, versions and SHA-256 values are in `vendor/quantum-runtime.json`.
 PySCF and Libxc scientific citations accompany calculation results. This CPU
 library integration does not bundle GPU4PySCF or trained model checkpoints.
+
+### pysam 0.24.1 and bundled HTSlib/SAMtools
+
+Pinned macOS ARM CPU genomic I/O wheel, SHA-256 and official source are recorded in `vendor/genomics-runtime.json`. pysam is MIT licensed; the wheel-provided HTSlib/SAMtools and bundled dependency license notices are retained in the packaged runtime. No reference genomes, alignments or trained weights are redistributed by this dependency.

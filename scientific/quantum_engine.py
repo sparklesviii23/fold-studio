@@ -59,7 +59,8 @@ def dispatch(s,action,p):
   identity=hashlib.sha256(canonical({'request':request,'versions':status['versions'],'implementation':implementation}).encode()).hexdigest()
   existing=next((row for row in dispatch(s,'quantum_list',{'projectId':p['projectId']}) if row['data']['inputSha256']==identity and row['data']['result']['converged']),None)
   if existing:return existing
-  if s.active():raise ValueError('Finish the active local scientific job before starting a quantum calculation.')
+  s.db.execute('BEGIN IMMEDIATE')
+  if s.active():s.db.rollback();raise ValueError('Finish the active local scientific job before starting a quantum calculation.')
   name=str(p.get('name','Local molecular electronic structure'))[:200];job=s.job_new({'projectId':p['projectId'],'name':name,'request':request,'inputSha256':identity,'localCPUOnly':True},'pyscf','running')
   try:
    result=run(s,request,job['id']);value={'domain':'quantum_calculation','jobId':job['id'],'inputSha256':identity,'implementationSha256':implementation,'runtimeVersions':status['versions'],'request':request,'result':result,'resultSha256':hashlib.sha256(canonical(result).encode()).hexdigest(),'classification':'Computational electronic structure at the recorded method/basis and supplied geometry; not experimental or biological validation.'}
