@@ -5,6 +5,12 @@ from genome_workspace import annotations,reverse_complement
 from worker import Service
 def part(start,end,phase,strand='+',kind='CDS',identifier='c1',parents=None):return {'index':0,'replicon':'chr','start':start,'end':end,'strand':strand,'phase':phase,'type':kind,'attributes':{'ID':identifier},'parents':parents or []}
 class ProductTests(unittest.TestCase):
+ def test_noncoding_rna_uses_original_segments_without_inventing_processing(self):
+  feature=part(1,6,'.','-',kind='tRNA',identifier='rna1')
+  result=assemble({'chr':'ATGCCC'},[feature],[],0,'annotated_rna');self.assertEqual(result['rna'],'GGGCAU');self.assertIn('chemical modifications',result['scope'])
+  feature=part(1,10,'.',kind='ncRNA',identifier='rna1');exons=[part(1,3,'.',kind='exon',identifier='e1',parents=['rna1']),part(8,10,'.',kind='exon',identifier='e2',parents=['rna1'])]
+  self.assertEqual(assemble({'chr':'ATGCCCCTAA'},[feature,*exons],[],0,'annotated_rna')['rna'],'AUGUAA')
+  with self.assertRaises(ValueError):assemble({'chr':'ATGCCCCTAA'},[part(1,10,'.',kind='gene')],[],0,'annotated_rna')
  def test_junction_phase_bases_are_retained(self):
   result=assemble({'chr':'ATGACCCCAATAA'},[part(1,4,'0'),part(9,13,'2')],[],0,'cds')
   self.assertEqual(result['dna'],'ATGAAATAA');self.assertEqual(result['trailingIncompleteCodonBases'],0)
@@ -30,6 +36,9 @@ class ProductTests(unittest.TestCase):
    s=Service(tmp);s.setting_set({'key':'enginePython','value':str(runtime)})
    product=assemble({'chr':'GTGAAATAA'},[part(1,9,'0')],[],0,'cds')
    self.assertEqual(translate(s,product,11,True)['protein'],'MK');self.assertEqual(translate(s,product,11,False)['protein'],'VK*')
+   mitochondrial=assemble({'chr':'ATAAAATAA'},[part(1,9,'0')],[],0,'cds');mitochondrial['segments'][0]['attributes']['transl_table']='2'
+   self.assertEqual(translate(s,mitochondrial,2,True)['protein'],'MK')
+   with self.assertRaisesRegex(ValueError,'differs from the supplied'):translate(s,mitochondrial,1,False)
    product['exceptionalAnnotation']=True
    with self.assertRaises(ValueError):translate(s,product,11,True)
    s.db.close()

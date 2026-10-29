@@ -17,7 +17,11 @@
     "CSV assay ingestion preserving original bytes and biological/technical replicate identities",
     "Supplied-RNA ViennaRNA cofold execution, strand-specific pairs and finite-INF handling; historical invalid energy labelled without altering receipts",
     "Explicit-allele VCFv4.2/4.3 import with exact REF matching, original compressed bytes, source/parsed-row checksums, duplicate detection and separate position tracks; genotype fields retained without interpretation",
-    "Complete ORF enumeration on six frames using explicit Biopython genetic code 1/11, nested starts, both strands and circular-window coordinate mapping"
+    "Complete ORF enumeration on six frames using explicit Biopython genetic code 1/11, nested starts, both strands and circular-window coordinate mapping",
+    "Direct bounded public NCBI genomic-reference search/review and pinned GenBank import",
+    "Annotated noncoding RNA sequence assembly with source-coordinate/hash handoff to reviewed RNA analysis",
+    "Vertebrate mitochondrial genetic code 2 and rejection of implicit CDS-code overrides",
+    "Descriptive balanced-biological-unit four-parameter logistic dose fitting and saved fit inspection"
   ],
   "verification": {
     "backendDiscovered": 57,
@@ -38,6 +42,15 @@
       "ORFRealReference": "exact 820-residue complete ORF at NC_000913.3:337\u20132799 reproduced",
       "nativeAcceptance": "passed in isolated QA Library: exact original VCF, one multiallelic position track, packaged Biopython two-strand ORF computation",
       "evidence": "reports/ultimate/genome-vcf-native-acceptance.json"
+    },
+    "latestPublicRNAAssay": {
+      "scientificModules": 74,
+      "sourceAndTypeScript": "passed",
+      "packageAndSignature": "passed",
+      "nativeNewControls": "pending",
+      "publicReferenceEvidence": "reports/ultimate/genome-public-reference-validation.json",
+      "RNAExtractionEvidence": "reports/ultimate/genome-annotated-rna-reference.json",
+      "doseFitEvidence": "reports/ultimate/assay-fit-reference.json"
     }
   },
   "referenceEvidence": [

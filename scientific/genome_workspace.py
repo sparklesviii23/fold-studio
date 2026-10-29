@@ -1,7 +1,7 @@
 """Local reference inspection. No inferred genes, essentiality or RNA-target design."""
 import hashlib,json,pathlib,uuid,datetime,urllib.parse,gzip,io
 LIMIT=32*1024**2
-ACTIONS={'genome_import','genome_list','genome_region','genome_features','genome_search','genome_region_save','genome_product','genome_product_save','genome_import_annotated','genome_evidence_import','genome_evidence','genome_variant','genome_variant_save','genome_vcf_import','genome_orfs'}
+ACTIONS={'genome_import','genome_list','genome_region','genome_features','genome_search','genome_region_save','genome_product','genome_product_save','genome_import_annotated','genome_evidence_import','genome_evidence','genome_variant','genome_variant_save','genome_vcf_import','genome_orfs','genome_public_search','genome_public_summary','genome_public_fetch'}
 COMPLEMENT=str.maketrans('ACGTRYSWKMBDHVN','TGCAYRSWMKVHDBN')
 def reverse_complement(text):return text.translate(COMPLEMENT)[::-1]
 def fasta(text):
@@ -102,6 +102,11 @@ def load(s,p):
 def dispatch(s,action,p):
  s.project(p['projectId'])
  if action=='genome_list':return references(s,p['projectId'])
+ if action in ('genome_public_search','genome_public_summary','genome_public_fetch'):
+  import genome_public
+  if action=='genome_public_search':return genome_public.search(p.get('query'))
+  if action=='genome_public_summary':return genome_public.summary(p.get('accession'))
+  return genome_public.fetch(s,p)
  if action=='genome_import':return import_reference(s,p)
  if action=='genome_import_annotated':
   from genome_annotated import import_annotated

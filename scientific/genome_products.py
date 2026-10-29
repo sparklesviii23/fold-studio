@@ -1,17 +1,22 @@
 """Annotation-directed sequence assembly and isolated Biopython translation."""
 import hashlib,json,pathlib,re,subprocess,sys
+RNA_FEATURES=('ncRNA','rRNA','tRNA','tmRNA','sRNA','snRNA','snoRNA','miRNA','antisense_RNA')
 
 def assemble(sequences,features,circular,index,kind):
  from genome_workspace import region
- if type(index) is not int or not 0<=index<len(features) or kind not in ('cds','transcript'):raise ValueError('Choose an existing CDS or transcript annotation.')
+ if type(index) is not int or not 0<=index<len(features) or kind not in ('cds','transcript','annotated_rna'):raise ValueError('Choose an existing CDS, transcript or noncoding-RNA annotation.')
  selected=features[index];identifier=selected['attributes'].get('ID')
  if kind=='cds':
   if selected['type']!='CDS':raise ValueError('Select a CDS annotation explicitly; gene/isoform choice is not inferred.')
   parts=[f for f in features if f['type']=='CDS' and f['attributes'].get('ID')==identifier] if identifier else [selected]
- else:
+ elif kind=='transcript':
   if selected['type'] not in ('mRNA','transcript','ncRNA','rRNA','tRNA') or not identifier:raise ValueError('Select a named transcript/RNA annotation.')
   parts=[f for f in features if f['type']=='exon' and identifier in f.get('parents',[])]
   if not parts:raise ValueError('This transcript has no explicit exon annotations; a mature transcript cannot be inferred.')
+ else:
+  if selected['type'] not in RNA_FEATURES:raise ValueError('Choose an explicitly supplied noncoding-RNA feature.')
+  parts=[f for f in features if f['type']=='exon' and identifier in f.get('parents',[])] if identifier else []
+  if not parts:parts=[f for f in features if f['type']==selected['type'] and f['attributes'].get('ID')==identifier] if identifier else [selected]
  replicons={f['replicon'] for f in parts};strands={f['strand'] for f in parts}
  if len(replicons)!=1 or len(strands)!=1 or selected['strand'] not in ('+','-'):raise ValueError('Product segments must share one explicit replicon and strand.')
  replicon=parts[0]['replicon'];strand=parts[0]['strand']
@@ -41,10 +46,12 @@ def assemble(sequences,features,circular,index,kind):
    elif phase!=(3-len(dna)%3)%3:raise ValueError('CDS segment phase is inconsistent with the preceding coding bases.')
   dna+=segment
  exceptional=any(any(key in f['attributes'] for key in ('transl_except','exception','pseudo','pseudogene')) for f in parts)
- return {'kind':kind,'selectedFeatureIndex':index,'annotationId':identifier,'replicon':replicon,'strand':strand,'segments':parts,'initialPhaseBasesSkipped':initial_phase,'dna':dna,'rna':dna.replace('T','U'),'sequenceSha256':hashlib.sha256(dna.encode()).hexdigest(),'trailingIncompleteCodonBases':len(dna)%3 if kind=='cds' else None,'exceptionalAnnotation':exceptional,'scope':'Assembled exclusively from supplied annotation segments. Initial CDS phase is skipped once; internal phases are validated without discarding junction bases. No expression or mature RNA/protein measurement is inferred. Circular multi-segment ordering must be explicit.'}
+ return {'kind':kind,'selectedFeatureIndex':index,'annotationId':identifier,'replicon':replicon,'strand':strand,'segments':parts,'initialPhaseBasesSkipped':initial_phase,'dna':dna,'rna':dna.replace('T','U'),'sequenceSha256':hashlib.sha256(dna.encode()).hexdigest(),'trailingIncompleteCodonBases':len(dna)%3 if kind=='cds' else None,'exceptionalAnnotation':exceptional,'scope':'Assembled exclusively from supplied annotation segments or explicit child exons. For CDS, initial phase is skipped once and internal phases are validated without discarding junction bases. Annotated RNA sequence does not establish mature processing, chemical modifications, expression or measured structure. No mature RNA/protein measurement is inferred. Circular multi-segment ordering must be explicit.'}
 
 def translate(s,product,table,complete):
- if type(table) is not int or table not in (1,11) or type(complete) is not bool:raise ValueError('Choose genetic code 1 or 11 and an explicit complete-CDS option.')
+ if type(table) is not int or table not in (1,2,11) or type(complete) is not bool:raise ValueError('Choose genetic code 1, 2 or 11 and an explicit complete-CDS option.')
+ annotated={part['attributes'].get('transl_table') for part in product.get('segments',[]) if part['attributes'].get('transl_table') is not None}
+ if annotated and annotated!={str(table)}:raise ValueError('Selected genetic code differs from the supplied CDS transl_table; annotated codes are not overridden implicitly.')
  if product['kind']!='cds' or product['exceptionalAnnotation']:raise ValueError('Translation requires an ordinary CDS without annotated exceptions or pseudogene flags.')
  if complete and product['initialPhaseBasesSkipped']:raise ValueError('An initial nonzero phase cannot be treated as a complete CDS.')
  request={'dna':product['dna'],'table':table,'complete':complete}

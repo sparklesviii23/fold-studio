@@ -2,13 +2,21 @@
 import json,pathlib,subprocess,sys,tempfile
 
 def import_annotated(s,p):
- from genome_workspace import raw_file,import_reference
+ from genome_workspace import raw_file
  fmt=p.get('format')
  if fmt not in ('genbank','embl'):raise ValueError('Choose explicit GenBank or EMBL format.')
  name,raw,text=raw_file(p['path'],('.gb','.gbk','.gbff') if fmt=='genbank' else ('.embl',))
+ value=parse_annotated(s,text,fmt)
+ return publish_annotated(s,p,name,raw,value)
+
+def parse_annotated(s,text,fmt):
  result=subprocess.run([s.engine_python(),'-I','-B',str(pathlib.Path(__file__).resolve())],input=json.dumps({'text':text,'format':fmt}),text=True,capture_output=True,timeout=60)
  if result.returncode:raise ValueError('Biopython annotated-reference parsing failed: '+result.stderr.strip()[-1500:])
- value=json.loads(result.stdout)
+ return json.loads(result.stdout)
+
+def publish_annotated(s,p,name,raw,value):
+ from genome_workspace import import_reference
+ fmt=value['format']
  with tempfile.TemporaryDirectory(prefix='genome-format-',dir=s.root/'cache') as tmp:
   fasta=pathlib.Path(tmp)/'derived.fasta';gff=pathlib.Path(tmp)/'derived.gff3';fasta.write_text(value['fasta']);gff.write_text(value['gff3'])
   metadata={**p.get('metadata',{}),'annotatedFormatConversion':{key:value[key] for key in ('format','biopythonVersion','reportedRecords','warnings','scope')}}

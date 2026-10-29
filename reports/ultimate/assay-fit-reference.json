@@ -1,0 +1,367 @@
+{
+  "state": "passed",
+  "input": "Explicit synthetic 4PL equation, bottom=2, top=10, midpoint=5 nM, hill=1.2; three declared biological units/two technical readings, not a measured biological assay",
+  "expectedHalfResponse": 5,
+  "actualHalfResponse": 5.000000000000002,
+  "actualHill": 1.1999999999999997,
+  "actualRMSE": 1.1322097734007351e-15,
+  "scipyVersion": "1.18.1",
+  "completeReceipt": {
+    "id": "96d17ec0-7aa3-4703-bb33-e7fa41046be4",
+    "kind": "assay_fit",
+    "data": {
+      "algorithm": "descriptive-biological-unit-4pl-v1",
+      "apparentHalfResponseConcentration": 5.000000000000002,
+      "assayId": "e19f56b5-8746-4613-a0c6-5dc138b6f7a7",
+      "assayName": "Synthetic 4PL numerical reference only",
+      "assaySha256": "41c5f597e0d156d25a26a78d4e98e00fd17bac4b7e8fad627d9f268295a42f8a",
+      "biologicalUnits": 3,
+      "bounds": {
+        "amplitudeRelativeToObservedRange": [
+          0.05,
+          10
+        ],
+        "bottomInObservedRangeUnits": [
+          -2,
+          2
+        ],
+        "hillMagnitude": [
+          0.1,
+          10
+        ],
+        "logMidpointBeyondObservedPositiveLogRange": 4
+      },
+      "classification": "Descriptive numerical fit of supplied endpoint readings; not independent experimental/affinity qualification",
+      "concentrationUnit": "nM",
+      "diagnosticIssues": [],
+      "diagnosticParameterScope": "Optimizer values are retained for reproducibility even when the usable midpoint is withheld. They are not independently validated parameters.",
+      "diagnosticParameters": {
+        "bottom": 2.0,
+        "halfResponseConcentration": 5.000000000000002,
+        "hillMagnitude": 1.1999999999999997,
+        "top": 10.000000000000002
+      },
+      "direction": "increasing",
+      "endpoint": "Authored numerical response",
+      "equation": "bottom + (top-bottom) / (1+exp(-hill*(ln(dose)-ln(midpoint)))) for increasing response; replace logistic fraction by 1-fraction for decreasing response. Dose zero uses the limiting response.",
+      "fitImplementationSha256": "92a8c8c932c075b2c5adbc737e310029720b2807495cb15849a460130c992b71",
+      "initializations": 9,
+      "jacobianNormalCondition": 162.83776964694215,
+      "jacobianRank": 4,
+      "method": "Four-parameter logistic descriptive curve. Average technical readings within each declared biological unit/dose, then average the same biological units equally at each dose. Fit dose means with unweighted bounded trust-region least squares, nine recorded initializations and linear residual loss. No hypothesis test assumes doses are independent.",
+      "midpointState": "estimated_within_observed_range",
+      "points": [
+        {
+          "biologicalUnitSummaries": [
+            {
+              "biologicalReplicate": "a",
+              "mean": 1.8,
+              "technicalReadings": 2,
+              "technicalSampleSD": 0.0
+            },
+            {
+              "biologicalReplicate": "b",
+              "mean": 2,
+              "technicalReadings": 2,
+              "technicalSampleSD": 0.0
+            },
+            {
+              "biologicalReplicate": "c",
+              "mean": 2.2,
+              "technicalReadings": 2,
+              "technicalSampleSD": 0.0
+            }
+          ],
+          "biologicalUnits": 3,
+          "concentration": 0,
+          "confidenceInterval95": [
+            1.5031724576499337,
+            2.4968275423500663
+          ],
+          "intervalDegreesOfFreedom": 2,
+          "intervalIsConservative": false,
+          "mean": 2.0,
+          "rawReadings": 6,
+          "sampleGroup": "supplied",
+          "sampleSD": 0.20000000000000007,
+          "standardError": 0.1154700538379252
+        },
+        {
+          "biologicalUnitSummaries": [
+            {
+              "biologicalReplicate": "a",
+              "mean": 1.872505664177934,
+              "technicalReadings": 2,
+              "technicalSampleSD": 0.0
+            },
+            {
+              "biologicalReplicate": "b",
+              "mean": 2.072505664177934,
+              "technicalReadings": 2,
+              "technicalSampleSD": 0.0
+            },
+            {
+              "biologicalReplicate": "c",
+              "mean": 2.272505664177934,
+              "technicalReadings": 2,
+              "technicalSampleSD": 0.0
+            }
+          ],
+          "biologicalUnits": 3,
+          "concentration": 0.1,
+          "confidenceInterval95": [
+            1.5756781218278677,
+            2.5693332065280003
+          ],
+          "intervalDegreesOfFreedom": 2,
+          "intervalIsConservative": false,
+          "mean": 2.072505664177934,
+          "rawReadings": 6,
+          "sampleGroup": "supplied",
+          "sampleSD": 0.20000000000000007,
+          "standardError": 0.1154700538379252
+        },
+        {
+          "biologicalUnitSummaries": [
+            {
+              "biologicalReplicate": "a",
+              "mean": 2.2748075448221408,
+              "technicalReadings": 2,
+              "technicalSampleSD": 0.0
+            },
+            {
+              "biologicalReplicate": "b",
+              "mean": 2.474807544822141,
+              "technicalReadings": 2,
+              "technicalSampleSD": 0.0
+            },
+            {
+              "biologicalReplicate": "c",
+              "mean": 2.674807544822141,
+              "technicalReadings": 2,
+              "technicalSampleSD": 0.0
+            }
+          ],
+          "biologicalUnits": 3,
+          "concentration": 0.5,
+          "confidenceInterval95": [
+            1.9779800024720746,
+            2.9716350871722073
+          ],
+          "intervalDegreesOfFreedom": 2,
+          "intervalIsConservative": false,
+          "mean": 2.474807544822141,
+          "rawReadings": 6,
+          "sampleGroup": "supplied",
+          "sampleSD": 0.20000000000000018,
+          "standardError": 0.11547005383792526
+        },
+        {
+          "biologicalUnitSummaries": [
+            {
+              "biologicalReplicate": "a",
+              "mean": 3.798595444604346,
+              "technicalReadings": 2,
+              "technicalSampleSD": 0.0
+            },
+            {
+              "biologicalReplicate": "b",
+              "mean": 3.998595444604346,
+              "technicalReadings": 2,
+              "technicalSampleSD": 0.0
+            },
+            {
+              "biologicalReplicate": "c",
+              "mean": 4.198595444604346,
+              "technicalReadings": 2,
+              "technicalSampleSD": 0.0
+            }
+          ],
+          "biologicalUnits": 3,
+          "concentration": 2,
+          "confidenceInterval95": [
+            3.50176790225428,
+            4.495422986954413
+          ],
+          "intervalDegreesOfFreedom": 2,
+          "intervalIsConservative": false,
+          "mean": 3.998595444604346,
+          "rawReadings": 6,
+          "sampleGroup": "supplied",
+          "sampleSD": 0.20000000000000018,
+          "standardError": 0.11547005383792526
+        },
+        {
+          "biologicalUnitSummaries": [
+            {
+              "biologicalReplicate": "a",
+              "mean": 5.8,
+              "technicalReadings": 2,
+              "technicalSampleSD": 0.0
+            },
+            {
+              "biologicalReplicate": "b",
+              "mean": 6.0,
+              "technicalReadings": 2,
+              "technicalSampleSD": 0.0
+            },
+            {
+              "biologicalReplicate": "c",
+              "mean": 6.2,
+              "technicalReadings": 2,
+              "technicalSampleSD": 0.0
+            }
+          ],
+          "biologicalUnits": 3,
+          "concentration": 5,
+          "confidenceInterval95": [
+            5.503172457649933,
+            6.496827542350067
+          ],
+          "intervalDegreesOfFreedom": 2,
+          "intervalIsConservative": false,
+          "mean": 6.0,
+          "rawReadings": 6,
+          "sampleGroup": "supplied",
+          "sampleSD": 0.20000000000000018,
+          "standardError": 0.11547005383792526
+        },
+        {
+          "biologicalUnitSummaries": [
+            {
+              "biologicalReplicate": "a",
+              "mean": 8.525715247261727,
+              "technicalReadings": 2,
+              "technicalSampleSD": 0.0
+            },
+            {
+              "biologicalReplicate": "b",
+              "mean": 8.725715247261727,
+              "technicalReadings": 2,
+              "technicalSampleSD": 0.0
+            },
+            {
+              "biologicalReplicate": "c",
+              "mean": 8.925715247261726,
+              "technicalReadings": 2,
+              "technicalSampleSD": 0.0
+            }
+          ],
+          "biologicalUnits": 3,
+          "concentration": 20,
+          "confidenceInterval95": [
+            8.228887704911662,
+            9.222542789611792
+          ],
+          "intervalDegreesOfFreedom": 2,
+          "intervalIsConservative": false,
+          "mean": 8.725715247261727,
+          "rawReadings": 6,
+          "sampleGroup": "supplied",
+          "sampleSD": 0.1999999999999993,
+          "standardError": 0.11547005383792475
+        },
+        {
+          "biologicalUnitSummaries": [
+            {
+              "biologicalReplicate": "a",
+              "mean": 9.586160774726201,
+              "technicalReadings": 2,
+              "technicalSampleSD": 0.0
+            },
+            {
+              "biologicalReplicate": "b",
+              "mean": 9.7861607747262,
+              "technicalReadings": 2,
+              "technicalSampleSD": 0.0
+            },
+            {
+              "biologicalReplicate": "c",
+              "mean": 9.9861607747262,
+              "technicalReadings": 2,
+              "technicalSampleSD": 0.0
+            }
+          ],
+          "biologicalUnits": 3,
+          "concentration": 100,
+          "confidenceInterval95": [
+            9.289333232376135,
+            10.282988317076265
+          ],
+          "intervalDegreesOfFreedom": 2,
+          "intervalIsConservative": false,
+          "mean": 9.7861607747262,
+          "rawReadings": 6,
+          "sampleGroup": "supplied",
+          "sampleSD": 0.1999999999999993,
+          "standardError": 0.11547005383792475
+        },
+        {
+          "biologicalUnitSummaries": [
+            {
+              "biologicalReplicate": "a",
+              "mean": 9.768277715046782,
+              "technicalReadings": 2,
+              "technicalSampleSD": 0.0
+            },
+            {
+              "biologicalReplicate": "b",
+              "mean": 9.968277715046781,
+              "technicalReadings": 2,
+              "technicalSampleSD": 0.0
+            },
+            {
+              "biologicalReplicate": "c",
+              "mean": 10.16827771504678,
+              "technicalReadings": 2,
+              "technicalSampleSD": 0.0
+            }
+          ],
+          "biologicalUnits": 3,
+          "concentration": 500,
+          "confidenceInterval95": [
+            9.471450172696716,
+            10.465105257396846
+          ],
+          "intervalDegreesOfFreedom": 2,
+          "intervalIsConservative": false,
+          "mean": 9.968277715046781,
+          "rawReadings": 6,
+          "sampleGroup": "supplied",
+          "sampleSD": 0.1999999999999993,
+          "standardError": 0.11547005383792475
+        }
+      ],
+      "predictedAtObservedDoses": [
+        2.0,
+        2.072505664177934,
+        2.474807544822141,
+        3.9985954446043452,
+        6.0,
+        8.725715247261729,
+        9.786160774726202,
+        9.968277715046783
+      ],
+      "residualRMSE": 1.1322097734007351e-15,
+      "residualsObservedMinusPredicted": [
+        0.0,
+        0.0,
+        0.0,
+        8.881784197001252e-16,
+        0.0,
+        -1.7763568394002505e-15,
+        -1.7763568394002505e-15,
+        -1.7763568394002505e-15
+      ],
+      "responseUnit": "Artificial RU",
+      "sampleGroup": "supplied",
+      "scipyVersion": "1.18.1",
+      "scope": "Descriptive numerical fit of supplied endpoint readings. An apparent half-response concentration is not a dissociation constant, binding affinity, independently established potency, causal effect or therapeutic recommendation. Original measurements are preserved.",
+      "sourceSha256": "3fcb44554e1382422bd7ca525d353367013e2b3e78324d01666106389dd145ad",
+      "totalFunctionEvaluations": 65,
+      "uncertainty": "No parameter confidence intervals or significance tests are computed. Repeated doses share biological units; validated cluster/hierarchical uncertainty and independent experiment replication remain separate requirements."
+    }
+  },
+  "realResearchDataUsedAsFixture": false,
+  "scope": "Numerical method and data-preservation qualification only. No binding affinity, biological efficacy or parameter confidence interval claimed."
+}

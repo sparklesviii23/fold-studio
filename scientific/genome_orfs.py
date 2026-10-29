@@ -4,7 +4,7 @@ import hashlib,json,pathlib,subprocess,sys
 def analyze(s,p,reference,sequences):
  from genome_workspace import region
  table=p.get('translationTable');minimum=p.get('minimumResidues',20);replicon=p.get('replicon')
- if type(table) is not int or table not in (1,11) or type(minimum) is not int or not 1<=minimum<=1000 or replicon not in sequences:raise ValueError('Choose genetic code 1/11, a known replicon and minimum length of 1–1,000 residues.')
+ if type(table) is not int or table not in (1,2,11) or type(minimum) is not int or not 1<=minimum<=1000 or replicon not in sequences:raise ValueError('Choose genetic code 1/2/11, a known replicon and minimum length of 1–1,000 residues.')
  dna=region(sequences[replicon],p.get('start'),p.get('end'),'+',replicon in reference['circularReplicons'])
  if set(dna)-set('ACGT'):raise ValueError('ORF enumeration requires an unambiguous selected DNA window.')
  child=subprocess.run([s.engine_python(),'-I','-B',str(pathlib.Path(__file__).resolve())],input=json.dumps({'dna':dna,'table':table,'minimum':minimum}),text=True,capture_output=True,timeout=30)

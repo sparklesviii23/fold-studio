@@ -14,7 +14,7 @@ import uuid
 import intelligence as mi
 import assay_statistics
 
-ACTIONS = {'research_candidate', 'research_annotation', 'research_assay_save', 'research_assay_summary', 'research_assay_import', 'research_full_target', 'research_full_scene', 'research_contacts', 'research_export', 'research_variants', 'research_screen_plan'}
+ACTIONS = {'research_candidate', 'research_annotation', 'research_assay_save', 'research_assay_summary', 'research_assay_fit', 'research_assay_import', 'research_full_target', 'research_full_scene', 'research_contacts', 'research_export', 'research_variants', 'research_screen_plan'}
 KD = dict(zip('ACDEFGHIKLMNPQRSTVWY', [1.8,2.5,-3.5,-3.5,2.8,-0.4,-3.2,4.5,-3.9,3.8,1.9,-3.5,-1.6,-3.5,-4.5,-0.8,-0.7,4.2,-0.9,-1.3]))
 
 
@@ -180,6 +180,17 @@ class Research:
         summary = assay_statistics.summarize(assay['data'])
         return self.save(record, 'assay_summary', {**summary, 'assayId':assay['id'], 'assayName':assay['data']['name'], 'assaySha256':assay_sha, 'summarySourceSha256':implementation_sha,
                                                 'classification':'Descriptive analysis of supplied experimental readings; not independently certified observations'})
+
+    def research_assay_fit(self,p):
+        if set(p)-{'projectId','structureId','assayId','sampleGroup','direction'}:raise ValueError('Choose one exact assay, sample group and observed curve direction.')
+        import assay_fit
+        record,_=self.source(p);evidence=self.evidence(record['id']);assay=next((e for e in evidence if e['kind']=='assay' and e['id']==p.get('assayId')),None)
+        if assay is None or assay['data'].get('sourceSha256')!=record['data']['sha256']:raise ValueError('Choose an assay belonging to this exact coordinate source.')
+        request=assay_fit.prepare(assay['data'],p.get('sampleGroup'),p.get('direction'));assay_sha=hashlib.sha256(canonical(assay['data']).encode()).hexdigest();implementation=hashlib.sha256(pathlib.Path(assay_fit.__file__).read_bytes()).hexdigest()
+        previous=next((e for e in evidence if e['kind']=='assay_fit' and e['data'].get('assayId')==assay['id'] and e['data'].get('assaySha256')==assay_sha and e['data'].get('sampleGroup')==request['sampleGroup'] and e['data'].get('direction')==request['direction'] and e['data'].get('fitImplementationSha256')==implementation),None)
+        if previous:return previous
+        result=assay_fit.run(self.s,request)
+        return self.save(record,'assay_fit',{**result,'assayId':assay['id'],'assayName':assay['data']['name'],'assaySha256':assay_sha,'fitImplementationSha256':implementation,'classification':'Descriptive numerical fit of supplied endpoint readings; not independent experimental/affinity qualification'})
 
     def research_full_target(self, p):
         record, path = self.source(p)

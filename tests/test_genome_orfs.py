@@ -9,7 +9,7 @@ class ORFTests(unittest.TestCase):
   def scan(dna,table=11):return json.loads(subprocess.run([str(runtime),'-I','-B',str(script)],input=json.dumps({'dna':dna,'table':table,'minimum':1}),text=True,capture_output=True,check=True).stdout)
   forward=scan('ATGAAATAA');self.assertIn({'strand':'+','windowFrameOffsetZeroBased':0,'windowStart':1,'windowEnd':9,'startCodon':'ATG','terminalStopCodon':'TAA','residuesExcludingTerminalStop':2},forward['orfs'])
   reverse=scan('TTATTTCAT');self.assertTrue(any(r['strand']=='-' and r['windowStart']==1 and r['windowEnd']==9 for r in reverse['orfs']))
-  self.assertTrue(any(r['startCodon']=='GTG' for r in scan('GTGAAATAA',11)['orfs']));self.assertFalse(any(r['startCodon']=='GTG' for r in scan('GTGAAATAA',1)['orfs']));self.assertEqual(scan('ATGAAA')['total'],0)
+  self.assertTrue(any(r['startCodon']=='GTG' for r in scan('GTGAAATAA',11)['orfs']));self.assertFalse(any(r['startCodon']=='GTG' for r in scan('GTGAAATAA',1)['orfs']));self.assertEqual(scan('ATGAAA')['total'],0);self.assertTrue(any(r['startCodon']=='ATA' for r in scan('ATAAAATAA',2)['orfs']))
   self.assertEqual(len([r for r in scan('ATGATGTAA')['orfs'] if r['strand']=='+']),2)
  def test_circular_genomic_mapping_and_reference_provenance(self):
   runtime=pathlib.Path(__file__).resolve().parents[2]/'current/FOLD STUDIO Metal Dev.app/Contents/Resources/runtime-boltz/bin/python3.12'
