@@ -1,0 +1,9 @@
+import {describe,it,expect} from 'vitest';
+import {periodicReportedNeighbours} from './crystalNeighbours';
+function cell(basis:number[][],positions:number[][]=[[0,0,0]]):any{return {latticeVectorsAngstrom:basis,parsedTextSha256:'numerical-reference',fractionalSites:{state:'reported',sites:positions.map((fractional,i)=>({sourceRow:i+1,label:'X'+i,typeSymbol:'C',fractional,reportedFractional:fractional.map(String),occupancy:'1'}))}};}
+describe('periodic geometry of supplied crystal sites',()=>{
+ it('finds six first cubic neighbours including nonzero self images',()=>{const result=periodicReportedNeighbours(cell([[2,0,0],[0,2,0],[0,0,2]]),2.01);expect(result.neighbours).toHaveLength(6);for(const n of result.neighbours){expect(n.distanceAngstrom).toBeCloseTo(2,12);expect(n.imageTranslation.filter(v=>v!==0)).toHaveLength(1);}});
+ it('enumerates oblique image combinations that coordinate rounding misses',()=>{const result=periodicReportedNeighbours(cell([[2,0,0],[1.9,.2,0],[0,0,3]]),.25);expect(result.neighbours).toHaveLength(2);expect(result.neighbours.map(n=>n.imageTranslation)).toContainEqual([1,-1,0]);expect(result.neighbours[0].distanceAngstrom).toBeCloseTo(Math.sqrt(.05),12);});
+ it('preserves outside-cell and coincident rows instead of merging occupancy',()=>{const input=cell([[2,0,0],[0,2,0],[0,0,2]],[[1,0,0],[0,0,0]]),before=JSON.stringify(input);const r=periodicReportedNeighbours(input,.1);expect(r.neighbours).toHaveLength(2);expect(r.neighbours.every(n=>n.coincidentReportedSite)).toBe(true);expect(JSON.stringify(input)).toBe(before);});
+ it('rejects unbounded tables and undefined cells',()=>{expect(()=>periodicReportedNeighbours(cell([[.001,0,0],[0,1,0],[0,0,1]]),1)).toThrow();expect(()=>periodicReportedNeighbours(cell([[0,0,0],[0,1,0],[0,0,1]]),1)).toThrow();expect(()=>periodicReportedNeighbours(cell([[1,0,0],[0,1,0],[0,0,1]]),NaN)).toThrow();});
+});

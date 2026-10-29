@@ -1,9 +1,7 @@
-# Genome-first continuation · 2026-10-28
+# Scientific-engine continuation · 2026-10-29
 
-No subagents; Fab excluded; no visual redesign. Read CURRENT_IMPLEMENTATION_CHECKPOINT.md and reports/ultimate/genome-continuation-status.json for the concise current state.
+Read CURRENT_IMPLEMENTATION_CHECKPOINT.md first. Work alone; Fab excluded. No new paid work/models authorized.
 
-Implemented and focused-tested: phase-correct CDS/transcript products, annotated/compressed/GTF/BED imports, gene-evidence CSV, reference-checked variants, supplied-annotation tracks/navigation, operational genome archive restoration, assay CSV ingestion and real supplied-RNA cofold CPU execution with unavailable-energy handling. Genuine E. coli and B. subtilis reference qualifications are recorded separately from biological validation.
+Public genome/RNA/assay batch committed as 87e621e. Current source adds genuine bounded PySCF molecular HF/PBE, gradients/density CUBE and balanced electronic energies; streaming FASTQ; Biopython pairwise alignments; RDKit compound-table analysis; periodic reported-site distances. Focused evidence and source paths are in the existing master audit capabilityUpdates20261029.
 
-56 backend passes/one optional skip; 11 interface passes; TypeScript, guarded build and signatures passed. Native CDS translation and original/corrected RNA receipt selection passed. Final native tracks/navigation acceptance passed after the 70-module package install: 1–4000 → 4001–8000 → 5001–7000, with actual supplied annotations. No further paid execution approved; both authorized numerical RNA plans have completed.
-
-Keep unrelated old generated/Fab logs uncommitted and unchanged. Commit this verified batch, then proceed with the next independent unblocked genome/sequence requirement. Full Genome/RNA and global completion remain false.
+Consolidated 78-module build/signing/install passed. Native density, compound, alignment and genuine FASTQ checks passed; real local worker cancellation passed. Original Library reopening is waiting on macOS Documents permission; user asked once. Record restoration when allowed and commit the verified batch. Never use the real research root as a fixture. No global completion percentage is supported. Continue the next independent unblocked capability; do not repeatedly investigate excluded Fab or re-run the full scientific suite.

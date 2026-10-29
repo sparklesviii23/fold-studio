@@ -1,0 +1,9 @@
+import {useState} from 'react';
+import {periodicReportedNeighbours} from '../lib/crystalNeighbours';
+import type {UnitCellInspection} from '../lib/crystalCell';
+import {exportFile} from '../lib/api';
+export default function CrystalNeighbours({cell,onError}:{cell:UnitCellInspection;onError:(message:string)=>void}){
+ const [cutoff,setCutoff]=useState(3),[result,setResult]=useState<ReturnType<typeof periodicReportedNeighbours>|null>(null),[error,setError]=useState('');
+ if(cell.fractionalSites?.state!=='reported')return null;
+ return <details><summary>Periodic distances · reported site subset</summary><p>Search neighbouring cell translations in the full lattice metric, including oblique cells. Symmetry mates are not generated. Supplied fractional sites may represent only an asymmetric unit.</p><label>Distance cutoff · Å<input type="number" min={.1} max={10} step={.1} value={cutoff} onChange={e=>{setCutoff(Number(e.target.value));setResult(null);}}/></label><button className="button" onClick={()=>{try{setResult(periodicReportedNeighbours(cell,cutoff));setError('');}catch(e){setResult(null);setError(String(e));}}}>Calculate periodic distances</button>{error&&<p role="alert">{error}</p>}{result&&<><p>{result.neighbours.length} directed geometric neighbour rows</p><p>{result.scope}</p><table><thead><tr><th>Central source row</th><th>Neighbour row</th><th>Image a b c</th><th>Distance · Å</th></tr></thead><tbody>{result.neighbours.slice(0,100).map((r,i)=><tr key={i}><td>{r.centralRow}</td><td>{r.neighbourRow}</td><td>{r.imageTranslation.join(' ')}</td><td>{r.distanceAngstrom.toPrecision(8)}{r.coincidentReportedSite?' · coincident':''}</td></tr>)}</tbody></table><p>First 100 rows displayed. Export retains all rows.</p><button className="button" onClick={()=>exportFile('periodic-reported-site-distances.json',{text:JSON.stringify(result,null,2)}).catch(e=>onError(String(e)))}>Export periodic distances · JSON</button></>}</details>;
+}

@@ -89,6 +89,10 @@ def inspect_archive(parameters):
             for record in records:
                 if not isinstance(record, dict) or not isinstance(record.get('data'), dict):
                     raise ValueError('Invalid saved record.')
+                if record['data'].get('domain') == 'sequencing_reads':
+                    source = record['data'].get('sourceFile', {})
+                    if not isinstance(source, dict):raise ValueError('Invalid original sequencing-read receipt.')
+                    check_reference(source.get('asset'), source.get('sha256'))
                 if record.get('kind') == 'structure':
                     info = record['data']
                     references = [(info.get('asset'), info.get('sha256'))]

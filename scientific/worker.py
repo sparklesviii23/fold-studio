@@ -9,6 +9,10 @@ sys.path.insert(0, str(pathlib.Path(__file__).parent))
 from observatory import Observatory, ACTIONS as OBSERVATORY_ACTIONS
 from peptides import Peptides, ACTIONS as PEPTIDE_ACTIONS
 import molecular_graph
+import chemical_screen
+import sequence_alignment
+import sequence_reads
+import quantum_engine
 import intelligence
 import fold_engine
 import mpnn
@@ -331,7 +335,7 @@ class Service:
         if owner:
             job=self.job(owner)
             if job['engine']!='bgmee' or job['state']!='running':owner=None
-        return self.db.execute("SELECT id FROM jobs WHERE engine IN ('boltz2','setup','proteinmpnn','bindcraft2','rdkit','peptide_chemistry','openmm','bgmee') AND state IN ('running','queued','installing') AND id!=? LIMIT 1",(owner or '',)).fetchone()
+        return self.db.execute("SELECT id FROM jobs WHERE engine IN ('boltz2','setup','proteinmpnn','bindcraft2','rdkit','peptide_chemistry','openmm','bgmee','pyscf') AND state IN ('running','queued','installing') AND id!=? LIMIT 1",(owner or '',)).fetchone()
     def job_new(self,p,engine,state):
         if getattr(self,'_compute_owner',None) and engine!='bgmee':p={**p,'controllerId':self._compute_owner}
         self.project(p['projectId']); id,date=uid(),now()
@@ -512,6 +516,8 @@ class Service:
             if name in assets and assets[name][1]!=expected:raise ValueError('Conflicting saved asset integrity receipts.')
             assets[name]=(source,expected)
         for record in data['records']:
+            if record['data'].get('domain')=='sequencing_reads':
+                source=record['data']['sourceFile'];add_asset(source['asset'],source['sha256'])
             if record['kind']=='structure':
                 add_asset(record['data']['asset'],record['data']['sha256'])
                 ligand=record['data'].get('metadata',{}).get('ligand',{})
@@ -593,6 +599,10 @@ class Service:
         if action in cloud_deployment.ACTIONS:return cloud_deployment.dispatch(self,action,p)
         if action in execution_policy.ACTIONS:return execution_policy.dispatch(self,action,p)
         execution_policy.enforce(self,action,p)
+        if action in chemical_screen.ACTIONS:return chemical_screen.dispatch(self,action,p)
+        if action in sequence_alignment.ACTIONS:return sequence_alignment.dispatch(self,action,p)
+        if action in sequence_reads.ACTIONS:return sequence_reads.dispatch(self,action,p)
+        if action in quantum_engine.ACTIONS:return quantum_engine.dispatch(self,action,p)
         if action in biology_evidence.ACTIONS:return biology_evidence.dispatch(self,action,p)
         if action in biology_agent.ACTIONS:return biology_agent.dispatch(self,action,p)
         if action in peptide_chemistry.ACTIONS:return peptide_chemistry.dispatch(self,action,p)
@@ -617,7 +627,7 @@ class Service:
 
 ACTIONS={'record_update','record_remove','record_restore','library','setting_set','project_create','project_update','project_delete','record_save','sequence_save','mutate','fasta_parse','fasta_import','uniprot_search','uniprot_get','structures','structure_download','import_structure','asset_read','compute','install_engine','prediction_start','prediction_resources','job_read','job_cancel','cloud_prepare','cloud_opened','cloud_import','export_project','project_archive_inspect','project_archive_import','project_archive_snapshots','project_archive_snapshot_read','project_archive_original_export','export_file','reconcile'}
 
-ACTIONS |= genome_workspace.ACTIONS | molecular_observatory.ACTIONS | editcraft.ACTIONS | cloud_shell.ACTIONS | cloud_accounts.ACTIONS | cloud_monitor.ACTIONS | cloud_audit.ACTIONS | cloud_deployment.ACTIONS | execution_policy.ACTIONS | modal_account.ACTIONS | peptide_chemistry.ACTIONS | biology_modal.ACTIONS | biology_agent.ACTIONS | biology_evidence.ACTIONS | biology_pipeline.ACTIONS | boltz_api_adapter.ACTIONS | evolution.ACTIONS | research.ACTIONS | cinema.ACTIONS | rapid_remote.ACTIONS | cloud_compute.ACTIONS | dynamics.ACTIONS | ligand.ACTIONS | mpnn.ACTIONS | fold_engine.ACTIONS | OBSERVATORY_ACTIONS | PEPTIDE_ACTIONS | molecular_graph.ACTIONS | intelligence.ACTIONS
+ACTIONS |= chemical_screen.ACTIONS | sequence_alignment.ACTIONS | sequence_reads.ACTIONS | quantum_engine.ACTIONS | genome_workspace.ACTIONS | molecular_observatory.ACTIONS | editcraft.ACTIONS | cloud_shell.ACTIONS | cloud_accounts.ACTIONS | cloud_monitor.ACTIONS | cloud_audit.ACTIONS | cloud_deployment.ACTIONS | execution_policy.ACTIONS | modal_account.ACTIONS | peptide_chemistry.ACTIONS | biology_modal.ACTIONS | biology_agent.ACTIONS | biology_evidence.ACTIONS | biology_pipeline.ACTIONS | boltz_api_adapter.ACTIONS | evolution.ACTIONS | research.ACTIONS | cinema.ACTIONS | rapid_remote.ACTIONS | cloud_compute.ACTIONS | dynamics.ACTIONS | ligand.ACTIONS | mpnn.ACTIONS | fold_engine.ACTIONS | OBSERVATORY_ACTIONS | PEPTIDE_ACTIONS | molecular_graph.ACTIONS | intelligence.ACTIONS
 
 def execute_job(service,id):
     job=service.job(id); p=job['data']; folder=service.root/'jobs'/id

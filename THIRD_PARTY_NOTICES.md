@@ -64,3 +64,13 @@ remain unchanged. Boltz confidence model provenance is pinned to the publisher
 repository Git LFS object in `scientific/boltz-parameters.json`. Model and chemical
 resources remain in managed application data, rather than being part of the
 source repository.
+
+
+The bounded local quantum tool uses PySCF 2.14.0 (Apache-2.0,
+https://github.com/pyscf/pyscf), h5py 3.16.0 (BSD-style,
+https://github.com/h5py/h5py), and their wheel-provided dependencies. All supplied
+license/notice files remain in the private runtime's distribution metadata,
+including h5py's bundled HDF5 and compression-library notices. Exact public
+wheel URLs, versions and SHA-256 values are in `vendor/quantum-runtime.json`.
+PySCF and Libxc scientific citations accompany calculation results. This CPU
+library integration does not bundle GPU4PySCF or trained model checkpoints.

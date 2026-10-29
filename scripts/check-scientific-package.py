@@ -1,8 +1,28 @@
 """Check the actual bundled service before signing or replacing the current app."""
 import ast
+import json
 import pathlib
 import subprocess
 import sys
+
+
+def check_sources():
+    repo = pathlib.Path(__file__).resolve().parents[1]
+    source = repo / 'scientific'
+    configured = json.loads((repo / 'src-tauri/tauri.conf.json').read_text())['bundle']['resources']
+    pending, visited = ['worker'], set()
+    while pending:
+        name = pending.pop()
+        if name in visited:continue
+        visited.add(name)
+        if configured.get('../scientific/' + name + '.py') != 'scientific/' + name + '.py':
+            raise RuntimeError('Scientific source is absent or misplaced in packaging resources: ' + name)
+        for node in ast.walk(ast.parse((source / (name + '.py')).read_text())):
+            names = [item.name for item in node.names] if isinstance(node, ast.Import) else [node.module] if isinstance(node, ast.ImportFrom) and node.module else []
+            for imported in names:
+                local = imported.split('.')[0]
+                if (source / (local + '.py')).is_file():pending.append(local)
+    print('Pre-build scientific resource closure passed:', len(visited), 'local modules.')
 
 
 def check(app):
@@ -56,4 +76,4 @@ print('Packaged native cloud review passed; no upload or GPU allocation.')
 
 
 if __name__ == '__main__':
-    check(sys.argv[1])
+    check_sources() if sys.argv[1] == '--sources' else check(sys.argv[1])

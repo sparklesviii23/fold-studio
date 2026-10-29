@@ -1,0 +1,159 @@
+{
+  "observed": "2026-10-29T03:33:20.811799+00:00",
+  "scope": "Executed using the installed native Research Suite controls in an isolated Library. Fixed-geometry H2 numerical comparison to the pinned upstream PySCF reference, not independent chemical accuracy.",
+  "root": "/tmp/fold-genome-vcf-qa/library",
+  "record": {
+    "id": "9432dac8-ec30-46ec-9daa-5b70350d6de2",
+    "project_id": "d7531ded-7b29-4eca-a409-99ca0123cf70",
+    "kind": "analysis",
+    "name": "Native H2 electronic structure reference",
+    "data": {
+      "domain": "quantum_calculation",
+      "jobId": "8499c421-2e5d-476e-904b-1a58c68e55b2",
+      "inputSha256": "18a8834645a98c388e61f345ae9c2f0776514d55f7518f3c2d84a90342818a2b",
+      "implementationSha256": "90ecd89c151be06e55ebb6d593a6921eb16b14a025717a3a03de6538259859a7",
+      "runtimeVersions": {
+        "h5py": "3.16.0",
+        "numpy": "2.5.3",
+        "pyscf": "2.14.0",
+        "scipy": "1.18.1"
+      },
+      "request": {
+        "atoms": [
+          [
+            "H",
+            [
+              0.0,
+              0.0,
+              0.0
+            ]
+          ],
+          [
+            "H",
+            [
+              0.0,
+              0.0,
+              0.74
+            ]
+          ]
+        ],
+        "originalXYZ": "2\nNumerical H2 reference, fixed supplied geometry\nH 0 0 0\nH 0 0 0.74",
+        "unit": "Angstrom",
+        "method": "HF",
+        "basis": "sto-3g",
+        "charge": 0,
+        "spin": 0,
+        "gradients": true,
+        "electrons": 2,
+        "maximumAOs": 96,
+        "maximumCycles": 80,
+        "convToleranceHartree": 1e-09,
+        "memorySettingMB": 1024,
+        "requestedThreads": 2,
+        "PBEGridLevel": 2,
+        "algorithm": "pyscf-small-molecule-v1"
+      },
+      "result": {
+        "PBEGridLevel": null,
+        "SCFIterationHistory": [
+          {
+            "cycleIndexZeroBased": 0,
+            "densityChangeNorm": 0.8490738779786449,
+            "energyHartree": -1.1167593073964255,
+            "orbitalGradientNorm": 4.440892098500626e-16
+          },
+          {
+            "cycleIndexZeroBased": 1,
+            "densityChangeNorm": 3.1401849173675503e-16,
+            "energyHartree": -1.1167593073964248,
+            "orbitalGradientNorm": 2.220446049250313e-16
+          }
+        ],
+        "atomicOrbitals": 2,
+        "citations": [
+          "https://doi.org/10.1063/5.0006074"
+        ],
+        "completedUTC": "2026-10-29T03:25:07.420189+00:00",
+        "converged": true,
+        "convergenceEnergyToleranceHartree": 1e-09,
+        "coordinateUnit": "Angstrom",
+        "coordinatesAngstrom": [
+          [
+            0.0,
+            0.0,
+            0.0
+          ],
+          [
+            0.0,
+            0.0,
+            0.74
+          ]
+        ],
+        "densityOverlapElectronTrace": 1.9999999999999996,
+        "diagnosticLastEnergyHartree": -1.1167593073964255,
+        "dipoleDebye": [
+          0.0,
+          0.0,
+          2.821905393518457e-15
+        ],
+        "electronCount": 2,
+        "electronicEnergyHartree": -1.8318636464775067,
+        "gradientHartreePerBohr": [
+          [
+            0.0,
+            0.0,
+            -0.02767960070679476
+          ],
+          [
+            0.0,
+            0.0,
+            0.02767960070679487
+          ]
+        ],
+        "iterationHistoryScope": "Actual library callbacks; direct one-electron solutions may emit no iterative history. History is committed with the final result, not a durable checkpoint of an interrupted run.",
+        "maximumCycles": 80,
+        "memorySettingMB": 1024,
+        "mullikenAtomicCharges": [
+          -4.440892098500626e-16,
+          8.881784197001252e-16
+        ],
+        "nuclearRepulsionHartree": 0.7151043390810812,
+        "orbitalChannels": [
+          {
+            "energiesHartree": [
+              -0.5785538598315288,
+              0.671143491914251
+            ],
+            "meanFieldOrbitalGapHartree": 1.24969735174578,
+            "occupations": [
+              2.0,
+              0.0
+            ],
+            "spin": "restricted"
+          }
+        ],
+        "reportedOpenMPThreads": 1,
+        "requestedAlphaMinusBeta": 0,
+        "scope": "Converged SCF is a stationary mean-field solution at the supplied fixed geometry and finite basis/grid. Open-shell solutions can be spin contaminated; the spin-square expectation is diagnostic. Wavefunction stability, basis/grid convergence, higher correlation, geometry optimization and independent chemical accuracy remain unverified. Orbital eigenvalue gaps and Mulliken charges are model-dependent; no observed spectra, binding, affinity or therapeutic effect is inferred. PySCF memory setting is not an operating-system hard memory limit.",
+        "spinSquareExpectation": 0.0,
+        "state": "converged_scf",
+        "totalEnergyHartree": -1.1167593073964255,
+        "runtimeWarnings": "/Users/vii/Documents/FoldStudio-MetalPort/validation/RAPID Foundation Engine/FOLD STUDIO Metal Dev.app/Contents/Resources/runtime-boltz/lib/python3.12/site-packages/pyscf/lib/misc.py:203: UserWarning: OpenMP is not available. Setting omp_threads to 2 has no effects.\n  warnings.warn('OpenMP is not available. '"
+      },
+      "classification": "Computational electronic structure at the recorded method/basis and supplied geometry; not experimental or biological validation."
+    },
+    "created": "2026-10-29T03:25:07.469600+00:00"
+  },
+  "controls": [
+    "Research Suite",
+    "Explicit XYZ",
+    "Analytic gradients",
+    "Calculate and save electronic-structure result"
+  ],
+  "visibleResult": {
+    "state": "converged_scf",
+    "energyHartree": -1.1167593073964257,
+    "densityOverlapElectronTrace": 1.9999999999999996
+  },
+  "runtimeIncluded": true
+}

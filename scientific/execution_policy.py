@@ -6,6 +6,7 @@ ACTIONS={'execution_backend_get','execution_backend_select'}
 # File preparation, editing and viewer rendering remain native. Scientific
 # computation is refused here rather than redirected through a local fallback.
 LOCAL_SCIENCE={
+ 'chemical_screen','sequence_align','reads_import','quantum_reaction','quantum_calculate','research_assay_fit',
  'prediction_start','install_engine','mpnn_start','dynamics_start','dynamics_continue','ligand_start',
  'bindcraft_start','bindcraft_repeat','bindcraft_resume','bindcraft_prepare','fold_compute','fold_structure','fold_fragment','fold_target',
  'biology_pipeline_start','biology_counterfactual_start','biology_bindcraft_prepare','biology_agent_start','biology_agent_ask','biology_peptide_chemistry_start',

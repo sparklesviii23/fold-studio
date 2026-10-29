@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "updated": "2026-10-26T22:23:29.769808+00:00",
+  "updated": "2026-10-29T03:54:07.518300+00:00",
   "complete": false,
   "scientificCertification": false,
   "completionPercentage": null,
@@ -93287,7 +93287,7 @@
         "remote_worker/fold_rapid/editcraft_modal.py",
         "scientific/cloud_deployment.py",
         "src/components/EditCraftPathways.tsx",
-      "src/components/PathwayMembership.tsx",
+        "src/components/PathwayMembership.tsx",
         "scientific/editcraft.py",
         "src/components/EditCraft.tsx",
         "src/components/pathwayTableExport.ts",
@@ -127165,5 +127165,149 @@
     "reports/fold-studio-implementation-audit.json",
     "docs/EDITCRAFT_FULL_COMPLETION_AUDIT.json",
     "reports/editcraft/requirement-closure.json"
+  ],
+  "capabilityUpdates20261029": [
+    {
+      "capability": "Molecular electronic structure",
+      "scope": "Bounded fixed-geometry HF/PBE, restricted/unrestricted; explicit charge/spin/basis/units; orbitals, Mulliken charges, dipole, analytic gradients and shared cancellable local job.",
+      "sourceFiles": [
+        "scientific/quantum_engine.py",
+        "src/components/QuantumLaboratory.tsx",
+        "vendor/quantum-runtime.json",
+        "scripts/prepare-quantum-runtime.py"
+      ],
+      "evidence": [
+        "reports/ultimate/quantum-runtime-probe.json",
+        "reports/ultimate/quantum-packaged-tests.log",
+        "reports/ultimate/quantum-native-acceptance.json",
+        "reports/ultimate/scientific-continuation-native-acceptance.json",
+        "reports/ultimate/quantum-cancellation-reference.json"
+      ],
+      "sourceAnchors": [
+        "ULT:L1041"
+      ],
+      "remaining": "Geometry optimization, vibrations, wavefunction stability and independent chemical accuracy; other electronic/periodic engines.",
+      "updated": "2026-10-29",
+      "implementationState": "implemented_scoped",
+      "scientificCertification": false,
+      "nativeControlState": "Executed through the installed native app in an isolated Library; scientific-continuation-native-acceptance.json records exact observed results."
+    },
+    {
+      "capability": "Electron-density sampling",
+      "scope": "Actual converged PySCF density on a fixed 24\u00b3 molecular grid; approximate box integral, central slice and Gaussian CUBE export.",
+      "sourceFiles": [
+        "scientific/quantum_engine.py",
+        "src/components/QuantumLaboratory.tsx"
+      ],
+      "evidence": [
+        "reports/ultimate/quantum-packaged-tests.log",
+        "reports/ultimate/scientific-continuation-native-acceptance.json"
+      ],
+      "sourceAnchors": [
+        "ULT:L1041"
+      ],
+      "remaining": "Field convergence, electrostatic potential and advanced 3D density viewing.",
+      "updated": "2026-10-29",
+      "implementationState": "implemented_scoped",
+      "scientificCertification": false,
+      "nativeControlState": "Executed through the installed native app in an isolated Library; scientific-continuation-native-acceptance.json records exact observed results."
+    },
+    {
+      "capability": "Balanced electronic reaction energies",
+      "scope": "Source-integrity-checked converged results, same runtime/method/basis; exact element/charge balance and signed electronic-energy sum.",
+      "sourceFiles": [
+        "scientific/quantum_engine.py",
+        "src/components/QuantumReaction.tsx"
+      ],
+      "evidence": [
+        "reports/ultimate/quantum-packaged-tests.log"
+      ],
+      "sourceAnchors": [
+        "ULT:L1041"
+      ],
+      "remaining": "No thermal/ZPE/entropy/solvation/counterpoise or kinetic/free-energy qualification.",
+      "updated": "2026-10-29",
+      "implementationState": "implemented_scoped",
+      "scientificCertification": false,
+      "nativeControlState": "Connected and packaged; focused numerical/backend checks passed. This added native form was not separately executed."
+    },
+    {
+      "capability": "Sequencing-read inspection",
+      "scope": "Streaming strict four-line FASTQ/gzip, explicit Phred+33, per-cycle and aggregate read quality, unchanged source file and operational archive restoration.",
+      "sourceFiles": [
+        "scientific/sequence_reads.py",
+        "src/components/SequenceReads.tsx"
+      ],
+      "evidence": [
+        "reports/ultimate/sequence-reads-tests.log",
+        "reports/ultimate/sequence-reads-reference.json",
+        "reports/ultimate/scientific-continuation-native-acceptance.json"
+      ],
+      "sourceAnchors": [],
+      "remaining": "Other FASTQ encodings/wrapped records, paired-end synchronization, trimming, alignment and BAM/CRAM. Bounded source/expanded/read lengths; no partial analysis.",
+      "updated": "2026-10-29",
+      "implementationState": "implemented_scoped",
+      "scientificCertification": false,
+      "nativeControlState": "Executed through the installed native app in an isolated Library; scientific-continuation-native-acceptance.json records exact observed results."
+    },
+    {
+      "capability": "Pairwise sequence alignment",
+      "scope": "Genuine bundled Biopython global/local affine alignment of explicit DNA/RNA/protein inputs, explicit query orientation, exact reference-interval handoff and persistent coordinate/scoring receipts.",
+      "sourceFiles": [
+        "scientific/sequence_alignment.py",
+        "src/components/SequenceAlignment.tsx"
+      ],
+      "evidence": [
+        "reports/ultimate/sequence-alignment-tests.log",
+        "reports/ultimate/scientific-continuation-native-acceptance.json"
+      ],
+      "sourceAnchors": [],
+      "remaining": "Whole-genome/long-read mapping, ambiguous alphabets, statistical significance and homology/orthology certification.",
+      "updated": "2026-10-29",
+      "implementationState": "implemented_scoped",
+      "scientificCertification": false,
+      "nativeControlState": "Executed through the installed native app in an isolated Library; scientific-continuation-native-acceptance.json records exact observed results."
+    },
+    {
+      "capability": "Periodic reported-site distances",
+      "scope": "Dual-metric bounded periodic-image enumeration, including oblique lattices; preserve supplied/asymmetric-unit subset, original fractional coordinates and partial/overlapping sites.",
+      "sourceFiles": [
+        "src/lib/crystalNeighbours.ts",
+        "src/components/CrystalNeighbours.tsx"
+      ],
+      "evidence": [
+        "reports/ultimate/quantum-genome-interface-tests.log"
+      ],
+      "requirementIds": [
+        "UL-MAT-064-C001",
+        "UL-MAT-064-C002"
+      ],
+      "remaining": "Symmetry expansion, full-crystal coordination, forces, periodic dynamics and broader Materials Laboratory.",
+      "updated": "2026-10-29",
+      "implementationState": "implemented_scoped",
+      "scientificCertification": false,
+      "nativeControlState": "Connected and packaged; focused numerical/backend checks passed. This added native form was not separately executed."
+    },
+    {
+      "capability": "Compound-table analysis",
+      "scope": "Genuine RDKit graph descriptors, explicit SMARTS matching and optional chirality-aware Morgan/Tanimoto comparison of all supplied rows; original CSV preserved.",
+      "sourceFiles": [
+        "scientific/chemical_screen.py",
+        "src/components/ChemicalScreen.tsx"
+      ],
+      "evidence": [
+        "reports/ultimate/chemical-screen-tests.log",
+        "reports/ultimate/scientific-continuation-native-acceptance.json"
+      ],
+      "sourceAnchors": [
+        "ULT:L798",
+        "ULT:L883"
+      ],
+      "remaining": "Validated docking, pharmacophore screening, trained ADMET/toxicity models and experimental or activity qualification.",
+      "updated": "2026-10-29",
+      "implementationState": "implemented_scoped",
+      "scientificCertification": false,
+      "nativeControlState": "Executed through the installed native app in an isolated Library; scientific-continuation-native-acceptance.json records exact observed results."
+    }
   ]
 }

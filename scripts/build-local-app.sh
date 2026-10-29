@@ -4,6 +4,7 @@ cd "$(dirname "$0")/.."
 repository="$PWD"
 app="$repository/../current/FOLD STUDIO Metal Dev.app"
 python3 scripts/install-current-app.py --destination "$app" --check-only
+python3 scripts/check-scientific-package.py --sources
 # One disposable build directory, one installed app. No dated release directories.
 export CARGO_TARGET_DIR="$repository/../build-cache/current"
 mkdir -p "$CARGO_TARGET_DIR"
@@ -31,6 +32,10 @@ for mapping in python-jax:runtime python-metaljax:runtime-metal python-boltz:run
     cp -cR -P "$resources/${mapping#*:}" "$staging"
   fi
 done
+quantum_args=(--runtime "$repository/../runtime-build/python-boltz")
+if [[ -n "${FOLD_QUANTUM_WHEEL_DIR:-}" ]]; then quantum_args+=(--wheel-dir "$FOLD_QUANTUM_WHEEL_DIR"); fi
+if [[ "${FOLD_PREPARE_QUANTUM:-0}" == "1" ]]; then quantum_args+=(--allow-download); fi
+python3 scripts/prepare-quantum-runtime.py "${quantum_args[@]}"
 # Always package the current portable backend, not a stale previous deployment.
 # This small source-only artifact excludes research and trained weights.
 python3 scripts/build-rapid-release.py --output remote_worker/dist
