@@ -1,10 +1,10 @@
 """Managed indexed FASTA and HTSlib genomic-alignment inspection."""
-import collections,fcntl,hashlib,json,os,pathlib,signal,subprocess,sys,tempfile
+import gzip,collections,fcntl,hashlib,json,os,pathlib,signal,subprocess,sys,tempfile
 
-ACTIONS={'genomic_io_status','indexed_genome_import','indexed_genomes','indexed_genome_region','indexed_genome_region_save','indexed_genome_export','genomic_alignment_import','genomic_alignments','genomic_io_jobs'}
+ACTIONS={'genomic_io_status','indexed_genome_import','indexed_genomes','indexed_genome_region','indexed_genome_region_save','indexed_genome_export','genomic_alignment_import','genomic_alignments','genomic_io_jobs','genomic_coverage','genomic_coverages'}
 MAX_FASTA=8*1024**3
 MAX_ALIGNMENT=32*1024**2
-VERSION='indexed-genomic-io-v1'
+VERSION='indexed-genomic-io-v2'
 def canonical(value):return json.dumps(value,sort_keys=True,separators=(',',':'),allow_nan=False)
 def checksum(path):
  with path.open('rb') as stream:return hashlib.file_digest(stream,'sha256').hexdigest()
@@ -33,6 +33,7 @@ def managed(s,source,key='asset'):
 def verified_reference(s,row):
  source=row['data']['sourceFile'];path=managed(s,source);index=managed(s,source,'indexAsset')
  if checksum(index)!=source['indexSha256']:raise ValueError('The FASTA index checksum changed; original reference was not queried.')
+ if source.get('compressedIndexAsset') and checksum(managed(s,source,'compressedIndexAsset'))!=source.get('compressedIndexSha256'):raise ValueError('The compressed reference index checksum changed; original reference was not queried.')
  stamp=fingerprint(path);cache=s.root/'cache'/('indexed-reference-'+hashlib.sha256((source['asset']+source['sha256']).encode()).hexdigest()+'.json')
  cached=json.loads(cache.read_text()) if cache.is_file() else None
  if cached!=stamp:
@@ -48,6 +49,8 @@ def dispatch(s,action,p):
  s.project(p['projectId'])
  if action=='indexed_genomes':return records(s,p['projectId'],'indexed_genome')
  if action=='genomic_alignments':return records(s,p['projectId'],'genomic_alignment')
+ if action=='genomic_coverages':return [r for r in records(s,p['projectId'],'genomic_coverage') if r['data']['sourceRecordId']==p.get('alignmentId')]
+ if action=='genomic_coverage':return coverage(s,p)
  if action=='genomic_io_jobs':return [{**r,'data':json.loads(r['data'])} for r in s.rows("SELECT * FROM jobs WHERE project_id=? AND engine='genomic_io' ORDER BY created DESC LIMIT 20",(p['projectId'],))]
  if action=='genomic_io_status':
   try:return {**pinned(s),'available':True}
@@ -63,7 +66,7 @@ def dispatch(s,action,p):
   if ref is None or type(start)is not int or type(end)is not int or strand not in ('+','-') or not 1<=start<=ref['length'] or not 1<=end<=ref['length']:raise ValueError('Choose a known replicon, explicit strand and integer 1-based inclusive coordinates.')
   circular=ref['topology']=='circular';length=end-start+1 if end>=start else end+ref['length']-start+1
   if end<start and not circular or length>100000:raise ValueError('Origin traversal needs explicit circular topology; one interval is limited to 100,000 bases.')
-  path,index,stamp=verified_reference(s,row);result=runtime(s,{'operation':'fetch','path':str(path),'index':str(index),'replicon':ref['id'],'start':start,'end':end,'strand':strand})
+  path,index,stamp=verified_reference(s,row);result=runtime(s,{'operation':'fetch','path':str(path),'index':str(index),'compressedIndex':str(managed(s,data['sourceFile'],'compressedIndexAsset')) if data['sourceFile'].get('compressedIndexAsset') else None,'replicon':ref['id'],'start':start,'end':end,'strand':strand})
   if fingerprint(path)!=stamp:raise ValueError('Reference changed while fetching the interval.')
   if len(result['dna'])!=length:raise ValueError('HTSlib returned an interval of unexpected length.')
   return {**result,'storageKind':'indexed_fasta','referenceId':row['id'],'metadata':data['metadata'],'sourceFile':data['sourceFile'],'replicon':ref['id'],'start':start,'end':end,'strand':strand,'coordinateConvention':'1-based inclusive, explicit circular origin traversal','sequenceSha256':hashlib.sha256(result['dna'].encode()).hexdigest(),'scope':'Exact indexed reference interval. Original bytes were hashed at import and are rehashed after source metadata changes; index bytes are checked per query. No genes, annotation, transcript processing, expression or biological effect inferred.'}
@@ -85,7 +88,8 @@ def dispatch(s,action,p):
  source=pathlib.Path(p['path']);limit=MAX_FASTA if action=='indexed_genome_import' else MAX_ALIGNMENT
  if source.is_symlink() or not source.is_file() or not 0<source.stat().st_size<=limit:raise ValueError('Choose a regular FASTA up to 8 GiB or SAM/BAM up to 32 MiB.')
  if action=='indexed_genome_import':
-  if source.suffix.lower() not in ('.fa','.fna','.fasta'):raise ValueError('Indexed references currently require uncompressed FASTA; gzip is not silently expanded.')
+  suffix=source.with_suffix('').suffix.lower() if source.suffix.lower()=='.gz' else source.suffix.lower()
+  if suffix not in ('.fa','.fna','.fasta'):raise ValueError('Choose FASTA or BGZF FASTA ending .fa/.fna/.fasta or .gz; ordinary gzip cannot be indexed.')
   metadata=p.get('metadata');circular=p.get('circularReplicons',[])
   if not isinstance(metadata,dict) or any(not isinstance(metadata.get(k),str) or not 1<=len(metadata[k].strip())<=500 for k in ('organism','assembly','source')) or not isinstance(circular,list) or any(not isinstance(v,str) for v in circular) or len(set(circular))!=len(circular):raise ValueError('Supply explicit organism/strain, assembly/version, source and distinct circular replicon IDs.')
  else:
@@ -108,7 +112,7 @@ def dispatch(s,action,p):
     if domain=='indexed_genome':
      if any(name not in {r['id'] for r in result['replicons']} for name in circular):raise ValueError('Circular IDs must match actual FASTA identifiers.')
      for ref in result['replicons']:ref['topology']='circular' if ref['id'] in circular else 'linear'
-    suffix='.fasta' if domain=='indexed_genome' else '.'+p['format'];asset='genomic-'+sha+suffix;origin=pathlib.Path(tmp)/'original';target=s.root/'assets'/asset
+    suffix=('.fasta.gz' if result.get('compression')=='BGZF' else '.fasta') if domain=='indexed_genome' else '.'+p['format'];asset='genomic-'+sha+suffix;origin=pathlib.Path(tmp)/'original';target=s.root/'assets'/asset
     if target.exists():
      if target.is_symlink() or checksum(target)!=sha:raise ValueError('Managed genomic asset checksum conflict.')
     else:os.link(origin,target);published.append(target)
@@ -118,7 +122,13 @@ def dispatch(s,action,p):
      if index_target.exists():
       if index_target.is_symlink() or checksum(index_target)!=index_sha:raise ValueError('Managed FASTA index conflict.')
      else:os.link(index,index_target);published.append(index_target)
-     receipt.update(indexAsset=index_asset,indexSha256=index_sha)
+     receipt.update(indexAsset=index_asset,indexSha256=index_sha,compression=result.get('compression','none'))
+     if result.get('compression')=='BGZF':
+      compressed_index=pathlib.Path(tmp)/'original.gzi';compressed_asset='genomic-'+sha+'.gzi';compressed_target=s.root/'assets'/compressed_asset;compressed_sha=checksum(compressed_index)
+      if compressed_target.exists():
+       if compressed_target.is_symlink() or checksum(compressed_target)!=compressed_sha:raise ValueError('Managed compressed index conflict.')
+      else:os.link(compressed_index,compressed_target);published.append(compressed_target)
+      receipt.update(compressedIndexAsset=compressed_asset,compressedIndexSha256=compressed_sha);compressed_index.unlink()
      origin.unlink();index.unlink();cache=s.root/'cache'/('indexed-reference-'+hashlib.sha256((asset+sha).encode()).hexdigest()+'.json');cache.write_text(canonical(fingerprint(target)))
     data={'domain':domain,'sourceFile':receipt,'result':result,'runtime':versions,'implementationSha256':hashlib.sha256(pathlib.Path(__file__).read_bytes()).hexdigest()}
     if domain=='indexed_genome':data.update(metadata=metadata,circularReplicons=circular,replicons=result['replicons'])
@@ -132,12 +142,67 @@ def dispatch(s,action,p):
    for path in published:path.unlink(missing_ok=True)
    raise
 
+def coverage(s,p):
+ if set(p)-{'projectId','alignmentId','contig','start','end','minimumMAPQ','minimumBaseQuality','includeUnavailableMAPQ'}:raise ValueError('Unsupported coverage field.')
+ row=next((r for r in records(s,p['projectId'],'genomic_alignment') if r['id']==p.get('alignmentId')),None)
+ if row is None:raise ValueError('Choose a saved alignment in this project.')
+ header=row['data']['result']['header'];contig=next((r for r in header.get('SQ',[]) if r['SN']==p.get('contig')),None);start,end=p.get('start'),p.get('end')
+ if contig is None or type(start)is not int or type(end)is not int or not 1<=start<=end<=contig['LN'] or end-start+1>100000:raise ValueError('Choose a header contig and a 1–100,000-base, 1-based inclusive window.')
+ for key,maximum in [('minimumMAPQ',254),('minimumBaseQuality',93)]:
+  if type(p.get(key))is not int or not 0<=p[key]<=maximum:raise ValueError('Supply explicit bounded integer mapping/base quality thresholds.')
+ if type(p.get('includeUnavailableMAPQ'))is not bool:raise ValueError('Choose explicitly whether MAPQ 255 (unavailable) may contribute.')
+ source=row['data']['sourceFile'];path=managed(s,source);stamp=fingerprint(path)
+ if path.stat().st_size>MAX_ALIGNMENT or checksum(path)!=source['sha256'] or fingerprint(path)!=stamp:raise ValueError('The saved alignment bytes changed; coverage refused.')
+ versions=pinned(s);request={k:v for k,v in p.items() if k not in ('projectId','alignmentId')};implementation=hashlib.sha256(pathlib.Path(__file__).read_bytes()).hexdigest();identity=hashlib.sha256(canonical({'request':request,'sourceSha256':source['sha256'],'implementationSha256':implementation,'runtime':versions}).encode()).hexdigest()
+ existing=next((r for r in records(s,p['projectId'],'genomic_coverage') if r['data']['inputSha256']==identity),None)
+ if existing:return existing
+ s.db.execute('BEGIN IMMEDIATE')
+ if s.active():s.db.rollback();raise ValueError('Finish the active local scientific job before computing coverage.')
+ job=s.job_new({'projectId':p['projectId'],'name':'Alignment base observations · '+p['contig'],'request':request,'sourceRecordId':row['id']},'genomic_io','running')
+ try:
+  value=runtime(s,{'operation':'coverage','source':str(path),'format':'sam' if path.suffix.lower()=='.sam' else 'bam',**request},job)
+  if fingerprint(path)!=stamp:raise ValueError('Alignment changed during coverage; no result saved.')
+  data={'domain':'genomic_coverage','sourceRecordId':row['id'],'jobId':job['id'],'sourceFile':source,'request':request,'runtime':versions,'implementationSha256':implementation,'inputSha256':identity,'resultSha256':hashlib.sha256(canonical(value).encode()).hexdigest(),'result':value};s.db.execute('BEGIN IMMEDIATE')
+  if s.job(job['id'])['state']!='running':raise ValueError('Coverage cancelled; no partial result published.')
+  import uuid,datetime
+  record={'id':str(uuid.uuid4()),'project_id':p['projectId'],'kind':'analysis','name':job['name'],'data':data};date=datetime.datetime.now(datetime.timezone.utc).isoformat();s.db.execute('INSERT INTO records VALUES(?,?,?,?,?,?)',(record['id'],p['projectId'],'analysis',record['name'],canonical(data),date));s.db.execute('UPDATE projects SET updated=? WHERE id=?',(date,p['projectId']));s.job_update(job['id'],'completed',{'recordId':record['id']});return record
+ except Exception as error:
+  s.db.rollback()
+  if s.job(job['id'])['state']!='cancelled':s.job_update(job['id'],'failed',{'error':str(error)})
+  raise
+
+def coverage_worker(p):
+ import pysam
+ counts={base:[0]*(p['end']-p['start']+1) for base in 'ACGT'};counters=collections.Counter();left=p['start']-1;right=p['end']
+ with pysam.AlignmentFile(p['source'],'r' if p['format']=='sam' else 'rb',check_sq=False) as stream:
+  if stream.is_cram:raise ValueError('CRAM reference resolution is not enabled.')
+  if p['contig'] not in stream.references or not 0<=left<right<=stream.lengths[stream.references.index(p['contig'])]:raise ValueError('Coverage window does not match the actual saved alignment header.')
+  for read in stream.fetch(until_eof=True):
+   counters['recordsScanned']+=1
+   if counters['recordsScanned']>1000000 or read.query_length>100000:raise ValueError('Coverage input exceeds the qualified record/read-length bounds.')
+   if read.flag & 0xF04:counters['flagExcludedRecords']+=1;continue
+   if read.mapping_quality==255 and not p['includeUnavailableMAPQ'] or read.mapping_quality!=255 and read.mapping_quality<p['minimumMAPQ']:counters['mappingQualityExcludedRecords']+=1;continue
+   if read.reference_name!=p['contig'] or read.reference_start>=right or read.reference_end is None or read.reference_end<=left:continue
+   sequence=read.query_sequence;qualities=read.query_qualities
+   if sequence is None or qualities is None:counters['missingSequenceOrQualityRecords']+=1;continue
+   positions=read.get_reference_positions(full_length=True)
+   if len(positions)!=len(sequence) or len(qualities)!=len(sequence):raise ValueError('CIGAR/query/quality lengths are inconsistent.')
+   counters['contributingCandidateRecords']+=1
+   for pos,base,quality in zip(positions,sequence.upper(),qualities):
+    if pos is None or not left<=pos<right:continue
+    if quality<p['minimumBaseQuality']:counters['belowBaseQualityObservations']+=1;continue
+    if base not in counts:counters['ambiguousBaseObservations']+=1;continue
+    counts[base][pos-left]+=1
+ depth=[sum(values) for values in zip(*(counts[b] for b in 'ACGT'))]
+ return {'contig':p['contig'],'start':p['start'],'end':p['end'],'coordinateConvention':'1-based inclusive header-reference coordinates','baseObservationCounts':counts,'ACGTObservationDepth':depth,'meanACGTObservationsPerPosition':sum(depth)/len(depth),'positionsWithACGTObservations':sum(n>0 for n in depth),'counters':dict(counters),'excludedFlagsHex':'0xF04: unmapped, secondary, supplementary, QC-failed and duplicate-flagged','pairedOverlapTreatment':'Both primary mate records contribute independently; overlapping mates are not collapsed.','scope':'Quality-filtered A/C/G/T alignment-base observations, using pysam CIGAR-to-reference mapping. Insertions, soft clips, deletions and skipped reference spans do not create base observations. Ambiguous bases and missing qualities are not counted. Duplicate/QC exclusions rely only on supplied flags. These are not unique molecules, RNA expression, variant calls, mapping accuracy or proof of an assembly identity.'}
+
 def worker(p):
  import pysam,platform
  versions={'pysam':pysam.__version__,'samtools':pysam.__samtools_version__,'architecture':platform.machine()}
  if p['operation']=='status':return versions
+ if p['operation']=='coverage':return coverage_worker(p)
  if p['operation']=='fetch':
-  with pysam.FastaFile(p['path'],filepath_index=p['index']) as ref:
+  with pysam.FastaFile(p['path'],filepath_index=p['index'],filepath_index_compressed=p.get('compressedIndex')) as ref:
    dna=ref.fetch(p['replicon'],p['start']-1,p['end']) if p['end']>=p['start'] else ref.fetch(p['replicon'],p['start']-1)+ref.fetch(p['replicon'],0,p['end'])
   dna=dna.upper()
   if p['strand']=='-':dna=dna.translate(str.maketrans('ACGTRYSWKMBDHVN','TGCAYRSWMKVHDBN'))[::-1]
@@ -146,11 +211,20 @@ def worker(p):
  if source.is_symlink() or not source.is_file():raise ValueError('Source must remain a regular local file.')
  original_stamp=fingerprint(source);copy=pathlib.Path(p['folder'])/'original';size=0;digest=hashlib.sha256();refs=[];current=None;names=set();blank_after_sequence=False
  with source.open('rb') as original,copy.open('xb') as saved:
-  if p['operation']=='index':
-   while raw:=original.readline(1024**2+1):
-    size+=len(raw)
-    if size>p['maximumBytes'] or len(raw)>1024**2:raise ValueError('FASTA exceeded the 8 GiB source or 1 MiB line bound.')
-    digest.update(raw);saved.write(raw);line=raw.rstrip(b'\r\n')
+  while block:=original.read(1024**2):
+   size+=len(block)
+   if size>p['maximumBytes']:raise ValueError('Genomic source exceeds its recorded import size limit.')
+   digest.update(block);saved.write(block)
+ if fingerprint(source)!=original_stamp:raise ValueError('Original genomic file changed during import; no snapshot published.')
+ if p['operation']=='index':
+  # Enforce expanded-size/line/replicon bounds before spending time indexing.
+  with copy.open('rb') as probe:compressed=probe.read(2)==b'\x1f\x8b'
+  expanded=0
+  with (gzip.open(copy,'rb') if compressed else copy.open('rb')) as stream:
+   while raw:=stream.readline(1024**2+1):
+    expanded+=len(raw)
+    if expanded>MAX_FASTA or len(raw)>1024**2:raise ValueError('Expanded reference exceeds 8 GiB or the 1 MiB line limit; no partial import saved.')
+    line=raw.rstrip(b'\r\n')
     if not line:
      blank_after_sequence=bool(current and current['length']);continue
     if line.startswith(b'>'):
@@ -163,21 +237,17 @@ def worker(p):
     else:
      sequence=line.upper()
      if blank_after_sequence:raise ValueError('Embedded blank sequence rows are not supported by this fixed-width FASTA index; trailing/inter-record blank rows are preserved.')
-     if current is None or not sequence or set(sequence)-set(b'ACGTRYSWKMBDHVN'):raise ValueError('Indexed FASTA requires nonempty unwrapped/consistently wrapped IUPAC DNA rows without embedded whitespace.')
+     if current is None or not sequence or set(sequence)-set(b'ACGTRYSWKMBDHVN'):raise ValueError('Indexed FASTA requires consistently wrapped IUPAC DNA rows without embedded whitespace.')
      current['length']+=len(sequence);current['GC']+=sequence.count(b'G')+sequence.count(b'C')
-  else:
-   while block:=original.read(1024**2):
-    size+=len(block)
-    if size>p['maximumBytes']:raise ValueError('Alignment source grew beyond 32 MiB.')
-    digest.update(block);saved.write(block)
- if fingerprint(source)!=original_stamp:raise ValueError('Original genomic file changed during import; no snapshot published.')
- if p['operation']=='index':
   if not refs or not current['length']:raise ValueError('No complete FASTA reference supplied.')
-  pysam.faidx(str(copy))
+  # HTSlib rejects ordinary gzip; original bytes are never replaced by expansion.
+  try:pysam.faidx(str(copy))
+  except Exception as error:raise ValueError('HTSlib could not index this FASTA. Use plain FASTA or genuine BGZF, with consistent line wrapping: '+str(error)[-500:]) from None
+  if (pathlib.Path(str(copy)+'.gzi')).is_file()!=compressed:raise ValueError('Unexpected compressed-index identity.')
   with pysam.FastaFile(str(copy)) as check:
-   if list(check.references)!=[r['id'] for r in refs] or list(check.lengths)!=[r['length'] for r in refs]:raise ValueError('HTSlib index differs from the streamed FASTA sequence identities/lengths.')
+   if list(check.references)!=[r['id'] for r in refs] or list(check.lengths)!=[r['length'] for r in refs]:raise ValueError('HTSlib index differs from streamed sequence identities/lengths.')
   for r in refs:r['GCPercent']=100*r.pop('GC')/r['length']
-  return {'sourceSha256':digest.hexdigest(),'sourceBytes':size,'replicons':refs,'scope':'Managed uncompressed FASTA and HTSlib index; source is retained exactly. No inferred assembly annotations, gene identities or transcript models. Whole-source hashing is streamed; interval fetching is indexed and bounded.'}
+  return {'sourceSha256':digest.hexdigest(),'sourceBytes':size,'expandedBytes':expanded,'compression':'BGZF' if compressed else 'none','replicons':refs,'scope':'Managed exact original FASTA/BGZF and HTSlib indexes. Expanded validation and original hashing are streamed; interval fetching is indexed and bounded. No inferred assembly annotations, gene identities or transcript models.'}
  counts=collections.Counter();mapq=collections.Counter();refs_count=collections.Counter();cigar=collections.Counter();records=0
  with pysam.AlignmentFile(str(copy),'r' if p['format']=='sam' else 'rb',check_sq=False) as stream:
   if stream.is_cram:raise ValueError('CRAM/remote reference resolution is not enabled.')

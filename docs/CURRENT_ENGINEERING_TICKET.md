@@ -1,7 +1,7 @@
-# Indexed genomes / periodic models · 2026-10-29
+# BGZF / alignment observations · 2026-10-29
 
-Read CURRENT_IMPLEMENTATION_CHECKPOINT.md. Work alone; Fab excluded. No new paid/model approval.
+Work alone; Fab excluded; no new paid/model approval. Read CURRENT_IMPLEMENTATION_CHECKPOINT.md.
 
-80-module app built/signed/installed. New indexed FASTA, SAM/BAM, typed interval-to-alignment/RNA handoffs and bounded OpenMM periodic LJ model have native evidence. Focused backend checks: 16; interface checks: two; TypeScript passed. Genuine E. coli reference and 820-residue translation matched independent Biopython extraction. Full platform completion is false.
+BGZF FASTA/FAI/GZI preservation, operational archives and quality-filtered SAM/BAM observation counting are implemented and installed. Twelve focused backend checks, two interface checks and TypeScript pass. Final native BGZF fetch and observation count passed, with source/package hashes verified: reports/ultimate/bgzf-coverage-native-acceptance.json. All 16 baseline original structures/assets remain intact.
 
-Original Library reopening is waiting for the confirmed macOS Documents prompt; user asked once. Record restoration after Allow. Commit the verified batch. Remove only duplicate temporary genomic software after current bundle checks. Preserve all scientific evidence and unrelated/Fab logs. Next independent requirements include indexed annotations/large-reference formats, additional approved model execution, qualified docking and broader workflow/registry acceptance. Official Vina has no Mac ARM wheel; source/Linux qualification is still needed. Do not resume Fab or claim background continuation.
+The single current app was reopened on the original Library. macOS confirms a new Documents-access prompt (19:31 local) after its local signature changed; user asked once to press Allow. Verify original Home reopening after the reply. No scientific job is running from this scoped check. Preserve unrelated/Fab logs. Next independent scope remains non-Fab; full platform/model/docking/genome/workflow acceptance is unfinished. No background completion claim or global percentage.

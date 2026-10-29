@@ -45,3 +45,23 @@ class GenomicIOTests(unittest.TestCase):
   with self.assertRaises(ValueError):self.s.dispatch('genomic_alignment_import',{'projectId':self.pid,'path':str(bam),'format':'cram'})
   self.s.dispatch('execution_backend_select',{'mode':'modal'})
   with self.assertRaisesRegex(ValueError,'Cloud Mode'):self.s.dispatch('genomic_alignment_import',{'projectId':self.pid,'path':str(sam),'format':'sam'})
+ def test_BGZF_cross_block_fetch_exact_original_and_archive_restore(self):
+  from project_archive import inspect_archive
+  from project_restore import import_archive
+  source=self.root/'blocks.fa';source.write_bytes(b'>chr\n'+(b'ACGT'*20+b'\n')*2000);compressed=self.root/'blocks.fa.gz'
+  subprocess.run([self.python,'-I','-c','import pysam,sys;pysam.tabix_compress(sys.argv[1],sys.argv[2])',str(source),str(compressed)],check=True)
+  raw=compressed.read_bytes();r=self.reference(compressed,['chr']);self.assertEqual(r['data']['sourceFile']['compression'],'BGZF');self.assertTrue(r['data']['sourceFile']['compressedIndexAsset']);self.assertEqual(self.region(r,start=65530,end=65549)['dna'],'CGTACGTACGTACGTACGTA');self.assertEqual(self.region(r,start=159997,end=4)['dna'],'ACGTACGT');out=self.root/'original.fa.gz';self.s.dispatch('indexed_genome_export',{'projectId':self.pid,'id':r['id'],'path':str(out)});self.assertEqual(out.read_bytes(),raw)
+  archive=self.root/'compressed.zip';self.s.export_project({'id':self.pid,'path':str(archive)});review=inspect_archive({'path':str(archive)});restored=import_archive(self.s,{'path':str(archive),'expectedSha256':review['archiveSha256']});copy=self.s.dispatch('indexed_genomes',{'projectId':restored['projectId']})[0];v=self.s.dispatch('indexed_genome_region',{'projectId':restored['projectId'],'id':copy['id'],'replicon':'chr','start':65530,'end':65549,'strand':'+'});self.assertEqual(v['dna'],'CGTACGTACGTACGTACGTA');self.assertEqual((self.s.root/'assets'/copy['data']['sourceFile']['asset']).read_bytes(),raw)
+  (self.s.root/'assets'/copy['data']['sourceFile']['compressedIndexAsset']).write_bytes(b'corrupt')
+  with self.assertRaisesRegex(ValueError,'compressed reference index'):self.s.dispatch('indexed_genome_region',{'projectId':restored['projectId'],'id':copy['id'],'replicon':'chr','start':1,'end':4,'strand':'+'})
+ def test_ordinary_gzip_is_rejected_without_replacing_original(self):
+  import gzip
+  path=self.root/'ordinary.fa.gz';raw=gzip.compress(b'>chr\nACGTACGT\n');path.write_bytes(raw)
+  with self.assertRaisesRegex(ValueError,'BGZF'):self.reference(path)
+  self.assertEqual(path.read_bytes(),raw);self.assertEqual(self.s.dispatch('indexed_genomes',{'projectId':self.pid}),[])
+ def test_invalid_expanded_line_is_rejected_before_native_indexing(self):
+  from unittest.mock import patch
+  from types import SimpleNamespace
+  from genomic_io import worker
+  source=self.root/'oversized-line.fa';source.write_bytes(b'>chr\n'+b'A'*(1024**2+1));stage=self.root/'bounded-stage';stage.mkdir();fake=SimpleNamespace(__version__='0.24.1',__samtools_version__='1.24',faidx=lambda path:(_ for _ in ()).throw(AssertionError('Native indexing must not run before input limits pass')))
+  with patch.dict(sys.modules,{'pysam':fake}),self.assertRaisesRegex(ValueError,'line limit'):worker({'operation':'index','source':str(source),'folder':str(stage),'maximumBytes':8*1024**3})

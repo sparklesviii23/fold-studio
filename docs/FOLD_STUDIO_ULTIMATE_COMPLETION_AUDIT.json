@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "updated": "2026-10-29T15:53:05.360187+00:00",
+  "updated": "2026-10-29T17:08:54.164353+00:00",
   "complete": false,
   "scientificCertification": false,
   "completionPercentage": null,
@@ -127334,7 +127334,7 @@
         "reports/ultimate/indexed-reference-validation.json",
         "reports/ultimate/genomic-periodic-native-acceptance.json"
       ],
-      "remaining": "8 GiB is an admission bound, not a whole-human-genome benchmark. No indexed annotation attachment/BGZF/whole-genome mapping; archive originals above 100 MiB must export separately.",
+      "remaining": "8 GiB is an admission bound, not a whole-human-genome benchmark. BGZF added in the scoped follow-up; no indexed annotation attachment or whole-genome mapping. Archive originals above 100 MiB must export separately.",
       "updated": "2026-10-29",
       "implementationState": "implemented_scoped",
       "nativeControlState": "Executed through the installed native app in an isolated Library.",
@@ -127355,7 +127355,7 @@
         "reports/ultimate/genomic-alignment-reference.json",
         "reports/ultimate/genomic-periodic-native-acceptance.json"
       ],
-      "remaining": "CRAM, unique-fragment counting, coverage, mapping, expression and variant calling remain unimplemented/unqualified.",
+      "remaining": "CRAM, unique-fragment counting, mapping, expression and variant calling remain unimplemented/unqualified. Quality-filtered base observations added in the scoped follow-up.",
       "updated": "2026-10-29",
       "implementationState": "implemented_scoped",
       "nativeControlState": "Executed through the installed native app in an isolated Library.",
@@ -127404,6 +127404,52 @@
       "updated": "2026-10-29",
       "implementationState": "implemented_scoped",
       "nativeControlState": "Executed through the installed native app in an isolated Library.",
+      "scientificCertification": false
+    },
+    {
+      "capability": "BGZF indexed reference preservation",
+      "sourceSections": [
+        "GENOME_FIRST:4.2",
+        "GENOME_FIRST:4.4"
+      ],
+      "sourceFiles": [
+        "scientific/genomic_io.py",
+        "scientific/project_archive.py",
+        "scientific/project_restore.py",
+        "src/components/GenomicIO.tsx"
+      ],
+      "scope": "Original BGZF bytes plus checksummed FAI/GZI; bounded streamed validation, exact coordinate windows/export and operational archive round-trip. Ordinary gzip is rejected; no permanent expanded source is created.",
+      "evidence": [
+        "reports/ultimate/bgzf-genomic-io-tests.log",
+        "reports/ultimate/bgzf-reference-validation.json",
+        "reports/ultimate/bgzf-coverage-native-acceptance.json"
+      ],
+      "remaining": "No general BGZF annotation/CRAM support or whole-human-genome scaling qualification.",
+      "updated": "2026-10-29",
+      "implementationState": "implemented_scoped",
+      "nativeControlState": "Executed through the final installed native app in an isolated Library; saved result and installed/source identities verified.",
+      "scientificCertification": false
+    },
+    {
+      "capability": "Quality-filtered alignment-base observations",
+      "sourceSections": [
+        "GENOME_FIRST:4.2",
+        "GENOME_FIRST:4.6"
+      ],
+      "sourceFiles": [
+        "scientific/genomic_io.py",
+        "src/components/AlignmentCoverage.tsx"
+      ],
+      "scope": "Actual CIGAR/quality/flag-filtered A/C/G/T observations with original source, exact coordinates, explicit unavailable-MAPQ handling, shared cancellation, result checksum and archive-restored source links.",
+      "evidence": [
+        "reports/ultimate/genomic-coverage-tests.log",
+        "reports/ultimate/genomic-base-observation-reference.json",
+        "reports/ultimate/bgzf-coverage-native-acceptance.json"
+      ],
+      "remaining": "No paired-fragment collapsing, expression, genomic variant calling, biological mapping certification or whole-genome scaling qualification.",
+      "updated": "2026-10-29",
+      "implementationState": "implemented_scoped",
+      "nativeControlState": "Executed through the final installed native app in an isolated Library; saved result and installed/source identities verified.",
       "scientificCertification": false
     }
   ]

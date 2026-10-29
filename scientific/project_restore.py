@@ -138,7 +138,7 @@ def import_archive(s,p):
                     actual={key:(len(value),hashlib.sha256(value.encode()).hexdigest()) for key,value in sequences.items()}
                     if reported!=actual or genome.get('featureCount')!=len(features):raise ValueError('Archived genome metadata differs from its actual sequences/annotations.')
             id_fields={'id','projectId','project_id','referenceId','reference_id','recordId','record_id','structureId','structure_id','parentRecordId','parentId','sourceRecordId','sourceStructureId','targetStructureId','derivedFrom','outputs','recordIds','structureIds','sourceRecordIds'}
-            asset_fields={'asset','indexAsset','sdfAsset','coordinateAsset','inputAsset'}
+            asset_fields={'asset','indexAsset','compressedIndexAsset','sdfAsset','coordinateAsset','inputAsset'}
             def remap(value,field=None):
                 if isinstance(value,str):
                     return mapping.get(value,value) if field in id_fields else asset_mapping.get(value,value) if field in asset_fields else value

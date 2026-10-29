@@ -518,11 +518,12 @@ class Service:
             if name in assets and assets[name][1]!=expected:raise ValueError('Conflicting saved asset integrity receipts.')
             assets[name]=(source,expected)
         for record in data['records']:
-            if record['data'].get('domain') in ('sequencing_reads','genomic_alignment','indexed_genome'):
+            if record['data'].get('domain') in ('sequencing_reads','genomic_alignment','genomic_coverage','indexed_genome'):
                 source=record['data']['sourceFile']
                 if source.get('bytes',0)>MAX_FILE:raise ValueError('This managed genomic source exceeds the 100 MiB portable archive member limit. Export its original FASTA separately; no incomplete project archive will be produced.')
                 add_asset(source['asset'],source['sha256'])
                 if source.get('indexAsset'):add_asset(source['indexAsset'],source['indexSha256'])
+                if source.get('compressedIndexAsset'):add_asset(source['compressedIndexAsset'],source['compressedIndexSha256'])
             if record['kind']=='structure':
                 add_asset(record['data']['asset'],record['data']['sha256'])
                 ligand=record['data'].get('metadata',{}).get('ligand',{})

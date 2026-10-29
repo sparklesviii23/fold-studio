@@ -1,0 +1,150 @@
+{
+  "scope": "Explicitly synthetic numerical alignment fixture; independent pysam count_coverage agreement is in the focused test log. No biological or expression claim.",
+  "projectId": "783884d7-b404-4873-8fb3-09e1f31efcc7",
+  "alignmentId": "15a294c1-be9a-4795-ace7-50f74e301026",
+  "record": {
+    "id": "5e24eeb1-5fdc-4e84-8cc5-ee0b540bbea4",
+    "project_id": "783884d7-b404-4873-8fb3-09e1f31efcc7",
+    "kind": "analysis",
+    "name": "Alignment base observations \u00b7 chr",
+    "data": {
+      "domain": "genomic_coverage",
+      "sourceRecordId": "15a294c1-be9a-4795-ace7-50f74e301026",
+      "jobId": "edbee9e4-a348-4e1f-b2f4-01b21b247587",
+      "sourceFile": {
+        "asset": "genomic-4834d98867840fa503fc18e9de3e1555fc977cefd6d479214fbfe640c195c58d.bam",
+        "bytes": 361,
+        "originalName": "numerical-base-observations.bam",
+        "sha256": "4834d98867840fa503fc18e9de3e1555fc977cefd6d479214fbfe640c195c58d"
+      },
+      "request": {
+        "contig": "chr",
+        "start": 1,
+        "end": 16,
+        "minimumMAPQ": 20,
+        "minimumBaseQuality": 20,
+        "includeUnavailableMAPQ": false
+      },
+      "runtime": {
+        "architecture": "arm64",
+        "pysam": "0.24.1",
+        "samtools": "1.24"
+      },
+      "implementationSha256": "00827d144ea6f65c55ff4a5c885e6065cafa3e919d3ff2c1aca2cb8647cec7dd",
+      "inputSha256": "4a9a15590bba87a492b59f79677acddd0536fcb48ff2005f69c160d30aa0aa41",
+      "resultSha256": "df38ccd32948f9a3866d3d123fa1df9cf6bcadf958e994df77af492b2f442272",
+      "result": {
+        "ACGTObservationDepth": [
+          0,
+          2,
+          2,
+          1,
+          0,
+          1,
+          0,
+          0,
+          1,
+          1,
+          0,
+          0,
+          0,
+          1,
+          0,
+          0
+        ],
+        "baseObservationCounts": {
+          "A": [
+            0,
+            1,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            1,
+            0,
+            0
+          ],
+          "C": [
+            0,
+            1,
+            2,
+            0,
+            0,
+            1,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ],
+          "G": [
+            0,
+            0,
+            0,
+            1,
+            0,
+            0,
+            0,
+            0,
+            1,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ],
+          "T": [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            1,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ]
+        },
+        "contig": "chr",
+        "coordinateConvention": "1-based inclusive header-reference coordinates",
+        "counters": {
+          "ambiguousBaseObservations": 1,
+          "belowBaseQualityObservations": 1,
+          "contributingCandidateRecords": 3,
+          "flagExcludedRecords": 5,
+          "mappingQualityExcludedRecords": 1,
+          "missingSequenceOrQualityRecords": 1,
+          "recordsScanned": 10
+        },
+        "end": 16,
+        "excludedFlagsHex": "0xF04: unmapped, secondary, supplementary, QC-failed and duplicate-flagged",
+        "meanACGTObservationsPerPosition": 0.5625,
+        "pairedOverlapTreatment": "Both primary mate records contribute independently; overlapping mates are not collapsed.",
+        "positionsWithACGTObservations": 7,
+        "scope": "Quality-filtered A/C/G/T alignment-base observations, using pysam CIGAR-to-reference mapping. Insertions, soft clips, deletions and skipped reference spans do not create base observations. Ambiguous bases and missing qualities are not counted. Duplicate/QC exclusions rely only on supplied flags. These are not unique molecules, RNA expression, variant calls, mapping accuracy or proof of an assembly identity.",
+        "start": 1
+      }
+    }
+  }
+}
