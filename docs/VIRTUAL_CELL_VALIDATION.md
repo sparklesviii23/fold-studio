@@ -38,7 +38,7 @@ published behaviour. Neither alone establishes biological accuracy.
 
 | Check | Result |
 |---|---|
-| Full backend suite, intended runtime (`runtimes/jax-cpu`: gemmi 0.7.5, SciPy 1.18.1) | 1,124 run: 2 failures, 0 errors, 10 skipped before fixes. The 61 earlier `gemmi` errors were caused by running under `runtimes/singlecell`, which lacks gemmi. Failures: bundle manifest missing the new `virtual_cell_structures.py` (fixed by registering it); `test_tumor_tme.test_recipe_inputs` stale after the PhysiCell recipe gained immune parameters (test updated to the recipe defaults and now also checks the new bound). Final full-suite count: see the checkpoint entry. |
+| Full backend suite, intended runtime (`runtimes/jax-cpu`: gemmi 0.7.5, SciPy 1.18.1) | 1,124 run: 2 failures, 0 errors, 10 skipped before fixes. The 61 earlier `gemmi` errors were caused by running under `runtimes/singlecell`, which lacks gemmi. Failures: bundle manifest missing the new `virtual_cell_structures.py` (fixed by registering it); `test_tumor_tme.test_recipe_inputs` stale after the PhysiCell recipe gained immune parameters (test updated to the recipe defaults and now also checks the new bound). Final full-suite run after all stage-3 changes (incl. CellFlux): **1,136 tests OK, 10 skipped, 0 failures, 0 errors** (runtimes/jax-cpu). |
 | Virtual Cell backend / interface | 61 / 242 passed; TypeScript passed |
 | Proteomics identifiers | iBAQ 6,740/6,740 rows resolved (ENSP via GENCODE V29), spectral counting 3,546/3,547 (one ambiguous) |
 | Proteomics identity | Hepatocyte proteins present (APOA1 209 ppm, AFP 213, APOB, SERPINA1, FGB, TTR); ALB absent from both PaxDb files (shown as not reported) |
