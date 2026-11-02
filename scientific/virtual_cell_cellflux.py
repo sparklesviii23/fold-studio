@@ -20,8 +20,8 @@ What the outputs are — and are not
     0.53–0.75, nuclear-area fraction changed (0.18 → 0.33, 0.26 → 0.11), mean DNA intensity ×1.9 — nuclei partly kept
     but distorted. Outputs are out of domain and not interpretable as Hep G2 perturbation responses.
   * cpg0000 itself cannot be benchmarked here (its crops are not in the public IMPA archive). The same method was
-    benchmarked in its own domain with the BBBC021 (MCF7) checkpoint by scientific/cellflux_benchmark.py; status()
-    returns that report when present.
+    benchmarked in its own domain with the BBBC021 (MCF7) checkpoint by scientific/cellflux_benchmark.py, for seen compounds
+    (bbbc021_six) and for the 8 compounds held out of training (bbbc021_all --ood); status() returns both reports when present.
 """
 import hashlib, json, os, pathlib, subprocess, time, uuid
 
@@ -67,7 +67,8 @@ def status(root, service=None):
              'checkpoint': ck.is_file(), 'embeddings': (d / 'data' / 'cpg0000_combined_embeddings.csv').is_file(),
              'metadata': (d / 'data' / 'metadata_large_gene2vec_subset.csv').is_file(), 'runtime': python(service) is not None}
     bm = d / 'benchmark' / 'bbbc021_six' / 'benchmark.json'
-    return {'installed': all(parts.values()), 'parts': parts, 'model': MODEL, 'benchmark': json.loads(bm.read_text()) if bm.is_file() else None, 'settings': SETTINGS, 'checkpointSha256': _sha_file(ck) if ck.is_file() else None,
+    bu = d / 'benchmark' / 'bbbc021_all_ood' / 'benchmark.json'
+    return {'installed': all(parts.values()), 'parts': parts, 'model': MODEL, 'benchmark': json.loads(bm.read_text()) if bm.is_file() else None, 'benchmarkUnseen': json.loads(bu.read_text()) if bu.is_file() else None, 'settings': SETTINGS, 'checkpointSha256': _sha_file(ck) if ck.is_file() else None,
             'inputs': {'slots': SLOTS, 'fill': FILL, 'scaling': '8-bit by 0.5–99.8th percentile per channel over the field', 'crop': '96 × 96 px centred on each segmented nucleus'},
             'warning': 'Generated images. Trained on U2OS (JUMP); Hep G2 inputs are out of domain and the channel slots are assumed.'}
 

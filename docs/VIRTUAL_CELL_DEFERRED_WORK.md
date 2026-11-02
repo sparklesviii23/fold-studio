@@ -21,8 +21,8 @@ validation that would establish it · review needed.
    and a feature reference. Interface: `image` provider, coverage modality "microscopy / morphology", existing
    MicrographStage stays illustrative. Validation: feature agreement with published CellProfiler outputs on the same images.
 3. **Generative microscopy — CellFlux installed (2 Nov 2026, user request, research use)** as an experimental plugin;
-   in-domain BBBC021 benchmark done for seen compounds / held-out cells (see validation); remaining: the unseen-compound
-   test on the 8 held-out BBBC021 compounds (needs the 2.3 GB `bbbc021_all` crops), a cpg0000 benchmark (crops not public), the true cpg0000
+   in-domain BBBC021 benchmark done for seen compounds / held-out cells (see validation); unseen-compound test also done
+   (8 held-out compounds: no better than a compound-agnostic baseline); remaining: a cpg0000 benchmark (crops not public), the true cpg0000
    channel order and normalisation (undocumented), and a Hep G2-trained model before any Hep G2 interpretation.
    Earlier assessment: CellFlux (ICML 2025) code is MIT and
    checkpoints are public (huggingface.co/suyc21/CellFlux: BBBC021, RxRx1, cpg0000), but the weights' licence is not

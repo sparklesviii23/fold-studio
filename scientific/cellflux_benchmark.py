@@ -1,6 +1,6 @@
 """In-domain CellFlux benchmark on BBBC021 (MCF7), using the IMPA preprocessed crops and the authors' checkpoint.
 
-python cellflux_benchmark.py <plugin dir> <metadata csv> <image root> <out dir> [n_generate] [n_reference]
+python cellflux_benchmark.py <plugin dir> <metadata csv> <image root> <out dir> [n_generate] [n_reference] [--ood]
 
 For each treated compound in the metadata: N test-split DMSO crops are transformed by CellFlux conditioned on the
 compound's Morgan fingerprint (IMPA emb_fp.csv), and the generated crops are compared with test-split crops really
@@ -11,6 +11,9 @@ DMSO reference set. Metrics per compound:
   magnitude ratio |predicted effect| / |true effect|
   distance        ‖mean(generated) − mean(treated)‖ vs ‖mean(DMSO) − mean(treated)‖ (closer than untreated = useful)
 Baseline: the mean true effect of the other compounds (what a model that ignores the compound identity would predict).
+--ood: evaluate only the checkpoint's held-out compounds (OOD_SET, excluded from every split in training, as in the
+authors' eval_bbbc_ood.yaml) and take the baseline from the trained compounds instead, since a compound-agnostic model
+can only know the effects it was trained on.
 Generation uses scientific/cellflux_runner.py (authors' settings). Dose is not part of CellFlux's conditioning; treated
 reference crops pool all doses and the result says so.
 """
@@ -22,6 +25,8 @@ import pandas as pd
 HERE = pathlib.Path(__file__).resolve().parent
 sys.path.insert(0, str(HERE))
 import virtual_cell_microscopy as VM
+
+OOD_SET = ['docetaxel', 'AZ841', 'cytochalasin D', 'simvastatin', 'cyclohexamide', 'latrunculin B', 'epothilone B', 'lactacystin']  # configs/bbbc021_all.yaml
 
 
 def load(root, key):
@@ -38,7 +43,7 @@ def features(img):
     return np.array(out)
 
 
-def main(plugin, meta, images, out, n_gen=12, n_ref=150, seed=0):
+def main(plugin, meta, images, out, n_gen=12, n_ref=150, seed=0, ood=False):
     plugin, out = pathlib.Path(plugin), pathlib.Path(out); out.mkdir(parents=True, exist_ok=True)
     py = next(p / 'runtimes' / 'gbcell' / 'bin' / 'python' for p in HERE.parents if (p / 'runtimes' / 'gbcell' / 'bin' / 'python').is_file())
     df = pd.read_csv(meta); test = df[df.SPLIT == 'test']; rng = np.random.default_rng(seed)
@@ -51,11 +56,17 @@ def main(plugin, meta, images, out, n_gen=12, n_ref=150, seed=0):
     mu0, sd0 = F_ref.mean(0), F_ref.std(0) + 1e-9; z = lambda F: (F - mu0) / sd0
     np.save(out / 'inputs.npy', X_in)
     F_in = z(np.stack([features(x / 255.0) for x in X_in]))
-    compounds = [c for c in test.CPD_NAME.unique() if c != 'DMSO']; rows = {}; true_effects = {}
-    for cpd in compounds:
+    present = [c for c in test.CPD_NAME.unique() if c != 'DMSO']
+    compounds = [c for c in OOD_SET if c in present] if ood else present; rows = {}; true_effects = {}
+    if ood and len(compounds) < len(OOD_SET):
+        raise SystemExit('Held-out compounds missing from the test split: ' + ', '.join(sorted(set(OOD_SET) - set(compounds))))
+    baseline_pool = [c for c in present if c not in OOD_SET] if ood else compounds
+    for cpd in dict.fromkeys(compounds + baseline_pool):
         trt = test[test.CPD_NAME == cpd].SAMPLE_KEY.tolist(); trt = list(rng.permutation(trt)[:n_ref])
         F_trt = z(np.stack([features(load(images, k).transpose(2, 0, 1) / 255.0) for k in trt]))
         true_effects[cpd] = F_trt.mean(0)
+        if cpd not in compounds:
+            continue
         gen = out / f'gen_{cpd.replace(" ", "_")}.npy'
         if not gen.is_file():
             req = {'src': str(plugin / 'src'), 'deps': str(plugin / 'deps'), 'checkpoint': str(plugin / 'checkpoints' / 'bbbc021.pth'), 'embeddings': str(plugin / 'data' / 'emb_fp.csv'),
@@ -69,20 +80,23 @@ def main(plugin, meta, images, out, n_gen=12, n_ref=150, seed=0):
     cos = lambda a, b: float(a @ b / (np.linalg.norm(a) * np.linalg.norm(b) + 1e-12))
     res = {}
     for cpd, r in rows.items():
-        T = true_effects[cpd]; base = np.mean([true_effects[c] for c in compounds if c != cpd], 0)
+        T = true_effects[cpd]; base = np.mean([true_effects[c] for c in baseline_pool if c != cpd], 0)
         res[cpd] = {'moa': r['moa'], 'nGenerated': n_gen, 'nTreatedReference': r['nTreatedReference'], 'doses': r['doses'],
                     'effectCosine': cos(r['pred'], T), 'baselineCosine': cos(base, T), 'magnitudeRatio': float(np.linalg.norm(r['pred']) / (np.linalg.norm(T) + 1e-12)),
                     'distanceGeneratedToTreated': float(np.linalg.norm(r['genMean'] - r['trt'])), 'distanceUntreatedToTreated': float(np.linalg.norm(T)),
                     'distanceBaselineToTreated': float(np.linalg.norm(base - T))}
     summary = {k: float(np.mean([v[k] for v in res.values()])) for k in ('effectCosine', 'baselineCosine', 'magnitudeRatio', 'distanceGeneratedToTreated', 'distanceUntreatedToTreated', 'distanceBaselineToTreated')}
-    report = {'dataset': str(meta), 'compounds': res, 'summary': summary, 'nDmsoInputs': n_gen, 'nDmsoReference': len(ref_ctrl), 'seed': seed,
+    seen = ['Compounds were seen in training; cells are from the test split of this metadata table, which may not equal the split used to train the released checkpoint.']
+    unseen = ['Compounds were excluded from training (ood_set of configs/bbbc021_all.yaml); the DMSO input cells are from the test split of the same table.',
+              f'Baseline is the mean effect of the {len(baseline_pool)} trained compounds in the test split.']
+    report = {'dataset': str(meta), 'mode': 'unseen compounds' if ood else 'seen compounds, held-out cells', 'compounds': res, 'summary': summary,
+              'nDmsoInputs': n_gen, 'nDmsoReference': len(ref_ctrl), 'seed': seed, 'baselineCompounds': [c for c in baseline_pool],
               'features': 'per channel: mean, SD, Otsu foreground fraction, GLCM contrast (16 levels); standardised by DMSO reference',
-              'caveats': ['Compounds were seen in training; cells are from the test split of this metadata table, which may not equal the split used to train the released checkpoint.',
-                          'Dose is not conditioned on; treated references pool all doses.', 'Feature-level comparison, not FID.']}
+              'caveats': (unseen if ood else seen) + ['Dose is not conditioned on; treated references pool all doses.', 'Feature-level comparison, not FID.']}
     (out / 'benchmark.json').write_text(json.dumps(report, indent=1))
     print(json.dumps({'summary': summary, 'compounds': {k: {m: round(v[m], 3) if isinstance(v[m], float) else v[m] for m in ('effectCosine', 'baselineCosine', 'magnitudeRatio', 'distanceGeneratedToTreated', 'distanceUntreatedToTreated')} for k, v in res.items()}}, indent=1))
 
 
 if __name__ == '__main__':
-    a = sys.argv[1:]
-    main(a[0], a[1], a[2], a[3], *(int(x) for x in a[4:6]))
+    a = [x for x in sys.argv[1:] if x != '--ood']
+    main(a[0], a[1], a[2], a[3], *(int(x) for x in a[4:6]), ood='--ood' in sys.argv)
