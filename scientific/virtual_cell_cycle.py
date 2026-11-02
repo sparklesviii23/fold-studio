@@ -27,6 +27,12 @@ MODEL_ID = 'BIOMD0000000730'
 MODULES = [('Md', 'Cdk4–6 / cyclin D', 'G1'), ('Me', 'Cdk2 / cyclin E', 'G1/S'), ('Ma', 'Cdk2 / cyclin A', 'S–G2'), ('Mb', 'Cdk1 / cyclin B', 'G2/M')]
 PHASES = ['G1', 'G1/S', 'S–G2', 'G2/M']
 SHOWN = ['Md', 'Me', 'Ma', 'Mb', 'E2F', 'Cdh1a', 'Cdc20a', 'p27', 'Primer', 'Chk1']
+# The only link from this model to the 3D cell. A visualization rule, not a model prediction: the model has no
+# chromatin, size or organelle variables. Brightness of the nucleus/DNA layer = base + scale × (Cdk1/cyclin B ÷ its
+# maximum over the run); the phase badge shows the forward-only phase proxy. Nothing else in the cell view changes.
+VISUAL = {'variable': 'Mb', 'layer': 'dna', 'base': 0.6, 'scale': 1.6, 'category': 'illustrative',
+          'rule': 'Nucleus/DNA-layer brightness = 0.6 + 1.6 × normalised Cdk1/cyclin B activity (visualization rule; the model has no geometric or chromatin variables). '
+                  'Phase badge = forward-only half-maximum phase proxy.'}
 LIMITS = {'hours': (24.0, 240.0), 'gf': (0.0, 5.0)}
 METHOD = {'rtol': 1e-8, 'atol': 1e-10, 'method': 'LSODA', 'step': 0.1}
 
@@ -108,11 +114,11 @@ def run(root, gf=1.0, hours=120.0):
     m = model(root); points = min(2000, int(round(hours / METHOD['step'])) + 1)          # solver output cap: 2,000 points
     key = hashlib.sha256(json.dumps([m.sha256, gf, hours, points, METHOD], sort_keys=True).encode()).hexdigest()[:24]
     f = _cache_dir(root) / f'{key}.json'
-    if f.is_file():
-        return {**json.loads(f.read_text()), 'cached': True}
+    if f.is_file():                                           # the display rule is attached on read: it is not part of the numerical result
+        return {**json.loads(f.read_text()), 'visual': VISUAL, 'cached': True}
     r = sim.simulate(m, hours, points=points, method=METHOD['method'], rtol=METHOD['rtol'], atol=METHOD['atol'], overrides={'GF': gf}, check=True)
     out = {'key': key, 'model': describe(m), 'gf': gf, 'hours': hours, 'time': r['time'], 'series': {k: r['series'][k] for k in r['series']},
-           'shown': SHOWN, 'modules': [{'id': k, 'name': n, 'phase': p} for k, n, p in MODULES], 'solver': r['solver'], 'diagnostics': r['diagnostics'],
+           'shown': SHOWN, 'visual': VISUAL, 'modules': [{'id': k, 'name': n, 'phase': p} for k, n, p in MODULES], 'solver': r['solver'], 'diagnostics': r['diagnostics'],
            'analysis': analyse(r['time'], r['series']), 'evidence': 'Mechanistic simulation output (generic mammalian model)',
            'interpretation': 'Numerical output of the published model with the stated growth factor. Convergence says nothing about whether it describes Hep G2.'}
     f.write_text(json.dumps(out))
@@ -132,4 +138,9 @@ def at(r, time):
     lab = r['analysis']['labels'][i]
     return {'time': float(t[i]), 'index': i, 'variables': {k: float(v[i]) for k, v in r['series'].items()},
             'phase': 'quiescent (G0-like)' if r['analysis']['quiescent'] else None if lab is None else PHASES[lab], 'regime': r['analysis']['regime'],
-            'phaseRule': r['analysis']['rule'], 'quiescent': r['analysis']['quiescent']}
+            'phaseRule': r['analysis']['rule'], 'quiescent': r['analysis']['quiescent'], 'visual': visual(r, i)}
+
+
+def visual(r, i):
+    v = np.asarray(r['series'][VISUAL['variable']]); x = float(v[i] / max(float(v.max()), 1e-12))
+    return {**VISUAL, 'normalised': x, 'gain': VISUAL['base'] + VISUAL['scale'] * x}

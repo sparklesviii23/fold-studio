@@ -40,6 +40,8 @@ DATASETS = {
     'uniprot_human': {'organism': 'Homo sapiens', 'cellLines': 'not cell-line specific', 'modality': 'protein identifiers and curated annotations', 'unit': None, 'release': 'UniProtKB/Swiss-Prot (see manifest retrieved date)'},
     'reactome': {'organism': 'Homo sapiens', 'cellLines': 'not cell-line specific', 'modality': 'pathway membership and hierarchy', 'unit': None, 'release': 'see annotations manifest (release number)'},
     'encode_hepg2_rna': {'organism': 'Homo sapiens', 'cellLines': ['CVCL_0027'], 'modality': 'bulk RNA-seq transcript quantification (RSEM)', 'unit': 'TPM (RSEM); IsoPct', 'release': 'ENCODE ENCSR000CPE, GENCODE V29'},
+    'paxdb_hepg2': {'organism': 'Homo sapiens', 'cellLines': ['CVCL_0027'], 'modality': 'protein abundance (mass spectrometry)', 'unit': 'ppm (PaxDb)', 'release': 'PaxDb latest; Geiger et al. 2012 iBAQ and spectral counting'},
+    'cellpainting_hepg2': {'organism': 'Homo sapiens', 'cellLines': ['CVCL_0027'], 'modality': 'Cell Painting fluorescence microscopy (4 channels: DNA, ER, AGP, Mito)', 'unit': 'raw 16-bit intensity; pixels', 'release': 'Cell Painting Gallery cpg0036 (EU-OS Bioactives), FMP batch 2021_09_03'},
     'gerard2009': {'organism': 'Mammalian (generic)', 'cellLines': 'not calibrated to any cell line', 'modality': 'mechanistic cell-cycle ODE model', 'unit': 'dimensionless concentrations (µM scale), time in h', 'release': 'BioModels BIOMD0000000730'},
 }
 
@@ -65,14 +67,22 @@ CAPABILITIES = [
      'context': 'Hep G2 (parental) only', 'runtime': 'local', 'evidence': 'measured / annotation', 'validation': 'operational_tested', 'ui': 'Protein & pathways › Transcripts', 'dependencies': ['encode_hepg2_rna']},
     {'id': 'vcell.cellcycle', 'provider': 'simulation', 'module': 'virtual_cell_cycle.py (Mechanistic Lab solver)', 'inputs': ['growth-factor level', 'duration'], 'outputs': ['44-species time series', 'Cdk-module labels'],
      'context': 'generic mammalian; not calibrated to any line', 'runtime': 'local CPU (≈10 s for 200 h)', 'evidence': 'simulation', 'validation': 'integrated_unbenchmarked', 'ui': 'Cell-cycle timeline', 'dependencies': ['gerard2009']},
-    {'id': 'vcell.proteomics', 'provider': 'dataset', 'module': None, 'inputs': ['protein'], 'outputs': ['measured abundance'], 'context': 'needs a line-matched proteomics dataset',
-     'runtime': None, 'evidence': 'measured', 'validation': 'deferred', 'ui': 'Protein panel (shows unavailable)', 'dependencies': ['a verified HepG2 proteomics dataset (docs/VIRTUAL_CELL_DEFERRED_WORK.md)']},
-    {'id': 'vcell.microscopy', 'provider': 'image', 'module': None, 'inputs': ['context'], 'outputs': ['multichannel images', 'morphology features'], 'context': 'needs line-matched imaging',
-     'runtime': None, 'evidence': 'measured', 'validation': 'deferred', 'ui': None, 'dependencies': ['RxRx1 (HepG2, 46 GB single archive, needs approval) or another HepG2 Cell Painting set']},
+    {'id': 'vcell.proteomics', 'provider': 'dataset', 'module': 'virtual_cell_proteomics.py (PaxDb importer + generic TSV/CSV importer)', 'inputs': ['protein', 'context'],
+     'outputs': ['measured abundance (ppm) with rank', 'pathway member abundance', 'RNA–protein rank correlation'], 'context': 'Hep G2 (Geiger 2012 via PaxDb); others need a dataset',
+     'runtime': 'local', 'evidence': 'measured', 'validation': 'operational_tested', 'ui': 'Protein panel › Abundance; RNA vs protein', 'dependencies': ['paxdb_hepg2']},
+    {'id': 'vcell.microscopy', 'provider': 'image', 'module': 'virtual_cell_microscopy.py (SciPy segmentation; per-cell morphology)', 'inputs': ['context', 'field of view'],
+     'outputs': ['observed multichannel images', 'nucleus / cell masks', 'per-cell shape, intensity, texture'], 'context': 'Hep G2 DMSO controls (cpg0036 FMP subset)',
+     'runtime': 'local CPU (≈1 s per field)', 'evidence': 'measured image; computed features', 'validation': 'integrated_unbenchmarked', 'ui': 'View › Cell Painting',
+     'dependencies': ['cellpainting_hepg2'], 'benchmark': 'not yet compared with CellProfiler outputs for the same images'},
     {'id': 'vcell.microscopy.generative', 'provider': 'image', 'module': None, 'inputs': ['perturbation'], 'outputs': ['generated images'], 'context': 'model training domain only',
      'runtime': 'GPU', 'evidence': 'prediction', 'validation': 'model_unavailable', 'ui': None, 'dependencies': ['morphodiff plugin: weights, licence and held-out evaluation']},
-    {'id': 'vcell.structures', 'provider': 'structure', 'module': 'virtual_cell_annotations.py (PDB cross-references)', 'inputs': ['protein'], 'outputs': ['PDB identifiers'], 'context': 'any',
-     'runtime': 'local', 'evidence': 'annotation', 'validation': 'partial', 'ui': 'Protein panel › Structures', 'dependencies': ['opening saved Boltz / AlphaFold results from the Molecular Laboratory is not connected yet']},
+    {'id': 'vcell.structures', 'provider': 'structure', 'module': 'virtual_cell_structures.py (read-only over library structure records; Molecular Intelligence parser, map_sequence, confidence, fit)',
+     'inputs': ['UniProt accession'], 'outputs': ['saved structures with chain mapping, origin, declared confidence', 'Cα RMSD / TM-score on shared UniProt positions', 'PDB cross-references'],
+     'context': 'any (structures are not cell-line specific)', 'runtime': 'local', 'evidence': 'annotation / prediction / measured (per record)', 'validation': 'operational_tested', 'ui': 'Protein panel › Structures › Open in Molecular Viewer', 'dependencies': []},
+    {'id': 'vcell.results', 'provider': 'simulation', 'module': 'virtual_cell_results.py (read-only over cell_physics/runs and rna_lab/runs research records)',
+     'inputs': ['saved record id'], 'outputs': ['time series with units', 'profiles', 'scalars', 'solver, benchmark checks, assumptions, limitations', 'integrity re-check'],
+     'context': 'the idealised system in each record (not mapped onto the selected cell)', 'runtime': 'local', 'evidence': 'simulation', 'validation': 'operational_tested',
+     'ui': 'Simulations › Saved lab results', 'dependencies': ['Living Cell Physics', 'RNA-to-Protein Lab']},
     {'id': 'vcell.compute', 'provider': 'compute', 'module': 'gpu_tasks.py (existing Modal lifecycle)', 'inputs': ['recipe'], 'outputs': ['cost-gated remote job'], 'context': 'n/a',
      'runtime': 'Modal', 'evidence': 'n/a', 'validation': 'partial', 'ui': 'Discover › Cloud GPU tasks', 'dependencies': ['no Virtual Cell recipe is routed through it yet']},
 ]
@@ -152,8 +162,16 @@ def coverage(root, ref, jobs=None):
         put('transcript isoforms', 'unsupported', None, 'No integrated transcript-level dataset for this line.')
     put('protein localization', 'available' if has('hpa_subcellular') else 'not_downloaded', 'HPA / UniProt (general human annotation)')
     put('pathways', 'available' if has('reactome') else 'not_downloaded', 'Reactome')
-    put('protein abundance', 'unsupported', None, 'No verified proteomics dataset integrated for this line.')
-    put('microscopy / morphology', 'unsupported', None, 'No line-matched imaging dataset integrated (see deferred work).')
+    import virtual_cell_proteomics as VP
+    prot = VP.available(root, rrid) if (pathlib.Path(root) / 'virtualcell' / 'data' / 'paxdb_hepg2' / 'proteomics.sqlite').is_file() else []
+    if prot:
+        put('protein abundance', 'available', ' · '.join(f"{m['id']} ({m['counts']['resolved']:,} proteins)" for m in prot), 'PaxDb ppm; one value per protein, no replicates published.')
+    else:
+        put('protein abundance', 'unsupported', None, 'No verified proteomics dataset integrated for this line.')
+    if rrid == 'CVCL_0027' and (pathlib.Path(root) / 'virtualcell' / 'data' / 'cellpainting_hepg2' / 'original' / 'subset.json').is_file():
+        put('microscopy / morphology', 'available', 'cpg0036 EU-OS Bioactives, FMP, plate B1001_R1, DMSO wells (24 images)', 'Observed images; morphology computed in pixels.')
+    else:
+        put('microscopy / morphology', 'unsupported', None, 'No line-matched imaging dataset integrated (see deferred work).')
     put('cell-cycle dynamics', 'unvalidated' if has('gerard2009') else 'not_downloaded', 'Gérard & Goldbeter 2009 (generic mammalian model)', 'Not calibrated to this line.')
     put('drug response', 'available' if kind in ('tahoe', 'k562') and has('tahoe100m') else 'unsupported', 'Tahoe-100M' + (' (transferred to K-562)' if kind == 'k562' else ''),
         'Parental Hep G2 is not in Tahoe-100M; HepG2/C3A is a separate context.' if rrid == 'CVCL_0027' else None)

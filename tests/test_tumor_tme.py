@@ -28,7 +28,10 @@ def write_run(root, frames, field_hi=38.0):
 
 class TmeTests(unittest.TestCase):
     def test_recipe_inputs(self):
-        self.assertEqual(G._clean_inputs('physicell', {}), {'sample': 'cancer_immune', 'days': 21})
+        # Every declared input is filled with its recipe default (immune parameters added with the immune-scaling recipe).
+        self.assertEqual(G._clean_inputs('physicell', {}), {'sample': 'cancer_immune', 'days': 21, 'immuneScale': 1.0, 'immuneStartDay': -1.0, 'killScale': 1.0})
+        with self.assertRaises(ValueError):
+            G._clean_inputs('physicell', {'immuneScale': 6})
         with self.assertRaises(ValueError):
             G._clean_inputs('physicell', {'sample': 'rm -rf'})
         with self.assertRaises(ValueError):

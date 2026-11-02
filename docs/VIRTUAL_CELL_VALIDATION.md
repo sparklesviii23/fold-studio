@@ -34,6 +34,23 @@ published behaviour. Neither alone establishes biological accuracy.
 | Cell-cycle published behaviour | Period 25.65 ± 0.15 h at GF 1; Cdk2/E → Cdk2/A → Cdk1/B → Cdc20 order; strictly ordered phase proxies (G1 4.9 h, G1/S 5.0 h, S–G2 10.3 h, G2/M 5.0 h); GF 0 → steady state; GF 0.05 → small-amplitude cycle (peaks 0.008 vs 0.433), phases not assigned | Generic model; not compared with Hep G2 data (none integrated) |
 | Phase-rule review | "Highest relative module activity" rejected: produced G1 → G1/S → S–G2 → G1 → G2/M because cyclin D/Cdk4–6 stays high | Replaced by forward-only half-maximum rule |
 
+## Stage 3 (2 November 2026)
+
+| Check | Result |
+|---|---|
+| Full backend suite, intended runtime (`runtimes/jax-cpu`: gemmi 0.7.5, SciPy 1.18.1) | 1,124 run: 2 failures, 0 errors, 10 skipped before fixes. The 61 earlier `gemmi` errors were caused by running under `runtimes/singlecell`, which lacks gemmi. Failures: bundle manifest missing the new `virtual_cell_structures.py` (fixed by registering it); `test_tumor_tme.test_recipe_inputs` stale after the PhysiCell recipe gained immune parameters (test updated to the recipe defaults and now also checks the new bound). Final full-suite count: see the checkpoint entry. |
+| Virtual Cell backend / interface | 61 / 242 passed; TypeScript passed |
+| Proteomics identifiers | iBAQ 6,740/6,740 rows resolved (ENSP via GENCODE V29), spectral counting 3,546/3,547 (one ambiguous) |
+| Proteomics identity | Hepatocyte proteins present (APOA1 209 ppm, AFP 213, APOB, SERPINA1, FGB, TTR); ALB absent from both PaxDb files (shown as not reported) |
+| RNA–protein (rank only) | Spearman ρ 0.487 (n 6,737, iBAQ) and 0.447 (n 3,538, spectral counting) vs ENCODE gene TPM; detected proteins only |
+| Cell Painting pixels | 24 TIFFs, SHA-256 verified on every load; 16-bit raw values unchanged |
+| Cell Painting reproducibility | Medians across 6 fields / 2 wells: nucleus 773–1,124 px², cell 1,794–2,314 px², ratio 0.46–0.50, eccentricity 0.69–0.77 |
+| Segmentation method choice | Global Otsu fragmented nuclei into chromatin speckles; distance-transform watershed produced axis-aligned fragments; local adaptive threshold adopted (visual inspection). Synthetic disks: count exact, area within 15 %. No reference masks for these images → not benchmarked |
+| Structures | 13 saved records map to ANGPTL3 (Q9Y5C1) at 100 % identity; Boltz-2 vs BindCraft Cα RMSD 0.17 Å over UniProt 36–85 |
+| Lab results | 12/12 records pass integrity with their lab's own hash recipe |
+| Cell-cycle → 3D | Scrub to 60 h: DNA layer ×2.19 (Cdk1/B peak), unlabelled (before first mitotic exit); 70 h: G1/S, ×0.65 |
+| Interface walkthrough (dev bridge, real worker, QA copy of the library) | Cell Painting view; ANGPTL3 → saved structures → Molecular Viewer (Boltz-2 model, 5,022 atoms) → Return to Virtual Cell restored the same cell and protein; cell-cycle scrubbing changed the 3D badge and DNA gain |
+
 ## Interface validation (real worker, not the Tauri shell)
 
 The dev bridge (`worker.py --serve` + Vite, token-gated, isolated QA library with read-only links to the reference

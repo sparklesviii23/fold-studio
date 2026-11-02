@@ -154,3 +154,22 @@ td.down { color: var(--vc-down); }
 .vc-snaps .vc-step { grid-template-columns: auto 1fr auto auto auto; }
 .vc-snaps .vc-step small { grid-column: 2 / 3; }
 .vc-compare { display: grid; gap: 4px; }
+.vc-return { position: fixed; top: 14px; left: 50%; transform: translateX(-50%); z-index: 60; display: inline-flex; align-items: center; gap: 6px; padding: 7px 14px; border-radius: 999px;
+  border: 1px solid rgb(140 180 255 / 0.35); background: rgb(20 28 52 / 0.88); color: #dbeaff; font-size: 0.78rem; backdrop-filter: blur(10px); cursor: pointer; }
+.vc-return:hover { background: rgb(40 56 100 / 0.92); }
+.vc-stage-cycle { position: absolute; right: 14px; top: 14px; display: grid; gap: 4px; justify-items: end; padding: 8px 12px; border-radius: 12px; background: rgb(8 12 26 / 0.72); border: 1px solid rgb(255 255 255 / 0.08); }
+.vc-stage-cycle small { color: var(--text-faint); font-size: 0.66rem; }
+.vc-profile { width: 100%; height: 48px; display: block; } .vc-profile rect { fill: #8fb3ff; }
+.vc-checks { margin: 0; padding-left: 0; list-style: none; display: grid; gap: 3px; font-size: 0.72rem; } .vc-checks .ok { color: #8fe6c1; } .vc-checks .bad { color: #f0a3a3; }
+.vc-results { display: grid; gap: 4px; max-height: 220px; overflow-y: auto; }
+.vc-scatter { width: 100%; height: auto; display: block; } .vc-scatter line { stroke: rgb(255 255 255 / 0.2); } .vc-scatter circle { fill: #8fb3ff; opacity: 0.55; }
+.vc-scatter text { fill: var(--text-faint); font-size: 7px; }
+.vc-painting { display: grid; gap: 10px; padding: 10px 0; }
+.vc-paint-stage { position: relative; height: 560px; overflow: hidden; border-radius: 16px; background: #000; cursor: grab; touch-action: none; }
+.vc-paint-layers { position: absolute; inset: 0; transform-origin: center; display: grid; place-items: center; }
+.vc-paint-layers canvas, .vc-paint-layers img { grid-area: 1 / 1; height: 100%; width: auto; max-width: 100%; object-fit: contain; image-rendering: pixelated; pointer-events: none; }
+.vc-paint-badge { position: absolute; left: 12px; bottom: 10px; padding: 3px 9px; border-radius: 8px; font-size: 0.68rem; color: #dbeaff; background: rgb(8 12 26 / 0.7); }
+.vc-paint-controls { display: flex; flex-wrap: wrap; gap: 10px 16px; align-items: center; }
+.vc-paint-ch { display: inline-flex; align-items: center; gap: 6px; font-size: 0.74rem; color: var(--text-muted); }
+.vc-paint-ch i { width: 10px; height: 10px; border-radius: 3px; display: inline-block; }
+.vc-paint-ch input[type=range] { width: 80px; }

@@ -51,9 +51,26 @@ values: null}` — and the UI shows the reason. To add a provider: implement the
 licence), extend `coverage()` if it adds a modality, package the module in `src-tauri/tauri.conf.json`, add tests.
 The renderer and state system need no change.
 
+## Stage 3 contracts
+
+- Structure provider `vcell_structures {accession}` → `{structures: [{id, kind ∈ experimental|predicted|designed|illustrative|unknown,
+  origin, chains: [{chain, uniprotStart, uniprotEnd, identity}], confidence: {metric, meanByChain, ptm, iptm} | null}], skipped}`;
+  `vcell_structure_compare {accession, a, b}` → Cα RMSD, TM-score (RMSD-superposition lower bound), per-position deviations.
+  The App opens a record with `VirtualCellLab.onOpenStructure(id, label)`; the cell and protein are restored from
+  sessionStorage `fold-vcell-return` on return.
+- Simulation results `vcell_results_list`, `vcell_result_get {source, result}` → `fold.virtualcell.simulation-result/1`
+  (model, evidence, inputs with units, solver, time, series, profiles, scalars, convergence, assumptions, limitations, integrity).
+  New sources: add an entry to `virtual_cell_results.SOURCES` with the writing lab's hash recipe.
+- Proteomics `vcell_rna_protein`; abundance appears in `vcell_protein.abundance` and pathway members. New datasets:
+  `virtual_cell_proteomics.import_table(root, path, spec)` (unit, method, RRID, citation, licence required).
+- Microscopy `vcell_microscopy_list`, `vcell_microscopy_view {key}` → display PNGs (percentile-scaled copies), outlines,
+  per-field feature summary and per-cell rows; raw pixels and masks stay in the library.
+- Report `vcell_report` → `fold.virtualcell.report/1` with SHA-256.
+
 ## Rendering mappings (documented, not inferred)
 
 - Channel brightness = 2^(3 × mean change in the compartment's genes), clipped 0.2–3 (display only).
 - Compartment gene sets: HPA Enhanced/Supported/Approved calls via `virtual_cell_annotations.LAYERS`; Human-GEM fallback.
 - Protein selection hides layers the protein is not annotated to; nothing implies a position inside a compartment.
-- The cell-cycle model drives no geometry (no geometric variables exist in it).
+- Cell-cycle timeline open: nucleus/DNA-layer brightness = 0.6 + 1.6 × (Cdk1/cyclin B ÷ its run maximum); category
+  illustrative; recorded in simulation snapshots as `visualization`. No geometry is driven (the model has none).

@@ -819,8 +819,16 @@ def protein(root, ref, cell, query):
             'pathways': paths, 'pathwayEvidence': 'Reactome lowest-level pathways for the UniProt accession (TAS = traceable author statement, IEA = inferred electronically).',
             'structures': {'pdb': rec['pdb'][:40], 'count': len(rec['pdb']), 'source': 'PDB entries cross-referenced by UniProt (experimental structures; coverage of the chain may be partial).'},
             'mechanisticTarget': {'accession': rec['uniprot'][0], 'genes': [g], 'name': g} if rec['uniprot'] else None,
-            'abundance': 'Protein abundance is not available for this context (no installed proteomics dataset); RNA is not used as a substitute.',
+            'abundance': _abundance(root, ref, g),
             'manifest': {'reactomeRelease': ix.manifest.get('reactomeRelease'), 'built': ix.manifest['built']}}
+
+
+def _abundance(root, ref, g):
+    import virtual_cell_proteomics as VP
+    rows = VP.protein(root, g, ref.cellosaurus) if getattr(ref, 'cellosaurus', None) else None
+    if not rows:
+        return 'Protein abundance is not available for this context (no installed proteomics dataset); RNA is not used as a substitute.'
+    return {'datasets': rows, 'evidence': EVIDENCE['A'], 'note': 'Separate experiment from the RNA data shown here: different samples, lab and year.'}
 
 
 def pathway(root, ref, cell, pid):
@@ -829,10 +837,17 @@ def pathway(root, ref, cell, pid):
     if pid not in ix.pathways:
         raise ValueError('Unknown human Reactome pathway.')
     p = ix.pathways[pid]; s = replay(ref, cell['history'])
-    members = [{'gene': g, **_expression_row(ref, s, g), 'layers': VA.localization(ix, g)['layers'] if g in ix.genes else []} for g in p['genes']]
+    import virtual_cell_proteomics as VP
+    sets = VP.available(root, ref.cellosaurus) if getattr(ref, 'cellosaurus', None) else []
+    prot = {m['id']: VP.values(root, m['id']) for m in sets}
+    members = [{'gene': g, **_expression_row(ref, s, g), 'layers': VA.localization(ix, g)['layers'] if g in ix.genes else [],
+                'protein': {d: v.get(g) for d, v in prot.items()}, 'structures': len(ix.genes[g]['pdb']) if g in ix.genes else 0,
+                'uniprot': (ix.genes[g]['uniprot'] or [None])[0] if g in ix.genes else None} for g in p['genes']]
     return {'id': pid, 'name': p['name'], 'url': 'https://reactome.org/content/detail/' + pid, 'ancestry': VA.ancestry(ix, pid),
             'children': [{'id': c, 'name': ix.pathways[c]['name']} for c in ix.children.get(pid, [])],
             'members': members, 'measured': sum(m['inPanel'] for m in members), 'context': context_info(ref)['name'],
+            'proteinDatasets': [{'id': m['id'], 'method': m['method'], 'unit': m['unit']} for m in sets],
+            'proteinMeasured': {d: sum(1 for m in members if m['protein'].get(d) is not None) for d in prot},
             'note': 'Membership is curated by Reactome. Values are this context\'s expression; pathway activity is not inferred from them.',
             'reactomeRelease': ix.manifest.get('reactomeRelease')}
 
@@ -876,6 +891,17 @@ def _dataset_ids(ref):
 def state_dispatch(service, action, p, ref, cell):
     import virtual_cell_state as VS, virtual_cell_registry as VR, virtual_cell_cycle as VC, virtual_cell_transcripts as VT
     root = service.root
+    if action == 'vcell_report':
+        import virtual_cell_state as VSS
+        cov = VR.coverage(root, ref); used = sorted({'depmap24q4', 'hpa_subcellular', 'uniprot_human', 'reactome'} | ({'encode_hepg2_rna', 'paxdb_hepg2', 'cellpainting_hepg2'} if ref.kind == 'depmap' else set()))
+        rep = {'schema': 'fold.virtualcell.report/1', 'created': VSS.now(), 'context': context_info(ref), 'cell': {k: cell[k] for k in ('id', 'name', 'created', 'history', 'sha256', 'parent', 'reference')},
+               'state': {'composition': replay(ref, cell['history'])['composition'], 'evidence': EVIDENCE[replay(ref, cell['history'])['category']]},
+               'coverage': cov, 'missing': {k: v for k, v in cov.items() if v['state'] in ('unsupported', 'not_downloaded', 'unmeasured')},
+               'datasets': VR.manifest(root, used), 'capabilities': [{k: c[k] for k in ('id', 'validation', 'validationLabel', 'evidence', 'context')} for c in VR.capabilities()],
+               'snapshots': VSS.listing(root, cell['id']), 'software': {'engine': 'Fold Studio Virtual Cell', 'python': __import__('platform').python_version(), 'numpy': np.__version__},
+               'note': 'Datasets come from different experiments, samples and years; values are not simultaneous measurements of one cell. Simulations are generic unless stated.'}
+        rep['sha256'] = _sha(rep)
+        return rep
     if action == 'vcell_coverage':
         return {'context': context_info(ref), 'coverage': VR.coverage(root, ref), 'states': list(VR.COVERAGE)}
     if action == 'vcell_transcripts':
@@ -892,7 +918,7 @@ def state_dispatch(service, action, p, ref, cell):
         if p.get('simulation'):
             r = VC.load_run(root, str(p['simulation'].get('key', ''))); x = VC.at(r, p['simulation'].get('time', 0))
             sim = {'model': r['model'], 'solver': r['solver'], 'parameters': {'GF': r['gf']}, 'hours': r['hours'], 'runKey': r['key'], 'diagnostics': r['diagnostics'],
-                   'time': x['time'], 'timeUnit': 'h', 'phase': x['phase'], 'regime': x['regime'], 'phaseRule': x['phaseRule'], 'variables': x['variables'],
+                   'time': x['time'], 'timeUnit': 'h', 'phase': x['phase'], 'regime': x['regime'], 'phaseRule': x['phaseRule'], 'variables': x['variables'], 'visualization': x['visual'],
                    'category': 'simulation', 'calibration': r['model']['calibration']}
             kind = 'simulation'; used = used + ['gerard2009']
         return VS.create(root, cell, context_info(ref), p.get('label', ''), kind, blocks, sim, p.get('parent'), VR.manifest(root, sorted(set(used))))
@@ -911,11 +937,48 @@ def state_dispatch(service, action, p, ref, cell):
         return VS.create(root, cell, context_info(ref), 'Imported: ' + (snap.get('label') or snap['id'][:8]), 'imported', snap['blocks'], snap.get('simulation'), None, snap.get('datasets'))
     if action == 'vcell_snapshot_delete':
         return VS.delete(root, cell['id'], p.get('snapshot'))
+    if action == 'vcell_rna_protein':
+        import virtual_cell_proteomics as VP
+        sets = VP.available(root, getattr(ref, 'cellosaurus', None) or '')
+        if not sets:
+            return VR.unsupported('vcell.proteomics', f"No proteomics dataset is integrated for {context_info(ref)['name']}.", ['a line-matched proteomics dataset'])
+        if VT.available(root) and ref.cellosaurus == 'CVCL_0027' and p.get('rna', 'encode') == 'encode':
+            import sqlite3
+            db = sqlite3.connect(f"file:{VT.folder(root) / 'transcripts.sqlite'}?mode=ro", uri=True); rna = {}
+            for g, d in db.execute('SELECT gene_name, data FROM tx'):
+                t = json.loads(d); reps = list(t['rsem'].values())
+                if reps:
+                    rna[g] = rna.get(g, 0.0) + sum(x['TPM'] for x in reps) / len(reps)
+            db.close(); rna_label = 'ENCODE ENCSR000CPE gene TPM (sum of transcripts, mean of 2 replicates)'
+        else:
+            rna = {g: float(v) for g, v in ref.depmap_expr.items() if np.isfinite(v)}; rna_label = ref.manifest['expressionUnit']
+        out = []
+        for m in sets:
+            c = VP.rna_protein(root, m['id'], rna)
+            pts = c.pop('points', [])
+            out.append({**c, 'dataset': m['id'], 'method': m['method'], 'unit': m['unit'], 'sample': pts[::max(1, len(pts) // 600)]})
+        return {'rna': rna_label, 'comparisons': out, 'context': context_info(ref)['name']}
+    if action in ('vcell_microscopy_list', 'vcell_microscopy_view'):
+        import virtual_cell_microscopy as VM
+        if getattr(ref, 'cellosaurus', None) != VM.CONTEXT or not VM.subset(root):
+            return VR.unsupported('vcell.microscopy', f"No observed Cell Painting images are integrated for {context_info(ref)['name']}.", ['a line-matched Cell Painting subset'])
+        if action == 'vcell_microscopy_list':
+            return {'supported': True, 'dataset': VM.DATASET, 'channels': VM.CHANNELS, 'images': [{k: v for k, v in x.items() if k != 'channels'} | {'channels': sorted(x['channels'])} for x in VM.images(root)]}
+        return {'supported': True, **VM.view(root, str(p.get('key', '')))}
+    if action in ('vcell_structures', 'vcell_structure_compare'):
+        import virtual_cell_structures as VST
+        acc = str(p.get('accession', '')).upper()
+        if not re.fullmatch(r'[A-Z0-9]{6,10}(?:-\d+)?', acc):
+            raise ValueError('Invalid UniProt accession.')
+        if action == 'vcell_structures':
+            return VST.for_protein(service, acc)
+        return VST.compare(service, acc, str(p.get('a', '')), str(p.get('b', '')), p.get('chainA'), p.get('chainB'))
     raise ValueError('Unsupported virtual cell action.')
 
 
 STATE_ACTIONS = {'vcell_coverage', 'vcell_transcripts', 'vcell_cycle_run', 'vcell_snapshot_save', 'vcell_snapshot_list', 'vcell_snapshot_get',
-                 'vcell_snapshot_compare', 'vcell_snapshot_export', 'vcell_snapshot_import', 'vcell_snapshot_delete'}
+                 'vcell_snapshot_compare', 'vcell_snapshot_export', 'vcell_snapshot_import', 'vcell_snapshot_delete', 'vcell_structures', 'vcell_structure_compare', 'vcell_rna_protein',
+                 'vcell_microscopy_list', 'vcell_microscopy_view', 'vcell_report'}
 
 
 def dispatch(service, action, p):
@@ -923,6 +986,9 @@ def dispatch(service, action, p):
     if action == 'vcell_registry':
         import virtual_cell_registry as VR
         return {'datasets': VR.datasets(root, verify=bool(p.get('verify'))), 'capabilities': VR.capabilities(), 'validation': VR.VALIDATION, 'providers': list(VR.PROVIDERS)}
+    if action in ('vcell_results_list', 'vcell_result_get'):
+        import virtual_cell_results as VRS
+        return VRS.listing(root) if action == 'vcell_results_list' else VRS.get(root, str(p.get('source', '')), str(p.get('result', '')))
     if action == 'vcell_transcripts_build':
         job = _job(root, 'transcripts')
         if job and job['running']:

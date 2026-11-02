@@ -6,11 +6,14 @@ import CellStage, {type CellSettings} from '../../cell/CellStage';
 import {layerNames} from '../../cell/organelles';
 import ProteinWorkspace, {Enrichment} from './ProteinWorkspace';
 import CellCycleTimeline from './CellCycleTimeline';
+import SimulationResult from './SimulationResult';
+import RnaProtein from './RnaProtein';
+import CellPainting from './CellPainting';
 import {Coverage, Snapshots} from './StatePanels';
 import './virtualcell.css';
 
 type Readout = 'expression' | 'fitness' | 'metabolism' | 'signalling';
-type Sim = 'overexpress' | 'knockdown' | 'knockout' | 'drug' | 'protein' | 'cycle' | 'signature' | 'design' | 'history';
+type Sim = 'overexpress' | 'knockdown' | 'knockout' | 'drug' | 'protein' | 'cycle' | 'results' | 'signature' | 'design' | 'history';
 const OP_LABEL: Record<string, string> = {gene_overexpression: 'Over-express', gene_knockdown: 'Knock down', gene_knockout: 'Knock out', small_molecule: 'Drug'};
 const CHANNEL_COLOR: Record<string, string> = {dna: '#3d6bff', mito: '#ff3a52', er: '#38ff80', golgi: '#ffd633', rna: '#ff8033', vesicles: '#f066e6'};
 const STYLE = {channels: 2, illustrated: 0};
@@ -49,7 +52,9 @@ function Panel({title, sub, children, actions}: {title: string; sub?: string; ch
 }
 
 /** Analyse › Virtual Cell: persistent cells you perturb, read out, branch and design against (scientific/virtual_cell.py). */
-export default function VirtualCellLab() {
+const RETURN_KEY = 'fold-vcell-return';
+
+export default function VirtualCellLab({onOpenStructure}: {onOpenStructure?: (id: string, label: string) => Promise<void>} = {}) {
   const [catalog, setCatalog] = useState<any>(null), [cells, setCells] = useState<any[]>([]), [current, setCurrent] = useState<any>(null);
   const [open, setOpen] = useState<Sim | null>('overexpress'), [tab, setTab] = useState<Readout>('expression');
   const [readout, setReadout] = useState<any>(null), [design, setDesign] = useState<any>(null), [busy, setBusy] = useState(''), [error, setError] = useState('');
@@ -59,6 +64,8 @@ export default function VirtualCellLab() {
   const [hidden, setHidden] = useState<Record<string, boolean>>({});
   const [query, setQuery] = useState(''), [protein, setProtein] = useState<any>(null), [enrich, setEnrich] = useState<any>(null);
   const [coverage, setCoverage] = useState<any>(null), [snaps, setSnaps] = useState<any[]>([]), [comparison, setComparison] = useState<any>(null);
+  const [rnaProtein, setRnaProtein] = useState<any>(null), [mode, setMode] = useState<'3d' | 'painting'>('3d');
+  const [results, setResults] = useState<any[] | null>(null), [result, setResult] = useState<any>(null);
   const [cycle, setCycle] = useState<any>(null), [cycleTime, setCycleTime] = useState(0), [gf, setGf] = useState('1'), [hours, setHours] = useState('120'), [notice, setNotice] = useState('');
 
   async function call<T>(text: string, action: string, payload: any = {}) {
@@ -69,7 +76,23 @@ export default function VirtualCellLab() {
     const c = await call<any>('', 'vcell_catalog'); if (c) setCatalog(c);
     if (c?.reference.ready) { const l = await call<any[]>('', 'vcell_list'); if (l) setCells(l); }
   }
-  useEffect(() => { refresh(); }, []);
+  useEffect(() => {
+    refresh();
+    let back: any = null;
+    try { back = JSON.parse(sessionStorage.getItem(RETURN_KEY) ?? 'null'); sessionStorage.removeItem(RETURN_KEY); } catch { /* storage unavailable */ }
+    if (back?.cellId) (async () => {                       // returning from the Molecular Viewer: same cell, same protein
+      const r = await call<any>('Returning to the cell', 'vcell_get', {id: back.cellId}); if (!r) return;
+      setCurrent(r); loadState(back.cellId); observe('expression', r);
+      if (back.query) { setQuery(back.query); setOpen('protein'); const pr = await call<any>('Resolving protein', 'vcell_protein', {id: back.cellId, query: back.query}); if (pr) { setProtein(pr); const layers: string[] = pr.localization?.layers ?? [];
+        setHidden(layers.length ? Object.fromEntries(['dna', 'mito', 'er', 'golgi', 'rna', 'vesicles'].map(id => [id, !layers.includes(id)])) : {}); } }
+      if (back.notice) setNotice(back.notice);
+    })();
+  }, []);
+  async function openStructure(id: string, name: string) {
+    if (!onOpenStructure) return;
+    try { sessionStorage.setItem(RETURN_KEY, JSON.stringify({cellId: current.cell.id, query: protein?.symbol ?? query, notice: `Returned from ${name}.`})); } catch { /* storage unavailable */ }
+    try { await onOpenStructure(id, `${current.context.name} · ${protein?.symbol ?? ''}`); } catch (e) { setError(String(e).replace(/^Error:\s*/, '')); }
+  }
   useEffect(() => {
     if (!catalog?.reference.job?.running && !catalog?.annotations?.job?.running) return;
     const t = setTimeout(refresh, 3000); return () => clearTimeout(t);
@@ -136,13 +159,21 @@ export default function VirtualCellLab() {
   const k562 = current?.cell.context === 'K562';
   const kind = catalog?.contexts.find((c: any) => c.id === current?.cell.context)?.kind;
   const channels: any[] = current?.state.channels ?? [];
+  const cycleVisual = useMemo(() => {                    // backend-defined rule (virtual_cell_cycle.VISUAL); recomputed at the scrubbed time
+    if (!cycle?.visual) return null;
+    const t: number[] = cycle.time; let i = 0; for (let k = 1; k < t.length; k++) if (Math.abs(t[k] - cycleTime) < Math.abs(t[i] - cycleTime)) i = k;
+    const v: number[] = cycle.series[cycle.visual.variable]; const max = Math.max(...v, 1e-12), x = v[i] / max, lab = cycle.analysis.labels[i];
+    return {...cycle.visual, normalised: x, gain: cycle.visual.base + cycle.visual.scale * x, time: t[i],
+            phase: cycle.analysis.quiescent ? 'quiescent (G0-like)' : lab == null ? 'unlabelled' : cycle.analysis.phases[lab]};
+  }, [cycle, cycleTime]);
   const settings = useMemo<CellSettings>(() => {
-    const g = Object.fromEntries(channels.map(c => [c.id, c.gain]));
+    const g: Record<string, number> = Object.fromEntries(channels.map(c => [c.id, c.gain]));
+    if (cycleVisual) g[cycleVisual.layer] = cycleVisual.gain;
     const on = (id: string) => !hidden[id];
     return {style: STYLE[view], cut: true, slice: 0.1, glass: view === 'illustrated', animate: true, quality: 'balanced', cellType: k562 ? 'lymphocyte' : 'generic',
             layers: layerNames.map((_, i) => [on('dna'), on('dna'), on('mito'), on('er'), on('golgi'), on('rna'), on('vesicles'), true, false][i]),
             gains: [g.dna ?? 1, 1, g.mito ?? 1, g.er ?? 1, g.golgi ?? 1, g.rna ?? 1, g.vesicles ?? 1, 1]};
-  }, [channels, hidden, view, k562]);
+  }, [channels, hidden, view, k562, cycleVisual]);
 
   const status = <>
     {error && <div className="vc-error"><TriangleAlert size={14}/>{error}</div>}
@@ -228,12 +259,18 @@ export default function VirtualCellLab() {
       <input value={query} placeholder="Symbol, UniProt or Ensembl, e.g. ALB" onChange={e => setQuery(e.target.value)} onKeyDown={e => e.key === 'Enter' && query.trim() && findProtein()}/>
       <button disabled={!query.trim() || !notes?.ready} onClick={() => findProtein()}>Inspect protein</button>
       <button disabled={!notes?.ready || !current.cell.history.length} onClick={enrichment}>Enrich changed genes in Reactome</button>
+      <button onClick={async () => { const r = await call<any>('Comparing RNA and protein measurements', 'vcell_rna_protein', {id: current.cell.id}); if (r) setRnaProtein(r); }}>Compare RNA and protein</button>
       <small>{notes?.ready ? 'Localization (HPA, UniProt), measured expression and fitness here, Reactome pathways and PDB structures. The cell view shows only its annotated compartments.' : 'Install the protein annotations from the Virtual Cell home first.'}</small></>},
     {id: 'cycle', label: 'Cell-cycle timeline', icon: <Activity size={15}/>, show: true, body: <>
       <div className="vc-row"><label className="vc-check">GF <input value={gf} inputMode="decimal" onChange={e => setGf(e.target.value)} aria-label="Growth factor level"/></label>
         <label className="vc-check">hours <input value={hours} inputMode="numeric" onChange={e => setHours(e.target.value)} aria-label="Duration in hours"/></label></div>
       <button onClick={() => runCycle()}>Run model</button>
       <small>Gérard & Goldbeter 2009 (BioModels BIOMD0000000730), solved by the Mechanistic Lab. Generic mammalian parameters, not calibrated to {current.context.name}. GF 0–5, 24–240 h.</small></>},
+    {id: 'results', label: 'Saved lab results', icon: <History size={15}/>, show: true, body: <>
+      {!results ? <button onClick={async () => { const r = await call<any[]>('Reading saved laboratory records', 'vcell_results_list'); if (r) setResults(r); }}>List Cell Physics and RNA results</button>
+        : <div className="vc-results">{results.length === 0 && <small>No saved records in this library.</small>}{results.map(x => <button key={x.source + x.id} className="text-button" onClick={async () => { const r = await call<any>('Opening result', 'vcell_result_get', {source: x.source, result: x.id}); if (r) setResult(r); }}>
+          {x.kind?.replace(/_/g, ' ')} · {x.engine} · {x.created?.slice(0, 10)}{x.integrity ? '' : ' · integrity FAILED'}</button>)}</div>}
+      <small>Read-only. These runs describe the idealised systems in their own inputs, not this cell.</small></>},
     {id: 'signature', label: 'Gene signature', icon: <Dna size={15}/>, show: true, body: <>
       <input value={genes} placeholder="Genes to read, e.g. HBG1 GATA1" onChange={e => setGenes(e.target.value)} onKeyDown={e => e.key === 'Enter' && observe('expression')}/>
       <button onClick={() => observe('expression')}>Read expression</button></>},
@@ -257,6 +294,7 @@ export default function VirtualCellLab() {
       <code>{current.cell.id}</code>
       <span className="vc-top-meta">{current.cell.history.length} step{current.cell.history.length === 1 ? '' : 's'} · {current.state.composition} · <b>{current.state.evidence}</b></span>
       <button className="text-button" onClick={() => exportFile(`fold-virtual-cell-${current.cell.id.slice(0, 8)}.json`, {text: JSON.stringify(current.cell, null, 1)})}><Download size={13}/>Export</button>
+      <button className="text-button" title="Context, dataset versions and checksums, coverage, capability statuses, snapshots and what is missing" onClick={async () => { const r = await call<any>('Assembling the research report', 'vcell_report', {id: current.cell.id}); if (r) exportFile(`fold-virtual-cell-report-${current.cell.id.slice(0, 8)}.json`, {text: JSON.stringify(r, null, 1)}); }}><Download size={13}/>Research report</button>
     </div>
     {status}
 
@@ -271,20 +309,26 @@ export default function VirtualCellLab() {
     <main className="vc-viewport">
       <div className="vc-overlay">
         <div className="vc-view-toggle"><span>View:</span>
-          {(['channels', 'illustrated'] as const).map(v => <button key={v} className={view === v ? 'active' : ''} onClick={() => setView(v)}>{v}</button>)}
+          {(['channels', 'illustrated'] as const).map(v => <button key={v} className={mode === '3d' && view === v ? 'active' : ''} onClick={() => { setMode('3d'); setView(v); }}>{v}</button>)}
+          <button className={mode === 'painting' ? 'active' : ''} onClick={() => setMode('painting')} title="Observed Cell Painting microscopy for this cell context">Cell Painting</button>
         </div>
-        <div className="vc-channel-list"><span>Channels</span>
+{mode === '3d' && <div className="vc-channel-list"><span>Channels</span>
           {channels.map(c => <button key={c.id} className={'vc-channel ' + (hidden[c.id] ? 'off' : '')} onClick={() => setHidden({...hidden, [c.id]: !hidden[c.id]})}
             title={`${c.genes} genes · mean change ${c.score == null ? '—' : fmt(c.score, 3)} SD · brightness ×${fmt(c.gain, 2)}`}>
             <i style={{background: CHANNEL_COLOR[c.id]}}/>{c.name.split(' ·')[0]}{c.score != null && Math.abs(c.score) > 0.05 && <em className={c.score > 0 ? 'up' : 'down'}>{c.score > 0 ? '▲' : '▼'}</em>}</button>)}
-        </div>
+        </div>}
       </div>
-      <div className="vc-stage"><CellStage settings={settings} journey="" onJourneyDone={() => {}} onSelect={() => {}}/></div>
-      <p className="vc-stage-note">Geometry is illustrative (E). Channel brightness follows this cell's predicted change in each compartment's genes. {current.state.channelSource}{protein?.symbol && protein.localization.layers.length ? ` Showing the compartments ${protein.symbol} is annotated to; position inside each compartment is not known.` : ''}</p>
+      {mode === 'painting' ? <CellPainting cellId={current.cell.id} onError={setError}/> :
+      <div className="vc-stage"><CellStage settings={settings} journey="" onJourneyDone={() => {}} onSelect={() => {}}/>
+        {cycleVisual && <div className="vc-stage-cycle" role="status"><span className="vc-phase">{cycleVisual.phase}</span><span className="mono">t {cycleVisual.time.toFixed(1)} h</span>
+          <small>DNA layer ×{cycleVisual.gain.toFixed(2)} · visualization rule</small></div>}</div>}
+      <p className="vc-stage-note">Geometry is illustrative (E). Channel brightness follows this cell's predicted change in each compartment's genes. {current.state.channelSource}{cycleVisual ? ` Cell-cycle timeline open: ${cycleVisual.rule}` : ''}{protein?.symbol && protein.localization.layers.length ? ` Showing the compartments ${protein.symbol} is annotated to; position inside each compartment is not known.` : ''}</p>
       <div className="vc-timeline">{[{label: 'Baseline'}, ...current.cell.history.map((h: any) => ({label: stepLabel(h)}))].map((h, i) =>
         <button key={i} className={'vc-tl-step ' + (i === current.cell.history.length ? 'now' : '')} title={`Branch a new cell from step ${i}`} onClick={() => branch(i)}><span>{i}</span>{h.label}</button>)}</div>
-      {protein && <ProteinWorkspace key={protein.symbol ?? protein.resolution?.query} protein={protein} cellId={current.cell.id} onError={setError} onClose={() => { setProtein(null); setHidden({}); }}/>}
+      {protein && <ProteinWorkspace key={protein.symbol ?? protein.resolution?.query} protein={protein} cellId={current.cell.id} onError={setError} onOpenStructure={onOpenStructure ? openStructure : undefined} onClose={() => { setProtein(null); setHidden({}); }}/>}
       {enrich && <Enrichment r={enrich} onClose={() => setEnrich(null)}/>}
+      {result && <SimulationResult r={result} onClose={() => setResult(null)}/>}
+      {rnaProtein && <RnaProtein r={rnaProtein} onClose={() => setRnaProtein(null)}/>}
       {cycle && <CellCycleTimeline run={cycle} time={cycleTime} onTime={setCycleTime} onSnapshot={t => saveSnapshot('', t)} onClose={() => setCycle(null)}/>}
     </main>
 

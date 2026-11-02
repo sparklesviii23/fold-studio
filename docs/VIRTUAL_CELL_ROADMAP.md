@@ -10,7 +10,10 @@ Start each session here, then `VIRTUAL_CELL_CAPABILITIES.md` (what works) and `V
 4. Hep G2 transcript isoforms (ENCODE, 2 replicates, GENCODE V29 structure).
 5. Cell-cycle timeline on the Mechanistic Lab solver with documented phase proxies and snapshots.
 
-## Next, in dependency order
+6. Stage 3: Hep G2 proteomics, Cell Painting subset with morphology, saved-structure adapter with viewer round trip,
+   Cell Physics / RNA lab result adapter, cell-cycle → 3D mapping, research report export.
+
+## Next, in dependency order (stage 3 update: A, B, E done; see deferred work for their remaining parts)
 
 | Step | Depends on | Independent? |
 |---|---|---|

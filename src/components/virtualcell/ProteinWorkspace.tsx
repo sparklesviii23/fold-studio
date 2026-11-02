@@ -11,7 +11,8 @@ const EVIDENCE_LABEL: Record<string, string> = {experimental: 'experimental (ECO
 
 /** Protein → localization, measured expression / fitness in this context, Reactome pathways and structures
  *  (virtual_cell.protein / pathway / pathway_enrichment). The Reactome graph reuses the Mechanistic Lab KnowledgeGraph. */
-export default function ProteinWorkspace({protein, cellId, onClose, onError}: {protein: any; cellId: string; onClose: () => void; onError: (e: string) => void}) {
+export default function ProteinWorkspace({protein, cellId, onClose, onError, onOpenStructure}: {protein: any; cellId: string; onClose: () => void; onError: (e: string) => void; onOpenStructure?: (id: string, name: string) => void}) {
+  const [library, setLibrary] = useState<any>(null), [pick, setPick] = useState<string[]>([]), [cmp, setCmp] = useState<any>(null);
   const [pathway, setPathway] = useState<any>(null), [models, setModels] = useState<any>(null), [busy, setBusy] = useState(''), [tx, setTx] = useState<any>(null);
   useEffect(() => { if (protein.symbol) rpc<any>('vcell_transcripts', {id: cellId, gene: protein.symbol, ensembl: protein.identifiers?.ensembl?.[0]}).then(setTx).catch(e => setTx({supported: false, reason: String(e).replace(/^Error:\s*/, '')})); }, [protein.symbol, cellId]);
   async function call<T>(text: string, action: string, payload: any) {
@@ -52,7 +53,12 @@ export default function ProteinWorkspace({protein, cellId, onClose, onError}: {p
         {e.baselineSource && <p className="caption">{e.baselineSource}</p>}
         <span className="eyebrow">Knockout fitness</span>
         <p className="vc-evidence">{protein.fitness ? <><b>Chronos {fmt(protein.fitness.chronos, 3)}</b> · {protein.fitness.source}</> : 'Not screened in this context.'}</p>
-        <p className="caption">{protein.abundance}</p>
+        <span className="eyebrow">Protein abundance</span>
+        {typeof protein.abundance === 'string' ? <p className="caption">{protein.abundance}</p> : <>
+          {protein.abundance.datasets.map((d: any) => <p key={d.dataset} className="vc-evidence">{d.reported
+            ? <><b>{fmt(d.value, 4)} ppm</b> · rank {d.rank.toLocaleString()} of {d.of.toLocaleString()} ({fmt(d.percentile, 3)} th percentile) · {d.method}{d.uniprot ? ` · ${d.uniprot}` : ''}</>
+            : <>Not reported · {d.method} · {d.note}</>}</p>)}
+          <p className="caption"><b>{protein.abundance.evidence}</b> · {protein.abundance.datasets[0]?.citation} {protein.abundance.datasets[0]?.replicates}. {protein.abundance.note}</p></>}
       </div>
       <div><span className="eyebrow">Localization</span>
         {hpa ? <>
@@ -69,9 +75,26 @@ export default function ProteinWorkspace({protein, cellId, onClose, onError}: {p
         <p className="vc-evidence">{protein.structures.count ? <>{protein.structures.count} PDB entr{protein.structures.count === 1 ? 'y' : 'ies'}</> : 'No experimental structure cross-referenced.'}</p>
         <div className="vc-terms-list">{protein.structures.pdb.slice(0, 12).map((id: string) => <a key={id} className="vc-term on" href={`https://www.rcsb.org/structure/${id}`} target="_blank" rel="noreferrer">{id}</a>)}</div>
         <p className="caption">{protein.structures.source} A structure is not evidence of a cellular function.</p>
+        {protein.mechanisticTarget && !library && <button className="text-button" disabled={!!busy} onClick={async () => { const r = await call<any>('Matching saved library structures to the UniProt sequence', 'vcell_structures', {id: cellId, accession: protein.mechanisticTarget.accession}); if (r) setLibrary(r); }}>Find saved library structures</button>}
       </div>
     </div>
 
+    {library && <div className="vc-tx">
+      <div className="vc-row"><span className="eyebrow">Saved library structures · {library.structures.length} matched to {library.accession} ({library.uniprotLength} aa)</span>
+        <button disabled={pick.length !== 2 || !!busy} onClick={async () => { const r = await call<any>('Superposing on shared UniProt positions', 'vcell_structure_compare', {id: cellId, accession: library.accession, a: pick[0], b: pick[1]}); if (r) setCmp(r); }}>Compare two</button></div>
+      <table className="vc-table"><thead><tr><th></th><th>Structure</th><th>Origin</th><th>Chains · UniProt range · identity</th><th>Declared confidence</th><th></th></tr></thead>
+        <tbody>{library.structures.map((s: any) => <tr key={s.id}>
+          <td><input type="checkbox" aria-label="Select for comparison" checked={pick.includes(s.id)} onChange={() => setPick(pick.includes(s.id) ? pick.filter(x => x !== s.id) : [...pick.slice(-1), s.id])}/></td>
+          <td><strong>{s.name}</strong><br/><small>{s.project} · {s.format}</small></td>
+          <td><span className={'vc-term ' + (s.kind === 'experimental' ? 'on' : '')}>{s.kind}</span><br/><small>{s.origin}</small></td>
+          <td><small>{s.chains.map((c: any) => `${c.chain} ${c.uniprotStart}–${c.uniprotEnd} · ${fmt(c.identity * 100, 3)} %`).join(' · ')}{s.otherChains.length ? ` · other chains ${s.otherChains.join(', ')}` : ''}</small></td>
+          <td><small>{s.confidence ? `${s.confidence.metric}: ${Object.entries(s.confidence.meanByChain).map(([k, v]: any) => `${k} ${fmt(v, 3)}`).join(', ')}${s.confidence.ptm != null ? ` · pTM ${fmt(s.confidence.ptm, 3)}` : ''}` : 'none declared'}</small></td>
+          <td>{onOpenStructure && <button className="text-button" onClick={() => onOpenStructure(s.id, s.name)}>Open in viewer</button>}</td></tr>)}</tbody></table>
+      {library.skipped.length > 0 && <p className="caption">Not readable: {library.skipped.map((x: any) => `${x.name} (${x.reason})`).join('; ')}</p>}
+      {cmp && <p className="vc-evidence"><b>Cα RMSD {fmt(cmp.rmsd, 3)} Å</b> · TM-score {fmt(cmp.tmScore, 3)} over {cmp.compared} shared UniProt positions ({cmp.uniprotRange.join('–')}) · {cmp.reference.name} {cmp.reference.chain} vs {cmp.moving.name} {cmp.moving.chain} · {fmt(cmp.over3A * 100, 3)} % of positions &gt; 3 Å</p>}
+      {cmp && <p className="caption">{cmp.method} {cmp.tmNote}</p>}
+      <p className="caption">{library.method} {library.note} Each engine's confidence keeps its own metric; none are averaged.</p>
+    </div>}
     <TranscriptInspector data={tx}/>
 
     <div className="vc-row"><span className="eyebrow">Reactome · {protein.pathways.length} pathway{protein.pathways.length === 1 ? '' : 's'}{protein.manifest.reactomeRelease ? ` · release ${protein.manifest.reactomeRelease}` : ''}</span>
@@ -88,10 +111,12 @@ export default function ProteinWorkspace({protein, cellId, onClose, onError}: {p
         <a className="text-button" href={pathway.url} target="_blank" rel="noreferrer"><ExternalLink size={12}/>Reactome {pathway.id}</a>
         <button className="vc-icon" title="Close pathway" onClick={() => setPathway(null)}><X size={13}/></button></div>
       <small>{pathway.ancestry.map((a: any) => a.name).join(' › ')} · {pathway.measured} of {pathway.members.length} members measured in {pathway.context}</small>
-      <table className="vc-table"><thead><tr><th>Gene</th><th>Expression</th><th>Change</th><th>Layers</th></tr></thead>
+      {pathway.proteinDatasets?.length > 0 && <small>Protein measured: {pathway.proteinDatasets.map((d: any) => `${pathway.proteinMeasured[d.id]} of ${pathway.members.length} (${d.id})`).join(' · ')}</small>}
+      <table className="vc-table"><thead><tr><th>Gene</th><th>Expression</th><th>Change</th>{pathway.proteinDatasets?.length > 0 && <th>Protein (ppm, iBAQ)</th>}<th>PDB</th><th>Layers</th></tr></thead>
         <tbody>{[...pathway.members].sort((a: any, b: any) => (b.baseline ?? -1) - (a.baseline ?? -1)).map((m: any) => <tr key={m.gene}>
           <td>{m.gene}</td><td>{m.inPanel ? fmt(m.baseline, 3) : '—'}</td><td className={(m.change ?? 0) < 0 ? 'down' : 'up'}>{m.change != null && Math.abs(m.change) > 1e-9 ? fmt(m.change, 3) : ''}</td>
-          <td>{m.layers.map((l: string) => LAYER_LABEL[l]).join(', ')}</td></tr>)}</tbody></table>
+          {pathway.proteinDatasets?.length > 0 && <td>{m.protein?.[pathway.proteinDatasets[0].id] != null ? fmt(m.protein[pathway.proteinDatasets[0].id], 3) : 'not reported'}</td>}
+          <td>{m.structures || ''}</td><td>{m.layers.map((l: string) => LAYER_LABEL[l]).join(', ')}</td></tr>)}</tbody></table>
       <p className="caption">{pathway.note} Expression unit: {pathway.members[0]?.unit}.</p>
     </div>}
   </section>;

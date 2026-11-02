@@ -184,7 +184,7 @@ class StateTests(unittest.TestCase):
         s = types.SimpleNamespace(root=self.root, setting=lambda k: None)
         self.assertEqual(set(virtual_cell_actions.ACTIONS), {'vcell_catalog', 'vcell_reference_build', 'vcell_list', 'vcell_create', 'vcell_get', 'vcell_perturb',
                                                              'vcell_branch', 'vcell_delete', 'vcell_observe', 'vcell_design', 'vcell_protein', 'vcell_pathway',
-                                                             'vcell_enrichment', 'vcell_annotations_install'} | V.STATE_ACTIONS | {'vcell_registry', 'vcell_transcripts_build'})
+                                                             'vcell_enrichment', 'vcell_annotations_install'} | V.STATE_ACTIONS | {'vcell_registry', 'vcell_transcripts_build', 'vcell_results_list', 'vcell_result_get'})
         c = V.dispatch(s, 'vcell_create', {'name': 'd'})
         V.dispatch(s, 'vcell_perturb', {'id': c['cell']['id'], 'op': 'gene_overexpression', 'gene': 'g2'})
         e = V.dispatch(s, 'vcell_observe', {'id': c['cell']['id'], 'readout': 'expression', 'genes': ['G5', 'nope']})

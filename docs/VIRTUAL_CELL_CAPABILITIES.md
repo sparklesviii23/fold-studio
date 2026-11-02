@@ -1,6 +1,6 @@
 # Virtual Cell capabilities
 
-Updated 2 November 2026. Source of truth for statuses: `scientific/virtual_cell_registry.py` (`CAPABILITIES`), served by the
+Updated 2 November 2026 (stage 3). Source of truth for statuses: `scientific/virtual_cell_registry.py` (`CAPABILITIES`), served by the
 `vcell_registry` action. Status vocabulary: **Operational and tested · Integrated but not scientifically benchmarked ·
 Partially implemented · Data available, integration incomplete · Model unavailable · Deferred · Blocked**.
 
@@ -17,13 +17,15 @@ Partially implemented · Data available, integration incomplete · Model unavail
 | Protein identity, localization, PDB references | `virtual_cell_annotations.py` | Operational and tested | annotation | HPA + UniProt general annotation, not line-specific. Ensembl gene IDs come from HPA only (UniProt's field lists transcripts). |
 | Reactome pathways, members, enrichment | `virtual_cell_annotations.py` | Operational and tested | annotation / statistic | Membership is not activity. |
 | Hep G2 transcript isoforms | `virtual_cell_transcripts.py` | Operational and tested | measured / annotation | ENCODE ENCSR000CPE, 2 biological replicates, RSEM, GENCODE V29 primary assembly. Parental Hep G2 only. |
-| Cell-cycle timeline | `virtual_cell_cycle.py` (Mechanistic Lab solver) | Integrated but not scientifically benchmarked | simulation | Gérard & Goldbeter 2009, generic mammalian, not calibrated to any line. Phase labels are a documented proxy. 3D cell not driven. |
-| Protein abundance | — | Deferred | — | No verified line-matched proteomics dataset integrated. UI states "not available". |
-| Cell Painting / microscopy | — | Deferred | — | See deferred work. Existing micrograph stage stays illustrative. |
-| Generative microscopy | — | Model unavailable | — | MorphoDiff plugin: weights, licence, evaluation pending. |
-| Saved Boltz / AlphaFold results in Virtual Cell | — | Partially implemented | — | PDB cross-references shown and linked to RCSB; Molecular Laboratory results not yet resolvable by protein. |
-| Cellular physics result adapters | — | Deferred | — | Cell Physics / Blood / RNA-to-Protein labs untouched. |
-| Virtual Cell jobs on Modal | `gpu_tasks.py` (existing) | Partially implemented | — | Tahoe atlas recipe only; no Virtual Cell provider routed through the shared job manager yet. |
+| Cell-cycle timeline | `virtual_cell_cycle.py` (Mechanistic Lab solver) | Integrated but not scientifically benchmarked | simulation | Gérard & Goldbeter 2009, generic mammalian, not calibrated to any line. Phase labels are a documented proxy. 3D cell: one documented visualization rule (see below), no geometry. |
+| Protein abundance (Hep G2) | `virtual_cell_proteomics.py` | Operational and tested | measured | PaxDb (CC BY 4.0) Geiger 2012 iBAQ (6,739 proteins) and spectral counting (3,546), ppm, one value per protein (no replicates published); "not reported" ≠ zero. ALB absent from both source files. Generic TSV/CSV importer. RNA–protein Spearman view. |
+| Cell Painting (Hep G2) | `virtual_cell_microscopy.py`, `CellPainting.tsx` | Integrated but not scientifically benchmarked | measured image / computed features | cpg0036 EU-OS Bioactives (CC0), FMP plate B1001_R1, DMSO wells A23/B24, sites 1/5/9 (24 images, 4 channels). SciPy segmentation (local adaptive threshold; nearest-nucleus cells); features in pixels. Not yet compared with CellProfiler on the same images. |
+| Generative microscopy | — | Model unavailable (for Hep G2 inputs) | — | CellFlux code (MIT) and checkpoints exist but are trained on BBBC021/RxRx1/JUMP preprocessed crops; weights licence unstated; Hep G2 EU-OS images are out of domain. |
+| Saved library structures | `virtual_cell_structures.py` | Operational and tested | per record | Read-only over library structure records; chains matched to UniProt by sequence; origin from record provenance only; declared confidence only; Cα RMSD / TM-score lower bound on shared UniProt positions; opens in the Molecular Viewer with return to the same cell and protein. |
+| Saved lab results | `virtual_cell_results.py`, `SimulationResult.tsx` | Operational and tested | simulation | Cell Physics (Brownian diffusion, binding) and RNA lab (ViennaRNA ensembles, TASEP) research records; integrity re-checked with each lab's recipe; series / profiles / scalars with units; not mapped onto the cell. |
+| Cell-cycle → 3D cell | `virtual_cell_cycle.VISUAL` | Integrated (visualization rule) | illustrative | DNA-layer brightness = 0.6 + 1.6 × normalised Cdk1/cyclin B; phase badge = phase proxy; synchronised with scrubbing, playback and snapshot restore; stored in snapshots. |
+| Research report export | `vcell_report` | Operational and tested | — | Context, cell history, coverage, missing modalities, dataset manifest with checksums, capability statuses, snapshots. |
+| Virtual Cell jobs on Modal | `gpu_tasks.py` (existing) | Partially implemented | — | All current Virtual Cell workloads run locally in ≤ 10 s (measured), so runtime selection is local; no remote Virtual Cell recipe and no paid run this session. Remote path = existing cost-gated `gpu_tasks` lifecycle. |
 
 ## Interface entry points (Analyse › Virtual Cell)
 

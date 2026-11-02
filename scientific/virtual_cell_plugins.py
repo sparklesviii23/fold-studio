@@ -129,6 +129,20 @@ RESOURCES = {
         'redistribution': 'allowed with citation', 'source': 'https://www.encodeproject.org/experiments/ENCSR000CPE/ (ENCFF416RHJ, ENCFF938LTW); GENCODE 29 primary assembly GTF',
         'citation': 'ENCODE Project Consortium. Nature 2012;489:57–74; Luo Y et al. Nucleic Acids Res 2020;48:D882. Data: Gingeras lab, CSHL. Frankish A et al. Nucleic Acids Res 2019;47:D766 (GENCODE).',
         'localPath': 'virtualcell/data/encode_hepg2/transcripts.sqlite', 'install': 'Virtual Cell › Build transcript index (≈100 MB download, md5-checked)'},
+    'paxdb_hepg2': {
+        'name': 'PaxDb Hep G2 protein abundance (Geiger et al. 2012: iBAQ and spectral counting)', 'kind': 'dataset', 'plugin': False,
+        'provides': ['measured protein abundance (ppm)', 'RNA–protein comparison'],
+        'licence': 'CC BY 4.0 (PaxDb)', 'licenceVerified': True, 'nonCommercial': False, 'redistribution': 'allowed with attribution',
+        'source': 'https://pax-db.org/downloads/latest/datasets/9606/ (9606-iBAQ_HepG2_Geiger_2012_uniprot.txt, 9606-HepG2_Geiger_2012.txt)',
+        'citation': 'Geiger T et al. Mol Cell Proteomics 2012;11:M111.014050; Huang Q et al. Proteomics 2023 (PaxDb 5).',
+        'localPath': 'virtualcell/data/paxdb_hepg2/proteomics.sqlite', 'install': 'Virtual Cell › Build proteomics index (0.4 MB download)'},
+    'cellpainting_hepg2': {
+        'name': 'Cell Painting Gallery cpg0036 (EU-OPENSCREEN Bioactives), Hep G2 DMSO subset', 'kind': 'dataset', 'plugin': False,
+        'provides': ['observed Cell Painting images', 'segmentation and morphology'],
+        'licence': 'CC0 1.0 (Cell Painting Gallery)', 'licenceVerified': True, 'nonCommercial': False, 'redistribution': 'public domain dedication; cite the publication',
+        'source': 's3://cellpainting-gallery/cpg0036-EU-OS-bioactives/FMP/ (plate B1001_R1, wells A23/B24, sites 1/5/9)',
+        'citation': 'Wolff C et al. iScience 2025;28:112445. Weisbart E et al. Nat Methods 2024 (Cell Painting Gallery).',
+        'localPath': 'virtualcell/data/cellpainting_hepg2/original/subset.json', 'install': 'Downloaded subset (24 images, 40 MB)'},
     'gerard2009': {
         'name': 'Gérard & Goldbeter 2009 mammalian cell-cycle model (BIOMD0000000730)', 'kind': 'model', 'plugin': False,
         'provides': ['cell-cycle timeline (Cdk network ODEs)'],
