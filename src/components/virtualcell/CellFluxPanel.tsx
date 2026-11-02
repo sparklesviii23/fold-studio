@@ -19,6 +19,7 @@ export default function CellFluxPanel({cellId, field, onError}: {cellId: string;
   if (!status.installed) return <p className="caption">CellFlux plugin not installed: missing {Object.entries(status.parts).filter(([, v]) => !v).map(([k]) => k).join(', ')}.</p>;
   return <div className="vc-cellflux">
     <span className="eyebrow">CellFlux · generated images (experimental)</span>
+    {status.benchmark && <p className="caption">In-domain benchmark (BBBC021, MCF7, {Object.keys(status.benchmark.compounds).length} compounds, {status.benchmark.nDmsoInputs} generated cells each): effect-direction cosine {fmt(status.benchmark.summary.effectCosine, 2)} vs {fmt(status.benchmark.summary.baselineCosine, 2)} for a compound-agnostic baseline; generated cells {fmt(status.benchmark.summary.distanceGeneratedToTreated, 2)} vs untreated {fmt(status.benchmark.summary.distanceUntreatedToTreated, 2)} from real treated cells (standardised features). {status.benchmark.caveats[0]} It says nothing about Hep G2.</p>}
     <p className="vc-warn">{status.warning} Inputs: slots {status.inputs.slots.join(', ')}; {Object.entries(status.inputs.fill).map(([k, v]) => `${k} slot filled with ${v}`).join(', ')}; {status.inputs.scaling}.</p>
     <div className="vc-row">
       <input value={query} placeholder={`Search ${perts?.total ?? ''} JUMP perturbations (compound, CRISPR, ORF)`} onChange={e => setQuery(e.target.value)}/>

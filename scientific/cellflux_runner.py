@@ -19,7 +19,8 @@ def main(req_path):
 
     device = req.get('device') or ('mps' if torch.backends.mps.is_available() else 'cpu')
     torch.manual_seed(int(req.get('seed', 0)))
-    model = instantiate_model('cpg0000', is_discrete=False, use_ema=True)
+    arch = req.get('arch', 'cpg0000')                      # 'cpg0000' (5 ch) or 'bbbc021' (3 ch), as in CellFlux model_configs
+    model = instantiate_model(arch, is_discrete=False, use_ema=True)
     ck = torch.load(req['checkpoint'], map_location='cpu', weights_only=False)
     missing, unexpected = model.load_state_dict(ck['model'], strict=True), None
     model.to(device).train(False)
@@ -38,7 +39,7 @@ def main(req_path):
         raise SystemExit(json.dumps({'error': f"Perturbation {req['perturbation']} has no embedding in this checkpoint's table."}))
     z = torch.tensor(emb.loc[[req['perturbation']]].values, dtype=torch.float32, device=device)
 
-    x = torch.tensor(np.load(req['inputs']), dtype=torch.float32)               # (N, 5, 96, 96) uint8 counts
+    x = torch.tensor(np.load(req['inputs']), dtype=torch.float32)               # (N, C, 96, 96) uint8 counts
     x = ((x + torch.rand_like(x)) / 255.0 - 0.5) / 0.5                          # CustomTransform: dequantise, [0,1], Normalize(0.5, 0.5)
     x = x.to(device); n = x.shape[0]
     # 'control' (authors' setting) starts from the supplied cells + noise; 'noise' starts from N(0, 1), used only to inspect
@@ -51,7 +52,7 @@ def main(req_path):
                         extra={'concat_conditioning': z.expand(n, -1)})
     out = torch.clamp(out * 0.5 + 0.5, 0.0, 1.0).float().cpu().numpy()
     np.save(req['output'], out)
-    json.dump({'device': device, 'seconds': round(time.time() - t0, 2), 'n': int(n), 'torch': torch.__version__, 'checkpointEpoch': ck.get('epoch'),
+    json.dump({'arch': arch, 'device': device, 'seconds': round(time.time() - t0, 2), 'n': int(n), 'torch': torch.__version__, 'checkpointEpoch': ck.get('epoch'),
                'perturbation': req['perturbation'], 'nfe': int(req.get('nfe', 50)), 'cfg': float(req.get('cfg', 0.2)), 'noiseLevel': float(req.get('noiseLevel', 1.0)),
                'start': req.get('start', 'control'), 'method': 'heun2', 'timeGrid': 'EDM (get_time_discretization)', 'seed': int(req.get('seed', 0))}, open(req['output'] + '.json', 'w'))
 
