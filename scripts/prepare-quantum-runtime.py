@@ -29,7 +29,9 @@ def main():
     if path.stat().st_size!=row['bytes'] or hashlib.sha256(path.read_bytes()).hexdigest()!=row['sha256']:raise ValueError('Cached quantum wheel differs from the reviewed artifact.')
     wheels.append(str(path))
    subprocess.run([str(python),'-I','-m','pip','install','--no-index','--no-deps','--disable-pip-version-check','--target',str(site),*wheels],check=True)
- check="import importlib,json;names="+repr(list(expected))+";print(json.dumps({n:importlib.import_module(n).__version__ for n in names}))"
+ modules={**{n:n for n in spec['requiredExisting']},**{r['package']:r.get('module',r['package']) for r in spec['packages']}}
+ # A distribution's import name can differ from its package name (ViennaRNA installs the module RNA).
+ check="import importlib,json;names="+repr(modules)+";print(json.dumps({n:importlib.import_module(m).__version__ for n,m in names.items()}))"
  actual=json.loads(subprocess.run([str(python),'-I','-B','-c',check],check=True,capture_output=True,text=True).stdout)
  if actual!=expected:raise ValueError('CPU runtime versions differ after preparation.')
  print('Pinned CPU libraries verified; no model downloads or scientific calculation started.')

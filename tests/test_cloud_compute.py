@@ -101,14 +101,14 @@ class CloudConnections(unittest.TestCase):
 
 class BoundedTransport(unittest.TestCase):
     def test_actual_transport_drains_large_input_and_valid_output(self):
-        value=cc.bounded_transport([sys.executable,'-I','-c','import sys,json;v=sys.stdin.read();print(json.dumps({"length":len(v)}))'],input='x'*100000,timeout=5)
+        value=cc.bounded_transport([sys.executable,'-I','-B','-c','import sys,json;v=sys.stdin.read();print(json.dumps({"length":len(v)}))'],input='x'*100000,timeout=5)
         self.assertEqual(json.loads(value.stdout)['length'],100000)
     def test_actual_untrusted_output_is_bounded(self):
         with self.assertRaisesRegex(ValueError,'safe size limit'):
-            cc.bounded_transport([sys.executable,'-I','-c','import sys;sys.stdout.write("x"*3000000)'],input='{}',timeout=5)
+            cc.bounded_transport([sys.executable,'-I','-B','-c','import sys;sys.stdout.write("x"*3000000)'],input='{}',timeout=5)
     def test_actual_stalled_process_times_out(self):
         with self.assertRaises(subprocess.TimeoutExpired):
-            cc.bounded_transport([sys.executable,'-I','-c','import time;time.sleep(10)'],input='{}',timeout=.05)
+            cc.bounded_transport([sys.executable,'-I','-B','-c','import time;time.sleep(10)'],input='{}',timeout=.05)
 
 class RealWorkerProtocol(unittest.TestCase):
     def request(self,request):

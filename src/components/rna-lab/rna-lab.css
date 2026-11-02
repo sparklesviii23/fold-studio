@@ -1,0 +1,77 @@
+/* Analyse › RNA-to-Protein Laboratory — midnight-glass panels shared with the Mechanistic Biology Lab (mechanistic.css, cosmos.css). */
+.rna-lab { display: grid; gap: 14px; padding: clamp(16px, 2.4vw, 28px); min-height: 100%; }
+.rna-lab .mech-head { grid-area: auto; }
+.rna-grid { display: grid; gap: 14px; grid-template-columns: 280px minmax(0, 1fr) 330px; align-items: start; }
+.rna-side { padding: 16px; display: grid; gap: 10px; align-content: start; }
+.rna-main { padding: 16px 18px 20px; display: grid; gap: 12px; align-content: start; background: radial-gradient(90% 60% at 50% 30%, rgb(30 50 110 / 0.3), transparent 70%), var(--card); }
+.rna-lab .evidence-badge { display: inline-flex; align-items: center; gap: 6px; padding: 4px 10px; border-radius: 999px; font-family: var(--font-mono); font-size: 0.62rem; letter-spacing: 0.1em; text-transform: uppercase; color: #bfe3ff; background: rgb(57 135 229 / 0.12); border: 1px solid rgb(120 180 255 / 0.3); }
+.rna-lab .evidence-badge.rna-hyp { color: #ffd9a8; background: rgb(255 179 102 / 0.1); border-color: rgb(255 190 120 / 0.28); }
+.rna-lab .evidence-badge.rna-ill { color: #e3d6ff; background: rgb(144 133 233 / 0.12); border-color: rgb(180 165 255 / 0.3); }
+.rna-badges { display: flex; flex-wrap: wrap; gap: 8px; align-items: center; }
+.rna-note { font-size: 0.72rem; color: var(--text-faint); }
+.rna-seq { width: 100%; font-family: var(--font-mono); font-size: 0.7rem; line-height: 1.5; letter-spacing: 0.04em; word-break: break-all; resize: vertical; border-radius: 12px; padding: 9px 11px; background: var(--field); color: var(--ice); border: 1px solid rgb(255 255 255 / 0.1); }
+.rna-fields { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
+.rna-fields label { display: grid; gap: 4px; font-size: 0.7rem; color: var(--text-faint); }
+.rna-fields input { min-width: 0; }
+.rna-tools p, .rna-provenance p { margin: 2px 0; font-size: 0.74rem; }
+.rna-tools, .rna-provenance { display: grid; gap: 4px; padding-top: 6px; border-top: 1px solid rgb(255 255 255 / 0.06); }
+.rna-views { flex-wrap: wrap; align-self: start; }
+.rna-arcs, .rna-dotplot, .rna-lane, .rna-profile { width: 100%; height: auto; display: block; }
+.rna-arc { fill: none; stroke-width: 1.6; }
+.rna-arc.plain, .rna-arc.hit { stroke: #5ad1a8; }
+.rna-arc.extra { stroke: #ff8a4c; }
+.rna-arc.missed { stroke: rgb(220 230 255 / 0.45); stroke-dasharray: 3 3; }
+.rna-arc.prob { stroke: #6aa8ff; }
+.rna-base { font-family: var(--font-mono); font-size: 6.5px; text-anchor: middle; fill: rgb(220 230 255 / 0.8); }
+.rna-base.b-G { fill: #9fdcff; } .rna-base.b-C { fill: #c9b8ff; } .rna-base.b-A { fill: #ffd28f; } .rna-base.b-U { fill: #9ff0c9; }
+.rna-tick { font-size: 9px; fill: rgb(220 230 255 / 0.5); text-anchor: middle; }
+.rna-caption-svg { font-size: 10px; fill: rgb(220 230 255 / 0.6); }
+.rna-db { font-size: 0.66rem; letter-spacing: 0.05em; word-break: break-all; margin: 0; color: var(--text-faint); }
+.rna-legend i { display: inline-block; width: 14px; height: 2px; margin: 0 6px 2px 12px; vertical-align: middle; }
+.rna-legend i.hit { background: #5ad1a8; } .rna-legend i.extra { background: #ff8a4c; } .rna-legend i.missed { border-top: 2px dashed rgb(220 230 255 / 0.5); }
+.rna-two { display: grid; grid-template-columns: minmax(0, 300px) minmax(0, 1fr); gap: 18px; align-items: start; }
+.rna-two > div { display: grid; gap: 8px; }
+.rna-dot-frame { fill: rgb(3 6 16 / 0.5); stroke: rgb(255 255 255 / 0.12); }
+.rna-dot-diag { stroke: rgb(255 255 255 / 0.15); }
+.rna-dot-ref { fill: none; stroke: rgb(220 230 255 / 0.55); stroke-width: 0.6; }
+.rna-states { display: grid; gap: 6px; }
+.rna-state { display: grid; gap: 3px; text-align: left; padding: 8px 10px; border-radius: 12px; min-height: 0; background: rgb(255 255 255 / 0.025); border: 1px solid rgb(255 255 255 / 0.05); }
+.rna-state.active { border-color: rgb(159 220 255 / 0.4); background: rgb(159 220 255 / 0.06); }
+.rna-state strong { font-size: 0.76rem; font-weight: 500; } .rna-state small { font-size: 0.68rem; color: var(--text-faint); }
+.rna-state-bar { height: 4px; border-radius: 4px; background: rgb(255 255 255 / 0.06); overflow: hidden; }
+.rna-state-bar i { display: block; height: 100%; background: #3987e5; }
+.rna-metrics { display: grid; gap: 8px; }
+.rna-metric { display: grid; gap: 2px; padding: 8px 10px; border-radius: 12px; background: rgb(255 255 255 / 0.025); border: 1px solid rgb(255 255 255 / 0.05); }
+.rna-metric small { font-size: 0.66rem; color: var(--text-faint); text-transform: uppercase; letter-spacing: 0.08em; }
+.rna-metric strong { font-size: 0.95rem; font-weight: 500; font-variant-numeric: tabular-nums; }
+.rna-metric span { font-size: 0.68rem; color: var(--text-faint); }
+.rna-table { width: 100%; border-collapse: collapse; font-size: 0.74rem; font-variant-numeric: tabular-nums; }
+.rna-table th, .rna-table td { padding: 5px 6px; text-align: right; border-bottom: 1px solid rgb(255 255 255 / 0.06); }
+.rna-table th:first-child, .rna-table td:first-child { text-align: left; }
+.rna-mrna { stroke: rgb(220 230 255 / 0.55); stroke-width: 2; }
+.rna-lane rect.interp { opacity: 0.75; }
+.rna-playbar { display: flex; align-items: center; gap: 12px; flex-wrap: wrap; }
+.rna-playbar input[type=range] { flex: 1; min-width: 160px; }
+.rna-story { display: grid; gap: 12px; }
+@media (max-width: 1280px) { .rna-grid { grid-template-columns: 260px minmax(0, 1fr); } .rna-grid > aside:last-child { grid-column: 1 / -1; } }
+@media (max-width: 860px) { .rna-grid, .rna-two { grid-template-columns: 1fr; } }
+.rna-side { min-width: 0; overflow: hidden; }
+.rna-side input, .rna-side textarea, .rna-side select { width: 100%; max-width: 100%; box-sizing: border-box; min-width: 0; }
+.rna-side .button-row { display: flex; flex-wrap: wrap; gap: 8px; }
+.rna-side > * { min-width: 0; max-width: 100%; }
+.rna-fields { grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); }
+.rna-fields label { min-width: 0; }
+.rna-side > .button { justify-self: start; width: auto; }
+.rna-lab .mech-check.skip svg { color: var(--text-faint); }
+
+/* Demo 10 · folding kinetics */
+.rk { display: flex; flex-direction: column; gap: 14px; }
+.rk-input { display: flex; flex-wrap: wrap; gap: 12px; align-items: flex-end; padding: 14px; }
+.rk-input label { display: flex; flex-direction: column; gap: 6px; font-size: 12px; opacity: .85; }
+.rk-input input.mono { min-width: min(320px, 70vw); letter-spacing: .08em; }
+.rk-basins { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 12px; }
+.rk-basin { display: flex; flex-direction: column; gap: 6px; padding: 12px; font-size: 12px; }
+.rk-basin code { font-size: 12px; letter-spacing: .06em; }
+.rk-basin span { opacity: .7; }
+.rk-arcs { width: 100%; height: auto; }
+.rk .ms-table td.mono { white-space: nowrap; font-size: 11px; }

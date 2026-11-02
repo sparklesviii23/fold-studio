@@ -78,3 +78,16 @@ library integration does not bundle GPU4PySCF or trained model checkpoints.
 ### pysam 0.24.1 and bundled HTSlib/SAMtools
 
 Pinned macOS ARM CPU genomic I/O wheel, SHA-256 and official source are recorded in `vendor/genomics-runtime.json`. pysam is MIT licensed; the wheel-provided HTSlib/SAMtools and bundled dependency license notices are retained in the packaged runtime. No reference genomes, alignments or trained weights are redistributed by this dependency.
+
+### ViennaRNA 2.7.2 (Vienna RNA Package)
+
+Pinned macOS ARM CPU wheel, SHA-256 and official source are recorded in `vendor/rna-runtime.json`; it is installed into the main scientific runtime for the RNA-to-Protein Laboratory. Vienna RNA Package, © Institute for Theoretical Chemistry, University of Vienna (https://www.tbi.univie.ac.at/RNA/). Licensed for research, educational and commercial use and modification provided it is not redistributed for any fee other than media costs and the authors are credited. Please cite: Lorenz R et al. (2011) ViennaRNA Package 2.0, Algorithms Mol Biol 6:26, doi:10.1186/1748-7188-6-26. Inclusion in a commercial product requires contacting the authors. The wheel's own licence files are retained in the packaged runtime.
+
+
+### Published PNA benchmark data
+
+`scientific/antisense_data/pna-2022.json` derives from Table 1 of Popella et al., Nucleic Acids Research 50(11), 6435–6452 (2022), https://doi.org/10.1093/nar/gkac362, under CC BY-NC 4.0 (https://creativecommons.org/licenses/by-nc/4.0/). Non-commercial research use; commercial reuse requires appropriate rights. `pna-2025.json` derives from Supplementary Tables 1 and 3 of Danti et al., Advanced Science 12, 2504284 (2025), https://doi.org/10.1002/advs.202504284; article license CC BY 4.0 (https://creativecommons.org/licenses/by/4.0/). Sequence case was normalized; ranges, bounds, preparation identity, source attribution and footnotes are retained. Neither author group endorses this app or its exploratory fitted baseline.
+
+### xterm.js terminal
+
+@xterm/xterm 5.5.0 and @xterm/addon-fit 0.10.0, MIT licensed, https://github.com/xtermjs/xterm.js. Copyright the xterm.js authors. The upstream license text is retained at `vendor/xterm-LICENSE` and packaged with the app.

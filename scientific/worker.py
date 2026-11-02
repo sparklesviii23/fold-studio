@@ -10,6 +10,20 @@ from observatory import Observatory, ACTIONS as OBSERVATORY_ACTIONS
 from peptides import Peptides, ACTIONS as PEPTIDE_ACTIONS
 import molecular_graph
 import periodic_dynamics
+import mechanistic_actions
+import multiscale_actions
+import spatial_actions
+import tumor_tme_actions
+import oncology_actions
+import rna_kinetics_actions
+import md_demo_actions
+import gpu_tasks_actions
+import biological_models
+import biology_controller
+import cell_physics_actions
+import virtual_cell_actions
+import blood_transport_actions
+import rna_lab_actions
 import genomic_io
 import chemical_screen
 import sequence_alignment
@@ -596,6 +610,10 @@ class Service:
     def dispatch(self,action,p):
         if action not in ACTIONS: raise ValueError('Unsupported scientific action.')
         if action in cloud_shell.ACTIONS:return cloud_shell.dispatch(self,action,p)
+        if action in gpu_tasks_actions.ACTIONS:
+            # Remote by design: tasks run on the user's server account, so the local-science firewall does not apply.
+            import gpu_tasks
+            return gpu_tasks.dispatch(self,action,p)
         if action in cloud_accounts.ACTIONS:return cloud_accounts.dispatch(self,action,p)
         if action in genome_workspace.ACTIONS:return genome_workspace.dispatch(self,action,p)
         if action in molecular_observatory.ACTIONS:return molecular_observatory.dispatch(self,action,p)
@@ -605,7 +623,42 @@ class Service:
         if action in cloud_deployment.ACTIONS:return cloud_deployment.dispatch(self,action,p)
         if action in execution_policy.ACTIONS:return execution_policy.dispatch(self,action,p)
         execution_policy.enforce(self,action,p)
+        if action in biology_controller.ACTIONS:return biology_controller.dispatch(self,action,p)
+        if action in biological_models.ACTIONS:return biological_models.dispatch(self,action,p)
         if action in periodic_dynamics.ACTIONS:return periodic_dynamics.dispatch(self,action,p)
+        if action in multiscale_actions.ACTIONS:
+            import multiscale
+            return multiscale.dispatch(self,action,p)
+        if action in oncology_actions.ACTIONS:
+            import oncology
+            return oncology.dispatch(self,action,p)
+        if action in tumor_tme_actions.ACTIONS:
+            import tumor_tme
+            return tumor_tme.dispatch(self,action,p)
+        if action in spatial_actions.ACTIONS:
+            import spatial
+            return spatial.dispatch(self,action,p)
+        if action in md_demo_actions.ACTIONS:
+            import md_demo
+            return md_demo.dispatch(self,action,p)
+        if action in rna_kinetics_actions.ACTIONS:
+            import rna_kinetics_actions_impl
+            return rna_kinetics_actions_impl.dispatch(self,action,p)
+        if action in mechanistic_actions.ACTIONS:
+            import mechanistic
+            return mechanistic.dispatch(self,action,p)
+        if action in cell_physics_actions.ACTIONS:
+            import cell_physics
+            return cell_physics.dispatch(self,action,p)
+        if action in virtual_cell_actions.ACTIONS:
+            import virtual_cell
+            return virtual_cell.dispatch(self,action,p)
+        if action in rna_lab_actions.ACTIONS:
+            import rna_lab
+            return rna_lab.dispatch(self,action,p)
+        if action in blood_transport_actions.ACTIONS:
+            import blood_transport
+            return blood_transport.dispatch(self,action,p)
         if action in genomic_io.ACTIONS:return genomic_io.dispatch(self,action,p)
         if action in chemical_screen.ACTIONS:return chemical_screen.dispatch(self,action,p)
         if action in sequence_alignment.ACTIONS:return sequence_alignment.dispatch(self,action,p)
@@ -635,7 +688,7 @@ class Service:
 
 ACTIONS={'record_update','record_remove','record_restore','library','setting_set','project_create','project_update','project_delete','record_save','sequence_save','mutate','fasta_parse','fasta_import','uniprot_search','uniprot_get','structures','structure_download','import_structure','asset_read','compute','install_engine','prediction_start','prediction_resources','job_read','job_cancel','cloud_prepare','cloud_opened','cloud_import','export_project','project_archive_inspect','project_archive_import','project_archive_snapshots','project_archive_snapshot_read','project_archive_original_export','export_file','reconcile'}
 
-ACTIONS |= periodic_dynamics.ACTIONS | genomic_io.ACTIONS | chemical_screen.ACTIONS | sequence_alignment.ACTIONS | sequence_reads.ACTIONS | quantum_engine.ACTIONS | genome_workspace.ACTIONS | molecular_observatory.ACTIONS | editcraft.ACTIONS | cloud_shell.ACTIONS | cloud_accounts.ACTIONS | cloud_monitor.ACTIONS | cloud_audit.ACTIONS | cloud_deployment.ACTIONS | execution_policy.ACTIONS | modal_account.ACTIONS | peptide_chemistry.ACTIONS | biology_modal.ACTIONS | biology_agent.ACTIONS | biology_evidence.ACTIONS | biology_pipeline.ACTIONS | boltz_api_adapter.ACTIONS | evolution.ACTIONS | research.ACTIONS | cinema.ACTIONS | rapid_remote.ACTIONS | cloud_compute.ACTIONS | dynamics.ACTIONS | ligand.ACTIONS | mpnn.ACTIONS | fold_engine.ACTIONS | OBSERVATORY_ACTIONS | PEPTIDE_ACTIONS | molecular_graph.ACTIONS | intelligence.ACTIONS
+ACTIONS |= biology_controller.ACTIONS | biological_models.ACTIONS | oncology_actions.ACTIONS | tumor_tme_actions.ACTIONS | periodic_dynamics.ACTIONS | mechanistic_actions.ACTIONS | multiscale_actions.ACTIONS | spatial_actions.ACTIONS | rna_kinetics_actions.ACTIONS | md_demo_actions.ACTIONS | gpu_tasks_actions.ACTIONS | cell_physics_actions.ACTIONS | virtual_cell_actions.ACTIONS | blood_transport_actions.ACTIONS | rna_lab_actions.ACTIONS | genomic_io.ACTIONS | chemical_screen.ACTIONS | sequence_alignment.ACTIONS | sequence_reads.ACTIONS | quantum_engine.ACTIONS | genome_workspace.ACTIONS | molecular_observatory.ACTIONS | editcraft.ACTIONS | cloud_shell.ACTIONS | cloud_accounts.ACTIONS | cloud_monitor.ACTIONS | cloud_audit.ACTIONS | cloud_deployment.ACTIONS | execution_policy.ACTIONS | modal_account.ACTIONS | peptide_chemistry.ACTIONS | biology_modal.ACTIONS | biology_agent.ACTIONS | biology_evidence.ACTIONS | biology_pipeline.ACTIONS | boltz_api_adapter.ACTIONS | evolution.ACTIONS | research.ACTIONS | cinema.ACTIONS | rapid_remote.ACTIONS | cloud_compute.ACTIONS | dynamics.ACTIONS | ligand.ACTIONS | mpnn.ACTIONS | fold_engine.ACTIONS | OBSERVATORY_ACTIONS | PEPTIDE_ACTIONS | molecular_graph.ACTIONS | intelligence.ACTIONS
 
 def execute_job(service,id):
     job=service.job(id); p=job['data']; folder=service.root/'jobs'/id

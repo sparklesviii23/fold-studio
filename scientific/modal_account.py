@@ -51,11 +51,15 @@ def dispatch(s,action,p):
         python=providers.interpreter(s)
         if not python or not providers.status(s)['installed']:raise ValueError('The pinned provider SDK is required.')
         old=read(s)
-        if old.get('state')=='waiting_for_browser' and time.time()-old.get('started',0)<600:return old
+        if old.get('state')=='waiting_for_browser' and old.get('pid'):
+            # A new click restarts sign-in: the previous attempt may have lost its browser tab.
+            try:os.killpg(old['pid'],15)
+            except OSError:pass
         path=state_path(s);row={'state':'waiting_for_browser','started':time.time(),'credentialStorage':'macOS Keychain','gpuStarted':False};
         if new_profile:row.update(profileId=__import__('uuid').uuid4().hex,profileName=profile_name)
         path.write_text(json.dumps(row))
-        subprocess.Popen([sys.executable,'-B',str(pathlib.Path(__file__).resolve()),'--login',str(path),str(python)],stdin=subprocess.DEVNULL,stdout=subprocess.DEVNULL,stderr=subprocess.DEVNULL,start_new_session=True,close_fds=True)
+        child=subprocess.Popen([sys.executable,'-B',str(pathlib.Path(__file__).resolve()),'--login',str(path),str(python)],stdin=subprocess.DEVNULL,stdout=subprocess.DEVNULL,stderr=subprocess.DEVNULL,start_new_session=True,close_fds=True)
+        row['pid']=child.pid;path.write_text(json.dumps(row))
         return row
     raise ValueError('Unsupported Modal account action.')
 

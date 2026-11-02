@@ -1,0 +1,48 @@
+/* Render-look dock: anchored to the viewport's left edge, clear of the tool chips below. */
+.look-dock, .look-dock-toggle {
+  position: absolute; left: 18px; top: 50%; z-index: 8;
+  border: 1px solid rgb(255 255 255 / 0.14);
+  background: radial-gradient(140% 90% at 0% 0%, rgb(170 215 255 / 0.08), transparent 55%), linear-gradient(180deg, rgb(16 24 52 / 0.86), rgb(6 10 24 / 0.86));
+  -webkit-backdrop-filter: blur(18px) saturate(150%); backdrop-filter: blur(18px) saturate(150%);
+  box-shadow: inset 0 1px 0 rgb(255 255 255 / 0.1), 0 24px 60px -24px rgb(0 0 0 / 0.85);
+  color: #eef3ff;
+}
+.look-dock-toggle { transform: translateY(-50%); display: flex; flex-direction: column; align-items: center; gap: 6px; padding: 6px 6px 8px; border-radius: 999px; min-height: 0; transition: border-color 0.3s, transform 0.5s cubic-bezier(0.16, 1, 0.3, 1); }
+.look-dock-toggle:hover { border-color: rgb(200 228 255 / 0.32); transform: translateY(-50%) scale(1.04); }
+.look-dock-toggle svg { color: rgb(220 230 255 / 0.6); }
+.look-dock { transform: translateY(-50%); width: 300px; max-height: calc(100% - 140px); overflow-y: auto; scrollbar-width: none; display: grid; gap: 12px; padding: 14px; border-radius: 22px; animation: look-in 0.5s cubic-bezier(0.16, 1, 0.3, 1); }
+.look-dock header { display: flex; align-items: flex-start; justify-content: space-between; }
+.look-dock header div { display: grid; gap: 2px; }
+.look-dock header strong { font-family: 'Instrument Serif', serif; font-style: italic; font-weight: 400; font-size: 1.45rem; line-height: 1.1; letter-spacing: -0.01em; }
+.look-dock-blurb { margin: 0; font-size: 0.78rem; line-height: 1.5; color: rgb(220 230 255 / 0.62); }
+.look-dock section { display: grid; gap: 7px; }
+.look-dock-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 5px; }
+.look-chip { display: flex; align-items: center; gap: 8px; padding: 5px 8px 5px 5px; border-radius: 12px; background: rgb(255 255 255 / 0.03); border: 1px solid rgb(255 255 255 / 0.06); color: rgb(220 230 255 / 0.72); font-size: 0.74rem; text-align: left; min-height: 0; transition: background 0.3s, border-color 0.3s, color 0.3s; }
+.look-chip:hover { background: rgb(255 255 255 / 0.07); color: #eef3ff; }
+.look-chip.active { border-color: rgb(159 220 255 / 0.55); background: rgb(159 220 255 / 0.1); color: #fff; box-shadow: 0 0 22px -10px rgb(159 220 255 / 0.8); }
+.look-chip .look-orb { width: 22px; height: 22px; flex-shrink: 0; }
+.look-orb { display: block; width: 30px; height: 30px; border-radius: 50%; box-shadow: inset 0 1px 2px rgb(255 255 255 / 0.45), inset 0 -5px 10px rgb(0 0 0 / 0.35), 0 3px 10px rgb(0 0 0 / 0.4); }
+.look-colour { width: 100%; }
+.look-colour > button { flex: 1; }
+.home-stage .look-dock, .home-stage .look-dock-toggle, .home-stage .scene-integrity { display: none; }
+
+/* Microscopy looks: grain, softness and vignette layered over the WebGL image. */
+.molecular-canvas.look-cryo-em canvas { filter: grayscale(1) contrast(0.92) brightness(1.04) blur(0.7px); }
+.molecular-canvas.look-negative-stain canvas { filter: grayscale(1) contrast(1.15) blur(0.5px); }
+.molecular-canvas.look-cryo-em::after, .molecular-canvas.look-negative-stain::after {
+  content: ''; position: absolute; inset: 0; pointer-events: none; z-index: 1;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='220' height='220'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='1.1' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E"), radial-gradient(120% 100% at 50% 50%, transparent 55%, rgb(0 0 0 / 0.35));
+  mix-blend-mode: overlay; opacity: 0.75;
+}
+.molecular-canvas.look-negative-stain::after { opacity: 0.6; }
+
+/* Settings gallery */
+.look-settings { display: grid; gap: 18px; }
+.look-settings .look-colour { width: auto; justify-self: start; }
+.look-settings section { display: grid; gap: 10px; }
+.look-gallery { display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 12px; }
+.look-card { display: grid; grid-template-columns: auto 1fr; align-items: center; gap: 4px 12px; padding: 14px; text-align: left; cursor: pointer; }
+.look-card .look-orb { width: 40px; height: 40px; grid-row: span 2; }
+.look-card strong { font-weight: 500; font-size: 0.9rem; }
+.look-card span:not(.look-orb) { grid-column: 2; font-size: 0.76rem; color: rgb(220 230 255 / 0.55); line-height: 1.5; }
+@keyframes look-in { from { opacity: 0; transform: translate(-10px, -50%); } }

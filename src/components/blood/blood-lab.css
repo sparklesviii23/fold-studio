@@ -1,0 +1,53 @@
+/* Blood & Circulation Laboratory (Demo 6) — extends living-lab.css on the midnight-glass surface. */
+.ll-lab-switch{margin-bottom:18px;display:inline-flex;flex-wrap:wrap}
+.blood-lab .page-heading h1 em{color:#ffb38a;font-style:normal}
+.bl-badges{display:flex;flex-direction:column;gap:8px}
+.bl-assume{flex:1;min-width:260px}
+.bl-assume p{margin:0 0 10px;color:var(--text-muted,#aab);font-size:.86rem;line-height:1.5}
+.bl-chips{display:flex;flex-wrap:wrap;gap:6px;list-style:none;margin:0;padding:0}
+.bl-chips li{font-size:.7rem;padding:3px 9px;border-radius:999px;background:rgb(134 182 239 / .08);border:1px solid rgb(134 182 239 / .2);color:#bcd3f0}
+.bl-select{background:var(--field,#0b1022);border:1px solid var(--glass-edge,#333);border-radius:10px;color:var(--text,#fff);padding:8px 10px;font-size:.82rem}
+.bl-toggle{display:inline-flex;align-items:center;gap:7px;font-size:.78rem;color:var(--text-muted,#aab);white-space:nowrap}
+.bl-stage{padding:18px 20px 14px;background:radial-gradient(ellipse at 50% 0%,rgb(57 135 229 / .09),transparent 70%)}
+.bl-vessel{margin:0}
+.bl-vessel figcaption,.bl-cross figcaption{display:flex;flex-direction:column;gap:3px;margin-bottom:6px}
+.bl-vessel figcaption strong,.bl-cross figcaption strong{font-size:.9rem;font-weight:500;color:var(--text,#fff)}
+.bl-vessel figcaption span,.bl-cross figcaption span{font-size:.74rem;color:var(--text-faint,#889)}
+.bl-vessel-stage{position:relative;width:100%}
+.bl-vessel-stage canvas{position:absolute;image-rendering:auto;border-radius:2px;box-shadow:0 0 40px rgb(57 135 229 / .12)}
+.bl-vessel-stage svg{position:absolute;inset:0;overflow:visible;cursor:crosshair}
+.bl-wall{stroke:#e8eefc;stroke-width:2.2;opacity:.75}
+.bl-axis{stroke:rgb(255 255 255 / .28);stroke-dasharray:6 6}
+.bl-profile{fill:none;stroke:#86b6ef;stroke-width:1.6}
+.bl-flow{stroke:#86b6ef;stroke-width:1.4;color:#86b6ef}
+.bl-wallflux line{stroke:#ffb38a;stroke-width:1.3;color:#ffb38a}
+.bl-probe{stroke:rgb(255 255 255 / .6);stroke-dasharray:3 3}
+.bl-particle{fill:#fff4d6;opacity:.85}
+.bl-label{fill:var(--text-muted,#aab);font-size:11px;font-family:var(--font-mono,monospace)}
+.bl-label-warm{fill:#ffb38a}
+.bl-tick{fill:var(--text-faint,#889);font-size:10px;font-family:var(--font-mono,monospace)}
+.ll-scale .bl-ramp{background:linear-gradient(90deg,#080e20,#16346e 20%,#2a78d6 40%,#6eb6f0 60%,#d6ebfc 80%,#fff6de)}
+.bl-particle-key{margin-left:auto;color:#fff4d6}
+.bl-scrubber{display:flex;align-items:center;gap:12px;margin-top:10px;font-size:.78rem;color:var(--text-muted,#aab);font-family:var(--font-mono,monospace)}
+.bl-scrubber input[type=range]{flex:1;accent-color:#86b6ef}
+.bl-scrubber .button{padding:7px 10px}
+.bl-cross{margin:0}
+.bl-cross svg{width:min(100%,230px);display:block;margin:4px auto}
+.bl-cross-wall{fill:none;stroke:#e8eefc;stroke-width:2;opacity:.8}
+.bl-cross-scale{display:flex;justify-content:space-between;gap:8px;flex-wrap:wrap;font-size:.7rem;color:var(--text-faint,#889);font-family:var(--font-mono,monospace)}
+.bl-svg{width:100%;height:auto;display:block;overflow:visible}
+.bl-particles header{display:flex;gap:14px;align-items:flex-start;flex-wrap:wrap;margin-bottom:12px}
+.bl-particles header p{flex:1;min-width:240px;margin:0;font-size:.8rem;color:var(--text-muted,#aab);line-height:1.5}
+.bl-tiles-compact{margin-bottom:8px}
+.bl-tiles-compact>div{display:flex;flex-direction:column;gap:5px;padding:12px 14px;border-radius:14px;background:rgb(255 255 255 / .025);border:1px solid rgb(255 255 255 / .05)}
+.bl-tiles-compact strong{font-size:1.2rem!important}
+.bl-cross-check h3,.bl-validation h3{margin:0 0 6px;font-size:.95rem;font-weight:500}
+.bl-cross-check p{margin:0;font-size:.82rem;color:var(--text-muted,#aab)}
+.bl-validation header{display:flex;justify-content:space-between;gap:14px;align-items:flex-start;flex-wrap:wrap}
+.bl-validation header p{margin:0;font-size:.8rem;color:var(--text-muted,#aab)}
+.bl-validation-table{max-height:none;margin-top:12px}
+.bl-validation-table td,.bl-validation-table th{text-align:left;vertical-align:top}
+.bl-validation-table td small{display:block;font-family:var(--font-sans,system-ui);color:var(--text-faint,#889);font-size:.7rem;line-height:1.45;margin-top:3px;max-width:520px}
+.bl-validation-table td strong{font-family:var(--font-sans,system-ui);font-weight:500;color:var(--text,#fff)}
+@media (max-width:640px){.bl-scrubber{flex-wrap:wrap}.bl-vessel-stage svg .bl-label{font-size:9px}}
+.bl-warnings p{margin:0 0 4px}

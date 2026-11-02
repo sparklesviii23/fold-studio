@@ -40,6 +40,10 @@ genomic_args=(--runtime "$repository/../runtime-build/python-boltz" --manifest "
 if [[ -n "${FOLD_GENOMICS_WHEEL_DIR:-}" ]]; then genomic_args+=(--wheel-dir "$FOLD_GENOMICS_WHEEL_DIR"); fi
 if [[ "${FOLD_PREPARE_GENOMICS:-0}" == "1" ]]; then genomic_args+=(--allow-download); fi
 python3 scripts/prepare-quantum-runtime.py "${genomic_args[@]}"
+rna_args=(--runtime "$repository/../runtime-build/python-jax" --manifest "$repository/vendor/rna-runtime.json")
+if [[ -n "${FOLD_RNA_WHEEL_DIR:-}" ]]; then rna_args+=(--wheel-dir "$FOLD_RNA_WHEEL_DIR"); fi
+if [[ "${FOLD_PREPARE_RNA:-0}" == "1" ]]; then rna_args+=(--allow-download); fi
+python3 scripts/prepare-quantum-runtime.py "${rna_args[@]}"
 # Always package the current portable backend, not a stale previous deployment.
 # This small source-only artifact excludes research and trained weights.
 python3 scripts/build-rapid-release.py --output remote_worker/dist

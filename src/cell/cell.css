@@ -1,0 +1,130 @@
+/* Visualise › Cell Explorer */
+.cell-explorer { position: absolute; inset: 0; display: flex; flex-direction: column; gap: 14px; padding: clamp(16px, 2.4vw, 32px); overflow: auto; }
+.cell-heading { display: flex; align-items: flex-end; justify-content: space-between; gap: 16px; flex-wrap: wrap; }
+.cell-heading h1 { font-size: clamp(1.9rem, 3.4vw, 3rem); margin-top: 10px; }
+.cell-layout { position: relative; flex: 1; min-height: 520px; border-radius: 28px; overflow: hidden; border: 1px solid rgb(255 255 255 / 0.1); box-shadow: inset 0 1px 0 rgb(255 255 255 / 0.08), 0 40px 90px -40px rgb(0 0 0 / 0.9); }
+.cell-stage, .cell-stage canvas { position: absolute; inset: 0; width: 100%; height: 100%; display: block; }
+.cell-stage canvas { cursor: grab; touch-action: none; }
+.cell-stage canvas:active { cursor: grabbing; }
+.cell-failure { position: absolute; inset: 0; display: grid; place-content: center; gap: 8px; text-align: center; color: var(--text-muted); }
+.cell-hover {
+  position: absolute; transform: translate(14px, -110%); pointer-events: none; display: grid; gap: 1px; padding: 8px 14px; border-radius: 14px;
+  background: linear-gradient(180deg, rgb(20 30 62 / 0.78), rgb(6 10 24 / 0.78)); border: 1px solid rgb(255 255 255 / 0.16);
+  -webkit-backdrop-filter: blur(16px); backdrop-filter: blur(16px); box-shadow: 0 16px 40px -16px rgb(0 0 0 / 0.8);
+}
+.cell-hover strong { font-family: var(--font-serif); font-style: italic; font-weight: 400; font-size: 1.15rem; }
+.cell-hover span { font-size: 0.7rem; color: var(--text-faint); font-family: var(--font-mono); letter-spacing: 0.08em; text-transform: uppercase; }
+
+.cell-controls { position: absolute; top: 44px; right: 16px; width: min(300px, calc(100% - 32px)); max-height: calc(100% - 96px); overflow: auto; padding: 16px !important; display: grid; gap: 16px; }
+.cell-controls section { display: grid; gap: 9px; }
+.cell-row { display: flex; align-items: center; justify-content: space-between; gap: 8px; }
+.cell-row-wrap { display: flex !important; flex-wrap: wrap; gap: 6px !important; }
+.cell-styles { display: grid; grid-template-columns: 1fr 1fr; gap: 6px; }
+.cell-style { display: flex; align-items: center; gap: 8px; padding: 7px 10px; border-radius: 12px; background: rgb(255 255 255 / 0.04); border: 1px solid rgb(255 255 255 / 0.07); color: var(--text-muted); font-size: 0.78rem; text-align: left; min-height: 0; }
+.cell-style:hover { color: var(--text); background: rgb(255 255 255 / 0.07); }
+.cell-style.active { color: var(--text); border-color: rgb(159 220 255 / 0.5); background: rgb(159 220 255 / 0.1); box-shadow: 0 0 24px -10px rgb(159 220 255 / 0.8); }
+.cell-style i { width: 16px; height: 16px; border-radius: 50%; flex-shrink: 0; box-shadow: inset 0 1px 2px rgb(255 255 255 / 0.4); }
+.cell-style.s0 i { background: conic-gradient(#f9b880, #c45c8c, #7fb6e8, #9fd39a, #f9b880); }
+.cell-style.s1 i { background: radial-gradient(circle at 35% 30%, #fff1dc, #e08a5d 45%, #1b1f3a 80%); }
+.cell-style.s2 i { background: radial-gradient(circle, #3a6bff 30%, #ff2a55 55%, #000 80%); }
+.cell-style.s3 i { background: radial-gradient(circle at 40% 40%, #9a9a9a, #3a3a3a 70%); }
+.cell-style.s4 i { background: conic-gradient(#ffd27a 0 25%, #ff8fa3 0 50%, #9fb6ff 0 75%, #7ee0c4 0); border: 2px solid #05060c; }
+.cell-styles .cell-style:last-child:nth-child(odd) { grid-column: span 2; }
+.cell-toggle { display: inline-flex; align-items: center; gap: 6px; padding: 6px 12px; border-radius: 999px; font-size: 0.75rem; min-height: 0; color: var(--text-muted); background: rgb(255 255 255 / 0.04); border: 1px solid rgb(255 255 255 / 0.08); }
+.cell-toggle.on { color: #050816; background: linear-gradient(110deg, #f4f8ff, #cfe9ff 50%, #d9ccff); border-color: transparent; }
+.cell-slider { gap: 6px; font-size: 0.78rem; }
+.cell-layers { display: flex; flex-wrap: wrap; gap: 5px; }
+.cell-layers button { padding: 5px 10px; border-radius: 999px; font-size: 0.72rem; min-height: 0; color: var(--text-faint); background: transparent; border: 1px dashed rgb(255 255 255 / 0.14); }
+.cell-layers button.on { color: var(--text); background: rgb(255 255 255 / 0.07); border: 1px solid rgb(255 255 255 / 0.14); }
+
+.cell-journeys { position: absolute; left: 50%; bottom: 18px; transform: translateX(-50%); display: flex; gap: 4px; padding: 5px; border-radius: 999px; max-width: calc(100% - 32px); overflow-x: auto;
+  background: linear-gradient(180deg, rgb(20 30 62 / 0.6), rgb(6 10 24 / 0.6)); border: 1px solid rgb(255 255 255 / 0.14); -webkit-backdrop-filter: blur(20px) saturate(160%); backdrop-filter: blur(20px) saturate(160%); box-shadow: inset 0 1px 0 rgb(255 255 255 / 0.1), 0 24px 50px -20px rgb(0 0 0 / 0.8); }
+.cell-journeys button { padding: 8px 16px; border-radius: 999px; font-size: 0.8rem; white-space: nowrap; color: var(--text-muted); background: transparent; min-height: 0; }
+.cell-journeys button:hover { color: var(--text); background: rgb(255 255 255 / 0.06); }
+.cell-journeys button.active { color: #050816; background: linear-gradient(110deg, #f4f8ff, #cfe9ff 50%, #d9ccff); }
+.cell-journeys button.flying { animation: cell-pulse 1s ease-in-out infinite; }
+.cell-info { position: absolute; left: 16px; top: 16px; width: min(340px, calc(100% - 32px)); padding: 20px !important; display: grid; gap: 10px; justify-items: start; animation: cell-in 0.6s var(--ease-out); }
+.cell-info > .icon-button { position: absolute; top: 10px; right: 10px; }
+.cell-info h3 { font-family: var(--font-serif); font-style: italic; font-weight: 400; font-size: 1.9rem; letter-spacing: -0.02em; line-height: 1.05; }
+.cell-info p { font-size: 0.9rem; line-height: 1.6; }
+.cell-hint { position: absolute; right: 20px; top: 18px; margin: 0; font-family: var(--font-mono); font-size: 0.66rem; letter-spacing: 0.12em; text-transform: uppercase; color: var(--text-faint); pointer-events: none; }
+.cell-disclaimer { margin: 0; font-size: 0.72rem; color: var(--text-faint); }
+@media (max-width: 980px) { .cell-hint { display: none; } .cell-controls { top: auto; bottom: 76px; max-height: 45%; } .cell-info { top: 12px; } }
+@keyframes cell-in { from { opacity: 0; transform: translateY(10px); } }
+@keyframes cell-pulse { 50% { box-shadow: 0 0 24px rgb(159 220 255 / 0.8); } }
+
+/* Gene → Protein story */
+.gene-story { display: grid; gap: 14px; }
+.gene-story-canvas { position: relative; border-radius: 28px; overflow: hidden; border: 1px solid rgb(255 255 255 / 0.1); box-shadow: 0 40px 90px -40px rgb(0 0 0 / 0.9); }
+.gene-story-canvas svg { display: block; width: 100%; height: auto; }
+.gene-story .story-region { font-family: var(--font-mono); font-size: 13px; letter-spacing: 0.24em; }
+.gene-story .story-label { font-family: var(--font-serif); font-style: italic; font-size: 19px; }
+.gene-story .story-aa { font-family: var(--font-mono); font-size: 10px; font-weight: 600; pointer-events: none; }
+.gene-story-caption { position: absolute; bottom: clamp(14px, 2.4vw, 28px); max-width: min(400px, 40%); padding: 16px 20px; border-radius: 20px; animation: cell-in 0.8s var(--ease-out);
+  background: rgb(255 252 245 / 0.78); color: #2c2342; border: 1px solid rgb(44 35 66 / 0.12); -webkit-backdrop-filter: blur(14px); backdrop-filter: blur(14px); box-shadow: 0 20px 50px -24px rgb(44 35 66 / 0.6); }
+.gene-story-caption .eyebrow { color: rgb(44 35 66 / 0.55) !important; }
+.gene-story-caption h2 { font-family: var(--font-serif); font-style: italic; font-weight: 400; font-size: clamp(1.5rem, 2.6vw, 2.2rem); color: inherit !important; letter-spacing: -0.02em; margin: 4px 0 6px; }
+.gene-story-caption p { color: rgb(44 35 66 / 0.78) !important; font-size: 0.92rem; line-height: 1.55; }
+.gene-story-caption.left { left: clamp(14px, 2.4vw, 28px); }
+.gene-story-caption.right { right: clamp(14px, 2.4vw, 28px); top: clamp(48px, 7vw, 72px); bottom: auto; }
+.gene-story.midnight .gene-story-caption { background: linear-gradient(180deg, rgb(20 30 62 / 0.72), rgb(6 10 24 / 0.72)); color: var(--text); border-color: rgb(255 255 255 / 0.14); }
+.gene-story.midnight .gene-story-caption .eyebrow { color: var(--text-faint) !important; }
+.gene-story.midnight .gene-story-caption p { color: var(--text-muted) !important; }
+.gene-story-controls { display: flex; align-items: center; gap: 12px; flex-wrap: wrap; }
+.gene-story-controls input[type=range] { flex: 1; min-width: 160px; }
+.story-play { display: grid; place-items: center; width: 44px; height: 44px; border-radius: 50%; color: #050816; background: linear-gradient(110deg, #f4f8ff, #cfe9ff 50%, #d9ccff); box-shadow: 0 8px 26px -8px rgb(150 210 255 / 0.8); }
+.gene-story-chapters { display: grid; grid-template-columns: repeat(7, minmax(0, 1fr)); gap: 6px; }
+.gene-story-chapters button { position: relative; overflow: hidden; display: grid; gap: 2px; text-align: left; padding: 10px 12px; border-radius: 14px; font-size: 0.78rem; color: var(--text-muted); background: rgb(255 255 255 / 0.035); border: 1px solid rgb(255 255 255 / 0.07); min-height: 0; }
+.gene-story-chapters button span { font-family: var(--font-mono); font-size: 0.65rem; color: var(--text-faint); }
+.gene-story-chapters button.active { color: var(--text); border-color: rgb(159 220 255 / 0.4); background: rgb(159 220 255 / 0.08); }
+.gene-story-chapters button i { position: absolute; left: 0; right: 0; bottom: 0; height: 2px; background: linear-gradient(90deg, var(--ice), var(--violet)); transform-origin: left; }
+.gene-story-readout { display: grid; grid-template-columns: 1.3fr 1fr; gap: 14px 24px; padding: 18px 20px; border-radius: 22px; border: 1px solid var(--glass-edge); background: var(--glass-fill); -webkit-backdrop-filter: var(--glass-blur); backdrop-filter: var(--glass-blur); }
+.gene-sequence, .gene-protein { font-family: var(--font-mono); font-size: 0.78rem; line-height: 1.8; overflow-wrap: anywhere; margin-top: 6px; }
+.seq-exon { color: var(--ice); }
+.seq-intron { color: var(--text-faint); transition: opacity 0.6s; }
+.seq-tail { color: var(--ember); }
+.gene-protein span { display: inline-block; width: 1.5em; text-align: center; border-radius: 6px; color: var(--text-faint); transition: background 0.4s, color 0.4s; }
+.gene-protein span.made { color: #050816; }
+.gene-protein .hydrophobic { background: #ffd27a; } .gene-protein .positive { background: #9fdcff; } .gene-protein .negative { background: #ff9eb5; } .gene-protein .special { background: #b8c0d8; } .gene-protein .polar { background: #5eead4; }
+.gene-custom { grid-column: 1 / -1; gap: 6px; }
+.gene-custom > div { display: flex; gap: 8px; }
+.gene-custom input { font-family: var(--font-mono); }
+@media (max-width: 980px) { .gene-story-chapters { grid-template-columns: repeat(4, minmax(0, 1fr)); } .gene-story-readout { grid-template-columns: 1fr; } .gene-story-caption { position: static; max-width: none; border-radius: 0; } }
+
+/* Scale bar, evidence badge and the microscope */
+.cell-scale, .micrograph-scale { position: absolute; left: 20px; bottom: 26px; display: grid; gap: 5px; pointer-events: none; font-family: var(--font-mono); font-size: 0.68rem; letter-spacing: 0.06em; color: rgb(238 243 255 / 0.85); text-shadow: 0 1px 3px rgb(0 0 0 / 0.8); }
+.cell-scale i, .micrograph-scale i { display: block; height: 3px; border-radius: 2px; background: rgb(238 243 255 / 0.9); box-shadow: 0 1px 4px rgb(0 0 0 / 0.6); transition: width 0.4s var(--ease-out); }
+.evidence-badge { display: inline-flex; align-items: center; gap: 6px; padding: 4px 10px; border-radius: 999px; font-family: var(--font-mono); font-size: 0.62rem; letter-spacing: 0.1em; text-transform: uppercase; color: #ffd9a8; background: rgb(255 179 102 / 0.1); border: 1px solid rgb(255 190 120 / 0.28); }
+.evidence-badge::before { content: ''; width: 6px; height: 6px; border-radius: 50%; background: #ffb366; box-shadow: 0 0 8px #ffb366; }
+.cell-evidence { position: absolute; left: 20px; top: 18px; }
+.cell-info { top: 52px; }
+.cell-controls select { min-height: 36px; font-size: 0.8125rem; }
+.cell-style.s5 i { background: radial-gradient(circle at 45% 45%, #2a2a2a 30%, #9a9a9a 32% 60%, #d0d0d0); }
+.cell-style.s6 i { background: radial-gradient(circle, #3a6bff 20%, #22ff88 40%, #000 75%); }
+.micrograph-layout { background: #111; }
+.micrograph-canvas { position: absolute; inset: 0; width: 100%; height: 100%; display: block; cursor: grab; touch-action: none; }
+.micrograph-canvas:active { cursor: grabbing; }
+.micrograph-label { position: absolute; left: 20px; top: 18px; display: grid; gap: 8px; justify-items: start; pointer-events: none; }
+.micrograph-label strong { font-family: var(--font-serif); font-style: italic; font-weight: 400; font-size: 1.5rem; color: #fff; text-shadow: 0 2px 12px rgb(0 0 0 / 0.7); }
+.micrograph-layout .cell-controls { top: 16px; }
+.cell-style i.mg0 { background: radial-gradient(circle, #3c3c3c 30%, #8e8e8e 60%); }
+.cell-style i.mg1 { background: radial-gradient(circle, #e6e6e6 30%, #2b2b2b 60%); }
+.cell-style i.mg2 { background: radial-gradient(circle at 40% 40%, #9fb6f0 35%, #1b1420 40% 48%, #f3ead9 50%); }
+
+/* Molecular Cinema hub and the illustrated binding story */
+.cinema-hub { display: grid; gap: 14px; padding: clamp(16px, 2.4vw, 32px); max-width: 1320px; margin: 0 auto; }
+.binding-story { display: grid; gap: 12px; }
+.binding-canvas { position: relative; border-radius: 28px; overflow: hidden; border: 1px solid rgb(255 255 255 / 0.1); box-shadow: 0 40px 90px -40px rgb(0 0 0 / 0.9); }
+.binding-canvas svg { display: block; width: 100%; height: auto; }
+.binding-caption { position: absolute; left: clamp(14px, 2.4vw, 28px); bottom: clamp(14px, 2.4vw, 28px); max-width: min(380px, 42%); padding: 14px 18px; border-radius: 18px; animation: cell-in 0.8s var(--ease-out); -webkit-backdrop-filter: blur(12px); backdrop-filter: blur(12px); }
+.binding-caption.light { background: rgb(255 252 245 / 0.8); color: #2b2420; border: 1px solid rgb(43 36 32 / 0.1); }
+.binding-caption.light .eyebrow { color: rgb(43 36 32 / 0.5) !important; }
+.binding-caption.light p { color: rgb(43 36 32 / 0.75) !important; }
+.binding-caption.dark { background: linear-gradient(180deg, rgb(20 30 62 / 0.72), rgb(6 10 24 / 0.72)); color: var(--text); border: 1px solid rgb(255 255 255 / 0.12); }
+.binding-caption h2 { font-family: var(--font-serif); font-style: italic; font-weight: 400; font-size: clamp(1.4rem, 2.4vw, 2rem); color: inherit !important; margin: 2px 0 4px; letter-spacing: -0.02em; }
+.binding-caption p { font-size: 0.875rem; line-height: 1.5; margin: 0; }
+.binding-evidence { position: absolute; right: 18px; top: 16px; }
+.binding-chain { flex-direction: row !important; align-items: center; gap: 8px !important; }
+.binding-chain select { min-height: 34px; width: auto; }
+.binding-empty { display: grid; place-content: center; gap: 8px; text-align: center; min-height: 420px; border-radius: 28px; border: 1px dashed rgb(255 255 255 / 0.14); }
+.binding-empty h3 { font-family: var(--font-serif); font-style: italic; font-weight: 400; font-size: 1.8rem; }

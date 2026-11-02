@@ -71,7 +71,10 @@ def dispatch(s,action,p):
         table(s)
         linked=any(json.loads(r['data']).get('accountId')==selected['id'] for r in s.rows('SELECT data FROM biology_modal_jobs'))
         if linked:raise ValueError('This account owns saved campaigns. Keep its credentials for monitoring and artifact recovery.')
-        if value['activeId']==selected['id']:raise ValueError('Select another account before removing this profile.')
+        if value['activeId']==selected['id']:
+            # Signing out of the active account: the app falls back to this Mac until another account is chosen.
+            value['activeId']=None
+            with s.db:s.db.execute('INSERT OR REPLACE INTO settings VALUES(?,?)',('executionBackend',json.dumps({'mode':'local'})))
         from provider_credentials import access
         access(slot(selected['id'],'id'),remove=True);access(slot(selected['id'],'secret'),remove=True);value['profiles'].remove(selected)
     else:raise ValueError('Unsupported account operation.')

@@ -1,0 +1,187 @@
+/* Analyse › Mechanistic Biology Lab — built on the cosmos tokens (cosmos.css). */
+.mech-lab {
+  --rail: 46px;
+  display: grid; gap: 14px; padding: clamp(16px, 2.4vw, 28px); min-height: 100%;
+  grid-template-columns: 290px minmax(0, 1fr) 340px;
+  grid-template-rows: auto minmax(460px, 58vh) auto;
+  grid-template-areas: 'head head head' 'left centre right' 'left bottom right';
+  transition: grid-template-columns 0.5s var(--ease-out);
+}
+.mech-lab.left-closed { grid-template-columns: var(--rail) minmax(0, 1fr) 340px; }
+.mech-lab.right-closed { grid-template-columns: 290px minmax(0, 1fr) var(--rail); }
+.mech-lab.left-closed.right-closed { grid-template-columns: var(--rail) minmax(0, 1fr) var(--rail); }
+.mech-head { grid-area: head; display: flex; align-items: flex-end; justify-content: space-between; gap: 24px; flex-wrap: wrap; }
+.mech-head h1 { font-size: clamp(1.75rem, 2.8vw, 2.6rem); margin-top: 10px; }
+.mech-head p { max-width: 60ch; font-size: 0.85rem; color: var(--text-faint); margin: 0; }
+
+.mech-panel { position: relative; min-width: 0; border-radius: 22px; border: 1px solid var(--card-edge); background: var(--card-sheen), var(--card); box-shadow: inset 0 1px 0 rgb(255 255 255 / 0.05), 0 20px 50px -30px rgb(0 0 0 / 0.85); }
+.mech-left { grid-area: left; padding: 16px; display: grid; align-content: start; gap: 18px; overflow-y: auto; max-height: calc(100vh - 140px); position: sticky; top: 12px; scrollbar-width: none; }
+.mech-right { grid-area: right; padding: 16px; display: grid; align-content: start; gap: 14px; overflow-y: auto; max-height: calc(100vh - 140px); position: sticky; top: 12px; scrollbar-width: none; }
+.mech-centre { grid-area: centre; display: flex; flex-direction: column; overflow: hidden; background: radial-gradient(90% 70% at 50% 45%, rgb(30 50 110 / 0.35), transparent 70%), var(--card); }
+.mech-bottom { grid-area: bottom; padding: 14px 16px 18px; display: grid; gap: 12px; }
+.mech-left section, .mech-right section { display: grid; gap: 8px; }
+.mech-collapse { position: absolute; top: 12px; right: 10px; z-index: 2; width: 26px; height: 26px; min-height: 0; padding: 0; display: grid; place-items: center; border-radius: 9px; background: rgb(255 255 255 / 0.05); color: var(--text-muted); }
+.mech-collapse.right { left: 10px; right: auto; }
+.left-closed .mech-left, .right-closed .mech-right { padding: 0; overflow: hidden; }
+
+.mech-search { display: flex; align-items: center; gap: 8px; padding: 0 12px; border-radius: 12px; border: 1px solid rgb(255 255 255 / 0.1); background: var(--field); color: var(--ice); }
+.mech-search input, .mech-search input:focus { border: 0 !important; background: transparent !important; box-shadow: none !important; padding-left: 0; }
+.mech-hit, .mech-model { display: grid; gap: 2px; text-align: left; padding: 9px 11px; border-radius: 12px; background: rgb(255 255 255 / 0.025); border: 1px solid rgb(255 255 255 / 0.05); min-height: 0; transition: background 0.3s, border-color 0.3s; }
+.mech-hit:hover, .mech-model:hover:not(:disabled) { background: rgb(255 255 255 / 0.06); border-color: rgb(200 228 255 / 0.16); }
+.mech-hit.active, .mech-model.active { border-color: rgb(159 220 255 / 0.45); background: rgb(159 220 255 / 0.08); }
+.mech-hit strong, .mech-model strong { font-size: 0.85rem; font-weight: 500; color: var(--text); line-height: 1.35; }
+.mech-hit span { font-size: 0.78rem; color: var(--text-muted); }
+.mech-hit small, .mech-model small { font-size: 0.7rem; color: var(--text-faint); line-height: 1.45; }
+.mech-warn { color: #ffb4a0 !important; }
+.mech-target { padding: 10px 12px; border-radius: 12px; background: rgb(159 220 255 / 0.05); border: 1px solid rgb(159 220 255 / 0.12); }
+.mech-target p { font-size: 0.78rem !important; line-height: 1.55; margin: 4px 0; display: -webkit-box; -webkit-line-clamp: 6; -webkit-box-orient: vertical; overflow: hidden; }
+.mech-target small { font-size: 0.7rem; color: var(--text-faint); }
+
+.mech-centre-bar { display: flex; align-items: center; gap: 14px; padding: 12px 14px 0; }
+.mech-centre-bar .cosmos-segment { flex-shrink: 0; }
+.mech-model-name { font-family: var(--font-serif); font-style: italic; font-size: 1.2rem; color: var(--text-muted); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.mech-network, .mc-network { position: relative; flex: 1; min-height: 0; }
+.mc-network svg { width: 100%; height: 100%; display: block; }
+.mc-edge { stroke: rgb(170 200 255 / 0.16); stroke-width: 1.2; transition: stroke 0.3s; }
+.mc-edge.on { stroke: rgb(159 220 255 / 0.75); stroke-width: 1.8; }
+.mc-rx rect { fill: #0b1328; stroke: rgb(185 166 255 / 0.55); stroke-width: 1.5; transition: fill 0.3s; }
+.mc-rx { cursor: pointer; }
+.mc-rx:hover rect, .mc-rx.on rect { fill: #9085e9; stroke: #fff; }
+.mc-sp circle { transition: r 0.25s var(--ease-out), fill 0.25s; }
+.mc-sp-halo { fill: #3987e5; filter: blur(4px); }
+.mc-sp text { font-size: 10.5px; fill: rgb(220 230 255 / 0.72); font-family: var(--font-mono); pointer-events: none; }
+.mc-sp.on text { fill: #fff; }
+.mc-sp.on circle:nth-child(2) { stroke: #fff; stroke-width: 2; }
+.mc-network-card { position: absolute; left: 16px; bottom: 16px; max-width: min(460px, 70%); display: grid; gap: 4px; padding: 10px 14px; border-radius: 14px; pointer-events: none;
+  background: linear-gradient(180deg, rgb(20 30 62 / 0.85), rgb(6 10 24 / 0.85)); border: 1px solid rgb(255 255 255 / 0.12); -webkit-backdrop-filter: blur(14px); backdrop-filter: blur(14px); font-size: 0.78rem; }
+.mc-network-card strong { font-weight: 500; font-size: 0.9rem; }
+.mc-network-card .mono { font-size: 0.72rem; color: var(--text-muted); }
+.mc-rate { color: var(--ice) !important; }
+.mc-network-note { position: absolute; right: 16px; top: 8px; margin: 0; font-size: 0.7rem; color: var(--text-faint); }
+.mc-kedge { fill: none; stroke: rgb(170 200 255 / 0.22); stroke-width: 1.3; }
+.mc-kedge.weak { stroke-dasharray: 4 4; }
+.mc-kedge.on { stroke: rgb(159 220 255 / 0.8); }
+.mc-k { cursor: default; }
+.mc-k text { font-size: 11px; fill: rgb(220 230 255 / 0.75); }
+.mc-k.protein circle:last-of-type { fill: #3987e5; stroke: #cfe9ff; stroke-width: 2; filter: drop-shadow(0 0 14px rgb(57 135 229 / 0.8)); }
+.mc-k.protein text { fill: #fff; font-weight: 600; font-size: 12px; }
+.mc-k.pathway circle:last-of-type { fill: #199e70; }
+.mc-k.model circle:last-of-type { fill: #9085e9; stroke: #0b1328; stroke-width: 2; }
+.mc-k.model { cursor: pointer; }
+.mc-k.model.blocked circle:last-of-type { fill: #555c75; }
+.mc-k.publication circle:last-of-type { fill: #c98500; }
+.mc-klegend { position: absolute; right: 14px; bottom: 12px; }
+.mc-klegend i.k-protein { background: #3987e5; } .mc-klegend i.k-pathway { background: #199e70; } .mc-klegend i.k-model { background: #9085e9; } .mc-klegend i.k-pub { background: #c98500; }
+.mc-klegend i.k-weak { background: none; border-top: 2px dashed rgb(170 200 255 / 0.5); border-radius: 0; height: 0; }
+.mech-empty { flex: 1; display: grid; place-content: center; justify-items: center; gap: 10px; color: var(--text-faint); }
+.mech-playbar { display: flex; align-items: center; gap: 12px; padding: 10px 14px; border-top: 1px solid rgb(255 255 255 / 0.06); flex-wrap: wrap; }
+.mech-playbar .story-play { width: 34px; height: 34px; min-height: 0; }
+.mech-playbar input[type=range] { flex: 1; min-width: 140px; }
+.mech-playbar .mono { font-size: 0.75rem; color: var(--text-muted); min-width: 120px; }
+
+.mech-tabs { width: 100%; margin-top: 30px; }
+.mech-tabs > button { flex: 1; }
+.right-closed .mech-tabs { display: none; }
+.mech-inspect { display: grid; gap: 10px; font-size: 0.8rem; }
+.mech-inspect dl { display: grid; grid-template-columns: 82px 1fr; gap: 6px 10px; margin: 0; }
+.mech-inspect dt { color: var(--text-faint); font-family: var(--font-mono); font-size: 0.66rem; letter-spacing: 0.1em; text-transform: uppercase; padding-top: 2px; }
+.mech-inspect dd { margin: 0; color: var(--text-muted); overflow-wrap: anywhere; line-height: 1.5; }
+.mech-inspect a { color: var(--ice); }
+.mech-question { font-family: var(--font-serif); font-style: italic; font-size: 1.05rem !important; color: var(--text) !important; line-height: 1.4; }
+.mech-checks { display: grid; gap: 6px; }
+.mech-check { display: grid; grid-template-columns: 18px 1fr; gap: 8px; padding: 8px 10px; border-radius: 12px; background: rgb(255 255 255 / 0.025); border: 1px solid rgb(255 255 255 / 0.05); }
+.mech-check svg { margin-top: 2px; }
+.mech-check.ok svg { color: var(--aqua); } .mech-check.fail svg { color: #ffb067; }
+.mech-check strong { font-size: 0.78rem; font-weight: 500; display: block; color: var(--text); }
+.mech-check span { font-size: 0.72rem; color: var(--text-faint); line-height: 1.45; }
+.mech-refs { display: flex; flex-wrap: wrap; gap: 5px; }
+.mech-refs .eyebrow { flex-basis: 100%; }
+.mech-refs a { font-family: var(--font-mono); font-size: 0.68rem; padding: 2px 8px; border-radius: 99px; background: rgb(159 220 255 / 0.06); border: 1px solid rgb(159 220 255 / 0.14); }
+.mech-reaction h3 { font-family: var(--font-serif); font-style: italic; font-weight: 400; font-size: 1.4rem; margin: 2px 0; }
+.mech-reaction { display: grid; gap: 8px; }
+.mech-equation { font-family: var(--font-mono); font-size: 0.8rem !important; color: var(--ice) !important; padding: 10px 12px; border-radius: 12px; background: rgb(2 5 14 / 0.6); border: 1px solid rgb(159 220 255 / 0.14); line-height: 1.6; overflow-wrap: anywhere; }
+.mech-symbol, .mech-rx-row { display: grid; gap: 1px; text-align: left; padding: 7px 10px; border-radius: 10px; background: rgb(255 255 255 / 0.025); border: 1px solid transparent; min-height: 0; }
+.mech-symbol.active { border-color: rgb(159 220 255 / 0.5); background: rgb(159 220 255 / 0.08); }
+.mech-symbol code, .mech-rx-row code { color: var(--violet); font-size: 0.75rem; }
+.mech-symbol span { font-size: 0.8rem; color: var(--text); }
+.mech-symbol small { font-size: 0.68rem; color: var(--text-faint); }
+.mech-rx-row { grid-template-columns: 54px 1fr; align-items: center; gap: 8px; font-size: 0.74rem; color: var(--text-muted); }
+.mech-rx-row:hover { background: rgb(255 255 255 / 0.06); }
+.mech-ode { font-size: 0.7rem !important; color: var(--text-muted) !important; margin: 0; line-height: 1.5; overflow-wrap: anywhere; }
+.mech-param { display: grid; grid-template-columns: 1fr 110px; gap: 8px; align-items: center; padding: 4px 0; border-bottom: 1px solid rgb(255 255 255 / 0.04); }
+.mech-param input { min-height: 32px !important; font-family: var(--font-mono); font-size: 0.75rem !important; padding: 4px 8px; }
+.mech-param.changed input { border-color: rgb(255 176 103 / 0.6) !important; }
+.mech-param.active .mech-param-name code { color: var(--ice); }
+.mech-param-name { display: grid; gap: 1px; text-align: left; background: none; padding: 0; min-height: 0; }
+.mech-param-name code { color: var(--violet); font-size: 0.75rem; }
+.mech-param-name small { font-size: 0.66rem; color: var(--text-faint); line-height: 1.4; overflow-wrap: anywhere; }
+
+.mech-exp-bar, .mech-exp-settings, .mech-sweep { display: flex; flex-wrap: wrap; align-items: flex-end; gap: 10px 12px; }
+.mech-exp-bar label, .mech-exp-settings label { min-width: 0; }
+.mech-exp-bar input:not([type=checkbox]), .mech-exp-bar select, .mech-exp-settings input:not([type=checkbox]), .mech-exp-settings select { min-height: 34px !important; width: auto; min-width: 96px; max-width: 220px; font-size: 0.8rem !important; padding-block: 4px; }
+.mech-exp-bar .button { min-height: 36px; }
+  .mech-sweep .checkbox-label { align-self: center; padding-bottom: 6px; }
+.mech-sweep { padding: 8px 10px; border-radius: 14px; background: rgb(255 255 255 / 0.02); border: 1px solid rgb(255 255 255 / 0.05); }
+.mech-multi { min-height: 84px !important; min-width: 220px !important; }
+.mech-outputs { display: flex; flex-wrap: wrap; gap: 5px; max-height: 76px; overflow-y: auto; }
+.mech-outputs button { padding: 4px 10px; border-radius: 99px; font-size: 0.7rem; font-family: var(--font-mono); min-height: 0; color: var(--text-faint); background: transparent; border: 1px dashed rgb(255 255 255 / 0.14); }
+.mech-outputs button.on { color: var(--text); background: rgb(255 255 255 / 0.07); border: 1px solid rgb(255 255 255 / 0.16); }
+.mech-results { display: grid; gap: 12px; min-height: 120px; }
+.mech-split { display: grid; grid-template-columns: minmax(0, 1.4fr) minmax(260px, 1fr); gap: 16px; align-items: start; }
+.mech-busy, .mech-error { display: flex; align-items: center; gap: 8px; padding: 9px 12px; border-radius: 12px; font-size: 0.8rem; }
+.mech-busy { color: var(--ice); background: rgb(159 220 255 / 0.06); }
+.mech-error { color: #ffd0c0; background: rgb(255 120 90 / 0.08); border: 1px solid rgb(255 140 110 / 0.25); }
+.mech-hint { text-align: center; padding: 24px 0; }
+.mech-quant { margin-left: auto; }
+
+/* Charts */
+.mc-chart { position: relative; }
+.mc-chart svg { width: 100%; height: auto; display: block; overflow: visible; }
+.mc-axes text, .mc-axes-text { font-size: 11px; fill: rgb(220 230 255 / 0.5); font-family: var(--font-mono); }
+.mc-axis-label { fill: rgb(220 230 255 / 0.66) !important; font-family: var(--font-sans) !important; font-size: 11.5px !important; }
+.mc-grid { stroke: rgb(255 255 255 / 0.05); }
+.mc-baseline { stroke: rgb(255 255 255 / 0.2); }
+.mc-direct { font-size: 11px; fill: rgb(238 243 255 / 0.85); font-family: var(--font-mono); }
+.mc-playhead { stroke: rgb(255 255 255 / 0.55); stroke-dasharray: 3 3; }
+.mc-crosshair { stroke: rgb(255 255 255 / 0.3); }
+.mc-tooltip { position: absolute; top: 4px; transform: translateX(-50%); display: grid; gap: 3px; padding: 8px 10px; border-radius: 12px; pointer-events: none; font-size: 0.72rem; min-width: 150px;
+  background: linear-gradient(180deg, rgb(20 30 62 / 0.92), rgb(6 10 24 / 0.92)); border: 1px solid rgb(255 255 255 / 0.12); box-shadow: 0 12px 30px -12px rgb(0 0 0 / 0.8); }
+.mc-tooltip strong { font-weight: 500; color: var(--text); }
+.mc-tooltip span { display: flex; align-items: center; gap: 6px; color: var(--text-muted); }
+.mc-tooltip span b { margin-left: auto; font-family: var(--font-mono); font-weight: 500; color: var(--text); }
+.mc-tooltip i, .mc-legend i { display: inline-block; width: 10px; height: 10px; border-radius: 3px; }
+.mc-legend { display: flex; flex-wrap: wrap; gap: 6px 14px; font-size: 0.72rem; color: var(--text-muted); padding: 4px 0 0 64px; }
+.mc-legend span { display: inline-flex; align-items: center; gap: 6px; }
+.mc-bars { display: grid; gap: 4px; margin-top: 8px; }
+.mc-bar { display: grid; grid-template-columns: minmax(80px, 34%) 1fr 64px; align-items: center; gap: 8px; font-size: 0.72rem; }
+.mc-bar-name { font-family: var(--font-mono); color: var(--text-muted); overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.mc-bar-track { position: relative; height: 12px; border-radius: 4px; background: linear-gradient(90deg, transparent calc(50% - 0.5px), rgb(255 255 255 / 0.25) calc(50% - 0.5px), rgb(255 255 255 / 0.25) calc(50% + 0.5px), transparent calc(50% + 0.5px)); }
+.mc-bar-track i { position: absolute; top: 1px; bottom: 1px; border-radius: 4px; }
+.mc-bar-value { font-family: var(--font-mono); text-align: right; color: var(--text); }
+
+/* Container queries: the lab responds to the workspace width (the sidebar already takes part of the window). */
+.mech-shell { container-type: inline-size; min-height: 100%; }
+.mech-exp-bar .cosmos-segment, .mech-centre-bar .cosmos-segment { min-width: 0; max-width: 100%; }
+.mech-exp-bar .cosmos-segment { flex: 1 1 100%; }
+.mech-centre-bar { min-width: 0; flex-wrap: wrap; }
+.mech-bottom, .mech-results, .mech-exp-settings { min-width: 0; }
+.mech-sweep { display: grid !important; grid-template-columns: minmax(150px, 2fr) repeat(3, minmax(84px, 1fr)) auto; width: 100%; }
+.mech-sweep input:not([type=checkbox]), .mech-sweep select { width: 100% !important; min-width: 0 !important; max-width: none !important; }
+@container (max-width: 1440px) {
+  .mech-lab { grid-template-columns: 250px minmax(0, 1fr) 300px; }
+  .mech-lab.left-closed { grid-template-columns: var(--rail) minmax(0, 1fr) 300px; }
+  .mech-lab.right-closed { grid-template-columns: 250px minmax(0, 1fr) var(--rail); }
+}
+@container (max-width: 1180px) {
+  .mech-lab, .mech-lab.left-closed, .mech-lab.right-closed, .mech-lab.left-closed.right-closed { grid-template-columns: minmax(0, 1fr); grid-template-rows: auto; grid-template-areas: 'head' 'left' 'centre' 'bottom' 'right'; }
+  .mech-left, .mech-right { position: static; max-height: none; }
+  .mech-centre { min-height: 460px; }
+  .mech-collapse { display: none; }
+  .mech-tabs { margin-top: 0; }
+  .mech-split { grid-template-columns: 1fr; }
+}
+@container (max-width: 640px) {
+  .mech-sweep { grid-template-columns: 1fr 1fr; }
+  .mech-sweep > label:first-child { grid-column: 1 / -1; }
+}
+

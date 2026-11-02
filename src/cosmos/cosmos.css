@@ -1,0 +1,539 @@
+/* ==================================================================
+   COSMOS · the FOLD STUDIO design layer
+   Midnight-blue deep space, liquid glass and editorial type, shared
+   with the swiss24genetics site. Loaded last; every rule is scoped to
+   html[data-cosmos] so it outranks the legacy single-class styles
+   without !important, and switching the attribute off restores them.
+   ================================================================== */
+
+:root {
+  --bg: #03050b;
+  --bg-raised: #070b16;
+  --midnight-0: #02040a;
+  --midnight-1: #050916;
+  --midnight-2: #0a1226;
+  --midnight-3: #111c38;
+
+  --text: #eef3ff;
+  --text-muted: rgb(220 230 255 / 0.66);
+  --text-faint: rgb(220 230 255 / 0.4);
+
+  --ice: #9fdcff;
+  --aqua: #5eead4;
+  --violet: #b9a6ff;
+  --orchid: #f0abfc;
+  --ember: #ffb38a;
+  --rose: #ff9eb5;
+  --accent-gradient: linear-gradient(100deg, var(--ice) 0%, var(--violet) 55%, var(--orchid) 100%);
+  --accent-soft: rgb(159 220 255 / 0.14);
+
+  --glass-fill: linear-gradient(180deg, rgb(255 255 255 / 0.075), rgb(255 255 255 / 0.022));
+  --glass-fill-strong: linear-gradient(180deg, rgb(22 32 64 / 0.72), rgb(8 12 28 / 0.66));
+  --glass-edge: rgb(255 255 255 / 0.1);
+  --glass-edge-strong: rgb(255 255 255 / 0.18);
+  --glass-blur: blur(22px) saturate(160%);
+  --glass-shadow: inset 0 1px 0 rgb(255 255 255 / 0.08), inset 0 0 0 1px rgb(255 255 255 / 0.04), 0 30px 60px -30px rgb(0 0 0 / 0.75);
+  --glass-sheen: radial-gradient(120% 70% at 0% 0%, rgb(170 215 255 / 0.07), transparent 55%);
+  --card: linear-gradient(180deg, rgb(17 25 52 / 0.82), rgb(9 14 32 / 0.86));
+  --card-sheen: radial-gradient(140% 90% at 0% 0%, rgb(160 205 255 / 0.05), transparent 50%);
+  --card-edge: rgb(255 255 255 / 0.07);
+  --field: rgb(3 6 16 / 0.55);
+
+  --font-sans: 'Geist', -apple-system, BlinkMacSystemFont, 'SF Pro Text', system-ui, sans-serif;
+  --font-serif: 'Instrument Serif', 'New York', 'Times New Roman', serif;
+  --font-mono: 'Geist Mono', ui-monospace, 'SF Mono', Menlo, monospace;
+
+  --radius-sm: 12px;
+  --radius-md: 18px;
+  --radius-lg: 26px;
+  --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
+  --ease-in-out: cubic-bezier(0.65, 0, 0.35, 1);
+
+  /* Legacy tokens, remapped so older component styles inherit the palette. */
+  --text-primary: var(--text);
+  --text-secondary: rgb(214 226 255 / 0.68);
+  --surface: #0a1226;
+  --surface-deep: rgb(6 10 24 / 0.72);
+  --surface-glass: rgb(10 16 36 / 0.55);
+  --edge: rgb(255 255 255 / 0.12);
+  --accent: var(--ice);
+  --mint: var(--aqua);
+  --radius: 14px;
+}
+
+/* Glass intensity, chosen in Settings → Appearance. */
+html[data-glass='frosted'] { --glass-blur: blur(12px) saturate(130%); --glass-fill: linear-gradient(180deg, rgb(255 255 255 / 0.06), rgb(255 255 255 / 0.03)); }
+html[data-glass='solid'] { --glass-blur: none; --glass-fill: linear-gradient(180deg, #0d1630, #080e20); --glass-fill-strong: linear-gradient(180deg, #0d1630, #080e20); }
+
+html[data-cosmos] { color-scheme: dark; background: var(--bg); font-size: calc(15px * var(--ui-scale, 1)); }
+html[data-cosmos] body {
+  background: var(--bg);
+  color: var(--text);
+  font-family: var(--font-sans);
+  font-feature-settings: 'ss01', 'cv11';
+  letter-spacing: -0.006em;
+  -webkit-font-smoothing: antialiased;
+}
+html[data-cosmos] :root, html[data-cosmos] { font-family: var(--font-sans); }
+html[data-cosmos] ::selection { background: rgb(159 220 255 / 0.3); color: #fff; }
+
+html[data-cosmos] * { scrollbar-width: thin; scrollbar-color: rgb(170 200 255 / 0.18) transparent; }
+html[data-cosmos] ::-webkit-scrollbar { width: 10px; height: 10px; }
+html[data-cosmos] ::-webkit-scrollbar-thumb { background: rgb(170 200 255 / 0.16); border-radius: 99px; border: 3px solid transparent; background-clip: content-box; }
+html[data-cosmos] ::-webkit-scrollbar-thumb:hover { background-color: rgb(170 200 255 / 0.3); }
+html[data-cosmos] ::-webkit-scrollbar-track { background: transparent; }
+
+/* ------------------------------------------------------------------
+   Typography
+   ------------------------------------------------------------------ */
+html[data-cosmos] h1 { font-weight: 400; letter-spacing: -0.035em; line-height: 1.04; color: var(--text); }
+html[data-cosmos] h2 { font-weight: 450; letter-spacing: -0.025em; color: var(--text); }
+html[data-cosmos] h3 { font-weight: 500; letter-spacing: -0.015em; color: var(--text); }
+html[data-cosmos] h4 { font-weight: 550; letter-spacing: -0.005em; color: var(--text); }
+html[data-cosmos] p, html[data-cosmos] .muted { color: var(--text-muted); }
+html[data-cosmos] .caption, html[data-cosmos] .hint { color: var(--text-faint); }
+html[data-cosmos] .mono, html[data-cosmos] pre, html[data-cosmos] code, html[data-cosmos] kbd { font-family: var(--font-mono); }
+html[data-cosmos] h1 em, html[data-cosmos] h2 em, html[data-cosmos] .serif-accent {
+  font-family: var(--font-serif);
+  font-style: italic;
+  font-weight: 400;
+  letter-spacing: -0.02em;
+  font-size: 1.08em;
+  background: var(--accent-gradient);
+  background-size: 200% 100%;
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  padding-right: 0.06em;
+  animation: cosmos-shimmer 9s linear infinite;
+}
+html[data-cosmos] .eyebrow, html[data-cosmos] .kicker, html[data-cosmos] .panel-eyebrow, html[data-cosmos] .group-label, html[data-cosmos] .inspector-heading {
+  font-family: var(--font-mono);
+  font-size: 0.6875rem;
+  font-weight: 400;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--text-faint);
+}
+
+/* Page headings: large editorial titles, serif emphasis on the last phrase. */
+html[data-cosmos] .page-content { padding: clamp(22px, 3vw, 40px) clamp(18px, 3vw, 40px) 64px; max-width: 1200px; }
+html[data-cosmos] .page-heading { margin-bottom: clamp(24px, 3vw, 40px); align-items: flex-end; }
+html[data-cosmos] .page-heading h1 { font-size: clamp(1.75rem, 2.8vw, 2.6rem); max-width: 22ch; }
+html[data-cosmos] .page-heading p { font-size: 0.9375rem; color: var(--text-muted); max-width: 56ch; margin-top: 14px; }
+html[data-cosmos] .page-heading .eyebrow { margin-bottom: 16px; }
+
+/* ------------------------------------------------------------------
+   Shell, backdrop and chrome
+   ------------------------------------------------------------------ */
+html[data-cosmos] .shell { background: transparent; }
+html[data-cosmos] .cosmic-light, html[data-cosmos] .stars { display: none; }
+html[data-cosmos] .cosmos-backdrop { position: absolute; inset: 0; z-index: -1; pointer-events: none; overflow: hidden; background: radial-gradient(120% 80% at 70% 0%, #0b1430 0%, var(--bg) 62%); }
+html[data-cosmos] .cosmos-backdrop canvas { position: absolute; inset: 0; width: 100%; height: 100%; display: block; opacity: 0; transition: opacity 1.6s var(--ease-out); }
+html[data-cosmos] .cosmos-backdrop canvas.ready { opacity: 1; }
+html[data-cosmos] .cosmos-backdrop .cosmos-vignette { position: absolute; inset: 0; background: radial-gradient(140% 100% at 50% 40%, transparent 55%, rgb(1 2 6 / 0.6) 100%); }
+html[data-cosmos] .cosmos-backdrop .cosmos-grain {
+  position: absolute; inset: 0; opacity: 0.035;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+}
+
+html[data-cosmos] .window-chrome {
+  height: 56px; min-height: 56px;
+  background: linear-gradient(180deg, rgb(6 10 24 / 0.55), rgb(6 10 24 / 0.2));
+  -webkit-backdrop-filter: var(--glass-blur); backdrop-filter: var(--glass-blur);
+  border-bottom: 1px solid rgb(255 255 255 / 0.06);
+}
+html[data-cosmos] .window-title-region { font-size: 0.875rem; gap: 10px; }
+html[data-cosmos] .window-title-star { font-size: 18px; background: var(--accent-gradient); -webkit-background-clip: text; background-clip: text; color: transparent; filter: drop-shadow(0 0 10px rgb(159 220 255 / 0.5)); }
+html[data-cosmos] .window-title-region > span:nth-child(2) { font-weight: 500; letter-spacing: 0.16em; font-size: 0.75rem; }
+html[data-cosmos] .window-title-context { font-family: var(--font-serif); font-style: italic; font-size: 1.05rem; color: var(--text-muted); letter-spacing: 0; }
+html[data-cosmos] .window-title-context::before { content: '/'; font-family: var(--font-sans); font-style: normal; margin-right: 10px; color: var(--text-faint); }
+html[data-cosmos] .topbar-actions select { border-radius: 999px; padding-inline: 16px 34px; min-height: 36px; }
+
+/* Sidebar: a floating pane of liquid glass. */
+html[data-cosmos] .sidebar {
+  margin: 10px 0 10px 10px;
+  border-radius: var(--radius-lg);
+  border: 1px solid var(--glass-edge);
+  background: var(--glass-sheen), linear-gradient(180deg, rgb(14 22 48 / 0.55), rgb(6 10 24 / 0.5));
+  -webkit-backdrop-filter: var(--glass-blur); backdrop-filter: var(--glass-blur);
+  box-shadow: var(--glass-shadow);
+  padding-top: 58px;
+}
+html[data-cosmos] .brand { margin: 4px 8px 26px; gap: 12px; }
+html[data-cosmos] .brand-symbol {
+  display: grid; place-items: center; width: 36px; height: 36px; border-radius: 12px; font-size: 18px;
+  color: #050816; background: linear-gradient(135deg, #f4f8ff, #cfe9ff 45%, #d9ccff);
+  box-shadow: 0 0 0 1px rgb(255 255 255 / 0.4) inset, 0 8px 30px -8px rgb(140 200 255 / 0.7);
+  text-shadow: none;
+}
+html[data-cosmos] .brand strong { font-size: 0.8125rem; font-weight: 600; letter-spacing: 0.22em; }
+html[data-cosmos] .brand span { font-family: var(--font-serif); font-style: italic; font-size: 0.95rem; letter-spacing: 0; text-transform: none; color: var(--text-muted); margin-top: 2px; }
+html[data-cosmos] .nav-group { margin-bottom: 20px; }
+html[data-cosmos] .group-label { margin: 0 12px 8px; }
+html[data-cosmos] .nav-item {
+  position: relative; min-height: 2.5rem; border-radius: 12px; padding: 9px 12px; color: var(--text-muted); font-size: 0.875rem;
+  transition: background 0.35s var(--ease-out), color 0.35s, transform 0.35s var(--ease-out);
+}
+html[data-cosmos] .nav-item:hover { background: rgb(255 255 255 / 0.05); color: var(--text); }
+html[data-cosmos] .nav-item:active { transform: scale(0.985); }
+html[data-cosmos] .nav-item.active {
+  color: var(--text);
+  background: linear-gradient(100deg, rgb(159 220 255 / 0.16), rgb(185 166 255 / 0.08));
+  box-shadow: inset 0 0 0 1px rgb(200 225 255 / 0.14), inset 0 1px 0 rgb(255 255 255 / 0.1), 0 10px 30px -14px rgb(120 170 255 / 0.6);
+}
+html[data-cosmos] .nav-item.active::before {
+  content: ''; position: absolute; left: -1px; top: 25%; bottom: 25%; width: 2px; border-radius: 2px;
+  background: linear-gradient(var(--ice), var(--violet)); box-shadow: 0 0 12px var(--ice);
+}
+html[data-cosmos] .nav-item.active > svg { color: var(--ice); filter: drop-shadow(0 0 6px rgb(159 220 255 / 0.6)); }
+html[data-cosmos] .nav-item .nav-new {
+  margin-left: auto; font-family: var(--font-mono); font-size: 0.625rem; letter-spacing: 0.12em; padding: 2px 7px; border-radius: 99px;
+  color: #050816; background: var(--accent-gradient);
+}
+html[data-cosmos] .sidebar-bottom { border-top: 1px solid rgb(255 255 255 / 0.06); }
+
+html[data-cosmos] .main { gap: 0; }
+html[data-cosmos] .workspace { scrollbar-color: rgb(170 200 255 / 0.18) transparent; }
+
+/* ------------------------------------------------------------------
+   Controls
+   ------------------------------------------------------------------ */
+html[data-cosmos] .button {
+  border-radius: 999px; padding: 9px 18px; min-height: 38px; font-weight: 500; font-size: 0.875rem; letter-spacing: -0.01em;
+  color: var(--text);
+  border: 1px solid rgb(255 255 255 / 0.1);
+  background: linear-gradient(180deg, rgb(255 255 255 / 0.08), rgb(255 255 255 / 0.025));
+  -webkit-backdrop-filter: blur(12px); backdrop-filter: blur(12px);
+  box-shadow: inset 0 1px 0 rgb(255 255 255 / 0.08);
+  transition: background 0.35s var(--ease-out), border-color 0.35s, box-shadow 0.45s var(--ease-out), transform 0.45s var(--ease-out);
+}
+html[data-cosmos] .button:hover { background: linear-gradient(180deg, rgb(255 255 255 / 0.13), rgb(255 255 255 / 0.04)); border-color: rgb(200 225 255 / 0.24); }
+html[data-cosmos] .button:active { transform: scale(0.98); }
+html[data-cosmos] .button.primary {
+  position: relative; overflow: hidden; border: 0; color: #050816; font-weight: 550;
+  background: linear-gradient(110deg, #f4f8ff 0%, #cfe9ff 45%, #d9ccff 100%);
+  box-shadow: 0 0 0 1px rgb(255 255 255 / 0.45) inset, 0 10px 36px -10px rgb(140 200 255 / 0.6), 0 0 70px -24px rgb(185 166 255 / 0.65);
+}
+html[data-cosmos] .button.primary::after {
+  content: ''; position: absolute; inset: 0; pointer-events: none;
+  background: linear-gradient(100deg, transparent 30%, rgb(255 255 255 / 0.75) 50%, transparent 70%);
+  transform: translateX(-120%);
+}
+html[data-cosmos] .button.primary:hover { background: linear-gradient(110deg, #ffffff 0%, #dcf0ff 45%, #e4d9ff 100%); box-shadow: 0 0 0 1px rgb(255 255 255 / 0.6) inset, 0 14px 46px -8px rgb(140 200 255 / 0.85), 0 0 110px -14px rgb(185 166 255 / 0.8); }
+html[data-cosmos] .button.primary:hover::after { transform: translateX(120%); transition: transform 0.9s var(--ease-out); }
+html[data-cosmos] .icon-button { border-radius: 10px; color: var(--text-muted); }
+html[data-cosmos] .icon-button:hover, html[data-cosmos] .icon-button.active { color: var(--text); background: rgb(255 255 255 / 0.07); }
+html[data-cosmos] .text-button { color: var(--ice); font-weight: 500; }
+html[data-cosmos] .text-button:hover { color: #fff; text-shadow: 0 0 14px rgb(159 220 255 / 0.6); }
+
+html[data-cosmos] input:not([type=checkbox]):not([type=radio]):not([type=range]):not([type=color]),
+html[data-cosmos] textarea,
+html[data-cosmos] select {
+  color: var(--text);
+  background: var(--field);
+  border: 1px solid rgb(255 255 255 / 0.09);
+  border-radius: 12px;
+  min-height: 40px; font-size: 0.875rem;
+  box-shadow: inset 0 1px 2px rgb(0 0 0 / 0.35);
+  transition: border-color 0.3s, box-shadow 0.3s, background 0.3s;
+}
+html[data-cosmos] input:not([type=checkbox]):not([type=radio]):not([type=range]):not([type=color]):hover,
+html[data-cosmos] textarea:hover, html[data-cosmos] select:hover { border-color: rgb(200 225 255 / 0.2); }
+html[data-cosmos] input:not([type=checkbox]):not([type=radio]):not([type=range]):focus,
+html[data-cosmos] textarea:focus, html[data-cosmos] select:focus {
+  outline: none; border-color: rgb(159 220 255 / 0.55);
+  box-shadow: 0 0 0 4px rgb(159 220 255 / 0.12), inset 0 1px 2px rgb(0 0 0 / 0.35);
+  background: rgb(6 12 28 / 0.7);
+}
+html[data-cosmos] select {
+  appearance: none; -webkit-appearance: none; padding-right: 34px;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24' fill='none' stroke='%239fdcff' stroke-width='2.2' stroke-linecap='round'%3E%3Cpath d='m6 9 6 6 6-6'/%3E%3C/svg%3E");
+  background-repeat: no-repeat; background-position: right 13px center;
+}
+html[data-cosmos] select option { background: #0a1226; color: var(--text); }
+html[data-cosmos] input[type=checkbox], html[data-cosmos] input[type=radio] { accent-color: var(--ice); }
+html[data-cosmos] input[type=range] { accent-color: var(--ice); }
+html[data-cosmos] label { color: var(--text-muted); }
+html[data-cosmos] :focus-visible { outline: 2px solid var(--ice); outline-offset: 3px; }
+
+html[data-cosmos] .badge {
+  border-radius: 99px; padding: 3px 10px; font-size: 0.75rem; font-weight: 500;
+  color: var(--text-muted); background: rgb(255 255 255 / 0.06); border: 1px solid rgb(255 255 255 / 0.09);
+}
+html[data-cosmos] .badge.blue { color: var(--ice); background: rgb(159 220 255 / 0.1); border-color: rgb(159 220 255 / 0.22); }
+html[data-cosmos] .badge.green { color: var(--aqua); background: rgb(94 234 212 / 0.08); border-color: rgb(94 234 212 / 0.24); }
+html[data-cosmos] .badge.red { color: #ffb4c2; background: rgb(255 120 150 / 0.08); border-color: rgb(255 120 150 / 0.26); }
+html[data-cosmos] .status-dot { width: 7px; height: 7px; background: var(--ice); box-shadow: 0 0 10px var(--ice); }
+html[data-cosmos] .status-dot.green { background: var(--aqua); box-shadow: 0 0 10px var(--aqua); }
+html[data-cosmos] .divider { background: linear-gradient(90deg, transparent, rgb(255 255 255 / 0.1), transparent); }
+html[data-cosmos] .section-line h2, html[data-cosmos] .section-line h3 { letter-spacing: -0.02em; }
+
+/* ------------------------------------------------------------------
+   Liquid glass surfaces. One treatment for every card and panel family.
+   --glow-x/--glow-y come from the pointer glow field (CosmicBackdrop).
+   ------------------------------------------------------------------ */
+html[data-cosmos] :is(.quiet-panel, .research-card, .project-card, .hardware-card, .local-card, .annotation-card, .protein-result, .sequence-panel,
+  .mi-card, .ec-card, .ec-workflow-card, .bc-panel, .cloud-panel, .mission-audit-card, .rapid-account, .rapid-candidate, .model-card,
+  .research-overview, .cinema-controls, .cloud-sidebar, .scientific-about, .lab-result, .cell-card, .look-card, .settings-card, .environment-card) {
+  border: 1px solid var(--card-edge);
+  border-radius: var(--radius-md);
+  background: var(--card-sheen), var(--card);
+  box-shadow: inset 0 1px 0 rgb(255 255 255 / 0.05), 0 18px 40px -28px rgb(0 0 0 / 0.8);
+  transition: border-color 0.5s var(--ease-out), transform 0.6s var(--ease-out), box-shadow 0.6s var(--ease-out);
+}
+html[data-cosmos] :is(.project-card, .protein-result, .environment-card, .look-card):hover {
+  border-color: rgb(200 228 255 / 0.22);
+  transform: translateY(-2px);
+  box-shadow: inset 0 1px 0 rgb(255 255 255 / 0.08), 0 26px 50px -30px rgb(0 0 0 / 0.9), 0 0 0 1px rgb(159 220 255 / 0.05), 0 0 40px -24px rgb(140 200 255 / 0.5);
+}
+html[data-cosmos] :is(.protein-result.selected, .environment-card.selected, .look-card.selected) {
+  border-color: rgb(159 220 255 / 0.5);
+  box-shadow: inset 0 0 0 1px rgb(159 220 255 / 0.18), 0 0 36px -18px rgb(159 220 255 / 0.6);
+}
+html[data-cosmos] .quiet-panel { padding: 24px; }
+html[data-cosmos] .research-card { padding: 24px; }
+
+html[data-cosmos] :is(.glass-panel, .glass-dock, .tool-palette, .modal, .inspector, .floating-panel, .scene-integrity, .detached-panel-shell) {
+  border: 1px solid var(--glass-edge-strong) !important;
+  background: var(--glass-sheen), var(--glass-fill-strong) !important;
+  -webkit-backdrop-filter: var(--glass-blur); backdrop-filter: var(--glass-blur);
+  box-shadow: inset 0 1px 0 rgb(255 255 255 / 0.1), 0 40px 90px -30px rgb(0 0 0 / 0.85), 0 0 0 1px rgb(0 0 0 / 0.2);
+}
+html[data-cosmos] .glass-panel { border-radius: 20px; }
+html[data-cosmos] .glass-panel-header { border-bottom: 1px solid rgb(255 255 255 / 0.07); background: linear-gradient(180deg, rgb(255 255 255 / 0.05), transparent); }
+html[data-cosmos] .glass-panel-header strong { font-weight: 500; letter-spacing: -0.01em; }
+html[data-cosmos] .inspector { margin: 10px 10px 10px 0; border-radius: var(--radius-lg); }
+html[data-cosmos] .modal { border-radius: 28px; }
+html[data-cosmos] .modal-backdrop { background: rgb(2 4 12 / 0.55); -webkit-backdrop-filter: blur(10px); backdrop-filter: blur(10px); }
+html[data-cosmos] .modal h2 { font-size: 1.75rem; font-weight: 400; letter-spacing: -0.03em; }
+
+html[data-cosmos] :is(.toast, .error-toast, .working-notice, .focus-exit, .residue-tooltip, .viewer-loading) {
+  border-radius: 999px;
+  border: 1px solid var(--glass-edge-strong);
+  background: linear-gradient(180deg, rgb(20 30 60 / 0.75), rgb(8 12 28 / 0.75));
+  -webkit-backdrop-filter: var(--glass-blur); backdrop-filter: var(--glass-blur);
+  box-shadow: inset 0 1px 0 rgb(255 255 255 / 0.1), 0 20px 50px -20px rgb(0 0 0 / 0.8);
+  color: var(--text);
+}
+html[data-cosmos] .toast svg { color: var(--aqua); }
+html[data-cosmos] .error-toast { border-color: rgb(255 140 165 / 0.35); color: #ffd0da; border-radius: 18px; }
+
+html[data-cosmos] .search-box {
+  border-radius: 999px; padding: 6px 22px; border: 1px solid var(--glass-edge-strong);
+  background: var(--glass-sheen), var(--glass-fill); -webkit-backdrop-filter: var(--glass-blur); backdrop-filter: var(--glass-blur);
+  box-shadow: var(--glass-shadow); color: var(--ice);
+}
+html[data-cosmos] .search-box input, html[data-cosmos] .search-box input:focus { background: transparent; border: 0; box-shadow: none; font-size: 1rem; }
+
+/* Tabs and segmented controls: pills that sit in a glass track. */
+html[data-cosmos] :is(.engine-selector, .lab-tabs, .mi-tabs, .ec-tabs, .bc-tabs, .rapid-workspace-tabs, .project-tabs, .console-modes, .game-tray-tabs, .cosmos-segment) {
+  display: inline-flex; flex-wrap: nowrap; gap: 2px; padding: 4px; border-radius: 999px; max-width: 100%; overflow-x: auto; scrollbar-width: none;
+  background: rgb(3 6 16 / 0.5); border: 1px solid rgb(255 255 255 / 0.07);
+  box-shadow: inset 0 1px 3px rgb(0 0 0 / 0.4);
+}
+html[data-cosmos] :is(.engine-selector, .lab-tabs, .mi-tabs, .ec-tabs, .bc-tabs, .rapid-workspace-tabs, .project-tabs, .console-modes, .game-tray-tabs, .cosmos-segment) > button {
+  border-radius: 999px; padding: 6px 14px; background: transparent; color: var(--text-muted); border: 0; font-size: 0.8rem; white-space: nowrap; flex-shrink: 0; min-height: 0;
+}
+html[data-cosmos] :is(.engine-selector, .lab-tabs, .mi-tabs, .ec-tabs, .bc-tabs, .rapid-workspace-tabs, .project-tabs, .console-modes, .game-tray-tabs, .cosmos-segment) > button:hover { color: var(--text); background: rgb(255 255 255 / 0.05); }
+html[data-cosmos] :is(.engine-selector, .lab-tabs, .mi-tabs, .ec-tabs, .bc-tabs, .rapid-workspace-tabs, .project-tabs, .console-modes, .game-tray-tabs, .cosmos-segment) > button.active {
+  color: #050816; background: linear-gradient(110deg, #f4f8ff, #cfe9ff 50%, #d9ccff);
+  box-shadow: 0 6px 20px -8px rgb(150 210 255 / 0.8);
+}
+html[data-cosmos] .engine-selector { border-radius: 22px; }
+html[data-cosmos] .engine-selector > button { border-radius: 18px; padding: 14px 18px; text-align: left; }
+
+/* ------------------------------------------------------------------
+   Home
+   ------------------------------------------------------------------ */
+html[data-cosmos] .hero { height: auto; min-height: 460px; padding: clamp(32px, 6vw, 72px) clamp(20px, 3.4vw, 48px) 40px; }
+html[data-cosmos] .hero .eyebrow { margin-bottom: 26px; }
+html[data-cosmos] .hero h1 { font-size: clamp(2.4rem, 5vw, 4.6rem); line-height: 1.0; letter-spacing: -0.045em; font-weight: 400; max-width: 13ch; }
+html[data-cosmos] .hero h1 em { display: inline-block; animation: cosmos-rise 1.4s var(--ease-out) 0.25s backwards, cosmos-shimmer 9s linear infinite; }
+html[data-cosmos] .hero p { font-size: 1.0625rem; line-height: 1.7; color: var(--text-muted); max-width: 40ch; margin-top: 24px; }
+html[data-cosmos] .hero-actions { margin-top: 34px; gap: 12px; }
+html[data-cosmos] .hero-actions .button { font-size: 0.9375rem; padding: 12px 22px; min-height: 46px; }
+html[data-cosmos] .hero > * { animation: cosmos-rise 1.3s var(--ease-out) backwards; }
+html[data-cosmos] .hero > *:nth-child(2) { animation-delay: 0.08s; }
+html[data-cosmos] .hero > *:nth-child(3) { animation-delay: 0.18s; }
+html[data-cosmos] .hero > *:nth-child(4) { animation-delay: 0.28s; }
+html[data-cosmos] .home-stage { left: 40%; height: 560px; mask-image: radial-gradient(70% 75% at 55% 45%, #000 45%, transparent 85%); }
+html[data-cosmos] .home-lower { padding: 0 clamp(20px, 3.4vw, 48px) 40px; }
+html[data-cosmos] .home-lower > .section-line { border-top: 1px solid rgb(255 255 255 / 0.06); padding-top: 32px; }
+html[data-cosmos] .home-lower h2 { font-size: 1.5rem; font-weight: 400; }
+html[data-cosmos] .project-grid { gap: 16px; }
+html[data-cosmos] .project-card { border-radius: 22px; min-height: 220px; overflow: hidden; }
+html[data-cosmos] .project-card-body { padding: 18px 20px; }
+html[data-cosmos] .project-card h3 { font-size: 1.0625rem; font-weight: 500; }
+html[data-cosmos] .home-bottom { gap: 16px; }
+html[data-cosmos] .experiment-row { border-bottom-color: rgb(255 255 255 / 0.06); padding: 13px 4px; border-radius: 10px; transition: background 0.3s; }
+html[data-cosmos] .experiment-row:hover { background: rgb(255 255 255 / 0.035); }
+html[data-cosmos] .hero-footnote > span:last-child { border-radius: 99px; border-color: rgb(255 255 255 / 0.12); padding: 3px 10px; font-family: var(--font-mono); font-size: 0.6875rem; }
+
+/* Environment cards in Settings. */
+html[data-cosmos] .environment-grid { gap: 16px; }
+html[data-cosmos] .environment-card { border-radius: 22px; border: 1px solid var(--glass-edge); background: var(--glass-fill); overflow: hidden; transition: transform 0.6s var(--ease-out), border-color 0.4s, box-shadow 0.6s var(--ease-out); }
+html[data-cosmos] .environment-preview { border-radius: 16px; }
+html[data-cosmos] .environment-card.stellar .environment-preview { background: radial-gradient(60% 40% at 60% 45%, rgb(255 170 140 / 0.5), transparent 70%), radial-gradient(90% 50% at 50% 50%, rgb(130 100 230 / 0.45), transparent 75%), linear-gradient(160deg, #0b1030, #03050b); }
+html[data-cosmos] .environment-card.abyss .environment-preview { background: radial-gradient(70% 55% at 62% 40%, rgb(90 170 230 / 0.4), transparent 72%), linear-gradient(160deg, #06182a, #02060d); }
+html[data-cosmos] .environment-card.scientific .environment-preview { background: radial-gradient(70% 55% at 50% 40%, rgb(255 255 255 / 0.12), transparent 72%), linear-gradient(160deg, #10141c, #05070b); }
+
+/* ------------------------------------------------------------------
+   Activity bar, consoles and terminals: a mission-control strip.
+   ------------------------------------------------------------------ */
+html[data-cosmos] .activity-bar {
+  margin: 0 10px 10px; border-radius: 18px;
+  border: 1px solid var(--glass-edge);
+  background: var(--glass-sheen), linear-gradient(180deg, rgb(12 20 44 / 0.6), rgb(5 9 22 / 0.6));
+  -webkit-backdrop-filter: var(--glass-blur); backdrop-filter: var(--glass-blur);
+  box-shadow: var(--glass-shadow);
+  overflow: hidden;
+}
+html[data-cosmos] .activity-header { font-family: var(--font-mono); font-size: 0.75rem; letter-spacing: 0.04em; color: var(--text-muted); }
+html[data-cosmos] .activity-header > span:nth-child(2) { color: var(--text); font-family: var(--font-sans); letter-spacing: -0.005em; font-size: 0.8125rem; }
+html[data-cosmos] .activity-jobs button { border-radius: 12px; }
+html[data-cosmos] .activity-jobs button.selected { background: rgb(159 220 255 / 0.1); box-shadow: inset 0 0 0 1px rgb(159 220 255 / 0.22); }
+
+html[data-cosmos] :is(.job-log, .scientific-json, .python-output, .rapid-terminal-output, .bc-log, .ec-output, .console-history, .scientific-code, pre.mono) {
+  font-family: var(--font-mono); font-size: 0.78rem; line-height: 1.7; color: #cfe2ff;
+  background:
+    linear-gradient(rgb(159 220 255 / 0.025) 1px, transparent 1px) 0 0 / 100% 1.7em,
+    radial-gradient(120% 80% at 0% 0%, rgb(80 140 255 / 0.08), transparent 60%),
+    rgb(2 5 14 / 0.72) !important;
+  border: 1px solid rgb(255 255 255 / 0.08); border-radius: 14px;
+  box-shadow: inset 0 1px 0 rgb(255 255 255 / 0.05), inset 0 0 40px rgb(0 0 0 / 0.4);
+}
+html[data-cosmos] :is(.molecular-console, .rapid-terminal) { border-radius: 18px; }
+html[data-cosmos] :is(.command-entry, .rapid-terminal-input) {
+  border-radius: 14px; border: 1px solid rgb(159 220 255 / 0.18);
+  background: rgb(2 5 14 / 0.7); box-shadow: 0 0 0 4px rgb(159 220 255 / 0.04), inset 0 1px 0 rgb(255 255 255 / 0.05);
+}
+html[data-cosmos] :is(.command-entry, .rapid-terminal-input) input { font-family: var(--font-mono); background: transparent !important; border: 0 !important; box-shadow: none !important; }
+html[data-cosmos] .command-prompt { color: var(--aqua); font-family: var(--font-mono); text-shadow: 0 0 10px rgb(94 234 212 / 0.6); }
+html[data-cosmos] .syntax-command { color: var(--ice); }
+html[data-cosmos] .syntax-number { color: var(--ember); }
+html[data-cosmos] .syntax-chain, html[data-cosmos] .syntax-model { color: var(--violet); }
+html[data-cosmos] .syntax-residue { color: var(--aqua); }
+html[data-cosmos] .syntax-path { color: var(--orchid); }
+html[data-cosmos] .rapid-log-line { font-family: var(--font-mono); }
+
+/* Viewer chrome */
+html[data-cosmos] .viewer-empty h3 { font-family: var(--font-serif); font-style: italic; font-weight: 400; font-size: 2rem; letter-spacing: -0.02em; }
+html[data-cosmos] .viewer-empty svg { color: var(--ice); filter: drop-shadow(0 0 20px rgb(159 220 255 / 0.6)); }
+html[data-cosmos] .observatory-heading h2 { font-weight: 400; letter-spacing: -0.03em; font-size: 1.6rem; }
+html[data-cosmos] .scene-integrity { border-radius: 16px; font-size: 0.75rem; }
+
+/* Tables */
+html[data-cosmos] table { border-collapse: separate; border-spacing: 0; }
+html[data-cosmos] th { font-family: var(--font-mono); font-weight: 400; font-size: 0.6875rem; letter-spacing: 0.14em; text-transform: uppercase; color: var(--text-faint); border-bottom: 1px solid rgb(255 255 255 / 0.08); }
+html[data-cosmos] td { border-bottom: 1px solid rgb(255 255 255 / 0.045); }
+html[data-cosmos] tr:hover td { background: rgb(255 255 255 / 0.02); }
+
+/* Settings */
+html[data-cosmos] .settings-page { display: grid; gap: 20px; }
+html[data-cosmos] .settings-page > .page-heading { margin-bottom: 8px; }
+html[data-cosmos] .interface-controls { gap: 16px 20px; }
+html[data-cosmos] .settings-section-title { display: flex; align-items: baseline; gap: 14px; margin: 18px 0 2px; }
+html[data-cosmos] .settings-section-title h2 { font-size: 1.6rem; font-weight: 400; letter-spacing: -0.03em; }
+html[data-cosmos] .settings-section-title span { font-family: var(--font-mono); font-size: 0.6875rem; letter-spacing: 0.2em; color: var(--text-faint); }
+
+/* ------------------------------------------------------------------
+   Environments map onto backdrop variants, never onto layout.
+   ------------------------------------------------------------------ */
+html[data-cosmos] .environment-abyss { --glass-sheen: radial-gradient(120% 70% at 0% 0%, rgb(120 200 255 / 0.07), transparent 55%); }
+html[data-cosmos] .environment-scientific { --glass-sheen: none; }
+
+/* Responsive: narrow windows keep the glass and drop the side gutters. */
+@media (max-width: 1100px) {
+  html[data-cosmos] .sidebar { margin: 8px 0 8px 8px; border-radius: 20px; }
+  html[data-cosmos] .nav-item.active::before { display: none; }
+  html[data-cosmos] .home-stage { left: 0; opacity: 0.55; }
+}
+@media (max-width: 760px) {
+  html[data-cosmos] .page-heading { flex-direction: column; align-items: flex-start; }
+  html[data-cosmos] .hero h1 { font-size: clamp(2rem, 9vw, 3rem); }
+  html[data-cosmos] .activity-bar { margin: 0 6px 6px; }
+  html[data-cosmos] .inspector { margin: 6px; }
+}
+
+html[data-transparency='false'][data-cosmos] { --glass-blur: none; --glass-fill: linear-gradient(180deg, #0d1630, #080e20); --glass-fill-strong: linear-gradient(180deg, #0d1630, #080e20); }
+
+@keyframes cosmos-shimmer { to { background-position: 200% 0; } }
+@keyframes cosmos-rise { from { opacity: 0; transform: translate3d(0, 24px, 0); filter: blur(6px); } to { opacity: 1; transform: none; filter: none; } }
+@keyframes cosmos-grain { 25% { transform: translate(-3%, 2%); } 50% { transform: translate(2%, -3%); } 75% { transform: translate(-1%, 3%); } }
+@keyframes cosmos-breathe { 50% { opacity: 0.55; } }
+
+/* ------------------------------------------------------------------
+   Workspaces: calmer proportions and readable line lengths.
+   ------------------------------------------------------------------ */
+html[data-cosmos] .editcraft, html[data-cosmos] .research-page { max-width: 1280px; }
+html[data-cosmos] .cloud-workspace { max-width: 1240px; margin-inline: auto; }
+html[data-cosmos] .bindcraft-workspace { background: none; }
+html[data-cosmos] .bindcraft-workspace > * { max-width: 1280px; margin-inline: auto; }
+html[data-cosmos] :is(.ec-hero, .bc-hero, .mission-hero, .cloud-heading, .research-heading) h1 { font-size: clamp(1.75rem, 2.8vw, 2.6rem); font-weight: 400; letter-spacing: -0.035em; }
+html[data-cosmos] :is(.ec-hero, .bc-hero, .mission-hero, .cloud-heading, .research-heading) p { font-size: 0.9375rem; }
+html[data-cosmos] .ec-hero { padding: 18px 4px 14px; }
+html[data-cosmos] .ec-hero > div:last-child, html[data-cosmos] .ec-summary { font-size: 0.8125rem; gap: 18px; }
+html[data-cosmos] .bc-hero { min-height: 0; padding: 28px 32px; border-color: var(--card-edge); background: var(--card-sheen), var(--card); }
+html[data-cosmos] .ec-tabs { padding: 4px; margin: 6px 0 18px; display: flex; }
+html[data-cosmos] .bc-tabs { position: static; backdrop-filter: none; border-radius: 999px; border: 1px solid rgb(255 255 255 / 0.07); background: rgb(3 6 16 / 0.5); margin-bottom: 22px; }
+html[data-cosmos] .bc-tabs > button { border-radius: 999px; padding: 6px 14px; font-size: 0.8rem; white-space: nowrap; }
+html[data-cosmos] .bc-tabs > button.active { color: #050816; background: linear-gradient(110deg, #f4f8ff, #cfe9ff 50%, #d9ccff); }
+html[data-cosmos] :is(.ec-tabs, .bc-tabs, .mi-tabs, .rapid-workspace-tabs) { -webkit-mask-image: linear-gradient(90deg, transparent, #000 12px, #000 calc(100% - 24px), transparent); mask-image: linear-gradient(90deg, transparent, #000 12px, #000 calc(100% - 24px), transparent); }
+html[data-cosmos] :is(.ec-card, .bc-panel, .cloud-panel, .mi-card) { padding: 22px 24px; border-radius: 20px; }
+html[data-cosmos] :is(.ec-card, .bc-panel, .cloud-panel, .mi-card, .quiet-panel, .research-card) h2 { font-size: 1.15rem; font-weight: 500; letter-spacing: -0.02em; margin-bottom: 6px; }
+html[data-cosmos] :is(.ec-card, .bc-panel, .cloud-panel, .mi-card, .quiet-panel, .research-card) h3 { font-size: 0.95rem; font-weight: 500; }
+html[data-cosmos] :is(.ec-card, .bc-panel, .cloud-panel, .mi-card, .quiet-panel, .research-card) p { font-size: 0.85rem; line-height: 1.6; }
+html[data-cosmos] :is(.ec-card, .bc-panel, .cloud-panel, .mi-card) :is(ul, ol, details) { font-size: 0.85rem; }
+html[data-cosmos] .mi-panel { border-color: var(--glass-edge-strong); background: var(--glass-sheen), var(--glass-fill-strong); }
+
+/* Forms: compact fields, labels that read as captions, fields in calm grids. */
+html[data-cosmos] label { font-size: 0.78rem; font-weight: 500; letter-spacing: 0.005em; gap: 7px; }
+html[data-cosmos] :is(.ec-fields, .cloud-fields, .form-grid, .research-form-grid, .bc-field-row) { gap: 14px 18px; }
+html[data-cosmos] :is(.ec-card, .cloud-panel, .bc-panel, .settings-card) :is(input:not([type=checkbox]):not([type=radio]):not([type=range]), select) { max-width: 760px; }
+html[data-cosmos] textarea { font-family: var(--font-mono); font-size: 0.8125rem; line-height: 1.6; }
+html[data-cosmos] input::placeholder, html[data-cosmos] textarea::placeholder { color: var(--text-faint); }
+html[data-cosmos] input[type=checkbox] {
+  appearance: none; -webkit-appearance: none; flex-shrink: 0; width: 18px; height: 18px; margin: 0; border-radius: 6px; cursor: pointer;
+  background: var(--field); border: 1px solid rgb(255 255 255 / 0.18); box-shadow: inset 0 1px 2px rgb(0 0 0 / 0.4);
+  transition: background 0.3s var(--ease-out), border-color 0.3s, box-shadow 0.3s;
+}
+html[data-cosmos] input[type=checkbox]:hover { border-color: rgb(159 220 255 / 0.5); }
+html[data-cosmos] input[type=checkbox]:checked {
+  border-color: transparent;
+  background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23050816' stroke-width='3.2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='m5 12.5 4.5 4.5L19 7.5'/%3E%3C/svg%3E") center / 12px no-repeat, linear-gradient(135deg, #e9f4ff, #b9dcff 50%, #cdbfff);
+  box-shadow: 0 0 14px -2px rgb(159 220 255 / 0.6);
+}
+html[data-cosmos] :is(.checkbox-label, label:has(> input[type=checkbox])) { flex-direction: row; align-items: center; gap: 10px; font-size: 0.85rem; font-weight: 400; color: var(--text-muted); cursor: pointer; }
+html[data-cosmos] input[type=range] { appearance: none; -webkit-appearance: none; height: 4px; border-radius: 4px; background: linear-gradient(90deg, rgb(159 220 255 / 0.6), rgb(185 166 255 / 0.4)); border: 0; box-shadow: none; min-height: 0; padding: 0; }
+html[data-cosmos] input[type=range]::-webkit-slider-thumb { -webkit-appearance: none; width: 16px; height: 16px; border-radius: 50%; background: #f4f8ff; box-shadow: 0 0 0 4px rgb(159 220 255 / 0.18), 0 2px 8px rgb(0 0 0 / 0.5); cursor: grab; }
+
+/* Buttons inside dense panels are rounded rectangles, not giant pills. */
+html[data-cosmos] :is(.glass-panel, .panel-form, .representation-grid, .atomic-panel, .ec-card, .cloud-panel, .bc-panel, .mi-card) .button {
+  border-radius: 12px; min-height: 34px; padding: 7px 14px; font-size: 0.8125rem;
+}
+html[data-cosmos] .representation-grid { gap: 8px; }
+html[data-cosmos] .glass-panel-content { font-size: 0.875rem; }
+html[data-cosmos] .glass-panel-header { height: 44px; }
+html[data-cosmos] :is(.panel-form, .atomic-panel) h2 { font-size: 1.05rem !important; font-weight: 500; }
+
+/* ------------------------------------------------------------------
+   Settings: one centred column of quiet, well-padded rows.
+   ------------------------------------------------------------------ */
+html[data-cosmos] .settings-page { max-width: 940px; }
+html[data-cosmos] .settings-card { padding: 6px 24px; display: grid; }
+html[data-cosmos] .setting-line { display: flex; align-items: center; justify-content: space-between; gap: 24px; padding: 18px 0; border-bottom: 1px solid rgb(255 255 255 / 0.06); }
+html[data-cosmos] .setting-line:last-child { border-bottom: 0; }
+html[data-cosmos] .setting-line h3 { font-size: 0.95rem; font-weight: 500; margin: 0 0 3px; }
+html[data-cosmos] .setting-line p { font-size: 0.8125rem; color: var(--text-faint); margin: 0; }
+html[data-cosmos] .setting-line .cosmos-segment { flex-shrink: 0; }
+html[data-cosmos] .setting-checks { display: flex; flex-wrap: wrap; gap: 10px 28px; }
+html[data-cosmos] .settings-section-title { margin: 26px 0 4px; flex-wrap: wrap; }
+html[data-cosmos] .settings-section-title h2 { font-size: 1.35rem; }
+html[data-cosmos] .settings-section-title p { flex-basis: 100%; margin: 0; font-size: 0.8125rem; }
+html[data-cosmos] .setting-row { display: flex; align-items: center; justify-content: space-between; gap: 20px; }
+html[data-cosmos] .environment-card { padding: 10px; text-align: left; }
+html[data-cosmos] .environment-card h3 { font-size: 0.95rem; margin: 12px 4px 2px; display: flex; align-items: center; gap: 8px; }
+html[data-cosmos] .environment-card p { font-size: 0.8rem; margin: 0 4px 6px; color: var(--text-faint); }
+html[data-cosmos] .environment-preview { height: 96px; }
+@media (max-width: 760px) { html[data-cosmos] .setting-line { flex-direction: column; align-items: flex-start; } }

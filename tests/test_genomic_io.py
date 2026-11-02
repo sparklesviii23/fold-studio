@@ -37,7 +37,7 @@ class GenomicIOTests(unittest.TestCase):
  def test_actual_SAM_and_BAM_flags_MAPQ_and_original_archive(self):
   sam=self.root/'input.sam';bam=self.root/'input.bam';sam.write_text(SAM)
   code="import pysam,sys\nwith pysam.AlignmentFile(sys.argv[1],'r') as source,pysam.AlignmentFile(sys.argv[2],'wb',header=source.header) as out:\n for read in source:out.write(read)"
-  subprocess.run([self.python,'-I','-c',code,str(sam),str(bam)],check=True)
+  subprocess.run([self.python,'-I','-B','-c',code,str(sam),str(bam)],check=True)
   values=[]
   for path,fmt in ((sam,'sam'),(bam,'bam')):
    r=self.s.dispatch('genomic_alignment_import',{'projectId':self.pid,'path':str(path),'format':fmt});v=r['data']['result'];values.append(v);self.assertEqual(v['records'],4);self.assertEqual(v['flagCounts']['unmapped'],1);self.assertEqual(v['flagCounts']['secondary'],1);self.assertEqual(v['flagCounts']['supplementary'],1);self.assertEqual(v['mappedMAPQHistogram']['255'],1);self.assertEqual(v['mappedRecordCountsByHeaderReference']['chr'],3);self.assertEqual(v['CIGAROperationBaseTotals']['1'],1);self.assertEqual((self.s.root/'assets'/r['data']['sourceFile']['asset']).read_bytes(),path.read_bytes())
@@ -49,7 +49,7 @@ class GenomicIOTests(unittest.TestCase):
   from project_archive import inspect_archive
   from project_restore import import_archive
   source=self.root/'blocks.fa';source.write_bytes(b'>chr\n'+(b'ACGT'*20+b'\n')*2000);compressed=self.root/'blocks.fa.gz'
-  subprocess.run([self.python,'-I','-c','import pysam,sys;pysam.tabix_compress(sys.argv[1],sys.argv[2])',str(source),str(compressed)],check=True)
+  subprocess.run([self.python,'-I','-B','-c','import pysam,sys;pysam.tabix_compress(sys.argv[1],sys.argv[2])',str(source),str(compressed)],check=True)
   raw=compressed.read_bytes();r=self.reference(compressed,['chr']);self.assertEqual(r['data']['sourceFile']['compression'],'BGZF');self.assertTrue(r['data']['sourceFile']['compressedIndexAsset']);self.assertEqual(self.region(r,start=65530,end=65549)['dna'],'CGTACGTACGTACGTACGTA');self.assertEqual(self.region(r,start=159997,end=4)['dna'],'ACGTACGT');out=self.root/'original.fa.gz';self.s.dispatch('indexed_genome_export',{'projectId':self.pid,'id':r['id'],'path':str(out)});self.assertEqual(out.read_bytes(),raw)
   archive=self.root/'compressed.zip';self.s.export_project({'id':self.pid,'path':str(archive)});review=inspect_archive({'path':str(archive)});restored=import_archive(self.s,{'path':str(archive),'expectedSha256':review['archiveSha256']});copy=self.s.dispatch('indexed_genomes',{'projectId':restored['projectId']})[0];v=self.s.dispatch('indexed_genome_region',{'projectId':restored['projectId'],'id':copy['id'],'replicon':'chr','start':65530,'end':65549,'strand':'+'});self.assertEqual(v['dna'],'CGTACGTACGTACGTACGTA');self.assertEqual((self.s.root/'assets'/copy['data']['sourceFile']['asset']).read_bytes(),raw)
   (self.s.root/'assets'/copy['data']['sourceFile']['compressedIndexAsset']).write_bytes(b'corrupt')

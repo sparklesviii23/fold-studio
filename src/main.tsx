@@ -8,6 +8,8 @@ import './laboratory.css';
 import './arcade.css';
 import './game.css';
 import './architect.css';
+import './cosmos/fonts.css';
+import './cosmos/cosmos.css';
 const App=lazy(()=>import('./App'));
 const DetachedPanel=lazy(()=>import('./components/DetachedPanel'));
 const ArcadeWindow=lazy(()=>import('./arcade/ArcadeWindow'));

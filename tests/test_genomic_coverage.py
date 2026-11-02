@@ -25,7 +25,7 @@ with pysam.AlignmentFile(sys.argv[3],'rb') as stream:
  values=stream.count_coverage('chr',0,16,quality_threshold=20,read_callback=lambda r:not r.flag&0xF04 and r.mapping_quality!=255 and r.mapping_quality>=20 and r.query_qualities is not None)
 print(json.dumps({b:list(v) for b,v in zip('ACGT',values)}))
 """
-  result=subprocess.run([self.python,'-I','-c',code,str(self.path),str(self.root/'in.bam'),str(self.root/'sorted.bam')],check=True,capture_output=True,text=True);reference=json.loads(result.stdout);self.assertEqual(self.compute()['data']['result']['baseObservationCounts'],reference)
+  result=subprocess.run([self.python,'-I','-B','-c',code,str(self.path),str(self.root/'in.bam'),str(self.root/'sorted.bam')],check=True,capture_output=True,text=True);reference=json.loads(result.stdout);self.assertEqual(self.compute()['data']['result']['baseObservationCounts'],reference)
  def test_integrity_bounds_and_cloud_mode(self):
   for change in ({'contig':'unknown'},{'start':0},{'end':101},{'minimumMAPQ':255},{'minimumBaseQuality':-1},{'includeUnavailableMAPQ':'yes'}):
    with self.subTest(change=change),self.assertRaises(ValueError):self.compute(**change)
