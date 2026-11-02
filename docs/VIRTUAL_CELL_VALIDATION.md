@@ -49,6 +49,7 @@ published behaviour. Neither alone establishes biological accuracy.
 | Structures | 13 saved records map to ANGPTL3 (Q9Y5C1) at 100 % identity; Boltz-2 vs BindCraft Cα RMSD 0.17 Å over UniProt 36–85 |
 | Lab results | 12/12 records pass integrity with their lab's own hash recipe |
 | Cell-cycle → 3D | Scrub to 60 h: DNA layer ×2.19 (Cdk1/B peak), unlabelled (before first mitotic exit); 70 h: G1/S, ×0.65 |
+| CellFlux (cpg0000) | Loads with a strict state-dict match; 50-step Heun sampling on MPS (6 cells 112 s, 4 cells 70 s). From pure noise it generates cell-free texture (not its training mode). From 4 Hep G2 DMSO crops conditioned on DMSO it keeps each cell's footprint; in the assumed DNA slot whole-crop r 0.83 and in-cell r 0.82, but the nucleus-mask Dice is only 0.53–0.75, nuclear-area fractions shift (0.18 → 0.33, 0.26 → 0.11) and mean DNA intensity rises ×1.9: nuclei partly kept but distorted (visual: cell-wide haze). Pearson r alone overstated faithfulness, so the structural measures were added → out of domain. In-domain benchmark not possible (no public cpg0000 crops) |
 | Interface walkthrough (dev bridge, real worker, QA copy of the library) | Cell Painting view; ANGPTL3 → saved structures → Molecular Viewer (Boltz-2 model, 5,022 atoms) → Return to Virtual Cell restored the same cell and protein; cell-cycle scrubbing changed the 3D badge and DNA gain |
 
 ## Interface validation (real worker, not the Tauri shell)

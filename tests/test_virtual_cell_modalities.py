@@ -133,5 +133,32 @@ class CycleVisualTests(unittest.TestCase):
             self.assertEqual(x['visual']['category'], 'illustrative')
 
 
+class CellFluxAdapterTests(unittest.TestCase):
+    def test_perturbations_status_and_crops(self):
+        import virtual_cell_cellflux as VCF
+        from PIL import Image
+        with tempfile.TemporaryDirectory() as root:
+            d = VCF.folder(root) / 'data'; d.mkdir(parents=True)
+            (d / 'cpg0000_combined_embeddings.csv').write_text('BROAD_SAMPLE,0,1\nDMSO,0.1,0.2\nBRD-1,0.3,0.4\n')
+            (d / 'metadata_large_gene2vec_subset.csv').write_text(',BROAD_SAMPLE,SAMPLE_KEY,PLATE,WELL,PERT_TYPE,CPD_NAME,STATE,ANNOT,GENE,SEQUENCE,SPLIT\n'
+                                                                  '0,DMSO,k,p,w,Compound,DMSO,control,Compound,none,s,train\n1,BRD-1,k,p,w,Compound,drugA,trt,Compound,none,s,test\n'
+                                                                  '2,BRD-9,k,p,w,CRISPR,X,trt,CRISPR,GENEX,s,test\n')
+            p = VCF.perturbations(root)
+            self.assertEqual([r['id'] for r in p['rows']], ['DMSO', 'BRD-1'])          # rows without an embedding are not offered
+            self.assertFalse(VCF.status(root)['installed'])
+            with self.assertRaises(ValueError):
+                VCF.job(root, '../x')
+            org = VM.folder(root) / 'original'; (org / 'images').mkdir(parents=True); man = []
+            imgs = {'DNA': disks((300, 300), ((150, 150),), 14), 'ER': disks((300, 300), ((150, 150),), 30, 50, 900), 'AGP': disks((300, 300), ((150, 150),), 30, 50, 700), 'Mito': disks((300, 300), ((150, 150),), 25, 50, 500)}
+            for c, a in imgs.items():
+                buf = io.BytesIO(); Image.fromarray(a).save(buf, format='TIFF'); (org / 'images' / f'{c}.tiff').write_bytes(buf.getvalue())
+                man.append({'file': f'images/{c}.tiff', 'channel': c, 'well': 'A01', 'site': '1', 'plate': 'P', 'batch': 'B', 'source': 's', 'sha256': hashlib.sha256(buf.getvalue()).hexdigest()})
+            (org / 'subset.json').write_text(json.dumps(man))
+            arr, centres = VCF.crops(root, 'P_A01_s1', 4)
+            self.assertEqual(arr.shape, (1, 5, 96, 96)); self.assertEqual(arr.dtype, np.uint8)
+            self.assertTrue(np.array_equal(arr[0, 2], arr[0, 1]))                       # RNA slot is the ER image (stated fill)
+            self.assertGreater(int(arr[0, 0, 48, 48]), 200)                              # DNA slot centred on the nucleus
+
+
 if __name__ == '__main__':
     unittest.main()

@@ -149,6 +149,14 @@ RESOURCES = {
         'licence': 'CC0 (BioModels curated)', 'licenceVerified': False, 'nonCommercial': False, 'redistribution': 'public domain dedication',
         'source': 'https://www.ebi.ac.uk/biomodels/BIOMD0000000730', 'citation': 'Gérard C, Goldbeter A. PNAS 2009;106:21643–21648.',
         'localPath': 'mechanistic/cache', 'install': 'Fetched by the Mechanistic Lab on first run (SBML, < 1 MB)'},
+    'cellflux': {
+        'name': 'CellFlux (flow-matching Cell Painting generator), JUMP cpg0000 checkpoint', 'kind': 'model', 'plugin': True,
+        'provides': ['generated Cell Painting crops for a JUMP perturbation (experimental; out of domain for Hep G2)'],
+        'licence': 'Code MIT (repository; some files carry CC-BY-NC headers); weights licence not stated', 'licenceVerified': False, 'nonCommercial': True,
+        'redistribution': 'not redistributed: fetched into the library for research use',
+        'source': 'https://github.com/yuhui-zh15/CellFlux (041c4c0); https://huggingface.co/suyc21/CellFlux',
+        'citation': 'Zhang Y, Su Y, et al. CellFlux: Simulating Cellular Morphology Changes via Flow Matching. ICML 2025.',
+        'localPath': 'virtualcell/plugins/cellflux/checkpoints/cpg0000.pth', 'install': 'Installed at the user\'s request (≈ 0.9 GB checkpoint; runs on Apple MPS)'},
     'morphodiff': {
         'name': 'MorphoDiff / MorphGen Cell Painting generators', 'kind': 'model', 'plugin': True,
         'provides': ['cell morphology images (planned, last)'],

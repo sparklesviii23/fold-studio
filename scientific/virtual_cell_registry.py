@@ -42,6 +42,7 @@ DATASETS = {
     'encode_hepg2_rna': {'organism': 'Homo sapiens', 'cellLines': ['CVCL_0027'], 'modality': 'bulk RNA-seq transcript quantification (RSEM)', 'unit': 'TPM (RSEM); IsoPct', 'release': 'ENCODE ENCSR000CPE, GENCODE V29'},
     'paxdb_hepg2': {'organism': 'Homo sapiens', 'cellLines': ['CVCL_0027'], 'modality': 'protein abundance (mass spectrometry)', 'unit': 'ppm (PaxDb)', 'release': 'PaxDb latest; Geiger et al. 2012 iBAQ and spectral counting'},
     'cellpainting_hepg2': {'organism': 'Homo sapiens', 'cellLines': ['CVCL_0027'], 'modality': 'Cell Painting fluorescence microscopy (4 channels: DNA, ER, AGP, Mito)', 'unit': 'raw 16-bit intensity; pixels', 'release': 'Cell Painting Gallery cpg0036 (EU-OS Bioactives), FMP batch 2021_09_03'},
+    'cellflux': {'organism': 'Homo sapiens', 'cellLines': 'trained on U2OS (JUMP cpg0000)', 'modality': 'generative Cell Painting model', 'unit': 'generated 8-bit-normalised crops', 'release': 'commit 041c4c0; HF suyc21/CellFlux cpg0000 checkpoint (epoch 79)'},
     'gerard2009': {'organism': 'Mammalian (generic)', 'cellLines': 'not calibrated to any cell line', 'modality': 'mechanistic cell-cycle ODE model', 'unit': 'dimensionless concentrations (µM scale), time in h', 'release': 'BioModels BIOMD0000000730'},
 }
 
@@ -74,8 +75,10 @@ CAPABILITIES = [
      'outputs': ['observed multichannel images', 'nucleus / cell masks', 'per-cell shape, intensity, texture'], 'context': 'Hep G2 DMSO controls (cpg0036 FMP subset)',
      'runtime': 'local CPU (≈1 s per field)', 'evidence': 'measured image; computed features', 'validation': 'integrated_unbenchmarked', 'ui': 'View › Cell Painting',
      'dependencies': ['cellpainting_hepg2'], 'benchmark': 'not yet compared with CellProfiler outputs for the same images'},
-    {'id': 'vcell.microscopy.generative', 'provider': 'image', 'module': None, 'inputs': ['perturbation'], 'outputs': ['generated images'], 'context': 'model training domain only',
-     'runtime': 'GPU', 'evidence': 'prediction', 'validation': 'model_unavailable', 'ui': None, 'dependencies': ['morphodiff plugin: weights, licence and held-out evaluation']},
+    {'id': 'vcell.microscopy.generative', 'provider': 'image', 'module': 'virtual_cell_cellflux.py + cellflux_runner.py (CellFlux cpg0000, local MPS)', 'inputs': ['observed field', 'JUMP perturbation'],
+     'outputs': ['generated crops (prediction)', 'identity check'], 'context': 'trained on U2OS (JUMP); Hep G2 inputs out of domain, channel slots assumed',
+     'runtime': 'local Apple MPS (≈ 18 s per cell) in runtimes/gbcell', 'evidence': 'prediction', 'validation': 'partial', 'ui': 'View › Cell Painting › CellFlux',
+     'dependencies': ['cellflux plugin (code, deps, checkpoint)'], 'benchmark': 'in-domain benchmark impossible (cpg0000 crops not public); Hep G2 DMSO identity check: nuclei partly kept but distorted (Dice 0.53–0.75)'},
     {'id': 'vcell.structures', 'provider': 'structure', 'module': 'virtual_cell_structures.py (read-only over library structure records; Molecular Intelligence parser, map_sequence, confidence, fit)',
      'inputs': ['UniProt accession'], 'outputs': ['saved structures with chain mapping, origin, declared confidence', 'Cα RMSD / TM-score on shared UniProt positions', 'PDB cross-references'],
      'context': 'any (structures are not cell-line specific)', 'runtime': 'local', 'evidence': 'annotation / prediction / measured (per record)', 'validation': 'operational_tested', 'ui': 'Protein panel › Structures › Open in Molecular Viewer', 'dependencies': []},

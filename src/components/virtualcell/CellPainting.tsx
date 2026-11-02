@@ -2,6 +2,7 @@ import {useEffect, useRef, useState} from 'react';
 import {Download, LoaderCircle} from 'lucide-react';
 import {exportFile, rpc} from '../../lib/api';
 import {fmt} from '../mechanistic/MechCharts';
+import CellFluxPanel from './CellFluxPanel';
 
 type Layer = {png: string; displayRange: number[]; stain: string; color: string; source: string};
 const DEFAULT_GAIN = 0.55;                           // four additive channels at full gain saturate to white
@@ -70,6 +71,7 @@ export default function CellPainting({cellId, onError}: {cellId: string; onError
         {row('Cell eccentricity', 'cellEccentricity', '0–1', 3)}{row('Nucleus form factor', 'nucleusFormFactor', '4πA/P²', 3)}{row('DNA texture CV', 'dnaTextureCv', 'ratio', 3)}
         {row('DNA GLCM contrast', 'dnaGlcmContrast', '16 levels', 3)}{row('Mito, cytoplasm mean', 'mitoCytoplasmMean', 'raw counts')}{row('ER, cell mean', 'erCellMean', 'raw counts')}{row('AGP, cell mean', 'agpCellMean', 'raw counts')}
       </tbody></table>
+      {key && <CellFluxPanel cellId={cellId} field={key} onError={onError}/>}
       <p className="caption">{list?.dataset?.name}; {list?.dataset?.citation}. Channels as named by the dataset's load_data (no RNA channel at this site). Raw image range: {Object.entries(a.raw).map(([c, r]: any) => `${c} ${r.min}–${r.max}`).join(', ')}. {a.method}</p>
     </>}
   </div>;

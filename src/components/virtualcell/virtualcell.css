@@ -173,3 +173,8 @@ td.down { color: var(--vc-down); }
 .vc-paint-ch { display: inline-flex; align-items: center; gap: 6px; font-size: 0.74rem; color: var(--text-muted); }
 .vc-paint-ch i { width: 10px; height: 10px; border-radius: 3px; display: inline-block; }
 .vc-paint-ch input[type=range] { width: 80px; }
+.vc-cellflux { display: grid; gap: 8px; padding-top: 8px; border-top: 1px solid rgb(255 255 255 / 0.06); }
+.vc-cf-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(190px, 1fr)); gap: 10px; }
+.vc-cf-grid figure { margin: 0; display: grid; grid-template-columns: 1fr 1fr; gap: 3px; }
+.vc-cf-grid img { width: 100%; image-rendering: pixelated; border-radius: 6px; }
+.vc-cf-grid figcaption { grid-column: 1 / -1; font-size: 0.66rem; color: var(--text-faint); text-align: center; }

@@ -958,6 +958,17 @@ def state_dispatch(service, action, p, ref, cell):
             pts = c.pop('points', [])
             out.append({**c, 'dataset': m['id'], 'method': m['method'], 'unit': m['unit'], 'sample': pts[::max(1, len(pts) // 600)]})
         return {'rna': rna_label, 'comparisons': out, 'context': context_info(ref)['name']}
+    if action in ('vcell_cellflux_status', 'vcell_cellflux_perturbations', 'vcell_cellflux_run', 'vcell_cellflux_job'):
+        import virtual_cell_cellflux as VCF
+        if action == 'vcell_cellflux_status':
+            return VCF.status(root, service)
+        if action == 'vcell_cellflux_perturbations':
+            return VCF.perturbations(root, p.get('query', ''))
+        if action == 'vcell_cellflux_job':
+            return VCF.job(root, str(p.get('run', '')))
+        if getattr(ref, 'cellosaurus', None) != 'CVCL_0027':
+            return VR.unsupported('vcell.microscopy.generative', f"No observed images to start from in {context_info(ref)['name']}.", ['observed Cell Painting for this context'])
+        return VCF.start(root, service, str(p.get('key', '')), str(p.get('perturbation', '')), p.get('n', 4), p.get('seed', 0))
     if action in ('vcell_microscopy_list', 'vcell_microscopy_view'):
         import virtual_cell_microscopy as VM
         if getattr(ref, 'cellosaurus', None) != VM.CONTEXT or not VM.subset(root):
@@ -978,7 +989,8 @@ def state_dispatch(service, action, p, ref, cell):
 
 STATE_ACTIONS = {'vcell_coverage', 'vcell_transcripts', 'vcell_cycle_run', 'vcell_snapshot_save', 'vcell_snapshot_list', 'vcell_snapshot_get',
                  'vcell_snapshot_compare', 'vcell_snapshot_export', 'vcell_snapshot_import', 'vcell_snapshot_delete', 'vcell_structures', 'vcell_structure_compare', 'vcell_rna_protein',
-                 'vcell_microscopy_list', 'vcell_microscopy_view', 'vcell_report'}
+                 'vcell_microscopy_list', 'vcell_microscopy_view', 'vcell_report',
+                 'vcell_cellflux_status', 'vcell_cellflux_perturbations', 'vcell_cellflux_run', 'vcell_cellflux_job'}
 
 
 def dispatch(service, action, p):

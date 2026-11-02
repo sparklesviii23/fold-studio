@@ -20,7 +20,11 @@ validation that would establish it · review needed.
    cell line and must be labelled so). Needs: image subset, channel metadata, segmentation (e.g. CellProfiler / Cellpose)
    and a feature reference. Interface: `image` provider, coverage modality "microscopy / morphology", existing
    MicrographStage stays illustrative. Validation: feature agreement with published CellProfiler outputs on the same images.
-3. **Generative microscopy (MorphoDiff / CellFlux class).** Checked 2 Nov 2026: CellFlux (ICML 2025) code is MIT and
+3. **Generative microscopy — CellFlux installed (2 Nov 2026, user request, research use)** as an experimental plugin;
+   remaining: an in-domain benchmark (needs JUMP cpg0000 control/treated crops, not in the public IMPA archive, or the
+   BBBC021 route: BBBC021 checkpoint ≈ 0.9 GB + streaming bbbc021 crops from the 12 GB IMPA archive), the true cpg0000
+   channel order and normalisation (undocumented), and a Hep G2-trained model before any Hep G2 interpretation.
+   Earlier assessment: CellFlux (ICML 2025) code is MIT and
    checkpoints are public (huggingface.co/suyc21/CellFlux: BBBC021, RxRx1, cpg0000), but the weights' licence is not
    stated, RxRx1 data are CC BY-NC-SA, inputs are IMPA-preprocessed 96 px crops with dataset-specific perturbation
    embeddings, and inference needs PyTorch (not in the app runtime). The integrated Hep G2 EU-OS images are out of its
