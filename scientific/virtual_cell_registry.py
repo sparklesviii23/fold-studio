@@ -47,6 +47,16 @@ DATASETS = {
 }
 
 CAPABILITIES = [
+    {'id': 'vcell.regulatory', 'provider': 'model', 'module': 'virtual_cell_regulatory.py + existing bio_borzoi recipe', 'inputs': ['completed Borzoi job', 'matching cell-line assay'],
+     'outputs': ['genomic regulatory track with coordinates', 'checkpoint and assay provenance'], 'context': 'hg38; explicitly matched HepG2 or K-562 assays',
+     'runtime': 'read-only local viewer; inference through existing cost-gated Modal workbench', 'evidence': 'prediction', 'validation': 'partial',
+     'ui': 'Virtual Cell › Genomic regulation', 'dependencies': ['completed checksum-verified bio_borzoi job with matching assay'],
+     'benchmark': 'Per-library held-out locus comparison (when saved); no genome-wide validation, count calibration or phenotype inference'},
+    {'id': 'vcell.benchmarks', 'provider': 'evidence', 'module': 'virtual_cell_benchmarks.py', 'inputs': ['completed Tahoe atlas', 'DepMap untreated RNA', 'seed'],
+     'outputs': ['held-out line and plate metrics', 'bootstrap intervals', 'saved predictions', 'failure examples'],
+     'context': 'Tahoe lines with matched DepMap input; C3A distinct from parental HepG2', 'runtime': 'bounded local CPU pilot; no downloads',
+     'evidence': 'statistic / prediction compared with measurements', 'validation': 'operational_tested', 'ui': 'Virtual Cell › Scientific benchmarking',
+     'dependencies': ['tahoe100m', 'depmap24q4'], 'benchmark': 'tahoe-line-plate-holdout/1; per-library saved results, no automatic model promotion'},
     {'id': 'vcell.state', 'provider': 'cell_state', 'module': 'virtual_cell.py, virtual_cell_state.py', 'inputs': ['context', 'operation history'], 'outputs': ['replayed state', 'snapshots', 'comparison', 'bundle'],
      'context': 'any', 'runtime': 'local CPU', 'evidence': 'inherits from each value block', 'validation': 'operational_tested', 'ui': 'Virtual Cell › History & snapshots', 'dependencies': []},
     {'id': 'vcell.expression.baseline', 'provider': 'dataset', 'module': 'virtual_cell.py', 'inputs': ['context'], 'outputs': ['gene expression baseline'], 'context': 'K-562, Tahoe lines, Hep G2',

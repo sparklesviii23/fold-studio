@@ -891,14 +891,31 @@ def _dataset_ids(ref):
 def state_dispatch(service, action, p, ref, cell):
     import virtual_cell_state as VS, virtual_cell_registry as VR, virtual_cell_cycle as VC, virtual_cell_transcripts as VT
     root = service.root
+    if action in ('vcell_regulatory_runs', 'vcell_regulatory_track'):
+        import virtual_cell_regulatory as VG
+        rrid = getattr(ref, 'cellosaurus', None) or 'CVCL_0004'
+        return VG.listing(root, rrid) if action == 'vcell_regulatory_runs' else VG.get(root, p.get('run'), rrid)
+    if action in ('vcell_benchmarks', 'vcell_benchmark_get', 'vcell_benchmark_run'):
+        import virtual_cell_benchmarks as VB
+        rrid = getattr(ref, 'cellosaurus', None) or 'CVCL_0004'
+        if action == 'vcell_benchmarks':
+            return {'context': context_info(ref), 'runs': VB.listing(root, rrid), 'protocol': VB.PROTOCOL,
+                    'note': 'Benchmark scores describe their recorded test contexts, not necessarily the selected cell.'}
+        if action == 'vcell_benchmark_get':
+            return VB.load(root, p.get('run'))
+        return VB.run(root, p.get('seed', 17), p.get('conditionsPerLine', 8))
     if action == 'vcell_report':
+        import virtual_cell_benchmarks as VB
+        import virtual_cell_regulatory as VG
         import virtual_cell_state as VSS
         cov = VR.coverage(root, ref); used = sorted({'depmap24q4', 'hpa_subcellular', 'uniprot_human', 'reactome'} | ({'encode_hepg2_rna', 'paxdb_hepg2', 'cellpainting_hepg2'} if ref.kind == 'depmap' else set()))
         rep = {'schema': 'fold.virtualcell.report/1', 'created': VSS.now(), 'context': context_info(ref), 'cell': {k: cell[k] for k in ('id', 'name', 'created', 'history', 'sha256', 'parent', 'reference')},
                'state': {'composition': replay(ref, cell['history'])['composition'], 'evidence': EVIDENCE[replay(ref, cell['history'])['category']]},
                'coverage': cov, 'missing': {k: v for k, v in cov.items() if v['state'] in ('unsupported', 'not_downloaded', 'unmeasured')},
                'datasets': VR.manifest(root, used), 'capabilities': [{k: c[k] for k in ('id', 'validation', 'validationLabel', 'evidence', 'context')} for c in VR.capabilities()],
-               'snapshots': VSS.listing(root, cell['id']), 'software': {'engine': 'Fold Studio Virtual Cell', 'python': __import__('platform').python_version(), 'numpy': np.__version__},
+               'snapshots': VSS.listing(root, cell['id']), 'benchmarks': VB.listing(root, getattr(ref, 'cellosaurus', None) or 'CVCL_0004'),
+               'regulatoryRuns': VG.listing(root, getattr(ref, 'cellosaurus', None) or 'CVCL_0004'),
+               'software': {'engine': 'Fold Studio Virtual Cell', 'python': __import__('platform').python_version(), 'numpy': np.__version__},
                'note': 'Datasets come from different experiments, samples and years; values are not simultaneous measurements of one cell. Simulations are generic unless stated.'}
         rep['sha256'] = _sha(rep)
         return rep
@@ -915,6 +932,17 @@ def state_dispatch(service, action, p, ref, cell):
         return {**{k: v for k, v in r.items() if k != 'series'}, 'series': {k: r['series'][k] for k in r['shown']}}
     if action == 'vcell_snapshot_save':
         blocks, used = _snapshot_blocks(root, ref, cell); sim = None; kind = 'perturbed' if cell['history'] else 'baseline'
+        if p.get('regulatoryRun'):
+            import virtual_cell_regulatory as VG
+            track = VG.get(root, p['regulatoryRun'], getattr(ref, 'cellosaurus', None) or 'CVCL_0004', include_values=True)
+            if not track['supported']: raise ValueError(track['reason'])
+            transform = {k: track['track'].get(k) for k in ('sum_stat', 'scale', 'clip', 'clip_soft')}
+            unit = f"{track['unit']}; {track['track']['identifier']}; {json.dumps(transform, sort_keys=True)}; hg38; 32 bp bins"
+            blocks['regulatoryTrack'] = VS.block('prediction', track.pop('values'), track['model'] + ' · job ' + track['run'],
+                                                unit=unit, version=track['checkpointSha256'], context=context_info(ref)['name'],
+                                                uncertainty=track['uncertainty'], note=track['note'])
+            blocks['regulatoryTrack']['provenance'] = track
+            kind = 'imported'
         if p.get('simulation'):
             r = VC.load_run(root, str(p['simulation'].get('key', ''))); x = VC.at(r, p['simulation'].get('time', 0))
             sim = {'model': r['model'], 'solver': r['solver'], 'parameters': {'GF': r['gf']}, 'hours': r['hours'], 'runKey': r['key'], 'diagnostics': r['diagnostics'],
@@ -990,7 +1018,8 @@ def state_dispatch(service, action, p, ref, cell):
 STATE_ACTIONS = {'vcell_coverage', 'vcell_transcripts', 'vcell_cycle_run', 'vcell_snapshot_save', 'vcell_snapshot_list', 'vcell_snapshot_get',
                  'vcell_snapshot_compare', 'vcell_snapshot_export', 'vcell_snapshot_import', 'vcell_snapshot_delete', 'vcell_structures', 'vcell_structure_compare', 'vcell_rna_protein',
                  'vcell_microscopy_list', 'vcell_microscopy_view', 'vcell_report',
-                 'vcell_cellflux_status', 'vcell_cellflux_perturbations', 'vcell_cellflux_run', 'vcell_cellflux_job'}
+                 'vcell_cellflux_status', 'vcell_cellflux_perturbations', 'vcell_cellflux_run', 'vcell_cellflux_job',
+                 'vcell_benchmarks', 'vcell_benchmark_get', 'vcell_benchmark_run', 'vcell_regulatory_runs', 'vcell_regulatory_track'}
 
 
 def dispatch(service, action, p):

@@ -9,6 +9,8 @@ import CellCycleTimeline from './CellCycleTimeline';
 import SimulationResult from './SimulationResult';
 import RnaProtein from './RnaProtein';
 import CellPainting from './CellPainting';
+import BenchmarkPanel from './BenchmarkPanel';
+import RegulatoryPanel from './RegulatoryPanel';
 import {Coverage, Snapshots} from './StatePanels';
 import './virtualcell.css';
 
@@ -64,7 +66,7 @@ export default function VirtualCellLab({onOpenStructure}: {onOpenStructure?: (id
   const [hidden, setHidden] = useState<Record<string, boolean>>({});
   const [query, setQuery] = useState(''), [protein, setProtein] = useState<any>(null), [enrich, setEnrich] = useState<any>(null);
   const [coverage, setCoverage] = useState<any>(null), [snaps, setSnaps] = useState<any[]>([]), [comparison, setComparison] = useState<any>(null);
-  const [rnaProtein, setRnaProtein] = useState<any>(null), [mode, setMode] = useState<'3d' | 'painting'>('3d');
+  const [rnaProtein, setRnaProtein] = useState<any>(null), [mode, setMode] = useState<'3d' | 'painting' | 'benchmarks' | 'regulatory'>('3d');
   const [results, setResults] = useState<any[] | null>(null), [result, setResult] = useState<any>(null);
   const [cycle, setCycle] = useState<any>(null), [cycleTime, setCycleTime] = useState(0), [gf, setGf] = useState('1'), [hours, setHours] = useState('120'), [notice, setNotice] = useState('');
 
@@ -311,6 +313,8 @@ export default function VirtualCellLab({onOpenStructure}: {onOpenStructure?: (id
         <div className="vc-view-toggle"><span>View:</span>
           {(['channels', 'illustrated'] as const).map(v => <button key={v} className={mode === '3d' && view === v ? 'active' : ''} onClick={() => { setMode('3d'); setView(v); }}>{v}</button>)}
           <button className={mode === 'painting' ? 'active' : ''} onClick={() => setMode('painting')} title="Observed Cell Painting microscopy for this cell context">Cell Painting</button>
+          <button className={mode === 'benchmarks' ? 'active' : ''} onClick={() => setMode('benchmarks')}>Scientific benchmarking</button>
+          <button className={mode === 'regulatory' ? 'active' : ''} onClick={() => setMode('regulatory')}>Genomic regulation</button>
         </div>
 {mode === '3d' && <div className="vc-channel-list"><span>Channels</span>
           {channels.map(c => <button key={c.id} className={'vc-channel ' + (hidden[c.id] ? 'off' : '')} onClick={() => setHidden({...hidden, [c.id]: !hidden[c.id]})}
@@ -318,7 +322,7 @@ export default function VirtualCellLab({onOpenStructure}: {onOpenStructure?: (id
             <i style={{background: CHANNEL_COLOR[c.id]}}/>{c.name.split(' ·')[0]}{c.score != null && Math.abs(c.score) > 0.05 && <em className={c.score > 0 ? 'up' : 'down'}>{c.score > 0 ? '▲' : '▼'}</em>}</button>)}
         </div>}
       </div>
-      {mode === 'painting' ? <CellPainting cellId={current.cell.id} onError={setError}/> :
+      {mode === 'regulatory' ? <div className="vc-benchmark-view"><RegulatoryPanel cellId={current.cell.id} onError={setError} onSaved={() => loadState(current.cell.id)}/></div> : mode === 'benchmarks' ? <div className="vc-benchmark-view"><BenchmarkPanel cellId={current.cell.id} onError={setError}/></div> : mode === 'painting' ? <CellPainting cellId={current.cell.id} onError={setError}/> :
       <div className="vc-stage"><CellStage settings={settings} journey="" onJourneyDone={() => {}} onSelect={() => {}}/>
         {cycleVisual && <div className="vc-stage-cycle" role="status"><span className="vc-phase">{cycleVisual.phase}</span><span className="mono">t {cycleVisual.time.toFixed(1)} h</span>
           <small>DNA layer ×{cycleVisual.gain.toFixed(2)} · visualization rule</small></div>}</div>}

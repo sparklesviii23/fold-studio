@@ -39,6 +39,7 @@ def recipes():
     }
     for key, r in models.items():
         r.update(demo='Biological Models', evidence='Model prediction · GPU qualification pending', timeout=3600, qualification='integration_unvalidated')
-        r['script'] = 'set -euo pipefail\nexport HF_HOME=/cache/models/huggingface\nexport FOLD_BIO_RECIPE=' + key + '\nOUT=/cache/out/$FOLD_TASK_ID; mkdir -p "$OUT"\npython - <<\'FOLD_BIO_PY\'\n' + runner + '\nFOLD_BIO_PY\n'
+        pins = ('export FOLD_BORZOI_REVISION=' + BORZOI + '\nexport FOLD_BASKERVILLE_REVISION=' + BASKERVILLE + '\n') if key == 'bio_borzoi' else ''
+        r['script'] = 'set -euo pipefail\nexport HF_HOME=/cache/models/huggingface\nexport FOLD_BIO_RECIPE=' + key + '\n' + pins + 'OUT=/cache/out/$FOLD_TASK_ID; mkdir -p "$OUT"\npython - <<\'FOLD_BIO_PY\'\n' + runner + '\nFOLD_BIO_PY\n'
     models['bio_antisense'] = antisense_workflow.recipe()
     return models
