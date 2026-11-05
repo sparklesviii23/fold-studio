@@ -5,6 +5,8 @@ Use --status JOB_ID to inspect an existing job without submitting another one.
 A consumed submission claim is never reset automatically, including on failure.
 """
 import argparse
+import base64
+import gzip
 import json
 import os
 from pathlib import Path
@@ -20,6 +22,7 @@ def main():
     p.add_argument('--library',required=True); p.add_argument('--plan'); p.add_argument('--project')
     p.add_argument('--approved-once',action='store_true',help='Only after a human has explicitly approved this exact paid job.')
     p.add_argument('--status',metavar='JOB_ID')
+    p.add_argument('--after-rejected-request',metavar='JOB_ID',help='A manually authorized replacement only after the provider rejected the oversized request before allocation.')
     a=p.parse_args()
     if not a.status and not (a.approved_once and a.plan and a.project):p.error('Submission requires --plan, --project and explicit --approved-once; no job launched.')
     from worker import Service
@@ -33,15 +36,20 @@ def main():
         panel=json.loads(Path(a.plan).read_text()); digest=panel.get('sha256')
         if digest!='179527fa38a666ae7204e46f1c19c96fd0d7469656740a9033d693caac1bdf2d' or panel.get('schema')!='fold.borzoi.panel/1' or panel.get('testLoci')!=100 or len(panel.get('loci',[]))!=104 or len(panel.get('tracks',[]))!=3 or _hash({k:v for k,v in panel.items() if k!='sha256'})!=digest:raise ValueError('Only the exact frozen Stage 2 panel is admitted.')
         raw=json.dumps(panel,separators=(',',':'),allow_nan=False)
-        if len(json.dumps({'files':{'panel.json':raw}}).encode())>100000:raise ValueError('Panel exceeds the bounded process environment.')
+        inputs={'files':{'panel.json.gz.b64':base64.b64encode(gzip.compress(raw.encode(),mtime=0)).decode()}}
+        if len(json.dumps(inputs).encode())>30000:raise ValueError('Panel exceeds the provider configuration limit (32,768 bytes).')
         if not service.db.execute('SELECT 1 FROM projects WHERE id=?',(a.project,)).fetchone():raise ValueError('Choose an existing project in this isolated library.')
         folder=Path(a.library)/'virtualcell/borzoi-panels';folder.mkdir(parents=True,exist_ok=True)
         claim=folder/f'submission-{digest}.json'
-        rec={'panelSha256':digest,'attempt':1,'maxAttempts':1,'timeoutSeconds':2700,'gpu':'A100-80GB','approvedOnce':True,'created':time.strftime('%Y-%m-%dT%H:%M:%SZ',time.gmtime()),'state':'claimed_before_submit'}
+        if a.after_rejected_request:
+            old=json.loads(claim.read_text()); task=GPU._read(service,a.after_rejected_request)
+            if old.get('jobId')!=a.after_rejected_request or task.get('state')!='failed' or task.get('sandboxId') or task.get('returncode') is not None or task.get('error')!="Secret value for key 'FOLD_INPUT' is too long (max 32768)":raise ValueError('Replacement is restricted to the recorded pre-allocation size rejection.')
+            claim=folder/f'submission-{digest}-after-{a.after_rejected_request}.json'
+        rec={'panelSha256':digest,'attempt':1,'maxAttempts':1,'replacesRejectedRequest':a.after_rejected_request,'serializedInputBytes':len(json.dumps(inputs).encode()),'timeoutSeconds':2700,'gpu':'A100-80GB','approvedOnce':True,'created':time.strftime('%Y-%m-%dT%H:%M:%SZ',time.gmtime()),'state':'claimed_before_submit'}
         with open(claim,'x') as f:
             json.dump(rec,f,indent=1);f.flush();os.fsync(f.fileno())
         # Any error after the claim requires inspection; it never authorizes a retry.
-        result=GPU.submit(service,{'projectId':a.project,'recipe':'bio_borzoi_panel','inputs':{'files':{'panel.json':raw}},'timeout':2700,'approvedRemoteCost':True,
+        result=GPU.submit(service,{'projectId':a.project,'recipe':'bio_borzoi_panel','inputs':inputs,'timeout':2700,'approvedRemoteCost':True,
                                   'label':'Stage 2 · frozen 100-locus evaluation','inputSource':{'panelSha256':digest,'approvalScope':'one job; no automatic retry'}})
         rec.update(jobId=result['id'],state=result['state']);temp=claim.with_suffix('.partial');temp.write_text(json.dumps(rec,indent=1));temp.replace(claim)
         print(json.dumps(rec,indent=1))

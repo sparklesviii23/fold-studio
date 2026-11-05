@@ -4,6 +4,7 @@ The enclosing recipe supplies BASE_RUNNER (the shared Biological Models adapter)
 Reproduces the old FABP1 inference first. A failed numerical gate stops the panel.
 """
 import csv
+import base64
 import gc
 import gzip
 import hashlib
@@ -14,6 +15,7 @@ from pathlib import Path
 import time
 import urllib.parse
 import urllib.request
+import zlib
 
 import numpy as np
 import tensorflow as tf
@@ -25,6 +27,16 @@ def sha(path):
     with open(path,'rb') as f:
         for part in iter(lambda:f.read(8<<20),b''): h.update(part)
     return h.hexdigest()
+
+
+def decode_panel_input(inputs):
+    files=inputs.get('files',{})
+    if set(files)!={'panel.json.gz.b64'}: raise ValueError('Expected one compressed panel manifest.')
+    compressed=base64.b64decode(files['panel.json.gz.b64'],validate=True)
+    if len(compressed)>24000: raise ValueError('Compressed panel exceeds transport bound.')
+    decoder=zlib.decompressobj(31); raw=decoder.decompress(compressed,200001)
+    if len(raw)>200000 or not decoder.eof or decoder.unused_data or decoder.unconsumed_tail: raise ValueError('Invalid or oversized compressed panel.')
+    return raw.decode('utf-8')
 
 
 def sequence(chrom,start):
@@ -43,7 +55,7 @@ def sequence(chrom,start):
 
 
 def main():
-    started=time.monotonic(); raw=json.loads(os.environ['FOLD_INPUT'])['files']['panel.json']; panel=json.loads(raw)
+    started=time.monotonic(); raw=decode_panel_input(json.loads(os.environ['FOLD_INPUT'])); panel=json.loads(raw)
     if panel['schema']!='fold.borzoi.panel/1' or panel['testLoci']!=100 or len(panel['loci'])>110: raise ValueError('Unsupported panel manifest.')
     digest=panel.pop('sha256')
     if hashlib.sha256(json.dumps(panel,sort_keys=True,allow_nan=False).encode()).hexdigest()!=digest: raise ValueError('Panel checksum mismatch.')

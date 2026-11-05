@@ -32,3 +32,9 @@ The next dependency is the pending scoped approval for one expanded Borzoi job. 
 The real HepG2 ANGPTL3 workflow now saves, restores and exports evidence and opens its existing predicted structure in Molecular Viewer. It correctly abstains from ANGPTL3 regulatory prediction until an approved compatible result exists. ANGPTL3's fold5 example will remain illustrative even after inference. Existing CellFlux/microscopy modules and source evidence are preserved; no new CellFlux generation was run.
 
 Scientific decision: the current evidence does not justify a learned unified cellular world-model claim. Useful regulatory prediction remains narrowly demonstrated at one locus; cross-context response prediction has not beaten unchanged control. Establish broader reproducibility and prospective/independent-study utility before a larger multimodal model.
+
+### Latest continuation and interface direction
+
+One corrected approved Borzoi job is submitted (`7751fc7a5bb7483e906538dc28b29daa`); the earlier request failed before allocation. The user asked to stop active work while it runs. Reuse that job on return; do not submit another one. Fresh inference reproduction and expanded accuracy results are still pending.
+
+The next interface iteration should prioritize polished menus, clear navigation and an inviting way to explore genes and compare models. Keep a small set of clear actions, readable spacing, measured/predicted evidence labels, and technical provenance in progressive disclosure. Reuse the existing Virtual Cell workspace and preserve scientific uncertainty; visual polish must not imply validated biology.
