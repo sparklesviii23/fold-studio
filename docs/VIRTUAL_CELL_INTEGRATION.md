@@ -78,3 +78,8 @@ The renderer and state system need no change.
 ## Predictive biology Stage 2 · 5 November 2026
 
 Stage 2 remains isolated on codex/predictive-cell-stage2, based on 6d0b3f7. Claude’s original branch remains at 2862128 with its pre-existing report changes untouched. No new Claude commit was found, but its development process remains active. Do not merge into that live checkout. Once Claude is idle, recheck HEAD/status, preserve its dirty files, review only predictive additions and use a fast-forward only if the original HEAD remains an ancestor; otherwise merge/rebase in a separate review worktree and resolve narrowly. Rerun focused tests and the source-resource check. Desktop packaging is a separate final approval step using only scripts/build-local-app.sh; the installed app and research library have not been replaced.
+
+
+### Installed continuation
+
+User approval for integration was subsequently received. The canonical app now contains the predictive branch's Virtual Cell workspace and controller, with an additive import of the completed study into the normal library. Actual native walkthrough and installed-resource checks passed. The active Claude checkout was not merged or modified. Future packaging must use this predictive implementation or a reviewed integration containing it, rather than replacing the app with the older canonical checkout. See the latest implementation checkpoint and PREDICTIVE_CELL_USER_GUIDE.md.
