@@ -38,3 +38,11 @@ Scientific decision: the current evidence does not justify a learned unified cel
 One corrected approved Borzoi job is submitted (`7751fc7a5bb7483e906538dc28b29daa`); the earlier request failed before allocation. The user asked to stop active work while it runs. Reuse that job on return; do not submit another one. Fresh inference reproduction and expanded accuracy results are still pending.
 
 The next interface iteration should prioritize polished menus, clear navigation and an inviting way to explore genes and compare models. Keep a small set of clear actions, readable spacing, measured/predicted evidence labels, and technical provenance in progressive disclosure. Reuse the existing Virtual Cell workspace and preserve scientific uncertainty; visual polish must not imply validated biology.
+
+## Latest Stage 2 evidence and approved continuation
+
+Local stronger-baseline work is now complete and gives a modest validation-selected shrinkage improvement, with a borderline additional-case interval. Complex predictors still lose; independent-study/raw-count validation remains next. User requested a visible tracking window and idle assistant behavior during cloud work. One further approved job uses historical exact verification plus same-device repeatability; retain the cross-device strict failure. Background retrieval/scoring updates the existing UI/data and evidence ledger, with no inference retry. Full multimodal world-model claims remain unjustified.
+
+## Completed expanded evaluation · 5 November 2026
+
+Completed job 168711aa3e4c48c592bba62636a8763c: 100 attempted held-out loci, 99 valid inferred test inputs plus four separate illustrations, three tracks, f0/f1 and mean ensemble. Ensemble mean locus Spearman: HepG2 RNA 0.549361 (77/100 scored, CI 0.504003–0.593526); HepG2 DNase 0.722433 (99/100, CI 0.693813–0.749814); K-562 RNA 0.464252 (73/100, CI 0.418502–0.507656). Aggregates condition on scorable loci; missing coverage and the boundary failure remain explicit. Current original-tolerance comparison and same-device repeat both pass; prior SXM4 cross-device failure is retained. This is related-assay genomic holdout evidence, not independent-study validation, count calibration, protein prediction or a world model.

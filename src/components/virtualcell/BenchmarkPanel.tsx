@@ -16,9 +16,25 @@ type Run = {id: string; created: string; protocol: string; contextRole: string |
 const value = (n: number | null | undefined) => n == null ? 'undefined' : n.toFixed(3);
 const estimate = (x: Estimate) => `${value(x.mean)}${x.ci95 ? ` [${x.ci95.map(value).join(', ')}]` : ''}`;
 
+export function ResponseComparisonExtension({report}:{report:any}) {
+  if(!report.additionalConditionPlan)return null;
+  return <section aria-label="Extended response comparison"><h3>Stronger baselines · additional conditions</h3>
+    <p>Selected using validation data: <b>{report.models[report.tuning.selectedOnValidation]}</b>. Donor shrinkage: {report.tuning.shrink}. The original 72 cases are exploratory retesting after their outcomes were examined.</p>
+    <p>{report.results.additional.length} additional cases: 20 new drug/dose keys, the same nine test lines and plates 13–14. Their identities were frozen before new fitting and scoring. This is not independent-study validation.</p>
+    <table className="vc-table"><thead><tr><th>Method</th><th>Additional-case MSE</th><th>Paired difference vs unchanged [95% CI]</th></tr></thead><tbody>{Object.entries(report.summary.additional).map(([model,s]:any)=><tr key={model}><td>{report.models[model]}</td><td>{estimate(s.mse)}</td><td>{model==='unchanged'?'Reference':estimate(report.mseDifferenceVsUnchanged.additional[model])}</td></tr>)}</tbody></table>
+    <p>Negative differences favour the predictor. The shrinkage baseline’s additional-case interval nearly reaches zero. Intervals are conditional on these lines/compounds and two plates; multiple exploratory comparisons and the previously examined test data limit claims.</p>
+    <details><summary>Original-case differences and complementary metrics</summary>{Object.entries(report.mseDifferenceVsUnchanged.test).map(([model,s]:any)=><p key={model}>{report.models[model]}: original 72-case MSE difference {estimate(s)}.</p>)}
+      <p>Custom centroid-residual correlation subtracts the training-only generic response. Strong-effect sign and top-100 recall are secondary outcome-defined summaries, not replacements for all-gene MSE or exact Systema/Virtual Cell Challenge metrics.</p>
+      {Object.entries(report.summary.additional).map(([model,s]:any)=><p key={model}>{report.models[model]}: effect r {estimate(s.pearson)}; centroid-residual r {estimate(s.centroidResidualPearson)}; strong-effect sign {estimate(s.strongEffectSignAgreement)}; top-100 recall {estimate(s.top100EffectRecall)}.</p>)}
+    </details>
+    <details><summary>Training domain, parameters and model registry</summary><pre>{JSON.stringify({specifications:report.tuning.specifications,models:report.modelRegistry},null,2)}</pre><p>Per-gene finite training-donor subsets; no missing response is imputed. Nonlinear kernel ridge is a statistical model, not a pretrained foundation model. No response method is automatically promoted for parental HepG2.</p></details>
+  </section>;
+}
+
 export function BorzoiBenchmarkReport({report}: {report:any}) {
   return <div className="vc-benchmark-report"><h3>Borzoi · genomic coverage</h3>
     <p>{report.testLoci} held-out genomic loci; {report.illustrativeLoci} separate illustrative loci. The assays are related to training sources. This is not an independent-study test.</p>
+    {report.verificationPolicy&&<p>Verification uses the saved exact original reproduction and a strict repeat on the assigned GPU. The original cross-GPU tolerance comparison is retained separately: {report.crossDeviceOriginalTolerancePassed?'passed':'failed'}. This does not establish exact numerical agreement across GPU variants.</p>}
     {report.tracks.map((t:any)=><section key={t.index}><h4>{t.metadata.description} · {t.metadata.identifier} · {t.cellosaurus}</h4>
       <table className="vc-table"><thead><tr><th>Model</th><th>Scored / attempted loci</th><th>Spearman</th><th>log-profile Pearson</th></tr></thead><tbody>
         {Object.entries(report.summary[String(t.index)]).map(([model,s]:any)=><tr key={model}><td>{model}</td><td>{s.scored} / {s.attempted}</td><td>{estimate({...s.spearman,n:s.scored})}</td><td>{estimate({...s.pearson,n:s.scored})}</td></tr>)}
@@ -64,6 +80,7 @@ export function BenchmarkReport({report}: {report: Benchmark}) {
         unchanged {value(x.metrics.unchanged.mse)}; {x.metrics.unchanged.genes} scored genes.</p>)}
     </details>
     <p className="vc-warn">Research pilot. {report.promotion.reason}</p>
+    <ResponseComparisonExtension report={report}/>
     <details><summary>Domain, uncertainty and limitations</summary>
       <p>{report.uncertainty.method}. Predictive calibration: {report.uncertainty.predictiveCalibration}.</p>
       <p>Test identities: {report.split.test.join(', ')}.</p>

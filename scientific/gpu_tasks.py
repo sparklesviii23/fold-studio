@@ -467,7 +467,7 @@ def _read(s, tid):
 def _write(s, rec):
     d = _folder(s) / rec['id']
     d.mkdir(exist_ok=True)
-    (d / 'task.json').write_text(json.dumps(rec))
+    temp=d/('task.'+uuid.uuid4().hex+'.partial');temp.write_text(json.dumps(rec));temp.replace(d/'task.json')
 
 
 def submit(s, p):
@@ -514,7 +514,20 @@ def _alive(pid):
 
 
 def status(s, p):
+    import fcntl
+    d=_folder(s)/_safe_id(p.get('taskId'))
+    if not d.is_dir():raise ValueError('Unknown task.')
+    with (d/'status.lock').open('a') as lock:
+        try:fcntl.flock(lock,fcntl.LOCK_EX|fcntl.LOCK_NB)
+        except BlockingIOError:return {**_read(s,p.get('taskId')),'phase':'A status update is already in progress'}
+        return _status(s,p)
+
+
+def _status(s, p):
     rec = _read(s, p.get('taskId'))
+    if rec.get('provider') == 'local':
+        # Local scientific checks use the same record/log viewer, without provider calls.
+        return dispatch(s, 'gpu_task_record', p)
     d = _folder(s) / rec['id']
     if p.get('retryFetch') and rec.get('fetchError') and rec.get('sandboxId'):
         # The run finished but its download failed: ask the server again instead of re-running (and re-paying).
@@ -634,6 +647,7 @@ def dispatch(s, action, p):
         return rows
     if action == 'gpu_task_cancel':
         rec = _read(s, p.get('taskId'))
+        if rec.get('provider') == 'local':raise ValueError('Local scientific checks expose read-only progress in this controller.')
         if rec.get('sandboxId') and rec['state'] == 'running':
             _rpc(s, 'gpu_task_cancel_remote', {'sandboxId': rec['sandboxId']})
             rec['stopRequested'] = True     # the next status poll downloads whatever the task already wrote
@@ -644,6 +658,7 @@ def dispatch(s, action, p):
         return rec
     if action == 'gpu_task_exec':
         rec = _read(s, p.get('taskId'))
+        if rec.get('provider') == 'local': raise ValueError('Local preparation and test runs expose read-only logs here.')
         command = str(p.get('command') or '')
         if not command.strip() or len(command) > 4000 or '\0' in command:
             raise ValueError('Enter a command of up to 4,000 characters.')

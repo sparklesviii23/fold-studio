@@ -113,7 +113,7 @@ def esmfold(inputs, out):
             'note': 'Single-chain structure prediction without supplied MSA. Confidence is not experimental validation.'}
 
 
-def borzoi(inputs, out):
+def borzoi(inputs, out, reference_dna=None):
     import csv
     import numpy as np
     import tensorflow as tf
@@ -121,10 +121,12 @@ def borzoi(inputs, out):
     if not tf.config.list_physical_devices('GPU'): raise RuntimeError('Borzoi requires a remote TensorFlow GPU; CPU fallback disabled.')
     start = inputs['start']; end = start + 524288
     url = 'https://api.genome.ucsc.edu/getData/sequence?' + urllib.parse.urlencode({'genome': 'hg38', 'chrom': inputs['chromosome'], 'start': start, 'end': end})
-    with urllib.request.urlopen(url, timeout=120) as response:
-        body = response.read(2_000_001)
-    if len(body) > 2_000_000: raise ValueError('Reference response too large.')
-    dna = json.loads(body)['dna'].upper()
+    if reference_dna is None:
+        with urllib.request.urlopen(url, timeout=120) as response:
+            body = response.read(2_000_001)
+        if len(body) > 2_000_000: raise ValueError('Reference response too large.')
+        dna = json.loads(body)['dna'].upper()
+    else: dna=reference_dna.upper()
     if len(dna) != 524288 or set(dna) - set('ACGTN'): raise ValueError('Reference window length/alphabet mismatch; no padding or clipping applied.')
     (out / 'reference.fasta').write_text('>hg38:' + inputs['chromosome'] + ':' + str(start) + '-' + str(end) + ' zero-based-half-open\n' + dna + '\n')
     repo = Path('/opt/borzoi'); params = json.loads((repo / 'examples/params_pred.json').read_text())

@@ -67,3 +67,7 @@ packaged backend was exercised directly in the previous session.
 ## Predictive biology Stage 2 · 5 November 2026
 
 Stage 2: 104 backend checks (72 Virtual Cell, 12 new invariants, 10 Biological Models, 10 GPU lifecycle) and 15 Virtual Cell interface tests pass; TypeScript, production web build and 164-module source packaging closure pass. Real worker/browser QA covered parental HepG2 ANGPTL3 RNA/three isoforms/two pathways, saved predicted structure → Molecular Viewer → same cell/gene, state save/restore/export. Original 72-condition scores reproduce exactly. Native Tauri installation and expanded inference are not qualified in this checkpoint. See PREDICTIVE_CELL_BENCHMARKS.md.
+
+## Completed predictive Stage 2 validation
+
+116 targeted backend checks and 252 frontend tests pass; TypeScript, production build and 164-module resource closure pass. Completed expanded Borzoi outputs and nine-method response results are available through the real worker. Parental HepG2 ANGPTL3 now shows two compatible Borzoi tracks (RNA/DNase), f0/f1/ensemble profiles and separate observed reference; its fold5 example remains illustrative. State save/export/import/reopen preserved typed evidence and integrity. Installed app was not replaced.

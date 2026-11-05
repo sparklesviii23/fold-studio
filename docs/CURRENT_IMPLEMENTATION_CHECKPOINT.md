@@ -138,3 +138,11 @@ Commits `413469a`, `294a6b1`, `5fa44f9`. Added: Hep G2 proteomics (PaxDb Geiger 
 ## Run controller · 5 November 2026, isolated Codex branch
 
 Added a unified controller to Cloud GPU Tasks plus a Biological Models shortcut: lifecycle receipts, saved/live terminal, command history with outputs, stop, approved starts and returned files. Four new backend and four interface checks pass alongside 10 GPU lifecycle and 7 terminal utility regressions; TypeScript/source resource closure pass. Real worker/browser QA uses the retained failed Borzoi run. Installed app and original library remain untouched. Borzoi fresh reproduction passed exactly, but its expanded run subsequently failed on reference HTTP 400; no retry was started. See BIOLOGICAL_MODELS.md and PREDICTIVE_CELL_BORZOI_EXECUTION.md.
+
+## Predictive comparison and portable verification · 5 November 2026
+
+Nine-method response comparison is saved (72 original, 180 additional, 45 validation cases). Validation-selected donor shrinkage gives a modest improvement; more complex methods still lose. 116 targeted backend / 252 frontend tests pass. Boundary-error references are staged before GPU time. Strict cross-device numerical failure is retained; historical exact reproduction plus same-device strict repeat was explicitly approved for one further job 168711aa3e4c48c592bba62636a8763c. Visible controller plus bounded background observer/evaluator continue without active chat; no retries. Installed app/original library untouched.
+
+## Expanded predictive results completed
+
+Expanded Borzoi job 168711aa3e4c48c592bba62636a8763c completed and was evaluated automatically: 99 valid test inputs / 100 attempted, four illustrations, three assays, two replicas. Both current strict verification checks pass; the earlier cross-device failure remains in the evidence ledger. Ensemble Spearman means 0.549/0.722/0.464 for HepG2 RNA/DNase/K-562 RNA, conditional on 77/99/73 scorable loci. Nine-method treatment-response comparison and 180 additional cases are saved. Real worker QA verifies ANGPTL3 predictions and state round trip. 116 targeted backend / 252 frontend tests pass. Visible development preview remains separate from the installed app and original library.

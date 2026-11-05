@@ -1,7 +1,7 @@
 import {describe,it,expect} from 'vitest';
 import {renderToStaticMarkup} from 'react-dom/server';
 import {PanelGeneTrack} from './GeneEvidencePanel';
-import {BorzoiBenchmarkReport,ResponseDiagnostics} from './BenchmarkPanel';
+import {BorzoiBenchmarkReport,ResponseDiagnostics,ResponseComparisonExtension} from './BenchmarkPanel';
 
 describe('Predictive biology evidence labels',()=>{
   it('keeps model and observed scales separate and exposes unsupported metrics',()=>{
@@ -21,4 +21,10 @@ describe('Predictive biology evidence labels',()=>{
     const html=renderToStaticMarkup(<ResponseDiagnostics report={{sourceRun:'a',summary:{n:72,donorBeatsControlCases:7,sameLineAcrossPlateMeanPearson:.076,otherPlateSelectedMeanPearson:.565,otherPlateSelectedPairs:71,donorMeanPredictionEnergy:.08,donorMeanTwicePredictionTruthProduct:.058},conditions:[],classification:{unresolved:'Raw controls unavailable'},limitations:[]}}/>);
     expect(html).toContain('7 of 72');expect(html).toContain('do not replace the original all-gene scores');expect(html).toContain('Raw controls unavailable');
   });
+  it('labels additional-condition gains and previously exposed tests cautiously',()=>{
+    const e={mean:.8,ci95:[.7,.9],n:180};const report={additionalConditionPlan:{},models:{shrunken_donor:'Shrunk donor'},tuning:{selectedOnValidation:'shrunken_donor',shrink:.25,specifications:{}},results:{additional:Array(180)},summary:{additional:{shrunken_donor:{mse:e,pearson:e,centroidResidualPearson:e,strongEffectSignAgreement:e,top100EffectRecall:e}}},mseDifferenceVsUnchanged:{additional:{shrunken_donor:{...e,mean:-.005}},test:{}},modelRegistry:{}};
+    const html=renderToStaticMarkup(<ResponseComparisonExtension report={report}/>);
+    expect(html).toContain('180 additional cases');expect(html).toContain('not independent-study validation');expect(html).toContain('nearly reaches zero');expect(html).toContain('0.25');
+  });
+
 });

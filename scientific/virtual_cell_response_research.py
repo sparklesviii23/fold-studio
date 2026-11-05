@@ -92,3 +92,159 @@ def diagnostics(root):
         B.load(root,report['sourceRun'])
         reports.append({**report,'sha256':digest})
     return reports
+
+
+PROTOCOL='tahoe-response-comparison/2'
+NEW_LABELS={'shrunken_donor':'Validation-shrunk matched donor mean','nearest3':'Three nearest untreated RNA contexts',
+            'ridge_context':'Ridge regression on untreated RNA PCA','low_rank':'Rank-4 response ridge regression','rbf_context':'Nonlinear RBF kernel ridge on untreated RNA PCA'}
+
+
+def transfer_fit(x,y,query,spec):
+    """Fit each gene only on observed training donors; no outcome imputation."""
+    output=np.full((len(query),y.shape[1]),np.nan); finite=np.isfinite(y)
+    _,groups=np.unique(np.packbits(finite.T,axis=1),axis=0,return_inverse=True)
+    for group in range(int(groups.max())+1):
+        columns=np.flatnonzero(groups==group); rows=finite[:,columns[0]]
+        if not rows.any():continue
+        yy=y[rows][:,columns];mu=yy.mean(axis=0);centered=yy-mu
+        if rows.sum()==1:output[:,columns]=mu;continue
+        xx=x[rows,:spec.get('dimensions',8)];qq=query[:,:spec.get('dimensions',8)]
+        if spec['family']=='low_rank':
+            eigenvalues,eigenvectors=np.linalg.eigh(centered@centered.T)
+            basis=eigenvectors[:,np.argsort(eigenvalues)[-min(4,len(xx)-1,len(columns)):]]
+            centered=basis@(basis.T@centered)
+        if spec['family']=='rbf_context':
+            distances=np.square(xx[:,None,:]-xx[None,:,:]).mean(axis=2); positive=distances[distances>0]
+            bandwidth=(float(np.median(positive)) if len(positive) else 1.)*spec['bandwidth']
+            kernel=np.exp(-distances/max(bandwidth,1e-12));cross=np.exp(-np.square(qq[:,None,:]-xx[None,:,:]).mean(axis=2)/max(bandwidth,1e-12))
+        else:kernel=xx@xx.T/xx.shape[1];cross=qq@xx.T/xx.shape[1]
+        # An unpenalised intercept, with training-only centring of both kernels.
+        kmean=kernel.mean(axis=0);grand=float(kernel.mean())
+        k=kernel-kmean[None,:]-kernel.mean(axis=1)[:,None]+grand
+        q=cross-kmean[None,:]-cross.mean(axis=1)[:,None]+grand
+        coefficients=np.linalg.solve(k+spec['alpha']*np.eye(len(xx)),centered)
+        output[:,columns]=mu+q@coefficients
+    return output
+
+
+def additional_plan(root,old,rows,donors,count=20):
+    """Freeze new condition identities using metadata before reading outcomes."""
+    excluded={tuple(x) for values in old['selection']['keys'].values() for x in values}
+    candidates=[]
+    for key,byline in donors.items():
+        if key in excluded or len(byline)<10:continue
+        if all(any((line,*key,plate) in rows for plate in (13,14)) for line in old['split']['test']):candidates.append(key)
+    keys=sorted(candidates,key=lambda k:B._hash([PROTOCOL,29,list(k)]))[:count]
+    if len(keys)!=count:raise ValueError('Insufficient metadata-only additional conditions.')
+    plan={'schema':'fold.response.additional-plan/1','protocol':PROTOCOL,'sourceRun':old['id'],'sourceSha256':old['sha256'],'keys':[list(k) for k in keys],
+          'lines':old['split']['test'],'plates':[13,14],'seed':29,'rule':'Hash ordering, at least ten training donors, metadata coverage on all test lines; excludes all original validation/test keys.',
+          'limitation':'New conditions on previously used test lines and plates, not an independent study or untouched biological contexts.'}
+    plan['sha256']=B._hash(plan);folder=Path(root)/'virtualcell/response-plans';folder.mkdir(parents=True,exist_ok=True);path=folder/(old['id']+'.json')
+    if path.exists():
+        if json.loads(path.read_text())!=plan:raise ValueError('Frozen additional-condition plan changed.')
+    else:
+        with path.open('x') as f:json.dump(plan,f,indent=1)
+    return plan
+
+
+def evaluate(root,source_run):
+    started=time.monotonic();old=B.load(root,source_run);A=D.atlas(root)
+    if A is None or not A.complete:raise ValueError('Completed Tahoe atlas required.')
+    # Verify all original input bytes; preservation of split/outcome identity is mandatory.
+    for source in old['inputs']:
+        if B.file_hash(Path(root)/source['path'])!=source['sha256']:raise ValueError('Source benchmark input changed: '+source['path'])
+    rows=B.group_rows(A.conditions);train=set(old['split']['train']);donor_rows={}
+    for (line,drug,dose,plate),index in rows.items():
+        if line in train and 1<=plate<=10:donor_rows.setdefault((drug,dose),{}).setdefault(line,[]).append(index)
+    plan=additional_plan(root,old,rows,donor_rows)
+    print('[fold] additional-condition identities frozen '+plan['sha256'],flush=True)
+    with np.load(Path(root).joinpath(*B.FOLDER,source_run,'predictions.npz'),allow_pickle=False) as z:original={key:z[key] for key in z.files}
+    if list(original['genes'])!=A.genes:raise ValueError('Gene order mismatch.')
+    neighbours,nn=B._neighbours(root,A,old['split'])
+    if nn!=old['nearestContextFit']:raise ValueError('Untreated feature fit changed.')
+    meta,raw=B._contexts(root,None);lines=sorted(old['split']['train']+old['split']['validation']+old['split']['test']);line_index={line:i for i,line in enumerate(lines)}
+    features=[meta['genes'].index(g) for g in nn['features']];indices=[meta['models'].index(A.lines[line]['depmap']) for line in lines]
+    x=(np.asarray(raw[indices][:,features],float)-np.array(nn['center']))/np.array(nn['scale'])
+    ti=[line_index[line] for line in old['split']['train']];u,s,vt=np.linalg.svd(x[ti],full_matrices=False)
+    components=vt[:16];scale=np.maximum(s[:16]/np.sqrt(len(ti)-1),1e-12);scores=x@components.T/scale
+    cache={}
+    def donors(key):
+        if key not in cache:
+            names=sorted(donor_rows[key]);used=sorted(i for rs in donor_rows[key].values() for i in rs)
+            if any(A.conditions[i]['cellosaurus'] not in train or not 1<=int(A.conditions[i]['plate'])<=10 for i in used):raise ValueError('Donor leakage.')
+            cache[key]=(names,np.vstack([B._mean(np.asarray(A.lfc[donor_rows[key][line]],float)) for line in names]),used)
+        return cache[key]
+    specs=[{'family':'ridge_context','dimensions':dim,'alpha':alpha} for dim in (8,16) for alpha in (.01,.1,1.,10.,100.)]
+    specs +=[{'family':'low_rank','dimensions':8,'alpha':alpha} for alpha in (.01,.1,1.,10.,100.)]
+    specs +=[{'family':'rbf_context','dimensions':8,'alpha':alpha,'bandwidth':width} for width in (.25,1.,4.) for alpha in (.01,.1,1.,10.,100.)]
+    validation=old['results']['validation'];validation_keys=sorted({(r['drug'],r['concentration']) for r in validation});totals={B._hash(spec):[] for spec in specs}
+    for key in validation_keys:
+        names,y,_=donors(key);cases=[r for r in validation if (r['drug'],r['concentration'])==key];query=scores[[line_index[r['cellosaurus']] for r in cases]];xx=scores[[line_index[line] for line in names]]
+        for spec in specs:
+            pred=transfer_fit(xx,y,query,spec)
+            for r,prediction in zip(cases,pred):
+                mask=original[r['artifactPrefix']+'_mask'];truth=original[r['artifactPrefix']+'_observed']
+                if not np.isfinite(prediction[mask]).all():raise ValueError('Candidate lacks original eligible genes.')
+                totals[B._hash(spec)].append(float(np.square(prediction[mask]-truth[mask]).mean()))
+        print('[fold] validation candidates checked '+str(key),flush=True)
+    tuned={family:min([spec for spec in specs if spec['family']==family],key=lambda spec:np.mean(totals[B._hash(spec)])) for family in ('ridge_context','low_rank','rbf_context')}
+    shrink_scores={amount:float(np.mean([np.square(amount*original[r['artifactPrefix']+'_drug_dose_mean'][original[r['artifactPrefix']+'_mask']]-original[r['artifactPrefix']+'_observed'][original[r['artifactPrefix']+'_mask']]).mean() for r in validation])) for amount in (0.,.1,.25,.5,.75,1.)}
+    shrink=min(shrink_scores,key=shrink_scores.get)
+    print('[fold] validation-only parameters frozen '+json.dumps({'shrink':shrink,'models':tuned}),flush=True)
+    cases_by_mode={'validation':validation,'test':old['results']['test'],'additional':[]}
+    for line in old['split']['test']:
+        for drug,dose in plan['keys']:
+            target=sorted(rows[(line,drug,dose,p)] for p in (13,14) if (line,drug,dose,p) in rows)
+            names,y,used=donors((drug,dose));nearest=next(n for n in neighbours[line] if n in names)
+            cases_by_mode['additional'].append({'cellosaurus':line,'cellLine':A.lines[line]['name'],'drug':drug,'concentration':dose,'unit':'uM','targetRows':target,'targetPlates':sorted({A.conditions[i]['plate'] for i in target}),
+                                               'donorRows':used,'donorLines':names,'nearestDonor':nearest,'artifactPrefix':'additional_'+str(len(cases_by_mode['additional']))})
+    labels={**B.MODEL_LABELS,**NEW_LABELS};artifacts={'genes':original['genes'],'training_mean':original['training_mean']};results={};used_training=set(old['trainingRows'])
+    for mode,cases in cases_by_mode.items():
+        results[mode]=[]
+        for key in sorted({(r['drug'],r['concentration']) for r in cases}):
+            names,y,used=donors(key);used_training.update(used);matched=B._mean(y);chosen=[r for r in cases if (r['drug'],r['concentration'])==key]
+            query=scores[[line_index[r['cellosaurus']] for r in chosen]];xx=scores[[line_index[line] for line in names]]
+            fits={family:transfer_fit(xx,y,query,spec) for family,spec in tuned.items()}
+            for ri,r in enumerate(chosen):
+                prefix=r['artifactPrefix']
+                if mode!='additional':truth=original[prefix+'_observed'];predicted={m:original[prefix+'_'+m] for m in B.MODELS}
+                else:
+                    truth=B._mean(np.asarray(A.lfc[r['targetRows']],float));predicted={'unchanged':np.zeros(len(A.genes)),'training_mean':original['training_mean'],'drug_dose_mean':matched,'nearest_context':y[names.index(r['nearestDonor'])]}
+                nearest=[n for n in neighbours[r['cellosaurus']] if n in names][:3]
+                predicted.update(shrunken_donor=shrink*matched,nearest3=B._mean(y[[names.index(n) for n in nearest]]),**{family:values[ri] for family,values in fits.items()})
+                metrics,mask=B.metrics(truth,predicted)
+                if mode!='additional' and not np.array_equal(mask,original[prefix+'_mask']):raise ValueError('Primary eligible-gene mask changed.')
+                if set(r['targetRows'])&set(used):raise ValueError('Target/training overlap.')
+                for model,prediction in predicted.items():
+                    if mode!='additional' and model in B.MODELS and metrics[model]!=r['metrics'][model]:raise ValueError('Original predictor score changed.')
+                    pp=prediction[mask];tt=truth[mask];centroid=original['training_mean'][mask];aa=pp-centroid;bb=tt-centroid
+                    metrics[model]['centroidResidualPearson']=float(np.corrcoef(aa,bb)[0,1]) if np.ptp(aa)>0 and np.ptp(bb)>0 else None
+                    strong=np.abs(tt)>=1;metrics[model]['strongEffectSignAgreement']=float(np.mean(np.sign(pp[strong])==np.sign(tt[strong]))) if strong.any() else None
+                    metrics[model]['top100EffectRecall']=len(set(np.argsort(-np.abs(pp))[:100])&set(np.argsort(-np.abs(tt))[:100]))/100 if np.ptp(np.abs(pp))>0 else None
+                    artifacts[prefix+'_'+model]=prediction
+                artifacts[prefix+'_observed']=truth;artifacts[prefix+'_mask']=mask;results[mode].append({**r,'metrics':metrics})
+            print('[fold] scored '+mode+' '+str(key),flush=True)
+        # Preserve the exact original condition order for reproducibility.
+        order={r['artifactPrefix']:i for i,r in enumerate(cases)};results[mode].sort(key=lambda r:order[r['artifactPrefix']])
+    metric_names=('mae','mse','pearson','centroidResidualPearson','strongEffectSignAgreement','top100EffectRecall')
+    summary={mode:{model:{metric:B.crossed_interval(rs,model,metric,17) for metric in metric_names} for model in labels} for mode,rs in results.items()}
+    contrasts={mode:{model:B.crossed_interval(rs,model,'mse',17,baseline='unchanged') for model in labels if model!='unchanged'} for mode,rs in results.items() if mode!='validation'}
+    selected=min(labels,key=lambda m:summary['validation'][m]['mse']['mean'])
+    report={k:v for k,v in old.items() if k not in ('id','created','sha256','artifacts','complete')}
+    report.update(protocol=PROTOCOL,sourceBenchmarkRun=source_run,sourceBenchmarkSha256=old['sha256'],models=labels,results=results,summary=summary,trainingRows=sorted(used_training),
+                  testMseDifferenceVsTrainingMean={model:B.crossed_interval(results['test'],model,'mse',17,baseline='training_mean') for model in labels if model!='training_mean'},
+                  mseDifferenceVsUnchanged=contrasts,additionalConditionPlan=plan,
+                  tuning={'selectedOnValidation':selected,'shrink':shrink,'specifications':tuned,'validationGridScores':[{'spec':spec,'mse':float(np.mean(totals[B._hash(spec)]))} for spec in specs],
+                          'shrinkValidationScores':shrink_scores,'featureFit':'Train-only 256-gene standardisation, train-only PCA, whitened scores; each matched-drug model fits training lines/plates only.',
+                          'pcaComponents':components.tolist(),'pcaScale':scale.tolist(),'missingness':'Per-gene finite-donor subsets; no missing response is imputed. A single observed donor gives the intercept only.'},
+                  modelRegistry={model:{'version':PROTOCOL,'status':'benchmarked','family':'nonlinear statistical predictor' if model=='rbf_context' else 'statistical baseline',
+                                        'trainingDomain':'Tahoe matched drug/dose, 29 training lines, plates 1–10','input':'untreated DepMap 24Q4 RNA plus drug/dose identity; training donor responses',
+                                        'output':'pseudobulk DESeq2 log2 fold change','uncertainty':'Crossed line/compound bootstrap; no calibrated gene-level intervals'} for model in labels},
+                  promotion={'recommendedDefault':False,'reason':'Exploratory comparisons; additional conditions reuse test lines/plates. No independent-study or parental-HepG2 prediction validation.'},
+                  limitations=old['limitations']+['The original test outcomes were examined in Stage 1; tuned comparisons on the original 72 are exploratory retesting.',
+                     'Additional condition identities were frozen before new fitting/scoring, but reuse the same nine lines and two plates. This is not independent-study validation.',
+                     'Centroid-residual correlation subtracts the training-only generic response. It is a custom diagnostic, not exact Systema or raw-count Virtual Cell Challenge scoring.',
+                     'Strong-effect sign and top-100 recall are secondary outcome-defined summaries; they do not replace primary all-gene MSE.',
+                     'Kernel ridge is a nonlinear statistical method, not a pretrained foundation model. GEARS/CPA/scGPT were not executed on incompatible pseudobulk LFC inputs.'],
+                  software={'implementationSha256':B.file_hash(__file__),'numpy':np.__version__},seconds=round(time.monotonic()-started,3))
+    return report,artifacts

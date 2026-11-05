@@ -12,7 +12,7 @@ const encode=(text:string)=>btoa(String.fromCharCode(...new TextEncoder().encode
 export default function ModalTerminal({projectId,taskId,state,log,phase}:{projectId:string;taskId:string;state:string;log?:string;phase?:string}){
  const host=useRef<HTMLDivElement>(null),pre=useRef<HTMLPreElement>(null),[connected,setConnected]=useState(false),[error,setError]=useState(''),[full,setFull]=useState(false);
  const [filter,setFilter]=useState(''),[follow,setFollow]=useState(true);
- const live=state==='running'||state==='launching';
+ const live=state==='running'||state==='launching'||state==='local_running';
  const lines=(log||'').split('\n'),shown=lines.filter(line=>!filter||line.toLowerCase().includes(filter.toLowerCase()));
  const session=useRef(''),offset=useRef(0),pending=useRef<{eventId:string;data?:string;cols?:number;rows?:number}[]>([]),closing=useRef(false);
  useEffect(()=>{if(follow&&pre.current)pre.current.scrollTop=pre.current.scrollHeight;},[log,follow,filter]);

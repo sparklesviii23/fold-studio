@@ -9,6 +9,7 @@ export function PanelGeneTrack({item}: {item: any}) {
   return <section><h4>{item.trackDescription} · {item.trackIdentifier}</h4>
     <p className="vc-evidence">Predicted · {item.cohort==='heldout'?'Held-out genomic region':'Training/validation-region illustration; not an independent test'}</p>
     <p>hg38 {region[0]}:{region[1]}–{region[2]} · 32 bp bins · {item.fold} · {item.cellosaurus}</p>
+    {item.verificationPolicy&&<p className="caption">Original exact reproduction was verified in a prior run; this run uses a separate repeatability check on its assigned GPU. Strict cross-GPU comparison: {item.crossDeviceOriginalTolerancePassed?'passed':'failed; exact agreement across GPU variants is not established'}.</p>}
     {!item.fullGeneCovered&&<p className="vc-warn">The model output window covers only part of this gene. Whole-gene abundance is not estimated.</p>}
     <svg viewBox="0 0 800 165" role="img" aria-label="Borzoi model replicates and ensemble">
       {series.map((key,i)=><polyline key={key} points={points(key,high)} fill="none" stroke={['#95adff','#e2a4c8','#64d6b2'][i]}/>)}
@@ -22,6 +23,7 @@ export function PanelGeneTrack({item}: {item: any}) {
       {Object.entries(item.metrics).map(([key,m]:any)=><tr key={key}><td>{key}</td><td>{m.spearman==null?'not estimable':m.spearman.toFixed(3)}</td><td>{m.pearson==null?'not estimable':m.pearson.toFixed(3)}</td><td>{m.n} / 6144 · {m.status}</td></tr>)}
     </tbody></table>
     <p className="caption">Reference signal differs from the authors' processed target. These are profile associations, not calibrated count errors or proof of cell activity. Two-model disagreement is not a calibrated confidence interval.</p>
+    <details><summary>Checkpoints and replicate variation</summary>{(item.checkpointProvenance??[]).map((p:any)=><p key={p.replicate} className="caption" style={{overflowWrap:'anywhere'}}>Replicate {p.replicate} · SHA-256 {p.sha256}</p>)}{typeof item.replicateMeanAbsoluteDisagreement==='number'&&<p className="caption">Mean absolute replicate disagreement: {item.replicateMeanAbsoluteDisagreement.toPrecision(4)} raw model units. This is not calibrated confidence.</p>}</details>
   </section>;
 }
 

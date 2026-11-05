@@ -107,6 +107,37 @@ def score(predicted, observed, minimum=20):
     return {'status':'scored','n':len(a),'pearson':pearson,'spearman':rank}
 
 
+def prepare_sequences(panel,folder):
+    """Resolve every input before paid inference; retain unsupported windows."""
+    folder=Path(folder); folder.mkdir(parents=True,exist_ok=True)
+    url='https://api.genome.ucsc.edu/list/chromosomes?genome=hg38'
+    with urllib.request.urlopen(url,timeout=60) as r: meta=r.read(2_000_001)
+    if len(meta)>2_000_000: raise ValueError('Oversized chromosome metadata.')
+    chromosomes=json.loads(meta)['chromosomes']; (folder/'chromosomes.json').write_bytes(meta)
+    loci=[]
+    for i,locus in enumerate(panel['loci']):
+        chrom,start=locus['chromosome'],locus['inputStart']; end=start+524288
+        row={'index':i,'symbol':locus['symbol'],'chromosome':chrom,'start':start,'end':end}
+        if chrom not in chromosomes or start<0 or end>chromosomes[chrom]:
+            row.update(status='unsupported_input_window',reason='524,288-bp input extends beyond chromosome bounds; no padding, shifting or reselection.',chromosomeSize=chromosomes.get(chrom))
+        else:
+            source='https://api.genome.ucsc.edu/getData/sequence?'+__import__('urllib.parse',fromlist=['urlencode']).urlencode({'genome':'hg38','chrom':chrom,'start':start,'end':end})
+            path=folder/f'{chrom}-{start}-524288.txt'
+            if path.exists(): dna=path.read_text()
+            else:
+                with urllib.request.urlopen(source,timeout=90) as r: raw=r.read(2_000_001)
+                if len(raw)>2_000_000: raise ValueError('Oversized sequence response.')
+                dna=json.loads(raw)['dna'].upper()
+                if len(dna)!=524288 or set(dna)-set('ACGTN'): raise ValueError('Invalid reference sequence.')
+                temp=path.with_suffix('.partial'); temp.write_text(dna); temp.replace(path)
+            if len(dna)!=524288 or set(dna)-set('ACGTN'): raise ValueError('Invalid cached sequence.')
+            row.update(status='ready',source=source,sequenceSha256=hashlib.sha256(dna.encode()).hexdigest(),gcFraction=(dna.count('G')+dna.count('C'))/len(dna),nFraction=dna.count('N')/len(dna))
+        loci.append(row); print(f'[fold] reference preflight {i+1}/{len(panel["loci"])} {locus["symbol"]}: {row["status"]}',flush=True)
+        (folder/'progress.json').write_text(json.dumps({'completed':i+1,'total':len(panel['loci']),'latest':row},indent=1))
+    result={'schema':'fold.borzoi.sequence-preflight/1','panelSha256':panel['sha256'],'chromosomeMetadataSha256':hashlib.sha256(meta).hexdigest(),'loci':loci}
+    result['sha256']=_hash(result); (folder/'preflight.json').write_text(json.dumps(result,indent=1)); return result
+
+
 def aggregate(rows, seed=29):
     good=[r for r in rows if r['status']=='scored']; rng=np.random.default_rng(seed)
     result={'attempted':len(rows),'scored':len(good),'failed':len(rows)-len(good)}
@@ -180,6 +211,14 @@ def evaluate(root,run,reference):
     rows=[]; gene_results=[]
     with np.load(job/'outputs/predictions-f0.npz',allow_pickle=False) as f0, np.load(job/'outputs/predictions-f1.npz',allow_pickle=False) as f1, np.load(reference/'observed.npz',allow_pickle=False) as observed:
         for i,locus in enumerate(panel['loci']):
+            failure=receipt['loci'][i]
+            if failure.get('status') not in (None,'ready'):
+                if f'locus_{i}' in f0 or f'locus_{i}' in f1: raise ValueError('Unsupported locus unexpectedly has predictions.')
+                for track in panel['tracks']:
+                    obs=observed[f'locus_{i}_track_{track["index"]}']
+                    for model in ('f0','f1','ensemble'):
+                        rows.append({'status':failure['status'],'reason':failure.get('reason'),'n':0,'observedCoveredBins':int(np.isfinite(obs).sum()),'pearson':None,'spearman':None,'model':model,'symbol':locus['symbol'],'track':track['index'],'cohort':locus['cohort'],'expressionStratum':locus['expressionStratum'],'lengthStratum':locus['lengthStratum']})
+                continue
             a,b=f0[f'locus_{i}'],f1[f'locus_{i}']
             if a.shape!=(6144,len(panel['tracks'])) or b.shape!=a.shape or not np.isfinite(a).all() or not np.isfinite(b).all(): raise ValueError('Panel array shape or values invalid.')
             for ti,track in enumerate(panel['tracks']):
@@ -196,6 +235,7 @@ def evaluate(root,run,reference):
                                      'cellosaurus':track['cellosaurus'],'trackIndex':track['index'],'trackDescription':track['metadata']['description'],
                                      'trackIdentifier':track['metadata']['identifier'],'observedUnit':ref['tracks'][ti]['unit'],'metrics':ms,'preview':preview,
                                      'checkpointProvenance':receipt['checkpoints'],'replicateMeanAbsoluteDisagreement':float(np.mean(np.abs(models['f0']-models['f1']))),
+                                     'verificationPolicy':receipt.get('verificationPolicy'),'crossDeviceOriginalTolerancePassed':receipt.get('crossDeviceOriginalTolerancePassed'),
                                      'interpretation':'Assay reference-DNA prediction; not a protein-abundance estimate or a complete cell state.'})
     summaries={}
     for track in panel['tracks']:
@@ -210,6 +250,7 @@ def evaluate(root,run,reference):
             'reference':ref,'inferenceSeconds':receipt['seconds'],'replicateSeconds':receipt['replicateSeconds'],'sequenceProvenance':receipt['loci'],
             'ensemblePairedComparisons':{f'{t["index"]}:{baseline}:{metric}':paired_comparison(rows,t['index'],baseline,metric,panel['seed']) for t in panel['tracks'] for baseline in ('f0','f1') for metric in ('pearson','spearman')},
             'sourceRevision':receipt['sourceRevision'],'baskervilleRevision':receipt['baskervilleRevision'],
+            'verificationPolicy':receipt.get('verificationPolicy'),'crossDeviceOriginalTolerancePassed':receipt.get('crossDeviceOriginalTolerancePassed'),
             'metricDefinitions':{'pearson':'Pearson correlation of log1p(raw prediction) and log1p(original ENCODE signal).','spearman':'Rank correlation across fully covered bins.',
                                  'uncertainty':'2,000 locus bootstrap draws, separately per track and model. Adjacent bins are not independent replicates.'},
             'limitations':['Same-source assays included in model training; fold3 is held-out genomic sequence, not independent-study validation.',
@@ -218,6 +259,8 @@ def evaluate(root,run,reference):
                            'Two-replicate disagreement is not calibrated uncertainty. Tissue/context generalisation beyond the selected assays is not established.',
                            'Annotation/expression strata use the installed HepG2 RNA reference; K-562 results are not expression-stratified by K-562 measurements.'],
             'software':{'evaluationImplementationSha256':file_hash(__file__),'numpy':np.__version__}}
+    if receipt.get('verificationPolicy'):
+        result['limitations'].append('Historical exact reproduction and same-device repeatability are separate from cross-device agreement. The original strict cross-device comparison remains reported; exact agreement across GPU variants is not established when that comparison fails.')
     result['sha256']=_hash(result); folder=Path(root)/'virtualcell/borzoi-panels'/run; folder.mkdir(parents=True,exist_ok=True)
     (folder/'evaluation.json').write_text(json.dumps(result,indent=1,allow_nan=False)); return result
 

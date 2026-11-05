@@ -40,3 +40,11 @@ No shared learned cellular state, cross-modal decoder, aging predictor or founda
 - **Deferred behind the fresh inference gate:** stronger statistical model fitting and advanced-model comparison. No new response predictor is promoted. No multimodal world model, mechanistic cross-modal abundance conversion or independent-study validation is claimed.
 
 Checks in this checkpoint: 104 backend tests (72 existing Virtual Cell, 12 Stage 2 invariants, 10 Biological Models, 10 GPU lifecycle), 15 Virtual Cell interface tests, TypeScript, production Vite build and scientific source-resource closure (164 modules) pass. Existing nonfatal RNA/protein SVG title warnings remain. No native Tauri build/install was performed.
+
+## Latest Stage 2 evidence and approved continuation
+
+Current checks: 116 targeted backend and 252 frontend tests (70 files) pass, plus TypeScript, production web build and 164-module resource closure. Local test/response tasks now appear in the existing run controller. The full response comparison and all negative results are saved. Expanded Borzoi completion remains pending until the newly approved job is evaluated; installed app remains unchanged.
+
+## Completed expanded evaluation · 5 November 2026
+
+Completed job 168711aa3e4c48c592bba62636a8763c: 100 attempted held-out loci, 99 valid inferred test inputs plus four separate illustrations, three tracks, f0/f1 and mean ensemble. Ensemble mean locus Spearman: HepG2 RNA 0.549361 (77/100 scored, CI 0.504003–0.593526); HepG2 DNase 0.722433 (99/100, CI 0.693813–0.749814); K-562 RNA 0.464252 (73/100, CI 0.418502–0.507656). Aggregates condition on scorable loci; missing coverage and the boundary failure remain explicit. Current original-tolerance comparison and same-device repeat both pass; prior SXM4 cross-device failure is retained. This is related-assay genomic holdout evidence, not independent-study validation, count calibration, protein prediction or a world model.
