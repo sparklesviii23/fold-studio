@@ -57,18 +57,19 @@ export default function GpuTasks({projectId, embedded = false}: {projectId: stri
   const [recipe, setRecipe] = useState('rhofold'), [inputs, setInputs] = useState<any>({sequence: TRNA, samples: 5, ranks: 8, relaxSteps: 1000, registry: 'pytorch/pytorch:2.5.1-cuda12.4-cudnn9-runtime', pip: '', apt: '', command: 'nvidia-smi > $OUT/gpu-check.txt', files: {}});
   const [gpu, setGpu] = useState(''), [approved, setApproved] = useState(false), [busy, setBusy] = useState(''), [open, setOpen] = useState<any>(null), [compare, setCompare] = useState<any>(null);
   const [autoRefresh,setAutoRefresh]=useState(true);
+  const [historyScope,setHistoryScope]=useState<'project'|'library'>('project');
   const scope=useRef(0),selection=useRef(0);
   async function call<T>(label:string,action:string,payload:any){const generation=scope.current;setBusy(label);setError('');try{const result=await rpc<T>(action,{projectId,...payload});return generation===scope.current?result:undefined;}catch(e){if(generation===scope.current)setError(String(e).replace(/^Error:\s*/,''));}finally{if(generation===scope.current)setBusy('');}}
-  async function refresh(){const generation=scope.current;const rows=await rpc<any[]>('gpu_tasks_list',{projectId});if(generation===scope.current)setTasks(rows);return rows;}
+  async function refresh(){const generation=scope.current;const rows=await rpc<any[]>('gpu_tasks_list',{projectId:historyScope==='project'?projectId:undefined});if(generation===scope.current)setTasks(rows);return rows;}
   useEffect(()=>{let active=true;const generation=++scope.current;selection.current++;setOpen(null);setTasks([]);setCompare(null);setError('');
-    Promise.all([rpc<any>('gpu_tasks_catalog',{}),rpc<any[]>('gpu_tasks_list',{projectId})]).then(async([c,rows])=>{if(!active)return;setCatalog(c);setTasks(rows);const first=rows.find(t=>liveRun(t.state))??rows[0];if(first){const record=await rpc('gpu_task_record',{projectId,taskId:first.id});if(active&&generation===scope.current)setOpen(record);}}).catch(e=>{if(active)setError(String(e));});
+    Promise.all([rpc<any>('gpu_tasks_catalog',{}),rpc<any[]>('gpu_tasks_list',{projectId:historyScope==='project'?projectId:undefined})]).then(async([c,rows])=>{if(!active)return;setCatalog(c);setTasks(rows);const first=rows.find(t=>liveRun(t.state))??rows[0];if(first){const record=await rpc('gpu_task_record',{projectId,taskId:first.id});if(active&&generation===scope.current)setOpen(record);}}).catch(e=>{if(active)setError(String(e));});
     return()=>{active=false;scope.current++;};
-  },[projectId]);
+  },[projectId,historyScope]);
   useEffect(()=>{if(catalog)setGpu(catalog.recipes[recipe].gpu??'');setApproved(false);},[recipe,catalog]);
   useEffect(()=>{if(!open||!liveRun(open.state)||!autoRefresh)return;let active=true,timer:ReturnType<typeof setTimeout>;const id=open.id;
     async function tick(){if(!active)return;if(document.visibilityState==='hidden'){timer=setTimeout(()=>void tick(),5000);return;}try{const status=await rpc<any>('gpu_task_status',{projectId,taskId:id});const record=liveRun(status.state)?status:await rpc<any>('gpu_task_record',{projectId,taskId:id});if(active){setOpen((old:any)=>old?.id===id?{...old,...record}:old);await refresh();}}catch(e){if(active)setError(String(e).replace(/^Error:\s*/,''));}if(active)timer=setTimeout(()=>void tick(),4000);}
     timer=setTimeout(()=>void tick(),1000);return()=>{active=false;clearTimeout(timer);};
-  },[projectId,open?.id,open?.state,autoRefresh]);
+  },[projectId,historyScope,open?.id,open?.state,autoRefresh]);
   async function readOpen(){if(!open)return;const id=open.id,generation=scope.current;try{const record=await rpc('gpu_task_record',{projectId,taskId:id});if(generation===scope.current)setOpen((old:any)=>old?.id===id?record:old);}catch(e){if(generation===scope.current)setError(String(e));}}
   async function updateOpen(action:string,payload:any={}){if(!open)return;const id=open.id,generation=scope.current;const status=await call<any>('Updating run',action,{taskId:id,...payload});if(status&&generation===scope.current){try{const record=await rpc<any>('gpu_task_record',{projectId,taskId:id});if(generation!==scope.current)return;setOpen((old:any)=>old?.id===id?{...record,...(liveRun(status.state)?status:{})}:old);await refresh();}catch(e){if(generation===scope.current)setError(String(e));}}}
 
@@ -88,7 +89,7 @@ export default function GpuTasks({projectId, embedded = false}: {projectId: stri
   const r = catalog?.recipes[recipe];
   return <div className="page-content gpu-tasks">
     <header className="mech-head"><div><span className="eyebrow">{embedded ? 'Virtual Cell · Project runs' : 'System · Cloud GPU Tasks'}</span><h1>Your research, <em>under control.</em></h1>
-      <p>Follow each run from start to finish. Open its terminal, inspect commands, and keep the files and evidence together.{embedded && ' Runs belong to the selected research project; viewing a run starts no computation.'}</p></div></header>
+      <p>Follow each run from start to finish. Open its terminal, inspect commands, and keep the files and evidence together.{embedded && ' Open this project’s runs or the full library history. Viewing a run starts no computation.'}</p></div></header>
     {error && <div className="mech-error" role="alert"><TriangleAlert size={15}/>{error}</div>}
     {busy && <div className="mech-busy"><LoaderCircle size={16} className="spin"/>{busy}…</div>}
     <details className="gt-new-run"><summary>Start a new run</summary>
@@ -117,6 +118,7 @@ export default function GpuTasks({projectId, embedded = false}: {projectId: stri
     <div className="gt-control-layout">
     <section className="mech-panel ms-panel gt-history">
       <div className="gt-runs-heading"><div><span className="eyebrow">LIBRARY RUNS</span><h2>Run history</h2><p>Select a run to open its controller.</p></div><button className="button" onClick={()=>void refresh().catch(e=>setError(String(e)))}>Refresh history</button></div>
+      <label className="gt-history-scope">Show runs<select value={historyScope} onChange={e=>setHistoryScope(e.target.value as 'project'|'library')}><option value="project">This project</option><option value="library">All library runs</option></select></label>
       {tasks.length === 0 && <p className="caption">No tasks yet.</p>}
       <div className="ms-runs">{tasks.map(t => <button key={t.id} className={'ms-run ' + (open?.id === t.id ? 'active' : '')} onClick={() => view(t.id)}>
         <strong>{t.title}</strong><span>{t.created?new Date(t.created).toLocaleString():''} · {t.gpu ?? 'CPU'} · {t.state === 'launching' || t.state === 'running' ? <LoaderCircle size={11} className="spin"/> : t.state === 'done' || t.state === 'stopped' ? <Check size={11}/> : <X size={11}/>} {t.state}</span></button>)}</div>
