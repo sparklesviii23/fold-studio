@@ -11,10 +11,14 @@ const encode=(text:string)=>btoa(String.fromCharCode(...new TextEncoder().encode
 
 export default function ModalTerminal({projectId,taskId,state,log,phase}:{projectId:string;taskId:string;state:string;log?:string;phase?:string}){
  const host=useRef<HTMLDivElement>(null),pre=useRef<HTMLPreElement>(null),[connected,setConnected]=useState(false),[error,setError]=useState(''),[full,setFull]=useState(false);
+ const [filter,setFilter]=useState(''),[follow,setFollow]=useState(true);
+ const live=state==='running'||state==='launching';
+ const lines=(log||'').split('\n'),shown=lines.filter(line=>!filter||line.toLowerCase().includes(filter.toLowerCase()));
  const session=useRef(''),offset=useRef(0),pending=useRef<{eventId:string;data?:string;cols?:number;rows?:number}[]>([]),closing=useRef(false);
- useEffect(()=>{if(pre.current)pre.current.scrollTop=pre.current.scrollHeight;},[log]);
+ useEffect(()=>{if(follow&&pre.current)pre.current.scrollTop=pre.current.scrollHeight;},[log,follow,filter]);
+ useEffect(()=>{if(state!=='running')setConnected(false);},[state]);
  useEffect(()=>{
-  if(!connected||!host.current)return;
+  if(!connected||!host.current||state!=='running')return;
   let alive=true,ready=false,timer:ReturnType<typeof setTimeout>;closing.current=false;session.current='';offset.current=0;pending.current=[];
   const term=new XTerm({cursorBlink:true,disableStdin:true,convertEol:false,scrollback:10000,fontSize:12,fontFamily:'Menlo, monospace',theme:{background:'#080e18',foreground:'#c9e4df',cursor:'#8dd5c4'}});
   const fit=new FitAddon();term.loadAddon(fit);term.open(host.current);fit.fit();
@@ -38,11 +42,12 @@ export default function ModalTerminal({projectId,taskId,state,log,phase}:{projec
   return()=>{alive=false;clearTimeout(timer);observer.disconnect();data.dispose();term.dispose();
    if(session.current&&!closing.current)void rpc('gpu_task_terminal',{projectId,taskId,sessionId:session.current,close:true,eventId:id()}).catch(()=>{});
   };
- },[connected,projectId,taskId]);
+ },[connected,projectId,taskId,state]);
  async function close(){closing.current=true;if(session.current)try{await rpc('gpu_task_terminal',{projectId,taskId,sessionId:session.current,close:true,eventId:id()});}catch(e){setError(String(e));}setConnected(false);}
  return <section className={'bio-terminal '+(full?'expanded':'')}>
-  <div className="bio-section-heading"><div><span className="eyebrow"><Terminal size={13}/> MODAL · LIVE OUTPUT</span><p>{phase??state} · recent process output; shell has its own scrollback</p></div><div className="button-row"><button className="button" onClick={()=>setFull(!full)}><Maximize2 size={13}/>{full?'Compact':'Expand'}</button>{connected?<button className="button" onClick={()=>void close()}><Unplug size={13}/>Close shell</button>:<button className="button" disabled={state!=='running'} onClick={()=>setConnected(true)}><Terminal size={13}/>Open interactive shell</button>}</div></div>
-  <pre ref={pre} className="bio-live-log">{log||'Waiting for output from Modal…'}</pre>
+  <div className="bio-section-heading"><div><span className="eyebrow"><Terminal size={13}/> {live?'LIVE OUTPUT':'SAVED OUTPUT'}</span><p>{phase??state} · process output; interactive shell has its own scrollback</p></div><div className="button-row"><button className="button" onClick={()=>setFull(!full)}><Maximize2 size={13}/>{full?'Compact':'Expand'}</button>{connected?<button className="button" onClick={()=>void close()}><Unplug size={13}/>Close shell</button>:<button className="button" disabled={state!=='running'} onClick={()=>setConnected(true)}><Terminal size={13}/>Open interactive shell</button>}</div></div>
+  <div className="bio-log-controls"><input aria-label="Search terminal output" placeholder="Search output…" value={filter} onChange={e=>setFilter(e.target.value)}/><label><input type="checkbox" checked={follow} onChange={e=>setFollow(e.target.checked)}/>Follow output</label><small>{log?shown.length:0} lines</small></div>
+  <pre ref={pre} className="bio-live-log">{shown.join('\n')||(filter?'No matching output.':live?'Waiting for output from Modal…':'No process output was captured.')}</pre>
   {connected&&<><p className="bio-detail">Interactive shell in this running container. Commands can change run files. Ctrl+C, shell state and terminal resizing are supported. Idle shells close after 15 minutes.</p><div ref={host} className="bio-pty"/></>}
   {error&&<p role="alert" className="bio-message error">{error}</p>}
  </section>;

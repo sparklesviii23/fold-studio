@@ -555,6 +555,7 @@ def status(s, p):
             return {**{k: v for k, v in rec.items() if k != 'launcherPid'}, 'phase': 'Server not reachable right now · retrying',
                     'serverLog': f'[fold] could not reach the server: {str(e)[-400:]}'}
         if poll['running']:
+            (d / 'live.log').write_text(poll.get('liveLog') or '')
             _write(s, rec)
             return {**{k: v for k, v in rec.items() if k != 'launcherPid'}, 'phase': 'Running on ' + (rec.get('gpu') or 'CPU'), 'serverLog': poll.get('liveLog') or ''}
         if not poll['running']:
@@ -610,6 +611,20 @@ def dispatch(s, action, p):
         d = _folder(s) / rec['id']
         rec['stdout'] = (d / 'stdout.txt').read_text()[-20000:] if (d / 'stdout.txt').is_file() else ''
         rec['stderr'] = (d / 'stderr.txt').read_text()[-20000:] if (d / 'stderr.txt').is_file() else ''
+        rec['buildLog'] = (d / 'build.log').read_text(errors='replace')[-20000:] if (d / 'build.log').is_file() else ''
+        if rec['state'] == 'running':
+            rec['serverLog'] = (d / 'live.log').read_text(errors='replace')[-60000:] if (d / 'live.log').is_file() else ''
+        rec['commandHistory'] = []
+        history = d / 'terminal.jsonl'
+        if history.is_file():
+            with history.open('rb') as f:
+                f.seek(max(0, history.stat().st_size - 512000)); raw = f.read(512000)
+            for line in raw.splitlines():
+                try:
+                    row = json.loads(line)
+                    if isinstance(row, dict) and isinstance(row.get('command'), str): rec['commandHistory'].append(row)
+                except (ValueError, UnicodeDecodeError): pass
+            rec['commandHistory'] = rec['commandHistory'][-50:]
         return rec
     if action == 'gpu_tasks_list':
         rows = []
@@ -636,9 +651,15 @@ def dispatch(s, action, p):
             raise ValueError('Approve running this command inside your task container.')
         if rec.get('state') != 'running':
             raise ValueError('Commands run only while the task container is running.')
-        out = _rpc(s, 'gpu_task_exec_remote', {'sandboxId': rec['sandboxId'], 'command': command}, timeout=90)
+        try:
+            out = _rpc(s, 'gpu_task_exec_remote', {'sandboxId': rec['sandboxId'], 'command': command}, timeout=90)
+        except (ValueError, subprocess.TimeoutExpired) as error:
+            with (_folder(s) / rec['id'] / 'terminal.jsonl').open('a') as f:
+                f.write(json.dumps({'time': time.time(), 'command': command, 'exitCode': None, 'status': 'unknown', 'error': str(error)[-2000:]}) + '\n')
+            raise
         with (_folder(s) / rec['id'] / 'terminal.jsonl').open('a') as f:
-            f.write(json.dumps({'time': time.time(), 'command': command, 'exitCode': out['exitCode']}) + '\n')
+            f.write(json.dumps({'time': time.time(), 'command': command, 'exitCode': out['exitCode'], 'status': 'completed',
+                               'stdout': (out.get('stdout') or '')[-16000:], 'stderr': (out.get('stderr') or '')[-16000:]}) + '\n')
         return out
     if action == 'gpu_task_rna3d_compare':
         import rna3d_compare
