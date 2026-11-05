@@ -1,6 +1,6 @@
 import {useEffect, useState} from 'react';
 import {rpc, exportFile} from '../../lib/api';
-import {RegulatoryTrack} from './RegulatoryPanel';
+import {RegulatoryTrack} from './RegulatoryTrack';
 
 export function PanelGeneTrack({item}: {item: any}) {
   const region=item.region; const series=['f0','f1','ensemble']; const high=Math.max(1e-12,...item.preview.flatMap((p:any)=>series.map(k=>p[k])));
@@ -27,10 +27,10 @@ export function PanelGeneTrack({item}: {item: any}) {
   </section>;
 }
 
-export default function GeneEvidencePanel({cellId,gene,onError}: {cellId:string;gene:string;onError:(message:string)=>void}) {
+export default function GeneEvidencePanel({cellId,gene,onError,onSaved}: {cellId:string;gene:string;onError:(message:string)=>void;onSaved?:()=>void}) {
   const [report,setReport]=useState<any>(null),[saved,setSaved]=useState(''),[error,setError]=useState('');
   useEffect(()=>{let active=true;setReport(null);setSaved('');setError('');rpc<any>('vcell_gene_explore',{id:cellId,query:gene}).then(r=>{if(active)setReport(r);}).catch(e=>{if(active){setError(String(e));onError(String(e));}});return()=>{active=false;};},[cellId,gene,onError]);
-  async function save(){try{const r=await rpc<any>('vcell_gene_snapshot',{id:cellId,query:gene});setSaved(`Saved ${r.snapshot.id.slice(0,8)} in this cell’s state history.`);}catch(e){onError(String(e));}}
+  async function save(){try{const r=await rpc<any>('vcell_gene_snapshot',{id:cellId,query:gene});setSaved(`Saved ${r.snapshot.id.slice(0,8)} in this cell’s state history.`);onSaved?.();}catch(e){onError(String(e));}}
   return <section className="vc-tx" aria-label="Observed versus predicted gene explorer"><h3>Observed versus predicted · {gene}</h3>
     {error?<p className="vc-warn">Could not load this gene report: {error}</p>:!report?<p>Gathering compatible evidence…</p>:!report.supported?<p className="vc-warn">Resolve an unambiguous gene to continue.</p>:<>
       <p>Measured RNA, transcript isoforms and protein abundance appear above. Localization and pathway membership are curated annotations. Saved structures retain their own origin and confidence.</p>

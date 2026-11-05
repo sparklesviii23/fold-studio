@@ -52,7 +52,7 @@ function ServerLog({phase, text}: {phase?: string; text?: string}) {
 }
 
 /** System › Cloud GPU Tasks: anything that needs a GPU runs on the active server; the app is its interface. */
-export default function GpuTasks({projectId}: {projectId: string}) {
+export default function GpuTasks({projectId, embedded = false}: {projectId: string; embedded?: boolean}) {
   const [catalog, setCatalog] = useState<any>(null), [tasks, setTasks] = useState<any[]>([]), [error, setError] = useState('');
   const [recipe, setRecipe] = useState('rhofold'), [inputs, setInputs] = useState<any>({sequence: TRNA, samples: 5, ranks: 8, relaxSteps: 1000, registry: 'pytorch/pytorch:2.5.1-cuda12.4-cudnn9-runtime', pip: '', apt: '', command: 'nvidia-smi > $OUT/gpu-check.txt', files: {}});
   const [gpu, setGpu] = useState(''), [approved, setApproved] = useState(false), [busy, setBusy] = useState(''), [open, setOpen] = useState<any>(null), [compare, setCompare] = useState<any>(null);
@@ -87,8 +87,8 @@ export default function GpuTasks({projectId}: {projectId: string}) {
 
   const r = catalog?.recipes[recipe];
   return <div className="page-content gpu-tasks">
-    <header className="mech-head"><div><span className="eyebrow">System · Cloud GPU Tasks</span><h1>Your research, <em>under control.</em></h1>
-      <p>Follow each run from start to finish. Open its terminal, inspect commands, and keep the files and evidence together.</p></div></header>
+    <header className="mech-head"><div><span className="eyebrow">{embedded ? 'Virtual Cell · Project runs' : 'System · Cloud GPU Tasks'}</span><h1>Your research, <em>under control.</em></h1>
+      <p>Follow each run from start to finish. Open its terminal, inspect commands, and keep the files and evidence together.{embedded && ' Runs belong to the selected research project; viewing a run starts no computation.'}</p></div></header>
     {error && <div className="mech-error" role="alert"><TriangleAlert size={15}/>{error}</div>}
     {busy && <div className="mech-busy"><LoaderCircle size={16} className="spin"/>{busy}…</div>}
     <details className="gt-new-run"><summary>Start a new run</summary>

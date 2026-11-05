@@ -11,6 +11,8 @@ import RnaProtein from './RnaProtein';
 import CellPainting from './CellPainting';
 import BenchmarkPanel from './BenchmarkPanel';
 import RegulatoryPanel from './RegulatoryPanel';
+import GpuTasks from '../GpuTasks';
+import CellResearchNavigation, {type CellResearchView} from './CellResearchNavigation';
 import {Coverage, Snapshots} from './StatePanels';
 import './virtualcell.css';
 
@@ -56,7 +58,7 @@ function Panel({title, sub, children, actions}: {title: string; sub?: string; ch
 /** Analyse › Virtual Cell: persistent cells you perturb, read out, branch and design against (scientific/virtual_cell.py). */
 const RETURN_KEY = 'fold-vcell-return';
 
-export default function VirtualCellLab({onOpenStructure}: {onOpenStructure?: (id: string, label: string) => Promise<void>} = {}) {
+export default function VirtualCellLab({onOpenStructure, projectId = ''}: {onOpenStructure?: (id: string, label: string) => Promise<void>; projectId?: string} = {}) {
   const [catalog, setCatalog] = useState<any>(null), [cells, setCells] = useState<any[]>([]), [current, setCurrent] = useState<any>(null);
   const [open, setOpen] = useState<Sim | null>('overexpress'), [tab, setTab] = useState<Readout>('expression');
   const [readout, setReadout] = useState<any>(null), [design, setDesign] = useState<any>(null), [busy, setBusy] = useState(''), [error, setError] = useState('');
@@ -66,7 +68,7 @@ export default function VirtualCellLab({onOpenStructure}: {onOpenStructure?: (id
   const [hidden, setHidden] = useState<Record<string, boolean>>({});
   const [query, setQuery] = useState(''), [protein, setProtein] = useState<any>(null), [enrich, setEnrich] = useState<any>(null);
   const [coverage, setCoverage] = useState<any>(null), [snaps, setSnaps] = useState<any[]>([]), [comparison, setComparison] = useState<any>(null);
-  const [rnaProtein, setRnaProtein] = useState<any>(null), [mode, setMode] = useState<'3d' | 'painting' | 'benchmarks' | 'regulatory'>('3d');
+  const [rnaProtein, setRnaProtein] = useState<any>(null), [mode, setMode] = useState<CellResearchView>('3d');
   const [results, setResults] = useState<any[] | null>(null), [result, setResult] = useState<any>(null);
   const [cycle, setCycle] = useState<any>(null), [cycleTime, setCycleTime] = useState(0), [gf, setGf] = useState('1'), [hours, setHours] = useState('120'), [notice, setNotice] = useState('');
 
@@ -90,10 +92,10 @@ export default function VirtualCellLab({onOpenStructure}: {onOpenStructure?: (id
       if (back.notice) setNotice(back.notice);
     })();
   }, []);
-  async function openStructure(id: string, name: string) {
+  async function openStructure(id: string, name: string, selectedGene = protein?.symbol ?? query) {
     if (!onOpenStructure) return;
-    try { sessionStorage.setItem(RETURN_KEY, JSON.stringify({cellId: current.cell.id, query: protein?.symbol ?? query, notice: `Returned from ${name}.`})); } catch { /* storage unavailable */ }
-    try { await onOpenStructure(id, `${current.context.name} · ${protein?.symbol ?? ''}`); } catch (e) { setError(String(e).replace(/^Error:\s*/, '')); }
+    try { sessionStorage.setItem(RETURN_KEY, JSON.stringify({cellId: current.cell.id, query: selectedGene, notice: `Returned from ${name}.`})); } catch { /* storage unavailable */ }
+    try { await onOpenStructure(id, `${current.context.name} · ${selectedGene}`); } catch (e) { setError(String(e).replace(/^Error:\s*/, '')); }
   }
   useEffect(() => {
     if (!catalog?.reference.job?.running && !catalog?.annotations?.job?.running) return;
@@ -184,11 +186,15 @@ export default function VirtualCellLab({onOpenStructure}: {onOpenStructure?: (id
   </>;
 
   // ---------------------------------------------------------------- cells home
+  if (!current && mode === 'runs') return <div className="vc-home">
+    <button className="text-button" onClick={() => setMode('3d')}><ArrowLeft size={14}/>Back to cells</button>
+    <GpuTasks projectId={projectId} embedded/>
+  </div>;
   if (!current) return <div className="vc-home">
     <header className="vc-head">
       <div><span className="eyebrow">Analyse · Virtual Cell</span><h1>Virtual cells</h1>
         <p>Persistent cells you perturb, read out, branch and design against. Every readout says what kind of evidence it is and which data it came from.</p></div>
-      <button className="text-button" onClick={refresh}><RefreshCw size={13}/>Refresh</button>
+      <div className="button-row">{projectId && <button className="button" onClick={() => setMode('runs')}><Activity size={14}/>Runs & terminal</button>}<button className="text-button" onClick={refresh}><RefreshCw size={13}/>Refresh</button></div>
     </header>
     {status}
     <div className="vc-home-grid">
@@ -289,7 +295,7 @@ export default function VirtualCellLab({onOpenStructure}: {onOpenStructure?: (id
     </div>},
   ];
 
-  return <div className="vc-studio">
+  return <div className={'vc-studio' + (mode !== '3d' ? ' vc-research-mode' : '')}>
     <div className="vc-top">
       <button className="text-button" onClick={() => { setCurrent(null); setProtein(null); setEnrich(null); setHidden({}); setCycle(null); setComparison(null); setNotice(''); refresh(); }}><ArrowLeft size={14}/>Back to cells</button>
       <span className="vc-chip">{current.context.name}</span>
@@ -300,6 +306,7 @@ export default function VirtualCellLab({onOpenStructure}: {onOpenStructure?: (id
     </div>
     {status}
 
+    <CellResearchNavigation value={mode} onChange={setMode}/>
     <aside className="vc-sims">
       <span className="vc-sims-title">Simulations</span>
       {sims.filter(s => s.show).map(s => <div key={s.id} className={'vc-sim ' + (open === s.id ? 'open' : '')}>
@@ -309,27 +316,24 @@ export default function VirtualCellLab({onOpenStructure}: {onOpenStructure?: (id
     </aside>
 
     <main className="vc-viewport">
-      <div className="vc-overlay">
+      {mode === '3d' && <div className="vc-overlay">
         <div className="vc-view-toggle"><span>View:</span>
           {(['channels', 'illustrated'] as const).map(v => <button key={v} className={mode === '3d' && view === v ? 'active' : ''} onClick={() => { setMode('3d'); setView(v); }}>{v}</button>)}
-          <button className={mode === 'painting' ? 'active' : ''} onClick={() => setMode('painting')} title="Observed Cell Painting microscopy for this cell context">Cell Painting</button>
-          <button className={mode === 'benchmarks' ? 'active' : ''} onClick={() => setMode('benchmarks')}>Scientific benchmarking</button>
-          <button className={mode === 'regulatory' ? 'active' : ''} onClick={() => setMode('regulatory')}>Genomic regulation</button>
         </div>
 {mode === '3d' && <div className="vc-channel-list"><span>Channels</span>
           {channels.map(c => <button key={c.id} className={'vc-channel ' + (hidden[c.id] ? 'off' : '')} onClick={() => setHidden({...hidden, [c.id]: !hidden[c.id]})}
             title={`${c.genes} genes · mean change ${c.score == null ? '—' : fmt(c.score, 3)} SD · brightness ×${fmt(c.gain, 2)}`}>
             <i style={{background: CHANNEL_COLOR[c.id]}}/>{c.name.split(' ·')[0]}{c.score != null && Math.abs(c.score) > 0.05 && <em className={c.score > 0 ? 'up' : 'down'}>{c.score > 0 ? '▲' : '▼'}</em>}</button>)}
         </div>}
-      </div>
-      {mode === 'regulatory' ? <div className="vc-benchmark-view"><RegulatoryPanel cellId={current.cell.id} onError={setError} onSaved={() => loadState(current.cell.id)}/></div> : mode === 'benchmarks' ? <div className="vc-benchmark-view"><BenchmarkPanel cellId={current.cell.id} onError={setError}/></div> : mode === 'painting' ? <CellPainting cellId={current.cell.id} onError={setError}/> :
+      </div>}
+      {mode === 'runs' ? <GpuTasks projectId={projectId} embedded/> : mode === 'regulatory' ? <div className="vc-benchmark-view"><RegulatoryPanel cellId={current.cell.id} onError={setError} onSaved={() => loadState(current.cell.id)} onOpenRuns={() => setMode('runs')} onOpenStructure={onOpenStructure ? openStructure : undefined}/></div> : mode === 'benchmarks' ? <div className="vc-benchmark-view"><BenchmarkPanel cellId={current.cell.id} onError={setError}/></div> : mode === 'painting' ? <CellPainting cellId={current.cell.id} onError={setError}/> :
       <div className="vc-stage"><CellStage settings={settings} journey="" onJourneyDone={() => {}} onSelect={() => {}}/>
         {cycleVisual && <div className="vc-stage-cycle" role="status"><span className="vc-phase">{cycleVisual.phase}</span><span className="mono">t {cycleVisual.time.toFixed(1)} h</span>
           <small>DNA layer ×{cycleVisual.gain.toFixed(2)} · visualization rule</small></div>}</div>}
-      <p className="vc-stage-note">Geometry is illustrative (E). Channel brightness follows this cell's predicted change in each compartment's genes. {current.state.channelSource}{cycleVisual ? ` Cell-cycle timeline open: ${cycleVisual.rule}` : ''}{protein?.symbol && protein.localization.layers.length ? ` Showing the compartments ${protein.symbol} is annotated to; position inside each compartment is not known.` : ''}</p>
+      {mode === '3d' && <><p className="vc-stage-note">Geometry is illustrative (E). Channel brightness follows this cell's predicted change in each compartment's genes. {current.state.channelSource}{cycleVisual ? ` Cell-cycle timeline open: ${cycleVisual.rule}` : ''}{protein?.symbol && protein.localization.layers.length ? ` Showing the compartments ${protein.symbol} is annotated to; position inside each compartment is not known.` : ''}</p>
       <div className="vc-timeline">{[{label: 'Baseline'}, ...current.cell.history.map((h: any) => ({label: stepLabel(h)}))].map((h, i) =>
         <button key={i} className={'vc-tl-step ' + (i === current.cell.history.length ? 'now' : '')} title={`Branch a new cell from step ${i}`} onClick={() => branch(i)}><span>{i}</span>{h.label}</button>)}</div>
-      {protein && <ProteinWorkspace key={protein.symbol ?? protein.resolution?.query} protein={protein} cellId={current.cell.id} onError={setError} onOpenStructure={onOpenStructure ? openStructure : undefined} onClose={() => { setProtein(null); setHidden({}); }}/>}
+      {protein && <ProteinWorkspace key={protein.symbol ?? protein.resolution?.query} protein={protein} cellId={current.cell.id} onError={setError} onSaved={() => loadState(current.cell.id)} onOpenStructure={onOpenStructure ? openStructure : undefined} onClose={() => { setProtein(null); setHidden({}); }}/>}</>}
       {enrich && <Enrichment r={enrich} onClose={() => setEnrich(null)}/>}
       {result && <SimulationResult r={result} onClose={() => setResult(null)}/>}
       {rnaProtein && <RnaProtein r={rnaProtein} onClose={() => setRnaProtein(null)}/>}

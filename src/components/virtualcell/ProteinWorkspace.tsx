@@ -12,7 +12,7 @@ const EVIDENCE_LABEL: Record<string, string> = {experimental: 'experimental (ECO
 
 /** Protein → localization, measured expression / fitness in this context, Reactome pathways and structures
  *  (virtual_cell.protein / pathway / pathway_enrichment). The Reactome graph reuses the Mechanistic Lab KnowledgeGraph. */
-export default function ProteinWorkspace({protein, cellId, onClose, onError, onOpenStructure}: {protein: any; cellId: string; onClose: () => void; onError: (e: string) => void; onOpenStructure?: (id: string, name: string) => void}) {
+export default function ProteinWorkspace({protein, cellId, onClose, onError, onOpenStructure, onSaved}: {protein: any; cellId: string; onClose: () => void; onError: (e: string) => void; onOpenStructure?: (id: string, name: string) => void; onSaved?: () => void}) {
   const [library, setLibrary] = useState<any>(null), [pick, setPick] = useState<string[]>([]), [cmp, setCmp] = useState<any>(null);
   const [pathway, setPathway] = useState<any>(null), [models, setModels] = useState<any>(null), [busy, setBusy] = useState(''), [tx, setTx] = useState<any>(null);
   useEffect(() => { if (protein.symbol) rpc<any>('vcell_transcripts', {id: cellId, gene: protein.symbol, ensembl: protein.identifiers?.ensembl?.[0]}).then(setTx).catch(e => setTx({supported: false, reason: String(e).replace(/^Error:\s*/, '')})); }, [protein.symbol, cellId]);
@@ -97,7 +97,7 @@ export default function ProteinWorkspace({protein, cellId, onClose, onError, onO
       <p className="caption">{library.method} {library.note} Each engine's confidence keeps its own metric; none are averaged.</p>
     </div>}
     <TranscriptInspector data={tx}/>
-    <GeneEvidencePanel cellId={cellId} gene={protein.symbol} onError={onError}/>
+    <GeneEvidencePanel cellId={cellId} gene={protein.symbol} onError={onError} onSaved={onSaved}/>
 
     <div className="vc-row"><span className="eyebrow">Reactome · {protein.pathways.length} pathway{protein.pathways.length === 1 ? '' : 's'}{protein.manifest.reactomeRelease ? ` · release ${protein.manifest.reactomeRelease}` : ''}</span>
       {protein.mechanisticTarget && !models && <button className="text-button" disabled={!!busy} onClick={async () => { const r = await call<any>('Searching BioModels (downloads and checks each model; about a minute)', 'mech_discover', {target: protein.mechanisticTarget}); if (r) setModels(r); }}>Find published models</button>}</div>

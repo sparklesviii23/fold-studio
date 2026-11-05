@@ -39,7 +39,7 @@
 .vc-bench { color: var(--ice) !important; }
 
 /* ---- studio ---- */
-.vc-studio { display: grid; gap: 12px; grid-template-columns: 250px minmax(0, 1fr) 380px; grid-template-areas: 'top top top' 'msg msg msg' 'sims view insights'; align-items: start; }
+.vc-studio { display: grid; gap: 12px; grid-template-columns: 250px minmax(0, 1fr) 380px; grid-template-areas: 'top top top' 'nav nav nav' 'msg msg msg' 'sims view insights'; align-items: start; }
 .vc-studio > .vc-error, .vc-studio > .vc-busy { grid-area: msg; }
 .vc-top { grid-area: top; display: flex; align-items: center; gap: 14px; padding: 4px 2px 10px; border-bottom: 1px solid var(--vc-line); flex-wrap: wrap; }
 .vc-top code { font-size: 0.74rem; color: var(--text-faint); }
@@ -115,11 +115,11 @@ td.down { color: var(--vc-down); }
 .vc-sig-grid figcaption { font-size: 0.7rem; color: var(--text-muted); margin-bottom: 4px; }
 
 @media (max-width: 1280px) {
-  .vc-studio { grid-template-columns: 230px minmax(0, 1fr); grid-template-areas: 'top top' 'msg msg' 'sims view' 'insights insights'; }
+  .vc-studio { grid-template-columns: 230px minmax(0, 1fr); grid-template-areas: 'top top' 'nav nav' 'msg msg' 'sims view' 'insights insights'; }
   .vc-insights { position: static; max-height: none; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); }
 }
 @media (max-width: 860px) {
-  .vc-studio { grid-template-columns: 1fr; grid-template-areas: 'top' 'msg' 'view' 'sims' 'insights'; }
+  .vc-studio { grid-template-columns: 1fr; grid-template-areas: 'top' 'nav' 'msg' 'view' 'sims' 'insights'; }
   .vc-sims { position: static; max-height: none; }
   .vc-home-grid.two { grid-template-columns: 1fr; }
   .vc-viewport { min-height: 460px; }
@@ -185,3 +185,33 @@ td.down { color: var(--vc-down); }
 .vc-benchmark-report .vc-table { min-width: 620px; }
 .vc-benchmark-report details { margin: 12px 0; }
 .vc-benchmark-report li { margin-bottom: 8px; }
+
+/* Research tools share the selected cell while results use the full workspace. */
+.vc-research-nav { grid-area: nav; display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 6px; padding: 6px; border: 1px solid var(--vc-line); border-radius: 20px; background: linear-gradient(115deg, rgb(20 28 51 / .8), rgb(17 15 37 / .8)); }
+.vc-research-nav button { display: flex; gap: 10px; align-items: center; text-align: left; background: transparent; border: 1px solid transparent; padding: 13px 12px; border-radius: 14px; color: var(--text-muted); min-width: 0; }
+.vc-research-nav button span { display: grid; gap: 4px; min-width: 0; }
+.vc-research-nav strong { font-size: .8rem; font-weight: 550; }
+.vc-research-nav small { font-size: .65rem; color: var(--text-faint); line-height: 1.4; }
+.vc-research-nav svg { flex: 0 0 auto; opacity: .75; }
+.vc-research-nav button:hover, .vc-research-nav button:focus-visible { background: rgb(159 190 255 / .08); }
+.vc-research-nav button.active { color: var(--ice); background: rgb(159 190 255 / .12); border-color: rgb(159 190 255 / .24); box-shadow: inset 0 1px 0 rgb(255 255 255 / .05); }
+.vc-studio.vc-research-mode { grid-template-columns: minmax(0, 1fr); grid-template-areas: 'top' 'nav' 'msg' 'view'; }
+.vc-research-mode > .vc-sims, .vc-research-mode > .vc-insights { display: none; }
+.vc-research-mode .vc-viewport { display: block; min-height: 400px; background: rgb(4 7 18 / .6); }
+.vc-research-mode .vc-benchmark-view { padding: 28px; max-height: none; overflow: visible; }
+.vc-research-heading { max-width: 780px; margin-bottom: 24px; }
+.vc-research-heading h2 { margin: 8px 0; font-size: 1.6rem; font-weight: 450; }
+.vc-research-heading p { line-height: 1.7; color: var(--text-muted); }
+.vc-gene-search { display: flex; align-items: end; gap: 12px; max-width: 620px; margin-bottom: 24px; }
+.vc-gene-search label { display: grid; gap: 8px; flex: 1; color: var(--text-muted); font-size: .8rem; }
+.vc-gene-search input { width: 100%; min-width: 0; }
+.vc-single-tracks { margin-top: 28px; border-top: 1px solid var(--vc-line); padding-top: 20px; }
+.vc-research-mode .gpu-tasks { padding: 24px; }
+@media (max-width: 1000px) { .vc-research-nav { grid-template-columns: repeat(3, minmax(0, 1fr)); } }
+@media (max-width: 600px) {
+ .vc-research-nav { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+ .vc-research-nav button { padding: 10px; gap: 8px; }
+ .vc-research-nav small { display: none; }
+ .vc-research-mode .vc-benchmark-view, .vc-research-mode .gpu-tasks { padding: 16px; }
+ .vc-gene-search { flex-wrap: wrap; }
+}

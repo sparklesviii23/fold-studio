@@ -137,7 +137,7 @@ export default function App(){
 {workspace==='Living Biology Lab'&&<LivingBiologyLab/>}
 {workspace==='RNA-to-Protein Lab'&&<RnaLab/>}
 {workspace==='Mechanistic Biology Lab'&&<MechanisticLab initialQuery={mechQuery}/>}
-{workspace==='Multiscale Experiments'&&<MultiscaleLab/>}{workspace==='Virtual Cell'&&<VirtualCellLab onOpenStructure={async(id,label)=>{const l=await load();const item=l.records.find(r=>r.id===id&&r.kind==='structure');if(!item)throw new Error('That saved structure is no longer in the library.');setProjectId(item.project_id);setCellReturn(label);await openStructure(item);}}/>}
+{workspace==='Multiscale Experiments'&&<MultiscaleLab/>}{workspace==='Virtual Cell'&&<VirtualCellLab projectId={projectId} onOpenStructure={async(id,label)=>{const l=await load();const item=l.records.find(r=>r.id===id&&r.kind==='structure');if(!item)throw new Error('That saved structure is no longer in the library.');setProjectId(item.project_id);setCellReturn(label);await openStructure(item);}}/>}
 {workspace==='Molecular Cinema'&&<CinemaHub atoms={loadedId===currentStructure?.id?atoms:[]} name={currentStructure?.name??'No structure open'} film={<MolecularCinema projectId={projectId} item={currentStructure} structures={structures} onSelect={item=>{void openStructure(item,false);}}/>}/>}
  {workspace==='Genome & RNA Engineering'&&<EditCraft projectId={projectId} inspectorOpen={inspector} structures={structures} onOpen={item=>{void openStructure(item);}} onRefresh={()=>{void load();}}/>}
  {workspace==='Cloud GPU Tasks'&&<GpuTasks projectId={projectId}/>}
