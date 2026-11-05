@@ -2,12 +2,34 @@
 import ast
 import json
 import pathlib
+import re
 import subprocess
 import sys
 
 
+def check_native_actions(repo):
+    """Keep explicit desktop routes in sync without admitting provider-only RPCs."""
+    tree = ast.parse((repo / 'scientific/virtual_cell_actions.py').read_text())
+    registry = next(node.value for node in tree.body if isinstance(node, ast.Assign)
+                    and any(isinstance(target, ast.Name) and target.id == 'ACTIONS' for target in node.targets))
+    expected = ast.literal_eval(registry)
+    rust = (repo / 'src-tauri/src/main.rs').read_text()
+    declaration = re.search(r'const ACTIONS:\s*&\[&str\]\s*=\s*&\[(.*?)\];', rust, re.S)
+    if not declaration:
+        raise RuntimeError('Native scientific action allowlist is missing.')
+    native = set(re.findall(r'"([a-z][a-z0-9_]+)"', declaration[1]))
+    if expected != {action for action in native if action.startswith('vcell_')}:
+        raise RuntimeError('Native Virtual Cell routes differ from the registry: ' + str(sorted(expected ^ {a for a in native if a.startswith('vcell_')})))
+    provider_only = {'gpu_task_launch', 'gpu_task_poll', 'gpu_task_fetch', 'gpu_task_cancel_remote',
+                     'gpu_task_exec_remote', 'gpu_task_terminal_remote', 'compute_server_probe'}
+    if native & provider_only:
+        raise RuntimeError('Provider-only actions must not enter the native allowlist.')
+    print('Native Virtual Cell routing passed:', len(expected), 'explicit actions; provider-only routes remain private.')
+
+
 def check_sources():
     repo = pathlib.Path(__file__).resolve().parents[1]
+    check_native_actions(repo)
     source = repo / 'scientific'
     configured = json.loads((repo / 'src-tauri/tauri.conf.json').read_text())['bundle']['resources']
     pending, visited = ['worker'], set()
