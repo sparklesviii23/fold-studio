@@ -14,7 +14,7 @@ else:text.append('| Expanded Borzoi | One locus / one track | Frozen panel, 103 
 text+=['| Response comparison | Four methods; no winner across 72 cases | Nine methods, validation-only tuning and 180 additional cases | Yes, statistical predictions | Original four predictions/masks/scores preserved exactly | Retrospective retesting; same nine test lines and two plates for additional conditions |',
 '| Stronger baseline | Not tested | Validation-selected 0.25 × matched donor response | Yes | Original MSE 0.778284 vs 0.787841 unchanged; additional MSE 0.825780 vs 0.831090 | Small improvement; additional paired CI nearly reaches zero; no independent study |',
 '| Nonlinear/low-rank models | Not tested | PCA ridge, rank-4 response ridge and RBF kernel ridge | Yes | All lose to unchanged control | Statistical models, not pretrained foundation models; CPA/GEARS/scGPT not executed on incompatible LFC inputs |',
-'| HepG2 ANGPTL3 explorer | Evidence in separate views | Gene report, RNA/isoforms/protein/pathways/structure handoff, state save/restore/export | Existing structure and compatible saved regulatory results only | Real worker/browser walkthrough passed | Regulatory output remains absent until a compatible completed panel exists; no validated parental-HepG2 treatment predictor |',
+'| HepG2 ANGPTL3 explorer | Evidence in separate views | Gene report, RNA/isoforms/protein/pathways/structure handoff, state save/restore/export | Existing structure and compatible saved regulatory results only | Real worker/browser walkthrough passed | Only compatible completed regulatory profiles are shown; ANGPTL3 is an illustrative fold5 locus, not held-out validation; no validated parental-HepG2 treatment predictor |',
 '| Run controller | Partial terminal controls | Recorded lifecycle, live/saved terminal, commands/history, local-task records and bounded background evaluator | Actual job logs and result retrieval | Local checks and cloud history are inspectable | No inference retry; local preparations expose read-only progress |',
 '| Integration | Isolated branch | Recoverable source checkpoints, packaged resource checks | Development preview | Original checkout/library/application preserved | No installed-app replacement or native installation qualification |','']
 if response:
@@ -32,7 +32,7 @@ if panel:
   text.append(f'### {t["metadata"]["description"]} · {t["metadata"]["identifier"]}')
   for model,s in panel['summary'][str(t['index'])].items():text.append(f'- {model}: {s["scored"]}/{s["attempted"]} scored loci; Spearman {s["spearman"]["mean"]}, 95% CI {s["spearman"]["ci95"]}; log-profile Pearson {s["pearson"]["mean"]}.')
   text.append('')
- text.append('Verification policy: '+json.dumps(panel.get('verificationPolicy'))+'. Original cross-device strict comparison: '+str(panel.get('crossDeviceOriginalTolerancePassed'))+'.')
+ text.append('Verification policy: '+json.dumps(panel.get('verificationPolicy'))+'. Current run original strict comparison: '+str(panel.get('crossDeviceOriginalTolerancePassed'))+'.')
  keys=sorted({k for row in panel['perLocus'] for k in row})
  with (out/'BORZOI_PER_LOCUS.csv').open('w') as f:w=csv.DictWriter(f,fieldnames=keys);w.writeheader();w.writerows(panel['perLocus'])
  try:
@@ -53,6 +53,6 @@ text+=['','## Reproduction and tests','',
 'Official Borzoi replicas share fold3 test / fold4 validation splits ([pinned README](https://github.com/calico/borzoi/blob/f10f8c799639dd2cfc0c1eb09499bfc47ab9cf8a/README.md)). TensorFlow defines deterministic execution relative to the same hardware ([official guidance](https://www.tensorflow.org/api_docs/python/tf/config/experimental/enable_op_determinism)); hardware/kernel numerical variation is a plausible explanation here, not an experimentally isolated cause.','',
 '## Remaining boundaries','',
 ('Regulatory profile associations are now benchmarked in the specified genomic holdouts. Aggregate intervals apply to scorable loci; unobserved/unsupported loci are retained as failures. ' if panel else 'Broader regulatory accuracy remains pending. ')+'Pretrained perturbation models still require a compatible cell-level/count-data benchmark; cross-study generalization, calibrated per-gene intervals, paired multimodal ground truth and a learned cellular world model remain unestablished. Installed-app integration remains a separate reviewed step.','',
-'Artifacts: STRONGER_RESPONSE_BENCHMARK.json, RESPONSE_MODEL_LEADERBOARD.csv, STRONGER_RESPONSE_COMPARISON.png, BORZOI_PANEL_PLAN.json, SEQUENCE_PREFLIGHT.json, PORTABLE_VERIFICATION_POLICY.json, REPRODUCTION_DISCREPANCY.json and, when complete, BORZOI_PANEL_EVALUATION.json / BORZOI_PER_LOCUS.csv / BORZOI_AGGREGATE.png.']
+'Artifacts: STRONGER_RESPONSE_BENCHMARK.json, RESPONSE_MODEL_LEADERBOARD.csv, STRONGER_RESPONSE_COMPARISON.png, BORZOI_PANEL_PLAN.json, SEQUENCE_PREFLIGHT.json, PORTABLE_VERIFICATION_POLICY.json, REPRODUCTION_DISCREPANCY.json and BORZOI_PANEL_EVALUATION.json / BORZOI_PER_LOCUS.csv / BORZOI_AGGREGATE.png.']
 (out/'STAGE2_STATUS.md').write_text('\n'.join(text)+'\n')
 print('Evidence ledger updated: '+str(out/'STAGE2_STATUS.md'))
