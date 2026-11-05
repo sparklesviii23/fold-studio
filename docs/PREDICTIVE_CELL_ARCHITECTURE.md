@@ -25,3 +25,11 @@ Reuses `gpu_tasks`/`biology_providers`/`cloud_accounts`; account secrets stay in
 ## Deliberately deferred architecture
 
 No universal confidence percentage, arbitrary cross-modal average, RNA-to-protein abundance conversion, shared latent state, learned temporal transition, full foundation-model training, new molecular-design workflow or causal regulation graph. These require compatible data and independently held-out improvement over simpler baselines first.
+
+## Stage 2 implementation checkpoint · 5 November 2026
+
+The fresh Borzoi reproduction gate is awaiting a new, scoped cloud approval. No Stage 2 cloud job has been submitted. The earlier one-attempt approval was consumed by Stage 1. New response-model fitting is deliberately pending this gate; reference preparation, diagnostics and interface work do not establish model accuracy.
+
+The existing selected-cell dispatcher now also supports `vcell_gene_explore`, `vcell_gene_snapshot` and `vcell_borzoi_panel_get`. `vcell_benchmarks` includes checksummed expanded-panel summaries and saved response diagnostics. Missing completed panels produce an explicit empty state. Panel reports share the existing benchmark interface, with separate coverage and response metrics, no composite score. Gene reports reuse `virtual_cell.protein`, transcript readers, regulatory readers and `virtual_cell_state`; no second state engine or cloud-account system is introduced.
+
+Gene matching requires exact Cellosaurus identity, overlapping hg38 coordinates and compatible Ensembl identity when available. ANGPTL3 lacks a UniProt-to-Ensembl link in the installed annotations: the report explicitly records symbol-only matching to GENCODE, rather than claiming a verified identifier join. Measurements, annotations, computed summaries, predicted tracks and unsupported responses retain separate labels. Saved state bundles include the full typed gene report as provenance.

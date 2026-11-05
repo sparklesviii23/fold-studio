@@ -27,3 +27,7 @@ Start each session here, then `VIRTUAL_CELL_CAPABILITIES.md` (what works) and `V
 
 Independent validation still required for: every simulation output, any future predictive model, and any claim that
 combining models improves accuracy (held-out benchmark against single-model baselines).
+
+## Predictive biology Stage 2 · 5 November 2026
+
+Stage 2 implements the gene-evidence/report workflow and reference preparation, but is not completion of the predictive research programme. Next: approved fresh Borzoi gate → frozen broader coverage benchmark → stronger response baselines → task-compatible advanced model → independent-study generalization. Preserve negative results and abstention. Do not build a universal latent/world-model claim from these results.

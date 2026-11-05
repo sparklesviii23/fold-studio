@@ -891,16 +891,24 @@ def _dataset_ids(ref):
 def state_dispatch(service, action, p, ref, cell):
     import virtual_cell_state as VS, virtual_cell_registry as VR, virtual_cell_cycle as VC, virtual_cell_transcripts as VT
     root = service.root
+    if action in ('vcell_gene_explore','vcell_gene_snapshot'):
+        import virtual_cell_gene_explorer as GE
+        return (GE.explore if action=='vcell_gene_explore' else GE.snapshot)(service,ref,cell,p.get('query',''))
     if action in ('vcell_regulatory_runs', 'vcell_regulatory_track'):
         import virtual_cell_regulatory as VG
         rrid = getattr(ref, 'cellosaurus', None) or 'CVCL_0004'
         return VG.listing(root, rrid) if action == 'vcell_regulatory_runs' else VG.get(root, p.get('run'), rrid)
-    if action in ('vcell_benchmarks', 'vcell_benchmark_get', 'vcell_benchmark_run'):
+    if action in ('vcell_benchmarks', 'vcell_benchmark_get', 'vcell_benchmark_run', 'vcell_borzoi_panel_get'):
         import virtual_cell_benchmarks as VB
+        import borzoi_panel as BP
+        import virtual_cell_response_research as RR
         rrid = getattr(ref, 'cellosaurus', None) or 'CVCL_0004'
         if action == 'vcell_benchmarks':
             return {'context': context_info(ref), 'runs': VB.listing(root, rrid), 'protocol': VB.PROTOCOL,
+                    'regulatoryPanels':BP.listing(root),'responseDiagnostics':RR.diagnostics(root),
                     'note': 'Benchmark scores describe their recorded test contexts, not necessarily the selected cell.'}
+        if action == 'vcell_borzoi_panel_get':
+            return BP.load(root,p.get('run'))
         if action == 'vcell_benchmark_get':
             return VB.load(root, p.get('run'))
         return VB.run(root, p.get('seed', 17), p.get('conditionsPerLine', 8))
@@ -1019,7 +1027,8 @@ STATE_ACTIONS = {'vcell_coverage', 'vcell_transcripts', 'vcell_cycle_run', 'vcel
                  'vcell_snapshot_compare', 'vcell_snapshot_export', 'vcell_snapshot_import', 'vcell_snapshot_delete', 'vcell_structures', 'vcell_structure_compare', 'vcell_rna_protein',
                  'vcell_microscopy_list', 'vcell_microscopy_view', 'vcell_report',
                  'vcell_cellflux_status', 'vcell_cellflux_perturbations', 'vcell_cellflux_run', 'vcell_cellflux_job',
-                 'vcell_benchmarks', 'vcell_benchmark_get', 'vcell_benchmark_run', 'vcell_regulatory_runs', 'vcell_regulatory_track'}
+                 'vcell_benchmarks', 'vcell_benchmark_get', 'vcell_benchmark_run', 'vcell_regulatory_runs', 'vcell_regulatory_track',
+                 'vcell_gene_explore', 'vcell_gene_snapshot', 'vcell_borzoi_panel_get'}
 
 
 def dispatch(service, action, p):

@@ -14,12 +14,14 @@ def sha_file(path):
     return h.hexdigest()
 
 
-def borzoi_checkpoint(cache):
+def borzoi_checkpoint(cache, replicate=0):
     """Verify the official immutable GCS object before every use; serialize downloads."""
     import fcntl
     import tempfile
-    expected = 'ef83ad59b43765413f73767d87a717df'
-    url = 'https://storage.googleapis.com/seqnn-share/borzoi/f0/model0_best.h5'
+    identities = {0:'ef83ad59b43765413f73767d87a717df', 1:'3bd16acb7283387be2fdb84edca847f5'}
+    if type(replicate) is not int or replicate not in identities: raise ValueError('Unverified Borzoi replicate.')
+    expected = identities[replicate]
+    url = f'https://storage.googleapis.com/seqnn-share/borzoi/f{replicate}/model0_best.h5'
     # Separate from the older adapter's mutable cache; directory identity is content-based.
     folder = Path(cache) / 'predictive-cell-borzoi' / expected; folder.mkdir(parents=True, exist_ok=True)
     weight = folder / 'model0_best.h5'

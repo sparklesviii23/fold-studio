@@ -47,6 +47,10 @@ DATASETS = {
 }
 
 CAPABILITIES = [
+    {'id':'vcell.geneExplorer','provider':'evidence','module':'virtual_cell_gene_explorer.py','inputs':['selected existing cell','unambiguous gene'],
+     'outputs':['observed-versus-predicted gene report','evidence-typed snapshot'],'context':'exact selected Cellosaurus identity; regulatory assay and coordinate checks',
+     'runtime':'local reader of existing data/results; no automatic inference','evidence':'per-section measured / annotation / statistic / prediction / unsupported',
+     'validation':'operational_tested','ui':'Virtual Cell › Protein & pathways › Observed versus predicted','dependencies':['existing reference indices; optional completed predictions']},
     {'id': 'vcell.regulatory', 'provider': 'model', 'module': 'virtual_cell_regulatory.py + existing bio_borzoi recipe', 'inputs': ['completed Borzoi job', 'matching cell-line assay'],
      'outputs': ['genomic regulatory track with coordinates', 'checkpoint and assay provenance'], 'context': 'hg38; explicitly matched HepG2 or K-562 assays',
      'runtime': 'read-only local viewer; inference through existing cost-gated Modal workbench', 'evidence': 'prediction', 'validation': 'partial',

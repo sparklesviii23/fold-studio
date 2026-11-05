@@ -4,6 +4,7 @@ import {rpc} from '../../lib/api';
 import {fmt} from '../mechanistic/MechCharts';
 import {KnowledgeGraph, type GraphData} from '../mechanistic/NetworkView';
 import TranscriptInspector from './TranscriptInspector';
+import GeneEvidencePanel from './GeneEvidencePanel';
 import '../mechanistic/mechanistic.css';
 
 const LAYER_LABEL: Record<string, string> = {dna: 'Nucleus', mito: 'Mitochondria', er: 'ER', golgi: 'Golgi', vesicles: 'Vesicles'};
@@ -96,6 +97,7 @@ export default function ProteinWorkspace({protein, cellId, onClose, onError, onO
       <p className="caption">{library.method} {library.note} Each engine's confidence keeps its own metric; none are averaged.</p>
     </div>}
     <TranscriptInspector data={tx}/>
+    <GeneEvidencePanel cellId={cellId} gene={protein.symbol} onError={onError}/>
 
     <div className="vc-row"><span className="eyebrow">Reactome · {protein.pathways.length} pathway{protein.pathways.length === 1 ? '' : 's'}{protein.manifest.reactomeRelease ? ` · release ${protein.manifest.reactomeRelease}` : ''}</span>
       {protein.mechanisticTarget && !models && <button className="text-button" disabled={!!busy} onClick={async () => { const r = await call<any>('Searching BioModels (downloads and checks each model; about a minute)', 'mech_discover', {target: protein.mechanisticTarget}); if (r) setModels(r); }}>Find published models</button>}</div>

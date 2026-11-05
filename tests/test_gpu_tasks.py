@@ -14,7 +14,7 @@ def svc(tmp):
 class RecipeTests(unittest.TestCase):
     def test_catalog_hides_scripts_and_lists_every_recipe(self):
         c = G.dispatch(svc(tempfile.mkdtemp()), 'gpu_tasks_catalog', {})
-        self.assertEqual(set(c['recipes']), {'rhofold', 'boltz_rna', 'hemocell', 'physicell', 'custom', 'bio_evo2', 'bio_borzoi', 'bio_esmc', 'bio_esmfold2', 'bio_antisense', 'tahoe_atlas'})
+        self.assertEqual(set(c['recipes']), {'rhofold', 'boltz_rna', 'hemocell', 'physicell', 'custom', 'bio_evo2', 'bio_borzoi', 'bio_borzoi_panel', 'bio_esmc', 'bio_esmfold2', 'bio_antisense', 'tahoe_atlas'})
         self.assertTrue(all('script' not in r for r in c['recipes'].values()))
         self.assertTrue(all(r['license'] for r in c['recipes'].values()))
 

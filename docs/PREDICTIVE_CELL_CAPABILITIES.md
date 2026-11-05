@@ -30,3 +30,13 @@ Statuses are cumulative evidence, not synonyms: available, installed, executing,
 HepG2/C3A, COLO 205 and hTERT-HPNE are excluded from this nearest-context benchmark because no matching untreated DepMap RNA profile is present. Parental HepG2 is not a replacement for C3A. SNU-423 is an actual test context; the worker and UI demonstrations use it.
 
 No shared learned cellular state, cross-modal decoder, aging predictor or foundation-model adaptation is represented as complete. Demonstration B/E are bounded statistical response comparisons; A completed as a limited held-out locus check (see `PREDICTIVE_CELL_BORZOI_EXECUTION.md`); C is partial evidence retrieval; D is deferred.
+
+## Stage 2 status checkpoint
+
+- **Integrated and operationally tested:** observed-versus-predicted gene reports inside the existing Protein & pathways workspace; measured RNA/transcripts, protein/localization, Reactome and saved-structure handoff, existing state-history save/restore/export. Actual HepG2 ANGPTL3 worker/browser walkthrough passed. Regulatory and cellular-response prediction are explicitly unsupported when no compatible completed result exists.
+- **Reproduced:** original four-method 72-test/45-validation response benchmark and saved FABP1 reference correlation. This does not complete fresh inference reproduction.
+- **Implemented, not executed or scientifically benchmarked:** frozen 100-locus Borzoi panel, three-track reference extraction, authentic two-replica cloud runner, ensemble/profile evaluator and dashboard reader.
+- **Diagnosed:** original response failure with original all-gene metrics retained, sample/batch/signal summaries and independent-other-plate gene-selection diagnostic; technical versus biological causes remain partly unresolved.
+- **Deferred behind the fresh inference gate:** stronger statistical model fitting and advanced-model comparison. No new response predictor is promoted. No multimodal world model, mechanistic cross-modal abundance conversion or independent-study validation is claimed.
+
+Checks in this checkpoint: 104 backend tests (72 existing Virtual Cell, 12 Stage 2 invariants, 10 Biological Models, 10 GPU lifecycle), 15 Virtual Cell interface tests, TypeScript, production Vite build and scientific source-resource closure (164 modules) pass. Existing nonfatal RNA/protein SVG title warnings remain. No native Tauri build/install was performed.

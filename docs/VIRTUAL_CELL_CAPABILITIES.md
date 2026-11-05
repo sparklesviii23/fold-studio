@@ -32,3 +32,7 @@ Partially implemented · Data available, integration incomplete · Model unavail
 Home: context selector (K-562, Hep G2 parental, 50 Tahoe lines incl. HepG2/C3A), data-and-models list with install / build
 buttons. Studio: Simulations (knockout, protein & pathways, cell-cycle timeline, signature, design, history & saved states),
 3D cell (illustrative) with HPA-driven channels and per-protein compartment filter, Data coverage panel, readouts.
+
+## Predictive biology Stage 2 · 5 November 2026
+
+Observed-versus-predicted gene explorer now reuses Protein & pathways and the existing state engine. Exact context/gene/coordinate checks, typed provenance and explicit unsupported responses are operationally tested. Expanded Borzoi science remains pending; no new predictor is validated.

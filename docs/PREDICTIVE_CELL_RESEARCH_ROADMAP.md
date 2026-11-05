@@ -22,3 +22,13 @@ Suggested metrics: held-out MAE/calibration for continuous signatures; AUROC/AUP
 - C multimodal HepG2: real ANGPTL3 identifier, transcript and reference evidence retrieval through worker; complete regulatory/structure/image/model report walkthrough remains pending.
 - D shared predictive state: deferred; no latent encoder/decoder or state-transition model trained.
 - E model evaluation: completed local baseline/candidate comparison with saved outputs, intervals, failures and context-aware UI; not validation of a foundation model.
+
+## Stage 2 continuation order and scientific decision
+
+Completed independent work: exact response-benchmark/saved-correlation reproduction; 72-condition diagnostics; frozen 100-locus panel and three-track observed-reference extraction; integrated ANGPTL3 report/structures/pathways/snapshot workflow; shared dashboard; focused regressions and source packaging check.
+
+The next dependency is the pending scoped approval for one expanded Borzoi job. Run the exact reproduction gate first; stop and investigate any discrepancy. On success, evaluate the frozen panel without reselecting low-coverage loci, retain failures and compare individual replicas with the ensemble. Only then fit stronger training-only ridge/low-rank/context baselines, select parameters on validation outcomes, and compare on the original 72 cases as exploratory retesting plus separately frozen new drug/dose cases. Raw single-cell/count data and matched controls are required before a fair CPA/scGPT-style benchmark or raw-count challenge metrics.
+
+The real HepG2 ANGPTL3 workflow now saves, restores and exports evidence and opens its existing predicted structure in Molecular Viewer. It correctly abstains from ANGPTL3 regulatory prediction until an approved compatible result exists. ANGPTL3's fold5 example will remain illustrative even after inference. Existing CellFlux/microscopy modules and source evidence are preserved; no new CellFlux generation was run.
+
+Scientific decision: the current evidence does not justify a learned unified cellular world-model claim. Useful regulatory prediction remains narrowly demonstrated at one locus; cross-context response prediction has not beaten unchanged control. Establish broader reproducibility and prospective/independent-study utility before a larger multimodal model.

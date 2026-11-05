@@ -41,5 +41,10 @@ def recipes():
         r.update(demo='Biological Models', evidence='Model prediction · GPU qualification pending', timeout=3600, qualification='integration_unvalidated')
         pins = ('export FOLD_BORZOI_REVISION=' + BORZOI + '\nexport FOLD_BASKERVILLE_REVISION=' + BASKERVILLE + '\n') if key == 'bio_borzoi' else ''
         r['script'] = 'set -euo pipefail\nexport HF_HOME=/cache/models/huggingface\nexport FOLD_BIO_RECIPE=' + key + '\n' + pins + 'OUT=/cache/out/$FOLD_TASK_ID; mkdir -p "$OUT"\npython - <<\'FOLD_BIO_PY\'\n' + runner + '\nFOLD_BIO_PY\n'
+    panel_runner = Path(__file__).with_name('borzoi_panel_runner.py').read_text()
+    models['bio_borzoi_panel'] = {**models['bio_borzoi'], 'title':'Borzoi · prespecified two-replicate evaluation panel',
+        'inputs':{'files':{'type':'files'}}, 'timeout':2700,
+        'purpose':'Fresh Stage 1 reproduction gate, then prespecified genomic holdouts; no training.',
+        'script': 'set -euo pipefail\nexport FOLD_BORZOI_REVISION='+BORZOI+'\nexport FOLD_BASKERVILLE_REVISION='+BASKERVILLE+'\nOUT=/cache/out/$FOLD_TASK_ID; mkdir -p "$OUT"\npython - <<\'FOLD_PANEL_PY\'\nBASE_RUNNER='+repr(runner)+'\n'+panel_runner+'\nFOLD_PANEL_PY\n'}
     models['bio_antisense'] = antisense_workflow.recipe()
     return models

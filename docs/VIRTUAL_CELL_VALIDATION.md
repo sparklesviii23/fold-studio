@@ -63,3 +63,7 @@ members measured); unknown-identifier message; cell-cycle run, scrub to 70 h (G1
 transcript table for ALB. Bugs found and fixed: stale compartment filter after a failed search; chart playhead given a
 time instead of an index. Native Tauri window interaction is not possible from this environment; the installed app's
 packaged backend was exercised directly in the previous session.
+
+## Predictive biology Stage 2 · 5 November 2026
+
+Stage 2: 104 backend checks (72 Virtual Cell, 12 new invariants, 10 Biological Models, 10 GPU lifecycle) and 15 Virtual Cell interface tests pass; TypeScript, production web build and 164-module source packaging closure pass. Real worker/browser QA covered parental HepG2 ANGPTL3 RNA/three isoforms/two pathways, saved predicted structure → Molecular Viewer → same cell/gene, state save/restore/export. Original 72-condition scores reproduce exactly. Native Tauri installation and expanded inference are not qualified in this checkpoint. See PREDICTIVE_CELL_BENCHMARKS.md.

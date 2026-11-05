@@ -22,3 +22,11 @@ ANGPTL3 (`chr1:62597486-62606159` after GTF conversion) overlaps fold5 training 
 ## Deferred datasets
 
 Existing Norman 2019 and Replogle 2022 pack hashes/benchmarks were inspected, not redownloaded. The partial Nadig HepG2 file is untouched. scPerturb, Perturb-seq, Arc Virtual Cell Challenge, LINCS/L1000, matched RNA/protein, longitudinal aging and matched multimodal data require task-specific release/licence/split checks before additional downloads or training. Their names do not establish an implemented pipeline.
+
+## Stage 2 independent data snapshot and reference extraction
+
+Stage 2 uses an independent SQLite backup and copy-on-write numeric input snapshots; mutable jobs, results and caches are separate from the original library and Stage 1. Reference annotation, BED split, target catalog and array checksums are retained. Reference manifest schema is `fold.borzoi.panel-reference/1`; observed arrays hash is `58e07916bb68fcc641ab3d488165b99350180b049ff3cc512fc9aa39bcfcd328`.
+
+Additional matched assays: [ENCFF136DBS](https://www.encodeproject.org/files/ENCFF136DBS/) is GRCh38 HepG2 DNase read-depth-normalized signal, official target 1303; [ENCFF980ZHM](https://www.encodeproject.org/files/ENCFF980ZHM/) is GRCh38 K-562 plus-strand unique-read RNA signal, target 6122. Original [ENCFF065PJM](https://www.encodeproject.org/files/ENCFF065PJM/) remains HepG2 RNA 6226. Cellosaurus/assembly/output-type metadata is checked. DNase bins use mean signal; RNA bins use sums. All 32 bases must be covered; missing data is not zero-filled. Provider MD5 and retrieved metadata hashes are recorded, but full bigWig MD5s were not independently verified because extraction uses remote byte ranges. No full bigWig or new checkpoint was downloaded.
+
+ENCODE transcript TPM, DepMap log2(TPM+1), original genomic coverage and PaxDb ppm remain separate quantities. No simultaneous, paired multimodal dataset or raw Tahoe single-cell/control matrix has been established by this stage.
