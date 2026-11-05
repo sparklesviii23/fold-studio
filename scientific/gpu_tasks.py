@@ -641,9 +641,14 @@ def dispatch(s, action, p):
         return rec
     if action == 'gpu_tasks_list':
         rows = []
-        for d in sorted((x for x in _folder(s).iterdir() if (x / 'task.json').is_file()), key=lambda x: x.stat().st_mtime, reverse=True)[:60]:
+        project = p.get('projectId')
+        for d in sorted((x for x in _folder(s).iterdir() if (x / 'task.json').is_file()), key=lambda x: x.stat().st_mtime, reverse=True):
             r = json.loads((d / 'task.json').read_text())
-            rows.append({k: r.get(k) for k in ('id', 'recipe', 'title', 'state', 'created', 'finished', 'gpu', 'label', 'error')})
+            if project and r.get('projectId') != project:
+                continue
+            rows.append({k: r.get(k) for k in ('id', 'recipe', 'title', 'state', 'created', 'finished', 'gpu', 'label', 'error', 'projectId')})
+            if len(rows) == 60:
+                break
         return rows
     if action == 'gpu_task_cancel':
         rec = _read(s, p.get('taskId'))

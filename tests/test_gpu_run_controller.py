@@ -11,6 +11,15 @@ class ControllerTests(unittest.TestCase):
         self.tmp=tempfile.TemporaryDirectory();self.service=types.SimpleNamespace(root=Path(self.tmp.name),setting=lambda k,d=None:d)
         self.task={'id':'a'*32,'recipe':'bio_borzoi','state':'running','sandboxId':'sb-test'};G._write(self.service,self.task)
     def tearDown(self):self.tmp.cleanup()
+    def test_project_history_excludes_other_projects_and_keeps_legacy_global_history(self):
+        G._write(self.service,dict(self.task,id='b'*32,projectId='study-a'))
+        G._write(self.service,dict(self.task,id='c'*32,projectId='study-b'))
+        with patch.object(G,'_rpc') as rpc:
+            rows=G.dispatch(self.service,'gpu_tasks_list',{'projectId':'study-a'})
+            self.assertEqual([r['id'] for r in rows],['b'*32])
+            self.assertEqual(rows[0]['projectId'],'study-a')
+            self.assertEqual(len(G.dispatch(self.service,'gpu_tasks_list',{})),3)
+            rpc.assert_not_called()
     def test_local_progress_and_busy_status_lock_never_call_provider(self):
         import fcntl
         self.task['provider']='local';self.task['state']='local_running';G._write(self.service,self.task)
