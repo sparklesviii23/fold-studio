@@ -6,4 +6,4 @@ ACTIONS = {'vcell_catalog', 'vcell_reference_build', 'vcell_list', 'vcell_create
            'vcell_structures', 'vcell_structure_compare', 'vcell_results_list', 'vcell_result_get', 'vcell_rna_protein', 'vcell_microscopy_list', 'vcell_microscopy_view', 'vcell_report',
            'vcell_cellflux_status', 'vcell_cellflux_perturbations', 'vcell_cellflux_run', 'vcell_cellflux_job',
            'vcell_benchmarks', 'vcell_benchmark_get', 'vcell_benchmark_run', 'vcell_regulatory_runs', 'vcell_regulatory_track',
-           'vcell_gene_explore', 'vcell_gene_snapshot', 'vcell_borzoi_panel_get'}
+           'vcell_gene_explore', 'vcell_gene_snapshot', 'vcell_borzoi_panel_get', 'vcell_training_status', 'vcell_training_prepare', 'vcell_training_launch'}

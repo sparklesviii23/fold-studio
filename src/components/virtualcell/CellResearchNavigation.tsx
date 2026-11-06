@@ -1,11 +1,12 @@
-import {Activity, Dna, FlaskConical, Microscope, Terminal} from 'lucide-react';
+import {Activity, BrainCircuit, Dna, FlaskConical, Microscope, Terminal} from 'lucide-react';
 
-export type CellResearchView = '3d' | 'painting' | 'regulatory' | 'benchmarks' | 'runs';
+export type CellResearchView = '3d' | 'painting' | 'regulatory' | 'benchmarks' | 'training' | 'runs';
 const views = [
   {id: '3d', label: 'Cell workspace', detail: 'Explore and intervene', icon: Dna},
   {id: 'painting', label: 'Microscopy', detail: 'Observed cell images', icon: Microscope},
   {id: 'regulatory', label: 'Genes & regulation', detail: 'Evidence and predictions', icon: Activity},
   {id: 'benchmarks', label: 'Benchmarks', detail: 'Accuracy and limitations', icon: FlaskConical},
+  {id: 'training', label: 'Cell AI training', detail: 'Evidence, learning and evaluation', icon: BrainCircuit},
   {id: 'runs', label: 'Runs & terminal', detail: 'Progress, commands and files', icon: Terminal},
 ] as const;
 

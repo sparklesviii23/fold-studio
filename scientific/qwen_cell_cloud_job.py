@@ -92,19 +92,19 @@ def remote_assets(plan):
     return result
 
 
-def stage_and_launch(plan,volume,launch,cancelled,event):
+def stage_and_launch(plan,volume,launch,cancelled,event,verifier=None,asset_provider=None):
     """Injected SDK boundary makes upload-before-allocation independently testable."""
-    verify_plan(plan)
+    (verifier or verify_plan)(plan)
     def check():
         if cancelled():raise InterruptedError('Stopped before GPU launch; no retry.')
-    check();assets=remote_assets(plan)
+    check();assets=(asset_provider or remote_assets)(plan)
     # Batch uploads commit on successful exit; one explicit batch, no paid retry.
     # Existing content-addressed checkpoint blobs are deduplicated by Modal.
     event('Uploading verified inputs before GPU allocation',bytes=sum(a['bytes'] for a in assets))
     with volume.batch_upload(force=True) as batch:
         for a in assets:check();batch.put_file(a['local'],'/'+a['remote'])
     check()
-    for prefix in ['models/qwen-cell/'+REVISION,'qwen-cell-studies/'+plan['request']['studyKey']]:
+    for prefix in sorted({a['remote'].rsplit('/',1)[0] for a in assets}):
         listed={str(e.path).lstrip('/'):e.size for e in volume.listdir(prefix,recursive=True)}
         for a in assets:
             if a['remote'].startswith(prefix+'/') and listed.get(a['remote'])!=a['bytes']:raise ValueError('Remote staging incomplete: '+a['remote'])

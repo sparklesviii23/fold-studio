@@ -13,6 +13,7 @@ import hashlib, json, os, pathlib, re, subprocess, sys, time, uuid
 from gpu_tasks_actions import ACTIONS
 from biological_model_recipes import recipes as biological_recipes
 from qwen_cell_cloud_recipe import RECIPE as QWEN_CLOUD_RECIPE, RECIPE_ID as QWEN_CLOUD_ID
+from cell_training_recipe import RECIPE as CELL_TRAINING_RECIPE, RECIPE_ID as CELL_TRAINING_ID
 
 APP_NAME = 'fold-gpu-tasks'
 VOLUME = 'fold-gpu-cache'
@@ -248,6 +249,7 @@ ls -la $OUT
 
 RECIPES.update(biological_recipes())
 RECIPES[QWEN_CLOUD_ID]=QWEN_CLOUD_RECIPE
+RECIPES[CELL_TRAINING_ID]=CELL_TRAINING_RECIPE
 
 def _folder(s):
     f = pathlib.Path(s.root) / 'gpu_tasks'

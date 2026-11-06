@@ -13,6 +13,7 @@ import BenchmarkPanel from './BenchmarkPanel';
 import RegulatoryPanel from './RegulatoryPanel';
 import GpuTasks from '../GpuTasks';
 import CellResearchNavigation, {type CellResearchView} from './CellResearchNavigation';
+import TrainingLab from './TrainingLab';
 import {Coverage, Snapshots} from './StatePanels';
 import './virtualcell.css';
 
@@ -186,6 +187,7 @@ export default function VirtualCellLab({onOpenStructure, projectId = ''}: {onOpe
   </>;
 
   // ---------------------------------------------------------------- cells home
+  if (mode === 'training') return <div className="vc-home"><button className="text-button" onClick={() => setMode('3d')}><ArrowLeft size={14}/>Back to cells</button><TrainingLab projectId={projectId} onOpenRuns={() => setMode('runs')}/></div>;
   if (!current && mode === 'runs') return <div className="vc-home">
     <button className="text-button" onClick={() => setMode('3d')}><ArrowLeft size={14}/>Back to cells</button>
     <GpuTasks projectId={projectId} embedded/>
@@ -194,7 +196,7 @@ export default function VirtualCellLab({onOpenStructure, projectId = ''}: {onOpe
     <header className="vc-head">
       <div><span className="eyebrow">Analyse · Virtual Cell</span><h1>Virtual cells</h1>
         <p>Persistent cells you perturb, read out, branch and design against. Every readout says what kind of evidence it is and which data it came from.</p></div>
-      <div className="button-row">{projectId && <button className="button" onClick={() => setMode('runs')}><Activity size={14}/>Runs & terminal</button>}<button className="text-button" onClick={refresh}><RefreshCw size={13}/>Refresh</button></div>
+      <div className="button-row"><button className="button" onClick={() => setMode('training')}><Sparkles size={14}/>Cell AI training</button>{projectId && <button className="button" onClick={() => setMode('runs')}><Activity size={14}/>Runs & terminal</button>}<button className="text-button" onClick={refresh}><RefreshCw size={13}/>Refresh</button></div>
     </header>
     {status}
     <div className="vc-home-grid">

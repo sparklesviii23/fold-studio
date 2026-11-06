@@ -74,7 +74,10 @@ const ACTIONS: &[&str] = &["molecular_inspect", "molecular_rcsb", "molecular_rcs
     "vcell_structure_compare",
     "vcell_structures",
     "vcell_transcripts",
-    "vcell_transcripts_build"
+    "vcell_transcripts_build",
+    "vcell_training_status",
+    "vcell_training_prepare",
+    "vcell_training_launch"
 ];
 
 #[tauri::command]
