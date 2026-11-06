@@ -91,3 +91,9 @@ Pinned macOS ARM CPU wheel, SHA-256 and official source are recorded in `vendor/
 ### xterm.js terminal
 
 @xterm/xterm 5.5.0 and @xterm/addon-fit 0.10.0, MIT licensed, https://github.com/xtermjs/xterm.js. Copyright the xterm.js authors. The upstream license text is retained at `vendor/xterm-LICENSE` and packaged with the app.
+
+## Cell2Sentence and GEARS numerical helpers
+
+The experimental Qwen cell engine reuses the unchanged `generate_sentences` function from van Dijk Lab's Cell2Sentence (`6599c9d5629cc22863d8f187e851637fd533790f`) and `np_pearson_cor` from snap-stanford/GEARS (`f374e43e197b295016d80395d7a54ddb81cc6769`). Imports are reduced to the helpers' direct dependencies; full upstream training models and checkpoints are not bundled or claimed reproduced.
+
+Cell2Sentence retains its Apache-2.0 license and upstream NOTICE. GEARS retains its MIT license and copyright (c) 2022 Yusuf Roohani, Kexin Huang, Jure Leskovec. Exact file hashes, provenance, license texts and NOTICE are retained in `vendor/cell-ai/`. The rank-ordering helper is applied to existing condition-mean expression profiles; GEARS correlations define local training-profile associations, not experimentally established causal regulation.
