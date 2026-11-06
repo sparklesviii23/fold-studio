@@ -12,6 +12,7 @@ through files in the task folder.
 import hashlib, json, os, pathlib, re, subprocess, sys, time, uuid
 from gpu_tasks_actions import ACTIONS
 from biological_model_recipes import recipes as biological_recipes
+from qwen_cell_cloud_recipe import RECIPE as QWEN_CLOUD_RECIPE, RECIPE_ID as QWEN_CLOUD_ID
 
 APP_NAME = 'fold-gpu-tasks'
 VOLUME = 'fold-gpu-cache'
@@ -246,6 +247,7 @@ ls -la $OUT
 }
 
 RECIPES.update(biological_recipes())
+RECIPES[QWEN_CLOUD_ID]=QWEN_CLOUD_RECIPE
 
 def _folder(s):
     f = pathlib.Path(s.root) / 'gpu_tasks'
@@ -474,6 +476,8 @@ def submit(s, p):
     rid = str(p.get('recipe'))
     if rid not in RECIPES:
         raise ValueError('Unknown task recipe.')
+    if RECIPES[rid].get('preparedOnly'):
+        raise ValueError('This training study requires a verified data upload and its prepared launcher before GPU allocation.')
     if p.get('approvedRemoteCost') is not True:
         raise ValueError('Approve running this task on your server account; GPU time and image builds are billed by the provider.')
     r = RECIPES[rid]

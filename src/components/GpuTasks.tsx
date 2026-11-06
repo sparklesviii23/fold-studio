@@ -93,7 +93,7 @@ export default function GpuTasks({projectId, embedded = false}: {projectId: stri
     {error && <div className="mech-error" role="alert"><TriangleAlert size={15}/>{error}</div>}
     {busy && <div className="mech-busy"><LoaderCircle size={16} className="spin"/>{busy}…</div>}
     <details className="gt-new-run"><summary>Start a new run</summary>
-    {catalog && <section className="gt-recipes">{Object.entries(catalog.recipes).filter(([id])=>!id.startsWith('bio_')).map(([id, x]: [string, any]) =>
+    {catalog && <section className="gt-recipes">{Object.entries(catalog.recipes).filter(([id, x]: [string, any])=>!id.startsWith('bio_') && !x.preparedOnly).map(([id, x]: [string, any]) =>
       <button key={id} className={'mech-panel gt-recipe ' + (recipe === id ? 'active' : '')} onClick={() => setRecipe(id)}>
         <span className="eyebrow">{x.demo ?? 'Any model'} · {x.gpu ? 'GPU ' + x.gpu : 'CPU ' + (x.cpu ?? 4) + ' cores'}</span><strong>{x.title}</strong><span>{x.purpose}</span></button>)}</section>}
 
