@@ -74,3 +74,8 @@ A local resource inventory is saved with the task outputs. File availability is 
 - LoRA: https://arxiv.org/abs/2106.09685
 - Knowledge distillation: https://arxiv.org/abs/1503.02531
 - Pinned official checkpoint: https://huggingface.co/Qwen/Qwen2.5-Coder-3B-Instruct/tree/488639f1ff808d1d3d0ba301aef8c11461451ec5
+
+
+## Completed first approved pilot
+
+The user approved the checkpoint download and one local run; it completed with 30 updates and exit code zero. The downloaded checkpoint is verified and retained. Selected checkpoint 20 has development MSE 0.00916606 versus initialization 0.00961283, scaled additive 0.00317439 and the existing RNA prototype 0.00261446. It is less accurate than both established comparators on the reused 26-condition development set. Fresh offline loading reproduces saved predictions exactly. Internal adapters changed; original Qwen weights remained frozen. Teacher loss was zero. No old test-outcome aggregation, independent test, retry or promotion occurred. The earlier preparation sections describe the initial design; checkpoint acquisition and the first pilot are now complete. See task outputs/stage4/PILOT_RESULTS.md and POSTRUN_VERIFICATION.json.
