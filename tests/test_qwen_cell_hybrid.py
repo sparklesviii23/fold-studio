@@ -20,8 +20,8 @@ class FakeTokenizer:
 
 
 class HybridTests(unittest.TestCase):
-    def fixture(self,device='cpu',half=False):
-        torch.manual_seed(3);torch.set_num_threads(1);rng=np.random.default_rng(2);g=19;s=4
+    def fixture(self,device='cpu',half=False,genes=19):
+        torch.manual_seed(3);torch.set_num_threads(1);rng=np.random.default_rng(2);g=genes;s=4
         a={'genes':np.array([f'G{i}' for i in range(g)]),'singleGenes':np.array([f'G{i}' for i in range(s)]),
            'singleEffects':rng.normal(size=(s,g))*.1,'encoder':rng.normal(size=(g,2))*.1,
            'featureCenter':np.zeros(6),'featureScale':np.ones(6),'alpha':np.array(.7),
@@ -83,6 +83,13 @@ class HybridTests(unittest.TestCase):
 
     @unittest.skipUnless(torch.backends.mps.is_available(),'Apple GPU absent')
     def test_staged_training_preserves_expert_half_mps(self):self.exercise('mps',True)
+
+    @unittest.skipUnless(torch.backends.mps.is_available(),'Apple GPU absent')
+    def test_full_panel_exact_zero_comparison_uses_matching_batches(self):
+        base,data,_=self.fixture('mps',True,genes=2132);model=HybridCellModel(base,data).to('mps')
+        items=T.tensors(data,'validation','mps');items=[torch.cat([v]*7)[:26] for v in items]
+        actual=T.predict(model,items);reference=T.expert_predictions(model,items[3])
+        torch.testing.assert_close(actual,reference,rtol=0,atol=0)
 
     def test_rank_sentences_uses_expression_and_preserves_random_state(self):
         np.random.seed(10);old=np.random.get_state();rows=B.rank_sentences([[1.,3.,0.,2.]],['A','B','C','D'],4)

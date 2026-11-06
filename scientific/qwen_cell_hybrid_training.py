@@ -27,6 +27,12 @@ def predict(model,items,batch=2):
     with torch.no_grad():return torch.cat([model(x[i:i+batch],ids[i:i+batch],attention[i:i+batch],pairs[i:i+batch]) for i in range(0,len(x),batch)])
 
 
+def expert_predictions(model,pairs,batch=2):
+    # Same batching as the hybrid path: MPS may round equivalent GEMMs
+    # differently for batch 2 versus batch 26. Keep exact equality meaningful.
+    with torch.no_grad():return torch.cat([model.experts(pairs[i:i+batch]) for i in range(0,len(pairs),batch)])
+
+
 def warm_start(model,path):
     old=load_file(str(path));params=dict(model.named_parameters());count=0
     with torch.no_grad():
@@ -63,7 +69,7 @@ def train_pair(model,data,folder,event,arm,protocol=PROTOCOL):
     train=tensors(data,'train',device);dev=tensors(data,'validation',device);x,ids,attention,pairs,y,mask=train
     frozen={n:p._version for n,p in model.named_parameters() if not p.requires_grad}
     original=model.added_state();optimizer=torch.optim.AdamW([p for p in model.parameters() if p.requires_grad],lr=protocol['learningRate'],weight_decay=.01)
-    with torch.no_grad():expert=model.experts(pairs);dev_expert=model.experts(dev[3])
+    with torch.no_grad():expert=expert_predictions(model,pairs);dev_expert=expert_predictions(model,dev[3])
     initial=predict(model,dev);torch.testing.assert_close(initial,dev_expert,rtol=0,atol=0)
     initial_mse=float(masked_mse(initial,dev[4],dev[5]).cpu());best_score=initial_mse;best=model.added_state();best_epoch=0;stale=0;trace=[];updates=0
     save_file(best,str(folder/'hybrid.safetensors'));event('arm_started',arm=arm,baselineDevelopmentMse=initial_mse,outputChannels=len(model.experts.genes),zeroCorrectionVerified=True)
@@ -133,7 +139,7 @@ def run(plan,folder,event):
         foundations[mode]=foundation(model,data,event)
         # Pair-output weights stay zero during foundation learning.
         dev=tensors(data,'validation','mps')
-        with torch.no_grad():torch.testing.assert_close(predict(model,dev),model.experts(dev[3]),rtol=0,atol=0)
+        with torch.no_grad():torch.testing.assert_close(predict(model,dev),expert_predictions(model,dev[3]),rtol=0,atol=0)
         state=model.added_state();save_file(state,str(folder/(mode+'-foundation.safetensors')))
         if mode=='small':results.append(train_pair(model,data,folder/'small',event,'small'))
         detach_adapters(base);del model;gc.collect()
