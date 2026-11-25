@@ -1,20 +1,51 @@
-<h1 align="center">FOLD STUDIO</h1>
+<a id="top"></a>
 
-<p align="center"><i>A research workbench for proteins, RNA and cells, built for Apple Silicon.</i></p>
+<p align="center">
+  <img src="docs/assets/banner.svg" alt="FOLD STUDIO, the molecular observatory" width="100%">
+</p>
+
+<p align="center">
+  <b>Structure prediction, protein design, RNA folding, cell simulation and cancer data, in one Mac app.</b><br>
+  <sub>Light work runs on your Mac. Heavy models run on your own Modal account. Every result can be reopened and checked.</sub>
+</p>
+
+<p align="center">
+  <img src="https://img.shields.io/badge/macOS-Apple_Silicon-9fdcff?style=flat-square&logo=apple&logoColor=white&labelColor=0b1026" alt="macOS on Apple Silicon">
+  <img src="https://img.shields.io/badge/version-4.3.0-cfe9ff?style=flat-square&labelColor=0b1026" alt="Version 4.3.0">
+  <img src="https://img.shields.io/badge/license-MIT-d9ccff?style=flat-square&labelColor=0b1026" alt="MIT licence">
+  <img src="https://img.shields.io/badge/Tauri-2-b9a6ff?style=flat-square&logo=tauri&logoColor=white&labelColor=0b1026" alt="Tauri 2">
+  <img src="https://img.shields.io/badge/React-19-9fdcff?style=flat-square&logo=react&logoColor=white&labelColor=0b1026" alt="React 19">
+  <img src="https://img.shields.io/badge/Python-3.12-cfe9ff?style=flat-square&logo=python&logoColor=white&labelColor=0b1026" alt="Python 3.12">
+</p>
+
+<p align="center">
+  <a href="https://github.com/sparklesviii23/fold-studio/releases/latest"><img src="https://img.shields.io/badge/Download_for_macOS-v4.3.0-9fdcff?style=for-the-badge&logo=apple&logoColor=white&labelColor=0b1026" alt="Download for macOS"></a>
+  &nbsp;
+  <a href="#build-from-source"><img src="https://img.shields.io/badge/Build_from_source-pnpm_desktop-d9ccff?style=for-the-badge&logo=github&logoColor=white&labelColor=0b1026" alt="Build from source"></a>
+</p>
+
+<p align="center">
+  <a href="#about">About</a>
+  &nbsp;·&nbsp; <a href="#highlights">Highlights</a>
+  &nbsp;·&nbsp; <a href="#gallery">Gallery</a>
+  &nbsp;·&nbsp; <a href="#whats-inside">Features</a>
+  &nbsp;·&nbsp; <a href="#how-it-works">How it works</a>
+  &nbsp;·&nbsp; <a href="#getting-started">Getting started</a>
+  &nbsp;·&nbsp; <a href="#current-limitations">Limitations</a>
+  &nbsp;·&nbsp; <a href="#technology-and-credits">Credits</a>
+  &nbsp;·&nbsp; <a href="#licence">Licence</a>
+</p>
+
+<br>
 
 <p align="center">
   <img src="docs/screenshots/home.jpg" alt="FOLD STUDIO home screen" width="100%">
 </p>
 
-<p align="center">
-  <a href="https://github.com/sparklesviii23/fold-studio/releases/latest"><b>Download for macOS</b></a> ·
-  <a href="#gallery">Gallery</a> ·
-  <a href="#whats-inside">What's inside</a> ·
-  <a href="#how-it-works">How it works</a> ·
-  <a href="#getting-started">Getting started</a>
-</p>
+> [!TIP]
+> **Quick start.** Download the app from the [releases page](https://github.com/sparklesviii23/fold-studio/releases/latest) ([install steps](#download-the-app)), or [build it from source](#build-from-source).
 
----
+## About
 
 FOLD STUDIO puts structure prediction, protein design, RNA folding, cell
 simulation and cancer data analysis in one desktop app. Light work runs on your
@@ -30,19 +61,41 @@ Version 4.3.0 · macOS on Apple Silicon · app code under the MIT licence.
 
 ## Highlights
 
-- **Protein design without an NVIDIA GPU.** The original BindCraft2 pipeline
-  (AlphaFold2 design, ProteinMPNN, AlphaFold2 refolding, filters) runs on Apple
-  Silicon through JAX on Metal.
-- **A real cell to experiment in.** Open a HeLa cell imaged by electron
-  microscopy, release molecules into it, and watch them diffuse and bind.
-- **Virtual cells.** Build a K-562 cell from public Perturb-seq and DepMap data,
-  switch genes on or off, add drugs, and compare branches.
-- **Cloud models on your own account.** Each run needs your approval; its files,
-  logs and checksums return to your library.
-- **RNA end to end.** Folding ensembles, exact folding kinetics, inverse design,
-  and 3D prediction checked against crystal structures.
-- **Cancer data you can query.** DepMap dependencies, GDSC drug response and
-  TCGA cohorts in one workspace.
+<table>
+<tr>
+<td width="33%" valign="top">
+<h3>🧬 Protein design</h3>
+The original BindCraft2 pipeline (AlphaFold2 design, ProteinMPNN, refolding, filters) runs on Apple Silicon through JAX on Metal. No NVIDIA GPU needed.
+</td>
+<td width="33%" valign="top">
+<h3>🔬 A real cell</h3>
+Open a HeLa cell imaged by electron microscopy, release molecules into it, and watch them diffuse and bind, with live readouts.
+</td>
+<td width="33%" valign="top">
+<h3>🧫 Virtual cells</h3>
+Build a K-562 cell from public Perturb-seq and DepMap data. Switch genes on or off, add drugs, branch and compare.
+</td>
+</tr>
+<tr>
+<td width="33%" valign="top">
+<h3>☁️ Your own cloud</h3>
+Boltz-2, RhoFold+, ESMFold2, Evo 2 and Borzoi run on your Modal account. You approve each run; files, logs and checksums come back.
+</td>
+<td width="33%" valign="top">
+<h3>🌀 RNA end to end</h3>
+Folding ensembles, exact folding kinetics, inverse design, and 3D prediction checked against crystal structures.
+</td>
+<td width="33%" valign="top">
+<h3>📊 Cancer data</h3>
+DepMap dependencies, GDSC drug response and TCGA cohorts in one workspace, next to tumour simulations.
+</td>
+</tr>
+</table>
+
+> [!NOTE]
+> FOLD STUDIO is research software. Every screen labels its evidence as measured, predicted, simulated or illustrative, and nothing here is clinical advice.
+
+<p align="right"><sub><a href="#top">Back to top ↑</a></sub></p>
 
 ## Gallery
 
@@ -118,12 +171,15 @@ them: local ones on an M4 Pro, cloud ones on Modal.
 </tr>
 </table>
 
+<p align="right"><sub><a href="#top">Back to top ↑</a></sub></p>
+
 ## What's inside
 
 The app is organised into **Research**, **Design**, **Analyse** and
-**Visualise**. Each entry links to its detailed document.
+**Visualise**. Each entry links to its detailed document. Click a group to expand it.
 
-### Proteins
+<details open>
+<summary><b>🧬 Proteins</b></summary>
 
 | Feature | What it does |
 | --- | --- |
@@ -135,7 +191,10 @@ The app is organised into **Research**, **Design**, **Analyse** and
 | [**Dynamics**](docs/DYNAMICS_PILOTS.md) | Short OpenMM simulations of saved proteins, plus a [reference run](docs/MD_REFERENCE.md) on Trp-cage. |
 | **Molecular Cinema** | Rendered movies of designed complexes. |
 
-### RNA
+</details>
+
+<details>
+<summary><b>🌀 RNA</b></summary>
 
 | Feature | What it does |
 | --- | --- |
@@ -145,7 +204,10 @@ The app is organised into **Research**, **Design**, **Analyse** and
 | [**Qwen RNA**](docs/QWEN_RNA_ENGINE.md) | An experimental predictor built on Qwen2.5-Coder. It is a pilot and currently scores below the classical baselines; the app says so. |
 | [**EditCraft**](docs/EDITCRAFT_IMPLEMENTATION.md) | Genome and RNA engineering: a versioned registry, a workflow editor, and off-target, pathway and single-cell engines. |
 
-### Cells
+</details>
+
+<details>
+<summary><b>🔬 Cells</b></summary>
 
 | Feature | What it does |
 | --- | --- |
@@ -154,14 +216,20 @@ The app is organised into **Research**, **Design**, **Analyse** and
 | [**Mechanistic Biology Lab**](docs/MECHANISTIC_BIOLOGY_LAB.md) | Published SBML kinetic models integrated with SciPy; every number traceable to the equations. |
 | [**Multiscale experiments**](docs/MULTISCALE_KERNEL.md) | One-way coupling across scales, [spatial reaction–diffusion](docs/SPATIAL_SOLVER.md) and blood transport ([Living Biology Lab](docs/LIVING_BIOLOGY_LAB.md)). |
 
-### Oncology
+</details>
+
+<details>
+<summary><b>📊 Oncology</b></summary>
 
 | Feature | What it does |
 | --- | --- |
 | [**Oncology Universe**](docs/ONCOLOGY_DATA_AND_ANALYSIS.md) | DepMap 24Q4, GDSC, Sanger, NCI ALMANAC and TCGA via cBioPortal: gene dependencies, drug response, mutations, perturbation models and pathology segmentation. |
 | [**Tumour microenvironment**](docs/ONCOLOGY_TUMOR_MICROENVIRONMENT.md) | PhysiCell agent-based tumour–immune simulations, run on a connected server. |
 
-### Compute
+</details>
+
+<details>
+<summary><b>☁️ Compute</b></summary>
 
 | Feature | What it does |
 | --- | --- |
@@ -169,9 +237,14 @@ The app is organised into **Research**, **Design**, **Analyse** and
 | **Compute servers** | One picker for the whole app: this Mac, your Modal account, or a saved SSH/Vast GPU host. In cloud mode local stages are refused rather than run silently. |
 | [**Local worker**](docs/LOCAL_WORKER.md) | A background macOS service for bounded development tasks. |
 
+</details>
+
+
 Each engine's tested status is listed in the
 [engine registry](docs/ENGINE_REGISTRY.md), and the 70-odd documents in
 [`docs/`](docs/) cover every lab in detail.
+
+<p align="right"><sub><a href="#top">Back to top ↑</a></sub></p>
 
 ## How it works
 
@@ -188,6 +261,9 @@ Python scientific service (scientific/worker.py → scientific/*.py)
         └─ remote jobs      Modal or your own server (remote_worker/)
 ```
 
+<details>
+<summary><b>Components in detail</b></summary>
+
 - **Interface.** React 19 and TypeScript, Mol* for molecules, WebGL2 for cell
   volumes.
 - **Desktop shell.** Tauri 2 in Rust. It owns file dialogs, starts the Python
@@ -200,6 +276,10 @@ Python scientific service (scientific/worker.py → scientific/*.py)
   its inputs, model versions and a checksum, so it reopens exactly.
 - **Models and data.** Large files live outside the repository, pinned by
   revision and SHA-256. See [ASSETS.md](ASSETS.md).
+
+</details>
+
+<p align="right"><sub><a href="#top">Back to top ↑</a></sub></p>
 
 ## Getting started
 
@@ -234,13 +314,23 @@ token. Jobs are billed to your account, and the app asks before each run.
 
 ### Tests
 
+<details>
+<summary><b>Run the test suites</b></summary>
+
 ```sh
 pnpm test                                   # interface
 node node_modules/typescript/bin/tsc -b     # types
 ../runtimes/gbcell/bin/python -B -m unittest discover -s tests
 ```
 
+</details>
+
+<p align="right"><sub><a href="#top">Back to top ↑</a></sub></p>
+
 ## Repository layout
+
+<details>
+<summary><b>Top-level folders</b></summary>
 
 | Path | Contents |
 | --- | --- |
@@ -250,6 +340,8 @@ node node_modules/typescript/bin/tsc -b     # types
 | `remote_worker/` | Code that runs inside cloud containers |
 | `docs/` | Per-lab documentation, validation reports and data provenance |
 | `fixtures/`, `tests/`, `scripts/` | Reference data, tests, build and setup tools |
+
+</details>
 
 ## Current limitations
 
@@ -267,6 +359,9 @@ node node_modules/typescript/bin/tsc -b     # types
 
 ## Technology and credits
 
+<details>
+<summary><b>Engines, libraries and data sources</b></summary>
+
 | Component | Built with |
 | --- | --- |
 | Desktop app | [Tauri 2](https://github.com/tauri-apps/tauri), Rust |
@@ -277,6 +372,8 @@ node node_modules/typescript/bin/tsc -b     # types
 | Simulation | [OpenMM](https://openmm.org/), [ViennaRNA](https://www.tbi.univie.ac.at/RNA/), [PhysiCell](https://github.com/MathCancer/PhysiCell), [HemoCell](https://github.com/UvaCsl/HemoCell), SciPy |
 | Reference data | [UniProt](https://www.uniprot.org/), [AlphaFold DB](https://alphafold.ebi.ac.uk/), [RCSB PDB](https://www.rcsb.org/), [DepMap](https://depmap.org/), [OpenOrganelle](https://openorganelle.janelia.org/), [CELLxGENE](https://cellxgene.cziscience.com/) |
 | Scientific adapter | Original FOLD Python code talking to an installed [UCSF ChimeraX](https://www.rbvi.ucsf.edu/chimerax/) |
+
+</details>
 
 FOLD STUDIO's interface, project handling, service bridge and workflow code are
 application-specific code written with AI assistance. The upstream engines above
@@ -290,3 +387,10 @@ keep their own terms, including research-only and non-commercial ones; see
 [THIRD_PARTY_NOTICES.md](THIRD_PARTY_NOTICES.md) and [ASSETS.md](ASSETS.md).
 ChimeraX is not included, and a licence to run it does not allow redistributing
 it.
+
+---
+
+<p align="center">
+  <img src="docs/assets/banner.svg" alt="" width="220"><br>
+  <sub>Built on Apple Silicon · <a href="#top">Back to top ↑</a></sub>
+</p>
