@@ -1,0 +1,17 @@
+Traceback (most recent call last):
+  File "/Users/vii/Documents/FoldStudio-MetalPort/fold-studio/scripts/run-cache-benchmark.py", line 58, in <module>
+    try:run()
+        ^^^^^
+  File "/Users/vii/Documents/FoldStudio-MetalPort/fold-studio/scripts/run-cache-benchmark.py", line 39, in run
+    row=s.dispatch('biology_modal_submit',{'projectId':PROJECT,'id':row['id'],'approvedResearchTransfer':True,'approvedWorkload':True,'maxEstimatedCostUSD':1.75})
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/vii/Documents/FoldStudio-MetalPort/fold-studio/scientific/worker.py", line 573, in dispatch
+    if action in biology_modal.ACTIONS:return biology_modal.dispatch(self,action,p)
+                                              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/vii/Documents/FoldStudio-MetalPort/fold-studio/scientific/biology_modal.py", line 147, in dispatch
+    if action in NETWORK and not __import__('os').environ.get('FOLD_PROVIDER_CHILD'):return biology_providers.rpc(s,action,p)
+                                                                                            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/vii/Documents/FoldStudio-MetalPort/fold-studio/scientific/biology_providers.py", line 47, in rpc
+    if body.get('error'):raise ValueError(body['error'])
+                         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+ValueError: This strategy is blocked: Fresh structural predictions are required for final selection.

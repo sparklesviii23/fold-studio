@@ -1,0 +1,265 @@
+{
+  "id": "fa86e838-ee00-4b2a-8e0b-ce4ba393634d",
+  "resultSha256": "3ae0a77bd8b2917012d43b65e643a18d97e8d89393573be9a152e9ad3be627b6",
+  "verification": {
+    "enabled": true,
+    "ran": true,
+    "policy": "entropy-threshold/1",
+    "reason": "Native mean partner entropy > 1 bit",
+    "meanEntropyBits": 1.7244875602471725,
+    "engine": "rna-lab.fold",
+    "version": "1.0.0",
+    "backend": "builtin-nn",
+    "structure": "((((((((((((((((.((((...)))))))..(((....(((((((((((.......))).......))))))))...))).))))))))))))).........",
+    "energyKcalMol": -35.71,
+    "inputs": {
+      "sequence": "GGGAGAUUGGCGGUGGACGAGCCACUCGCCAACCGGGUCAGGUCCGGAAGGAAGCAGCCCUAACGAGGUCCGGAUCGGGUCGCUCGUCAGUCUCCUACUUGUUUU",
+      "temperatureC": 37.0,
+      "parameterSet": {
+        "name": "builtin-nn",
+        "title": "Built-in nearest-neighbour model (Turner 1999 subset)",
+        "parameters": "Turner 1999 (Mathews et al. 1999, doi:10.1006/jmbi.1999.2700) stacking and loop-initiation tables, 37 \u00b0C",
+        "included": [
+          "Watson\u2013Crick and GU stacking",
+          "hairpin, bulge and interior loop initiation with log extrapolation beyond 30 nt",
+          "Ninio asymmetry (0.5 kcal/mol per nt, max 3.0)",
+          "terminal AU/GU penalty (0.5 kcal/mol per helix end)",
+          "linear multiloop a = 3.4, b = 0, c = 0.4 kcal/mol"
+        ],
+        "omitted": [
+          "terminal mismatches and dangling ends",
+          "special hairpin loops (tetraloops, triloops, all-C)",
+          "1x1, 1x2 and 2x2 interior-loop tables",
+          "coaxial stacking",
+          "temperature and salt dependence",
+          "modified nucleotides",
+          "pseudoknots and tertiary interactions"
+        ],
+        "citations": [
+          "doi:10.1093/nar/9.1.133",
+          "doi:10.1002/bip.360290621",
+          "doi:10.1093/nar/gkg938",
+          "doi:10.1006/jmbi.1999.2700"
+        ]
+      }
+    },
+    "pairDisagreement": 26,
+    "referenceAccuracy": {
+      "f1": 0.28125,
+      "precision": 0.2647058823529412,
+      "recall": 0.3,
+      "truePositive": 9,
+      "predictedPairs": 34,
+      "referencePairs": 30,
+      "missed": [
+        [
+          12,
+          84
+        ],
+        [
+          13,
+          83
+        ],
+        [
+          14,
+          82
+        ],
+        [
+          15,
+          81
+        ],
+        [
+          16,
+          80
+        ],
+        [
+          18,
+          77
+        ],
+        [
+          19,
+          76
+        ],
+        [
+          20,
+          75
+        ],
+        [
+          22,
+          73
+        ],
+        [
+          23,
+          72
+        ],
+        [
+          25,
+          67
+        ],
+        [
+          26,
+          66
+        ],
+        [
+          27,
+          65
+        ],
+        [
+          28,
+          64
+        ],
+        [
+          35,
+          60
+        ],
+        [
+          36,
+          59
+        ],
+        [
+          37,
+          58
+        ],
+        [
+          38,
+          57
+        ],
+        [
+          43,
+          52
+        ],
+        [
+          44,
+          51
+        ],
+        [
+          45,
+          50
+        ]
+      ],
+      "extra": [
+        [
+          10,
+          87
+        ],
+        [
+          11,
+          86
+        ],
+        [
+          12,
+          85
+        ],
+        [
+          13,
+          84
+        ],
+        [
+          14,
+          31
+        ],
+        [
+          15,
+          30
+        ],
+        [
+          16,
+          29
+        ],
+        [
+          18,
+          28
+        ],
+        [
+          19,
+          27
+        ],
+        [
+          20,
+          26
+        ],
+        [
+          21,
+          25
+        ],
+        [
+          34,
+          82
+        ],
+        [
+          35,
+          81
+        ],
+        [
+          36,
+          80
+        ],
+        [
+          41,
+          76
+        ],
+        [
+          42,
+          75
+        ],
+        [
+          43,
+          74
+        ],
+        [
+          44,
+          73
+        ],
+        [
+          45,
+          72
+        ],
+        [
+          46,
+          71
+        ],
+        [
+          47,
+          70
+        ],
+        [
+          48,
+          69
+        ],
+        [
+          49,
+          61
+        ],
+        [
+          50,
+          60
+        ],
+        [
+          51,
+          59
+        ]
+      ]
+    },
+    "effect": "Independent cross-check; native probabilities and fold are retained."
+  },
+  "provenance": {
+    "engine": "compact",
+    "version": "0.1.0",
+    "weightsSha256": "e156c2ed3895dd8048bbd1ccac263c2c94b5bb80de5d6e86e00fa4dcf203987c",
+    "checkpointSha256": "15c1adcfa5b8b6299cafd4138212f2dea3509f9d39680765ffcad60ff166a3d5",
+    "baseRevision": "488639f1ff808d1d3d0ba301aef8c11461451ec5",
+    "splitSha256": "122735c1f4c10edacd18db561ef629a0bf3eeec1e416793c2f695dec16a16f56",
+    "device": "mps",
+    "torch": "2.14.1",
+    "transformers": "4.57.6",
+    "externalEngines": [
+      {
+        "engine": "rna-lab.fold",
+        "version": "1.0.0",
+        "role": "verification only"
+      }
+    ],
+    "teacherSignals": [],
+    "evidence": "Reference-annotation-trained research prediction"
+  }
+}

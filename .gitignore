@@ -24,3 +24,20 @@ reports/*.log
 remote_worker/dist/
 
 *.egg-info/
+
+# --- Large assets: fetched or regenerated, never committed (see ASSETS.md) ---
+*.safetensors
+*.ckpt
+*.pth
+*.h5ad
+*.h5ad.partial
+*.f16
+*.partial
+# Downloaded raw data inside report runs
+reports/rna-design/release-library/cell_em/data/
+reports/rna-design/signature-cache-quarantine/
+reports/qwen-rna/source/
+reports/**/*.tar.gz
+reports/**/*.zip
+# New report arrays; already-tracked af2 *.npz reference outputs stay tracked
+reports/**/*.npy

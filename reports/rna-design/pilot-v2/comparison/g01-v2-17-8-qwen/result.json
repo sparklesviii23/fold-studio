@@ -1,0 +1,458 @@
+{
+  "schema": "fold.rna-design-result/1",
+  "version": "rna-design/1.0.0",
+  "request": {
+    "target": "((((..(((((...)))))..))))",
+    "mask": "NNNNNNNNNNNNNNNNNNNNNNNNN",
+    "locks": ".........................",
+    "maxCandidates": 8,
+    "maxSeconds": 2,
+    "wanted": 3,
+    "seed": 17,
+    "gcMin": 0,
+    "gcMax": 1,
+    "maxHomopolymer": 128,
+    "method": "qwen"
+  },
+  "candidates": [
+    {
+      "id": "611004120b13f7ba",
+      "sequence": "CUUGUAAGCAUUAGGUGCUGCUGAG",
+      "structure": "(((...(((((...)))))...)))",
+      "mfeKcalMol": -4.099999904632568,
+      "targetKcalMol": -3.5999999046325684,
+      "targetGapKcalMol": 0.5,
+      "targetProbability": 0.059652010180429704,
+      "ensembleDefect": 0.32915511580307766,
+      "pairF1": 0.9411764705882353,
+      "missedPairs": [
+        [
+          4,
+          22
+        ]
+      ],
+      "extraPairs": [],
+      "source": "qwen proposal with constraint repair",
+      "qualifies": false,
+      "failureReasons": [
+        "1 target pairs are missing."
+      ],
+      "constraintViolations": [],
+      "independent": {
+        "structure": "((((((.((((...))))))).)))",
+        "mfeKcalMol": -3.5,
+        "engine": "RNA Lab reduced Turner nearest-neighbour",
+        "version": "rna-lab.fold/1.0.0",
+        "temperatureC": 37,
+        "sourceSha256": "b91b80420204d19535f369cce8c60c3b7b19723895010c127d87b536d3ba696f",
+        "agreesWithTarget": false,
+        "disagreementPairs": [
+          [
+            4,
+            21
+          ],
+          [
+            5,
+            20
+          ],
+          [
+            6,
+            19
+          ],
+          [
+            7,
+            19
+          ]
+        ]
+      }
+    },
+    {
+      "id": "8b5462d4ad6168ac",
+      "sequence": "CUGGGGACGCCGUAGGCGUCUCCGG",
+      "structure": "(((((((((((...)))))))))))",
+      "mfeKcalMol": -18.700000762939453,
+      "targetKcalMol": -11.300000190734863,
+      "targetGapKcalMol": 7.40000057220459,
+      "targetProbability": 5.367725232287226e-06,
+      "ensembleDefect": 0.17264338891230996,
+      "pairF1": 0.9,
+      "missedPairs": [],
+      "extraPairs": [
+        [
+          5,
+          21
+        ],
+        [
+          6,
+          20
+        ]
+      ],
+      "source": "qwen proposal with constraint repair",
+      "qualifies": false,
+      "failureReasons": [
+        "2 extra pairs are predicted."
+      ],
+      "constraintViolations": [],
+      "independent": {
+        "structure": "(((((((((((...)))))))))))",
+        "mfeKcalMol": -18.4,
+        "engine": "RNA Lab reduced Turner nearest-neighbour",
+        "version": "rna-lab.fold/1.0.0",
+        "temperatureC": 37,
+        "sourceSha256": "b91b80420204d19535f369cce8c60c3b7b19723895010c127d87b536d3ba696f",
+        "agreesWithTarget": false,
+        "disagreementPairs": []
+      }
+    },
+    {
+      "id": "cd5c96e966615675",
+      "sequence": "GCUCAAUUUAUACCGUAGGUUGGGC",
+      "structure": "(((((((((((...)))))))))))",
+      "mfeKcalMol": -9.300000190734863,
+      "targetKcalMol": -2.200000047683716,
+      "targetGapKcalMol": 7.1000001430511475,
+      "targetProbability": 8.013532330077506e-06,
+      "ensembleDefect": 0.1776663385607927,
+      "pairF1": 0.9,
+      "missedPairs": [],
+      "extraPairs": [
+        [
+          5,
+          21
+        ],
+        [
+          6,
+          20
+        ]
+      ],
+      "source": "qwen proposal with constraint repair",
+      "qualifies": false,
+      "failureReasons": [
+        "2 extra pairs are predicted."
+      ],
+      "constraintViolations": [],
+      "independent": {
+        "structure": "(((((((((((...)))))))))))",
+        "mfeKcalMol": -9.0,
+        "engine": "RNA Lab reduced Turner nearest-neighbour",
+        "version": "rna-lab.fold/1.0.0",
+        "temperatureC": 37,
+        "sourceSha256": "b91b80420204d19535f369cce8c60c3b7b19723895010c127d87b536d3ba696f",
+        "agreesWithTarget": false,
+        "disagreementPairs": []
+      }
+    },
+    {
+      "id": "c2a64793855b4922",
+      "sequence": "UUUAUUCGGCUGUCAGUCGCAUAAG",
+      "structure": ".((((.(((((...))))).)))).",
+      "mfeKcalMol": -5.199999809265137,
+      "targetKcalMol": -3.200000047683716,
+      "targetGapKcalMol": 1.999999761581421,
+      "targetProbability": 0.015967826498577156,
+      "ensembleDefect": 0.1640247978886924,
+      "pairF1": 0.8888888888888888,
+      "missedPairs": [
+        [
+          1,
+          25
+        ]
+      ],
+      "extraPairs": [
+        [
+          5,
+          21
+        ]
+      ],
+      "source": "qwen proposal with constraint repair",
+      "qualifies": false,
+      "failureReasons": [
+        "1 target pairs are missing.",
+        "1 extra pairs are predicted."
+      ],
+      "constraintViolations": []
+    },
+    {
+      "id": "d214e28825d337da",
+      "sequence": "UUGUCGCGGUUUGUGACCGCGGUGG",
+      "structure": "...((((((((...))))))))...",
+      "mfeKcalMol": -10.699999809265137,
+      "targetKcalMol": 0.20000000298023224,
+      "targetGapKcalMol": 10.899999812245369,
+      "targetProbability": 6.797140279221594e-09,
+      "ensembleDefect": 0.4177110738512627,
+      "pairF1": 0.7058823529411765,
+      "missedPairs": [
+        [
+          1,
+          25
+        ],
+        [
+          2,
+          24
+        ],
+        [
+          3,
+          23
+        ]
+      ],
+      "extraPairs": [
+        [
+          5,
+          21
+        ],
+        [
+          6,
+          20
+        ]
+      ],
+      "source": "qwen proposal with constraint repair",
+      "qualifies": false,
+      "failureReasons": [
+        "3 target pairs are missing.",
+        "2 extra pairs are predicted."
+      ],
+      "constraintViolations": []
+    },
+    {
+      "id": "ecbec02c2a2e5cf0",
+      "sequence": "GUUCAGGAGGUCGUGUUUCGGGAGC",
+      "structure": "((((.((((......))))..))))",
+      "mfeKcalMol": -3.5,
+      "targetKcalMol": -1.7999999523162842,
+      "targetGapKcalMol": 1.7000000476837158,
+      "targetProbability": 0.021406170310530895,
+      "ensembleDefect": 0.2945028144634964,
+      "pairF1": 0.47058823529411764,
+      "missedPairs": [
+        [
+          7,
+          19
+        ],
+        [
+          8,
+          18
+        ],
+        [
+          9,
+          17
+        ],
+        [
+          10,
+          16
+        ],
+        [
+          11,
+          15
+        ]
+      ],
+      "extraPairs": [
+        [
+          6,
+          19
+        ],
+        [
+          7,
+          18
+        ],
+        [
+          8,
+          17
+        ],
+        [
+          9,
+          16
+        ]
+      ],
+      "source": "qwen proposal with constraint repair",
+      "qualifies": false,
+      "failureReasons": [
+        "5 target pairs are missing.",
+        "4 extra pairs are predicted."
+      ],
+      "constraintViolations": []
+    },
+    {
+      "id": "d83f26bfa4c020b4",
+      "sequence": "GUUUCGGGAGGAUACUUUCGUAGAU",
+      "structure": "((((((((((....)))))).))))",
+      "mfeKcalMol": -6.099999904632568,
+      "targetKcalMol": -2.700000047683716,
+      "targetGapKcalMol": 3.3999998569488525,
+      "targetProbability": 0.0019797739606457095,
+      "ensembleDefect": 0.6217871235241769,
+      "pairF1": 0.42105263157894735,
+      "missedPairs": [
+        [
+          7,
+          19
+        ],
+        [
+          8,
+          18
+        ],
+        [
+          9,
+          17
+        ],
+        [
+          10,
+          16
+        ],
+        [
+          11,
+          15
+        ]
+      ],
+      "extraPairs": [
+        [
+          5,
+          20
+        ],
+        [
+          6,
+          19
+        ],
+        [
+          7,
+          18
+        ],
+        [
+          8,
+          17
+        ],
+        [
+          9,
+          16
+        ],
+        [
+          10,
+          15
+        ]
+      ],
+      "source": "qwen proposal with constraint repair",
+      "qualifies": false,
+      "failureReasons": [
+        "5 target pairs are missing.",
+        "6 extra pairs are predicted."
+      ],
+      "constraintViolations": []
+    },
+    {
+      "id": "6ee55eef9ecfaa64",
+      "sequence": "UGGCAAACUGACUCUUAGUGAGUCG",
+      "structure": ".........(((((.....))))).",
+      "mfeKcalMol": -7.0,
+      "targetKcalMol": -4.699999809265137,
+      "targetGapKcalMol": 2.3000001907348633,
+      "targetProbability": 0.014069868679946827,
+      "ensembleDefect": 0.8579002344665072,
+      "pairF1": 0.0,
+      "missedPairs": [
+        [
+          1,
+          25
+        ],
+        [
+          2,
+          24
+        ],
+        [
+          3,
+          23
+        ],
+        [
+          4,
+          22
+        ],
+        [
+          7,
+          19
+        ],
+        [
+          8,
+          18
+        ],
+        [
+          9,
+          17
+        ],
+        [
+          10,
+          16
+        ],
+        [
+          11,
+          15
+        ]
+      ],
+      "extraPairs": [
+        [
+          10,
+          24
+        ],
+        [
+          11,
+          23
+        ],
+        [
+          12,
+          22
+        ],
+        [
+          13,
+          21
+        ],
+        [
+          14,
+          20
+        ]
+      ],
+      "source": "qwen proposal with constraint repair",
+      "qualifies": false,
+      "failureReasons": [
+        "9 target pairs are missing.",
+        "5 extra pairs are predicted."
+      ],
+      "constraintViolations": []
+    }
+  ],
+  "metrics": {
+    "attempts": 8,
+    "solverCalls": 0,
+    "evaluations": 8,
+    "secondaryEvaluations": 3,
+    "batches": 8,
+    "elapsedSeconds": 0.0190224580001086,
+    "firstSuccessSeconds": null,
+    "stopReason": "candidate_limit"
+  },
+  "qualifyingCount": 0,
+  "scorer": {
+    "engine": "ViennaRNA",
+    "version": "2.7.2",
+    "temperatureC": 37,
+    "dangles": 2,
+    "parameters": "Turner2004",
+    "noLP": false
+  },
+  "constraintRejections": 0,
+  "evidence": "Computational prediction. Solver labels are not experimental measurements.",
+  "inputSeal": "696f0e3d1b779b5ca87c0cdfa50ff4043036ed6754c1f553fc3fd649d75db63f",
+  "sourceSha256": "ce35482346d57b799e30ec0e0339a7086b5a86af7a9648f60572e9f0bb0f62be",
+  "proposalModel": {
+    "version": "qwen-inverse-head/0.1.0",
+    "checkpointSha256": "71b91acb05b28e23bdc85c79465e4c0c5e76145574820d3bf5742865cbaa3850",
+    "weightsSha256": "bf216bbc05c6098ca53f75c333f6752402ea6d28326ea569ffd30ddf21604af2",
+    "protocolSha256": "3a65f2487c5ac486e95adaa06548948adfe75a420dd8dbdc78eeb9353ccb8aa0",
+    "baseCheckpoint": "/Users/vii/Documents/FoldStudio-MetalPort/validation/bindcraft-fab-amme-native/engine/models/qwen-cell/Qwen2.5-Coder-3B-Instruct",
+    "trained": "Inverse sequence head on frozen Qwen target features. No Qwen backbone or prior folding head was changed.",
+    "device": "cpu",
+    "torch": "2.14.1",
+    "transformers": "4.57.6",
+    "samplingTemperature": 1.0
+  },
+  "cacheHitsThisSession": 0,
+  "solverAccounting": "solverCalls counts RNA.inverse_fold calls. Its internal energy evaluations are not exposed. Explicit final scoring and independent checks are counted separately.",
+  "sha256": "7f7ae3f9a1c0354fe70e50511d4cbf92b74f0f41a582acf0e1c019cbe646bcad"
+}

@@ -1,5 +1,11 @@
 # Third-party notices
 
+## Qwen RNA pilot (15 November 2026)
+
+Uses the existing local Qwen/Qwen2.5-Coder-3B-Instruct checkpoint, revision `488639f1ff808d1d3d0ba301aef8c11461451ec5`, under provider qwen-research terms; no new pretrained model was downloaded or redistributed. Rank-8 adaptation follows the existing predictive-cell-research implementation, whose prior checkpoints remain unchanged.
+
+RNA supervision/evaluation uses a small ArchiveII reference-annotation subset from the authors' release https://github.com/marcellszi/dl-rna/releases/tag/Data, archive SHA-256 `a8661c99b49563826f9bef88767b5d8db2907cb8392793d5c39be7a4173c07de`. Cite Szikszai et al., Bioinformatics 2022, doi:10.1093/bioinformatics/btac415, and underlying ArchiveII sources. The repository's CC0 code license is not asserted to relicense every underlying biological dataset. Original archive bytes and source identities are retained for local research audit. Existing RNA Lab/ViennaRNA attribution remains applicable. See `docs/QWEN_RNA_ENGINE.md` for scope and limits.
+
 FOLD STUDIO application code is provided under the MIT license. Third-party packages, downloaded models, reference data, and optional external software retain their own licenses and attribution requirements. Lockfiles identify the exact JavaScript and Rust packages. `scientific/requirements-tested-macos-arm64.txt` identifies the validated inference environment.
 
 Primary components include React (MIT), Mol* (MIT), Tauri and its plugins (MIT or Apache-2.0), Lucide (ISC), and Boltz community code and model weights (MIT). See the license files in each upstream repository and installed package for authoritative terms and transitive dependencies.
@@ -91,3 +97,11 @@ Pinned macOS ARM CPU wheel, SHA-256 and official source are recorded in `vendor/
 ### xterm.js terminal
 
 @xterm/xterm 5.5.0 and @xterm/addon-fit 0.10.0, MIT licensed, https://github.com/xtermjs/xterm.js. Copyright the xterm.js authors. The upstream license text is retained at `vendor/xterm-LICENSE` and packaged with the app.
+
+### OpenOrganelle jrc_hela-2 (Cell Explorer › Real cell · EM)
+
+Not bundled. Downloaded only on the user's request (about 39 MB) from `s3://janelia-cosem-datasets/jrc_hela-2/`: the FIB-SEM volume and COSEM organelle segmentations of one interphase HeLa cell at the dataset's s4 level. Licence CC BY 4.0. Cite Xu CS et al., Nature 2021;599:147-151 (doi:10.1038/s41586-021-03992-4) and Heinrich L et al., Nature 2021;599:141-146 (doi:10.1038/s41586-021-04061-2). Original blocks are kept byte for byte with SHA-256 in `<library>/cell_em/data/jrc_hela-2/original/manifest.json`.
+
+## Light-pulse reporter measurements (bundled data)
+
+`fixtures/light_pulse/olson2017_ccasr.json` is derived from Dataset EV2 of Olson EJ, Tzouanas CN, Tabor JJ. A photoconversion model for full spectral programming and multiplexing of optogenetic systems. Molecular Systems Biology 2017;13(4):926. doi:10.15252/msb.20167456. Licensed CC BY 4.0. Changes: per-well rows were regrouped into schedules and per-well LED programs re-expressed on the experiment clock; fluorescence values are unchanged (rounded to 0.01 MEFL). The file records the SHA-256 of the source archive and of each source spreadsheet.

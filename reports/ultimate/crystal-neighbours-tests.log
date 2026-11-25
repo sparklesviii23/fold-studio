@@ -1,0 +1,43 @@
+
+ RUN  v3.2.7 /Users/vii/Documents/FoldStudio-MetalPort/fold-studio
+
+ ❯ src/lib/crystalNeighbours.test.ts (4 tests | 1 failed) 6ms
+   ✓ periodic geometry of supplied crystal sites > finds six first cubic neighbours including nonzero self images 2ms
+   × periodic geometry of supplied crystal sites > enumerates oblique image combinations that coordinate rounding misses 4ms
+     → expected [ [ -1, 1, -0 ], [ 1, -1, -0 ] ] to deep equally contain [ 1, -1, +0 ]
+   ✓ periodic geometry of supplied crystal sites > preserves outside-cell and coincident rows instead of merging occupancy 0ms
+   ✓ periodic geometry of supplied crystal sites > rejects unbounded tables and undefined cells 0ms
+
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 1 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL  src/lib/crystalNeighbours.test.ts > periodic geometry of supplied crystal sites > enumerates oblique image combinations that coordinate rounding misses
+AssertionError: expected [ [ -1, 1, -0 ], [ 1, -1, -0 ] ] to deep equally contain [ 1, -1, +0 ]
+
+- Expected
++ Received
+
+  [
++   [
++     -1,
+      1,
++     -0,
++   ],
++   [
++     1,
+      -1,
+-   0,
++     -0,
++   ],
+  ]
+
+ ❯ src/lib/crystalNeighbours.test.ts:6:257
+
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/1]⎯
+
+
+ Test Files  1 failed (1)
+      Tests  1 failed | 3 passed (4)
+   Start at  05:27:01
+   Duration  275ms (transform 28ms, setup 0ms, collect 27ms, tests 6ms, environment 0ms, prepare 59ms)
+

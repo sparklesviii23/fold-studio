@@ -1,0 +1,29 @@
+{
+  "schema": "fold.qwen-rna-comparison/1",
+  "splitSha256": "122735c1f4c10edacd18db561ef629a0bf3eeec1e416793c2f695dec16a16f56",
+  "cases": 24,
+  "families": [
+    "srp"
+  ],
+  "metric": "Mean per-RNA exact canonical pair F1; same sequences/reference; nested folds; no alignment/tolerance rescue",
+  "summaryF1": {
+    "compact": 0.10746352342029913,
+    "qwen_frozen": 0.08887099488294443,
+    "qwen_adapter": 0.04541569822156274,
+    "builtin": 0.6080294326246823,
+    "vienna": 0.583242404969471
+  },
+  "viennaVersion": "2.7.2",
+  "builtinVersion": "rna-lab.fold/1.0.0",
+  "nativeExternalEngines": false,
+  "verification": {
+    "enabled": true,
+    "policy": "Native mean partner entropy > 1 bit",
+    "checksTriggered": 24,
+    "disagreementsCaught": 24,
+    "interpretation": "Verification exposes independent structures and disagreements. It does not improve or replace the native fold, calibrate uncertainty, or establish a learned Qwen router."
+  },
+  "trainingOrTuningPerformed": false,
+  "seconds": 6.061628041999938,
+  "conclusion": "Research candidates only. No checkpoint promotion; no established-engine win on this pilot."
+}

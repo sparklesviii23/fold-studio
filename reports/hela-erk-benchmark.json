@@ -1,0 +1,1737 @@
+{
+ "schema": "fold-studio.benchmark/2",
+ "engine": {
+  "id": "fold.hela-erk.egf-ktr",
+  "version": "1.0.0",
+  "state": {
+   "schema": "fold-studio.cell-state.erk-ktr",
+   "version": 1,
+   "interface": "fold-studio.cell-state/1"
+  }
+ },
+ "dataset": {
+  "sha256": "b0f9310eeb1e9255fb653625dbbe3b97b3ec57495710f9e13adb7b117c76f83c",
+  "title": "Quantitative live-cell imaging of GPCR downstream signaling dynamics",
+  "authors": "Tany R, Goto Y, Kondo Y, Aoki K",
+  "journal": "Biochemical Journal 2022;479(8):883-900",
+  "doi": "10.1042/BCJ20220021",
+  "repository": "SSBD ssbd-repos-000232 (232-Tany-SignalingDyn)",
+  "url": "https://ssbd.riken.jp/database/project/232",
+  "licence": "CC BY",
+  "changes": "Images were segmented and measured by scripts/build-hela-erk-ktr.py; the images themselves are not bundled. Values are background-subtracted means; no smoothing, no normalisation.",
+  "archives": [
+   {
+    "id": "Figure2C_20211008_DORA_KTR_EGF_02-01",
+    "archiveSha256": "cfe1104cbdb3d61b39af2c5bf90b8a4956b4d001cf473bebbe7ad816abc68995",
+    "usable": true,
+    "reason": null,
+    "dropped": {
+     "border": 9,
+     "area": 7,
+     "lost": 0,
+     "ring": 8,
+     "dim": 38
+    },
+    "cells": 107
+   },
+   {
+    "id": "Figure2C_20211008_DORA_KTR_EGF_04-03",
+    "archiveSha256": "b0e889262bf1bcfb22e156ae03c2c1aa20c91801f94b409223597ab927f299a0",
+    "usable": true,
+    "reason": null,
+    "dropped": {
+     "border": 18,
+     "area": 11,
+     "lost": 0,
+     "ring": 30,
+     "dim": 48
+    },
+    "cells": 96
+   },
+   {
+    "id": "Figure2C_20211008_DORA_KTR_EGF_06-05",
+    "archiveSha256": "bd188ca17769ea6a6baac4b89e14dbc880227dbebd2beddaa533a36a5932914c",
+    "usable": true,
+    "reason": null,
+    "dropped": {
+     "border": 17,
+     "area": 9,
+     "lost": 0,
+     "ring": 49,
+     "dim": 28
+    },
+    "cells": 75
+   },
+   {
+    "id": "Figure2C_20211008_DORA_KTR_EGF_08-07",
+    "archiveSha256": "80f39155550cd9d99319784ef69db7208b877e9b1144b6bd01581698eceb7fc2",
+    "usable": true,
+    "reason": null,
+    "dropped": {
+     "border": 9,
+     "area": 6,
+     "lost": 1,
+     "ring": 16,
+     "dim": 41
+    },
+    "cells": 100
+   },
+   {
+    "id": "Figure2C_20211008_DORA_KTR_EGF_10-09",
+    "archiveSha256": "a3baeb14cb7f4753e558cc378437232d2416856b93561657d7edbc0b656f8aac",
+    "usable": true,
+    "reason": null,
+    "dropped": {
+     "border": 11,
+     "area": 9,
+     "lost": 0,
+     "ring": 8,
+     "dim": 42
+    },
+    "cells": 126
+   },
+   {
+    "id": "Figure2C_20211008_DORA_KTR_EGF_12-11",
+    "archiveSha256": "c53ace109b3b41825e2a69adefde30ee5370279ccca2230d5faa98dd3425e995",
+    "usable": true,
+    "reason": null,
+    "dropped": {
+     "border": 22,
+     "area": 8,
+     "lost": 0,
+     "ring": 23,
+     "dim": 61
+    },
+    "cells": 114
+   },
+   {
+    "id": "Figure2C_20211008_EGF_01",
+    "archiveSha256": "a66d6a4c5a6380ac830fe98efe23c9a466eeb226f1230dc44b442cfdafb3c792",
+    "usable": false,
+    "reason": "No ERK-KTR channel in this archive: ",
+    "dropped": null,
+    "cells": 0
+   }
+  ]
+ },
+ "specimens": {
+  "liveCell": {
+   "cellLine": "HeLa",
+   "reporters": "nuclear marker (RFP channel), ERK-KTR (iRFP channel), DORA-RhoA (CFP and FRET channels)",
+   "stimulus": "EGF, 10 ng/ml",
+   "pixelUm": 0.74,
+   "frameIntervalMin": 1.0,
+   "note": "These are the cells of the live-cell experiment. They are not the cell of the electron-microscopy volume."
+  },
+  "geometryReference": {
+   "context": "hela-jrc_hela-2",
+   "dataset": "OpenOrganelle jrc_hela-2, level s4",
+   "classesSha256": "9fb38c1eeddaaf201c1ff317eebcf503a0d2c84d1990f2bea0d624cb475fb390",
+   "nucleusUm3": 768.8,
+   "cytosolUm3": 1930.9,
+   "volumeRatio": 2.512,
+   "note": "Nucleoplasm (nucleus, chromatin, nucleolus) and cytosol of the acquired slab of one HeLa cell, from machine-learning segmentations. A geometry reference: the live cells were not imaged by electron microscopy, and the slab is not a whole cell."
+  }
+ },
+ "resolution": {
+  "supported": "Two regions per cell: the nucleus and a perinuclear cytoplasmic ring.",
+  "pixelUm": 0.74,
+  "frameIntervalMin": 1.0,
+  "notSupported": "Gradients inside the nucleus or the cytoplasm, membrane-proximal signalling, and anything below a few micrometres. The 3-D view places molecules uniformly inside each of the two compartments."
+ },
+ "split": {
+  "calibration": [
+   "Figure2C_20211008_DORA_KTR_EGF_04-03/s1",
+   "Figure2C_20211008_DORA_KTR_EGF_04-03/s2"
+  ],
+  "selection": [
+   "Figure2C_20211008_DORA_KTR_EGF_04-03/s3",
+   "Figure2C_20211008_DORA_KTR_EGF_04-03/s4"
+  ],
+  "test": [
+   "Figure2C_20211008_DORA_KTR_EGF_02-01/s1",
+   "Figure2C_20211008_DORA_KTR_EGF_02-01/s2",
+   "Figure2C_20211008_DORA_KTR_EGF_02-01/s3",
+   "Figure2C_20211008_DORA_KTR_EGF_02-01/s4"
+  ]
+ },
+ "unexplainedDishes": [
+  "Figure2C_20211008_DORA_KTR_EGF_06-05",
+  "Figure2C_20211008_DORA_KTR_EGF_08-07",
+  "Figure2C_20211008_DORA_KTR_EGF_10-09",
+  "Figure2C_20211008_DORA_KTR_EGF_12-11"
+ ],
+ "runtime": "Python 3.12.14 \u00b7 NumPy 2.5.4 \u00b7 SciPy 1.18.1 \u00b7 arm64",
+ "fitSeconds": 14.9,
+ "experimental": {
+  "metric": "Root-mean-square error of C/N relative to each cell's resting C/N, on the frames after EGF (0 is perfect; 0.10 is ten percent of the resting ratio).",
+  "status": "retrospective",
+  "statement": "Retrospective and not blind. The images were public before this model was written, and the split was fixed only after a first pass showed that four of the six dishes do not respond: calibration and model selection then went to dish 04-03 (the dataset named in the task) and the final test to dish 02-01. No parameter and no structure was chosen on dish 02-01.",
+  "onsetNote": "The deposit does not record when EGF reached each compartment. One number per series, the onset time, is therefore inferred from that series itself, with every other parameter frozen. For held-out series this is the only quantity taken from their own data; the \"protocol time\" predictor takes none.",
+  "summary": {
+   "calibration": {
+    "mechanistic": {
+     "pooledCellRmseRelative": 0.11841801623184602,
+     "rmseOfMeanRelative": 0.02208886516557
+    },
+    "nominal": {
+     "pooledCellRmseRelative": 0.13069772772416952,
+     "rmseOfMeanRelative": 0.060054326671990295
+    },
+    "template": {
+     "pooledCellRmseRelative": 0.11520425762671173,
+     "rmseOfMeanRelative": 0.018868932155029737
+    },
+    "static": {
+     "pooledCellRmseRelative": 0.24118152558852599,
+     "rmseOfMeanRelative": 0.21272645324584846
+    }
+   },
+   "selection": {
+    "mechanistic": {
+     "pooledCellRmseRelative": 0.17786607497503015,
+     "rmseOfMeanRelative": 0.022171182904294835
+    },
+    "nominal": {
+     "pooledCellRmseRelative": 0.20077702143355947,
+     "rmseOfMeanRelative": 0.09299131451172413
+    },
+    "template": {
+     "pooledCellRmseRelative": 0.1756397652509913,
+     "rmseOfMeanRelative": 0.016834462667438065
+    },
+    "static": {
+     "pooledCellRmseRelative": 0.2479379973471652,
+     "rmseOfMeanRelative": 0.17580478527162144
+    }
+   },
+   "test": {
+    "mechanistic": {
+     "pooledCellRmseRelative": 0.1958330638796143,
+     "rmseOfMeanRelative": 0.056880859383028705
+    },
+    "nominal": {
+     "pooledCellRmseRelative": 0.21622687947373204,
+     "rmseOfMeanRelative": 0.10790460055257148
+    },
+    "template": {
+     "pooledCellRmseRelative": 0.19540156346066676,
+     "rmseOfMeanRelative": 0.05166647250244177
+    },
+    "static": {
+     "pooledCellRmseRelative": 0.32408445998434743,
+     "rmseOfMeanRelative": 0.2636634039477581
+    }
+   },
+   "unexplained": {
+    "mechanistic": {
+     "pooledCellRmseRelative": 0.25852662701034157,
+     "rmseOfMeanRelative": 0.2553731910060409
+    },
+    "nominal": {
+     "pooledCellRmseRelative": 0.25852662701034157,
+     "rmseOfMeanRelative": 0.2553731910060409
+    },
+    "template": {
+     "pooledCellRmseRelative": 0.2709306241906161,
+     "rmseOfMeanRelative": 0.2679761555038041
+    },
+    "static": {
+     "pooledCellRmseRelative": 0.08022208263639316,
+     "rmseOfMeanRelative": 0.06959453525099861
+    }
+   },
+   "imported": {
+    "mechanistic": {
+     "pooledCellRmseRelative": null,
+     "rmseOfMeanRelative": null
+    },
+    "nominal": {
+     "pooledCellRmseRelative": null,
+     "rmseOfMeanRelative": null
+    },
+    "template": {
+     "pooledCellRmseRelative": null,
+     "rmseOfMeanRelative": null
+    },
+    "static": {
+     "pooledCellRmseRelative": null,
+     "rmseOfMeanRelative": null
+    }
+   }
+  },
+  "intervalCoverage": {
+   "level": 0.9,
+   "calibration": {
+    "inside": 578,
+    "total": 620,
+    "coverage": 0.932258064516129
+   },
+   "selection": {
+    "inside": 204,
+    "total": 304,
+    "coverage": 0.6710526315789473
+   },
+   "test": {
+    "inside": 1183,
+    "total": 1366,
+    "coverage": 0.8660322108345534
+   },
+   "unexplained": {
+    "inside": 544,
+    "total": 4532,
+    "coverage": 0.12003530450132392
+   }
+  },
+  "holdouts": {
+   "series": {
+    "status": "scored",
+    "what": "4 positions of another dish, 107 cells, never used for fitting or model selection",
+    "independence": "Another dish of the same day, laboratory and labelled dose. Not an independent laboratory or day."
+   },
+   "dose": {
+    "status": "blocked",
+    "reason": "The public deposit (SSBD project 232, Figure 2C) labels every dish 10 ng/ml EGF and holds no inhibitor. The signalling study of Gross and Rotwein (2017) reports dose and inhibitor experiments in HeLa cells with a related reporter, but its single-cell data are not deposited: Europe PMC lists no supplementary files for PMC5401947. Import such a series to score it."
+   },
+   "intervention": {
+    "status": "blocked",
+    "reason": "The public deposit (SSBD project 232, Figure 2C) labels every dish 10 ng/ml EGF and holds no inhibitor. The signalling study of Gross and Rotwein (2017) reports dose and inhibitor experiments in HeLa cells with a related reporter, but its single-cell data are not deposited: Europe PMC lists no supplementary files for PMC5401947. Import such a series to score it."
+   },
+   "unexplained": {
+    "status": "scored as labelled",
+    "dishes": [
+     "Figure2C_20211008_DORA_KTR_EGF_06-05",
+     "Figure2C_20211008_DORA_KTR_EGF_08-07",
+     "Figure2C_20211008_DORA_KTR_EGF_10-09",
+     "Figure2C_20211008_DORA_KTR_EGF_12-11"
+    ],
+    "cells": 412,
+    "statement": "Four dishes (412 cells) carry the same label, 10 ng/ml EGF, and show no rise of C/N in their 16 deposited frames: the mean drifts down by a few percent. The deposit does not say why. They may be lower doses of the paper's dose-response figure or may have been stimulated after the deposited frames; neither can be established from the files, so they are not used as a dose hold-out. Taken at their label, the model predicts a rise that was not measured: a failure, shown below."
+   }
+  },
+  "failures": [
+   {
+    "id": "Figure2C_20211008_DORA_KTR_EGF_02-01/s2",
+    "name": "Dish 02-01 \u00b7 position 2",
+    "role": "test",
+    "why": [
+     "no better than the empirical mean response"
+    ],
+    "coverage": 0.9335664335664335,
+    "cellRmse": 0.17286912772965948,
+    "templateRmse": 0.168426351819517,
+    "staticRmse": 0.2904404803924534,
+    "measuredAmplitude": 0.2883875075855682,
+    "predictedAmplitude": 0.22738849911365677
+   },
+   {
+    "id": "Figure2C_20211008_DORA_KTR_EGF_02-01/s4",
+    "name": "Dish 02-01 \u00b7 position 4",
+    "role": "test",
+    "why": [
+     "amplitude",
+     "uncertainty coverage",
+     "no better than the empirical mean response"
+    ],
+    "coverage": 0.75,
+    "cellRmse": 0.2195088240949752,
+    "templateRmse": 0.21927739590854942,
+    "staticRmse": 0.3429301375149624,
+    "measuredAmplitude": 0.33263799277172135,
+    "predictedAmplitude": 0.24441100790795578
+   },
+   {
+    "id": "Figure2C_20211008_DORA_KTR_EGF_06-05/s1",
+    "name": "Dish 06-05 \u00b7 position 1",
+    "role": "unexplained",
+    "why": [
+     "amplitude",
+     "no response measured where one is predicted",
+     "uncertainty coverage",
+     "no better than assuming no response"
+    ],
+    "coverage": 0.12727272727272726,
+    "cellRmse": 0.24128260226409096,
+    "templateRmse": 0.25514622798255726,
+    "staticRmse": 0.05634376100852929,
+    "measuredAmplitude": -0.0641876979228233,
+    "predictedAmplitude": 0.23267943936492208
+   },
+   {
+    "id": "Figure2C_20211008_DORA_KTR_EGF_06-05/s3",
+    "name": "Dish 06-05 \u00b7 position 3",
+    "role": "unexplained",
+    "why": [
+     "amplitude",
+     "no response measured where one is predicted",
+     "uncertainty coverage",
+     "no better than assuming no response"
+    ],
+    "coverage": 0.2159090909090909,
+    "cellRmse": 0.23928609326054434,
+    "templateRmse": 0.2469132105148651,
+    "staticRmse": 0.054815057801584785,
+    "measuredAmplitude": -0.04460703924547449,
+    "predictedAmplitude": 0.23964244238116605
+   },
+   {
+    "id": "Figure2C_20211008_DORA_KTR_EGF_06-05/s4",
+    "name": "Dish 06-05 \u00b7 position 4",
+    "role": "unexplained",
+    "why": [
+     "amplitude",
+     "no response measured where one is predicted",
+     "uncertainty coverage",
+     "no better than assuming no response"
+    ],
+    "coverage": 0.15810276679841898,
+    "cellRmse": 0.2295674519385152,
+    "templateRmse": 0.2396297751962676,
+    "staticRmse": 0.04758308883798628,
+    "measuredAmplitude": -0.02185278665762136,
+    "predictedAmplitude": 0.23798784415379237
+   },
+   {
+    "id": "Figure2C_20211008_DORA_KTR_EGF_08-07/s1",
+    "name": "Dish 08-07 \u00b7 position 1",
+    "role": "unexplained",
+    "why": [
+     "amplitude",
+     "no response measured where one is predicted",
+     "uncertainty coverage",
+     "no better than assuming no response"
+    ],
+    "coverage": 0.056818181818181816,
+    "cellRmse": 0.30074544568626205,
+    "templateRmse": 0.31367817048696256,
+    "staticRmse": 0.12065872358847371,
+    "measuredAmplitude": -0.13803886438979995,
+    "predictedAmplitude": 0.23467617332441226
+   },
+   {
+    "id": "Figure2C_20211008_DORA_KTR_EGF_08-07/s2",
+    "name": "Dish 08-07 \u00b7 position 2",
+    "role": "unexplained",
+    "why": [
+     "amplitude",
+     "no response measured where one is predicted",
+     "uncertainty coverage",
+     "no better than assuming no response"
+    ],
+    "coverage": 0.03134796238244514,
+    "cellRmse": 0.29782672760570067,
+    "templateRmse": 0.3189427155977999,
+    "staticRmse": 0.12127424825876208,
+    "measuredAmplitude": -0.14595866343626518,
+    "predictedAmplitude": 0.22473915874104478
+   },
+   {
+    "id": "Figure2C_20211008_DORA_KTR_EGF_08-07/s3",
+    "name": "Dish 08-07 \u00b7 position 3",
+    "role": "unexplained",
+    "why": [
+     "amplitude",
+     "no response measured where one is predicted",
+     "uncertainty coverage",
+     "no better than assuming no response"
+    ],
+    "coverage": 0.13920454545454544,
+    "cellRmse": 0.24717988075853287,
+    "templateRmse": 0.2676315301861592,
+    "staticRmse": 0.07270169015669796,
+    "measuredAmplitude": -0.0791721420384719,
+    "predictedAmplitude": 0.22435318964288142
+   },
+   {
+    "id": "Figure2C_20211008_DORA_KTR_EGF_08-07/s4",
+    "name": "Dish 08-07 \u00b7 position 4",
+    "role": "unexplained",
+    "why": [
+     "amplitude",
+     "no response measured where one is predicted",
+     "uncertainty coverage",
+     "no better than assuming no response"
+    ],
+    "coverage": 0.03636363636363636,
+    "cellRmse": 0.2665378341654144,
+    "templateRmse": 0.29090022374863606,
+    "staticRmse": 0.09514721987794408,
+    "measuredAmplitude": -0.11000593450658658,
+    "predictedAmplitude": 0.22022216859294064
+   },
+   {
+    "id": "Figure2C_20211008_DORA_KTR_EGF_10-09/s1",
+    "name": "Dish 10-09 \u00b7 position 1",
+    "role": "unexplained",
+    "why": [
+     "amplitude",
+     "no response measured where one is predicted",
+     "uncertainty coverage",
+     "no better than assuming no response"
+    ],
+    "coverage": 0.10649350649350649,
+    "cellRmse": 0.2625114712227353,
+    "templateRmse": 0.27338365628009026,
+    "staticRmse": 0.08352668030396487,
+    "measuredAmplitude": -0.07361231149502456,
+    "predictedAmplitude": 0.23592456233537007
+   },
+   {
+    "id": "Figure2C_20211008_DORA_KTR_EGF_10-09/s2",
+    "name": "Dish 10-09 \u00b7 position 2",
+    "role": "unexplained",
+    "why": [
+     "amplitude",
+     "no response measured where one is predicted",
+     "uncertainty coverage",
+     "no better than assuming no response"
+    ],
+    "coverage": 0.06818181818181818,
+    "cellRmse": 0.2701836051115071,
+    "templateRmse": 0.2795737614184543,
+    "staticRmse": 0.08770164827804142,
+    "measuredAmplitude": -0.08778330064906048,
+    "predictedAmplitude": 0.23831343788464854
+   },
+   {
+    "id": "Figure2C_20211008_DORA_KTR_EGF_10-09/s3",
+    "name": "Dish 10-09 \u00b7 position 3",
+    "role": "unexplained",
+    "why": [
+     "amplitude",
+     "no response measured where one is predicted",
+     "uncertainty coverage",
+     "no better than the empirical mean response",
+     "no better than assuming no response"
+    ],
+    "coverage": 0.18686868686868688,
+    "cellRmse": 0.23779751338429572,
+    "templateRmse": 0.23667098881674317,
+    "staticRmse": 0.04462280498509218,
+    "measuredAmplitude": -0.04552289571544954,
+    "predictedAmplitude": 0.25100519940457433
+   },
+   {
+    "id": "Figure2C_20211008_DORA_KTR_EGF_10-09/s4",
+    "name": "Dish 10-09 \u00b7 position 4",
+    "role": "unexplained",
+    "why": [
+     "amplitude",
+     "no response measured where one is predicted",
+     "uncertainty coverage",
+     "no better than assuming no response"
+    ],
+    "coverage": 0.11857707509881422,
+    "cellRmse": 0.27576026621716077,
+    "templateRmse": 0.2872816080386834,
+    "staticRmse": 0.09529218565804831,
+    "measuredAmplitude": -0.08934692068884775,
+    "predictedAmplitude": 0.23692126251472123
+   },
+   {
+    "id": "Figure2C_20211008_DORA_KTR_EGF_12-11/s1",
+    "name": "Dish 12-11 \u00b7 position 1",
+    "role": "unexplained",
+    "why": [
+     "amplitude",
+     "no response measured where one is predicted",
+     "uncertainty coverage",
+     "no better than assuming no response"
+    ],
+    "coverage": 0.09366391184573003,
+    "cellRmse": 0.2430205100835468,
+    "templateRmse": 0.2660035256551007,
+    "staticRmse": 0.0725134456844697,
+    "measuredAmplitude": -0.0730136345532233,
+    "predictedAmplitude": 0.2218217502623121
+   },
+   {
+    "id": "Figure2C_20211008_DORA_KTR_EGF_12-11/s2",
+    "name": "Dish 12-11 \u00b7 position 2",
+    "role": "unexplained",
+    "why": [
+     "amplitude",
+     "no response measured where one is predicted",
+     "uncertainty coverage",
+     "no better than assuming no response"
+    ],
+    "coverage": 0.12121212121212122,
+    "cellRmse": 0.24998733638514947,
+    "templateRmse": 0.254764447028834,
+    "staticRmse": 0.06157014875151996,
+    "measuredAmplitude": -0.056889276027132785,
+    "predictedAmplitude": 0.24432893268250533
+   },
+   {
+    "id": "Figure2C_20211008_DORA_KTR_EGF_12-11/s3",
+    "name": "Dish 12-11 \u00b7 position 3",
+    "role": "unexplained",
+    "why": [
+     "amplitude",
+     "no response measured where one is predicted",
+     "uncertainty coverage",
+     "no better than assuming no response"
+    ],
+    "coverage": 0.21885521885521886,
+    "cellRmse": 0.2621235339107927,
+    "templateRmse": 0.26643244163678376,
+    "staticRmse": 0.08201562027433047,
+    "measuredAmplitude": -0.09958315086055214,
+    "predictedAmplitude": 0.24511732688393084
+   },
+   {
+    "id": "Figure2C_20211008_DORA_KTR_EGF_12-11/s4",
+    "name": "Dish 12-11 \u00b7 position 4",
+    "role": "unexplained",
+    "why": [
+     "amplitude",
+     "no response measured where one is predicted",
+     "uncertainty coverage",
+     "no better than assuming no response"
+    ],
+    "coverage": 0.09090909090909091,
+    "cellRmse": 0.2516061058689929,
+    "templateRmse": 0.26828635046023214,
+    "staticRmse": 0.07284046118266621,
+    "measuredAmplitude": -0.08102642897407808,
+    "predictedAmplitude": 0.2299642208096897
+   }
+  ],
+  "gate": {
+   "passed": true,
+   "statement": "On the held-out dish the mechanistic chain is closer to single cells than assuming no response."
+  },
+  "structure": {
+   "key": "d1",
+   "depth": 1,
+   "transport": false,
+   "name": "one stage, instant transport"
+  },
+  "selection": {
+   "rmseOfMeanRelative": {
+    "d1": 0.02911796171600207,
+    "d2": 0.03223273999134541,
+    "d1t": 0.029225928373172637,
+    "d2t": 0.029273949591520368,
+    "d3t": 0.029290707821704717
+   },
+   "margin": 0.05
+  },
+  "series": [
+   {
+    "id": "Figure2C_20211008_DORA_KTR_EGF_04-03/s1",
+    "role": "calibration",
+    "cells": 20,
+    "onsetMin": 2.9,
+    "onsetDetected": true,
+    "cellRmseRelative": {
+     "mechanistic": 0.1261,
+     "nominal": 0.1447,
+     "template": 0.1251,
+     "static": 0.2644
+    },
+    "rmseOfMeanRelative": {
+     "mechanistic": 0.0337,
+     "nominal": 0.0783,
+     "template": 0.0208,
+     "static": 0.2339
+    },
+    "amplitude": {
+     "measured": 0.2868,
+     "predicted": 0.2348
+    },
+    "halfRiseMin": {
+     "measured": 2.2532,
+     "predicted": 2.2255
+    },
+    "peakTime": "not reached by the measurement",
+    "recovery": "not reached by the measurement",
+    "intervalCoverage": [
+     251,
+     260
+    ]
+   },
+   {
+    "id": "Figure2C_20211008_DORA_KTR_EGF_04-03/s2",
+    "role": "calibration",
+    "cells": 30,
+    "onsetMin": 3.7,
+    "onsetDetected": true,
+    "cellRmseRelative": {
+     "mechanistic": 0.113,
+     "nominal": 0.1204,
+     "template": 0.1081,
+     "static": 0.2243
+    },
+    "rmseOfMeanRelative": {
+     "mechanistic": 0.0074,
+     "nominal": 0.0438,
+     "template": 0.0174,
+     "static": 0.1973
+    },
+    "amplitude": {
+     "measured": 0.2316,
+     "predicted": 0.234
+    },
+    "halfRiseMin": {
+     "measured": 2.1149,
+     "predicted": 2.2817
+    },
+    "peakTime": "not reached by the measurement",
+    "recovery": "not reached by the measurement",
+    "intervalCoverage": [
+     327,
+     360
+    ]
+   },
+   {
+    "id": "Figure2C_20211008_DORA_KTR_EGF_04-03/s3",
+    "role": "selection",
+    "cells": 39,
+    "onsetMin": 9.3,
+    "onsetDetected": true,
+    "cellRmseRelative": {
+     "mechanistic": 0.1855,
+     "nominal": 0.2113,
+     "template": 0.1835,
+     "static": 0.2473
+    },
+    "rmseOfMeanRelative": {
+     "mechanistic": 0.0137,
+     "nominal": 0.099,
+     "template": 0.0153,
+     "static": 0.1665
+    },
+    "amplitude": {
+     "measured": 0.242,
+     "predicted": 0.2271
+    },
+    "halfRiseMin": {
+     "measured": 2.9921,
+     "predicted": 2.4095
+    },
+    "peakTime": "not reached by the measurement",
+    "recovery": "not reached by the measurement",
+    "intervalCoverage": [
+     142,
+     234
+    ]
+   },
+   {
+    "id": "Figure2C_20211008_DORA_KTR_EGF_04-03/s4",
+    "role": "selection",
+    "cells": 7,
+    "onsetMin": 5.3,
+    "onsetDetected": true,
+    "cellRmseRelative": {
+     "mechanistic": 0.1268,
+     "nominal": 0.1269,
+     "template": 0.1228,
+     "static": 0.2514
+    },
+    "rmseOfMeanRelative": {
+     "mechanistic": 0.0467,
+     "nominal": 0.0469,
+     "template": 0.0237,
+     "static": 0.2206
+    },
+    "amplitude": {
+     "measured": 0.2903,
+     "predicted": 0.2131
+    },
+    "halfRiseMin": {
+     "measured": 3.0376,
+     "predicted": 2.4911
+    },
+    "peakTime": "not reached by the measurement",
+    "recovery": "not reached by the measurement",
+    "intervalCoverage": [
+     62,
+     70
+    ]
+   },
+   {
+    "id": "Figure2C_20211008_DORA_KTR_EGF_02-01/s1",
+    "role": "test",
+    "cells": 32,
+    "onsetMin": 2.4,
+    "onsetDetected": true,
+    "cellRmseRelative": {
+     "mechanistic": 0.1604,
+     "nominal": 0.1866,
+     "template": 0.1613,
+     "static": 0.2963
+    },
+    "rmseOfMeanRelative": {
+     "mechanistic": 0.0385,
+     "nominal": 0.1025,
+     "template": 0.0315,
+     "static": 0.2505
+    },
+    "amplitude": {
+     "measured": 0.288,
+     "predicted": 0.2429
+    },
+    "halfRiseMin": {
+     "measured": 2.3742,
+     "predicted": 2.3866
+    },
+    "peakTime": "not reached by the measurement",
+    "recovery": "not reached by the measurement",
+    "intervalCoverage": [
+     392,
+     416
+    ]
+   },
+   {
+    "id": "Figure2C_20211008_DORA_KTR_EGF_02-01/s2",
+    "role": "test",
+    "cells": 22,
+    "onsetMin": 2.6,
+    "onsetDetected": true,
+    "cellRmseRelative": {
+     "mechanistic": 0.1729,
+     "nominal": 0.1865,
+     "template": 0.1684,
+     "static": 0.2904
+    },
+    "rmseOfMeanRelative": {
+     "mechanistic": 0.0429,
+     "nominal": 0.0826,
+     "template": 0.0242,
+     "static": 0.2378
+    },
+    "amplitude": {
+     "measured": 0.2884,
+     "predicted": 0.2274
+    },
+    "halfRiseMin": {
+     "measured": 2.9379,
+     "predicted": 2.3052
+    },
+    "peakTime": "not reached by the measurement",
+    "recovery": "not reached by the measurement",
+    "intervalCoverage": [
+     267,
+     286
+    ]
+   },
+   {
+    "id": "Figure2C_20211008_DORA_KTR_EGF_02-01/s3",
+    "role": "test",
+    "cells": 28,
+    "onsetMin": 2.4,
+    "onsetDetected": true,
+    "cellRmseRelative": {
+     "mechanistic": 0.2251,
+     "nominal": 0.2541,
+     "template": 0.2257,
+     "static": 0.3602
+    },
+    "rmseOfMeanRelative": {
+     "mechanistic": 0.0767,
+     "nominal": 0.1408,
+     "template": 0.0771,
+     "static": 0.2911
+    },
+    "amplitude": {
+     "measured": 0.2882,
+     "predicted": 0.2488
+    },
+    "halfRiseMin": {
+     "measured": 2.1205,
+     "predicted": 2.3842
+    },
+    "peakTime": "not reached by the measurement",
+    "recovery": "not reached by the measurement",
+    "intervalCoverage": [
+     299,
+     364
+    ]
+   },
+   {
+    "id": "Figure2C_20211008_DORA_KTR_EGF_02-01/s4",
+    "role": "test",
+    "cells": 25,
+    "onsetMin": 3.4,
+    "onsetDetected": true,
+    "cellRmseRelative": {
+     "mechanistic": 0.2195,
+     "nominal": 0.2293,
+     "template": 0.2193,
+     "static": 0.3429
+    },
+    "rmseOfMeanRelative": {
+     "mechanistic": 0.0612,
+     "nominal": 0.0906,
+     "template": 0.0546,
+     "static": 0.2693
+    },
+    "amplitude": {
+     "measured": 0.3326,
+     "predicted": 0.2444
+    },
+    "halfRiseMin": {
+     "measured": 2.7941,
+     "predicted": 2.4025
+    },
+    "peakTime": "not reached by the measurement",
+    "recovery": "not reached by the measurement",
+    "intervalCoverage": [
+     225,
+     300
+    ]
+   },
+   {
+    "id": "Figure2C_20211008_DORA_KTR_EGF_06-05/s1",
+    "role": "unexplained",
+    "cells": 25,
+    "onsetMin": 15.1,
+    "onsetDetected": false,
+    "cellRmseRelative": {
+     "mechanistic": 0.2413,
+     "nominal": 0.2413,
+     "template": 0.2551,
+     "static": 0.0563
+    },
+    "rmseOfMeanRelative": {
+     "mechanistic": 0.24,
+     "nominal": 0.24,
+     "template": 0.2543,
+     "static": 0.0523
+    },
+    "amplitude": {
+     "measured": -0.0642,
+     "predicted": 0.2327
+    },
+    "halfRiseMin": {
+     "measured": null,
+     "predicted": 2.2632
+    },
+    "peakTime": "not reached by the measurement",
+    "recovery": "not reached by the measurement",
+    "intervalCoverage": [
+     35,
+     275
+    ]
+   },
+   {
+    "id": "Figure2C_20211008_DORA_KTR_EGF_06-05/s3",
+    "role": "unexplained",
+    "cells": 24,
+    "onsetMin": 15.1,
+    "onsetDetected": false,
+    "cellRmseRelative": {
+     "mechanistic": 0.2393,
+     "nominal": 0.2393,
+     "template": 0.2469,
+     "static": 0.0548
+    },
+    "rmseOfMeanRelative": {
+     "mechanistic": 0.236,
+     "nominal": 0.236,
+     "template": 0.2445,
+     "static": 0.0428
+    },
+    "amplitude": {
+     "measured": -0.0446,
+     "predicted": 0.2396
+    },
+    "halfRiseMin": {
+     "measured": null,
+     "predicted": 2.2606
+    },
+    "peakTime": "not reached by the measurement",
+    "recovery": "not reached by the measurement",
+    "intervalCoverage": [
+     57,
+     264
+    ]
+   },
+   {
+    "id": "Figure2C_20211008_DORA_KTR_EGF_06-05/s4",
+    "role": "unexplained",
+    "cells": 23,
+    "onsetMin": 14.9,
+    "onsetDetected": false,
+    "cellRmseRelative": {
+     "mechanistic": 0.2296,
+     "nominal": 0.2296,
+     "template": 0.2396,
+     "static": 0.0476
+    },
+    "rmseOfMeanRelative": {
+     "mechanistic": 0.2278,
+     "nominal": 0.2278,
+     "template": 0.2377,
+     "static": 0.0367
+    },
+    "amplitude": {
+     "measured": -0.0219,
+     "predicted": 0.238
+    },
+    "halfRiseMin": {
+     "measured": null,
+     "predicted": 2.2593
+    },
+    "peakTime": "not reached by the measurement",
+    "recovery": "not reached by the measurement",
+    "intervalCoverage": [
+     40,
+     253
+    ]
+   },
+   {
+    "id": "Figure2C_20211008_DORA_KTR_EGF_08-07/s1",
+    "role": "unexplained",
+    "cells": 24,
+    "onsetMin": 15.1,
+    "onsetDetected": false,
+    "cellRmseRelative": {
+     "mechanistic": 0.3007,
+     "nominal": 0.3007,
+     "template": 0.3137,
+     "static": 0.1207
+    },
+    "rmseOfMeanRelative": {
+     "mechanistic": 0.2963,
+     "nominal": 0.2963,
+     "template": 0.3091,
+     "static": 0.1081
+    },
+    "amplitude": {
+     "measured": -0.138,
+     "predicted": 0.2347
+    },
+    "halfRiseMin": {
+     "measured": null,
+     "predicted": 2.2611
+    },
+    "peakTime": "not reached by the measurement",
+    "recovery": "not reached by the measurement",
+    "intervalCoverage": [
+     15,
+     264
+    ]
+   },
+   {
+    "id": "Figure2C_20211008_DORA_KTR_EGF_08-07/s2",
+    "role": "unexplained",
+    "cells": 29,
+    "onsetMin": 15.1,
+    "onsetDetected": false,
+    "cellRmseRelative": {
+     "mechanistic": 0.2978,
+     "nominal": 0.2978,
+     "template": 0.3189,
+     "static": 0.1213
+    },
+    "rmseOfMeanRelative": {
+     "mechanistic": 0.296,
+     "nominal": 0.296,
+     "template": 0.3169,
+     "static": 0.1158
+    },
+    "amplitude": {
+     "measured": -0.146,
+     "predicted": 0.2247
+    },
+    "halfRiseMin": {
+     "measured": null,
+     "predicted": 2.2653
+    },
+    "peakTime": "not reached by the measurement",
+    "recovery": "not reached by the measurement",
+    "intervalCoverage": [
+     10,
+     319
+    ]
+   },
+   {
+    "id": "Figure2C_20211008_DORA_KTR_EGF_08-07/s3",
+    "role": "unexplained",
+    "cells": 32,
+    "onsetMin": 15.1,
+    "onsetDetected": false,
+    "cellRmseRelative": {
+     "mechanistic": 0.2472,
+     "nominal": 0.2472,
+     "template": 0.2676,
+     "static": 0.0727
+    },
+    "rmseOfMeanRelative": {
+     "mechanistic": 0.2442,
+     "nominal": 0.2442,
+     "template": 0.2653,
+     "static": 0.0635
+    },
+    "amplitude": {
+     "measured": -0.0792,
+     "predicted": 0.2244
+    },
+    "halfRiseMin": {
+     "measured": null,
+     "predicted": 2.2655
+    },
+    "peakTime": "not reached by the measurement",
+    "recovery": "not reached by the measurement",
+    "intervalCoverage": [
+     49,
+     352
+    ]
+   },
+   {
+    "id": "Figure2C_20211008_DORA_KTR_EGF_08-07/s4",
+    "role": "unexplained",
+    "cells": 15,
+    "onsetMin": 15.1,
+    "onsetDetected": false,
+    "cellRmseRelative": {
+     "mechanistic": 0.2665,
+     "nominal": 0.2665,
+     "template": 0.2909,
+     "static": 0.0951
+    },
+    "rmseOfMeanRelative": {
+     "mechanistic": 0.2641,
+     "nominal": 0.2641,
+     "template": 0.2886,
+     "static": 0.0879
+    },
+    "amplitude": {
+     "measured": -0.11,
+     "predicted": 0.2202
+    },
+    "halfRiseMin": {
+     "measured": null,
+     "predicted": 2.267
+    },
+    "peakTime": "not reached by the measurement",
+    "recovery": "not reached by the measurement",
+    "intervalCoverage": [
+     6,
+     165
+    ]
+   },
+   {
+    "id": "Figure2C_20211008_DORA_KTR_EGF_10-09/s1",
+    "role": "unexplained",
+    "cells": 35,
+    "onsetMin": 15.1,
+    "onsetDetected": false,
+    "cellRmseRelative": {
+     "mechanistic": 0.2625,
+     "nominal": 0.2625,
+     "template": 0.2734,
+     "static": 0.0835
+    },
+    "rmseOfMeanRelative": {
+     "mechanistic": 0.2574,
+     "nominal": 0.2574,
+     "template": 0.2691,
+     "static": 0.0681
+    },
+    "amplitude": {
+     "measured": -0.0736,
+     "predicted": 0.2359
+    },
+    "halfRiseMin": {
+     "measured": null,
+     "predicted": 2.2617
+    },
+    "peakTime": "not reached by the measurement",
+    "recovery": "not reached by the measurement",
+    "intervalCoverage": [
+     41,
+     385
+    ]
+   },
+   {
+    "id": "Figure2C_20211008_DORA_KTR_EGF_10-09/s2",
+    "role": "unexplained",
+    "cells": 32,
+    "onsetMin": 15.1,
+    "onsetDetected": false,
+    "cellRmseRelative": {
+     "mechanistic": 0.2702,
+     "nominal": 0.2702,
+     "template": 0.2796,
+     "static": 0.0877
+    },
+    "rmseOfMeanRelative": {
+     "mechanistic": 0.2661,
+     "nominal": 0.2661,
+     "template": 0.2759,
+     "static": 0.075
+    },
+    "amplitude": {
+     "measured": -0.0878,
+     "predicted": 0.2383
+    },
+    "halfRiseMin": {
+     "measured": null,
+     "predicted": 2.2599
+    },
+    "peakTime": "not reached by the measurement",
+    "recovery": "not reached by the measurement",
+    "intervalCoverage": [
+     24,
+     352
+    ]
+   },
+   {
+    "id": "Figure2C_20211008_DORA_KTR_EGF_10-09/s3",
+    "role": "unexplained",
+    "cells": 36,
+    "onsetMin": 15.1,
+    "onsetDetected": false,
+    "cellRmseRelative": {
+     "mechanistic": 0.2378,
+     "nominal": 0.2378,
+     "template": 0.2367,
+     "static": 0.0446
+    },
+    "rmseOfMeanRelative": {
+     "mechanistic": 0.2355,
+     "nominal": 0.2355,
+     "template": 0.2348,
+     "static": 0.0332
+    },
+    "amplitude": {
+     "measured": -0.0455,
+     "predicted": 0.251
+    },
+    "halfRiseMin": {
+     "measured": null,
+     "predicted": 2.2549
+    },
+    "peakTime": "not reached by the measurement",
+    "recovery": "not reached by the measurement",
+    "intervalCoverage": [
+     74,
+     396
+    ]
+   },
+   {
+    "id": "Figure2C_20211008_DORA_KTR_EGF_10-09/s4",
+    "role": "unexplained",
+    "cells": 23,
+    "onsetMin": 15.1,
+    "onsetDetected": false,
+    "cellRmseRelative": {
+     "mechanistic": 0.2758,
+     "nominal": 0.2758,
+     "template": 0.2873,
+     "static": 0.0953
+    },
+    "rmseOfMeanRelative": {
+     "mechanistic": 0.272,
+     "nominal": 0.272,
+     "template": 0.2828,
+     "static": 0.0809
+    },
+    "amplitude": {
+     "measured": -0.0893,
+     "predicted": 0.2369
+    },
+    "halfRiseMin": {
+     "measured": null,
+     "predicted": 2.2609
+    },
+    "peakTime": "not reached by the measurement",
+    "recovery": "not reached by the measurement",
+    "intervalCoverage": [
+     30,
+     253
+    ]
+   },
+   {
+    "id": "Figure2C_20211008_DORA_KTR_EGF_12-11/s1",
+    "role": "unexplained",
+    "cells": 33,
+    "onsetMin": 15.1,
+    "onsetDetected": false,
+    "cellRmseRelative": {
+     "mechanistic": 0.243,
+     "nominal": 0.243,
+     "template": 0.266,
+     "static": 0.0725
+    },
+    "rmseOfMeanRelative": {
+     "mechanistic": 0.2403,
+     "nominal": 0.2403,
+     "template": 0.2635,
+     "static": 0.0627
+    },
+    "amplitude": {
+     "measured": -0.073,
+     "predicted": 0.2218
+    },
+    "halfRiseMin": {
+     "measured": null,
+     "predicted": 2.2669
+    },
+    "peakTime": "not reached by the measurement",
+    "recovery": "not reached by the measurement",
+    "intervalCoverage": [
+     34,
+     363
+    ]
+   },
+   {
+    "id": "Figure2C_20211008_DORA_KTR_EGF_12-11/s2",
+    "role": "unexplained",
+    "cells": 30,
+    "onsetMin": 15.1,
+    "onsetDetected": false,
+    "cellRmseRelative": {
+     "mechanistic": 0.25,
+     "nominal": 0.25,
+     "template": 0.2548,
+     "static": 0.0616
+    },
+    "rmseOfMeanRelative": {
+     "mechanistic": 0.2476,
+     "nominal": 0.2476,
+     "template": 0.2524,
+     "static": 0.051
+    },
+    "amplitude": {
+     "measured": -0.0569,
+     "predicted": 0.2443
+    },
+    "halfRiseMin": {
+     "measured": null,
+     "predicted": 2.2579
+    },
+    "peakTime": "not reached by the measurement",
+    "recovery": "not reached by the measurement",
+    "intervalCoverage": [
+     40,
+     330
+    ]
+   },
+   {
+    "id": "Figure2C_20211008_DORA_KTR_EGF_12-11/s3",
+    "role": "unexplained",
+    "cells": 27,
+    "onsetMin": 15.1,
+    "onsetDetected": false,
+    "cellRmseRelative": {
+     "mechanistic": 0.2621,
+     "nominal": 0.2621,
+     "template": 0.2664,
+     "static": 0.082
+    },
+    "rmseOfMeanRelative": {
+     "mechanistic": 0.2563,
+     "nominal": 0.2563,
+     "template": 0.2604,
+     "static": 0.0598
+    },
+    "amplitude": {
+     "measured": -0.0996,
+     "predicted": 0.2451
+    },
+    "halfRiseMin": {
+     "measured": null,
+     "predicted": 2.2579
+    },
+    "peakTime": "not reached by the measurement",
+    "recovery": "not reached by the measurement",
+    "intervalCoverage": [
+     65,
+     297
+    ]
+   },
+   {
+    "id": "Figure2C_20211008_DORA_KTR_EGF_12-11/s4",
+    "role": "unexplained",
+    "cells": 24,
+    "onsetMin": 15.1,
+    "onsetDetected": false,
+    "cellRmseRelative": {
+     "mechanistic": 0.2516,
+     "nominal": 0.2516,
+     "template": 0.2683,
+     "static": 0.0728
+    },
+    "rmseOfMeanRelative": {
+     "mechanistic": 0.2496,
+     "nominal": 0.2496,
+     "template": 0.2662,
+     "static": 0.0647
+    },
+    "amplitude": {
+     "measured": -0.081,
+     "predicted": 0.23
+    },
+    "halfRiseMin": {
+     "measured": null,
+     "predicted": 2.2639
+    },
+    "peakTime": "not reached by the measurement",
+    "recovery": "not reached by the measurement",
+    "intervalCoverage": [
+     24,
+     264
+    ]
+   }
+  ]
+ },
+ "numerical": [
+  {
+   "run": "held-out series",
+   "name": "Independent solver",
+   "value": {
+    "maxRelativeDifference": 1.8011087994631442e-05,
+    "solver": "SciPy LSODA",
+    "points": 14
+   },
+   "threshold": "relative difference of C/N < 0.5 %",
+   "passed": true
+  },
+  {
+   "run": "held-out series",
+   "name": "Bounds",
+   "value": {
+    "erkMax": 0.9030078485667021,
+    "receptorMax": 0.3269614946546937
+   },
+   "threshold": "0 \u2264 occupancy, ERK activity, phosphorylated fraction \u2264 1; C/N > 0",
+   "passed": true
+  },
+  {
+   "run": "held-out series",
+   "name": "Step size",
+   "value": {
+    "maxRelativeChange": 1.4119131788635484e-05,
+    "stepMin": 0.05
+   },
+   "threshold": "relative change of C/N < 0.2 % when the step is halved",
+   "passed": true
+  },
+  {
+   "run": "held-out series",
+   "name": "Reporter conserved",
+   "value": {
+    "maxDeviation": 0.0
+   },
+   "threshold": "nuclear + cytoplasmic reporter = 1",
+   "passed": true
+  },
+  {
+   "run": "held-out series",
+   "name": "One reporter split",
+   "value": {
+    "maxRelativeDifference": 6.477387661866271e-16,
+    "v": 2.512
+   },
+   "threshold": "identical apart from the stated constant",
+   "passed": true
+  },
+  {
+   "run": "60 min, 10 ng/ml (extrapolated in time)",
+   "name": "Independent solver",
+   "value": {
+    "maxRelativeDifference": 1.735041812291242e-05,
+    "solver": "SciPy LSODA",
+    "points": 55
+   },
+   "threshold": "relative difference of C/N < 0.5 %",
+   "passed": true
+  },
+  {
+   "run": "60 min, 10 ng/ml (extrapolated in time)",
+   "name": "Bounds",
+   "value": {
+    "erkMax": 0.9030078485667021,
+    "receptorMax": 0.3273001014627546
+   },
+   "threshold": "0 \u2264 occupancy, ERK activity, phosphorylated fraction \u2264 1; C/N > 0",
+   "passed": true
+  },
+  {
+   "run": "60 min, 10 ng/ml (extrapolated in time)",
+   "name": "Step size",
+   "value": {
+    "maxRelativeChange": 1.3589838959325186e-05,
+    "stepMin": 0.05
+   },
+   "threshold": "relative change of C/N < 0.2 % when the step is halved",
+   "passed": true
+  },
+  {
+   "run": "60 min, 10 ng/ml (extrapolated in time)",
+   "name": "Reporter conserved",
+   "value": {
+    "maxDeviation": 0.0
+   },
+   "threshold": "nuclear + cytoplasmic reporter = 1",
+   "passed": true
+  },
+  {
+   "run": "60 min, 10 ng/ml (extrapolated in time)",
+   "name": "One reporter split",
+   "value": {
+    "maxRelativeDifference": 5.831838854451258e-16,
+    "v": 2.512
+   },
+   "threshold": "identical apart from the stated constant",
+   "passed": true
+  },
+  {
+   "run": "60 min, MEK inhibited 80 % (simulation)",
+   "name": "Independent solver",
+   "value": {
+    "maxRelativeDifference": 3.723557978139208e-06,
+    "solver": "SciPy LSODA",
+    "points": 55
+   },
+   "threshold": "relative difference of C/N < 0.5 %",
+   "passed": true
+  },
+  {
+   "run": "60 min, MEK inhibited 80 % (simulation)",
+   "name": "Bounds",
+   "value": {
+    "erkMax": 0.189917348297656,
+    "receptorMax": 0.3273001014627546
+   },
+   "threshold": "0 \u2264 occupancy, ERK activity, phosphorylated fraction \u2264 1; C/N > 0",
+   "passed": true
+  },
+  {
+   "run": "60 min, MEK inhibited 80 % (simulation)",
+   "name": "Step size",
+   "value": {
+    "maxRelativeChange": 2.895950538146383e-06,
+    "stepMin": 0.05
+   },
+   "threshold": "relative change of C/N < 0.2 % when the step is halved",
+   "passed": true
+  },
+  {
+   "run": "60 min, MEK inhibited 80 % (simulation)",
+   "name": "Reporter conserved",
+   "value": {
+    "maxDeviation": 0.0
+   },
+   "threshold": "nuclear + cytoplasmic reporter = 1",
+   "passed": true
+  },
+  {
+   "run": "60 min, MEK inhibited 80 % (simulation)",
+   "name": "One reporter split",
+   "value": {
+    "maxRelativeDifference": 6.581582906060039e-16,
+    "v": 2.512
+   },
+   "threshold": "identical apart from the stated constant",
+   "passed": true
+  },
+  {
+   "run": "60 min, 0.1 ng/ml (simulation)",
+   "name": "Independent solver",
+   "value": {
+    "maxRelativeDifference": 3.025622410152188e-06,
+    "solver": "SciPy LSODA",
+    "points": 55
+   },
+   "threshold": "relative difference of C/N < 0.5 %",
+   "passed": true
+  },
+  {
+   "run": "60 min, 0.1 ng/ml (simulation)",
+   "name": "Bounds",
+   "value": {
+    "erkMax": 0.3110790901265306,
+    "receptorMax": 0.004841911553259831
+   },
+   "threshold": "0 \u2264 occupancy, ERK activity, phosphorylated fraction \u2264 1; C/N > 0",
+   "passed": true
+  },
+  {
+   "run": "60 min, 0.1 ng/ml (simulation)",
+   "name": "Step size",
+   "value": {
+    "maxRelativeChange": 2.29444962789498e-06,
+    "stepMin": 0.05
+   },
+   "threshold": "relative change of C/N < 0.2 % when the step is halved",
+   "passed": true
+  },
+  {
+   "run": "60 min, 0.1 ng/ml (simulation)",
+   "name": "Reporter conserved",
+   "value": {
+    "maxDeviation": 0.0
+   },
+   "threshold": "nuclear + cytoplasmic reporter = 1",
+   "passed": true
+  },
+  {
+   "run": "60 min, 0.1 ng/ml (simulation)",
+   "name": "One reporter split",
+   "value": {
+    "maxRelativeDifference": 6.314091007034432e-16,
+    "v": 2.512
+   },
+   "threshold": "identical apart from the stated constant",
+   "passed": true
+  }
+ ],
+ "parameters": [
+  {
+   "key": "kc",
+   "value": 0.5402015350001907,
+   "unit": "min\u207b\u00b9",
+   "ci95": [
+    0.42586426414483713,
+    0.6852364074326618
+   ],
+   "determined": true,
+   "source": "fitted"
+  },
+  {
+   "key": "G",
+   "value": 0.26422163913337493,
+   "unit": "",
+   "ci95": [
+    0.25022138631858454,
+    0.2790052265853913
+   ],
+   "determined": true,
+   "source": "fitted"
+  },
+  {
+   "key": "onset \u00b7 Dish 04-03 \u00b7 position 1",
+   "value": 2.9,
+   "unit": "min",
+   "ci95": null,
+   "determined": true,
+   "source": "inferred"
+  },
+  {
+   "key": "onset \u00b7 Dish 04-03 \u00b7 position 2",
+   "value": 3.7,
+   "unit": "min",
+   "ci95": null,
+   "determined": true,
+   "source": "inferred"
+  },
+  {
+   "key": "onset \u00b7 Dish 04-03 \u00b7 position 3",
+   "value": 9.3,
+   "unit": "min",
+   "ci95": null,
+   "determined": true,
+   "source": "inferred"
+  },
+  {
+   "key": "onset \u00b7 Dish 04-03 \u00b7 position 4",
+   "value": 5.3,
+   "unit": "min",
+   "ci95": null,
+   "determined": true,
+   "source": "inferred"
+  },
+  {
+   "key": "\u03c3 gain",
+   "value": 0.6347187627614442,
+   "unit": "ln units",
+   "ci95": null,
+   "determined": true,
+   "source": "fitted"
+  },
+  {
+   "key": "noise",
+   "value": 0.029074631847623888,
+   "unit": "fraction of resting C/N",
+   "ci95": null,
+   "determined": true,
+   "source": "fitted"
+  },
+  {
+   "key": "v",
+   "value": 2.512,
+   "unit": "",
+   "ci95": null,
+   "determined": false,
+   "source": "inferred"
+  },
+  {
+   "key": "kon",
+   "value": 0.1,
+   "unit": "nM\u207b\u00b9 min\u207b\u00b9",
+   "ci95": null,
+   "determined": false,
+   "source": "assumed"
+  },
+  {
+   "key": "koff",
+   "value": 0.24,
+   "unit": "min\u207b\u00b9",
+   "ci95": null,
+   "determined": false,
+   "source": "assumed"
+  },
+  {
+   "key": "kint",
+   "value": 0.1,
+   "unit": "min\u207b\u00b9",
+   "ci95": null,
+   "determined": false,
+   "source": "assumed"
+  },
+  {
+   "key": "K",
+   "value": 0.01,
+   "unit": "fraction",
+   "ci95": null,
+   "determined": false,
+   "source": "assumed"
+  },
+  {
+   "key": "fb",
+   "value": 0.5,
+   "unit": "",
+   "ci95": null,
+   "determined": false,
+   "source": "assumed"
+  },
+  {
+   "key": "kf",
+   "value": 0.03,
+   "unit": "min\u207b\u00b9",
+   "ci95": null,
+   "determined": false,
+   "source": "assumed"
+  },
+  {
+   "key": "kdp",
+   "value": 1.0,
+   "unit": "min\u207b\u00b9",
+   "ci95": null,
+   "determined": false,
+   "source": "assumed"
+  },
+  {
+   "key": "ktr",
+   "value": 0.5,
+   "unit": "min\u207b\u00b9",
+   "ci95": null,
+   "determined": false,
+   "source": "assumed"
+  },
+  {
+   "key": "rho",
+   "value": 4.0,
+   "unit": "",
+   "ci95": null,
+   "determined": false,
+   "source": "assumed"
+  }
+ ],
+ "fitSha256": "4c880837da58ae3c313a4b88fbee5404c79c18fb9a399da4d12cef8e517c9b06"
+}

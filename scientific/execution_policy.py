@@ -6,6 +6,7 @@ ACTIONS={'execution_backend_get','execution_backend_select'}
 # File preparation, editing and viewer rendering remain native. Scientific
 # computation is refused here rather than redirected through a local fallback.
 LOCAL_SCIENCE={
+ 'qwen_rna_start',
  'bio_controller_local_run',
  'genomic_coverage','periodic_lj_run','genomic_alignment_import','chemical_screen','sequence_align','reads_import','quantum_reaction','quantum_calculate','research_assay_fit',
  'prediction_start','install_engine','mpnn_start','dynamics_start','dynamics_continue','ligand_start',

@@ -1,0 +1,1158 @@
+{
+  "schema": "fold.rna-design-result/1",
+  "version": "rna-design/1.0.0",
+  "request": {
+    "target": "(((((......)))))..(((((....)))))..((((..((((.....))))..))))",
+    "mask": "NNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNN",
+    "locks": "...........................................................",
+    "maxCandidates": 24,
+    "maxSeconds": 2,
+    "wanted": 8,
+    "seed": 101,
+    "gcMin": 0,
+    "gcMax": 1,
+    "maxHomopolymer": 128,
+    "method": "solver"
+  },
+  "candidates": [
+    {
+      "id": "4516c062752589fb",
+      "sequence": "CGGCUGGACUGAGUCGUCCUGCCUCAUGGCAGAUGGGUAAUUAGGAGCGCUAGGGACUC",
+      "structure": "(((((......)))))..(((((....)))))..((((..((((.....))))..))))",
+      "mfeKcalMol": -19.100000381469727,
+      "targetKcalMol": -19.100000381469727,
+      "targetGapKcalMol": 0.0,
+      "targetProbability": 0.6390165058824862,
+      "ensembleDefect": 0.04345845155515084,
+      "pairF1": 1.0,
+      "missedPairs": [],
+      "extraPairs": [],
+      "source": "solver pair-error repair",
+      "qualifies": true,
+      "failureReasons": [],
+      "constraintViolations": [],
+      "independent": {
+        "structure": ".(((....((((.(((((.((((....)))))))))....))))....)))........",
+        "mfeKcalMol": -11.0,
+        "engine": "RNA Lab reduced Turner nearest-neighbour",
+        "version": "rna-lab.fold/1.0.0",
+        "temperatureC": 37,
+        "sourceSha256": "b91b80420204d19535f369cce8c60c3b7b19723895010c127d87b536d3ba696f",
+        "agreesWithTarget": false,
+        "disagreementPairs": [
+          [
+            1,
+            16
+          ],
+          [
+            2,
+            15
+          ],
+          [
+            2,
+            51
+          ],
+          [
+            3,
+            14
+          ],
+          [
+            3,
+            50
+          ],
+          [
+            4,
+            13
+          ],
+          [
+            4,
+            49
+          ],
+          [
+            5,
+            12
+          ],
+          [
+            9,
+            44
+          ],
+          [
+            10,
+            43
+          ],
+          [
+            11,
+            42
+          ],
+          [
+            12,
+            41
+          ],
+          [
+            14,
+            36
+          ],
+          [
+            15,
+            35
+          ],
+          [
+            16,
+            34
+          ],
+          [
+            17,
+            33
+          ],
+          [
+            18,
+            32
+          ],
+          [
+            19,
+            32
+          ],
+          [
+            35,
+            59
+          ],
+          [
+            36,
+            58
+          ],
+          [
+            37,
+            57
+          ],
+          [
+            38,
+            56
+          ],
+          [
+            41,
+            53
+          ],
+          [
+            42,
+            52
+          ],
+          [
+            43,
+            51
+          ],
+          [
+            44,
+            50
+          ]
+        ]
+      }
+    },
+    {
+      "id": "54d6e6cdc4a77f48",
+      "sequence": "GUAAAAUUACGUUUGCGGAGUCGGAAGUGGCUAGAGGUAUCCGUUCCCUAUGGCAACCU",
+      "structure": "(((((......)))))..(((((....)))))..((((..((((.....))))..))))",
+      "mfeKcalMol": -12.399999618530273,
+      "targetKcalMol": -12.399999618530273,
+      "targetGapKcalMol": 0.0,
+      "targetProbability": 0.26608655622937594,
+      "ensembleDefect": 0.2666411116649639,
+      "pairF1": 1.0,
+      "missedPairs": [],
+      "extraPairs": [],
+      "source": "solver",
+      "qualifies": true,
+      "failureReasons": [],
+      "constraintViolations": [],
+      "independent": {
+        "structure": "............((((((((.((((....(((...))).)))))))).....))))...",
+        "mfeKcalMol": -9.1,
+        "engine": "RNA Lab reduced Turner nearest-neighbour",
+        "version": "rna-lab.fold/1.0.0",
+        "temperatureC": 37,
+        "sourceSha256": "b91b80420204d19535f369cce8c60c3b7b19723895010c127d87b536d3ba696f",
+        "agreesWithTarget": false,
+        "disagreementPairs": [
+          [
+            1,
+            16
+          ],
+          [
+            2,
+            15
+          ],
+          [
+            3,
+            14
+          ],
+          [
+            4,
+            13
+          ],
+          [
+            5,
+            12
+          ],
+          [
+            13,
+            56
+          ],
+          [
+            14,
+            55
+          ],
+          [
+            15,
+            54
+          ],
+          [
+            16,
+            53
+          ],
+          [
+            17,
+            47
+          ],
+          [
+            18,
+            46
+          ],
+          [
+            19,
+            32
+          ],
+          [
+            19,
+            45
+          ],
+          [
+            20,
+            31
+          ],
+          [
+            20,
+            44
+          ],
+          [
+            21,
+            30
+          ],
+          [
+            22,
+            29
+          ],
+          [
+            22,
+            43
+          ],
+          [
+            23,
+            28
+          ],
+          [
+            23,
+            42
+          ],
+          [
+            24,
+            41
+          ],
+          [
+            25,
+            40
+          ],
+          [
+            30,
+            38
+          ],
+          [
+            31,
+            37
+          ],
+          [
+            32,
+            36
+          ],
+          [
+            35,
+            59
+          ],
+          [
+            36,
+            58
+          ],
+          [
+            37,
+            57
+          ],
+          [
+            38,
+            56
+          ],
+          [
+            41,
+            53
+          ],
+          [
+            42,
+            52
+          ],
+          [
+            43,
+            51
+          ],
+          [
+            44,
+            50
+          ]
+        ]
+      }
+    },
+    {
+      "id": "35bbf40b7da3caf9",
+      "sequence": "CGGCUGGUCGGAGUCGUCCUGCCUCAUGGCAGAUGGGUAAUUCGGAGCUUGAGGGACUC",
+      "structure": "(((((......)))))..(((((....)))))..((((..((((.....))))..))))",
+      "mfeKcalMol": -17.799999237060547,
+      "targetKcalMol": -17.799999237060547,
+      "targetGapKcalMol": 0.0,
+      "targetProbability": 0.20088204986122482,
+      "ensembleDefect": 0.2680365341285067,
+      "pairF1": 1.0,
+      "missedPairs": [],
+      "extraPairs": [],
+      "source": "solver pair-error repair",
+      "qualifies": true,
+      "failureReasons": [],
+      "constraintViolations": [],
+      "independent": {
+        "structure": ".((((..(((((.(((((.((((....)))))))))....)))))))))..........",
+        "mfeKcalMol": -13.9,
+        "engine": "RNA Lab reduced Turner nearest-neighbour",
+        "version": "rna-lab.fold/1.0.0",
+        "temperatureC": 37,
+        "sourceSha256": "b91b80420204d19535f369cce8c60c3b7b19723895010c127d87b536d3ba696f",
+        "agreesWithTarget": false,
+        "disagreementPairs": [
+          [
+            1,
+            16
+          ],
+          [
+            2,
+            15
+          ],
+          [
+            2,
+            49
+          ],
+          [
+            3,
+            14
+          ],
+          [
+            3,
+            48
+          ],
+          [
+            4,
+            13
+          ],
+          [
+            4,
+            47
+          ],
+          [
+            5,
+            12
+          ],
+          [
+            5,
+            46
+          ],
+          [
+            8,
+            45
+          ],
+          [
+            9,
+            44
+          ],
+          [
+            10,
+            43
+          ],
+          [
+            11,
+            42
+          ],
+          [
+            12,
+            41
+          ],
+          [
+            14,
+            36
+          ],
+          [
+            15,
+            35
+          ],
+          [
+            16,
+            34
+          ],
+          [
+            17,
+            33
+          ],
+          [
+            18,
+            32
+          ],
+          [
+            19,
+            32
+          ],
+          [
+            35,
+            59
+          ],
+          [
+            36,
+            58
+          ],
+          [
+            37,
+            57
+          ],
+          [
+            38,
+            56
+          ],
+          [
+            41,
+            53
+          ],
+          [
+            42,
+            52
+          ],
+          [
+            43,
+            51
+          ],
+          [
+            44,
+            50
+          ]
+        ]
+      }
+    },
+    {
+      "id": "2dd4e7e23e37f456",
+      "sequence": "CGGCUGGACUGAGUCGUCCUGCCUCAUGGCAGAUGGGUAAUUGGGAGCGUUAGGGACUC",
+      "structure": "(((((......)))))..(((((....)))))..((((..((((.....))))..))))",
+      "mfeKcalMol": -16.100000381469727,
+      "targetKcalMol": -16.100000381469727,
+      "targetGapKcalMol": 0.0,
+      "targetProbability": 0.22269813344996536,
+      "ensembleDefect": 0.34733325263282505,
+      "pairF1": 1.0,
+      "missedPairs": [],
+      "extraPairs": [],
+      "source": "solver pair-error repair",
+      "qualifies": true,
+      "failureReasons": [],
+      "constraintViolations": [],
+      "independent": {
+        "structure": "..........(((((..(((((((((..((......))...)))).))...))))))))",
+        "mfeKcalMol": -10.4,
+        "engine": "RNA Lab reduced Turner nearest-neighbour",
+        "version": "rna-lab.fold/1.0.0",
+        "temperatureC": 37,
+        "sourceSha256": "b91b80420204d19535f369cce8c60c3b7b19723895010c127d87b536d3ba696f",
+        "agreesWithTarget": false,
+        "disagreementPairs": [
+          [
+            1,
+            16
+          ],
+          [
+            2,
+            15
+          ],
+          [
+            3,
+            14
+          ],
+          [
+            4,
+            13
+          ],
+          [
+            5,
+            12
+          ],
+          [
+            11,
+            59
+          ],
+          [
+            12,
+            58
+          ],
+          [
+            13,
+            57
+          ],
+          [
+            14,
+            56
+          ],
+          [
+            15,
+            55
+          ],
+          [
+            18,
+            54
+          ],
+          [
+            19,
+            32
+          ],
+          [
+            19,
+            53
+          ],
+          [
+            20,
+            31
+          ],
+          [
+            20,
+            52
+          ],
+          [
+            21,
+            30
+          ],
+          [
+            21,
+            48
+          ],
+          [
+            22,
+            29
+          ],
+          [
+            22,
+            47
+          ],
+          [
+            23,
+            28
+          ],
+          [
+            23,
+            45
+          ],
+          [
+            24,
+            44
+          ],
+          [
+            25,
+            43
+          ],
+          [
+            26,
+            42
+          ],
+          [
+            29,
+            38
+          ],
+          [
+            30,
+            37
+          ],
+          [
+            35,
+            59
+          ],
+          [
+            36,
+            58
+          ],
+          [
+            37,
+            57
+          ],
+          [
+            38,
+            56
+          ],
+          [
+            41,
+            53
+          ],
+          [
+            42,
+            52
+          ],
+          [
+            43,
+            51
+          ],
+          [
+            44,
+            50
+          ]
+        ]
+      }
+    },
+    {
+      "id": "8036732215a3d020",
+      "sequence": "GCAGGCGUAGACUUGUUUAUUUCUCAUGAAAUCCGCGUGGCAAAUUCUCUUUGGGACGU",
+      "structure": "(((((......)))))..(((((....)))))..((((..((((.....))))..))))",
+      "mfeKcalMol": -8.300000190734863,
+      "targetKcalMol": -8.300000190734863,
+      "targetGapKcalMol": 0.0,
+      "targetProbability": 0.1414240193626812,
+      "ensembleDefect": 0.38724611618426885,
+      "pairF1": 1.0,
+      "missedPairs": [],
+      "extraPairs": [],
+      "source": "solver",
+      "qualifies": true,
+      "failureReasons": [],
+      "constraintViolations": [],
+      "independent": {
+        "structure": "(((((......)))))..................((((..((((.....))))..))))",
+        "mfeKcalMol": -3.6,
+        "engine": "RNA Lab reduced Turner nearest-neighbour",
+        "version": "rna-lab.fold/1.0.0",
+        "temperatureC": 37,
+        "sourceSha256": "b91b80420204d19535f369cce8c60c3b7b19723895010c127d87b536d3ba696f",
+        "agreesWithTarget": false,
+        "disagreementPairs": [
+          [
+            19,
+            32
+          ],
+          [
+            20,
+            31
+          ],
+          [
+            21,
+            30
+          ],
+          [
+            22,
+            29
+          ],
+          [
+            23,
+            28
+          ]
+        ]
+      }
+    },
+    {
+      "id": "4826e32990341196",
+      "sequence": "GCAGCUGUAUCGUUGUUUAUUGCUCAUGCAAUCCGCGUUGCAAAUUCUCUUUGGUACGU",
+      "structure": "(((((......)))))..(((((....)))))..((((..((((.....))))..))))",
+      "mfeKcalMol": -11.800000190734863,
+      "targetKcalMol": -11.800000190734863,
+      "targetGapKcalMol": 0.0,
+      "targetProbability": 0.15075257291870128,
+      "ensembleDefect": 0.49446177526763735,
+      "pairF1": 1.0,
+      "missedPairs": [],
+      "extraPairs": [],
+      "source": "solver pair-error repair",
+      "qualifies": true,
+      "failureReasons": [],
+      "constraintViolations": [],
+      "independent": {
+        "structure": ".....(((((((.......((((...(((.....)))..))))........))))))).",
+        "mfeKcalMol": -7.06,
+        "engine": "RNA Lab reduced Turner nearest-neighbour",
+        "version": "rna-lab.fold/1.0.0",
+        "temperatureC": 37,
+        "sourceSha256": "b91b80420204d19535f369cce8c60c3b7b19723895010c127d87b536d3ba696f",
+        "agreesWithTarget": false,
+        "disagreementPairs": [
+          [
+            1,
+            16
+          ],
+          [
+            2,
+            15
+          ],
+          [
+            3,
+            14
+          ],
+          [
+            4,
+            13
+          ],
+          [
+            5,
+            12
+          ],
+          [
+            6,
+            58
+          ],
+          [
+            7,
+            57
+          ],
+          [
+            8,
+            56
+          ],
+          [
+            9,
+            55
+          ],
+          [
+            10,
+            54
+          ],
+          [
+            11,
+            53
+          ],
+          [
+            12,
+            52
+          ],
+          [
+            19,
+            32
+          ],
+          [
+            20,
+            31
+          ],
+          [
+            20,
+            43
+          ],
+          [
+            21,
+            30
+          ],
+          [
+            21,
+            42
+          ],
+          [
+            22,
+            29
+          ],
+          [
+            22,
+            41
+          ],
+          [
+            23,
+            28
+          ],
+          [
+            23,
+            40
+          ],
+          [
+            27,
+            37
+          ],
+          [
+            28,
+            36
+          ],
+          [
+            29,
+            35
+          ],
+          [
+            35,
+            59
+          ],
+          [
+            36,
+            58
+          ],
+          [
+            37,
+            57
+          ],
+          [
+            38,
+            56
+          ],
+          [
+            41,
+            53
+          ],
+          [
+            42,
+            52
+          ],
+          [
+            43,
+            51
+          ],
+          [
+            44,
+            50
+          ]
+        ]
+      }
+    },
+    {
+      "id": "5d989c51342397a5",
+      "sequence": "CGGCUGGUCGGAGUCGUCCUGCCUCAUGGCAGUUGGGGAAAUCGGCGUAUGAUGGUCUC",
+      "structure": "(((((......)))))..(((((....)))))..((((..((((.....))))..))))",
+      "mfeKcalMol": -17.299999237060547,
+      "targetKcalMol": -17.299999237060547,
+      "targetGapKcalMol": 0.0,
+      "targetProbability": 0.06339508169432444,
+      "ensembleDefect": 0.5408232064451602,
+      "pairF1": 1.0,
+      "missedPairs": [],
+      "extraPairs": [],
+      "source": "solver pair-error repair",
+      "qualifies": true,
+      "failureReasons": [],
+      "constraintViolations": [],
+      "independent": {
+        "structure": ".(((((.(((..(((((((((((....))).....))))...))))...))))))))..",
+        "mfeKcalMol": -11.5,
+        "engine": "RNA Lab reduced Turner nearest-neighbour",
+        "version": "rna-lab.fold/1.0.0",
+        "temperatureC": 37,
+        "sourceSha256": "b91b80420204d19535f369cce8c60c3b7b19723895010c127d87b536d3ba696f",
+        "agreesWithTarget": false,
+        "disagreementPairs": [
+          [
+            1,
+            16
+          ],
+          [
+            2,
+            15
+          ],
+          [
+            2,
+            57
+          ],
+          [
+            3,
+            14
+          ],
+          [
+            3,
+            56
+          ],
+          [
+            4,
+            13
+          ],
+          [
+            4,
+            55
+          ],
+          [
+            5,
+            12
+          ],
+          [
+            5,
+            54
+          ],
+          [
+            6,
+            53
+          ],
+          [
+            8,
+            52
+          ],
+          [
+            9,
+            51
+          ],
+          [
+            10,
+            50
+          ],
+          [
+            13,
+            46
+          ],
+          [
+            14,
+            45
+          ],
+          [
+            15,
+            44
+          ],
+          [
+            16,
+            43
+          ],
+          [
+            17,
+            39
+          ],
+          [
+            18,
+            38
+          ],
+          [
+            19,
+            32
+          ],
+          [
+            19,
+            37
+          ],
+          [
+            20,
+            31
+          ],
+          [
+            20,
+            36
+          ],
+          [
+            35,
+            59
+          ],
+          [
+            36,
+            58
+          ],
+          [
+            37,
+            57
+          ],
+          [
+            38,
+            56
+          ],
+          [
+            41,
+            53
+          ],
+          [
+            42,
+            52
+          ],
+          [
+            43,
+            51
+          ],
+          [
+            44,
+            50
+          ]
+        ]
+      }
+    },
+    {
+      "id": "90d02beba8ea87f5",
+      "sequence": "CGGCUGGUCGGAGUCGUCCUGCCUCAUGGCAGUUGGGUAAUUUGGAGCAUGAGGGACUC",
+      "structure": "(((((......)))))..(((((....)))))..((((..((((.....))))..))))",
+      "mfeKcalMol": -15.0,
+      "targetKcalMol": -15.0,
+      "targetGapKcalMol": 0.0,
+      "targetProbability": 0.02743570057516879,
+      "ensembleDefect": 0.6071907545302865,
+      "pairF1": 1.0,
+      "missedPairs": [],
+      "extraPairs": [],
+      "source": "solver",
+      "qualifies": true,
+      "failureReasons": [],
+      "constraintViolations": [],
+      "independent": {
+        "structure": "..........(((((......(((((((.(((.........)))...))))))))))))",
+        "mfeKcalMol": -10.9,
+        "engine": "RNA Lab reduced Turner nearest-neighbour",
+        "version": "rna-lab.fold/1.0.0",
+        "temperatureC": 37,
+        "sourceSha256": "b91b80420204d19535f369cce8c60c3b7b19723895010c127d87b536d3ba696f",
+        "agreesWithTarget": false,
+        "disagreementPairs": [
+          [
+            1,
+            16
+          ],
+          [
+            2,
+            15
+          ],
+          [
+            3,
+            14
+          ],
+          [
+            4,
+            13
+          ],
+          [
+            5,
+            12
+          ],
+          [
+            11,
+            59
+          ],
+          [
+            12,
+            58
+          ],
+          [
+            13,
+            57
+          ],
+          [
+            14,
+            56
+          ],
+          [
+            15,
+            55
+          ],
+          [
+            19,
+            32
+          ],
+          [
+            20,
+            31
+          ],
+          [
+            21,
+            30
+          ],
+          [
+            22,
+            29
+          ],
+          [
+            22,
+            54
+          ],
+          [
+            23,
+            28
+          ],
+          [
+            23,
+            53
+          ],
+          [
+            24,
+            52
+          ],
+          [
+            25,
+            51
+          ],
+          [
+            26,
+            50
+          ],
+          [
+            27,
+            49
+          ],
+          [
+            28,
+            48
+          ],
+          [
+            30,
+            44
+          ],
+          [
+            31,
+            43
+          ],
+          [
+            32,
+            42
+          ],
+          [
+            35,
+            59
+          ],
+          [
+            36,
+            58
+          ],
+          [
+            37,
+            57
+          ],
+          [
+            38,
+            56
+          ],
+          [
+            41,
+            53
+          ],
+          [
+            42,
+            52
+          ],
+          [
+            43,
+            51
+          ],
+          [
+            44,
+            50
+          ]
+        ]
+      }
+    }
+  ],
+  "metrics": {
+    "attempts": 8,
+    "solverCalls": 8,
+    "evaluations": 8,
+    "secondaryEvaluations": 8,
+    "batches": 8,
+    "elapsedSeconds": 0.691957832998014,
+    "firstSuccessSeconds": 0.022371832994394936,
+    "stopReason": "enough_candidates"
+  },
+  "qualifyingCount": 8,
+  "scorer": {
+    "engine": "ViennaRNA",
+    "version": "2.7.2",
+    "temperatureC": 37,
+    "dangles": 2,
+    "parameters": "Turner2004",
+    "noLP": false
+  },
+  "constraintRejections": 0,
+  "evidence": "Computational prediction. Solver labels are not experimental measurements.",
+  "inputSeal": "76a0685eaaa8b0ee7890769daf933d84f10813977ba568988d95b5eef5423ffa",
+  "sourceSha256": "d95db5d84f3efb062a5582f05a61c1322f4dfd8ebf1ef8b7dc05227287165cfd",
+  "proposalModel": null,
+  "cacheHitsThisSession": 0,
+  "solverAccounting": "solverCalls counts RNA.inverse_fold calls. Its internal energy evaluations are not exposed. Explicit final scoring and independent checks are counted separately.",
+  "sha256": "1e44c27709598431829ddc3cdc5d05a62d81a91595f2cf385be10289f3008248"
+}

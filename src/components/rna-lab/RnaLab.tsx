@@ -5,11 +5,13 @@ import {arcPath, compare, pairsOf, ribosomesAt, smooth, type Frame} from '../../
 import {fmt, SERIES, TimeChart} from '../mechanistic/MechCharts';
 import GeneStory from '../../cell/GeneStory';
 import KineticsView from './KineticsView';
+import QwenRnaWorkspace from './QwenRnaWorkspace';
+import RnaDesignWorkspace from './RnaDesignWorkspace';
 import '../multiscale/multiscale.css';
 import '../mechanistic/mechanistic.css';
 import './rna-lab.css';
 
-type Mode = 'fold' | 'kinetics' | 'translate' | 'story';
+type Mode = 'design' | 'predict' | 'fold' | 'kinetics' | 'translate' | 'story';
 interface CheckRow {check: string; detail: string; value: number | null; threshold?: number; passed: boolean; skipped?: boolean}
 
 function Checks({checks, runtime}: {checks: CheckRow[] | null; runtime?: string}) {
@@ -283,22 +285,27 @@ function TranslateView({catalog}: {catalog: any}) {
 }
 
 /** Analyse › RNA-to-Protein Laboratory: thermodynamic folding ensembles and stochastic translation, each from a validated computation. */
-export default function RnaLab() {
-  const [mode, setMode] = useState<Mode>('fold'), [catalog, setCatalog] = useState<any>(null), [error, setError] = useState('');
+export default function RnaLab({projectId,initialRunId,initialDesignRecord,onSaved,onOpenFold}:{projectId:string;initialRunId?:string;initialDesignRecord?:any;onSaved?:()=>Promise<unknown>;onOpenFold?:(id:string)=>void}) {
+  const [mode, setMode] = useState<Mode>(initialDesignRecord ? 'design' : 'predict'), [catalog, setCatalog] = useState<any>(null), [error, setError] = useState('');
   useEffect(() => { rpc<any>('rna_lab_catalog', {}).then(setCatalog, e => setError(String(e).replace(/^Error:\s*/, ''))); }, []);
+  useEffect(() => {if(initialDesignRecord) setMode('design');}, [initialDesignRecord]);
   return <div className="page-content rna-lab">
     <header className="mech-head">
-      <div><span className="eyebrow">Living Biology Universe · RNA</span><h1>RNA-to-Protein Laboratory</h1>
-        <p>Fold an RNA into its thermodynamic ensemble and watch ribosomes translate an mRNA — every number comes from a declared, validated computation.</p></div>
+      <div><span className="eyebrow">GENOME & RNA ENGINEERING</span><h1>RNA Lab</h1>
+        <p>Predict a fold. Inspect the evidence. Keep your experiments connected.</p></div>
       <div className="cosmos-segment">
-        <button className={mode === 'fold' ? 'active' : ''} onClick={() => setMode('fold')}>Folding ensemble</button>
-        <button className={mode === 'kinetics' ? 'active' : ''} onClick={() => setMode('kinetics')}>Folding kinetics</button>
-        <button className={mode === 'translate' ? 'active' : ''} onClick={() => setMode('translate')}>Translation</button>
-        <button className={mode === 'story' ? 'active' : ''} onClick={() => setMode('story')}>Illustrated story</button>
+        <button className={mode === 'design' ? 'active' : ''} onClick={() => setMode('design')}>Design</button>
+        <button className={mode === 'predict' ? 'active' : ''} onClick={() => setMode('predict')}>Predict</button>
+        <button className={mode === 'fold' ? 'active' : ''} onClick={() => setMode('fold')}>Ensemble</button>
+        <button className={mode === 'kinetics' ? 'active' : ''} onClick={() => setMode('kinetics')}>Simulate folding</button>
+        <button className={mode === 'translate' ? 'active' : ''} onClick={() => setMode('translate')}>Translate</button>
+        <button className={mode === 'story' ? 'active' : ''} onClick={() => setMode('story')}>Story</button>
       </div>
     </header>
     {error && <div className="mech-error" role="alert"><TriangleAlert size={15}/>{error}</div>}
     {!catalog && !error && <div className="mech-busy"><LoaderCircle size={16} className="spin"/>Opening the laboratory…</div>}
+    {mode === 'design' && <RnaDesignWorkspace key={projectId} projectId={projectId} saved={initialDesignRecord} onSaved={onSaved}/>}
+    {mode === 'predict' && <QwenRnaWorkspace key={projectId} projectId={projectId} initialRunId={initialRunId} onSaved={onSaved} onOpenFold={onOpenFold}/>}
     {catalog && mode === 'fold' && <FoldView catalog={catalog}/>}
     {mode === 'kinetics' && <KineticsView/>}
     {catalog && mode === 'translate' && <TranslateView catalog={catalog}/>}

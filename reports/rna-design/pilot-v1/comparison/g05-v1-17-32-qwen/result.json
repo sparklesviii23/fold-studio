@@ -1,0 +1,3165 @@
+{
+  "schema": "fold.rna-design-result/1",
+  "version": "rna-design/1.0.0",
+  "request": {
+    "target": "((((..((((.......))))..))))..(((......)))",
+    "mask": "NNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNN",
+    "locks": ".........................................",
+    "maxCandidates": 32,
+    "maxSeconds": 2,
+    "wanted": 3,
+    "seed": 17,
+    "gcMin": 0,
+    "gcMax": 1,
+    "maxHomopolymer": 128,
+    "method": "qwen"
+  },
+  "candidates": [
+    {
+      "id": "01596d2fa5b5e180",
+      "sequence": "AGUCACGGUUGUCACGAAAUCUCGACUAGGGGGCGAAACCC",
+      "structure": "((((..((((.......))))..))))..(((......)))",
+      "mfeKcalMol": -8.199999809265137,
+      "targetKcalMol": -8.199999809265137,
+      "targetGapKcalMol": 0.0,
+      "targetProbability": 0.4277396275197258,
+      "ensembleDefect": 0.11177937154993746,
+      "pairF1": 1.0,
+      "missedPairs": [],
+      "extraPairs": [],
+      "source": "qwen proposal with constraint repair",
+      "qualifies": true,
+      "failureReasons": [],
+      "constraintViolations": [],
+      "independent": {
+        "structure": "((((..((((.......))))..))))..(((......)))",
+        "mfeKcalMol": -3.1,
+        "engine": "RNA Lab reduced Turner nearest-neighbour",
+        "version": "rna-lab.fold/1.0.0",
+        "temperatureC": 37,
+        "agreesWithTarget": true,
+        "disagreementPairs": []
+      }
+    },
+    {
+      "id": "dbd884cb3e8259e2",
+      "sequence": "AGCAGCCAUGCGAACUUCAUGCUUGCUCCCCACAUCACUGG",
+      "structure": "(((((.((((.......)))).)))))..(((......)))",
+      "mfeKcalMol": -6.900000095367432,
+      "targetKcalMol": -5.800000190734863,
+      "targetGapKcalMol": 1.0999999046325684,
+      "targetProbability": 0.03939703650578217,
+      "ensembleDefect": 0.13679236028678884,
+      "pairF1": 0.9565217391304348,
+      "missedPairs": [],
+      "extraPairs": [
+        [
+          5,
+          23
+        ]
+      ],
+      "source": "qwen proposal with constraint repair",
+      "qualifies": false,
+      "failureReasons": [
+        "1 extra pairs are predicted."
+      ],
+      "constraintViolations": [],
+      "independent": {
+        "structure": "((((((.(((.......))))).))))..............",
+        "mfeKcalMol": -4.4,
+        "engine": "RNA Lab reduced Turner nearest-neighbour",
+        "version": "rna-lab.fold/1.0.0",
+        "temperatureC": 37,
+        "agreesWithTarget": false,
+        "disagreementPairs": [
+          [
+            5,
+            22
+          ],
+          [
+            5,
+            23
+          ],
+          [
+            6,
+            21
+          ],
+          [
+            7,
+            21
+          ],
+          [
+            30,
+            41
+          ],
+          [
+            31,
+            40
+          ],
+          [
+            32,
+            39
+          ]
+        ]
+      }
+    },
+    {
+      "id": "c7d0b359ec16d2c0",
+      "sequence": "ACAGGGAUAAGGAUGUGUUGUUGUUGUUUGGGCAGGGGCUC",
+      "structure": "((((.(((((.......))))).))))..((((....))))",
+      "mfeKcalMol": -7.699999809265137,
+      "targetKcalMol": -0.8999999761581421,
+      "targetGapKcalMol": 6.799999833106995,
+      "targetProbability": 4.584877217554588e-06,
+      "ensembleDefect": 0.24621431251076703,
+      "pairF1": 0.9166666666666666,
+      "missedPairs": [],
+      "extraPairs": [
+        [
+          6,
+          22
+        ],
+        [
+          33,
+          38
+        ]
+      ],
+      "source": "qwen proposal with constraint repair",
+      "qualifies": false,
+      "failureReasons": [
+        "2 extra pairs are predicted."
+      ],
+      "constraintViolations": [],
+      "independent": {
+        "structure": ".............................((((....))))",
+        "mfeKcalMol": -1.4,
+        "engine": "RNA Lab reduced Turner nearest-neighbour",
+        "version": "rna-lab.fold/1.0.0",
+        "temperatureC": 37,
+        "agreesWithTarget": false,
+        "disagreementPairs": [
+          [
+            1,
+            27
+          ],
+          [
+            2,
+            26
+          ],
+          [
+            3,
+            25
+          ],
+          [
+            4,
+            24
+          ],
+          [
+            6,
+            22
+          ],
+          [
+            7,
+            21
+          ],
+          [
+            8,
+            20
+          ],
+          [
+            9,
+            19
+          ],
+          [
+            10,
+            18
+          ]
+        ]
+      }
+    },
+    {
+      "id": "45f324c5ffb8bbef",
+      "sequence": "GGAUAAUUGUUGAAUUUGCGAGGGUCCUCAAGGUUAGGUUU",
+      "structure": "((((..((((.......))))..))))..............",
+      "mfeKcalMol": -6.599999904632568,
+      "targetKcalMol": -3.5999999046325684,
+      "targetGapKcalMol": 3.0,
+      "targetProbability": 0.006375979893444346,
+      "ensembleDefect": 0.1629147006528915,
+      "pairF1": 0.8421052631578947,
+      "missedPairs": [
+        [
+          30,
+          41
+        ],
+        [
+          31,
+          40
+        ],
+        [
+          32,
+          39
+        ]
+      ],
+      "extraPairs": [],
+      "source": "qwen proposal with constraint repair",
+      "qualifies": false,
+      "failureReasons": [
+        "3 target pairs are missing."
+      ],
+      "constraintViolations": []
+    },
+    {
+      "id": "f2d87ca6aee8db73",
+      "sequence": "CUGUUGUGUCGGUAUCUGGCACGGUAGAGCGAAAGGGAUUG",
+      "structure": "((((((((((((...))))))))))))..............",
+      "mfeKcalMol": -11.199999809265137,
+      "targetKcalMol": 0.20000000298023224,
+      "targetGapKcalMol": 11.399999812245369,
+      "targetProbability": 5.4033328644317315e-09,
+      "ensembleDefect": 0.3533735417368507,
+      "pairF1": 0.6956521739130435,
+      "missedPairs": [
+        [
+          30,
+          41
+        ],
+        [
+          31,
+          40
+        ],
+        [
+          32,
+          39
+        ]
+      ],
+      "extraPairs": [
+        [
+          5,
+          23
+        ],
+        [
+          6,
+          22
+        ],
+        [
+          11,
+          17
+        ],
+        [
+          12,
+          16
+        ]
+      ],
+      "source": "qwen proposal with constraint repair",
+      "qualifies": false,
+      "failureReasons": [
+        "3 target pairs are missing.",
+        "4 extra pairs are predicted."
+      ],
+      "constraintViolations": []
+    },
+    {
+      "id": "e0e01d5973c6e09e",
+      "sequence": "GUUCGAAAAGGUUUCGGUUUUUGGGGCGCCUAUGGGGAUAG",
+      "structure": "((((.(((((.......))))).)))).(((...)))....",
+      "mfeKcalMol": -6.800000190734863,
+      "targetKcalMol": -2.0999999046325684,
+      "targetGapKcalMol": 4.700000286102295,
+      "targetProbability": 6.208865175350489e-05,
+      "ensembleDefect": 0.4101325642571417,
+      "pairF1": 0.6956521739130435,
+      "missedPairs": [
+        [
+          30,
+          41
+        ],
+        [
+          31,
+          40
+        ],
+        [
+          32,
+          39
+        ]
+      ],
+      "extraPairs": [
+        [
+          6,
+          22
+        ],
+        [
+          29,
+          37
+        ],
+        [
+          30,
+          36
+        ],
+        [
+          31,
+          35
+        ]
+      ],
+      "source": "qwen proposal with constraint repair",
+      "qualifies": false,
+      "failureReasons": [
+        "3 target pairs are missing.",
+        "4 extra pairs are predicted."
+      ],
+      "constraintViolations": [],
+      "independent": {
+        "structure": "((((....(((((((((...)))))..))))....))))..",
+        "mfeKcalMol": -2.7,
+        "engine": "RNA Lab reduced Turner nearest-neighbour",
+        "version": "rna-lab.fold/1.0.0",
+        "temperatureC": 37,
+        "agreesWithTarget": false,
+        "disagreementPairs": [
+          [
+            1,
+            27
+          ],
+          [
+            1,
+            39
+          ],
+          [
+            2,
+            26
+          ],
+          [
+            2,
+            38
+          ],
+          [
+            3,
+            25
+          ],
+          [
+            3,
+            37
+          ],
+          [
+            4,
+            24
+          ],
+          [
+            4,
+            36
+          ],
+          [
+            6,
+            22
+          ],
+          [
+            7,
+            21
+          ],
+          [
+            8,
+            20
+          ],
+          [
+            9,
+            19
+          ],
+          [
+            9,
+            31
+          ],
+          [
+            10,
+            18
+          ],
+          [
+            10,
+            30
+          ],
+          [
+            11,
+            29
+          ],
+          [
+            12,
+            28
+          ],
+          [
+            13,
+            25
+          ],
+          [
+            14,
+            24
+          ],
+          [
+            15,
+            23
+          ],
+          [
+            16,
+            22
+          ],
+          [
+            17,
+            21
+          ],
+          [
+            29,
+            37
+          ],
+          [
+            30,
+            36
+          ],
+          [
+            31,
+            35
+          ]
+        ]
+      }
+    },
+    {
+      "id": "52e1c25cb3f2aee4",
+      "sequence": "UGCUUGUGCUUGAUGUUAGUGCUGGCAGGGUGUCAAGCCGC",
+      "structure": "((((.(((((.......))))).)))).(((.....)))..",
+      "mfeKcalMol": -11.100000381469727,
+      "targetKcalMol": -3.5,
+      "targetGapKcalMol": 7.600000381469727,
+      "targetProbability": 1.3439363323823632e-06,
+      "ensembleDefect": 0.44700293969216004,
+      "pairF1": 0.6956521739130435,
+      "missedPairs": [
+        [
+          30,
+          41
+        ],
+        [
+          31,
+          40
+        ],
+        [
+          32,
+          39
+        ]
+      ],
+      "extraPairs": [
+        [
+          6,
+          22
+        ],
+        [
+          29,
+          39
+        ],
+        [
+          30,
+          38
+        ],
+        [
+          31,
+          37
+        ]
+      ],
+      "source": "qwen proposal with constraint repair",
+      "qualifies": false,
+      "failureReasons": [
+        "3 target pairs are missing.",
+        "4 extra pairs are predicted."
+      ],
+      "constraintViolations": []
+    },
+    {
+      "id": "9b235513a7213b59",
+      "sequence": "GGAAGCGGGUGAUUCUAACUCACUUCUGUAGGCCCGCCUUU",
+      "structure": "(((((.((((.......)))).)))))..(((....)))..",
+      "mfeKcalMol": -10.300000190734863,
+      "targetKcalMol": -0.30000001192092896,
+      "targetGapKcalMol": 10.000000178813934,
+      "targetProbability": 7.57955781387521e-09,
+      "ensembleDefect": 0.7138273422802686,
+      "pairF1": 0.6956521739130435,
+      "missedPairs": [
+        [
+          30,
+          41
+        ],
+        [
+          31,
+          40
+        ],
+        [
+          32,
+          39
+        ]
+      ],
+      "extraPairs": [
+        [
+          5,
+          23
+        ],
+        [
+          30,
+          39
+        ],
+        [
+          31,
+          38
+        ],
+        [
+          32,
+          37
+        ]
+      ],
+      "source": "qwen proposal with constraint repair",
+      "qualifies": false,
+      "failureReasons": [
+        "3 target pairs are missing.",
+        "4 extra pairs are predicted."
+      ],
+      "constraintViolations": [],
+      "independent": {
+        "structure": "....((((((.....................))))))....",
+        "mfeKcalMol": -7.1,
+        "engine": "RNA Lab reduced Turner nearest-neighbour",
+        "version": "rna-lab.fold/1.0.0",
+        "temperatureC": 37,
+        "agreesWithTarget": false,
+        "disagreementPairs": [
+          [
+            1,
+            27
+          ],
+          [
+            2,
+            26
+          ],
+          [
+            3,
+            25
+          ],
+          [
+            4,
+            24
+          ],
+          [
+            5,
+            23
+          ],
+          [
+            5,
+            37
+          ],
+          [
+            6,
+            36
+          ],
+          [
+            7,
+            21
+          ],
+          [
+            7,
+            35
+          ],
+          [
+            8,
+            20
+          ],
+          [
+            8,
+            34
+          ],
+          [
+            9,
+            19
+          ],
+          [
+            9,
+            33
+          ],
+          [
+            10,
+            18
+          ],
+          [
+            10,
+            32
+          ],
+          [
+            30,
+            39
+          ],
+          [
+            31,
+            38
+          ],
+          [
+            32,
+            37
+          ]
+        ]
+      }
+    },
+    {
+      "id": "df7112c5b9e10d51",
+      "sequence": "CUAGGGGGACCUGCAUCGUCCCAUUAGGCGUGCACAAAUGU",
+      "structure": "((((.(((((.......))))).))))((((......))))",
+      "mfeKcalMol": -11.699999809265137,
+      "targetKcalMol": 0.20000000298023224,
+      "targetGapKcalMol": 11.899999812245369,
+      "targetProbability": 1.7539884947511242e-09,
+      "ensembleDefect": 0.30906027004330977,
+      "pairF1": 0.6666666666666666,
+      "missedPairs": [
+        [
+          30,
+          41
+        ],
+        [
+          31,
+          40
+        ],
+        [
+          32,
+          39
+        ]
+      ],
+      "extraPairs": [
+        [
+          6,
+          22
+        ],
+        [
+          28,
+          41
+        ],
+        [
+          29,
+          40
+        ],
+        [
+          30,
+          39
+        ],
+        [
+          31,
+          38
+        ]
+      ],
+      "source": "qwen proposal with constraint repair",
+      "qualifies": false,
+      "failureReasons": [
+        "3 target pairs are missing.",
+        "5 extra pairs are predicted."
+      ],
+      "constraintViolations": [],
+      "independent": {
+        "structure": "(((..(((((.......)))))..)))..............",
+        "mfeKcalMol": -6.5,
+        "engine": "RNA Lab reduced Turner nearest-neighbour",
+        "version": "rna-lab.fold/1.0.0",
+        "temperatureC": 37,
+        "agreesWithTarget": false,
+        "disagreementPairs": [
+          [
+            4,
+            24
+          ],
+          [
+            28,
+            41
+          ],
+          [
+            29,
+            40
+          ],
+          [
+            30,
+            39
+          ],
+          [
+            31,
+            38
+          ]
+        ]
+      }
+    },
+    {
+      "id": "9383a453f2dc17ae",
+      "sequence": "AUGAUAAGUAUUUUAUGUGUUAAUUGUCAGAUCGACAGGUC",
+      "structure": ".((((((................))))))((((....))))",
+      "mfeKcalMol": -4.5,
+      "targetKcalMol": 7.300000190734863,
+      "targetGapKcalMol": 11.800000190734863,
+      "targetProbability": 6.731551948702136e-10,
+      "ensembleDefect": 0.5920754969061144,
+      "pairF1": 0.2857142857142857,
+      "missedPairs": [
+        [
+          1,
+          27
+        ],
+        [
+          2,
+          26
+        ],
+        [
+          3,
+          25
+        ],
+        [
+          4,
+          24
+        ],
+        [
+          7,
+          21
+        ],
+        [
+          8,
+          20
+        ],
+        [
+          9,
+          19
+        ],
+        [
+          10,
+          18
+        ]
+      ],
+      "extraPairs": [
+        [
+          2,
+          29
+        ],
+        [
+          3,
+          28
+        ],
+        [
+          4,
+          27
+        ],
+        [
+          5,
+          26
+        ],
+        [
+          6,
+          25
+        ],
+        [
+          7,
+          24
+        ],
+        [
+          33,
+          38
+        ]
+      ],
+      "source": "qwen proposal with constraint repair",
+      "qualifies": false,
+      "failureReasons": [
+        "8 target pairs are missing.",
+        "7 extra pairs are predicted."
+      ],
+      "constraintViolations": []
+    },
+    {
+      "id": "711049256008822e",
+      "sequence": "AGGUCUAGGACCCCUUUUCUUGUACCUCCUGGCGAAGAUCG",
+      "structure": ".((((...)))).....((((...((....))..))))...",
+      "mfeKcalMol": -6.400000095367432,
+      "targetKcalMol": -1.2000000476837158,
+      "targetGapKcalMol": 5.200000047683716,
+      "targetProbability": 4.570052601718088e-05,
+      "ensembleDefect": 0.6246977975755945,
+      "pairF1": 0.0,
+      "missedPairs": [
+        [
+          1,
+          27
+        ],
+        [
+          2,
+          26
+        ],
+        [
+          3,
+          25
+        ],
+        [
+          4,
+          24
+        ],
+        [
+          7,
+          21
+        ],
+        [
+          8,
+          20
+        ],
+        [
+          9,
+          19
+        ],
+        [
+          10,
+          18
+        ],
+        [
+          30,
+          41
+        ],
+        [
+          31,
+          40
+        ],
+        [
+          32,
+          39
+        ]
+      ],
+      "extraPairs": [
+        [
+          2,
+          12
+        ],
+        [
+          3,
+          11
+        ],
+        [
+          4,
+          10
+        ],
+        [
+          5,
+          9
+        ],
+        [
+          18,
+          38
+        ],
+        [
+          19,
+          37
+        ],
+        [
+          20,
+          36
+        ],
+        [
+          21,
+          35
+        ],
+        [
+          25,
+          32
+        ],
+        [
+          26,
+          31
+        ]
+      ],
+      "source": "qwen proposal with constraint repair",
+      "qualifies": false,
+      "failureReasons": [
+        "11 target pairs are missing.",
+        "10 extra pairs are predicted."
+      ],
+      "constraintViolations": []
+    },
+    {
+      "id": "a4b3831d279cc41d",
+      "sequence": "UUCAGAUGUCCUCUGUAGAUGCUUGAGUGGUUACAAACGGU",
+      "structure": ".........((..(((((.(((....))).)))))...)).",
+      "mfeKcalMol": -2.5999999046325684,
+      "targetKcalMol": 5.199999809265137,
+      "targetGapKcalMol": 7.799999713897705,
+      "targetProbability": 1.4610249099239775e-07,
+      "ensembleDefect": 0.6565144902053452,
+      "pairF1": 0.0,
+      "missedPairs": [
+        [
+          1,
+          27
+        ],
+        [
+          2,
+          26
+        ],
+        [
+          3,
+          25
+        ],
+        [
+          4,
+          24
+        ],
+        [
+          7,
+          21
+        ],
+        [
+          8,
+          20
+        ],
+        [
+          9,
+          19
+        ],
+        [
+          10,
+          18
+        ],
+        [
+          30,
+          41
+        ],
+        [
+          31,
+          40
+        ],
+        [
+          32,
+          39
+        ]
+      ],
+      "extraPairs": [
+        [
+          10,
+          40
+        ],
+        [
+          11,
+          39
+        ],
+        [
+          14,
+          35
+        ],
+        [
+          15,
+          34
+        ],
+        [
+          16,
+          33
+        ],
+        [
+          17,
+          32
+        ],
+        [
+          18,
+          31
+        ],
+        [
+          20,
+          29
+        ],
+        [
+          21,
+          28
+        ],
+        [
+          22,
+          27
+        ]
+      ],
+      "source": "qwen proposal with constraint repair",
+      "qualifies": false,
+      "failureReasons": [
+        "11 target pairs are missing.",
+        "10 extra pairs are predicted."
+      ],
+      "constraintViolations": []
+    },
+    {
+      "id": "779a48fc97388992",
+      "sequence": "GCUGGCGUUGGUGUUGCUAGUAGCGGCUAUGCGUUCUCGCA",
+      "structure": "((.(((((....((((((...))))))...)))))...)).",
+      "mfeKcalMol": -11.800000190734863,
+      "targetKcalMol": -3.799999952316284,
+      "targetGapKcalMol": 8.000000238418579,
+      "targetProbability": 4.769789386644982e-07,
+      "ensembleDefect": 0.6696437777665254,
+      "pairF1": 0.0,
+      "missedPairs": [
+        [
+          1,
+          27
+        ],
+        [
+          2,
+          26
+        ],
+        [
+          3,
+          25
+        ],
+        [
+          4,
+          24
+        ],
+        [
+          7,
+          21
+        ],
+        [
+          8,
+          20
+        ],
+        [
+          9,
+          19
+        ],
+        [
+          10,
+          18
+        ],
+        [
+          30,
+          41
+        ],
+        [
+          31,
+          40
+        ],
+        [
+          32,
+          39
+        ]
+      ],
+      "extraPairs": [
+        [
+          1,
+          40
+        ],
+        [
+          2,
+          39
+        ],
+        [
+          4,
+          35
+        ],
+        [
+          5,
+          34
+        ],
+        [
+          6,
+          33
+        ],
+        [
+          7,
+          32
+        ],
+        [
+          8,
+          31
+        ],
+        [
+          13,
+          27
+        ],
+        [
+          14,
+          26
+        ],
+        [
+          15,
+          25
+        ],
+        [
+          16,
+          24
+        ],
+        [
+          17,
+          23
+        ],
+        [
+          18,
+          22
+        ]
+      ],
+      "source": "qwen proposal with constraint repair",
+      "qualifies": false,
+      "failureReasons": [
+        "11 target pairs are missing.",
+        "13 extra pairs are predicted."
+      ],
+      "constraintViolations": []
+    },
+    {
+      "id": "3d68b7c2056d9d00",
+      "sequence": "AUGUUCUAUAUCUUGUCUAUAUAGUGUACGUUUCUUUGAAU",
+      "structure": "((((.((((((.......))))))...))))..........",
+      "mfeKcalMol": -2.5,
+      "targetKcalMol": 7.699999809265137,
+      "targetGapKcalMol": 10.199999809265137,
+      "targetProbability": 2.2942283573504077e-08,
+      "ensembleDefect": 0.6772278937686959,
+      "pairF1": 0.0,
+      "missedPairs": [
+        [
+          1,
+          27
+        ],
+        [
+          2,
+          26
+        ],
+        [
+          3,
+          25
+        ],
+        [
+          4,
+          24
+        ],
+        [
+          7,
+          21
+        ],
+        [
+          8,
+          20
+        ],
+        [
+          9,
+          19
+        ],
+        [
+          10,
+          18
+        ],
+        [
+          30,
+          41
+        ],
+        [
+          31,
+          40
+        ],
+        [
+          32,
+          39
+        ]
+      ],
+      "extraPairs": [
+        [
+          1,
+          31
+        ],
+        [
+          2,
+          30
+        ],
+        [
+          3,
+          29
+        ],
+        [
+          4,
+          28
+        ],
+        [
+          6,
+          24
+        ],
+        [
+          7,
+          23
+        ],
+        [
+          8,
+          22
+        ],
+        [
+          9,
+          21
+        ],
+        [
+          10,
+          20
+        ],
+        [
+          11,
+          19
+        ]
+      ],
+      "source": "qwen proposal with constraint repair",
+      "qualifies": false,
+      "failureReasons": [
+        "11 target pairs are missing.",
+        "10 extra pairs are predicted."
+      ],
+      "constraintViolations": []
+    },
+    {
+      "id": "678caf1c48a23a59",
+      "sequence": "CUGCCUAGGGGCGCGGGCUUUCAGUGGCUAUAUAUUUCUGU",
+      "structure": "..(((..(((((....)))))....))).............",
+      "mfeKcalMol": -7.900000095367432,
+      "targetKcalMol": 0.5,
+      "targetGapKcalMol": 8.400000095367432,
+      "targetProbability": 3.4719150562591064e-07,
+      "ensembleDefect": 0.6888032703922967,
+      "pairF1": 0.0,
+      "missedPairs": [
+        [
+          1,
+          27
+        ],
+        [
+          2,
+          26
+        ],
+        [
+          3,
+          25
+        ],
+        [
+          4,
+          24
+        ],
+        [
+          7,
+          21
+        ],
+        [
+          8,
+          20
+        ],
+        [
+          9,
+          19
+        ],
+        [
+          10,
+          18
+        ],
+        [
+          30,
+          41
+        ],
+        [
+          31,
+          40
+        ],
+        [
+          32,
+          39
+        ]
+      ],
+      "extraPairs": [
+        [
+          3,
+          28
+        ],
+        [
+          4,
+          27
+        ],
+        [
+          5,
+          26
+        ],
+        [
+          8,
+          21
+        ],
+        [
+          9,
+          20
+        ],
+        [
+          10,
+          19
+        ],
+        [
+          11,
+          18
+        ],
+        [
+          12,
+          17
+        ]
+      ],
+      "source": "qwen proposal with constraint repair",
+      "qualifies": false,
+      "failureReasons": [
+        "11 target pairs are missing.",
+        "8 extra pairs are predicted."
+      ],
+      "constraintViolations": [],
+      "independent": {
+        "structure": "..(((..(((((....)))))....))).............",
+        "mfeKcalMol": -4.1,
+        "engine": "RNA Lab reduced Turner nearest-neighbour",
+        "version": "rna-lab.fold/1.0.0",
+        "temperatureC": 37,
+        "agreesWithTarget": false,
+        "disagreementPairs": []
+      }
+    },
+    {
+      "id": "f231942ebb6c2b5c",
+      "sequence": "GGCUCUGUGUGGUCUUAGUAUGUGGCCACUGCAUCAUCGCG",
+      "structure": ".((..(((((((((.........)))))).))).....)).",
+      "mfeKcalMol": -9.899999618530273,
+      "targetKcalMol": -4.199999809265137,
+      "targetGapKcalMol": 5.699999809265137,
+      "targetProbability": 1.904134684674622e-05,
+      "ensembleDefect": 0.7106112878077637,
+      "pairF1": 0.0,
+      "missedPairs": [
+        [
+          1,
+          27
+        ],
+        [
+          2,
+          26
+        ],
+        [
+          3,
+          25
+        ],
+        [
+          4,
+          24
+        ],
+        [
+          7,
+          21
+        ],
+        [
+          8,
+          20
+        ],
+        [
+          9,
+          19
+        ],
+        [
+          10,
+          18
+        ],
+        [
+          30,
+          41
+        ],
+        [
+          31,
+          40
+        ],
+        [
+          32,
+          39
+        ]
+      ],
+      "extraPairs": [
+        [
+          2,
+          40
+        ],
+        [
+          3,
+          39
+        ],
+        [
+          6,
+          33
+        ],
+        [
+          7,
+          32
+        ],
+        [
+          8,
+          31
+        ],
+        [
+          9,
+          29
+        ],
+        [
+          10,
+          28
+        ],
+        [
+          11,
+          27
+        ],
+        [
+          12,
+          26
+        ],
+        [
+          13,
+          25
+        ],
+        [
+          14,
+          24
+        ]
+      ],
+      "source": "qwen proposal with constraint repair",
+      "qualifies": false,
+      "failureReasons": [
+        "11 target pairs are missing.",
+        "11 extra pairs are predicted."
+      ],
+      "constraintViolations": []
+    },
+    {
+      "id": "65839b85df1046a5",
+      "sequence": "UUUUCAUGAACGAAAGUUUCGCCGAGGGGUACCAUGUAGUG",
+      "structure": ".......((((....)))).(((....)))...........",
+      "mfeKcalMol": -4.0,
+      "targetKcalMol": 3.0,
+      "targetGapKcalMol": 7.0,
+      "targetProbability": 9.329216932856238e-07,
+      "ensembleDefect": 0.7385451519780732,
+      "pairF1": 0.0,
+      "missedPairs": [
+        [
+          1,
+          27
+        ],
+        [
+          2,
+          26
+        ],
+        [
+          3,
+          25
+        ],
+        [
+          4,
+          24
+        ],
+        [
+          7,
+          21
+        ],
+        [
+          8,
+          20
+        ],
+        [
+          9,
+          19
+        ],
+        [
+          10,
+          18
+        ],
+        [
+          30,
+          41
+        ],
+        [
+          31,
+          40
+        ],
+        [
+          32,
+          39
+        ]
+      ],
+      "extraPairs": [
+        [
+          8,
+          19
+        ],
+        [
+          9,
+          18
+        ],
+        [
+          10,
+          17
+        ],
+        [
+          11,
+          16
+        ],
+        [
+          21,
+          30
+        ],
+        [
+          22,
+          29
+        ],
+        [
+          23,
+          28
+        ]
+      ],
+      "source": "qwen proposal with constraint repair",
+      "qualifies": false,
+      "failureReasons": [
+        "11 target pairs are missing.",
+        "7 extra pairs are predicted."
+      ],
+      "constraintViolations": []
+    },
+    {
+      "id": "3ebfc1d2da18d450",
+      "sequence": "UUCUCUAAGCCUUUGGCGUUUCGGGAGAAAUACAAAGAUGU",
+      "structure": "((((((..(((...)))......))))))............",
+      "mfeKcalMol": -7.900000095367432,
+      "targetKcalMol": 1.100000023841858,
+      "targetGapKcalMol": 9.00000011920929,
+      "targetProbability": 1.2230633627870149e-07,
+      "ensembleDefect": 0.7408908014317025,
+      "pairF1": 0.0,
+      "missedPairs": [
+        [
+          1,
+          27
+        ],
+        [
+          2,
+          26
+        ],
+        [
+          3,
+          25
+        ],
+        [
+          4,
+          24
+        ],
+        [
+          7,
+          21
+        ],
+        [
+          8,
+          20
+        ],
+        [
+          9,
+          19
+        ],
+        [
+          10,
+          18
+        ],
+        [
+          30,
+          41
+        ],
+        [
+          31,
+          40
+        ],
+        [
+          32,
+          39
+        ]
+      ],
+      "extraPairs": [
+        [
+          1,
+          29
+        ],
+        [
+          2,
+          28
+        ],
+        [
+          3,
+          27
+        ],
+        [
+          4,
+          26
+        ],
+        [
+          5,
+          25
+        ],
+        [
+          6,
+          24
+        ],
+        [
+          9,
+          17
+        ],
+        [
+          10,
+          16
+        ],
+        [
+          11,
+          15
+        ]
+      ],
+      "source": "qwen proposal with constraint repair",
+      "qualifies": false,
+      "failureReasons": [
+        "11 target pairs are missing.",
+        "9 extra pairs are predicted."
+      ],
+      "constraintViolations": []
+    },
+    {
+      "id": "0e2fa2595fc8c40b",
+      "sequence": "ACUGGAUUGGUAGCCGGCUGAGAUAGUUAUGGACUAAACUG",
+      "structure": ".((((........))))......(((((...))))).....",
+      "mfeKcalMol": -5.0,
+      "targetKcalMol": 0.6000000238418579,
+      "targetGapKcalMol": 5.600000023841858,
+      "targetProbability": 8.602604567025226e-06,
+      "ensembleDefect": 0.7468284910429388,
+      "pairF1": 0.0,
+      "missedPairs": [
+        [
+          1,
+          27
+        ],
+        [
+          2,
+          26
+        ],
+        [
+          3,
+          25
+        ],
+        [
+          4,
+          24
+        ],
+        [
+          7,
+          21
+        ],
+        [
+          8,
+          20
+        ],
+        [
+          9,
+          19
+        ],
+        [
+          10,
+          18
+        ],
+        [
+          30,
+          41
+        ],
+        [
+          31,
+          40
+        ],
+        [
+          32,
+          39
+        ]
+      ],
+      "extraPairs": [
+        [
+          2,
+          17
+        ],
+        [
+          3,
+          16
+        ],
+        [
+          4,
+          15
+        ],
+        [
+          5,
+          14
+        ],
+        [
+          24,
+          36
+        ],
+        [
+          25,
+          35
+        ],
+        [
+          26,
+          34
+        ],
+        [
+          27,
+          33
+        ],
+        [
+          28,
+          32
+        ]
+      ],
+      "source": "qwen proposal with constraint repair",
+      "qualifies": false,
+      "failureReasons": [
+        "11 target pairs are missing.",
+        "9 extra pairs are predicted."
+      ],
+      "constraintViolations": []
+    },
+    {
+      "id": "c80c7f4f29891a55",
+      "sequence": "GAGGGGGAGGCGCUGCACCUUUGCUUCCCAAGCUAGCCUUU",
+      "structure": "((((((((((((.........)))))))).......)))).",
+      "mfeKcalMol": -12.0,
+      "targetKcalMol": -3.299999952316284,
+      "targetGapKcalMol": 8.700000047683716,
+      "targetProbability": 1.4460878993598493e-07,
+      "ensembleDefect": 0.7492488227335565,
+      "pairF1": 0.0,
+      "missedPairs": [
+        [
+          1,
+          27
+        ],
+        [
+          2,
+          26
+        ],
+        [
+          3,
+          25
+        ],
+        [
+          4,
+          24
+        ],
+        [
+          7,
+          21
+        ],
+        [
+          8,
+          20
+        ],
+        [
+          9,
+          19
+        ],
+        [
+          10,
+          18
+        ],
+        [
+          30,
+          41
+        ],
+        [
+          31,
+          40
+        ],
+        [
+          32,
+          39
+        ]
+      ],
+      "extraPairs": [
+        [
+          1,
+          40
+        ],
+        [
+          2,
+          39
+        ],
+        [
+          3,
+          38
+        ],
+        [
+          4,
+          37
+        ],
+        [
+          5,
+          29
+        ],
+        [
+          6,
+          28
+        ],
+        [
+          7,
+          27
+        ],
+        [
+          8,
+          26
+        ],
+        [
+          9,
+          25
+        ],
+        [
+          10,
+          24
+        ],
+        [
+          11,
+          23
+        ],
+        [
+          12,
+          22
+        ]
+      ],
+      "source": "qwen proposal with constraint repair",
+      "qualifies": false,
+      "failureReasons": [
+        "11 target pairs are missing.",
+        "12 extra pairs are predicted."
+      ],
+      "constraintViolations": []
+    },
+    {
+      "id": "08cdd8371142b9b8",
+      "sequence": "UGCCUUGGGCUGGGUAGGUUUCCGGUAGUUUGUUUCCCCGG",
+      "structure": "(((((......))))).....((((............))))",
+      "mfeKcalMol": -8.100000381469727,
+      "targetKcalMol": -0.699999988079071,
+      "targetGapKcalMol": 7.4000003933906555,
+      "targetProbability": 1.312176842792487e-06,
+      "ensembleDefect": 0.7495559045226711,
+      "pairF1": 0.0,
+      "missedPairs": [
+        [
+          1,
+          27
+        ],
+        [
+          2,
+          26
+        ],
+        [
+          3,
+          25
+        ],
+        [
+          4,
+          24
+        ],
+        [
+          7,
+          21
+        ],
+        [
+          8,
+          20
+        ],
+        [
+          9,
+          19
+        ],
+        [
+          10,
+          18
+        ],
+        [
+          30,
+          41
+        ],
+        [
+          31,
+          40
+        ],
+        [
+          32,
+          39
+        ]
+      ],
+      "extraPairs": [
+        [
+          1,
+          16
+        ],
+        [
+          2,
+          15
+        ],
+        [
+          3,
+          14
+        ],
+        [
+          4,
+          13
+        ],
+        [
+          5,
+          12
+        ],
+        [
+          22,
+          41
+        ],
+        [
+          23,
+          40
+        ],
+        [
+          24,
+          39
+        ],
+        [
+          25,
+          38
+        ]
+      ],
+      "source": "qwen proposal with constraint repair",
+      "qualifies": false,
+      "failureReasons": [
+        "11 target pairs are missing.",
+        "9 extra pairs are predicted."
+      ],
+      "constraintViolations": []
+    },
+    {
+      "id": "8d5f211fa6fae0a1",
+      "sequence": "GUGGCAUGUACUAGAAAUGUAACUUGUGUAUGGGACGGUGU",
+      "structure": "((..(((((((.((........)).)))))))..)).....",
+      "mfeKcalMol": -5.0,
+      "targetKcalMol": 12.699999809265137,
+      "targetGapKcalMol": 17.699999809265137,
+      "targetProbability": 1.3605322567985343e-13,
+      "ensembleDefect": 0.7513122187557865,
+      "pairF1": 0.0,
+      "missedPairs": [
+        [
+          1,
+          27
+        ],
+        [
+          2,
+          26
+        ],
+        [
+          3,
+          25
+        ],
+        [
+          4,
+          24
+        ],
+        [
+          7,
+          21
+        ],
+        [
+          8,
+          20
+        ],
+        [
+          9,
+          19
+        ],
+        [
+          10,
+          18
+        ],
+        [
+          30,
+          41
+        ],
+        [
+          31,
+          40
+        ],
+        [
+          32,
+          39
+        ]
+      ],
+      "extraPairs": [
+        [
+          1,
+          36
+        ],
+        [
+          2,
+          35
+        ],
+        [
+          5,
+          32
+        ],
+        [
+          6,
+          31
+        ],
+        [
+          7,
+          30
+        ],
+        [
+          8,
+          29
+        ],
+        [
+          9,
+          28
+        ],
+        [
+          10,
+          27
+        ],
+        [
+          11,
+          26
+        ],
+        [
+          13,
+          24
+        ],
+        [
+          14,
+          23
+        ]
+      ],
+      "source": "qwen proposal with constraint repair",
+      "qualifies": false,
+      "failureReasons": [
+        "11 target pairs are missing.",
+        "11 extra pairs are predicted."
+      ],
+      "constraintViolations": []
+    },
+    {
+      "id": "db92fb923293d6b9",
+      "sequence": "CUGAGCUGCGCAAAAAUUGCACAUCGGGGGCUCUGAGCGGC",
+      "structure": "....(((((((((...))))...((((.....)))))))))",
+      "mfeKcalMol": -9.300000190734863,
+      "targetKcalMol": -6.599999904632568,
+      "targetGapKcalMol": 2.700000286102295,
+      "targetProbability": 0.002112994146150113,
+      "ensembleDefect": 0.7519758243740728,
+      "pairF1": 0.0,
+      "missedPairs": [
+        [
+          1,
+          27
+        ],
+        [
+          2,
+          26
+        ],
+        [
+          3,
+          25
+        ],
+        [
+          4,
+          24
+        ],
+        [
+          7,
+          21
+        ],
+        [
+          8,
+          20
+        ],
+        [
+          9,
+          19
+        ],
+        [
+          10,
+          18
+        ],
+        [
+          30,
+          41
+        ],
+        [
+          31,
+          40
+        ],
+        [
+          32,
+          39
+        ]
+      ],
+      "extraPairs": [
+        [
+          5,
+          41
+        ],
+        [
+          6,
+          40
+        ],
+        [
+          7,
+          39
+        ],
+        [
+          8,
+          38
+        ],
+        [
+          9,
+          37
+        ],
+        [
+          10,
+          20
+        ],
+        [
+          11,
+          19
+        ],
+        [
+          12,
+          18
+        ],
+        [
+          13,
+          17
+        ],
+        [
+          24,
+          36
+        ],
+        [
+          25,
+          35
+        ],
+        [
+          26,
+          34
+        ],
+        [
+          27,
+          33
+        ]
+      ],
+      "source": "qwen proposal with constraint repair",
+      "qualifies": false,
+      "failureReasons": [
+        "11 target pairs are missing.",
+        "13 extra pairs are predicted."
+      ],
+      "constraintViolations": []
+    },
+    {
+      "id": "701f71862fa71d29",
+      "sequence": "AAAGUAAUAGGGGCUUUCUGUGACUUUUCAGUCUAAUUGCU",
+      "structure": "..((((((..(((((..............))))).))))))",
+      "mfeKcalMol": -6.199999809265137,
+      "targetKcalMol": -1.7000000476837158,
+      "targetGapKcalMol": 4.499999761581421,
+      "targetProbability": 0.0001614701076564135,
+      "ensembleDefect": 0.7550608408668986,
+      "pairF1": 0.0,
+      "missedPairs": [
+        [
+          1,
+          27
+        ],
+        [
+          2,
+          26
+        ],
+        [
+          3,
+          25
+        ],
+        [
+          4,
+          24
+        ],
+        [
+          7,
+          21
+        ],
+        [
+          8,
+          20
+        ],
+        [
+          9,
+          19
+        ],
+        [
+          10,
+          18
+        ],
+        [
+          30,
+          41
+        ],
+        [
+          31,
+          40
+        ],
+        [
+          32,
+          39
+        ]
+      ],
+      "extraPairs": [
+        [
+          3,
+          41
+        ],
+        [
+          4,
+          40
+        ],
+        [
+          5,
+          39
+        ],
+        [
+          6,
+          38
+        ],
+        [
+          7,
+          37
+        ],
+        [
+          8,
+          36
+        ],
+        [
+          11,
+          34
+        ],
+        [
+          12,
+          33
+        ],
+        [
+          13,
+          32
+        ],
+        [
+          14,
+          31
+        ],
+        [
+          15,
+          30
+        ]
+      ],
+      "source": "qwen proposal with constraint repair",
+      "qualifies": false,
+      "failureReasons": [
+        "11 target pairs are missing.",
+        "11 extra pairs are predicted."
+      ],
+      "constraintViolations": []
+    },
+    {
+      "id": "a4fb87e41bd448df",
+      "sequence": "CAGUGGCAUUGCGCGUCGAUGGUGUUGCGUUUUAUCUUGAA",
+      "structure": ".....(((..((((.......))))))).............",
+      "mfeKcalMol": -6.099999904632568,
+      "targetKcalMol": 2.5,
+      "targetGapKcalMol": 8.599999904632568,
+      "targetProbability": 1.4762709614386683e-07,
+      "ensembleDefect": 0.7701511370406248,
+      "pairF1": 0.0,
+      "missedPairs": [
+        [
+          1,
+          27
+        ],
+        [
+          2,
+          26
+        ],
+        [
+          3,
+          25
+        ],
+        [
+          4,
+          24
+        ],
+        [
+          7,
+          21
+        ],
+        [
+          8,
+          20
+        ],
+        [
+          9,
+          19
+        ],
+        [
+          10,
+          18
+        ],
+        [
+          30,
+          41
+        ],
+        [
+          31,
+          40
+        ],
+        [
+          32,
+          39
+        ]
+      ],
+      "extraPairs": [
+        [
+          6,
+          28
+        ],
+        [
+          7,
+          27
+        ],
+        [
+          8,
+          26
+        ],
+        [
+          11,
+          25
+        ],
+        [
+          12,
+          24
+        ],
+        [
+          13,
+          23
+        ],
+        [
+          14,
+          22
+        ]
+      ],
+      "source": "qwen proposal with constraint repair",
+      "qualifies": false,
+      "failureReasons": [
+        "11 target pairs are missing.",
+        "7 extra pairs are predicted."
+      ],
+      "constraintViolations": []
+    },
+    {
+      "id": "218d27dfc5aeaf1a",
+      "sequence": "CGCCAAGCGAGCUGCGGUUGCAGGGCGCCAUGGACGGACGU",
+      "structure": "(((((.(((..((((....))))..)))..))).)).....",
+      "mfeKcalMol": -15.199999809265137,
+      "targetKcalMol": -10.199999809265137,
+      "targetGapKcalMol": 5.0,
+      "targetProbability": 0.00024218312087451464,
+      "ensembleDefect": 0.7853833977243532,
+      "pairF1": 0.0,
+      "missedPairs": [
+        [
+          1,
+          27
+        ],
+        [
+          2,
+          26
+        ],
+        [
+          3,
+          25
+        ],
+        [
+          4,
+          24
+        ],
+        [
+          7,
+          21
+        ],
+        [
+          8,
+          20
+        ],
+        [
+          9,
+          19
+        ],
+        [
+          10,
+          18
+        ],
+        [
+          30,
+          41
+        ],
+        [
+          31,
+          40
+        ],
+        [
+          32,
+          39
+        ]
+      ],
+      "extraPairs": [
+        [
+          1,
+          36
+        ],
+        [
+          2,
+          35
+        ],
+        [
+          3,
+          33
+        ],
+        [
+          4,
+          32
+        ],
+        [
+          5,
+          31
+        ],
+        [
+          7,
+          28
+        ],
+        [
+          8,
+          27
+        ],
+        [
+          9,
+          26
+        ],
+        [
+          12,
+          23
+        ],
+        [
+          13,
+          22
+        ],
+        [
+          14,
+          21
+        ],
+        [
+          15,
+          20
+        ]
+      ],
+      "source": "qwen proposal with constraint repair",
+      "qualifies": false,
+      "failureReasons": [
+        "11 target pairs are missing.",
+        "12 extra pairs are predicted."
+      ],
+      "constraintViolations": []
+    },
+    {
+      "id": "479f0f21b11e5690",
+      "sequence": "UACGUAUAUGGGAUGCGUGUGAAUGUAACCGGUAAAUUUCG",
+      "structure": "......(((.((.(((((....))))).)).))).......",
+      "mfeKcalMol": -8.699999809265137,
+      "targetKcalMol": 1.5,
+      "targetGapKcalMol": 10.199999809265137,
+      "targetProbability": 3.405831042118287e-08,
+      "ensembleDefect": 0.79053813461993,
+      "pairF1": 0.0,
+      "missedPairs": [
+        [
+          1,
+          27
+        ],
+        [
+          2,
+          26
+        ],
+        [
+          3,
+          25
+        ],
+        [
+          4,
+          24
+        ],
+        [
+          7,
+          21
+        ],
+        [
+          8,
+          20
+        ],
+        [
+          9,
+          19
+        ],
+        [
+          10,
+          18
+        ],
+        [
+          30,
+          41
+        ],
+        [
+          31,
+          40
+        ],
+        [
+          32,
+          39
+        ]
+      ],
+      "extraPairs": [
+        [
+          7,
+          34
+        ],
+        [
+          8,
+          33
+        ],
+        [
+          9,
+          32
+        ],
+        [
+          11,
+          30
+        ],
+        [
+          12,
+          29
+        ],
+        [
+          14,
+          27
+        ],
+        [
+          15,
+          26
+        ],
+        [
+          16,
+          25
+        ],
+        [
+          17,
+          24
+        ],
+        [
+          18,
+          23
+        ]
+      ],
+      "source": "qwen proposal with constraint repair",
+      "qualifies": false,
+      "failureReasons": [
+        "11 target pairs are missing.",
+        "10 extra pairs are predicted."
+      ],
+      "constraintViolations": []
+    },
+    {
+      "id": "5b1367ed64018b2f",
+      "sequence": "CGGAAUUUAGUAUUGGGUUGGCGUUCGGACAAAACCUAUUG",
+      "structure": ".............((((((.............))))))...",
+      "mfeKcalMol": -4.5,
+      "targetKcalMol": 2.0,
+      "targetGapKcalMol": 6.5,
+      "targetProbability": 3.0794031617248582e-06,
+      "ensembleDefect": 0.8079583634364186,
+      "pairF1": 0.0,
+      "missedPairs": [
+        [
+          1,
+          27
+        ],
+        [
+          2,
+          26
+        ],
+        [
+          3,
+          25
+        ],
+        [
+          4,
+          24
+        ],
+        [
+          7,
+          21
+        ],
+        [
+          8,
+          20
+        ],
+        [
+          9,
+          19
+        ],
+        [
+          10,
+          18
+        ],
+        [
+          30,
+          41
+        ],
+        [
+          31,
+          40
+        ],
+        [
+          32,
+          39
+        ]
+      ],
+      "extraPairs": [
+        [
+          14,
+          38
+        ],
+        [
+          15,
+          37
+        ],
+        [
+          16,
+          36
+        ],
+        [
+          17,
+          35
+        ],
+        [
+          18,
+          34
+        ],
+        [
+          19,
+          33
+        ]
+      ],
+      "source": "qwen proposal with constraint repair",
+      "qualifies": false,
+      "failureReasons": [
+        "11 target pairs are missing.",
+        "6 extra pairs are predicted."
+      ],
+      "constraintViolations": []
+    },
+    {
+      "id": "398ee8623e85723e",
+      "sequence": "UGCUUGGUGUCGAUACUAUGUUGGGUACGUCGUUACGGCGA",
+      "structure": "(((((((((.((.((((......)))))).))))).)))).",
+      "mfeKcalMol": -7.800000190734863,
+      "targetKcalMol": 3.200000047683716,
+      "targetGapKcalMol": 11.000000238418579,
+      "targetProbability": 1.7037103927884513e-09,
+      "ensembleDefect": 0.8331280391334652,
+      "pairF1": 0.0,
+      "missedPairs": [
+        [
+          1,
+          27
+        ],
+        [
+          2,
+          26
+        ],
+        [
+          3,
+          25
+        ],
+        [
+          4,
+          24
+        ],
+        [
+          7,
+          21
+        ],
+        [
+          8,
+          20
+        ],
+        [
+          9,
+          19
+        ],
+        [
+          10,
+          18
+        ],
+        [
+          30,
+          41
+        ],
+        [
+          31,
+          40
+        ],
+        [
+          32,
+          39
+        ]
+      ],
+      "extraPairs": [
+        [
+          1,
+          40
+        ],
+        [
+          2,
+          39
+        ],
+        [
+          3,
+          38
+        ],
+        [
+          4,
+          37
+        ],
+        [
+          5,
+          35
+        ],
+        [
+          6,
+          34
+        ],
+        [
+          7,
+          33
+        ],
+        [
+          8,
+          32
+        ],
+        [
+          9,
+          31
+        ],
+        [
+          11,
+          29
+        ],
+        [
+          12,
+          28
+        ],
+        [
+          14,
+          27
+        ],
+        [
+          15,
+          26
+        ],
+        [
+          16,
+          25
+        ],
+        [
+          17,
+          24
+        ]
+      ],
+      "source": "qwen proposal with constraint repair",
+      "qualifies": false,
+      "failureReasons": [
+        "11 target pairs are missing.",
+        "15 extra pairs are predicted."
+      ],
+      "constraintViolations": []
+    },
+    {
+      "id": "37e11c8ebbb78fb8",
+      "sequence": "CAAGCGAAAUGAUGCCUGUUUGUUUUGUACAAAGUGCGUUG",
+      "structure": "..........(((((...(((((.....)))))..))))).",
+      "mfeKcalMol": -6.5,
+      "targetKcalMol": 1.399999976158142,
+      "targetGapKcalMol": 7.899999976158142,
+      "targetProbability": 7.821158109024652e-07,
+      "ensembleDefect": 0.8407923281126184,
+      "pairF1": 0.0,
+      "missedPairs": [
+        [
+          1,
+          27
+        ],
+        [
+          2,
+          26
+        ],
+        [
+          3,
+          25
+        ],
+        [
+          4,
+          24
+        ],
+        [
+          7,
+          21
+        ],
+        [
+          8,
+          20
+        ],
+        [
+          9,
+          19
+        ],
+        [
+          10,
+          18
+        ],
+        [
+          30,
+          41
+        ],
+        [
+          31,
+          40
+        ],
+        [
+          32,
+          39
+        ]
+      ],
+      "extraPairs": [
+        [
+          11,
+          40
+        ],
+        [
+          12,
+          39
+        ],
+        [
+          13,
+          38
+        ],
+        [
+          14,
+          37
+        ],
+        [
+          15,
+          36
+        ],
+        [
+          19,
+          33
+        ],
+        [
+          20,
+          32
+        ],
+        [
+          21,
+          31
+        ],
+        [
+          22,
+          30
+        ],
+        [
+          23,
+          29
+        ]
+      ],
+      "source": "qwen proposal with constraint repair",
+      "qualifies": false,
+      "failureReasons": [
+        "11 target pairs are missing.",
+        "10 extra pairs are predicted."
+      ],
+      "constraintViolations": []
+    },
+    {
+      "id": "d1d4d86b5b01138b",
+      "sequence": "GGCAUCAGAGGCAGCGACUUUUCUGCUCGGUCCGUGAUGGC",
+      "structure": "(.(((((..(((((((.......))))..)))..))))).)",
+      "mfeKcalMol": -11.899999618530273,
+      "targetKcalMol": -4.5,
+      "targetGapKcalMol": 7.399999618530273,
+      "targetProbability": 1.3386854147744084e-06,
+      "ensembleDefect": 0.8503921719720368,
+      "pairF1": 0.0,
+      "missedPairs": [
+        [
+          1,
+          27
+        ],
+        [
+          2,
+          26
+        ],
+        [
+          3,
+          25
+        ],
+        [
+          4,
+          24
+        ],
+        [
+          7,
+          21
+        ],
+        [
+          8,
+          20
+        ],
+        [
+          9,
+          19
+        ],
+        [
+          10,
+          18
+        ],
+        [
+          30,
+          41
+        ],
+        [
+          31,
+          40
+        ],
+        [
+          32,
+          39
+        ]
+      ],
+      "extraPairs": [
+        [
+          1,
+          41
+        ],
+        [
+          3,
+          39
+        ],
+        [
+          4,
+          38
+        ],
+        [
+          5,
+          37
+        ],
+        [
+          6,
+          36
+        ],
+        [
+          7,
+          35
+        ],
+        [
+          10,
+          32
+        ],
+        [
+          11,
+          31
+        ],
+        [
+          12,
+          30
+        ],
+        [
+          13,
+          27
+        ],
+        [
+          14,
+          26
+        ],
+        [
+          15,
+          25
+        ],
+        [
+          16,
+          24
+        ]
+      ],
+      "source": "qwen proposal with constraint repair",
+      "qualifies": false,
+      "failureReasons": [
+        "11 target pairs are missing.",
+        "13 extra pairs are predicted."
+      ],
+      "constraintViolations": []
+    },
+    {
+      "id": "70e2749fd8a475c0",
+      "sequence": "UGAGGGAUUUCACGUACGGAUGUCUUGGUCCGGUACUGUGG",
+      "structure": "..........(((((((((((......)))).)))).))).",
+      "mfeKcalMol": -11.5,
+      "targetKcalMol": -0.6000000238418579,
+      "targetGapKcalMol": 10.899999976158142,
+      "targetProbability": 5.36977550874637e-09,
+      "ensembleDefect": 0.8591761938012183,
+      "pairF1": 0.0,
+      "missedPairs": [
+        [
+          1,
+          27
+        ],
+        [
+          2,
+          26
+        ],
+        [
+          3,
+          25
+        ],
+        [
+          4,
+          24
+        ],
+        [
+          7,
+          21
+        ],
+        [
+          8,
+          20
+        ],
+        [
+          9,
+          19
+        ],
+        [
+          10,
+          18
+        ],
+        [
+          30,
+          41
+        ],
+        [
+          31,
+          40
+        ],
+        [
+          32,
+          39
+        ]
+      ],
+      "extraPairs": [
+        [
+          11,
+          40
+        ],
+        [
+          12,
+          39
+        ],
+        [
+          13,
+          38
+        ],
+        [
+          14,
+          36
+        ],
+        [
+          15,
+          35
+        ],
+        [
+          16,
+          34
+        ],
+        [
+          17,
+          33
+        ],
+        [
+          18,
+          31
+        ],
+        [
+          19,
+          30
+        ],
+        [
+          20,
+          29
+        ],
+        [
+          21,
+          28
+        ]
+      ],
+      "source": "qwen proposal with constraint repair",
+      "qualifies": false,
+      "failureReasons": [
+        "11 target pairs are missing.",
+        "11 extra pairs are predicted."
+      ],
+      "constraintViolations": []
+    }
+  ],
+  "metrics": {
+    "attempts": 32,
+    "solverCalls": 0,
+    "evaluations": 32,
+    "secondaryEvaluations": 7,
+    "batches": 32,
+    "elapsedSeconds": 0.221153416991001,
+    "firstSuccessSeconds": 0.07996670898864977,
+    "stopReason": "candidate_limit"
+  },
+  "qualifyingCount": 1,
+  "scorer": {
+    "engine": "ViennaRNA",
+    "version": "2.7.2",
+    "temperatureC": 37,
+    "dangles": 2,
+    "parameters": "Turner2004",
+    "noLP": false
+  },
+  "constraintRejections": 0,
+  "evidence": "Computational prediction. Solver labels are not experimental measurements.",
+  "inputSeal": "7646ecdd14ac2b2316ca0aa41f48fe514d5a0ee3b2e92f859d30e7c1283593c2",
+  "cacheHitsThisSession": 0,
+  "solverAccounting": "solverCalls counts RNA.inverse_fold calls. Its internal energy evaluations are not exposed. Explicit final scoring and independent checks are counted separately.",
+  "sha256": "cb50469131d2eaac7e6fbc8ca5240b8b4b5a2a2bbb4ca466e15fc14ff16a94d8"
+}

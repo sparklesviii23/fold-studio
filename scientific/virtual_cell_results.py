@@ -2,6 +2,7 @@
 
 Sources are the labs' own `fold-studio.research-record` v1 files; their engines are not called or modified:
   cell_physics  <library>/cell_physics/runs/*.json   Living Cell Brownian dynamics (diffusion, receptor binding)
+  cell_em       <library>/cell_em/runs/*.json        Brownian dynamics in the EM-derived HeLa cell (latest cumulative summary)
   rna_lab       <library>/rna_lab/runs/*.json        RNA folding ensembles, TASEP translation
 
 Each record's integrity is re-checked with the writing lab's own recipe (SOURCES[...]['hashed']). The normalised result
@@ -20,6 +21,12 @@ SCHEMA = 'fold.virtualcell.simulation-result/1'
 SOURCES = {
     'cell_physics': {'dir': ('cell_physics', 'runs'), 'lab': 'Living Cell Physics', 'hashed': ('inputs', 'solver', 'outputs'), 'default': float,
                      'scale': 'single idealised cell (µm, s); point particles'},
+    'cell_em': {'dir': ('cell_em', 'runs'), 'lab': 'Real Cell (EM) Brownian dynamics', 'hashed': ('inputs', 'solver', 'outputs'), 'default': float,
+                'scale': 'one fixed HeLa cell imaged by FIB-SEM (µm, s); point particles in its segmented geometry'},
+    'light_pulse': {'dir': ('light_pulse', 'runs'), 'lab': 'Virtual light-pulse experiment', 'hashed': ('inputs', 'solver', 'outputs'), 'default': float,
+                    'scale': 'population mean of an E. coli culture (min, MEFL); a compartment model with no geometry'},
+    'hela_erk': {'dir': ('hela_erk', 'runs'), 'lab': 'HeLa EGF–ERK experiment', 'hashed': ('inputs', 'solver', 'outputs'), 'default': float,
+                 'scale': 'one HeLa cell of a live-cell experiment (min, C/N ratio); two compartments, nucleus and cytoplasm'},
     'rna_lab': {'dir': ('rna_lab', 'runs'), 'lab': 'RNA-to-Protein Lab', 'hashed': ('engine', 'inputs', 'solver', 'outputs'), 'default': None,
                 'scale': 'single RNA molecule (nucleotides / codons, s)'},
 }
@@ -95,4 +102,16 @@ def get(root, source, rid):
             'convergence': rec.get('benchmark'), 'assumptions': rec.get('assumptions'), 'limitations': rec.get('limitations'),
             'reproducibility': rec.get('reproducibility'), 'integrity': _integrity(rec, source), 'scale': SOURCES[source]['scale'],
             'validation': ('benchmark checks passed' if (rec.get('benchmark') or {}).get('passed') else 'benchmark checks failed' if rec.get('benchmark') else 'no benchmark recorded'),
-            'context': 'Describes the idealised system in its own inputs, not the selected Virtual Cell context; nothing is mapped onto the 3D cell.'}
+            'spatial': ({'specimen': 'HeLa (CVCL_0030), one fixed cell, OpenOrganelle jrc_hela-2 FIB-SEM' if (((rec.get('experiment') or {}).get('config') or {}).get('context') or 'hela-jrc_hela-2') == 'hela-jrc_hela-2' else 'E. coli, illustrative rod geometry (not an image)', 'counts': out.get('events'), 'events': out.get('pairEvents') or [],
+                         'eventsTruncated': bool(out.get('pairEventsTruncated')), 'experiment': {k: (rec.get('experiment') or {}).get(k) for k in ('label', 'parent', 'chunks')},
+                         'structures': [{k: s.get(k) for k in ('name', 'structure', 'structureSha256', 'structureName')} for s in ((rec.get('experiment') or {}).get('config') or {}).get('species', [])]}
+                        if source == 'cell_em' else None),
+            'timeline': ({'events': out.get('events') or [], 'unit': out.get('timeUnit'), 'experiment': {k: (rec.get('experiment') or {}).get(k) for k in ('label', 'parent', 'context')},
+                          'validation': rec.get('validation'), 'warnings': rec.get('warnings') or [], 'drivers': rec.get('drivers') or []} if source in ('light_pulse', 'hela_erk') else None),
+            'open': ({'workspace': 'spatial', 'run': rec.get('id', rid), 'context': ((rec.get('experiment') or {}).get('config') or {}).get('context')} if source == 'cell_em' else
+                     {'workspace': source, 'run': rec.get('id', rid), 'context': (rec.get('experiment') or {}).get('context')} if source in ('light_pulse', 'hela_erk') else None),
+            'context': ('A prediction for HeLa cells carrying the ERK-KTR reporter, from a model fitted to single cells of a public live-cell experiment. The electron-microscopy HeLa cell is a geometry reference only: it is another specimen, and it is not the selected Virtual Cell context.'
+                        if source == 'hela_erk' else 'A prediction for an E. coli strain carrying a light-responsive reporter, from a model fitted to published time courses of that strain. It is not the selected Virtual Cell context and says nothing about a human cell.'
+                        if source == 'light_pulse' else 'Computed in the measured geometry of one fixed HeLa cell (the EM specimen). That specimen is not the selected Virtual Cell biological context, and no expression, fitness, metabolism or signalling readout is computed by this run.'
+                        if source == 'cell_em' and (((rec.get('experiment') or {}).get('config') or {}).get('context') or 'hela-jrc_hela-2') == 'hela-jrc_hela-2' else
+                        'Computed in an illustrative rod-shaped geometry for E. coli; the geometry is drawn, not imaged, and no molecular readout is computed by this run.' if source == 'cell_em' else 'Describes the idealised system in its own inputs, not the selected Virtual Cell context; nothing is mapped onto the 3D cell.')}

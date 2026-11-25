@@ -1,0 +1,106 @@
+{
+  "campaignId": "3f3e6771f7846d6387e1476c6a20a6ed",
+  "stageId": "a285c74172c19f8d3db0768925baa4a9",
+  "logs": [
+    {
+      "timestamp": "2026-10-26T22:08:58.868935+00:00",
+      "message": "RAPID_EVENT {\"campaignId\":\"3f3e6771f7846d6387e1476c6a20a6ed\",\"candidateId\":null,\"category\":\"queued\",\"cursor\":1,\"engine\":\"bindcraft2\",\"eventId\":\"8b255654296410fb2ccf9140924cbaaf4dcd4673665652f0d4e82456b31e05fe\",\"functionCallId\":\"\",\"message\":\"{\\\"kind\\\": \\\"queued\\\", \\\"manifestSha256\\\": \\\"1a7c198d4678f99ca3b004c7cf94a350e6bced28da3b1f5f032be07bebe5cd90\\\"}\",\"metrics\":null,\"rawReference\":null,\"resources\":null,\"schemaVersion\":1,\"severity\":\"info\",\"source\":\"structured\",\"sourceEventHash\":\"a610bbbd2ad2cd6131483e59ace6e579e39450acee62f591bbc79e5ef3dc338d\",\"sourcePreviousHash\":null,\"stageId\":\"a285c74172c19f8d3db0768925baa4a9\",\"timestamp\":\"2026-10-26T22:08:58.761581+00:00\"}"
+    },
+    {
+      "timestamp": "2026-10-26T22:09:08.385187+00:00",
+      "message": "RAPID_EVENT {\"campaignId\":\"3f3e6771f7846d6387e1476c6a20a6ed\",\"candidateId\":null,\"category\":\"started\",\"cursor\":2,\"engine\":\"bindcraft2\",\"eventId\":\"b1d6896ed9907c9247a5aa593b878e554d86d70a63bef2d2aa07eb8f4929ac0c\",\"functionCallId\":\"\",\"message\":\"{\\\"childPid\\\": 30, \\\"command\\\": [\\\"/models/rapid/runtimes/bindcraft2/bin/python\\\", \\\"/opt/fold-rapid-release/sources/bindcraft2/bindcraft.py\\\", \\\"design\\\", \\\"/data/rapid/campaigns/3f3e6771f7846d6387e1476c6a20a6ed/stages/a285c74172c19f8d3db0768925baa4a9/jobs/ddac6e4aca924936b4c7d8de8585def7/execution-settings.json\\\"], \\\"kind\\\": \\\"started\\\", \\\"sourceRevision\\\": \\\"c0ee638d11bc010817c2c97ee58ed5c323e664e2\\\"}\",\"metrics\":null,\"rawReference\":null,\"resources\":null,\"schemaVersion\":1,\"severity\":\"info\",\"source\":\"structured\",\"sourceEventHash\":\"a94c87582daac6febe01e0f0d72213dca080b46dbc443e9e06cd237427885d16\",\"sourcePreviousHash\":\"a610bbbd2ad2cd6131483e59ace6e579e39450acee62f591bbc79e5ef3dc338d\",\"stageId\":\"a285c74172c19f8d3db0768925baa4a9\",\"timestamp\":\"2026-10-26T22:09:08.264521+00:00\"}"
+    },
+    {
+      "timestamp": "2026-10-26T22:09:08.596561+00:00",
+      "message": "RAPID CUDA startup \u00b7 bindcraft2"
+    },
+    {
+      "timestamp": "2026-10-26T22:09:14.937242+00:00",
+      "message": "RAPID CUDA numerical check passed; starting original model entry point"
+    },
+    {
+      "timestamp": "2026-10-26T22:09:17.116877+00:00",
+      "message": "bindcraft: 1 GPU visible, designing on it alone"
+    },
+    {
+      "timestamp": "2026-10-26T22:09:17.213752+00:00",
+      "message": "compiled graphs cached in /__modal/volumes/vo-2fxjdMATQ9UU1g6cPYwIRw/rapid/compile-cache/9ecbda5ced84da185f00a279d0bb077d1290d826590ecb2f3f61a84552e5c1a8"
+    },
+    {
+      "timestamp": "2026-10-26T22:09:23.637889+00:00",
+      "message": "campaign preflight: design model_1_multimer_v3,model_3_multimer_v3,model_5_multimer_v3 | validation model_2_multimer_v3,model_4_multimer_v3 | redesign negative/v_48_020 | targets target | output /data/rapid/campaigns/3f3e6771f7846d6387e1476c6a20a6ed/stages/a285c74172c19f8d3db0768925baa4a9/jobs/ddac6e4aca924936b4c7d8de8585def7/output"
+    },
+    {
+      "timestamp": "2026-10-26T22:09:27.970242+00:00",
+      "message": "campaign metadata: BindCraft 2 v1.0.3 | settings /__modal/volumes/vo-2fxjdMATQ9UU1g6cPYwIRw/rapid/campaigns/3f3e6771f7846d6387e1476c6a20a6ed/stages/a285c74172c19f8d3db0768925baa4a9/jobs/ddac6e4aca924936b4c7d8de8585def7/execution-settings.json | written /data/rapid/campaigns/3f3e6771f7846d6387e1476c6a20a6ed/stages/a285c74172c19f8d3db0768925baa4a9/jobs/ddac6e4aca924936b4c7d8de8585def7/output/campaign_metadata.json"
+    },
+    {
+      "timestamp": "2026-10-26T22:09:30.099099+00:00",
+      "message": "campaign fan-out held to 1 design worker(s) by a budget of 1 trajectories: a worker beyond the budget claims none\n"
+    },
+    {
+      "timestamp": "2026-10-26T22:09:32.246860+00:00",
+      "message": "BindCraft 2 v1.0.3\n"
+    },
+    {
+      "timestamp": "2026-10-26T22:09:32.344806+00:00",
+      "message": "campaign output"
+    },
+    {
+      "timestamp": "2026-10-26T22:09:32.436556+00:00",
+      "message": "binder fab-scaffold scaffold, framework held and the named spans redesigned"
+    },
+    {
+      "timestamp": "2026-10-26T22:09:32.545961+00:00",
+      "message": "target target (target) | 115 residues"
+    },
+    {
+      "timestamp": "2026-10-26T22:09:32.639612+00:00",
+      "message": "losses binder_coldspot=1.0 binder_contacts=1.0 binder_helicity=-0.3 binder_pae=0.4 compactness=0.5 interface_contacts=1.0 interface_pae=0.1 iptm_loss=0.05 plddt_loss=0.1"
+    },
+    {
+      "timestamp": "2026-10-26T22:09:32.747604+00:00",
+      "message": "filters Backbone_Clashes <= 0, Interface_Residues >= 7, Off_Paratope_Contact_Fraction <= 0.2, Scaffold_Framework_RMSD <= 3, Scaffold_Sequence_Retained_Fraction >= 1, Unbound_Binder_pLDDT >= 0.7, i_pAE <= 0.35, i_pTM >= 0.7, pTM >= 0.55"
+    },
+    {
+      "timestamp": "2026-10-26T22:09:32.854906+00:00",
+      "message": "results /data/rapid/campaigns/3f3e6771f7846d6387e1476c6a20a6ed/stages/a285c74172c19f8d3db0768925baa4a9/jobs/ddac6e4aca924936b4c7d8de8585def7/output | 3_Ranked/!_Ranked.csv rewritten as each design is accepted | summary.csv written when the campaign ends"
+    },
+    {
+      "timestamp": "2026-10-26T22:09:38.861992+00:00",
+      "message": "=== trajectory 1 | design_l437_f54abae1f6339c72 | accepted 0/1 ==="
+    },
+    {
+      "timestamp": "2026-10-26T22:29:00.865635+00:00",
+      "message": "  passed screen design stage  i_pTM=0.68    pLDDT=0.93  "
+    },
+    {
+      "timestamp": "2026-10-26T22:34:10.109850+00:00",
+      "message": "  passed refine design stage  i_pTM=0.74    pLDDT=0.92  "
+    },
+    {
+      "timestamp": "2026-10-26T22:43:29.237119+00:00",
+      "message": "  passed anneal design stage  i_pTM=0.73    pLDDT=0.93  "
+    },
+    {
+      "timestamp": "2026-10-26T22:44:30.207405+00:00",
+      "message": "  passed harden design stage  i_pTM=0.78    pLDDT=0.92  "
+    },
+    {
+      "timestamp": "2026-10-26T22:49:50.473080+00:00",
+      "message": "  rejected at mutate design stage  i_pTM=0.37    pLDDT=0.9    due to [i_pTM]"
+    },
+    {
+      "timestamp": "2026-10-26T22:49:50.706987+00:00",
+      "message": "campaign stopped: 1 trajectories ran and none were accepted, so the settings rather than the budget are what to change"
+    },
+    {
+      "timestamp": "2026-10-26T22:49:50.931007+00:00",
+      "message": "campaign done: 0 accepted design(s) after 1 trajectory, ranked by i_pDAE"
+    },
+    {
+      "timestamp": "2026-10-26T22:49:58.141739+00:00",
+      "message": "RAPID_EVENT {\"campaignId\":\"3f3e6771f7846d6387e1476c6a20a6ed\",\"candidateId\":null,\"category\":\"no_qualified_candidates\",\"cursor\":1148,\"engine\":\"bindcraft2\",\"eventId\":\"2f6cc15fa141cf39c5d64df85576d4a9e6f87b6153ad987dd7aa09dfcfdce466\",\"functionCallId\":\"\",\"message\":\"{\\\"error\\\": null, \\\"kind\\\": \\\"no_qualified_candidates\\\"}\",\"metrics\":null,\"rawReference\":null,\"resources\":null,\"schemaVersion\":1,\"severity\":\"info\",\"source\":\"structured\",\"sourceEventHash\":\"ee238dae3b03c2238db2e08840a14bf9b6b486dd9706f50b8a92b20767adbfb2\",\"sourcePreviousHash\":\"5ac93f124ac1f57e680e44ce7d60cdae25933170f1100a34847cd7b1f2d1937e\",\"stageId\":\"a285c74172c19f8d3db0768925baa4a9\",\"timestamp\":\"2026-10-26T22:49:58.031857+00:00\"}"
+    }
+  ]
+}

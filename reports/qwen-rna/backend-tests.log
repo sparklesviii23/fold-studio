@@ -1,0 +1,33 @@
+.......E.E...
+======================================================================
+ERROR: test_later_outcome_does_not_change_prediction_or_train (tests.test_qwen_rna.EvidenceTests.test_later_outcome_does_not_change_prediction_or_train)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/vii/Documents/FoldStudio-MetalPort/fold-studio/tests/test_qwen_rna.py", line 92, in test_later_outcome_does_not_change_prediction_or_train
+    measurement=api.dispatch(self.s,'qwen_rna_measure',p)
+                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/vii/Documents/FoldStudio-MetalPort/fold-studio/scientific/qwen_rna.py", line 146, in dispatch
+    folder, job = run_folder(s, p['id'], p['projectId'])
+                  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/vii/Documents/FoldStudio-MetalPort/fold-studio/scientific/qwen_rna.py", line 32, in run_folder
+    raise ValueError('Choose a saved Qwen RNA run.')
+ValueError: Choose a saved Qwen RNA run.
+
+======================================================================
+ERROR: test_saved_result_idempotent_and_library_identity_matches_run (tests.test_qwen_rna.EvidenceTests.test_saved_result_idempotent_and_library_identity_matches_run)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/vii/Documents/FoldStudio-MetalPort/fold-studio/tests/test_qwen_rna.py", line 76, in test_saved_result_idempotent_and_library_identity_matches_run
+    a=api.save(self.s,p);b=api.save(self.s,p)
+      ^^^^^^^^^^^^^^^^^^
+  File "/Users/vii/Documents/FoldStudio-MetalPort/fold-studio/scientific/qwen_rna.py", line 113, in save
+    folder, job = run_folder(s, p['id'], p['projectId'])
+                  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/vii/Documents/FoldStudio-MetalPort/fold-studio/scientific/qwen_rna.py", line 32, in run_folder
+    raise ValueError('Choose a saved Qwen RNA run.')
+ValueError: Choose a saved Qwen RNA run.
+
+----------------------------------------------------------------------
+Ran 13 tests in 3.817s
+
+FAILED (errors=2)

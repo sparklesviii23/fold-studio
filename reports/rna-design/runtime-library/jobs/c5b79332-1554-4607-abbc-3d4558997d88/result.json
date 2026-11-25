@@ -1,0 +1,140 @@
+{
+  "schema": "fold.rna-design-result/1",
+  "version": "rna-design/1.0.0",
+  "request": {
+    "target": "((((....))))",
+    "mask": "NNNNNNNNNNNN",
+    "locks": "............",
+    "maxCandidates": 64,
+    "maxSeconds": 10,
+    "wanted": 3,
+    "seed": 17,
+    "gcMin": 0,
+    "gcMax": 1,
+    "maxHomopolymer": 128,
+    "method": "solver"
+  },
+  "candidates": [
+    {
+      "id": "cfc453eb37548b75",
+      "sequence": "CGCGCGAACGUG",
+      "structure": "((((....))))",
+      "mfeKcalMol": -1.7999999523162842,
+      "targetKcalMol": -1.7999999523162842,
+      "targetGapKcalMol": 0.0,
+      "targetProbability": 0.7317718395663932,
+      "ensembleDefect": 0.09618654061903524,
+      "pairF1": 1.0,
+      "missedPairs": [],
+      "extraPairs": [],
+      "source": "solver pair-error repair",
+      "qualifies": true,
+      "failureReasons": [],
+      "constraintViolations": [],
+      "independent": {
+        "structure": "((((....))))",
+        "mfeKcalMol": -0.7,
+        "engine": "RNA Lab reduced Turner nearest-neighbour",
+        "version": "rna-lab.fold/1.0.0",
+        "temperatureC": 37,
+        "agreesWithTarget": true,
+        "disagreementPairs": []
+      }
+    },
+    {
+      "id": "662531a74fc3109b",
+      "sequence": "UGCUCGAAGGCA",
+      "structure": "((((....))))",
+      "mfeKcalMol": -1.7000000476837158,
+      "targetKcalMol": -1.7000000476837158,
+      "targetGapKcalMol": 0.0,
+      "targetProbability": 0.441911730454221,
+      "ensembleDefect": 0.12121729008329167,
+      "pairF1": 1.0,
+      "missedPairs": [],
+      "extraPairs": [],
+      "source": "solver pair-error repair",
+      "qualifies": true,
+      "failureReasons": [],
+      "constraintViolations": [],
+      "independent": {
+        "structure": "((((....))))",
+        "mfeKcalMol": -1.0,
+        "engine": "RNA Lab reduced Turner nearest-neighbour",
+        "version": "rna-lab.fold/1.0.0",
+        "temperatureC": 37,
+        "agreesWithTarget": true,
+        "disagreementPairs": []
+      }
+    },
+    {
+      "id": "99f0cb665a04be5f",
+      "sequence": "UGCGCGAACGUA",
+      "structure": "((((....))))",
+      "mfeKcalMol": -0.8999999761581421,
+      "targetKcalMol": -0.8999999761581421,
+      "targetGapKcalMol": 0.0,
+      "targetProbability": 0.4684300833010412,
+      "ensembleDefect": 0.15993223057841421,
+      "pairF1": 1.0,
+      "missedPairs": [],
+      "extraPairs": [],
+      "source": "solver",
+      "qualifies": true,
+      "failureReasons": [],
+      "constraintViolations": [],
+      "independent": {
+        "structure": "............",
+        "mfeKcalMol": 0.0,
+        "engine": "RNA Lab reduced Turner nearest-neighbour",
+        "version": "rna-lab.fold/1.0.0",
+        "temperatureC": 37,
+        "agreesWithTarget": false,
+        "disagreementPairs": [
+          [
+            1,
+            12
+          ],
+          [
+            2,
+            11
+          ],
+          [
+            3,
+            10
+          ],
+          [
+            4,
+            9
+          ]
+        ]
+      }
+    }
+  ],
+  "metrics": {
+    "attempts": 3,
+    "solverCalls": 3,
+    "evaluations": 3,
+    "secondaryEvaluations": 3,
+    "batches": 3,
+    "elapsedSeconds": 0.013465791998896748,
+    "firstSuccessSeconds": 0.003461166998022236,
+    "stopReason": "enough_candidates"
+  },
+  "qualifyingCount": 3,
+  "scorer": {
+    "engine": "ViennaRNA",
+    "version": "2.7.2",
+    "temperatureC": 37,
+    "dangles": 2,
+    "parameters": "Turner2004",
+    "noLP": false
+  },
+  "constraintRejections": 0,
+  "evidence": "Computational prediction. Solver labels are not experimental measurements.",
+  "inputSeal": "480b3df0a3ef6df581179d2d44478c2017f66478107e50bf5adb3f03afae0d36",
+  "sourceSha256": "d926815c5debd3249ff787b3faf70fc18d89305eeb35b54a8f95ba6ad5b5392a",
+  "cacheHitsThisSession": 0,
+  "solverAccounting": "solverCalls counts RNA.inverse_fold calls. Its internal energy evaluations are not exposed. Explicit final scoring and independent checks are counted separately.",
+  "sha256": "9aae78f288aeab4c4ad4894219482f61a53ecb69221b0e21cad45d4e0ff6220c"
+}

@@ -54,7 +54,7 @@ function Panel({title, sub, children, actions}: {title: string; sub?: string; ch
 /** Analyse › Virtual Cell: persistent cells you perturb, read out, branch and design against (scientific/virtual_cell.py). */
 const RETURN_KEY = 'fold-vcell-return';
 
-export default function VirtualCellLab({onOpenStructure}: {onOpenStructure?: (id: string, label: string) => Promise<void>} = {}) {
+export default function VirtualCellLab({onOpenStructure, openRun, onOpen3D}: {onOpenStructure?: (id: string, label: string) => Promise<void>; openRun?: {id: string; source?: string; n: number} | null; onOpen3D?: (run: string, event?: number, source?: string) => void} = {}) {
   const [catalog, setCatalog] = useState<any>(null), [cells, setCells] = useState<any[]>([]), [current, setCurrent] = useState<any>(null);
   const [open, setOpen] = useState<Sim | null>('overexpress'), [tab, setTab] = useState<Readout>('expression');
   const [readout, setReadout] = useState<any>(null), [design, setDesign] = useState<any>(null), [busy, setBusy] = useState(''), [error, setError] = useState('');
@@ -68,6 +68,11 @@ export default function VirtualCellLab({onOpenStructure}: {onOpenStructure?: (id
   const [results, setResults] = useState<any[] | null>(null), [result, setResult] = useState<any>(null);
   const [cycle, setCycle] = useState<any>(null), [cycleTime, setCycleTime] = useState(0), [gf, setGf] = useState('1'), [hours, setHours] = useState('120'), [notice, setNotice] = useState('');
 
+  const [spatial, setSpatial] = useState<any[] | null>(null);
+  useEffect(() => {                                              // a run opened from Cell Explorer › View Results, and the list of saved spatial experiments
+    rpc<any[]>('cell_em_runs').then(setSpatial).catch(() => setSpatial([]));
+    if (openRun) rpc<any>('vcell_result_get', {source: openRun.source ?? 'cell_em', result: openRun.id}).then(setResult).catch(e => setError(String(e?.message ?? e)));
+  }, [openRun?.n]);
   async function call<T>(text: string, action: string, payload: any = {}) {
     setBusy(text); setError('');
     try { return await rpc<T>(action, payload); } catch (e) { setError(String(e).replace(/^Error:\s*/, '')); return undefined; } finally { setBusy(''); }
@@ -188,6 +193,10 @@ export default function VirtualCellLab({onOpenStructure}: {onOpenStructure?: (id
         <p>Persistent cells you perturb, read out, branch and design against. Every readout says what kind of evidence it is and which data it came from.</p></div>
       <button className="text-button" onClick={refresh}><RefreshCw size={13}/>Refresh</button>
     </header>
+    {result && <SimulationResult r={result} onClose={() => setResult(null)} onOpen3D={onOpen3D}/>}
+    {spatial && spatial.length > 0 && <section className="vc-card"><header><div><h3>Spatial experiments · real EM cell</h3><small>Runs released in Cell Explorer › Real cell · EM. Specimen: one fixed HeLa cell (FIB-SEM). These are separate from the Hep G2 expression baseline below.</small></div></header>
+      <div className="vc-events">{spatial.slice(0, 12).map(x => <button key={x.id} onClick={() => rpc<any>('vcell_result_get', {source: 'cell_em', result: x.id}).then(setResult).catch(e => setError(String(e?.message ?? e)))}>
+        <span>{x.created?.slice(5, 16).replace('T', ' ')}</span><span>{x.time ? (x.time * 1000).toFixed(0) + ' ms' : ''}</span><span>{x.label ? x.label + ' · ' : ''}{(x.species ?? []).join(' + ') || 'earlier run'}{x.parent ? ' · branch' : ''}</span><span>{x.events?.pairBinds ?? 0} complexes formed</span></button>)}</div></section>}
     {status}
     <div className="vc-home-grid">
       <section className="vc-card vc-new">
@@ -267,7 +276,7 @@ export default function VirtualCellLab({onOpenStructure}: {onOpenStructure?: (id
       <button onClick={() => runCycle()}>Run model</button>
       <small>Gérard & Goldbeter 2009 (BioModels BIOMD0000000730), solved by the Mechanistic Lab. Generic mammalian parameters, not calibrated to {current.context.name}. GF 0–5, 24–240 h.</small></>},
     {id: 'results', label: 'Saved lab results', icon: <History size={15}/>, show: true, body: <>
-      {!results ? <button onClick={async () => { const r = await call<any[]>('Reading saved laboratory records', 'vcell_results_list'); if (r) setResults(r); }}>List Cell Physics and RNA results</button>
+      {!results ? <button onClick={async () => { const r = await call<any[]>('Reading saved laboratory records', 'vcell_results_list'); if (r) setResults(r); }}>List Cell Physics, Real Cell (EM) and RNA results</button>
         : <div className="vc-results">{results.length === 0 && <small>No saved records in this library.</small>}{results.map(x => <button key={x.source + x.id} className="text-button" onClick={async () => { const r = await call<any>('Opening result', 'vcell_result_get', {source: x.source, result: x.id}); if (r) setResult(r); }}>
           {x.kind?.replace(/_/g, ' ')} · {x.engine} · {x.created?.slice(0, 10)}{x.integrity ? '' : ' · integrity FAILED'}</button>)}</div>}
       <small>Read-only. These runs describe the idealised systems in their own inputs, not this cell.</small></>},
@@ -327,7 +336,7 @@ export default function VirtualCellLab({onOpenStructure}: {onOpenStructure?: (id
         <button key={i} className={'vc-tl-step ' + (i === current.cell.history.length ? 'now' : '')} title={`Branch a new cell from step ${i}`} onClick={() => branch(i)}><span>{i}</span>{h.label}</button>)}</div>
       {protein && <ProteinWorkspace key={protein.symbol ?? protein.resolution?.query} protein={protein} cellId={current.cell.id} onError={setError} onOpenStructure={onOpenStructure ? openStructure : undefined} onClose={() => { setProtein(null); setHidden({}); }}/>}
       {enrich && <Enrichment r={enrich} onClose={() => setEnrich(null)}/>}
-      {result && <SimulationResult r={result} onClose={() => setResult(null)}/>}
+      {result && <SimulationResult r={result} onClose={() => setResult(null)} onOpen3D={onOpen3D}/>}
       {rnaProtein && <RnaProtein r={rnaProtein} onClose={() => setRnaProtein(null)}/>}
       {cycle && <CellCycleTimeline run={cycle} time={cycleTime} onTime={setCycleTime} onSnapshot={t => saveSnapshot('', t)} onClose={() => setCycle(null)}/>}
     </main>

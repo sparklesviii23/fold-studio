@@ -6,6 +6,7 @@ import './biological-models.css';
 import BiologyController from './BiologyController';
 import ModalTerminal from './ModalTerminal';
 import {PnaAnalysisView} from './PnaWorkflow';
+import {QwenEngineCard} from '../rna-lab/QwenRnaWorkspace';
 
 type Spec = {type:string; default?:string|number; options?:string[]; min?:number; max?:number};
 type Model = {title:string; purpose:string; source:string; license:string; gpu:string; limits:string; inputs:Record<string,Spec>};
@@ -16,7 +17,7 @@ const evidenceNames:Record<string,string> = {research_note:'Research note',liter
 const families:Record<string,string> = {bio_evo2:'DNA',bio_borzoi:'REGULATION',bio_esmc:'PROTEIN',bio_esmfold2:'STRUCTURE'};
 const cleanError = (e:unknown)=>String(e).replace(/^Error:\s*/, '');
 
-export default function BiologicalModels({projectId,records,onRefresh,onNavigate,onOpenStructure}:{projectId:string;records:Item[];onRefresh:()=>Promise<unknown>;onOpenStructure:(item:Item)=>Promise<void>;onNavigate:(workspace:'Genome & RNA Engineering'|'Research Suite'|'Cloud Compute')=>void}) {
+export default function BiologicalModels({projectId,records,onRefresh,onNavigate,onOpenStructure}:{projectId:string;records:Item[];onRefresh:()=>Promise<unknown>;onOpenStructure:(item:Item)=>Promise<void>;onNavigate:(workspace:'Genome & RNA Engineering'|'Research Suite'|'Cloud Compute'|'RNA-to-Protein Lab')=>void}) {
  const [tab,setTab]=useState<'overview'|'models'|'studies'>('overview'),[catalog,setCatalog]=useState<Catalog|null>(null),[modelId,setModelId]=useState('bio_evo2');
  const [inputs,setInputs]=useState<Record<string,string|number>>({}),[source,setSource]=useState(''),[approved,setApproved]=useState(false),[busy,setBusy]=useState(''),[error,setError]=useState(''),[notice,setNotice]=useState('');
  const [runs,setRuns]=useState<any[]>([]),[opened,setOpened]=useState<any>(null),[studies,setStudies]=useState<Study[]>([]),[studyId,setStudyId]=useState('');
@@ -42,6 +43,7 @@ export default function BiologicalModels({projectId,records,onRefresh,onNavigate
   <nav className="bio-tabs" aria-label="Biological Models sections"><button className={tab==='overview'?'active':''} onClick={()=>setTab('overview')}><FlaskConical size={16}/>Research overview</button><button className={tab==='models'?'active':''} onClick={()=>setTab('models')}><Dna size={16}/>Model workbench</button><button className={tab==='studies'?'active':''} onClick={()=>setTab('studies')}><BookOpen size={16}/>Phage & biology research</button></nav>
   {error&&<div className="bio-message error" role="alert">{error}</div>}{notice&&<div className="bio-message" role="status"><Check size={15}/>{notice}</div>}{busy&&<div className="bio-message" role="status"><LoaderCircle size={15} className="spin"/>{busy}…</div>}
   {!projectId?<section className="quiet-panel"><h2>Choose a research project</h2><p>Select a project in the sidebar to save analyses and evidence.</p></section>:tab==='overview'?<BiologyController key={projectId} projectId={projectId} onRefresh={onRefresh} onOpenRun={id=>{setTab('models');void view(id);}}/>:tab==='models'?<>
+   <QwenEngineCard onPredict={()=>onNavigate('RNA-to-Protein Lab')}/>
    <div className="bio-models">{catalog&&['bio_evo2','bio_borzoi','bio_esmc','bio_esmfold2'].map(id=>{const m=catalog.models[id];return <button key={id} className={'bio-model '+(modelId===id?'selected':'')} disabled={!!busy} onClick={()=>{setModelId(id);setSource('');}}><span className="eyebrow">{families[id]}</span><strong>{m.title.split(' · ')[0]}</strong><span>{m.title.split(' · ')[1]}</span><small>Cloud integration · validation pending</small></button>;})}</div>
    {model&&<div className="bio-columns"><section className="quiet-panel bio-form"><div className="bio-section-heading"><div><span className="eyebrow">{families[modelId]} ANALYSIS</span><h2>{model.title}</h2></div><button className="text-button" onClick={()=>void external(model.source)}>Documentation <ArrowUpRight size={14}/></button></div><p>{model.purpose}</p>
     {'sequence' in model.inputs&&sequenceRecords.length>0&&<label>Load a saved sequence<select defaultValue="" onChange={e=>{const r=sequenceRecords.find(x=>x.id===e.target.value);if(r){setInputs({...inputs,sequence:typeof r.data.sequence==='string'?r.data.sequence:r.data.sequence.value});setSource(r.name+' · Library '+r.id);setApproved(false);}}}><option value="">Choose from this project…</option>{sequenceRecords.map(r=><option key={r.id} value={r.id}>{r.name}</option>)}</select></label>}

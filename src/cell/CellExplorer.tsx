@@ -1,22 +1,25 @@
-import {useMemo, useState} from 'react';
+import {useEffect, useMemo, useState} from 'react';
 import {ArrowRight, Pause, Play, Scissors, Sparkles, X} from 'lucide-react';
 import CellStage, {type CellSettings} from './CellStage';
 import GeneStory from './GeneStory';
 import CellPhysicsLab from './physics/CellPhysicsLab';
 import MicrographStage from './MicrographStage';
+import CellWorkspace from './workspace/CellWorkspace';
 import {coarseGrain, demoParticle} from './micrograph';
 import {cellTypes, journeys, layerNames, organelles, styles} from './organelles';
-import type {AtomRecord} from '../lib/types';
+import type {AtomRecord, Item} from '../lib/types';
 import './cell.css';
 
 const storyOrganelles = new Set([2, 3, 4, 9]);
 const scaleBars = [0.5, 1, 2, 5, 10, 20, 50];
-type Tab = 'cell'|'microscope'|'story'|'physics';
-const titles: Record<Tab, [string, string]> = {cell: ['A living cell, ', 'sliced open.'], microscope: ['Your molecules, ', 'under the beam.'], story: ['From gene ', 'to protein.'], physics: ['Particles, ', 'actually computed.']};
+type Tab = 'cell'|'real'|'microscope'|'story'|'physics';
+const titles: Record<Tab, [string, string]> = {real: ['One cell, ', 'one experiment workspace.'], cell: ['A living cell, ', 'sliced open.'], microscope: ['Your molecules, ', 'under the beam.'], story: ['From gene ', 'to protein.'], physics: ['Particles, ', 'actually computed.']};
 
 /** Visualise › Cell Explorer: a sliceable 3D cell, a microscope for your own molecules, and the Gene → Protein story. */
-export default function CellExplorer({structure}: {structure?: {name: string; atoms: AtomRecord[]} | null}) {
-  const [tab, setTab] = useState<Tab>('cell');
+export interface CellRequest {item?: Item; run?: string; event?: number; lightRun?: string; n: number}
+export default function CellExplorer({structure, structures, request, onViewResults}: {structure?: {name: string; atoms: AtomRecord[]; asset?: string; sha256?: string} | null; structures?: Item[]; request?: CellRequest | null; onViewResults?: (run: string, source?: string) => void}) {
+  const [tab, setTab] = useState<Tab>('real');
+  useEffect(() => { if (request) setTab('real'); }, [request?.n]);
   const [settings, setSettings] = useState<CellSettings>({style: 0, cut: true, slice: 0.12, glass: true, layers: layerNames.map(() => true), animate: true, quality: 'balanced', cellType: 'generic'});
   const [journey, setJourney] = useState({id: 'overview', n: 0}), [flying, setFlying] = useState(''), [selected, setSelected] = useState<number | null>(null);
   const [pxPerMicron, setPxPerMicron] = useState(20);
@@ -26,14 +29,14 @@ export default function CellExplorer({structure}: {structure?: {name: string; at
   const type = cellTypes.find(c => c.id === settings.cellType)!;
   const bar = scaleBars.reduce((a, b) => Math.abs(b * pxPerMicron - 110) < Math.abs(a * pxPerMicron - 110) ? b : a);
 
-  return <div className="cell-explorer">
+  return <div className={'cell-explorer' + (tab === 'real' ? ' workspace-mode' : '')}>
     <header className="cell-heading">
       <div>
         <span className="eyebrow">Visualise · Cell Explorer</span>
         <h1>{titles[tab][0]}<em>{titles[tab][1]}</em></h1>
       </div>
       <div className="cosmos-segment" role="tablist">
-        {(['cell', 'microscope', 'story', 'physics'] as Tab[]).map(t => <button key={t} role="tab" aria-selected={tab === t} className={tab === t ? 'active' : ''} onClick={() => setTab(t)}>{t === 'cell' ? 'Cell · 3D' : t === 'microscope' ? 'Microscope' : t === 'story' ? 'Gene → Protein' : 'Physics · simulated'}</button>)}
+        {(['real', 'cell', 'microscope', 'story', 'physics'] as Tab[]).map(t => <button key={t} role="tab" aria-selected={tab === t} className={tab === t ? 'active' : ''} onClick={() => setTab(t)}>{t === 'cell' ? 'Schematic cell' : t === 'real' ? 'Workspace · real cell' : t === 'microscope' ? 'Microscope' : t === 'story' ? 'Gene → Protein' : 'Physics · simulated'}</button>)}
       </div>
     </header>
 
@@ -83,10 +86,11 @@ export default function CellExplorer({structure}: {structure?: {name: string; at
       </div>}
       <p className="cell-hint">Drag · scroll · click to explore</p>
     </div>}
+    {tab === 'real' && <CellWorkspace structure={structure} structures={structures} request={request} onViewResults={onViewResults}/>}
     {tab === 'microscope' && <MicrographStage particle={particle}/>}
     {tab === 'story' && <GeneStory/>}
     {tab === 'physics' && <CellPhysicsLab/>}
-    {tab !== 'physics' && <p className="cell-disclaimer">Schematic models for learning and illustration. Sizes, counts and shapes are simplified; the scale bar uses a typical diameter for the chosen cell type.</p>}
+    {tab !== 'physics' && tab !== 'real' && <p className="cell-disclaimer">Schematic models for learning and illustration. Sizes, counts and shapes are simplified; the scale bar uses a typical diameter for the chosen cell type.</p>}
     {tab === 'physics' && <p className="cell-disclaimer">Physics tab: every drawn position and curve comes from the Brownian-dynamics engine (scientific/cell_physics.py) for an idealised model with hypothetical parameters. No physiological claim is made.</p>}
   </div>;
 }

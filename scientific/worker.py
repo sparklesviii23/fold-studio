@@ -21,9 +21,14 @@ import gpu_tasks_actions
 import biological_models
 import biology_controller
 import cell_physics_actions
+import cell_em_actions
+import light_pulse_actions
+import hela_erk_actions
 import virtual_cell_actions
 import blood_transport_actions
 import rna_lab_actions
+import qwen_rna_actions
+import rna_design_actions
 import genomic_io
 import chemical_screen
 import sequence_alignment
@@ -351,7 +356,7 @@ class Service:
         if owner:
             job=self.job(owner)
             if job['engine']!='bgmee' or job['state']!='running':owner=None
-        return self.db.execute("SELECT id FROM jobs WHERE engine IN ('boltz2','setup','proteinmpnn','bindcraft2','rdkit','peptide_chemistry','openmm','bgmee','pyscf','genomic_io','periodic_lj') AND state IN ('running','queued','installing') AND id!=? LIMIT 1",(owner or '',)).fetchone()
+        return self.db.execute("SELECT id FROM jobs WHERE engine IN ('boltz2','setup','proteinmpnn','bindcraft2','rdkit','peptide_chemistry','openmm','bgmee','pyscf','genomic_io','periodic_lj','qwen-rna','rna-design') AND state IN ('running','queued','installing') AND id!=? LIMIT 1",(owner or '',)).fetchone()
     def job_new(self,p,engine,state):
         if getattr(self,'_compute_owner',None) and engine!='bgmee':p={**p,'controllerId':self._compute_owner}
         self.project(p['projectId']); id,date=uid(),now()
@@ -650,12 +655,27 @@ class Service:
         if action in cell_physics_actions.ACTIONS:
             import cell_physics
             return cell_physics.dispatch(self,action,p)
+        if action in cell_em_actions.ACTIONS:
+            import cell_em
+            return cell_em.dispatch(self,action,p)
+        if action in light_pulse_actions.ACTIONS:
+            import light_pulse
+            return light_pulse.dispatch(self,action,p)
+        if action in hela_erk_actions.ACTIONS:
+            import hela_erk
+            return hela_erk.dispatch(self,action,p)
         if action in virtual_cell_actions.ACTIONS:
             import virtual_cell
             return virtual_cell.dispatch(self,action,p)
         if action in rna_lab_actions.ACTIONS:
             import rna_lab
             return rna_lab.dispatch(self,action,p)
+        if action in rna_design_actions.ACTIONS:
+            import rna_design
+            return rna_design.dispatch(self,action,p)
+        if action in qwen_rna_actions.ACTIONS:
+            import qwen_rna
+            return qwen_rna.dispatch(self,action,p)
         if action in blood_transport_actions.ACTIONS:
             import blood_transport
             return blood_transport.dispatch(self,action,p)
@@ -688,7 +708,8 @@ class Service:
 
 ACTIONS={'record_update','record_remove','record_restore','library','setting_set','project_create','project_update','project_delete','record_save','sequence_save','mutate','fasta_parse','fasta_import','uniprot_search','uniprot_get','structures','structure_download','import_structure','asset_read','compute','install_engine','prediction_start','prediction_resources','job_read','job_cancel','cloud_prepare','cloud_opened','cloud_import','export_project','project_archive_inspect','project_archive_import','project_archive_snapshots','project_archive_snapshot_read','project_archive_original_export','export_file','reconcile'}
 
-ACTIONS |= biology_controller.ACTIONS | biological_models.ACTIONS | oncology_actions.ACTIONS | tumor_tme_actions.ACTIONS | periodic_dynamics.ACTIONS | mechanistic_actions.ACTIONS | multiscale_actions.ACTIONS | spatial_actions.ACTIONS | rna_kinetics_actions.ACTIONS | md_demo_actions.ACTIONS | gpu_tasks_actions.ACTIONS | cell_physics_actions.ACTIONS | virtual_cell_actions.ACTIONS | blood_transport_actions.ACTIONS | rna_lab_actions.ACTIONS | genomic_io.ACTIONS | chemical_screen.ACTIONS | sequence_alignment.ACTIONS | sequence_reads.ACTIONS | quantum_engine.ACTIONS | genome_workspace.ACTIONS | molecular_observatory.ACTIONS | editcraft.ACTIONS | cloud_shell.ACTIONS | cloud_accounts.ACTIONS | cloud_monitor.ACTIONS | cloud_audit.ACTIONS | cloud_deployment.ACTIONS | execution_policy.ACTIONS | modal_account.ACTIONS | peptide_chemistry.ACTIONS | biology_modal.ACTIONS | biology_agent.ACTIONS | biology_evidence.ACTIONS | biology_pipeline.ACTIONS | boltz_api_adapter.ACTIONS | evolution.ACTIONS | research.ACTIONS | cinema.ACTIONS | rapid_remote.ACTIONS | cloud_compute.ACTIONS | dynamics.ACTIONS | ligand.ACTIONS | mpnn.ACTIONS | fold_engine.ACTIONS | OBSERVATORY_ACTIONS | PEPTIDE_ACTIONS | molecular_graph.ACTIONS | intelligence.ACTIONS
+ACTIONS |= qwen_rna_actions.ACTIONS | rna_design_actions.ACTIONS
+ACTIONS |= biology_controller.ACTIONS | biological_models.ACTIONS | oncology_actions.ACTIONS | tumor_tme_actions.ACTIONS | periodic_dynamics.ACTIONS | mechanistic_actions.ACTIONS | multiscale_actions.ACTIONS | spatial_actions.ACTIONS | rna_kinetics_actions.ACTIONS | md_demo_actions.ACTIONS | gpu_tasks_actions.ACTIONS | cell_physics_actions.ACTIONS | cell_em_actions.ACTIONS | virtual_cell_actions.ACTIONS | blood_transport_actions.ACTIONS | rna_lab_actions.ACTIONS | genomic_io.ACTIONS | chemical_screen.ACTIONS | sequence_alignment.ACTIONS | sequence_reads.ACTIONS | quantum_engine.ACTIONS | genome_workspace.ACTIONS | molecular_observatory.ACTIONS | editcraft.ACTIONS | cloud_shell.ACTIONS | cloud_accounts.ACTIONS | cloud_monitor.ACTIONS | cloud_audit.ACTIONS | cloud_deployment.ACTIONS | execution_policy.ACTIONS | modal_account.ACTIONS | peptide_chemistry.ACTIONS | biology_modal.ACTIONS | biology_agent.ACTIONS | biology_evidence.ACTIONS | biology_pipeline.ACTIONS | boltz_api_adapter.ACTIONS | evolution.ACTIONS | research.ACTIONS | cinema.ACTIONS | rapid_remote.ACTIONS | cloud_compute.ACTIONS | dynamics.ACTIONS | ligand.ACTIONS | mpnn.ACTIONS | fold_engine.ACTIONS | OBSERVATORY_ACTIONS | PEPTIDE_ACTIONS | molecular_graph.ACTIONS | intelligence.ACTIONS | light_pulse_actions.ACTIONS | hela_erk_actions.ACTIONS
 
 def execute_job(service,id):
     job=service.job(id); p=job['data']; folder=service.root/'jobs'/id

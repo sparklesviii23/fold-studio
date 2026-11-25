@@ -1,0 +1,138 @@
+{
+  "inputSeal": "591d36c7083296221837abf0eb09735684d853f09665e6d367b10d9f66a25342",
+  "candidates": [
+    {
+      "id": "86668ff49bb2efd2",
+      "sequence": "GUUGCCGAGCAGUACCAUUUCGAUUUCACGAACAGGUGUGGUUUUCUAGC",
+      "structure": "((((..((((..((((..((((......))))..))))..))))..))))",
+      "mfeKcalMol": -10.199999809265137,
+      "targetKcalMol": -10.199999809265137,
+      "targetGapKcalMol": 0.0,
+      "targetProbability": 0.3408526370998023,
+      "ensembleDefect": 0.11876074893834199,
+      "pairF1": 1.0,
+      "missedPairs": [],
+      "extraPairs": [],
+      "source": "qwen proposal plus ViennaRNA inverse folding",
+      "qualifies": true,
+      "failureReasons": [],
+      "constraintViolations": [],
+      "independent": {
+        "structure": "((((..((((..((((..((((......))))..))))..))))..))))",
+        "mfeKcalMol": -8.2,
+        "engine": "RNA Lab reduced Turner nearest-neighbour",
+        "version": "rna-lab.fold/1.0.0",
+        "temperatureC": 37,
+        "sourceSha256": "b91b80420204d19535f369cce8c60c3b7b19723895010c127d87b536d3ba696f",
+        "agreesWithTarget": true,
+        "disagreementPairs": []
+      }
+    },
+    {
+      "id": "e03178d27cf49149",
+      "sequence": "GGUAAGCCUGAGAGAGGCUAGCGCCAUGGCUAAGCUCUGCUGGGACUAUC",
+      "structure": "((((..((((..((((..((((......))))..))))..))))..))))",
+      "mfeKcalMol": -17.299999237060547,
+      "targetKcalMol": -17.299999237060547,
+      "targetGapKcalMol": 0.0,
+      "targetProbability": 0.2086113640173845,
+      "ensembleDefect": 0.13399094409607135,
+      "pairF1": 1.0,
+      "missedPairs": [],
+      "extraPairs": [],
+      "source": "qwen proposal plus ViennaRNA inverse folding",
+      "qualifies": true,
+      "failureReasons": [],
+      "constraintViolations": [],
+      "independent": {
+        "structure": "((((.((((.((((((.(((((......))).)))))).))))).)))))",
+        "mfeKcalMol": -11.3,
+        "engine": "RNA Lab reduced Turner nearest-neighbour",
+        "version": "rna-lab.fold/1.0.0",
+        "temperatureC": 37,
+        "sourceSha256": "b91b80420204d19535f369cce8c60c3b7b19723895010c127d87b536d3ba696f",
+        "agreesWithTarget": false,
+        "disagreementPairs": [
+          [
+            6,
+            46
+          ],
+          [
+            10,
+            41
+          ],
+          [
+            11,
+            41
+          ],
+          [
+            12,
+            40
+          ],
+          [
+            18,
+            34
+          ],
+          [
+            19,
+            32
+          ],
+          [
+            19,
+            33
+          ]
+        ]
+      }
+    },
+    {
+      "id": "5e55717df0fb439b",
+      "sequence": "GGUAGAAAUAGAACCGAGUCGAGGUAGAUUGGGGUGGUGGUAUUCGUACC",
+      "structure": "((((..((((..((((..((((......))))..))))..))))..))))",
+      "mfeKcalMol": -12.100000381469727,
+      "targetKcalMol": -12.100000381469727,
+      "targetGapKcalMol": 0.0,
+      "targetProbability": 0.1515791912605231,
+      "ensembleDefect": 0.21895899714625666,
+      "pairF1": 1.0,
+      "missedPairs": [],
+      "extraPairs": [],
+      "source": "qwen proposal plus ViennaRNA inverse folding",
+      "qualifies": true,
+      "failureReasons": [],
+      "constraintViolations": [],
+      "independent": {
+        "structure": "((((..((((..((((..((((......))))..))))..))))..))))",
+        "mfeKcalMol": -7.2,
+        "engine": "RNA Lab reduced Turner nearest-neighbour",
+        "version": "rna-lab.fold/1.0.0",
+        "temperatureC": 37,
+        "sourceSha256": "b91b80420204d19535f369cce8c60c3b7b19723895010c127d87b536d3ba696f",
+        "agreesWithTarget": true,
+        "disagreementPairs": []
+      }
+    }
+  ],
+  "seen": [
+    "GGUAAGCCUGAGAGAGGCUAGCGCCAUGGCUAAGCUCUGCUGGGACUAUC",
+    "GGUAGAAAUAGAACCGAGUCGAGGUAGAUUGGGGUGGUGGUAUUCGUACC",
+    "GUUGCCGAGCAGUACCAUUUCGAUUUCACGAACAGGUGUGGUUUUCUAGC"
+  ],
+  "attempts": 3,
+  "solverCalls": 3,
+  "elapsedSeconds": 0.12967004200618248,
+  "firstSuccessSeconds": 0.004187792001175694,
+  "evaluations": 3,
+  "secondaryEvaluations": 3,
+  "batches": 3,
+  "constraintRejections": 0,
+  "sourceSha256": "ce35482346d57b799e30ec0e0339a7086b5a86af7a9648f60572e9f0bb0f62be",
+  "scorer": {
+    "engine": "ViennaRNA",
+    "version": "2.7.2",
+    "temperatureC": 37,
+    "dangles": 2,
+    "parameters": "Turner2004",
+    "noLP": false
+  },
+  "stopReason": "enough_candidates"
+}

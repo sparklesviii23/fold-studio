@@ -995,6 +995,9 @@ STATE_ACTIONS = {'vcell_coverage', 'vcell_transcripts', 'vcell_cycle_run', 'vcel
 
 def dispatch(service, action, p):
     root = service.root
+    if action == 'vcell_contexts':
+        import virtual_cell_registry as VR
+        return VR.cell_contexts(root)
     if action == 'vcell_registry':
         import virtual_cell_registry as VR
         return {'datasets': VR.datasets(root, verify=bool(p.get('verify'))), 'capabilities': VR.capabilities(), 'validation': VR.VALIDATION, 'providers': list(VR.PROVIDERS)}

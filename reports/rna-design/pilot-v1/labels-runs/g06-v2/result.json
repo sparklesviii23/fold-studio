@@ -1,0 +1,353 @@
+{
+  "schema": "fold.rna-design-result/1",
+  "version": "rna-design/1.0.0",
+  "request": {
+    "target": "((((......))))..(((((..(((((......)))))..)))))",
+    "mask": "NNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNN",
+    "locks": "..............................................",
+    "maxCandidates": 24,
+    "maxSeconds": 2,
+    "wanted": 8,
+    "seed": 101,
+    "gcMin": 0,
+    "gcMax": 1,
+    "maxHomopolymer": 128,
+    "method": "solver"
+  },
+  "candidates": [
+    {
+      "id": "222eb8671e5312c5",
+      "sequence": "CCUGUUGUGCCGGGGGUUUCGCCAGCUUAGUCCAGAGCUAACGAAA",
+      "structure": "((((......))))..(((((..(((((......)))))..)))))",
+      "mfeKcalMol": -12.100000381469727,
+      "targetKcalMol": -12.100000381469727,
+      "targetGapKcalMol": 0.0,
+      "targetProbability": 0.37541849693849244,
+      "ensembleDefect": 0.05547343089306042,
+      "pairF1": 1.0,
+      "missedPairs": [],
+      "extraPairs": [],
+      "source": "solver",
+      "qualifies": true,
+      "failureReasons": [],
+      "constraintViolations": [],
+      "independent": {
+        "structure": "((((......))))..(((((..(((((......)))))..)))))",
+        "mfeKcalMol": -8.3,
+        "engine": "RNA Lab reduced Turner nearest-neighbour",
+        "version": "rna-lab.fold/1.0.0",
+        "temperatureC": 37,
+        "agreesWithTarget": true,
+        "disagreementPairs": []
+      }
+    },
+    {
+      "id": "0f0a6327ae9a627e",
+      "sequence": "GUUAUCGUCUUAGCCAUGAGCCCGUAACGCAGGUGUUAUUAGCUCA",
+      "structure": "((((......))))..(((((..(((((......)))))..)))))",
+      "mfeKcalMol": -10.800000190734863,
+      "targetKcalMol": -10.800000190734863,
+      "targetGapKcalMol": 0.0,
+      "targetProbability": 0.2877073346227052,
+      "ensembleDefect": 0.06944316110139162,
+      "pairF1": 1.0,
+      "missedPairs": [],
+      "extraPairs": [],
+      "source": "solver pair-error repair",
+      "qualifies": true,
+      "failureReasons": [],
+      "constraintViolations": [],
+      "independent": {
+        "structure": "................(((((..((((((....))))))..)))))",
+        "mfeKcalMol": -8.4,
+        "engine": "RNA Lab reduced Turner nearest-neighbour",
+        "version": "rna-lab.fold/1.0.0",
+        "temperatureC": 37,
+        "agreesWithTarget": false,
+        "disagreementPairs": [
+          [
+            1,
+            14
+          ],
+          [
+            2,
+            13
+          ],
+          [
+            3,
+            12
+          ],
+          [
+            4,
+            11
+          ],
+          [
+            29,
+            34
+          ]
+        ]
+      }
+    },
+    {
+      "id": "3b9cef0c82cd2306",
+      "sequence": "GGUAACGUGGUACCCAUGAGCCUGUAACGCAGGUGUUAUUAGCUCA",
+      "structure": "((((......))))..(((((..(((((......)))))..)))))",
+      "mfeKcalMol": -12.300000190734863,
+      "targetKcalMol": -12.300000190734863,
+      "targetGapKcalMol": 0.0,
+      "targetProbability": 0.23122285121907674,
+      "ensembleDefect": 0.12745302349157148,
+      "pairF1": 1.0,
+      "missedPairs": [],
+      "extraPairs": [],
+      "source": "solver pair-error repair",
+      "qualifies": true,
+      "failureReasons": [],
+      "constraintViolations": [],
+      "independent": {
+        "structure": "((((......))))..(((((..((((((....))))))..)))))",
+        "mfeKcalMol": -9.3,
+        "engine": "RNA Lab reduced Turner nearest-neighbour",
+        "version": "rna-lab.fold/1.0.0",
+        "temperatureC": 37,
+        "agreesWithTarget": false,
+        "disagreementPairs": [
+          [
+            29,
+            34
+          ]
+        ]
+      }
+    },
+    {
+      "id": "b0e039b519ab80f3",
+      "sequence": "UUCGAAUUACUGAAGAGCAUUUGAUGAACCUUAAUUUAUACAGUGC",
+      "structure": "((((......))))..(((((..(((((......)))))..)))))",
+      "mfeKcalMol": -4.400000095367432,
+      "targetKcalMol": -4.400000095367432,
+      "targetGapKcalMol": 0.0,
+      "targetProbability": 0.09662620874357805,
+      "ensembleDefect": 0.15567678426594145,
+      "pairF1": 1.0,
+      "missedPairs": [],
+      "extraPairs": [],
+      "source": "solver",
+      "qualifies": true,
+      "failureReasons": [],
+      "constraintViolations": [],
+      "independent": {
+        "structure": "................(((((..(((((......)))))..)))))",
+        "mfeKcalMol": -3.2,
+        "engine": "RNA Lab reduced Turner nearest-neighbour",
+        "version": "rna-lab.fold/1.0.0",
+        "temperatureC": 37,
+        "agreesWithTarget": false,
+        "disagreementPairs": [
+          [
+            1,
+            14
+          ],
+          [
+            2,
+            13
+          ],
+          [
+            3,
+            12
+          ],
+          [
+            4,
+            11
+          ]
+        ]
+      }
+    },
+    {
+      "id": "f6d64956119b11c1",
+      "sequence": "UGCGCAUUACUGCAGAGCAUUUGAUGAACUUUAAUUUAUACAGUGC",
+      "structure": "((((......))))..(((((..(((((......)))))..)))))",
+      "mfeKcalMol": -6.300000190734863,
+      "targetKcalMol": -6.300000190734863,
+      "targetGapKcalMol": 0.0,
+      "targetProbability": 0.09268211358167397,
+      "ensembleDefect": 0.1567346305571863,
+      "pairF1": 1.0,
+      "missedPairs": [],
+      "extraPairs": [],
+      "source": "solver pair-error repair",
+      "qualifies": true,
+      "failureReasons": [],
+      "constraintViolations": [],
+      "independent": {
+        "structure": "((((......))))..(((((..(((((......)))))..)))))",
+        "mfeKcalMol": -3.7,
+        "engine": "RNA Lab reduced Turner nearest-neighbour",
+        "version": "rna-lab.fold/1.0.0",
+        "temperatureC": 37,
+        "agreesWithTarget": true,
+        "disagreementPairs": []
+      }
+    },
+    {
+      "id": "a0a900631743965a",
+      "sequence": "GUUAACGUCGUAGCCAUGAGCCUGUAACGCAGGUGUUAUUAGCUCA",
+      "structure": "((((......))))..(((((..(((((......)))))..)))))",
+      "mfeKcalMol": -9.899999618530273,
+      "targetKcalMol": -9.899999618530273,
+      "targetGapKcalMol": 0.0,
+      "targetProbability": 0.10787503141312212,
+      "ensembleDefect": 0.3361839652324082,
+      "pairF1": 1.0,
+      "missedPairs": [],
+      "extraPairs": [],
+      "source": "solver",
+      "qualifies": true,
+      "failureReasons": [],
+      "constraintViolations": [],
+      "independent": {
+        "structure": "................(((((..((((((....))))))..)))))",
+        "mfeKcalMol": -8.4,
+        "engine": "RNA Lab reduced Turner nearest-neighbour",
+        "version": "rna-lab.fold/1.0.0",
+        "temperatureC": 37,
+        "agreesWithTarget": false,
+        "disagreementPairs": [
+          [
+            1,
+            14
+          ],
+          [
+            2,
+            13
+          ],
+          [
+            3,
+            12
+          ],
+          [
+            4,
+            11
+          ],
+          [
+            29,
+            34
+          ]
+        ]
+      }
+    },
+    {
+      "id": "95e1fe688dbd23a6",
+      "sequence": "GUUAAUGUCGUAGCCAUCAGCCUGUAGCGCAGGUGUUAUUAGCUGA",
+      "structure": "((((......))))..(((((..(((((......)))))..)))))",
+      "mfeKcalMol": -9.899999618530273,
+      "targetKcalMol": -9.899999618530273,
+      "targetGapKcalMol": 0.0,
+      "targetProbability": 0.11608438264738437,
+      "ensembleDefect": 0.394015203485015,
+      "pairF1": 1.0,
+      "missedPairs": [],
+      "extraPairs": [],
+      "source": "solver pair-error repair",
+      "qualifies": true,
+      "failureReasons": [],
+      "constraintViolations": [],
+      "independent": {
+        "structure": "................(((((..((((((....))))))..)))))",
+        "mfeKcalMol": -8.4,
+        "engine": "RNA Lab reduced Turner nearest-neighbour",
+        "version": "rna-lab.fold/1.0.0",
+        "temperatureC": 37,
+        "agreesWithTarget": false,
+        "disagreementPairs": [
+          [
+            1,
+            14
+          ],
+          [
+            2,
+            13
+          ],
+          [
+            3,
+            12
+          ],
+          [
+            4,
+            11
+          ],
+          [
+            29,
+            34
+          ]
+        ]
+      }
+    },
+    {
+      "id": "23cead6ac95d2a00",
+      "sequence": "UGGGGAGUCGCUUAGCGUCUAAGGUUGGCGUGGUCCGACAGUAGAC",
+      "structure": "((((......))))..(((((..(((((......)))))..)))))",
+      "mfeKcalMol": -11.800000190734863,
+      "targetKcalMol": -11.800000190734863,
+      "targetGapKcalMol": 0.0,
+      "targetProbability": 0.19456300840368967,
+      "ensembleDefect": 0.3972418145120914,
+      "pairF1": 1.0,
+      "missedPairs": [],
+      "extraPairs": [],
+      "source": "solver",
+      "qualifies": true,
+      "failureReasons": [],
+      "constraintViolations": [],
+      "independent": {
+        "structure": "................(((((..(((((......)))))..)))))",
+        "mfeKcalMol": -8.6,
+        "engine": "RNA Lab reduced Turner nearest-neighbour",
+        "version": "rna-lab.fold/1.0.0",
+        "temperatureC": 37,
+        "agreesWithTarget": false,
+        "disagreementPairs": [
+          [
+            1,
+            14
+          ],
+          [
+            2,
+            13
+          ],
+          [
+            3,
+            12
+          ],
+          [
+            4,
+            11
+          ]
+        ]
+      }
+    }
+  ],
+  "metrics": {
+    "attempts": 10,
+    "solverCalls": 10,
+    "evaluations": 8,
+    "secondaryEvaluations": 8,
+    "batches": 8,
+    "elapsedSeconds": 0.2609582080040127,
+    "firstSuccessSeconds": 0.002751291001914069,
+    "stopReason": "enough_candidates"
+  },
+  "qualifyingCount": 8,
+  "scorer": {
+    "engine": "ViennaRNA",
+    "version": "2.7.2",
+    "temperatureC": 37,
+    "dangles": 2,
+    "parameters": "Turner2004",
+    "noLP": false
+  },
+  "evidence": "Computational prediction. Solver labels are not experimental measurements.",
+  "inputSeal": "a367d988dd6208e85ebb0ebae6bc7d19625cca8ba9557d62f5ac895b56048859",
+  "cacheHitsThisSession": 0,
+  "solverAccounting": "solverCalls counts RNA.inverse_fold calls. Its internal energy evaluations are not exposed. Explicit final scoring and independent checks are counted separately.",
+  "sha256": "12919e607dc33a0ed566b06da28c4823a9836e541c5bab881436c7c11da13f48"
+}

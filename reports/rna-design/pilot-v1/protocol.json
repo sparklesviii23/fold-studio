@@ -1,0 +1,1302 @@
+{
+  "schema": "fold.rna-design-protocol/1",
+  "created": "2026-11-16",
+  "source": "Synthetic nested targets; generator seed 20261116. No experimental labels. No ArchiveII SRP test targets.",
+  "grouping": "Whole stem-tree topology groups. Merge equal-length pair F1 >= 0.8 before splitting. Same topology variants stay together.",
+  "splits": {
+    "train": [
+      {
+        "id": "g01-v0",
+        "group": 1,
+        "request": {
+          "target": "((..((...))..))",
+          "mask": "NNNNNNNNNNNNNNN",
+          "locks": "...............",
+          "maxCandidates": 32,
+          "maxSeconds": 2,
+          "wanted": 3,
+          "seed": 1,
+          "gcMin": 0,
+          "gcMax": 1,
+          "maxHomopolymer": 128,
+          "method": "solver"
+        },
+        "length": 15,
+        "difficulty": "simple",
+        "component": 1,
+        "split": "train"
+      },
+      {
+        "id": "g01-v1",
+        "group": 1,
+        "request": {
+          "target": "((((..(((.......)))..))))",
+          "mask": "NNNNNNNNNNNNNNNNNNNNNNNNN",
+          "locks": ".........................",
+          "maxCandidates": 32,
+          "maxSeconds": 2,
+          "wanted": 3,
+          "seed": 1,
+          "gcMin": 0,
+          "gcMax": 1,
+          "maxHomopolymer": 128,
+          "method": "solver"
+        },
+        "length": 25,
+        "difficulty": "simple",
+        "component": 1,
+        "split": "train"
+      },
+      {
+        "id": "g01-v2",
+        "group": 1,
+        "request": {
+          "target": "(((((..(((((.......)))))..)))))",
+          "mask": "NNNNNNNNNNNNNNNNNNNNNNNNNNNNNNN",
+          "locks": "...............................",
+          "maxCandidates": 32,
+          "maxSeconds": 2,
+          "wanted": 3,
+          "seed": 1,
+          "gcMin": 0,
+          "gcMax": 1,
+          "maxHomopolymer": 128,
+          "method": "solver"
+        },
+        "length": 31,
+        "difficulty": "simple",
+        "component": 1,
+        "split": "train"
+      },
+      {
+        "id": "g02-v0",
+        "group": 2,
+        "request": {
+          "target": "(((..((..((.......))..))..)))",
+          "mask": "NNNNNNNNNNNNNNNNNNNNNNNNNNNNN",
+          "locks": ".............................",
+          "maxCandidates": 32,
+          "maxSeconds": 2,
+          "wanted": 3,
+          "seed": 1,
+          "gcMin": 0,
+          "gcMax": 1,
+          "maxHomopolymer": 128,
+          "method": "solver"
+        },
+        "length": 29,
+        "difficulty": "simple",
+        "component": 2,
+        "split": "train"
+      },
+      {
+        "id": "g02-v1",
+        "group": 2,
+        "request": {
+          "target": "((((..((((..((((...))))..))))..))))",
+          "mask": "NNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNN",
+          "locks": "...................................",
+          "maxCandidates": 32,
+          "maxSeconds": 2,
+          "wanted": 3,
+          "seed": 1,
+          "gcMin": 0,
+          "gcMax": 1,
+          "maxHomopolymer": 128,
+          "method": "solver"
+        },
+        "length": 35,
+        "difficulty": "simple",
+        "component": 2,
+        "split": "train"
+      },
+      {
+        "id": "g02-v2",
+        "group": 2,
+        "request": {
+          "target": "(((((..((((..((((....))))..))))..)))))",
+          "mask": "NNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNN",
+          "locks": "......................................",
+          "maxCandidates": 32,
+          "maxSeconds": 2,
+          "wanted": 3,
+          "seed": 1,
+          "gcMin": 0,
+          "gcMax": 1,
+          "maxHomopolymer": 128,
+          "method": "solver"
+        },
+        "length": 38,
+        "difficulty": "simple",
+        "component": 2,
+        "split": "train"
+      },
+      {
+        "id": "g03-v0",
+        "group": 3,
+        "request": {
+          "target": "((...))..((......))",
+          "mask": "NNNNNNNNNNNNNNNNNNN",
+          "locks": "...................",
+          "maxCandidates": 32,
+          "maxSeconds": 2,
+          "wanted": 3,
+          "seed": 1,
+          "gcMin": 0,
+          "gcMax": 1,
+          "maxHomopolymer": 128,
+          "method": "solver"
+        },
+        "length": 19,
+        "difficulty": "multi-stem",
+        "component": 3,
+        "split": "train"
+      },
+      {
+        "id": "g03-v1",
+        "group": 3,
+        "request": {
+          "target": "((((....))))..(((....)))",
+          "mask": "NNNNNNNNNNNNNNNNNNNNNNNN",
+          "locks": "........................",
+          "maxCandidates": 32,
+          "maxSeconds": 2,
+          "wanted": 3,
+          "seed": 1,
+          "gcMin": 0,
+          "gcMax": 1,
+          "maxHomopolymer": 128,
+          "method": "solver"
+        },
+        "length": 24,
+        "difficulty": "multi-stem",
+        "component": 3,
+        "split": "train"
+      },
+      {
+        "id": "g03-v2",
+        "group": 3,
+        "request": {
+          "target": "((((.......))))..((((......))))",
+          "mask": "NNNNNNNNNNNNNNNNNNNNNNNNNNNNNNN",
+          "locks": "...............................",
+          "maxCandidates": 32,
+          "maxSeconds": 2,
+          "wanted": 3,
+          "seed": 1,
+          "gcMin": 0,
+          "gcMax": 1,
+          "maxHomopolymer": 128,
+          "method": "solver"
+        },
+        "length": 31,
+        "difficulty": "multi-stem",
+        "component": 3,
+        "split": "train"
+      },
+      {
+        "id": "g04-v0",
+        "group": 4,
+        "request": {
+          "target": "((....))..((....))..(((....)))",
+          "mask": "NNNNNNNNNNNNNNNNNNNNNNNNNNNNNN",
+          "locks": "..............................",
+          "maxCandidates": 32,
+          "maxSeconds": 2,
+          "wanted": 3,
+          "seed": 1,
+          "gcMin": 0,
+          "gcMax": 1,
+          "maxHomopolymer": 128,
+          "method": "solver"
+        },
+        "length": 30,
+        "difficulty": "multi-stem",
+        "component": 4,
+        "split": "train"
+      },
+      {
+        "id": "g04-v1",
+        "group": 4,
+        "request": {
+          "target": "((((...))))..((((...))))..(((.......)))",
+          "mask": "NNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNN",
+          "locks": ".......................................",
+          "maxCandidates": 32,
+          "maxSeconds": 2,
+          "wanted": 3,
+          "seed": 1,
+          "gcMin": 0,
+          "gcMax": 1,
+          "maxHomopolymer": 128,
+          "method": "solver"
+        },
+        "length": 39,
+        "difficulty": "multi-stem",
+        "component": 4,
+        "split": "train"
+      },
+      {
+        "id": "g04-v2",
+        "group": 4,
+        "request": {
+          "target": "(((((.....)))))..(((((....)))))..(((((......)))))",
+          "mask": "NNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNN",
+          "locks": ".................................................",
+          "maxCandidates": 32,
+          "maxSeconds": 2,
+          "wanted": 3,
+          "seed": 1,
+          "gcMin": 0,
+          "gcMax": 1,
+          "maxHomopolymer": 128,
+          "method": "solver"
+        },
+        "length": 49,
+        "difficulty": "multi-stem",
+        "component": 4,
+        "split": "train"
+      },
+      {
+        "id": "g06-v0",
+        "group": 6,
+        "request": {
+          "target": "((...))..((..((.......))..))",
+          "mask": "NNNNNNNNNNNNNNNNNNNNNNNNNNNN",
+          "locks": "............................",
+          "maxCandidates": 32,
+          "maxSeconds": 2,
+          "wanted": 3,
+          "seed": 1,
+          "gcMin": 0,
+          "gcMax": 1,
+          "maxHomopolymer": 128,
+          "method": "solver"
+        },
+        "length": 28,
+        "difficulty": "multi-stem",
+        "component": 6,
+        "split": "train"
+      },
+      {
+        "id": "g06-v1",
+        "group": 6,
+        "request": {
+          "target": "(((.....)))..((((..(((.....)))..))))",
+          "mask": "NNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNN",
+          "locks": "....................................",
+          "maxCandidates": 32,
+          "maxSeconds": 2,
+          "wanted": 3,
+          "seed": 1,
+          "gcMin": 0,
+          "gcMax": 1,
+          "maxHomopolymer": 128,
+          "method": "solver"
+        },
+        "length": 36,
+        "difficulty": "multi-stem",
+        "component": 6,
+        "split": "train"
+      },
+      {
+        "id": "g06-v2",
+        "group": 6,
+        "request": {
+          "target": "((((......))))..(((((..(((((......)))))..)))))",
+          "mask": "NNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNN",
+          "locks": "..............................................",
+          "maxCandidates": 32,
+          "maxSeconds": 2,
+          "wanted": 3,
+          "seed": 1,
+          "gcMin": 0,
+          "gcMax": 1,
+          "maxHomopolymer": 128,
+          "method": "solver"
+        },
+        "length": 46,
+        "difficulty": "multi-stem",
+        "component": 6,
+        "split": "train"
+      },
+      {
+        "id": "g12-v0",
+        "group": 12,
+        "request": {
+          "target": "(((..((......))..((.......))..)))..((....))",
+          "mask": "NNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNN",
+          "locks": "...........................................",
+          "maxCandidates": 32,
+          "maxSeconds": 2,
+          "wanted": 3,
+          "seed": 1,
+          "gcMin": 0,
+          "gcMax": 1,
+          "maxHomopolymer": 128,
+          "method": "solver"
+        },
+        "length": 43,
+        "difficulty": "branched",
+        "component": 12,
+        "split": "train"
+      },
+      {
+        "id": "g12-v1",
+        "group": 12,
+        "request": {
+          "target": "(((..(((.....)))..(((...)))..)))..((((......))))",
+          "mask": "NNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNN",
+          "locks": "................................................",
+          "maxCandidates": 32,
+          "maxSeconds": 2,
+          "wanted": 3,
+          "seed": 1,
+          "gcMin": 0,
+          "gcMax": 1,
+          "maxHomopolymer": 128,
+          "method": "solver"
+        },
+        "length": 48,
+        "difficulty": "branched",
+        "component": 12,
+        "split": "train"
+      },
+      {
+        "id": "g12-v2",
+        "group": 12,
+        "request": {
+          "target": "(((((..(((((....)))))..(((((...)))))..)))))..((((.....))))",
+          "mask": "NNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNN",
+          "locks": "..........................................................",
+          "maxCandidates": 32,
+          "maxSeconds": 2,
+          "wanted": 3,
+          "seed": 1,
+          "gcMin": 0,
+          "gcMax": 1,
+          "maxHomopolymer": 128,
+          "method": "solver"
+        },
+        "length": 58,
+        "difficulty": "branched",
+        "component": 12,
+        "split": "train"
+      },
+      {
+        "id": "g13-v0",
+        "group": 13,
+        "request": {
+          "target": "((....))..(((..(((......)))..((.....))..)))",
+          "mask": "NNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNN",
+          "locks": "...........................................",
+          "maxCandidates": 32,
+          "maxSeconds": 2,
+          "wanted": 3,
+          "seed": 1,
+          "gcMin": 0,
+          "gcMax": 1,
+          "maxHomopolymer": 128,
+          "method": "solver"
+        },
+        "length": 43,
+        "difficulty": "branched",
+        "component": 13,
+        "split": "train"
+      },
+      {
+        "id": "g13-v1",
+        "group": 13,
+        "request": {
+          "target": "(((...)))..((((..((((....))))..((((.....))))..))))",
+          "mask": "NNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNN",
+          "locks": "..................................................",
+          "maxCandidates": 32,
+          "maxSeconds": 2,
+          "wanted": 3,
+          "seed": 1,
+          "gcMin": 0,
+          "gcMax": 1,
+          "maxHomopolymer": 128,
+          "method": "solver"
+        },
+        "length": 50,
+        "difficulty": "branched",
+        "component": 13,
+        "split": "train"
+      },
+      {
+        "id": "g13-v2",
+        "group": 13,
+        "request": {
+          "target": "(((((......)))))..(((((..((((.....))))..((((.....))))..)))))",
+          "mask": "NNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNN",
+          "locks": "............................................................",
+          "maxCandidates": 32,
+          "maxSeconds": 2,
+          "wanted": 3,
+          "seed": 1,
+          "gcMin": 0,
+          "gcMax": 1,
+          "maxHomopolymer": 128,
+          "method": "solver"
+        },
+        "length": 60,
+        "difficulty": "branched",
+        "component": 13,
+        "split": "train"
+      },
+      {
+        "id": "g14-v0",
+        "group": 14,
+        "request": {
+          "target": "(((..((..(((......)))..(((.......)))..))..)))",
+          "mask": "NNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNN",
+          "locks": ".............................................",
+          "maxCandidates": 32,
+          "maxSeconds": 2,
+          "wanted": 3,
+          "seed": 1,
+          "gcMin": 0,
+          "gcMax": 1,
+          "maxHomopolymer": 128,
+          "method": "solver"
+        },
+        "length": 45,
+        "difficulty": "multi-stem",
+        "component": 14,
+        "split": "train"
+      },
+      {
+        "id": "g14-v1",
+        "group": 14,
+        "request": {
+          "target": "(((..(((..(((.......)))..(((...)))..)))..)))",
+          "mask": "NNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNN",
+          "locks": "............................................",
+          "maxCandidates": 32,
+          "maxSeconds": 2,
+          "wanted": 3,
+          "seed": 1,
+          "gcMin": 0,
+          "gcMax": 1,
+          "maxHomopolymer": 128,
+          "method": "solver"
+        },
+        "length": 44,
+        "difficulty": "multi-stem",
+        "component": 14,
+        "split": "train"
+      },
+      {
+        "id": "g14-v2",
+        "group": 14,
+        "request": {
+          "target": "((((..(((((..(((((.......)))))..(((((.....)))))..)))))..))))",
+          "mask": "NNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNN",
+          "locks": "............................................................",
+          "maxCandidates": 32,
+          "maxSeconds": 2,
+          "wanted": 3,
+          "seed": 1,
+          "gcMin": 0,
+          "gcMax": 1,
+          "maxHomopolymer": 128,
+          "method": "solver"
+        },
+        "length": 60,
+        "difficulty": "multi-stem",
+        "component": 14,
+        "split": "train"
+      },
+      {
+        "id": "g15-v0",
+        "group": 15,
+        "request": {
+          "target": "(((..(((..((..(((......)))..))..)))..)))",
+          "mask": "NNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNN",
+          "locks": "G......................................C",
+          "maxCandidates": 32,
+          "maxSeconds": 2,
+          "wanted": 3,
+          "seed": 1,
+          "gcMin": 0,
+          "gcMax": 1,
+          "maxHomopolymer": 128,
+          "method": "solver"
+        },
+        "length": 40,
+        "difficulty": "multi-stem",
+        "component": 15,
+        "split": "train"
+      },
+      {
+        "id": "g15-v1",
+        "group": 15,
+        "request": {
+          "target": "(((..(((..(((..((((....))))..)))..)))..)))",
+          "mask": "NNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNN",
+          "locks": "G........................................C",
+          "maxCandidates": 32,
+          "maxSeconds": 2,
+          "wanted": 3,
+          "seed": 1,
+          "gcMin": 0,
+          "gcMax": 1,
+          "maxHomopolymer": 128,
+          "method": "solver"
+        },
+        "length": 42,
+        "difficulty": "multi-stem",
+        "component": 15,
+        "split": "train"
+      },
+      {
+        "id": "g15-v2",
+        "group": 15,
+        "request": {
+          "target": "(((((..(((((..(((((..(((((......)))))..)))))..)))))..)))))",
+          "mask": "NNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNN",
+          "locks": "G........................................................C",
+          "maxCandidates": 32,
+          "maxSeconds": 2,
+          "wanted": 3,
+          "seed": 1,
+          "gcMin": 0,
+          "gcMax": 1,
+          "maxHomopolymer": 128,
+          "method": "solver"
+        },
+        "length": 58,
+        "difficulty": "multi-stem",
+        "component": 15,
+        "split": "train"
+      },
+      {
+        "id": "g16-v0",
+        "group": 16,
+        "request": {
+          "target": "(((..((......))..(((...)))..)))..((..(((...)))..))",
+          "mask": "NNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNN",
+          "locks": "..................................................",
+          "maxCandidates": 32,
+          "maxSeconds": 2,
+          "wanted": 3,
+          "seed": 1,
+          "gcMin": 0,
+          "gcMax": 1,
+          "maxHomopolymer": 128,
+          "method": "solver"
+        },
+        "length": 50,
+        "difficulty": "branched",
+        "component": 16,
+        "split": "train"
+      },
+      {
+        "id": "g16-v1",
+        "group": 16,
+        "request": {
+          "target": "(((..((((......))))..((((......))))..)))..((((..((((.......))))..))))",
+          "mask": "NNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNN",
+          "locks": ".....................................................................",
+          "maxCandidates": 32,
+          "maxSeconds": 2,
+          "wanted": 3,
+          "seed": 1,
+          "gcMin": 0,
+          "gcMax": 1,
+          "maxHomopolymer": 128,
+          "method": "solver"
+        },
+        "length": 69,
+        "difficulty": "branched",
+        "component": 16,
+        "split": "train"
+      },
+      {
+        "id": "g16-v2",
+        "group": 16,
+        "request": {
+          "target": "((((..(((((.....)))))..(((((......)))))..))))..((((..((((.....))))..))))",
+          "mask": "NNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNN",
+          "locks": "........................................................................",
+          "maxCandidates": 32,
+          "maxSeconds": 2,
+          "wanted": 3,
+          "seed": 1,
+          "gcMin": 0,
+          "gcMax": 1,
+          "maxHomopolymer": 128,
+          "method": "solver"
+        },
+        "length": 72,
+        "difficulty": "branched",
+        "component": 16,
+        "split": "train"
+      },
+      {
+        "id": "g17-v0",
+        "group": 17,
+        "request": {
+          "target": "(((..(((..((.......))..)))..(((...)))..(((...)))..)))",
+          "mask": "NNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNN",
+          "locks": ".....................................................",
+          "maxCandidates": 32,
+          "maxSeconds": 2,
+          "wanted": 3,
+          "seed": 1,
+          "gcMin": 0,
+          "gcMax": 1,
+          "maxHomopolymer": 128,
+          "method": "solver"
+        },
+        "length": 53,
+        "difficulty": "branched",
+        "component": 17,
+        "split": "train"
+      },
+      {
+        "id": "g17-v1",
+        "group": 17,
+        "request": {
+          "target": "(((..((((..(((.......)))..))))..(((...)))..(((.....)))..)))",
+          "mask": "NNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNN",
+          "locks": "...........................................................",
+          "maxCandidates": 32,
+          "maxSeconds": 2,
+          "wanted": 3,
+          "seed": 1,
+          "gcMin": 0,
+          "gcMax": 1,
+          "maxHomopolymer": 128,
+          "method": "solver"
+        },
+        "length": 59,
+        "difficulty": "branched",
+        "component": 17,
+        "split": "train"
+      },
+      {
+        "id": "g17-v2",
+        "group": 17,
+        "request": {
+          "target": "(((((..((((..(((((......)))))..))))..(((((...)))))..((((.....))))..)))))",
+          "mask": "NNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNN",
+          "locks": "........................................................................",
+          "maxCandidates": 32,
+          "maxSeconds": 2,
+          "wanted": 3,
+          "seed": 1,
+          "gcMin": 0,
+          "gcMax": 1,
+          "maxHomopolymer": 128,
+          "method": "solver"
+        },
+        "length": 72,
+        "difficulty": "branched",
+        "component": 17,
+        "split": "train"
+      },
+      {
+        "id": "g18-v0",
+        "group": 18,
+        "request": {
+          "target": "((...))..((...))..((..((...))..))",
+          "mask": "NNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNN",
+          "locks": ".................................",
+          "maxCandidates": 32,
+          "maxSeconds": 2,
+          "wanted": 3,
+          "seed": 1,
+          "gcMin": 0,
+          "gcMax": 1,
+          "maxHomopolymer": 128,
+          "method": "solver"
+        },
+        "length": 33,
+        "difficulty": "multi-stem",
+        "component": 18,
+        "split": "train"
+      },
+      {
+        "id": "g18-v1",
+        "group": 18,
+        "request": {
+          "target": "((((....))))..((((......))))..(((..(((......)))..)))",
+          "mask": "NNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNN",
+          "locks": "....................................................",
+          "maxCandidates": 32,
+          "maxSeconds": 2,
+          "wanted": 3,
+          "seed": 1,
+          "gcMin": 0,
+          "gcMax": 1,
+          "maxHomopolymer": 128,
+          "method": "solver"
+        },
+        "length": 52,
+        "difficulty": "multi-stem",
+        "component": 18,
+        "split": "train"
+      },
+      {
+        "id": "g18-v2",
+        "group": 18,
+        "request": {
+          "target": "((((....))))..((((.....))))..(((((..((((...))))..)))))",
+          "mask": "NNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNN",
+          "locks": "......................................................",
+          "maxCandidates": 32,
+          "maxSeconds": 2,
+          "wanted": 3,
+          "seed": 1,
+          "gcMin": 0,
+          "gcMax": 1,
+          "maxHomopolymer": 128,
+          "method": "solver"
+        },
+        "length": 54,
+        "difficulty": "multi-stem",
+        "component": 18,
+        "split": "train"
+      },
+      {
+        "id": "g19-v0",
+        "group": 19,
+        "request": {
+          "target": "(((..(((..(((...)))..)))..)))..((...))",
+          "mask": "NNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNN",
+          "locks": "......................................",
+          "maxCandidates": 32,
+          "maxSeconds": 2,
+          "wanted": 3,
+          "seed": 1,
+          "gcMin": 0,
+          "gcMax": 1,
+          "maxHomopolymer": 128,
+          "method": "solver"
+        },
+        "length": 38,
+        "difficulty": "multi-stem",
+        "component": 19,
+        "split": "train"
+      },
+      {
+        "id": "g19-v1",
+        "group": 19,
+        "request": {
+          "target": "((((..((((..(((.....)))..))))..))))..(((......)))",
+          "mask": "NNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNN",
+          "locks": ".................................................",
+          "maxCandidates": 32,
+          "maxSeconds": 2,
+          "wanted": 3,
+          "seed": 1,
+          "gcMin": 0,
+          "gcMax": 1,
+          "maxHomopolymer": 128,
+          "method": "solver"
+        },
+        "length": 49,
+        "difficulty": "multi-stem",
+        "component": 19,
+        "split": "train"
+      },
+      {
+        "id": "g19-v2",
+        "group": 19,
+        "request": {
+          "target": "(((((..((((..(((((......)))))..))))..)))))..((((.......))))",
+          "mask": "NNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNN",
+          "locks": "...........................................................",
+          "maxCandidates": 32,
+          "maxSeconds": 2,
+          "wanted": 3,
+          "seed": 1,
+          "gcMin": 0,
+          "gcMax": 1,
+          "maxHomopolymer": 128,
+          "method": "solver"
+        },
+        "length": 59,
+        "difficulty": "multi-stem",
+        "component": 19,
+        "split": "train"
+      }
+    ],
+    "validation": [
+      {
+        "id": "g10-v0",
+        "group": 10,
+        "request": {
+          "target": "(((..((.......))..((..(((...)))..))..)))",
+          "mask": "NNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNN",
+          "locks": "........................................",
+          "maxCandidates": 32,
+          "maxSeconds": 2,
+          "wanted": 3,
+          "seed": 1,
+          "gcMin": 0,
+          "gcMax": 1,
+          "maxHomopolymer": 128,
+          "method": "solver"
+        },
+        "length": 40,
+        "difficulty": "branched",
+        "component": 10,
+        "split": "validation"
+      },
+      {
+        "id": "g10-v1",
+        "group": 10,
+        "request": {
+          "target": "(((..(((.....)))..(((..((((.......))))..)))..)))",
+          "mask": "NNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNN",
+          "locks": "................................................",
+          "maxCandidates": 32,
+          "maxSeconds": 2,
+          "wanted": 3,
+          "seed": 1,
+          "gcMin": 0,
+          "gcMax": 1,
+          "maxHomopolymer": 128,
+          "method": "solver"
+        },
+        "length": 48,
+        "difficulty": "branched",
+        "component": 10,
+        "split": "validation"
+      },
+      {
+        "id": "g10-v2",
+        "group": 10,
+        "request": {
+          "target": "(((((..((((...))))..(((((..(((((.....)))))..)))))..)))))",
+          "mask": "NNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNN",
+          "locks": "........................................................",
+          "maxCandidates": 32,
+          "maxSeconds": 2,
+          "wanted": 3,
+          "seed": 1,
+          "gcMin": 0,
+          "gcMax": 1,
+          "maxHomopolymer": 128,
+          "method": "solver"
+        },
+        "length": 56,
+        "difficulty": "branched",
+        "component": 10,
+        "split": "validation"
+      },
+      {
+        "id": "g11-v0",
+        "group": 11,
+        "request": {
+          "target": "((..((..((......))..))..((..((.....))..))..))",
+          "mask": "NNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNN",
+          "locks": ".............................................",
+          "maxCandidates": 32,
+          "maxSeconds": 2,
+          "wanted": 3,
+          "seed": 1,
+          "gcMin": 0,
+          "gcMax": 1,
+          "maxHomopolymer": 128,
+          "method": "solver"
+        },
+        "length": 45,
+        "difficulty": "branched",
+        "component": 11,
+        "split": "validation"
+      },
+      {
+        "id": "g11-v1",
+        "group": 11,
+        "request": {
+          "target": "((((..((((..((((....))))..))))..((((..((((....))))..))))..))))",
+          "mask": "NNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNN",
+          "locks": "..............................................................",
+          "maxCandidates": 32,
+          "maxSeconds": 2,
+          "wanted": 3,
+          "seed": 1,
+          "gcMin": 0,
+          "gcMax": 1,
+          "maxHomopolymer": 128,
+          "method": "solver"
+        },
+        "length": 62,
+        "difficulty": "branched",
+        "component": 11,
+        "split": "validation"
+      },
+      {
+        "id": "g11-v2",
+        "group": 11,
+        "request": {
+          "target": "((((..((((..(((((.....)))))..))))..(((((..((((.....))))..)))))..))))",
+          "mask": "NNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNN",
+          "locks": "....................................................................",
+          "maxCandidates": 32,
+          "maxSeconds": 2,
+          "wanted": 3,
+          "seed": 1,
+          "gcMin": 0,
+          "gcMax": 1,
+          "maxHomopolymer": 128,
+          "method": "solver"
+        },
+        "length": 68,
+        "difficulty": "branched",
+        "component": 11,
+        "split": "validation"
+      }
+    ],
+    "test": [
+      {
+        "id": "g00-v0",
+        "group": 0,
+        "request": {
+          "target": "((....))",
+          "mask": "NNNNNNNN",
+          "locks": "G......C",
+          "maxCandidates": 32,
+          "maxSeconds": 2,
+          "wanted": 3,
+          "seed": 1,
+          "gcMin": 0,
+          "gcMax": 1,
+          "maxHomopolymer": 128,
+          "method": "solver"
+        },
+        "length": 8,
+        "difficulty": "simple",
+        "component": 0,
+        "split": "test"
+      },
+      {
+        "id": "g00-v1",
+        "group": 0,
+        "request": {
+          "target": "((((.....))))",
+          "mask": "NNNNNNNNNNNNN",
+          "locks": "G...........C",
+          "maxCandidates": 32,
+          "maxSeconds": 2,
+          "wanted": 3,
+          "seed": 1,
+          "gcMin": 0,
+          "gcMax": 1,
+          "maxHomopolymer": 128,
+          "method": "solver"
+        },
+        "length": 13,
+        "difficulty": "simple",
+        "component": 0,
+        "split": "test"
+      },
+      {
+        "id": "g00-v2",
+        "group": 0,
+        "request": {
+          "target": "(((((.......)))))",
+          "mask": "NNNNNNNNNNNNNNNNN",
+          "locks": "G...............C",
+          "maxCandidates": 32,
+          "maxSeconds": 2,
+          "wanted": 3,
+          "seed": 1,
+          "gcMin": 0,
+          "gcMax": 1,
+          "maxHomopolymer": 128,
+          "method": "solver"
+        },
+        "length": 17,
+        "difficulty": "simple",
+        "component": 0,
+        "split": "test"
+      },
+      {
+        "id": "g05-v0",
+        "group": 5,
+        "request": {
+          "target": "((..(((.......)))..))..((.....))",
+          "mask": "NNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNN",
+          "locks": "................................",
+          "maxCandidates": 32,
+          "maxSeconds": 2,
+          "wanted": 3,
+          "seed": 1,
+          "gcMin": 0,
+          "gcMax": 1,
+          "maxHomopolymer": 128,
+          "method": "solver"
+        },
+        "length": 32,
+        "difficulty": "multi-stem",
+        "component": 5,
+        "split": "test"
+      },
+      {
+        "id": "g05-v1",
+        "group": 5,
+        "request": {
+          "target": "((((..((((.......))))..))))..(((......)))",
+          "mask": "NNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNN",
+          "locks": ".........................................",
+          "maxCandidates": 32,
+          "maxSeconds": 2,
+          "wanted": 3,
+          "seed": 1,
+          "gcMin": 0,
+          "gcMax": 1,
+          "maxHomopolymer": 128,
+          "method": "solver"
+        },
+        "length": 41,
+        "difficulty": "multi-stem",
+        "component": 5,
+        "split": "test"
+      },
+      {
+        "id": "g05-v2",
+        "group": 5,
+        "request": {
+          "target": "((((..((((...))))..))))..((((......))))",
+          "mask": "NNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNN",
+          "locks": ".......................................",
+          "maxCandidates": 32,
+          "maxSeconds": 2,
+          "wanted": 3,
+          "seed": 1,
+          "gcMin": 0,
+          "gcMax": 1,
+          "maxHomopolymer": 128,
+          "method": "solver"
+        },
+        "length": 39,
+        "difficulty": "multi-stem",
+        "component": 5,
+        "split": "test"
+      },
+      {
+        "id": "g07-v0",
+        "group": 7,
+        "request": {
+          "target": "((..((.......))..(((...)))..))",
+          "mask": "NNNNNNNNNNNNNNNNNNNNNNNNNNNNNN",
+          "locks": "..............................",
+          "maxCandidates": 32,
+          "maxSeconds": 2,
+          "wanted": 3,
+          "seed": 1,
+          "gcMin": 0,
+          "gcMax": 1,
+          "maxHomopolymer": 128,
+          "method": "solver"
+        },
+        "length": 30,
+        "difficulty": "branched",
+        "component": 7,
+        "split": "test"
+      },
+      {
+        "id": "g07-v1",
+        "group": 7,
+        "request": {
+          "target": "(((..(((.......)))..(((.......)))..)))",
+          "mask": "NNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNN",
+          "locks": "......................................",
+          "maxCandidates": 32,
+          "maxSeconds": 2,
+          "wanted": 3,
+          "seed": 1,
+          "gcMin": 0,
+          "gcMax": 1,
+          "maxHomopolymer": 128,
+          "method": "solver"
+        },
+        "length": 38,
+        "difficulty": "branched",
+        "component": 7,
+        "split": "test"
+      },
+      {
+        "id": "g07-v2",
+        "group": 7,
+        "request": {
+          "target": "(((((..((((.......))))..(((((.......)))))..)))))",
+          "mask": "NNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNN",
+          "locks": "................................................",
+          "maxCandidates": 32,
+          "maxSeconds": 2,
+          "wanted": 3,
+          "seed": 1,
+          "gcMin": 0,
+          "gcMax": 1,
+          "maxHomopolymer": 128,
+          "method": "solver"
+        },
+        "length": 48,
+        "difficulty": "branched",
+        "component": 7,
+        "split": "test"
+      },
+      {
+        "id": "g08-v0",
+        "group": 8,
+        "request": {
+          "target": "((..((.......))..(((......)))..((.......))..))",
+          "mask": "NNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNN",
+          "locks": "..............................................",
+          "maxCandidates": 32,
+          "maxSeconds": 2,
+          "wanted": 3,
+          "seed": 1,
+          "gcMin": 0,
+          "gcMax": 1,
+          "maxHomopolymer": 128,
+          "method": "solver"
+        },
+        "length": 46,
+        "difficulty": "branched",
+        "component": 8,
+        "split": "test"
+      },
+      {
+        "id": "g08-v1",
+        "group": 8,
+        "request": {
+          "target": "((((..(((.....)))..(((.....)))..((((.......))))..))))",
+          "mask": "NNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNN",
+          "locks": ".....................................................",
+          "maxCandidates": 32,
+          "maxSeconds": 2,
+          "wanted": 3,
+          "seed": 1,
+          "gcMin": 0,
+          "gcMax": 1,
+          "maxHomopolymer": 128,
+          "method": "solver"
+        },
+        "length": 53,
+        "difficulty": "branched",
+        "component": 8,
+        "split": "test"
+      },
+      {
+        "id": "g08-v2",
+        "group": 8,
+        "request": {
+          "target": "((((..((((...))))..(((((....)))))..(((((....)))))..))))",
+          "mask": "NNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNN",
+          "locks": ".......................................................",
+          "maxCandidates": 32,
+          "maxSeconds": 2,
+          "wanted": 3,
+          "seed": 1,
+          "gcMin": 0,
+          "gcMax": 1,
+          "maxHomopolymer": 128,
+          "method": "solver"
+        },
+        "length": 55,
+        "difficulty": "branched",
+        "component": 8,
+        "split": "test"
+      },
+      {
+        "id": "g09-v0",
+        "group": 9,
+        "request": {
+          "target": "((..((..(((....)))..))..(((.......)))..))",
+          "mask": "NNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNN",
+          "locks": "G.......................................C",
+          "maxCandidates": 32,
+          "maxSeconds": 2,
+          "wanted": 3,
+          "seed": 1,
+          "gcMin": 0,
+          "gcMax": 1,
+          "maxHomopolymer": 128,
+          "method": "solver"
+        },
+        "length": 41,
+        "difficulty": "branched",
+        "component": 9,
+        "split": "test"
+      },
+      {
+        "id": "g09-v1",
+        "group": 9,
+        "request": {
+          "target": "(((..((((..((((.......))))..))))..((((......))))..)))",
+          "mask": "NNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNN",
+          "locks": "G...................................................C",
+          "maxCandidates": 32,
+          "maxSeconds": 2,
+          "wanted": 3,
+          "seed": 1,
+          "gcMin": 0,
+          "gcMax": 1,
+          "maxHomopolymer": 128,
+          "method": "solver"
+        },
+        "length": 53,
+        "difficulty": "branched",
+        "component": 9,
+        "split": "test"
+      },
+      {
+        "id": "g09-v2",
+        "group": 9,
+        "request": {
+          "target": "((((..(((((..(((((.....)))))..)))))..((((.......))))..))))",
+          "mask": "NNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNN",
+          "locks": "G........................................................C",
+          "maxCandidates": 32,
+          "maxSeconds": 2,
+          "wanted": 3,
+          "seed": 1,
+          "gcMin": 0,
+          "gcMax": 1,
+          "maxHomopolymer": 128,
+          "method": "solver"
+        },
+        "length": 58,
+        "difficulty": "branched",
+        "component": 9,
+        "split": "test"
+      }
+    ]
+  },
+  "arms": [
+    "solver",
+    "qwen",
+    "hybrid"
+  ],
+  "seeds": [
+    17,
+    29
+  ],
+  "evaluationLimits": [
+    8,
+    32
+  ],
+  "searchSeconds": 2,
+  "wanted": 3,
+  "qualification": "Exact ViennaRNA MFE target, canonical pairs, mask, locks and optional GC/homopolymer limits. RNA Lab check is reported separately.",
+  "accounting": "Fresh per-arm caches. Count explicit MFE+PF scoring, independent checks, inverse_fold calls and wall time. Internal inverse_fold energy calls are unavailable; matched explicit counts do not equal matched total work.",
+  "training": {
+    "seed": 20261116,
+    "epochs": 24,
+    "headLearningRate": 0.002,
+    "backbone": "Frozen existing Qwen2.5-Coder-3B-Instruct",
+    "selection": "Lowest validation positive-label base CE. No held-out test selection.",
+    "temperature": 1.0
+  },
+  "cost": "Local seconds, not dollars. Local energy cost is unmeasured. Modal estimate and billed usage stay separate.",
+  "limitations": "Small synthetic topology pilot. Qwen pretraining contamination is unknown. Fold ties count as an MFE match; target ensemble probability is also reported.",
+  "sha256": "55d422427b48300ddaf646844bd44beb18ea327d3383e73dd1df24d335cc09d3"
+}

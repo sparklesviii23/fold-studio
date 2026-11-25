@@ -1,0 +1,122 @@
+{
+  "inputSeal": "614922791a4b35c19fdd000ba8367de534b04c76c592c252984685903f972987",
+  "candidates": [
+    {
+      "id": "35e67c28a8b80d54",
+      "sequence": "GGUCGCUGGGGCC",
+      "structure": "((((.....))))",
+      "mfeKcalMol": -4.0,
+      "targetKcalMol": -4.0,
+      "targetGapKcalMol": 0.0,
+      "targetProbability": 0.9618422979924026,
+      "ensembleDefect": 0.010365360619109941,
+      "pairF1": 1.0,
+      "missedPairs": [],
+      "extraPairs": [],
+      "source": "qwen proposal plus ViennaRNA inverse folding",
+      "qualifies": true,
+      "failureReasons": [],
+      "constraintViolations": [],
+      "independent": {
+        "structure": "((((.....))))",
+        "mfeKcalMol": -1.7,
+        "engine": "RNA Lab reduced Turner nearest-neighbour",
+        "version": "rna-lab.fold/1.0.0",
+        "temperatureC": 37,
+        "agreesWithTarget": true,
+        "disagreementPairs": []
+      }
+    },
+    {
+      "id": "d0628e98296f040a",
+      "sequence": "GCGUGGGCUGCGC",
+      "structure": "((((.....))))",
+      "mfeKcalMol": -2.9000000953674316,
+      "targetKcalMol": -2.9000000953674316,
+      "targetGapKcalMol": 0.0,
+      "targetProbability": 0.6432281724863445,
+      "ensembleDefect": 0.13068864703459476,
+      "pairF1": 1.0,
+      "missedPairs": [],
+      "extraPairs": [],
+      "source": "qwen proposal plus ViennaRNA inverse folding",
+      "qualifies": true,
+      "failureReasons": [],
+      "constraintViolations": [],
+      "independent": {
+        "structure": "((((.....))))",
+        "mfeKcalMol": -2.2,
+        "engine": "RNA Lab reduced Turner nearest-neighbour",
+        "version": "rna-lab.fold/1.0.0",
+        "temperatureC": 37,
+        "agreesWithTarget": true,
+        "disagreementPairs": []
+      }
+    },
+    {
+      "id": "0b86bd78a6e8f9c4",
+      "sequence": "GUCGAUGCCUGGC",
+      "structure": "((((.....))))",
+      "mfeKcalMol": -0.20000000298023224,
+      "targetKcalMol": -0.20000000298023224,
+      "targetGapKcalMol": 0.0,
+      "targetProbability": 0.44397538686688104,
+      "ensembleDefect": 0.2595419883172786,
+      "pairF1": 1.0,
+      "missedPairs": [],
+      "extraPairs": [],
+      "source": "qwen proposal plus ViennaRNA inverse folding",
+      "qualifies": true,
+      "failureReasons": [],
+      "constraintViolations": [],
+      "independent": {
+        "structure": ".............",
+        "mfeKcalMol": 0.0,
+        "engine": "RNA Lab reduced Turner nearest-neighbour",
+        "version": "rna-lab.fold/1.0.0",
+        "temperatureC": 37,
+        "agreesWithTarget": false,
+        "disagreementPairs": [
+          [
+            1,
+            13
+          ],
+          [
+            2,
+            12
+          ],
+          [
+            3,
+            11
+          ],
+          [
+            4,
+            10
+          ]
+        ]
+      }
+    }
+  ],
+  "seen": [
+    "GCGUGGGCUGCGC",
+    "GGUCGCUGGGGCC",
+    "GUCGAUGCCUGGC"
+  ],
+  "attempts": 3,
+  "solverCalls": 3,
+  "elapsedSeconds": 0.008998416000395082,
+  "firstSuccessSeconds": 0.00084804100333713,
+  "evaluations": 3,
+  "secondaryEvaluations": 3,
+  "batches": 3,
+  "constraintRejections": 0,
+  "scorer": {
+    "engine": "ViennaRNA",
+    "version": "2.7.2",
+    "temperatureC": 37,
+    "dangles": 2,
+    "parameters": "Turner2004",
+    "noLP": false
+  },
+  "stopReason": "enough_candidates"
+}

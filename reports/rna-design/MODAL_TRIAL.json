@@ -1,0 +1,66 @@
+{
+  "schema": "fold.rna-design-modal-trial/1",
+  "hardware": {
+    "cpuRequest": 1,
+    "cpuLimit": 1,
+    "memoryMiB": 2048,
+    "gpu": null
+  },
+  "runs": [
+    {
+      "purpose": "simple completion and import",
+      "target": "((((....))))",
+      "maxCandidates": 32,
+      "maxSeconds": 10,
+      "wanted": 3,
+      "containerSeconds": 130
+    },
+    {
+      "purpose": "held-out completion and import",
+      "target": "((..((.......))..(((...)))..))",
+      "targetId": "g07-v0",
+      "maxCandidates": 128,
+      "maxSeconds": 20,
+      "wanted": 3,
+      "containerSeconds": 140
+    },
+    {
+      "purpose": "cancel and recover a partial batch",
+      "target": "((....))",
+      "maxCandidates": 4096,
+      "maxSeconds": 60,
+      "wanted": 20,
+      "containerSeconds": 180
+    },
+    {
+      "purpose": "resume the same cancelled run",
+      "target": "((....))",
+      "maxCandidates": 4096,
+      "maxSeconds": 60,
+      "wanted": 20,
+      "containerSeconds": 180
+    }
+  ],
+  "uploads": [
+    "Synthetic target dot-bracket strings",
+    "RNA masks and locks",
+    "Seeds and limits",
+    "RNA Design source modules",
+    "Saved partial state for resume"
+  ],
+  "priceSource": "https://modal.com/pricing",
+  "priceChecked": "2026-11-16",
+  "sandboxCPUPerCoreSecondUSD": 3.942e-05,
+  "sandboxMemoryPerGiBSecondUSD": 6.67e-06,
+  "estimatedComputeMaximumUSD": 0.0332388,
+  "buildAndStorageAllowanceUSD": 0.06,
+  "billedCostUSD": null,
+  "notes": "Four bounded CPU sandboxes. No always-on deployment. Source package image build and storage can add charges. The app has no account invoice endpoint. Estimate is not billed cost.",
+  "approval": "Approved by the user for the exact four CPU runs.",
+  "approvalRecord": {
+    "userMessage": "approved",
+    "timestampUTC": "2026-11-16T12:49:43.767706+00:00",
+    "scopeSha256": "568fc3fb4a3aa8980ca782e148086ca9cb8d4329dbac7795abbfe666998765b2",
+    "scope": "Four runs only; same inputs, CPU/memory and limits. No GPU. Estimates remain distinct from billed cost."
+  }
+}

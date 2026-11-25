@@ -1,0 +1,49 @@
+{"event": "start", "seconds": 0.03, "device": "mps", "externalFoldingEngines": false, "splitSha256": "122735c1f4c10edacd18db561ef629a0bf3eeec1e416793c2f695dec16a16f56"}
+{"event": "validation", "seconds": 1.99, "arm": "compact", "epoch": 0, "validationF1": 0.21435816238095046, "threshold": 0.02, "trainingLoss": null}
+{"event": "training", "seconds": 3.45, "arm": "compact", "epoch": 1, "step": 0, "loss": 3.7705557346343994}
+{"event": "training", "seconds": 4.33, "arm": "compact", "epoch": 1, "step": 16, "loss": 2.4851038455963135}
+{"event": "training", "seconds": 4.45, "arm": "compact", "epoch": 1, "step": 32, "loss": 2.3166921138763428}
+{"event": "validation", "seconds": 5.7, "arm": "compact", "epoch": 1, "validationF1": 0.3725524190062059, "threshold": 0.02, "trainingLoss": 2.6020919730265937}
+{"event": "training", "seconds": 5.71, "arm": "compact", "epoch": 2, "step": 0, "loss": 1.860706090927124}
+{"event": "training", "seconds": 5.83, "arm": "compact", "epoch": 2, "step": 16, "loss": 2.068962574005127}
+{"event": "training", "seconds": 5.94, "arm": "compact", "epoch": 2, "step": 32, "loss": 1.4598290920257568}
+{"event": "validation", "seconds": 7.01, "arm": "compact", "epoch": 2, "validationF1": 0.39945153265917066, "threshold": 0.02, "trainingLoss": 1.638821126272281}
+{"event": "training", "seconds": 7.03, "arm": "compact", "epoch": 3, "step": 0, "loss": 1.7376242876052856}
+{"event": "training", "seconds": 7.15, "arm": "compact", "epoch": 3, "step": 16, "loss": 0.8661597371101379}
+{"event": "training", "seconds": 7.26, "arm": "compact", "epoch": 3, "step": 32, "loss": 0.9921934604644775}
+{"event": "validation", "seconds": 8.3, "arm": "compact", "epoch": 3, "validationF1": 0.33602018069283796, "threshold": 0.02, "trainingLoss": 1.0412125767519076}
+{"event": "arm_finished", "seconds": 8.31, "arm": "compact", "selected": {"epoch": 2, "validationF1": 0.39945153265917066, "threshold": 0.02}, "receipt": {"history": [{"epoch": 0, "validationF1": 0.21435816238095046, "threshold": 0.02, "trainingLoss": null}, {"epoch": 1, "validationF1": 0.3725524190062059, "threshold": 0.02, "trainingLoss": 2.6020919730265937}, {"epoch": 2, "validationF1": 0.39945153265917066, "threshold": 0.02, "trainingLoss": 1.638821126272281}, {"epoch": 3, "validationF1": 0.33602018069283796, "threshold": 0.02, "trainingLoss": 1.0412125767519076}], "seconds": 8.256999332996202, "trainableParameters": 62218, "changedTensors": ["embedding.weight", "encoder.0.weight", "encoder.0.bias", "encoder.2.weight", "encoder.2.bias", "head.project.0.weight", "head.project.0.bias", "head.project.1.weight", "head.project.1.bias", "head.distance.weight", "head.pair.0.weight", "head.pair.0.bias", "head.pair.2.weight", "head.pair.2.bias", "head.unpaired.weight", "head.unpaired.bias"], "frozenWeightsUnchanged": true, "adaptersChanged": false}}
+{"event": "loading_local_qwen", "seconds": 8.52}
+Loading checkpoint shards:   0%|          | 0/2 [00:00<?, ?it/s]Loading checkpoint shards:  50%|█████     | 1/2 [00:08<00:08,  8.76s/it]Loading checkpoint shards: 100%|██████████| 2/2 [00:11<00:00,  5.14s/it]Loading checkpoint shards: 100%|██████████| 2/2 [00:11<00:00,  5.68s/it]
+{"event": "qwen_loaded", "seconds": 21.34, "parameters": 3085938688, "tokenIds": {"A": 32, "C": 34, "G": 38, "U": 52}}
+{"event": "frozen_features_cached", "seconds": 31.77, "examples": 64}
+{"event": "validation", "seconds": 32.82, "arm": "qwen_frozen", "epoch": 0, "validationF1": 0.11999306197964849, "threshold": 0.02, "trainingLoss": null}
+{"event": "training", "seconds": 32.91, "arm": "qwen_frozen", "epoch": 1, "step": 0, "loss": 3.8076820373535156}
+{"event": "training", "seconds": 33.17, "arm": "qwen_frozen", "epoch": 1, "step": 16, "loss": 2.5606632232666016}
+{"event": "training", "seconds": 33.27, "arm": "qwen_frozen", "epoch": 1, "step": 32, "loss": 2.7538540363311768}
+{"event": "validation", "seconds": 34.42, "arm": "qwen_frozen", "epoch": 1, "validationF1": 0.18505138629897935, "threshold": 0.02, "trainingLoss": 2.810976505279541}
+{"event": "training", "seconds": 34.43, "arm": "qwen_frozen", "epoch": 2, "step": 0, "loss": 2.6802074909210205}
+{"event": "training", "seconds": 34.56, "arm": "qwen_frozen", "epoch": 2, "step": 16, "loss": 2.6653590202331543}
+{"event": "training", "seconds": 34.66, "arm": "qwen_frozen", "epoch": 2, "step": 32, "loss": 2.543797731399536}
+{"event": "validation", "seconds": 35.76, "arm": "qwen_frozen", "epoch": 2, "validationF1": 0.1753086473674709, "threshold": 0.02, "trainingLoss": 2.644189953804016}
+{"event": "training", "seconds": 35.77, "arm": "qwen_frozen", "epoch": 3, "step": 0, "loss": 2.4105422496795654}
+{"event": "training", "seconds": 35.88, "arm": "qwen_frozen", "epoch": 3, "step": 16, "loss": 2.5792033672332764}
+{"event": "training", "seconds": 35.99, "arm": "qwen_frozen", "epoch": 3, "step": 32, "loss": 2.3344242572784424}
+{"event": "validation", "seconds": 37.08, "arm": "qwen_frozen", "epoch": 3, "validationF1": 0.21638093075668588, "threshold": 0.02, "trainingLoss": 2.556917975346247}
+{"event": "arm_finished", "seconds": 37.08, "arm": "qwen_frozen", "selected": {"epoch": 3, "validationF1": 0.21638093075668588, "threshold": 0.02}, "receipt": {"history": [{"epoch": 0, "validationF1": 0.11999306197964849, "threshold": 0.02, "trainingLoss": null}, {"epoch": 1, "validationF1": 0.18505138629897935, "threshold": 0.02, "trainingLoss": 2.810976505279541}, {"epoch": 2, "validationF1": 0.1753086473674709, "threshold": 0.02, "trainingLoss": 2.644189953804016}, {"epoch": 3, "validationF1": 0.21638093075668588, "threshold": 0.02, "trainingLoss": 2.556917975346247}], "seconds": 5.311820959002944, "trainableParameters": 110922, "changedTensors": ["head.project.0.weight", "head.project.0.bias", "head.project.1.weight", "head.project.1.bias", "head.distance.weight", "head.pair.0.weight", "head.pair.0.bias", "head.pair.2.weight", "head.pair.2.bias", "head.unpaired.weight", "head.unpaired.bias"], "frozenWeightsUnchanged": true, "adaptersChanged": false}}
+{"event": "validation", "seconds": 40.58, "arm": "qwen_adapter", "epoch": 0, "validationF1": 0.11999306197964849, "threshold": 0.02, "trainingLoss": null}
+{"event": "training", "seconds": 41.05, "arm": "qwen_adapter", "epoch": 1, "step": 0, "loss": 3.8076908588409424}
+{"event": "training", "seconds": 44.18, "arm": "qwen_adapter", "epoch": 1, "step": 16, "loss": 2.560109853744507}
+{"event": "training", "seconds": 46.96, "arm": "qwen_adapter", "epoch": 1, "step": 32, "loss": 2.750960350036621}
+{"event": "validation", "seconds": 52.87, "arm": "qwen_adapter", "epoch": 1, "validationF1": 0.1535670435040621, "threshold": 0.02, "trainingLoss": 2.809381698568662}
+{"event": "training", "seconds": 53.05, "arm": "qwen_adapter", "epoch": 2, "step": 0, "loss": 2.6849257946014404}
+{"event": "training", "seconds": 55.81, "arm": "qwen_adapter", "epoch": 2, "step": 16, "loss": 2.6448988914489746}
+{"event": "training", "seconds": 58.57, "arm": "qwen_adapter", "epoch": 2, "step": 32, "loss": 2.5171737670898438}
+{"event": "validation", "seconds": 64.34, "arm": "qwen_adapter", "epoch": 2, "validationF1": 0.18138314025504426, "threshold": 0.02, "trainingLoss": 2.617963890234629}
+{"event": "training", "seconds": 64.52, "arm": "qwen_adapter", "epoch": 3, "step": 0, "loss": 2.3666839599609375}
+{"event": "training", "seconds": 67.29, "arm": "qwen_adapter", "epoch": 3, "step": 16, "loss": 2.5162456035614014}
+{"event": "training", "seconds": 70.03, "arm": "qwen_adapter", "epoch": 3, "step": 32, "loss": 2.161653518676758}
+{"event": "validation", "seconds": 75.8, "arm": "qwen_adapter", "epoch": 3, "validationF1": 0.14089573482955836, "threshold": 0.02, "trainingLoss": 2.4201159675916037}
+{"event": "arm_finished", "seconds": 75.81, "arm": "qwen_adapter", "selected": {"epoch": 2, "validationF1": 0.18138314025504426, "threshold": 0.02}, "receipt": {"history": [{"epoch": 0, "validationF1": 0.11999306197964849, "threshold": 0.02, "trainingLoss": null}, {"epoch": 1, "validationF1": 0.1535670435040621, "threshold": 0.02, "trainingLoss": 2.809381698568662}, {"epoch": 2, "validationF1": 0.18138314025504426, "threshold": 0.02, "trainingLoss": 2.617963890234629}, {"epoch": 3, "validationF1": 0.14089573482955836, "threshold": 0.02, "trainingLoss": 2.4201159675916037}], "seconds": 38.56351470799564, "trainableParameters": 213322, "changedTensors": ["backbone.layers.34.self_attn.q_proj.lora_a", "backbone.layers.34.self_attn.q_proj.lora_b", "backbone.layers.34.self_attn.v_proj.lora_a", "backbone.layers.34.self_attn.v_proj.lora_b", "backbone.layers.35.self_attn.q_proj.lora_a", "backbone.layers.35.self_attn.q_proj.lora_b", "backbone.layers.35.self_attn.v_proj.lora_a", "backbone.layers.35.self_attn.v_proj.lora_b", "head.project.0.weight", "head.project.0.bias", "head.project.1.weight", "head.project.1.bias", "head.distance.weight", "head.pair.0.weight", "head.pair.0.bias", "head.pair.2.weight", "head.pair.2.bias", "head.unpaired.weight", "head.unpaired.bias"], "frozenWeightsUnchanged": true, "adaptersChanged": true}}
+{"event": "selection_sealed", "seconds": 75.98, "sha256": "d61473360f78f6dcbb490d5b1b4045113e2fcd04fcc3c09a3971e5cf490f42be"}
+{"event": "finished", "seconds": 84.96, "benchmark": {"compact": 0.10746352342029913, "qwen_frozen": 0.08887099488294443, "qwen_adapter": 0.04541569822156274}}

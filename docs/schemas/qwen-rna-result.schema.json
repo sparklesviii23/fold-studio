@@ -1,0 +1,37 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "fold.qwen-rna-result/1",
+  "title": "Fold Studio completed Qwen RNA experiment",
+  "description": "Public nucleotide indices are 1 based. Sequence-length consistency, canonical pairing, symmetry and pair row mass are additionally enforced by qwen_rna_contract.py. No atomic geometry or cellular outcome is implied.",
+  "type": "object",
+  "required": ["schema", "runId", "sequence", "length", "structure", "basePairProbabilities", "bases", "regions", "uncertainty", "decoder", "provenance", "verification", "sha256", "seconds"],
+  "properties": {
+    "schema": {"const": "fold.qwen-rna-result/1"},
+    "runId": {"type": "string", "format": "uuid"},
+    "sequence": {"type": "string", "pattern": "^[ACGU]{8,128}$"},
+    "length": {"type": "integer", "minimum": 8, "maximum": 128},
+    "structure": {"type": "string", "pattern": "^[().]{8,128}$"},
+    "basePairProbabilities": {
+      "type": "array",
+      "items": {"type": "array", "prefixItems": [{"type": "integer", "minimum": 1}, {"type": "integer", "minimum": 1}, {"type": "number", "minimum": 0, "maximum": 1}], "minItems": 3, "maxItems": 3}
+    },
+    "bases": {
+      "type": "array", "minItems": 8, "maxItems": 128,
+      "items": {"type": "object", "required": ["position", "base", "partner", "unpairedProbability", "entropyBits", "confidence"], "properties": {
+        "position": {"type": "integer", "minimum": 1}, "base": {"enum": ["A", "C", "G", "U"]},
+        "partner": {"type": ["integer", "null"], "minimum": 1},
+        "unpairedProbability": {"type": "number", "minimum": 0, "maximum": 1},
+        "entropyBits": {"type": "number", "minimum": 0},
+        "confidence": {"type": "number", "minimum": 0, "maximum": 1}
+      }}
+    },
+    "regions": {"type": "array", "items": {"type": "object", "required": ["start", "end", "meanEntropyBits"], "properties": {"start": {"type": "integer", "minimum": 1}, "end": {"type": "integer", "minimum": 1}, "meanEntropyBits": {"type": "number", "minimum": 0}}}},
+    "uncertainty": {"type": "object", "required": ["calibrated", "note"], "properties": {"calibrated": {"const": false}, "note": {"type": "string"}}},
+    "decoder": {"type": "object", "required": ["id", "version", "threshold", "minimumHairpin"]},
+    "provenance": {"type": "object", "required": ["engine", "version", "weightsSha256", "checkpointSha256", "baseRevision", "splitSha256", "device", "torch", "transformers", "externalEngines", "teacherSignals"], "properties": {"engine": {"enum": ["qwen_adapter", "qwen_frozen", "compact"]}, "externalEngines": {"type": "array"}, "teacherSignals": {"type": "array"}}},
+    "verification": {"type": "object", "required": ["enabled", "ran", "policy", "reason", "meanEntropyBits"]},
+    "comparison": {"type": ["object", "null"]},
+    "seconds": {"type": "number", "minimum": 0},
+    "sha256": {"type": "string", "pattern": "^[0-9a-f]{64}$"}
+  }
+}

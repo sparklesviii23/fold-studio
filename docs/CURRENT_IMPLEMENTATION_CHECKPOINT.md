@@ -1,4 +1,21 @@
+## RNA Design recovery checkpoint (18 November 2026)
+The installed app includes verified state-file transport and resume-polling fixes. Local design/save/reopen and Modal completion/import/save/reopen/cancellation passed. One additional paid Modal resume retry needs approval. Exact workload, commands, contracts and restored app context: `reports/rna-design/CHECKPOINT.md`; benchmark: `reports/rna-design/BENCHMARK.md`. Keep Solver as default. Do not retrain or repeat the benchmark for this release check.
+
 # Current Fold Studio implementation checkpoint
+
+## Native Qwen RNA checkpoint · 15 November 2026
+
+Start with `docs/QWEN_RNA_ENGINE.md` and `AGENTS.md` for exact ownership, contracts, runtime paths, commands and handoff. All prior dirty work in the main and `predictive-cell-research` worktrees is preserved. The original Qwen cell-response pilot was reloaded and reproduced 26 × 2,132 values exactly; the embedded-expert/Grounded assets and evaluations remain in the shared library.
+
+A separate native Qwen RNA scientific head and rank-8 attention adapters now return position-preserving base-pair marginals, valid nested fold, base/region uncertainty and complete provenance with external folding disabled. Frozen split: 48 5S train / 16 tRNA validation / 24 SRP test. Held-out exact pair F1: adapter Qwen **0.045416**, frozen Qwen **0.088871**, compact **0.107464**, current RNA Lab **0.608029**, ViennaRNA 2.7.2 **0.583242**. All Qwen comparisons lose; uncertainty is uncalibrated, one seed, head initialization differs across arms. No validated checkpoint promotion or base unfreezing. Preserve this observed test set for reporting, not tuning.
+
+Working app route: Biological Models → Model workbench → Predict in RNA Lab → Predict → inspect base/pair → compare reference → Save result → Open fold in Molecular Viewer. Library → Explore returns the same run/hash. Viewer labels this 2D topology, with no invented atomic coordinates or cell dynamics. Existing molecule/atomic/cell flows and the phage research section remain. Optional uncertainty-triggered specialist checking records actual solver inputs/energy/disagreements; this is a rule-based policy, not a learned Qwen tool router.
+
+Actual installed desktop run `6eb9b678-8220-44d7-af02-1665be527ff7` completed on MPS, external engines empty, numerical matrix equal to the frozen benchmark exactly. Saved analysis `542e2796-04f7-404b-9fa3-eef8db674efe` in the isolated qualification Library. Laptop/full-screen, reference overlay, focused base inspector, sidebar collapse, save and Library reopen were exercised. See `reports/qwen-rna/desktop-run-final.json`. Cold wall time 154.09 s versus 16.25 s inside the worker; the supervisor cannot bound its own OS bootstrap. No privacy settings were changed.
+
+Focused checks: 14 backend/native-admission and 12 interface tests, TypeScript, source/installed resource closure and signatures pass; full logs are under `reports/qwen-rna`. Runtime bridge uses bundled CPython 3.12 with existing qualified scientific packages; trained models remain outside the bundle. Context Mode doctor passed all checks; no tool/config changes. Schema: `docs/schemas/qwen-rna-result.schema.json`. Latest packaging log: `reports/qwen-rna/build-release.log`.
+
+**Next action:** freeze a broader family/structure-aware final split and common-head-initialization protocol before strengthening the secondary model. Present data/compute do not establish native 3D, inverse-trained design, or sequence-to-cell behavior; exact corpus, geometry/sequence heads, matched assay/context and evaluation dependencies are listed in the report. No new paid compute attempt is authorized.
 
 Updated 2026-10-29. Branch: `project-omega/ultimate-completion`.
 
@@ -134,3 +151,52 @@ Packaged and installed (guarded build, 154 modules, valid signature, known rust-
 ## Virtual Cell stage 3 · 2 November 2026
 
 Commits `413469a`, `294a6b1`, `5fa44f9`. Added: Hep G2 proteomics (PaxDb Geiger 2012 iBAQ / spectral counting) with RNA–protein view; Cell Painting (cpg0036 EU-OS Hep G2 DMSO subset, 24 images, SciPy segmentation and per-cell morphology); read-only saved-structure adapter with Molecular Viewer round trip; Cell Physics / RNA lab result adapter; cell-cycle → 3D visualization rule; research report export; CellFlux (cpg0000 checkpoint, local MPS) as an experimental plugin at the user's request (out of domain for Hep G2; identity checks reported). Test runtime is `runtimes/jax-cpu` (has gemmi); full suite **1,136 OK, 10 skipped, 0 failures, 0 errors**; Virtual Cell interface 242 passed; TypeScript passed. Interface validated through the dev bridge against the real worker on a QA copy of the library; native Tauri window not driven. Packaged and installed (159 modules, valid signature; log `reports/ultimate/virtual-cell-stage3-build.log`); all Virtual Cell modules and the CellFlux runner match source; packaged runtime exercised on real data (coverage, abundance, microscopy, 13 structures, 12 results, cell cycle, CellFlux status/job, report). App reopened on the original library. See `docs/VIRTUAL_CELL_*.md`.
+
+
+## Real cell EM volume · 13 November
+
+Cell Explorer has a new tab, Real cell · EM (`src/cell/em/`, `scientific/cell_em.py`). It installs, on request, the OpenOrganelle jrc_hela-2 FIB-SEM volume and ten COSEM segmentations at level s4 (64 nm voxels, about 39 MB, CC BY 4.0; originals and SHA-256 manifest under `<library>/cell_em/data/jrc_hela-2`), renders them as a ray-marched 3-D volume with a movable cut showing the measured EM signal, and streams Brownian dynamics of a chosen molecule (size from a preset or the loaded structure) through the segmented geometry in consecutive engine chunks. Encounters per compartment, MSD against 6Dt and optional per-encounter binding are reported; runs are research records under `cell_em/runs` and appear in Virtual Cell › Saved lab results. Evidence: image A (segmentation is ML), motion B; pBind, koff and the cytoplasmic slowdown are user assumptions. HeLa is not the Hep G2 context and is labelled so.
+
+Tests: `tests.test_cell_em` (11) and `src/cell/em/emGeometry.test.ts` (4) pass; TypeScript passes. Verified in the development preview against a scratch library. Not done: finer pyramid levels or region zoom, particle occlusion by the volume, excluded volume for large particles, permeation or nuclear-pore models, any comparison with measured intracellular diffusion.
+
+
+## Real cell experiments · 15 November
+
+Engine `cell_em.py` 2.0.0 and `src/cell/em/`: thirteen COSEM compartments (adds chromatin, nucleolus, nuclear envelope); up to four molecule species; Doi pair binding with a per-event log (time, copies, position, compartment); saved experiments (`experiment.config`, label, parent, structure file and SHA-256) that replay frame for frame from the seed; placement preview; `cell_em_compare` reruns a baseline and a variant to the same simulated time and states when the changed inputs do not enter the dynamics; `cell_em_structure` reads any saved PDB/mmCIF (atoms, residues, chains; assemblies above 120k heavy atoms are thinned for drawing); `cell_em_paint` is a five-channel synthetic Cell Painting forward model (category D). Interface: Add to Cell from Research Library and the Molecular Viewer, atom-by-atom instanced rendering with level of detail, follow/inspect with chain-residue-atom picking, events that jump to their frame, transport with step and speed, Branch and Compare, View Results ↔ Open 3D Run with Virtual Cell.
+
+Fixed: 28 Virtual Cell actions were missing from the native allowlist in `src-tauri/src/main.rs`, so the installed app answered "Unsupported scientific action" for coverage, snapshots, saved results, Cell Painting, protein panels and CellFlux although the worker supports them. `tests/test_native_allowlist.py` now fails when the interface names an action the native host does not admit.
+
+Tests: `tests.test_cell_em` (19), `tests.test_native_allowlist` (2), `src/cell/em/emGeometry.test.ts` (6); TypeScript passes. Verified in the development preview on a scratch library; the packaged worker was exercised from the command line. Not verified: clicking through the installed native window.
+
+Limits, stated in the interface: every binding rule is a user-defined hypothesis; no model derives interaction from structure, so a different design with the same radius and rules gives identical dynamics. Molecules are point particles; shape, orientation and docking are drawn, not simulated. One fixed HeLa cell at 64 nm voxels; it is not the Hep G2 context. Not done: Add to Cell directly on each generator's result card (it is one step away, on the opened structure and in the Library), sequence-only results routed through prediction and back, orientation control, bonds and confidence colouring in the cell view, crowding, membrane permeation, conformational dynamics, linked expression or fitness readouts for spatial runs.
+
+
+## Experiment workspace, engine 3, light-pulse experiment · 15 November (continued)
+
+Cell Explorer › Workspace replaces Real cell · EM (`src/cell/workspace/`; `RealCellLab.tsx` and `em.css` removed). See AGENTS.md for the full description.
+
+- **Workspace.** Context selector (HeLa measured EM; E. coli illustrative rod), compact toolbar, collapsible layers with per-compartment opacity and isolate, clip box, selection inspector, one timeline shared by the view and the plots, event ticks and rings, concentration field, trajectory, volume bounds, axis triad, drawers for parameters, solver, provenance and diagnostics, keyboard shortcuts, side-by-side baseline and variant with mirrored cameras. Finer regions of the EM volume (32–4 nm) load on request. Cell Painting shows five channels and a merged composite at physical proportions. Global palette moved to graphite with one accent (`src/tokens.css`).
+- **`cell_em.py` 3.0.0.** Contexts with their own geometry and calibrated slowdown; pool of copies with synthesis, decay and conversion; permeable boundaries; occupancy series; replicates, sweeps, crowding benchmark; `cell_em_region`, `cell_em_registration`. Registration on the installed data passes; the foreground mask is offset by 3.1 % of a voxel.
+- **`light_pulse.py` 1.0.0.** Olson et al. 2017 CcaSR time courses bundled (CC BY 4.0). Held-out fold error: mechanistic 1.17, learned 1.92, combined 1.17, static baseline 3.79. Failure case with red light: 2.8. Reproduce with `scripts/benchmark-light-pulse.py`; report in `reports/light-pulse-benchmark.json`.
+- **Registry.** `vcell_contexts` lists four contexts with geometry, measurements, models, experiments and validation. `virtual_cell_results.py` reads `light_pulse` runs; View Results and Open Experiment round-trip.
+
+Tests: 127 backend (`test_light_pulse` 20, `test_cell_em` 28, allowlist, Virtual Cell, mechanistic, cell physics), 256 interface, TypeScript. Verified in the development preview with headless Chrome at 1180 × 760, 1440 × 900 and 1920 × 1200 on a scratch library: open, explore, isolate, place, run, events, follow, branch, compare; light pulse run, held-out schedule, failure case, reopen and reproduce, closed loop, Virtual Cell round trip; rod run at D = 7.7 µm²/s.
+
+Not done: local molecular dynamics in the workspace; red-light input of the reporter model; segmentation at fine levels; coupling of reporter abundance to particle numbers; a second organism for the light-pulse experiment (no public time courses found).
+
+
+Packaged and installed 15 November 23:51 (guarded build, 166 modules, valid signature; log `reports/ultimate/experiment-workspace-build.log`). Installed runtime and worker exercised one process per action on a scratch library: 26 of 26 checks pass (`reports/ultimate/experiment-workspace-packaged-acceptance.json`), including EM load, registration, structure read, run with events and counts, frame-for-frame replay, branch and compare, five-channel painting at 1.4385 width over height, the rod run, light-pulse baseline and held-out runs, reopen and reproduce, both Virtual Cell round trips. The compiled host contains the new action names. The app launches on the scratch library and was closed again; the library selection was restored to the live library.
+
+**The native window was not clicked.** This shell has neither Screen Recording nor Accessibility permission (`screencapture`: "could not create image from display"; System Events: "osascript is not allowed assistive access"), so the installed window could not be seen or driven. The interface was verified in the development preview, which bypasses the native host; the host's allowlist is covered by `tests/test_native_allowlist.py` and by the strings of the compiled binary.
+
+## Four workstreams · 16 November
+
+### 1 · Light pulse 2.0: red light, one state, 3D (backend and interface verified by tests; preview and package pending)
+
+- **Data.** `fixtures/light_pulse/olson2017_ccasr_spectral.json` (built by `scripts/build-light-pulse-spectral.py` from Dataset EV2): forward and reverse action spectra, 23 LEDs × 24 steady-state points, and the published model's parameters. The spectral-validation plates (`sv`) are not bundled: their table does not name each well's LEDs.
+- **Model.** `light_pulse.py` 2.0.0. Each LED adds two switching rates to the sensor. Calibration: that LED's action-spectrum points. Model selection: none / off / on / both by leave-one-run-out inside the spectra. Final test: the two red-on-green schedules and the 380 nm schedule, from other experimental runs. Labelled **retrospective** (version 1 had reported them as its failure case). The green chain is not refitted; green results are unchanged (held out 1.17×).
+- **Scores** (`reports/light-pulse-benchmark.json`). Red on green: 1.21× with red, 2.79× green-only (regression case, kept), published model 1.28×, static baseline 2.76×. 380 nm alone: 1.34× (published 1.43×) but amplitude +52 %: reported as a miss. 90 % interval covers 81 % of final-test points.
+- **State.** `STATE` version 1: regulator fraction, transcription drive, transcript, production (molecules/min), immature and mature reporter (molecules). Fluorescence = φ × mature; φ = 1 MEFL per molecule is assumed, so molecule numbers are **relative**. Checks on every run: molecule totals (produced − diluted), one reporter count, independent SBML solver, bounds, step size.
+- **3D.** `light_pulse_particles`: counts on a 96-frame display clock as weighted particles in the rod; particles × weight within half a weight of the count in every frame; each frame redraws positions (no spatial clock). Baseline and variant share one weight. The stage draws snapshot frames without trails.
+- **Interface.** Red pulse editor, per-LED stimulus chart, molecule chart, Compare with green-only model, three-stage validation page with misses, LED rate table, state, clocks and hand-offs.
+- Tests: `tests.test_light_pulse` 31, `src/cell` 25, allowlist, TypeScript.

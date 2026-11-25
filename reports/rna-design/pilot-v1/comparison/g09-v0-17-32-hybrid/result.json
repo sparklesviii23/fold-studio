@@ -1,0 +1,1430 @@
+{
+  "schema": "fold.rna-design-result/1",
+  "version": "rna-design/1.0.0",
+  "request": {
+    "target": "((..((..(((....)))..))..(((.......)))..))",
+    "mask": "NNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNN",
+    "locks": "G.......................................C",
+    "maxCandidates": 32,
+    "maxSeconds": 2,
+    "wanted": 3,
+    "seed": 17,
+    "gcMin": 0,
+    "gcMax": 1,
+    "maxHomopolymer": 128,
+    "method": "hybrid"
+  },
+  "candidates": [
+    {
+      "id": "bba81057f800494f",
+      "sequence": "GCGACUAAAGAUGAUUCUCCGGCCCCUCGAAUAAAGGACGC",
+      "structure": "(((.((..(((....)))..))..(((.......))).)))",
+      "mfeKcalMol": -2.4000000953674316,
+      "targetKcalMol": -0.4000000059604645,
+      "targetGapKcalMol": 2.000000089406967,
+      "targetProbability": 0.0041445255587173845,
+      "ensembleDefect": 0.2816010168297736,
+      "pairF1": 0.9523809523809523,
+      "missedPairs": [],
+      "extraPairs": [
+        [
+          3,
+          39
+        ]
+      ],
+      "source": "qwen proposal plus ViennaRNA inverse folding",
+      "qualifies": false,
+      "failureReasons": [
+        "1 extra pairs are predicted."
+      ],
+      "constraintViolations": [],
+      "independent": {
+        "structure": ".........................................",
+        "mfeKcalMol": 0.0,
+        "engine": "RNA Lab reduced Turner nearest-neighbour",
+        "version": "rna-lab.fold/1.0.0",
+        "temperatureC": 37,
+        "agreesWithTarget": false,
+        "disagreementPairs": [
+          [
+            1,
+            41
+          ],
+          [
+            2,
+            40
+          ],
+          [
+            3,
+            39
+          ],
+          [
+            5,
+            22
+          ],
+          [
+            6,
+            21
+          ],
+          [
+            9,
+            18
+          ],
+          [
+            10,
+            17
+          ],
+          [
+            11,
+            16
+          ],
+          [
+            25,
+            37
+          ],
+          [
+            26,
+            36
+          ],
+          [
+            27,
+            35
+          ]
+        ]
+      }
+    },
+    {
+      "id": "648fa5f323dfa932",
+      "sequence": "GGCAAGUCCGUCGAAACGUUCUCUGGCAACGUACGCCCGCC",
+      "structure": "(((.((..(((....)))..))..(((.......))).)))",
+      "mfeKcalMol": -5.900000095367432,
+      "targetKcalMol": -2.0999999046325684,
+      "targetGapKcalMol": 3.8000001907348633,
+      "targetProbability": 0.00039941348071927975,
+      "ensembleDefect": 0.4262824464787552,
+      "pairF1": 0.9523809523809523,
+      "missedPairs": [],
+      "extraPairs": [
+        [
+          3,
+          39
+        ]
+      ],
+      "source": "qwen proposal plus ViennaRNA inverse folding",
+      "qualifies": false,
+      "failureReasons": [
+        "1 extra pairs are predicted."
+      ],
+      "constraintViolations": [],
+      "independent": {
+        "structure": "(((.....(((....(((((.......))))))))...)))",
+        "mfeKcalMol": -4.7,
+        "engine": "RNA Lab reduced Turner nearest-neighbour",
+        "version": "rna-lab.fold/1.0.0",
+        "temperatureC": 37,
+        "agreesWithTarget": false,
+        "disagreementPairs": [
+          [
+            5,
+            22
+          ],
+          [
+            6,
+            21
+          ],
+          [
+            9,
+            18
+          ],
+          [
+            9,
+            35
+          ],
+          [
+            10,
+            17
+          ],
+          [
+            10,
+            34
+          ],
+          [
+            11,
+            16
+          ],
+          [
+            11,
+            33
+          ],
+          [
+            16,
+            32
+          ],
+          [
+            17,
+            31
+          ],
+          [
+            18,
+            30
+          ],
+          [
+            19,
+            29
+          ],
+          [
+            20,
+            28
+          ],
+          [
+            25,
+            37
+          ],
+          [
+            26,
+            36
+          ],
+          [
+            27,
+            35
+          ]
+        ]
+      }
+    },
+    {
+      "id": "8fbc4d99d4ee794a",
+      "sequence": "GGGCUAGAACUUGGUAGUUGUGAGGGAGUCUGUAUCCACCC",
+      "structure": "(((.((.((((....)))).))..(((.......))).)))",
+      "mfeKcalMol": -6.099999904632568,
+      "targetKcalMol": -1.0,
+      "targetGapKcalMol": 5.099999904632568,
+      "targetProbability": 5.00010072989594e-05,
+      "ensembleDefect": 0.30130022250865085,
+      "pairF1": 0.9090909090909091,
+      "missedPairs": [],
+      "extraPairs": [
+        [
+          3,
+          39
+        ],
+        [
+          8,
+          19
+        ]
+      ],
+      "source": "qwen proposal plus ViennaRNA inverse folding",
+      "qualifies": false,
+      "failureReasons": [
+        "2 extra pairs are predicted."
+      ],
+      "constraintViolations": [],
+      "independent": {
+        "structure": "(((.((((.(((.............)))))))......)))",
+        "mfeKcalMol": -1.42,
+        "engine": "RNA Lab reduced Turner nearest-neighbour",
+        "version": "rna-lab.fold/1.0.0",
+        "temperatureC": 37,
+        "agreesWithTarget": false,
+        "disagreementPairs": [
+          [
+            5,
+            22
+          ],
+          [
+            5,
+            32
+          ],
+          [
+            6,
+            21
+          ],
+          [
+            6,
+            31
+          ],
+          [
+            7,
+            30
+          ],
+          [
+            8,
+            19
+          ],
+          [
+            8,
+            29
+          ],
+          [
+            9,
+            18
+          ],
+          [
+            10,
+            17
+          ],
+          [
+            10,
+            28
+          ],
+          [
+            11,
+            16
+          ],
+          [
+            11,
+            27
+          ],
+          [
+            12,
+            26
+          ],
+          [
+            25,
+            37
+          ],
+          [
+            26,
+            36
+          ],
+          [
+            27,
+            35
+          ]
+        ]
+      }
+    },
+    {
+      "id": "be94153f721282b3",
+      "sequence": "GUACGUAAAACAUUAGUUAAGCAGGCCUCUUAUUGGCAGAC",
+      "structure": "....((..(((....)))..))..(((.......)))....",
+      "mfeKcalMol": -4.800000190734863,
+      "targetKcalMol": -1.0,
+      "targetGapKcalMol": 3.8000001907348633,
+      "targetProbability": 0.0009568148875720522,
+      "ensembleDefect": 0.20701778932739062,
+      "pairF1": 0.8888888888888888,
+      "missedPairs": [
+        [
+          1,
+          41
+        ],
+        [
+          2,
+          40
+        ]
+      ],
+      "extraPairs": [],
+      "source": "qwen proposal plus ViennaRNA inverse folding",
+      "qualifies": false,
+      "failureReasons": [
+        "2 target pairs are missing."
+      ],
+      "constraintViolations": []
+    },
+    {
+      "id": "9a32c66eb3d9f19a",
+      "sequence": "GAACGACCGAGCAUCCUCCUUCCAAGCCCCUCAAGCUAUUC",
+      "structure": "....((..(((....)))..))..(((.......)))....",
+      "mfeKcalMol": -2.0999999046325684,
+      "targetKcalMol": 1.600000023841858,
+      "targetGapKcalMol": 3.6999999284744263,
+      "targetProbability": 0.0008435098210174415,
+      "ensembleDefect": 0.22738895136053477,
+      "pairF1": 0.8888888888888888,
+      "missedPairs": [
+        [
+          1,
+          41
+        ],
+        [
+          2,
+          40
+        ]
+      ],
+      "extraPairs": [],
+      "source": "qwen proposal plus ViennaRNA inverse folding",
+      "qualifies": false,
+      "failureReasons": [
+        "2 target pairs are missing."
+      ],
+      "constraintViolations": [],
+      "independent": {
+        "structure": ".........................................",
+        "mfeKcalMol": 0.0,
+        "engine": "RNA Lab reduced Turner nearest-neighbour",
+        "version": "rna-lab.fold/1.0.0",
+        "temperatureC": 37,
+        "agreesWithTarget": false,
+        "disagreementPairs": [
+          [
+            5,
+            22
+          ],
+          [
+            6,
+            21
+          ],
+          [
+            9,
+            18
+          ],
+          [
+            10,
+            17
+          ],
+          [
+            11,
+            16
+          ],
+          [
+            25,
+            37
+          ],
+          [
+            26,
+            36
+          ],
+          [
+            27,
+            35
+          ]
+        ]
+      }
+    },
+    {
+      "id": "865556cfa159d695",
+      "sequence": "GAAGCACCGGGUAUUCCUUAUGACGUAUAAUUCUUACACUC",
+      "structure": "....((..(((....)))..))..(((.......)))....",
+      "mfeKcalMol": -2.5,
+      "targetKcalMol": 1.2000000476837158,
+      "targetGapKcalMol": 3.700000047683716,
+      "targetProbability": 0.0004934371802870796,
+      "ensembleDefect": 0.27003264136200383,
+      "pairF1": 0.8888888888888888,
+      "missedPairs": [
+        [
+          1,
+          41
+        ],
+        [
+          2,
+          40
+        ]
+      ],
+      "extraPairs": [],
+      "source": "qwen proposal plus ViennaRNA inverse folding",
+      "qualifies": false,
+      "failureReasons": [
+        "2 target pairs are missing."
+      ],
+      "constraintViolations": [],
+      "independent": {
+        "structure": ".........................................",
+        "mfeKcalMol": 0.0,
+        "engine": "RNA Lab reduced Turner nearest-neighbour",
+        "version": "rna-lab.fold/1.0.0",
+        "temperatureC": 37,
+        "agreesWithTarget": false,
+        "disagreementPairs": [
+          [
+            5,
+            22
+          ],
+          [
+            6,
+            21
+          ],
+          [
+            9,
+            18
+          ],
+          [
+            10,
+            17
+          ],
+          [
+            11,
+            16
+          ],
+          [
+            25,
+            37
+          ],
+          [
+            26,
+            36
+          ],
+          [
+            27,
+            35
+          ]
+        ]
+      }
+    },
+    {
+      "id": "bacc129676ea65d5",
+      "sequence": "GCACCGUCCAUAGUAGUGUUCGUAGGUUUCAAUUACCCAGC",
+      "structure": "....((..(((....)))..))..(((.......)))....",
+      "mfeKcalMol": -3.0,
+      "targetKcalMol": -1.2999999523162842,
+      "targetGapKcalMol": 1.7000000476837158,
+      "targetProbability": 0.019661221224128556,
+      "ensembleDefect": 0.2919462234827759,
+      "pairF1": 0.8888888888888888,
+      "missedPairs": [
+        [
+          1,
+          41
+        ],
+        [
+          2,
+          40
+        ]
+      ],
+      "extraPairs": [],
+      "source": "qwen proposal plus ViennaRNA inverse folding",
+      "qualifies": false,
+      "failureReasons": [
+        "2 target pairs are missing."
+      ],
+      "constraintViolations": [],
+      "independent": {
+        "structure": ".........................................",
+        "mfeKcalMol": 0.0,
+        "engine": "RNA Lab reduced Turner nearest-neighbour",
+        "version": "rna-lab.fold/1.0.0",
+        "temperatureC": 37,
+        "agreesWithTarget": false,
+        "disagreementPairs": [
+          [
+            5,
+            22
+          ],
+          [
+            6,
+            21
+          ],
+          [
+            9,
+            18
+          ],
+          [
+            10,
+            17
+          ],
+          [
+            11,
+            16
+          ],
+          [
+            25,
+            37
+          ],
+          [
+            26,
+            36
+          ],
+          [
+            27,
+            35
+          ]
+        ]
+      }
+    },
+    {
+      "id": "1c72a2fc06872fa2",
+      "sequence": "GUAGGAAGGUCAGCAGACAGUCAAUAGGCGUACACUAAGGC",
+      "structure": "....((..(((....)))..))..(((.......)))....",
+      "mfeKcalMol": -4.0,
+      "targetKcalMol": -0.5,
+      "targetGapKcalMol": 3.5,
+      "targetProbability": 0.0005695102243722007,
+      "ensembleDefect": 0.31318379598118257,
+      "pairF1": 0.8888888888888888,
+      "missedPairs": [
+        [
+          1,
+          41
+        ],
+        [
+          2,
+          40
+        ]
+      ],
+      "extraPairs": [],
+      "source": "qwen proposal plus ViennaRNA inverse folding",
+      "qualifies": false,
+      "failureReasons": [
+        "2 target pairs are missing."
+      ],
+      "constraintViolations": [],
+      "independent": {
+        "structure": ".........................................",
+        "mfeKcalMol": 0.0,
+        "engine": "RNA Lab reduced Turner nearest-neighbour",
+        "version": "rna-lab.fold/1.0.0",
+        "temperatureC": 37,
+        "agreesWithTarget": false,
+        "disagreementPairs": [
+          [
+            5,
+            22
+          ],
+          [
+            6,
+            21
+          ],
+          [
+            9,
+            18
+          ],
+          [
+            10,
+            17
+          ],
+          [
+            11,
+            16
+          ],
+          [
+            25,
+            37
+          ],
+          [
+            26,
+            36
+          ],
+          [
+            27,
+            35
+          ]
+        ]
+      }
+    },
+    {
+      "id": "5abbfdf5fd6d04d1",
+      "sequence": "GUAGACUUUCCGUUCGGACUGUAGGUGGCCAUUACAUAGAC",
+      "structure": "....((..(((....)))..))..(((.......)))....",
+      "mfeKcalMol": -4.0,
+      "targetKcalMol": -0.20000000298023224,
+      "targetGapKcalMol": 3.7999999970197678,
+      "targetProbability": 0.00045644947311614516,
+      "ensembleDefect": 0.34352139396839537,
+      "pairF1": 0.8888888888888888,
+      "missedPairs": [
+        [
+          1,
+          41
+        ],
+        [
+          2,
+          40
+        ]
+      ],
+      "extraPairs": [],
+      "source": "qwen proposal plus ViennaRNA inverse folding",
+      "qualifies": false,
+      "failureReasons": [
+        "2 target pairs are missing."
+      ],
+      "constraintViolations": []
+    },
+    {
+      "id": "e00ca7f5e4a88a9e",
+      "sequence": "GCAAGAUAACGGCGCCGUCUUCCCACCGCUAAAGGGUUCGC",
+      "structure": "....((..(((....)))..))..(((.......)))....",
+      "mfeKcalMol": -4.699999809265137,
+      "targetKcalMol": -3.0,
+      "targetGapKcalMol": 1.6999998092651367,
+      "targetProbability": 0.012881162490591229,
+      "ensembleDefect": 0.3442204507804558,
+      "pairF1": 0.8888888888888888,
+      "missedPairs": [
+        [
+          1,
+          41
+        ],
+        [
+          2,
+          40
+        ]
+      ],
+      "extraPairs": [],
+      "source": "qwen proposal plus ViennaRNA inverse folding",
+      "qualifies": false,
+      "failureReasons": [
+        "2 target pairs are missing."
+      ],
+      "constraintViolations": []
+    },
+    {
+      "id": "6de16c8a6beb6dcc",
+      "sequence": "GUAAGGGAACUGGGCAGUAACCACCGCAAUACACGUGAGGC",
+      "structure": "....((..(((....)))..))..(((.......)))....",
+      "mfeKcalMol": -4.599999904632568,
+      "targetKcalMol": -1.100000023841858,
+      "targetGapKcalMol": 3.4999998807907104,
+      "targetProbability": 0.0005358906340862013,
+      "ensembleDefect": 0.3524600180065333,
+      "pairF1": 0.8888888888888888,
+      "missedPairs": [
+        [
+          1,
+          41
+        ],
+        [
+          2,
+          40
+        ]
+      ],
+      "extraPairs": [],
+      "source": "qwen proposal plus ViennaRNA inverse folding",
+      "qualifies": false,
+      "failureReasons": [
+        "2 target pairs are missing."
+      ],
+      "constraintViolations": []
+    },
+    {
+      "id": "1c136b248e0f3948",
+      "sequence": "GGAUGUAAUACGUAAGUAAAACUGGUCUCCUGAUGACACCC",
+      "structure": "....((..(((....)))..))..(((.......)))....",
+      "mfeKcalMol": -2.9000000953674316,
+      "targetKcalMol": -1.100000023841858,
+      "targetGapKcalMol": 1.8000000715255737,
+      "targetProbability": 0.006203130759731327,
+      "ensembleDefect": 0.3612177387342191,
+      "pairF1": 0.8888888888888888,
+      "missedPairs": [
+        [
+          1,
+          41
+        ],
+        [
+          2,
+          40
+        ]
+      ],
+      "extraPairs": [],
+      "source": "qwen proposal plus ViennaRNA inverse folding",
+      "qualifies": false,
+      "failureReasons": [
+        "2 target pairs are missing."
+      ],
+      "constraintViolations": []
+    },
+    {
+      "id": "1b8163ac3e675f5f",
+      "sequence": "GUGUGCGGGGGGCAUCCCAAGCUUGCCAUGUCGAGGUCUGC",
+      "structure": "....((..(((....)))..))..(((.......)))....",
+      "mfeKcalMol": -9.100000381469727,
+      "targetKcalMol": -5.300000190734863,
+      "targetGapKcalMol": 3.8000001907348633,
+      "targetProbability": 0.00034293974786203473,
+      "ensembleDefect": 0.3730905558161316,
+      "pairF1": 0.8888888888888888,
+      "missedPairs": [
+        [
+          1,
+          41
+        ],
+        [
+          2,
+          40
+        ]
+      ],
+      "extraPairs": [],
+      "source": "qwen proposal plus ViennaRNA inverse folding",
+      "qualifies": false,
+      "failureReasons": [
+        "2 target pairs are missing."
+      ],
+      "constraintViolations": []
+    },
+    {
+      "id": "b93f023e88f03fac",
+      "sequence": "GGAUGCGAAUAAAUGUGUGAGCUACUCUGUUUCUGAGCCCC",
+      "structure": "....((..(((....)))..))..(((.......)))....",
+      "mfeKcalMol": -3.4000000953674316,
+      "targetKcalMol": -1.600000023841858,
+      "targetGapKcalMol": 1.8000000715255737,
+      "targetProbability": 0.009540964270679719,
+      "ensembleDefect": 0.42875030084004934,
+      "pairF1": 0.8888888888888888,
+      "missedPairs": [
+        [
+          1,
+          41
+        ],
+        [
+          2,
+          40
+        ]
+      ],
+      "extraPairs": [],
+      "source": "qwen proposal plus ViennaRNA inverse folding",
+      "qualifies": false,
+      "failureReasons": [
+        "2 target pairs are missing."
+      ],
+      "constraintViolations": []
+    },
+    {
+      "id": "abf02372179f97e6",
+      "sequence": "GUAAGUAAACUCAGGAGUAGACAGGGAGCGAGCGUCCGGAC",
+      "structure": "....((..(((....)))..))..(((.......)))....",
+      "mfeKcalMol": -3.200000047683716,
+      "targetKcalMol": 0.6000000238418579,
+      "targetGapKcalMol": 3.8000000715255737,
+      "targetProbability": 0.00028359023888335707,
+      "ensembleDefect": 0.43359149451998835,
+      "pairF1": 0.8888888888888888,
+      "missedPairs": [
+        [
+          1,
+          41
+        ],
+        [
+          2,
+          40
+        ]
+      ],
+      "extraPairs": [],
+      "source": "qwen proposal plus ViennaRNA inverse folding",
+      "qualifies": false,
+      "failureReasons": [
+        "2 target pairs are missing."
+      ],
+      "constraintViolations": []
+    },
+    {
+      "id": "a51a494a71a3d978",
+      "sequence": "GAGUGUUUCCUAACAGGGUUAUGUGCAUGAAGUUUGCUUUC",
+      "structure": "....((..(((....)))..))..(((.......)))....",
+      "mfeKcalMol": -3.5999999046325684,
+      "targetKcalMol": 0.10000000149011612,
+      "targetGapKcalMol": 3.6999999061226845,
+      "targetProbability": 0.0002709702976563379,
+      "ensembleDefect": 0.48614779115099743,
+      "pairF1": 0.8888888888888888,
+      "missedPairs": [
+        [
+          1,
+          41
+        ],
+        [
+          2,
+          40
+        ]
+      ],
+      "extraPairs": [],
+      "source": "qwen proposal plus ViennaRNA inverse folding",
+      "qualifies": false,
+      "failureReasons": [
+        "2 target pairs are missing."
+      ],
+      "constraintViolations": []
+    },
+    {
+      "id": "0cd931be77d79515",
+      "sequence": "GCAGGAGUAUUAUGGAAUUAUCGAGGGUCUUUCUCCCAAGC",
+      "structure": "....((..(((....)))..))..(((.......)))....",
+      "mfeKcalMol": -3.9000000953674316,
+      "targetKcalMol": -2.200000047683716,
+      "targetGapKcalMol": 1.7000000476837158,
+      "targetProbability": 0.005483356338454251,
+      "ensembleDefect": 0.528563924522509,
+      "pairF1": 0.8888888888888888,
+      "missedPairs": [
+        [
+          1,
+          41
+        ],
+        [
+          2,
+          40
+        ]
+      ],
+      "extraPairs": [],
+      "source": "qwen proposal plus ViennaRNA inverse folding",
+      "qualifies": false,
+      "failureReasons": [
+        "2 target pairs are missing."
+      ],
+      "constraintViolations": []
+    },
+    {
+      "id": "94779522aeb80848",
+      "sequence": "GAAGGAUCCGUUCUCACGUCUCAAGUAUUGCCCUUACGUUC",
+      "structure": "....((..(((....)))..))..(((.......)))....",
+      "mfeKcalMol": -1.2999999523162842,
+      "targetKcalMol": 2.4000000953674316,
+      "targetGapKcalMol": 3.700000047683716,
+      "targetProbability": 0.00011186925197437859,
+      "ensembleDefect": 0.5506496783365512,
+      "pairF1": 0.8888888888888888,
+      "missedPairs": [
+        [
+          1,
+          41
+        ],
+        [
+          2,
+          40
+        ]
+      ],
+      "extraPairs": [],
+      "source": "qwen proposal plus ViennaRNA inverse folding",
+      "qualifies": false,
+      "failureReasons": [
+        "2 target pairs are missing."
+      ],
+      "constraintViolations": []
+    },
+    {
+      "id": "b6bec1723a896f24",
+      "sequence": "GUAGUUGCCACGUCAGUGAAGACCGCCCUACCUUGGCCAGC",
+      "structure": "...(((..(((....)))..))).(((.......)))....",
+      "mfeKcalMol": -7.599999904632568,
+      "targetKcalMol": -0.8999999761581421,
+      "targetGapKcalMol": 6.699999928474426,
+      "targetProbability": 7.512517484793762e-06,
+      "ensembleDefect": 0.3551689367276289,
+      "pairF1": 0.8421052631578947,
+      "missedPairs": [
+        [
+          1,
+          41
+        ],
+        [
+          2,
+          40
+        ]
+      ],
+      "extraPairs": [
+        [
+          4,
+          23
+        ]
+      ],
+      "source": "qwen proposal plus ViennaRNA inverse folding",
+      "qualifies": false,
+      "failureReasons": [
+        "2 target pairs are missing.",
+        "1 extra pairs are predicted."
+      ],
+      "constraintViolations": []
+    },
+    {
+      "id": "be1c3bcfd90a18f6",
+      "sequence": "GAAUUUUGGGAGGGAUCUGAAGUAGCGCUAAACACGUAUUC",
+      "structure": "....(((.(((....))).)))..(((.......)))....",
+      "mfeKcalMol": -2.9000000953674316,
+      "targetKcalMol": 3.4000000953674316,
+      "targetGapKcalMol": 6.300000190734863,
+      "targetProbability": 4.326226623230684e-06,
+      "ensembleDefect": 0.36632419239935615,
+      "pairF1": 0.8421052631578947,
+      "missedPairs": [
+        [
+          1,
+          41
+        ],
+        [
+          2,
+          40
+        ]
+      ],
+      "extraPairs": [
+        [
+          7,
+          20
+        ]
+      ],
+      "source": "qwen proposal plus ViennaRNA inverse folding",
+      "qualifies": false,
+      "failureReasons": [
+        "2 target pairs are missing.",
+        "1 extra pairs are predicted."
+      ],
+      "constraintViolations": []
+    },
+    {
+      "id": "1c433de23c5fa9e5",
+      "sequence": "GGCUUGAAUCUUCUAGGAGACAUAUACGAAUUACGUGAACC",
+      "structure": "....((..(((....)))..))..((((.....))))....",
+      "mfeKcalMol": -1.399999976158142,
+      "targetKcalMol": 3.0999999046325684,
+      "targetGapKcalMol": 4.4999998807907104,
+      "targetProbability": 6.00822441870035e-05,
+      "ensembleDefect": 0.4032522522426728,
+      "pairF1": 0.8421052631578947,
+      "missedPairs": [
+        [
+          1,
+          41
+        ],
+        [
+          2,
+          40
+        ]
+      ],
+      "extraPairs": [
+        [
+          28,
+          34
+        ]
+      ],
+      "source": "qwen proposal plus ViennaRNA inverse folding",
+      "qualifies": false,
+      "failureReasons": [
+        "2 target pairs are missing.",
+        "1 extra pairs are predicted."
+      ],
+      "constraintViolations": []
+    },
+    {
+      "id": "87b258c1f60b4738",
+      "sequence": "GAGGGUCGGAUGAUGGUCGUACGCGUAGCGGGAAUACUUUC",
+      "structure": "..(.((..(((....)))..)).)(((.......)))....",
+      "mfeKcalMol": -5.0,
+      "targetKcalMol": 0.699999988079071,
+      "targetGapKcalMol": 5.699999988079071,
+      "targetProbability": 1.6355342218965837e-05,
+      "ensembleDefect": 0.42062956793630313,
+      "pairF1": 0.8421052631578947,
+      "missedPairs": [
+        [
+          1,
+          41
+        ],
+        [
+          2,
+          40
+        ]
+      ],
+      "extraPairs": [
+        [
+          3,
+          24
+        ]
+      ],
+      "source": "qwen proposal plus ViennaRNA inverse folding",
+      "qualifies": false,
+      "failureReasons": [
+        "2 target pairs are missing.",
+        "1 extra pairs are predicted."
+      ],
+      "constraintViolations": []
+    },
+    {
+      "id": "9570d924d0d44088",
+      "sequence": "GCUCGCCUCGCAUCAGUGUAGCUUGAUUGCAUUCGUCACGC",
+      "structure": "....((..(((....)))..)).((((.......))))...",
+      "mfeKcalMol": -5.0,
+      "targetKcalMol": -2.4000000953674316,
+      "targetGapKcalMol": 2.5999999046325684,
+      "targetProbability": 0.0013472735765359017,
+      "ensembleDefect": 0.4417474933674436,
+      "pairF1": 0.8421052631578947,
+      "missedPairs": [
+        [
+          1,
+          41
+        ],
+        [
+          2,
+          40
+        ]
+      ],
+      "extraPairs": [
+        [
+          24,
+          38
+        ]
+      ],
+      "source": "qwen proposal plus ViennaRNA inverse folding",
+      "qualifies": false,
+      "failureReasons": [
+        "2 target pairs are missing.",
+        "1 extra pairs are predicted."
+      ],
+      "constraintViolations": []
+    },
+    {
+      "id": "a3bc09ee3e2a295e",
+      "sequence": "GUAGGGAAUUGUGUUCGGGACCCAGCCCAGUCUAGGUGAGC",
+      "structure": "...(((..(((....)))..))).(((.......)))....",
+      "mfeKcalMol": -5.199999809265137,
+      "targetKcalMol": 2.200000047683716,
+      "targetGapKcalMol": 7.3999998569488525,
+      "targetProbability": 6.109816182919932e-07,
+      "ensembleDefect": 0.48683576982596966,
+      "pairF1": 0.8421052631578947,
+      "missedPairs": [
+        [
+          1,
+          41
+        ],
+        [
+          2,
+          40
+        ]
+      ],
+      "extraPairs": [
+        [
+          4,
+          23
+        ]
+      ],
+      "source": "qwen proposal plus ViennaRNA inverse folding",
+      "qualifies": false,
+      "failureReasons": [
+        "2 target pairs are missing.",
+        "1 extra pairs are predicted."
+      ],
+      "constraintViolations": []
+    },
+    {
+      "id": "be76b1575a597794",
+      "sequence": "GCACCUUUCGCGGAUGUGUUAGUAGUCUACCUGUGGCUCGC",
+      "structure": "....((..(((....)))..)).((((.......))))...",
+      "mfeKcalMol": -4.800000190734863,
+      "targetKcalMol": -2.0,
+      "targetGapKcalMol": 2.8000001907348633,
+      "targetProbability": 0.0010967411773132663,
+      "ensembleDefect": 0.5184322229149879,
+      "pairF1": 0.8421052631578947,
+      "missedPairs": [
+        [
+          1,
+          41
+        ],
+        [
+          2,
+          40
+        ]
+      ],
+      "extraPairs": [
+        [
+          24,
+          38
+        ]
+      ],
+      "source": "qwen proposal plus ViennaRNA inverse folding",
+      "qualifies": false,
+      "failureReasons": [
+        "2 target pairs are missing.",
+        "1 extra pairs are predicted."
+      ],
+      "constraintViolations": []
+    },
+    {
+      "id": "de3f49d24c31ac7d",
+      "sequence": "GCUGUUGAAUGUGCUUAUCGAACCCUGUUGUUGUCAGACGC",
+      "structure": "...(((..(((....)))..))).(((.......)))....",
+      "mfeKcalMol": -1.899999976158142,
+      "targetKcalMol": 2.799999952316284,
+      "targetGapKcalMol": 4.699999928474426,
+      "targetProbability": 3.4389591637221425e-05,
+      "ensembleDefect": 0.533606774280043,
+      "pairF1": 0.8421052631578947,
+      "missedPairs": [
+        [
+          1,
+          41
+        ],
+        [
+          2,
+          40
+        ]
+      ],
+      "extraPairs": [
+        [
+          4,
+          23
+        ]
+      ],
+      "source": "qwen proposal plus ViennaRNA inverse folding",
+      "qualifies": false,
+      "failureReasons": [
+        "2 target pairs are missing.",
+        "1 extra pairs are predicted."
+      ],
+      "constraintViolations": []
+    },
+    {
+      "id": "a54311fb103b447d",
+      "sequence": "GGAGUCGAACUUGCCGGUCAGAUGGAUGCUUUAAAUCACCC",
+      "structure": "...(((..(((....)))..))).(((.......)))....",
+      "mfeKcalMol": -2.4000000953674316,
+      "targetKcalMol": 0.699999988079071,
+      "targetGapKcalMol": 3.1000000834465027,
+      "targetProbability": 0.00032412146660038,
+      "ensembleDefect": 0.554808915350421,
+      "pairF1": 0.8421052631578947,
+      "missedPairs": [
+        [
+          1,
+          41
+        ],
+        [
+          2,
+          40
+        ]
+      ],
+      "extraPairs": [
+        [
+          4,
+          23
+        ]
+      ],
+      "source": "qwen proposal plus ViennaRNA inverse folding",
+      "qualifies": false,
+      "failureReasons": [
+        "2 target pairs are missing.",
+        "1 extra pairs are predicted."
+      ],
+      "constraintViolations": []
+    },
+    {
+      "id": "5ff8064a54070742",
+      "sequence": "GUACCACAGGCGGCUGUCCGUGUUGAGAACAAAGCUCUGAC",
+      "structure": "....(((.(((....))).)))..(((.......)))....",
+      "mfeKcalMol": -5.699999809265137,
+      "targetKcalMol": 1.5,
+      "targetGapKcalMol": 7.199999809265137,
+      "targetProbability": 9.3205380360041e-07,
+      "ensembleDefect": 0.570524196291384,
+      "pairF1": 0.8421052631578947,
+      "missedPairs": [
+        [
+          1,
+          41
+        ],
+        [
+          2,
+          40
+        ]
+      ],
+      "extraPairs": [
+        [
+          7,
+          20
+        ]
+      ],
+      "source": "qwen proposal plus ViennaRNA inverse folding",
+      "qualifies": false,
+      "failureReasons": [
+        "2 target pairs are missing.",
+        "1 extra pairs are predicted."
+      ],
+      "constraintViolations": []
+    },
+    {
+      "id": "6a13c1bce81f42ba",
+      "sequence": "GAUUUGAGAGCAAAGGUUCGUAUUCCUACCCGAUAGGCCUC",
+      "structure": "....((.((((....)))).))..((((.....))))....",
+      "mfeKcalMol": -4.400000095367432,
+      "targetKcalMol": 5.699999809265137,
+      "targetGapKcalMol": 10.099999904632568,
+      "targetProbability": 8.110759505001473e-09,
+      "ensembleDefect": 0.514037165986334,
+      "pairF1": 0.8,
+      "missedPairs": [
+        [
+          1,
+          41
+        ],
+        [
+          2,
+          40
+        ]
+      ],
+      "extraPairs": [
+        [
+          8,
+          19
+        ],
+        [
+          28,
+          34
+        ]
+      ],
+      "source": "qwen proposal plus ViennaRNA inverse folding",
+      "qualifies": false,
+      "failureReasons": [
+        "2 target pairs are missing.",
+        "2 extra pairs are predicted."
+      ],
+      "constraintViolations": []
+    },
+    {
+      "id": "e527774c4839a6f4",
+      "sequence": "GGGUGGAUCGCUUACGUGUGCUUUUGGUCGGUUGCCAAUCC",
+      "structure": "....((..(((....)))..)).(((((.....)))))...",
+      "mfeKcalMol": -6.099999904632568,
+      "targetKcalMol": -1.899999976158142,
+      "targetGapKcalMol": 4.199999928474426,
+      "targetProbability": 7.400311811057356e-05,
+      "ensembleDefect": 0.5382224248715081,
+      "pairF1": 0.8,
+      "missedPairs": [
+        [
+          1,
+          41
+        ],
+        [
+          2,
+          40
+        ]
+      ],
+      "extraPairs": [
+        [
+          24,
+          38
+        ],
+        [
+          28,
+          34
+        ]
+      ],
+      "source": "qwen proposal plus ViennaRNA inverse folding",
+      "qualifies": false,
+      "failureReasons": [
+        "2 target pairs are missing.",
+        "2 extra pairs are predicted."
+      ],
+      "constraintViolations": []
+    },
+    {
+      "id": "41341bb234ca042e",
+      "sequence": "GCUGGUCGGGAGUUAUCUAAGCGGGCUGCAUGUAAGCUGGC",
+      "structure": "........(((....)))..((.((((.......)))).))",
+      "mfeKcalMol": -8.800000190734863,
+      "targetKcalMol": -0.8999999761581421,
+      "targetGapKcalMol": 7.900000214576721,
+      "targetProbability": 8.163446916187534e-07,
+      "ensembleDefect": 0.35581507508789373,
+      "pairF1": 0.631578947368421,
+      "missedPairs": [
+        [
+          1,
+          41
+        ],
+        [
+          2,
+          40
+        ],
+        [
+          5,
+          22
+        ],
+        [
+          6,
+          21
+        ]
+      ],
+      "extraPairs": [
+        [
+          21,
+          41
+        ],
+        [
+          22,
+          40
+        ],
+        [
+          24,
+          38
+        ]
+      ],
+      "source": "qwen proposal plus ViennaRNA inverse folding",
+      "qualifies": false,
+      "failureReasons": [
+        "4 target pairs are missing.",
+        "3 extra pairs are predicted."
+      ],
+      "constraintViolations": []
+    },
+    {
+      "id": "420942e337b31a40",
+      "sequence": "GCUAGAUAUACUUGGGUACUUUUGCGGGAAGACACUGACGC",
+      "structure": "((.(((..(((....)))..)))))................",
+      "mfeKcalMol": -2.799999952316284,
+      "targetKcalMol": 1.5,
+      "targetGapKcalMol": 4.299999952316284,
+      "targetProbability": 7.89786622037122e-05,
+      "ensembleDefect": 0.5605923967137538,
+      "pairF1": 0.5555555555555556,
+      "missedPairs": [
+        [
+          1,
+          41
+        ],
+        [
+          2,
+          40
+        ],
+        [
+          25,
+          37
+        ],
+        [
+          26,
+          36
+        ],
+        [
+          27,
+          35
+        ]
+      ],
+      "extraPairs": [
+        [
+          1,
+          25
+        ],
+        [
+          2,
+          24
+        ],
+        [
+          4,
+          23
+        ]
+      ],
+      "source": "qwen proposal plus ViennaRNA inverse folding",
+      "qualifies": false,
+      "failureReasons": [
+        "5 target pairs are missing.",
+        "3 extra pairs are predicted."
+      ],
+      "constraintViolations": []
+    }
+  ],
+  "metrics": {
+    "attempts": 32,
+    "solverCalls": 32,
+    "evaluations": 32,
+    "secondaryEvaluations": 7,
+    "batches": 32,
+    "elapsedSeconds": 1.686539874994196,
+    "firstSuccessSeconds": null,
+    "stopReason": "candidate_limit"
+  },
+  "qualifyingCount": 0,
+  "scorer": {
+    "engine": "ViennaRNA",
+    "version": "2.7.2",
+    "temperatureC": 37,
+    "dangles": 2,
+    "parameters": "Turner2004",
+    "noLP": false
+  },
+  "constraintRejections": 0,
+  "evidence": "Computational prediction. Solver labels are not experimental measurements.",
+  "inputSeal": "0c5b345a872672a64035b7164e8f5c55e020dee474fa7e7c8c5d1408de203f4a",
+  "cacheHitsThisSession": 0,
+  "solverAccounting": "solverCalls counts RNA.inverse_fold calls. Its internal energy evaluations are not exposed. Explicit final scoring and independent checks are counted separately.",
+  "sha256": "c92b19717fa4d9e8cdce8aa103e667e6552ef163def7f8077c2fcdaf689b2441"
+}

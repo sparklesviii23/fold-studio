@@ -1,0 +1,844 @@
+{
+  "schema": "fold.qwen-rna-split/1",
+  "source": "https://github.com/marcellszi/dl-rna/releases/download/Data/archiveII.tar.gz",
+  "sourceSha256": "a8661c99b49563826f9bef88767b5d8db2907cb8392793d5c39be7a4173c07de",
+  "citation": "Szikszai et al., Bioinformatics 2022, doi:10.1093/bioinformatics/btac415; ArchiveII reference structures",
+  "seed": 20261115,
+  "frozenBeforeTraining": true,
+  "splitFamilies": {
+    "train": [
+      "5s",
+      48
+    ],
+    "validation": [
+      "tRNA",
+      16
+    ],
+    "test": [
+      "srp",
+      24
+    ]
+  },
+  "selection": "SHA256 order; canonical nested pairs only; 24\u2013128 nt; exact sequence deduplication",
+  "crossSplitScreen": "No sequence SequenceMatcher ratio >=0.8 or equal-length reference pair F1 >=0.8 across selected splits.",
+  "excludedInvalidAnnotations": [
+    "archiveII/srp_Leis.aeth._AY722730.ct",
+    "archiveII/srp_Crit.fasc._AY781797.ct",
+    "archiveII/tRNA_tdbR00000189-Rattus_norvegicus-10116-Lys-NUU.ct",
+    "archiveII/tRNA_tdbR00000078-Ascaris_suum-6253-Phe-GAA.ct",
+    "archiveII/tRNA_tdbR00000400-Loligo_bleekeri-6617-Ser-7CU.ct",
+    "archiveII/tRNA_tdbR00000127-Halocynthia_roretzi-7729-Gly-UCU.ct",
+    "archiveII/srp_Toxo.gond._CO743022.ct",
+    "archiveII/srp_Gynu.aura._SDB-109565.ct",
+    "archiveII/tRNA_tdbR00000191-Mesocricetus_auratus-10036-Lys-NUU.ct",
+    "archiveII/srp_Citr.sine._CN181543.ct",
+    "archiveII/srp_Citr.sine._CN181544.ct",
+    "archiveII/srp_Schi.pomb._AU010514.ct",
+    "archiveII/srp_Crit.luci._AY781798.ct",
+    "archiveII/tRNA_tdbR00000190-Bos_taurus-9913-Lys-NUU.ct",
+    "archiveII/tRNA_tdbR00000128-Halocynthia_roretzi-7729-Gly-GCU.ct"
+  ],
+  "excludedCrossSplitNearDuplicates": [],
+  "limits": "Small compute-bounded family-held-out pilot; not the full ArchiveII benchmark. Qwen pretraining contamination is unknown.",
+  "splits": {
+    "train": [
+      {
+        "id": "5s_Ralstonia-pickettii-1",
+        "family": "5s",
+        "sequence": "UGCCUGGUGACCAUAGCGAGUCGGUACCACCCCUUCCCAUCCCGAACAGGACCGUGAAACGACUCCGCGCCGAUGAUAGUGCGGAUUCCCGUGUGAAAGUAGGUCAUCGUCAGGC",
+        "structure": ".(((((((((.....((((((((.....((.(((.............)))...))....)))))).)).((.((....((((((....))))))....)).))...)))))))))",
+        "sourceMember": "archiveII/5s_Ralstonia-pickettii-1.ct",
+        "sourceSha256": "4a7044a01c55ab0255e21e8d70598d675a4ccc8a8ee903cbd64c613d79f5550b",
+        "evidence": "ArchiveII comparative/reference secondary-structure annotation; not a new measurement"
+      },
+      {
+        "id": "5s_Anthopleura-japonica-1",
+        "family": "5s",
+        "sequence": "GUCUACGGCCAUACCACCGGGAAAAAACCGGUUCUCGUCCGAUCACCGAAGUCAAGCCCGGUAGGGCCAGGUUAGUACUUGGAUGGGUGACCGCCUGGGAAUACCUGGUGCUGUAGACUU",
+        "structure": "(((((((((....((((((((.....((((((............))))..))....)))))).)).((((((.....((.((.(((....))))).))....)))))).)))))))))..",
+        "sourceMember": "archiveII/5s_Anthopleura-japonica-1.ct",
+        "sourceSha256": "8fb53a072bd8ee89218b578b4ca2c73a5f0719ae30e0253c66b7b77d923b456d",
+        "evidence": "ArchiveII comparative/reference secondary-structure annotation; not a new measurement"
+      },
+      {
+        "id": "5s_Emericella-nidulans-3",
+        "family": "5s",
+        "sequence": "ACAUACGACCAUAGGGUGUGGAGAACAGGGCUUCCCGUCCGCUCAGCCGUACUUAAGCCACACGCCGGCUGGUUAGUAGUAUGGUGGGUGACCACAUGCGAAUCCCAGCUGUUGUAUGU",
+        "structure": "(((((((((....((((((((.....((((((............))))...))....)))))).)).(((((......(((((.(((....)))))))).....))))).)))))))))",
+        "sourceMember": "archiveII/5s_Emericella-nidulans-3.ct",
+        "sourceSha256": "a08656a36c8daa10c2ac2219f6e422b81296a84bb66f0da19abd2b581086f225",
+        "evidence": "ArchiveII comparative/reference secondary-structure annotation; not a new measurement"
+      },
+      {
+        "id": "5s_Thiobacillus-thioparus-1",
+        "family": "5s",
+        "sequence": "UGUCUGACGACCAUAGCAGAGUGGAACCACCCCUUCCCAUCCCGAACAGGACGGUGAAACGCUCCCGCGCCAAUGAUAGUAGGCACCUCGCCUGUGAAAGUAGGUCAUCGUCAGACCU",
+        "structure": ".(((((((((.....((.(((((.....((.(((.............)))...))....)))))..)).((.((....((((((.....))))))....)).))...)))))))))..",
+        "sourceMember": "archiveII/5s_Thiobacillus-thioparus-1.ct",
+        "sourceSha256": "2970c5d387a2c992329bef1a496c822c2535afaf13d89e25fa10feb5f56a6848",
+        "evidence": "ArchiveII comparative/reference secondary-structure annotation; not a new measurement"
+      },
+      {
+        "id": "5s_Hemicentrotus-sp.-1",
+        "family": "5s",
+        "sequence": "GUUUACGACCAUACCAUGCUGAAUAUACCGGUUCUCGUCCGAUCACCGAAGUCAAGCAGCAUAGGGCCCGGUUAGUACUUGGAUGGGAGACCGCCUGGGAAUACCGGGUGUUGUAGGCAU",
+        "structure": "(((((((((....((((((((.....((((((............))))..))....)))))).)).((((((.....((.((.(((....))))).))....)))))).)))))))))..",
+        "sourceMember": "archiveII/5s_Hemicentrotus-sp.-1.ct",
+        "sourceSha256": "1f995cf1fd62b1335d3558f24586420e3954301f3688e73b565caa3a6a096b15",
+        "evidence": "ArchiveII comparative/reference secondary-structure annotation; not a new measurement"
+      },
+      {
+        "id": "5s_Thermococcus-celer-1",
+        "family": "5s",
+        "sequence": "GGUACGGCGGUCAUAGCGGCGGGGUCACACCCGGUCUCGUUUCGACCCCGGAAGUUAAGCCCGCCAGCGAUCCCGGUUGUACUGCCCUCCGGGAGGGGGCGGGAACCGGGGACGCCGCCGGCCAC",
+        "structure": "(((.(((((((....(((((((......((((((.............))))..)).....))))).))...(((((.....((((((.((....))))))))...)))))...))))))))))..",
+        "sourceMember": "archiveII/5s_Thermococcus-celer-1.ct",
+        "sourceSha256": "7c3e99ec3532a174b453ea26ca6f52ca110757688168f82a6717c5c29612b4df",
+        "evidence": "ArchiveII comparative/reference secondary-structure annotation; not a new measurement"
+      },
+      {
+        "id": "5s_Buchnera-aphidicola-2",
+        "family": "5s",
+        "sequence": "UGCCUGGUAAAAAUAGUGUAGUGGUACCACCUGAAUCCAUUCCGAACUCAGAAGUGAAACGCUACAACGCCAAUGGUAGUACGGGGUCUCCCCGUGUGAGAGUAGGUAUCAGCCAGGCAA",
+        "structure": "((((((((.......((((((((.....((((((.............))))..))....)))))).)).((.((....((((((((...))))))))....)).)).....)))))))).",
+        "sourceMember": "archiveII/5s_Buchnera-aphidicola-2.ct",
+        "sourceSha256": "45fc3fef205c0e945dd8f85d489f7ccb48f5ede7075187e156d46c929b85998c",
+        "evidence": "ArchiveII comparative/reference secondary-structure annotation; not a new measurement"
+      },
+      {
+        "id": "5s_Mycobacterium-smegmatis-2",
+        "family": "5s",
+        "sequence": "GUUACGGCGGUCCAUAGCGGCAGGGAAACGCCCGGUCCCAUCCCGAACCCGGAAGCUAAGCCUGCCAGCGCCGAUGAUACUACCCAUCCGGGUGGAAAAGUAGGACACCGCCGAACAC",
+        "structure": "(((.((((((......((((((((.....((((((.............))))..))....)))))).)).((.((....((((((....))))))....)).))...)))))))))..",
+        "sourceMember": "archiveII/5s_Mycobacterium-smegmatis-2.ct",
+        "sourceSha256": "e75736a1f2688e40eae8c34b390bb139155a6772557ebbcaea899aced5d2879a",
+        "evidence": "ArchiveII comparative/reference secondary-structure annotation; not a new measurement"
+      },
+      {
+        "id": "5s_Azotobacter-vinelandii-1",
+        "family": "5s",
+        "sequence": "UGCUUGACGAUCAUAGAGCGUUGGAACCACCUGAUCCCAUCCCGAACUCAGCAGUGAAACGACGCAUCGCCGAUGGUAGUGUGGGGUUUCCCCAUGUAAGAGUAGGUCAUCGUCAGGCGC",
+        "structure": "((((((((((.....((((((((.....((((((.............))))..))....)))))).)).((.((....((((((((...))))))))....)).))...)))))))))).",
+        "sourceMember": "archiveII/5s_Azotobacter-vinelandii-1.ct",
+        "sourceSha256": "2991b1933c49db17ac7b9321f4cda0c15632ba5890a0d1fb90c5b89dca58d96b",
+        "evidence": "ArchiveII comparative/reference secondary-structure annotation; not a new measurement"
+      },
+      {
+        "id": "5s_Zymomonas-mobilis-1",
+        "family": "5s",
+        "sequence": "UAGCUUGGUGGCUAUAGCGUCAGUGACCCACCCGAUCCCAUUUCGAACUCGGACGUGAAACCUGUCCUGCGCCGAUGGUACUGUUGCUUAAGCAACGGAAGAGUAGGUCGUCGCCAGGCUU",
+        "structure": ".((((((((((.....(((.(((......((((((.............))))..)).....))).)..)).((.((....(((((((....)))))))....)).))...)))))))))).",
+        "sourceMember": "archiveII/5s_Zymomonas-mobilis-1.ct",
+        "sourceSha256": "ba37f581ec236a315541c8e01e50a9aa9630a69ff4ef7c5dd02beff5f7626fe5",
+        "evidence": "ArchiveII comparative/reference secondary-structure annotation; not a new measurement"
+      },
+      {
+        "id": "5s_Diplonema-papillatum-2",
+        "family": "5s",
+        "sequence": "GGAUACGACCAUACUCUGGUGAAAGCACCCCAUCCCGCCUGAUUUGGGAAGUUAAGCACCAGCAGGCUGACUAGUACUGCGGUGAGUGAUCACGUGGGAACCCCAGGUGUUGUAUUC",
+        "structure": "(((((((((....((((((((.....((((((............))))..))....)))))).)).(((.......(((((.(((....))))))))......)).).)))))))))",
+        "sourceMember": "archiveII/5s_Diplonema-papillatum-2.ct",
+        "sourceSha256": "97c96dff557e7d223c6a5e18229e24e673c15efdff1a64e17d6019ab358b394f",
+        "evidence": "ArchiveII comparative/reference secondary-structure annotation; not a new measurement"
+      },
+      {
+        "id": "5s_Halobacterium-salinarum-1",
+        "family": "5s",
+        "sequence": "UUAAGGCGGCCAUAGCGGUGGGGUUACUCCCGUACCCAUCCCGAACACGGAAGAUAAGCCCGCCUGCGUUCCGGUCAGUACUGGAGUGCGAGCCUCUGGGAAAUCCGGUUCGCCGCCUACU",
+        "structure": ".(.(((((((....(((((((......((((((.............))))..)).....))))).))...((((......((((((.(....))))))).....))))...))))))))..",
+        "sourceMember": "archiveII/5s_Halobacterium-salinarum-1.ct",
+        "sourceSha256": "fa7b3d1c89e320995c52d893f4c85b2a62af3463504352bcc2b2a479dbd7e8a8",
+        "evidence": "ArchiveII comparative/reference secondary-structure annotation; not a new measurement"
+      },
+      {
+        "id": "5s_Pseudomonas-syringae-4",
+        "family": "5s",
+        "sequence": "CUUGACGACCAUAGAGCAUUGGAACCACCUGAUCCCAUCCCGAACUCAGCAGUGAAACGGUGUAUCGCCGAUGGUAGUGUGGGGUUUCCCCAUGUGAGAGUAGGUCAUCGUCAAG",
+        "structure": "((((((((.....((((((((.....((((((.............))))..))....)))))).)).((.((....((((((((...))))))))....)).))...))))))))",
+        "sourceMember": "archiveII/5s_Pseudomonas-syringae-4.ct",
+        "sourceSha256": "ce4b62c2f57129849261478f97d9bc7abd6b30152c1f1dc82b7bd9bb20a3777a",
+        "evidence": "ArchiveII comparative/reference secondary-structure annotation; not a new measurement"
+      },
+      {
+        "id": "5s_Acidovorax-facilis-1",
+        "family": "5s",
+        "sequence": "UGCCUGAUGACCAUAGCAAGUUGGUACCACUCCUUCCCAUCCCGAACAGGACAGUGAAACGACUUUGCGCCGAUGAUAGUGCGGGUUCCCGUGUGAAAGUAGGUCAUCGUCAGGC",
+        "structure": ".(((((((((.....((((((((.....((((((.............))))..))....)))))).)).((.((....((((((....))))))....)).))...)))))))))",
+        "sourceMember": "archiveII/5s_Acidovorax-facilis-1.ct",
+        "sourceSha256": "dfaa76746863da78521e7f0c644ea0d4648df61f139d3ac76842d7b643ad6f7d",
+        "evidence": "ArchiveII comparative/reference secondary-structure annotation; not a new measurement"
+      },
+      {
+        "id": "5s_Perkinsus-andrewsi-2",
+        "family": "5s",
+        "sequence": "GCCAGCGGCCAUACUGCAUCGAAUACACCGGAUCCCAUCCGAACUCCGAAGUUAAGCGGUGCAAGGCCCGGAUAGUACUGGGGUGGGGGACCGCCCGGGAAGUCCUUAGGGUGCUGCUGGC",
+        "structure": "(((((((((....((((((((.....((((((............))))..))....)))))).)).((((((.....(((((.(((....))))))))....)))...))).)))))))))",
+        "sourceMember": "archiveII/5s_Perkinsus-andrewsi-2.ct",
+        "sourceSha256": "24dbb2152304b68c1768784a8e2762189feea9674aed83cc73a45b4b3eaffee2",
+        "evidence": "ArchiveII comparative/reference secondary-structure annotation; not a new measurement"
+      },
+      {
+        "id": "5s_Leifsonia-aquatica-1",
+        "family": "5s",
+        "sequence": "GUUUCGGCGGCCAUAGCGAGAGGGAAACGCCCGGUUAUAUUCCGAACCCGGAAGCUAAGACUCUCUGCGCCGAUGGUACUGCAGGGGGGACCCUGUGGGAGAGUAGGACACCGCCGGACU",
+        "structure": "(((.((((((.....(((((((......((((((.............))))..)).....))))).)).((.((....((((((((....))))))))....)).))...))))))))).",
+        "sourceMember": "archiveII/5s_Leifsonia-aquatica-1.ct",
+        "sourceSha256": "a3447719aadb1498726ca67d44fd84ac9265337bf876ce1ebcfa807239939b4e",
+        "evidence": "ArchiveII comparative/reference secondary-structure annotation; not a new measurement"
+      },
+      {
+        "id": "5s_Staphylococcus-epidermidis-3",
+        "family": "5s",
+        "sequence": "UCUGGUGAUAAUGGCAAGGAGGUCACACCUGUUCCCAUGCCGAACACAGAAGUUAAGCUCCUUAGCGCCGAUGGUAGUCGGACUUACGUUCCGCUAGAGUAGGACGUUGCCAGGC",
+        "structure": "((((((((.....((((((((.....((((((.............))))..))....)))))).)).((.((....((.((((....)))).))....)).))...)))))))).",
+        "sourceMember": "archiveII/5s_Staphylococcus-epidermidis-3.ct",
+        "sourceSha256": "805302af3ec6b1f450b852e2e51155a26b8205802da8a3015280d8f73552ff7c",
+        "evidence": "ArchiveII comparative/reference secondary-structure annotation; not a new measurement"
+      },
+      {
+        "id": "5s_Dipsacomyces-acuminosporus-1",
+        "family": "5s",
+        "sequence": "AGUUACGACCAUAUCAACUUGAAAGCACCACACCCCGUCAGAUCUGUGAAGUUAAGCAAGUUAGAGCUUCGUUAGUAGUUUGGUGGGGGACCACAAGCGAAUACGAAGUGCCGUAGCUU",
+        "structure": "(((((((.(....((((((((.....((((((............))))..))....)))))).)).((((((.....(((((.(((....))))))))....)))))).).))))))).",
+        "sourceMember": "archiveII/5s_Dipsacomyces-acuminosporus-1.ct",
+        "sourceSha256": "5a124dbfbd5c06f5f1dc5dd216a67f8e9da02434e09499ef8efe645faee2f58d",
+        "evidence": "ArchiveII comparative/reference secondary-structure annotation; not a new measurement"
+      },
+      {
+        "id": "5s_Salmonella-enterica-5",
+        "family": "5s",
+        "sequence": "UGCCUGGCGGCAGUAGCGCGGUGGUCCCACCUGACCCCAUGCCGAACUCAGAAGUGAAACGCCGUAGCGCCGAUGGUAGUGUGGGGUCUCCCCAUGCGAGAGUAGGGAACUGCCAGGCAU",
+        "structure": "((((((((((.....((((((((.....((((((.............))))..))....)))))).)).((.((....((((((((...))))))))....)).))...)))))))))).",
+        "sourceMember": "archiveII/5s_Salmonella-enterica-5.ct",
+        "sourceSha256": "c102a4dd346314999864fb8b0bdf1867b674e315f99ce344990277504d1462f2",
+        "evidence": "ArchiveII comparative/reference secondary-structure annotation; not a new measurement"
+      },
+      {
+        "id": "5s_S_kowalev2E",
+        "family": "5s",
+        "sequence": "GCCUACGGCCAUACCACGUAGAAUGCACCGGUUCUCGUCCGAUCACCGAAGUUAAGCUGCGUCGGGCGUGGUUAGUACUUGCAUGGGAGACCGGCUGGGAAUACCACGUGCCGUAGGCUU",
+        "structure": "(((((((((....((((((((.....((((((............))))..))....)))))).)).((((((.....((.((.(((....))))).))....)))))).)))))))))..",
+        "sourceMember": "archiveII/5s_S_kowalev2E.ct",
+        "sourceSha256": "382d67534acd3029510e0087cc99b7fa8a4cf424ecbc0312e7cbd04c5810fe61",
+        "evidence": "ArchiveII comparative/reference secondary-structure annotation; not a new measurement"
+      },
+      {
+        "id": "5s_Nicotiana-tabacum-1",
+        "family": "5s",
+        "sequence": "GGAUGCGAUCAUACCAGCACUAACGCACCGGAUCCCAUCAGAACUCCGAAGUUAAGCGUGCUUGGGCGAGAGUAGUACUAGGAUGGGUGACCCCCUGGGAAGUCCUCGUGUUGCAUCCCU",
+        "structure": "(((((((((....(((((((......((((((............))))..)).....))))).)).((((.(.....(((((..((....)).)))))....).)))).)))))))))..",
+        "sourceMember": "archiveII/5s_Nicotiana-tabacum-1.ct",
+        "sourceSha256": "3693a123eb55f9e2aa6df766353e68307485540c24f0e6d480c65709c9cf7019",
+        "evidence": "ArchiveII comparative/reference secondary-structure annotation; not a new measurement"
+      },
+      {
+        "id": "5s_Oceanobacillus-iheyensis-1",
+        "family": "5s",
+        "sequence": "UCUGGUAGCGAUAGCGAAGAGGCCACACCUGUUCCCAUGCCGAACACAGAAGUUAAGCUCUUCAGCGCCGAUGGUAGUUGGGGCUUUGCCCCUGCAAGAGUAGGACGCCGCCAGGC",
+        "structure": "((((((.(.....((((((((.....((((((.............))))..))....)))))).)).((.((....((.(((((...))))).))....)).))...).)))))).",
+        "sourceMember": "archiveII/5s_Oceanobacillus-iheyensis-1.ct",
+        "sourceSha256": "bd8b9160e44223c18de1d88a85dc785906be588ce969b0a5aff491089ea30d78",
+        "evidence": "ArchiveII comparative/reference secondary-structure annotation; not a new measurement"
+      },
+      {
+        "id": "5s_Xenopus-borealis-2",
+        "family": "5s",
+        "sequence": "GCCUACGGCCACACCCCCCUGAAAGUGCCCGAUCUCGUCUGAUCUCGGAAGCGAUGCAAGGUCGGGCCUGGUUAGUACCUGGAUGGGAGACCGCCUGGGAAUACCAGGUGUCGUAGGCUU",
+        "structure": "(((((((((....((.((.((.....((((((............))))..))....)).))..)).((((((.....((.((.(((....))))).))....)))))).)))))))))..",
+        "sourceMember": "archiveII/5s_Xenopus-borealis-2.ct",
+        "sourceSha256": "ddcb6fa39cc55da4aed0cf5ea5fac0143cae0fce2d0a9ae30c49d1d897b2c881",
+        "evidence": "ArchiveII comparative/reference secondary-structure annotation; not a new measurement"
+      },
+      {
+        "id": "5s_Xylella-fastidiosa-1",
+        "family": "5s",
+        "sequence": "UCCCUGGUGAUAUUAGCGCUGUGGAACCACCCGAUCCCAUCCCGAACUCGGAAGUGAAACGCAGCUGCGCCGAUGGUAGUGUGGGUCUCCCAUGCGAGAGUAGGUCAUUGCCAGGGUC",
+        "structure": ".(((((((((.....((((((((.....((((((.............))))..))....)))))).)).((.((....(((((((...)))))))....)).))...)))))))))..",
+        "sourceMember": "archiveII/5s_Xylella-fastidiosa-1.ct",
+        "sourceSha256": "a503f499ebabbb56b7ffafe0caaccd4bc23809997e50b091b8ca93de7950674b",
+        "evidence": "ArchiveII comparative/reference secondary-structure annotation; not a new measurement"
+      },
+      {
+        "id": "5s_Andrias-japonicus-2",
+        "family": "5s",
+        "sequence": "GCCUACGGCCAUACCACCCUGAAUGCGCCCGAUCUCGUCUGAACUCGGAAGCUAAGCAGGGUUGGGCCUGGUUAGUACUUGGAUGGGAGACUGCCCGGGAAUACCCGGUGCUGUAGGCUUU",
+        "structure": "(((((((((....((((((((.....((((((............))))..))....)))))).)).((.(((.....((.((.(((....))))).))....))).)).)))))))))...",
+        "sourceMember": "archiveII/5s_Andrias-japonicus-2.ct",
+        "sourceSha256": "7385dfedd3632a0f225f0ef8e0f4fe96198afc7c0c33242e3b9e002b35714d57",
+        "evidence": "ArchiveII comparative/reference secondary-structure annotation; not a new measurement"
+      },
+      {
+        "id": "5s_Alcaligenes-sp.-1",
+        "family": "5s",
+        "sequence": "UUAGCCUGACGACCAUAGCAAGGUGGUACCACUCCUUCCCAUCCCGAACAGGACAGUGAAACGCCUUUGCGCCGAUGAUAGUGGACGGACGUCUGUGAAAGUAGGUCAUCGUCAGGCU",
+        "structure": "..((((((((((.....((((((((.....((((((.............))))..))....)))))).)).((.((....((((((....))))))....)).))...))))))))))",
+        "sourceMember": "archiveII/5s_Alcaligenes-sp.-1.ct",
+        "sourceSha256": "77e9935c62962dff34af3898c05d4f938626c91fe4ed5a379ff064770176d59b",
+        "evidence": "ArchiveII comparative/reference secondary-structure annotation; not a new measurement"
+      },
+      {
+        "id": "5s_Pseudomonas-putida-2",
+        "family": "5s",
+        "sequence": "UUCUUGACGACCAUAGAGCAUUGGAACCACCUGAUCCCAUCCCGAACUCAGCAGUGAAACGAUGCAUCGCCGAUGGUAGUGUGGGGUUUCCCCAUGUGAGAGUAGGUCAUCGUCAAGAUU",
+        "structure": ".(((((((((.....((((((((.....((((((.............))))..))....)))))).)).((.((....((((((((...))))))))....)).))...)))))))))..",
+        "sourceMember": "archiveII/5s_Pseudomonas-putida-2.ct",
+        "sourceSha256": "fcf2cf89fd93f615a17cbb66c609517edfc1d52ab7376e24f803b2ae8fa2a4a4",
+        "evidence": "ArchiveII comparative/reference secondary-structure annotation; not a new measurement"
+      },
+      {
+        "id": "5s_Mycoplasma-haemofelis-1",
+        "family": "5s",
+        "sequence": "GACUUGGUGGUUAUGGCGGAGUGAAUGCACCCGAUCCCAUCCCGAACUCGGCCGUGAAACGCUCCAGCGCUGAUGGUACUUCGCCUCAAGGCACGGGAGAGUAAGUCGCUGCCAGGUCU",
+        "structure": "((((((((((.....((((((((.....((((((.............))))..))....)))))).)).((.((....((..(((....)))..))....)).))...)))))))))).",
+        "sourceMember": "archiveII/5s_Mycoplasma-haemofelis-1.ct",
+        "sourceSha256": "6e30e338202c6e153f7a432dd9b1558b3ca722701bd90ed18db38955b9b58ea0",
+        "evidence": "ArchiveII comparative/reference secondary-structure annotation; not a new measurement"
+      },
+      {
+        "id": "5s_Euplotes-vannus-1",
+        "family": "5s",
+        "sequence": "GCUAUCGGCCAUACUAAGCCAAAUGCACCGGAUCCCAUCCGAACUCCGAAGUUAAGCGGUUUGAGGUCUGUUAAGUACUGAGGUGGGGGACCACUCGGGAACUUCAGAUGCUGAUAGCCU",
+        "structure": "(((((((((....(((((((......((((((............))))..)).....))))).)).((((.......(((((.(((....))))))))......)))).)))))))))..",
+        "sourceMember": "archiveII/5s_Euplotes-vannus-1.ct",
+        "sourceSha256": "c2e4b9ca6c125664a010c861197a7abfde78cb5f804cbd5db8e340e0af165cc2",
+        "evidence": "ArchiveII comparative/reference secondary-structure annotation; not a new measurement"
+      },
+      {
+        "id": "5s_Thiomicrospira-pelophila-1",
+        "family": "5s",
+        "sequence": "GCUUGGCGACCAUAGCGGAAUGGAACCACCUGAUCCCAUCUCGAACUCAGAAGUGAAACGUUCCAGCGCCAAUGGUAGUGUGGGGUUUCCCCAUGCGAGAGUAGGUCAUCGCCAAGCU",
+        "structure": "(((((((((.....((((((((.....((((((.............))))..))....)))))).)).((.((....((((((((...))))))))....)).))...))))))))).",
+        "sourceMember": "archiveII/5s_Thiomicrospira-pelophila-1.ct",
+        "sourceSha256": "b8f41e04ee09f49f5c60585e5d92ce72f025260e811391c4015674ab4ee4fe27",
+        "evidence": "ArchiveII comparative/reference secondary-structure annotation; not a new measurement"
+      },
+      {
+        "id": "5s_Herpetosiphon-aurantiacus-1",
+        "family": "5s",
+        "sequence": "UCCGGUGGCAAUGUCGGAGGGGUCCCACCCGUUCCCAUCCCGAACACGGAAGUUAAGCCCUCCAGAGCCGAUGGUACUCCGCGGGGAACCGCGCGGGAGAGUAGGUCGCUGCCGGAU",
+        "structure": "((((((((.....((((((((.....((((((.............))))..))....)))))).)).((.((....((.(((((....))))).))....)).))...)))))))).",
+        "sourceMember": "archiveII/5s_Herpetosiphon-aurantiacus-1.ct",
+        "sourceSha256": "153cc34beece53c5baa2533d4efb0cd6064f8f67f7483e20ab46da2cdeec0930",
+        "evidence": "ArchiveII comparative/reference secondary-structure annotation; not a new measurement"
+      },
+      {
+        "id": "5s_Penicillium-chrysogenum-1",
+        "family": "5s",
+        "sequence": "ACAUACGACCAUAGGGUGUGGAAAACAGGGCUUCCCGUCCGCUCAGCCGUACUUAAGCCACACGCCGGUGAGUUAGUAGUUGGGUGGGUGACCACCAGCGAAUCCUCACUGUUGUAUGU",
+        "structure": "(((((((((....((((((((.....((((((............))))...))....)))))).)).(((((......(((((.(((....)))))))).....))))).)))))))))",
+        "sourceMember": "archiveII/5s_Penicillium-chrysogenum-1.ct",
+        "sourceSha256": "80352f5845ca772df3a028af30507d398edfbb4538a5421628d9e262eddfbfd4",
+        "evidence": "ArchiveII comparative/reference secondary-structure annotation; not a new measurement"
+      },
+      {
+        "id": "5s_Russula-cyanoxantha-1",
+        "family": "5s",
+        "sequence": "AUCCACGGCCAUAGGACUCUGAAAGCACCGCAUCCCGUUCGAUCUGCGCAGUUAACCAGAGUGCCGCCCAGUUAGUACCACGGUGGGGGACCACGCGGGAAUCCUGGGUGCUGUGGUUU",
+        "structure": "(.(((((((....((((((((.....((((((............))))..))....)))))).)).(((((......((.((.(((....))))).)).....))))).))))))).).",
+        "sourceMember": "archiveII/5s_Russula-cyanoxantha-1.ct",
+        "sourceSha256": "517123796aa62b069322fa6ed7110b004d517bafa2b4490cade7725bf6712de9",
+        "evidence": "ArchiveII comparative/reference secondary-structure annotation; not a new measurement"
+      },
+      {
+        "id": "5s_Drosophila-melanogaster-2",
+        "family": "5s",
+        "sequence": "GCCAACGACCAUACCACGCUGAAUACAUCGGUUCUCGUCCGAUCACCGAAAUUAAGCAGCGUCGCGGGCGGUUAGUACUUAGAUGGGGGACCGCUUGGGAACACCGCGUGUUGUUGGCCU",
+        "structure": "(((((((((.....(((((((.....((((((............))))..))....)))))).)...(((((.....((.((.(((....))))).))....)))))..)))))))))..",
+        "sourceMember": "archiveII/5s_Drosophila-melanogaster-2.ct",
+        "sourceSha256": "9e31e5663bf373bb8c49653a5d77e0e6f0e5c36a691cc8042cd6e4e8d104e82d",
+        "evidence": "ArchiveII comparative/reference secondary-structure annotation; not a new measurement"
+      },
+      {
+        "id": "5s_Methylophilus-methylotrophus-1",
+        "family": "5s",
+        "sequence": "CUUGGGGACAAUAGCGGUUUGGAACCACCCCUUCCCAUCUCGAACAGGGCCGUGAAACGAACUUGCGCCAAUGAUAGUGUACUCUUCGUAUGCGAAAGUAGGUCAUCCCCAAGCC",
+        "structure": "((((((((.....((((((((.....((((((.............))))..))....)))))).)).((.((....((((((.....))))))....)).))...))))))))..",
+        "sourceMember": "archiveII/5s_Methylophilus-methylotrophus-1.ct",
+        "sourceSha256": "f330d013f0d32ada30d49be23f4112d39da066768ef53e3b896ceb90102f8345",
+        "evidence": "ArchiveII comparative/reference secondary-structure annotation; not a new measurement"
+      },
+      {
+        "id": "5s_Tinca-tinca-1",
+        "family": "5s",
+        "sequence": "GCUUACGGCCAUACCACCCUGAGCACGCCCGAUCUCGUCCGAUCUCGGAAGCUAAGCAGGGUCGGGCCUGGUUAGUACUUGGAUGGGAGACCGCCUGGGAAUACCAGGUGCUGUAAGCUU",
+        "structure": "(((((((((....((((((((.....((((((............))))..))....)))))).)).((((((.....((.((.(((....))))).))....)))))).)))))))))..",
+        "sourceMember": "archiveII/5s_Tinca-tinca-1.ct",
+        "sourceSha256": "cef9bdde4e4503bdd04d949420fb81410f6d7a1856160c691645d19e807891dc",
+        "evidence": "ArchiveII comparative/reference secondary-structure annotation; not a new measurement"
+      },
+      {
+        "id": "5s_Mycobacterium-bovis-1",
+        "family": "5s",
+        "sequence": "GUUACGGCGGCCACAGCGGCAGGGAAACGCCCGGUCCCAUUCCGAACCCGGAAGCUAAGCCUGCCAGCGCCGAUGAUACUGCCCCUACCGGGUGGAAAAGUAGGACACCGCCGAACA",
+        "structure": "(((.((((((.....((((((((.....((((((.............))))..))....)))))).)).((.((....((((((.....))))))....)).))...))))))))).",
+        "sourceMember": "archiveII/5s_Mycobacterium-bovis-1.ct",
+        "sourceSha256": "6e83c8f17eb2aa8573f2f93258ba5b83451aca566e0a2cabd4294eeb0b1cd783",
+        "evidence": "ArchiveII comparative/reference secondary-structure annotation; not a new measurement"
+      },
+      {
+        "id": "5s_Thermomicrobium-roseum-1",
+        "family": "5s",
+        "sequence": "CGUGCGCGUGGCCGAGAGCGGUGUGGCAACACCCCGCUCCAUCCCGAACCGGGUCGUGCCCCACACCAGCGCCGGAGAGUACUGCGCGGGCAACCGCGUGGGAGGCGAGGCCGCUCGCGCGCACGGU",
+        "structure": ".((((....((......((((((((.....((((((.............))))..))....)))))).)).((...(....((((((((....))))))))....)..))...))...)))).....",
+        "sourceMember": "archiveII/5s_Thermomicrobium-roseum-1.ct",
+        "sourceSha256": "28ed003ed6aa71146f768b8d3700bbe51cffa29f278618942056a7253ae6068a",
+        "evidence": "ArchiveII comparative/reference secondary-structure annotation; not a new measurement"
+      },
+      {
+        "id": "5s_Acremonium-persicinum-2",
+        "family": "5s",
+        "sequence": "ACAUACGACCAUAGACGCUAGAAAAUACGGGAUCCCGUCCGCUCUCCCAUAGUCAAGCUGGCGAUCGGCGGAUUAGUAGUUGGGUCGGUGACGACCAGCGAAUACCUGCUGUUGUAUGU",
+        "structure": "(((((((((....((((((((.....((((((............))))...))....)))))).)).((((.(.....(((((.(((....))))))))....).)))).)))))))))",
+        "sourceMember": "archiveII/5s_Acremonium-persicinum-2.ct",
+        "sourceSha256": "1e29dc80d7181f9a3c6580a758de685acc9452abceac589447fe18b9bddee156",
+        "evidence": "ArchiveII comparative/reference secondary-structure annotation; not a new measurement"
+      },
+      {
+        "id": "5s_Wigglesworthia-glossinidia-1",
+        "family": "5s",
+        "sequence": "UUCCUGACAAUAUUAUCGCGAUAGAACCACCUGAAUCCAUACCGAACUCAGAAGUGAAAUGUCGUAGUUCCGAUGGUAGUGUGAGGUUUCCUUAUGUGAGAGUAGGAGAUUGUCAGGAAA",
+        "structure": "((((((((((......(((((((.....((((((.............))))..))....)))))).)..((.((....((((((((...))))))))....)).))...)))))))))).",
+        "sourceMember": "archiveII/5s_Wigglesworthia-glossinidia-1.ct",
+        "sourceSha256": "91e7234bdc1f2465500c3759c57d1becc9aaba2f738512923cde0333548e381a",
+        "evidence": "ArchiveII comparative/reference secondary-structure annotation; not a new measurement"
+      },
+      {
+        "id": "5s_Actinia-equina-1",
+        "family": "5s",
+        "sequence": "GUCUACGGCCAUACCACCGGGAAAAUACCGGUUCUCGUCCGAUCACCGAAGUCAAGCCCGGUAGGGCCAGGUUAGUACUUGGAUGGGUGACCGCCUGGGAAUACCUGGUGCUGUAGACUU",
+        "structure": "(((((((((....((((((((.....((((((............))))..))....)))))).)).((((((.....((.((.(((....))))).))....)))))).)))))))))..",
+        "sourceMember": "archiveII/5s_Actinia-equina-1.ct",
+        "sourceSha256": "7289b202d8b5273aee44afde43486410d62ad3eea97986e70ea41634a6c7d8ea",
+        "evidence": "ArchiveII comparative/reference secondary-structure annotation; not a new measurement"
+      },
+      {
+        "id": "5s_Listeria-monocytogenes-3",
+        "family": "5s",
+        "sequence": "UGGUAGUUAUGGCGAGAAGGUCACACCCGUUCCCAUCCCGAACACGGUAGUUAAGCUUCUCUGCGCCAAUGGUAGUUGGGGGCUUCCCCAGCGAGAGUAGGUCGCUGCCGGGCA",
+        "structure": "((((((.....((((((((.....((((((.............))))..))....)))))).)).((.((....(((((((....)))))))....)).))...))))))....",
+        "sourceMember": "archiveII/5s_Listeria-monocytogenes-3.ct",
+        "sourceSha256": "5e5acc3e8815e02f2c08dd64c8ff8134735909ce5a68c681221e79d9228635d6",
+        "evidence": "ArchiveII comparative/reference secondary-structure annotation; not a new measurement"
+      },
+      {
+        "id": "5s_Erythromicrobium-hydrolyticum-1",
+        "family": "5s",
+        "sequence": "UGCCUUGGUGCACAGUGCUUGUGGUACCCACGCGAUCCCAUCUCGGACUCGGCCGUGAAACCAGACAGCGCCGAUGGUAUCAACGCUCAAGCGUUGGAAGAGUAGGUCGCCGCCAUGGAU",
+        "structure": "..((.(((((......((.(.(((.....((.(((.............)))...))....))).)..)).((.((....(((((((....)))))))....)).))....))))).))..",
+        "sourceMember": "archiveII/5s_Erythromicrobium-hydrolyticum-1.ct",
+        "sourceSha256": "f8c504329d49f93ed83d72bd3232c6c12a68f3480f648dc95d4c00bfbe8e5aa1",
+        "evidence": "ArchiveII comparative/reference secondary-structure annotation; not a new measurement"
+      },
+      {
+        "id": "5s_Meloidogyne-arenaria-4",
+        "family": "5s",
+        "sequence": "GAUUACGACCAUACCGCGUUGAAAGCACGCCAUCCCGUCCGAUCUGGCAAGUUAAGCAACGCUGGGCUUCCUUAGUACUUGGAACGGAGACGUCCUGGGAAUCGGGAGUGUCGUAAUCUUU",
+        "structure": "(((((((((....((((((((.....((((((............))))..))....)))))).)).(((((......((.((.(((....))))).)).....))))).)))))))))...",
+        "sourceMember": "archiveII/5s_Meloidogyne-arenaria-4.ct",
+        "sourceSha256": "e9b77ceb9463bbf5a5e78a57508ee56cbd6e0ec6499fe2c93f5e141a7500541c",
+        "evidence": "ArchiveII comparative/reference secondary-structure annotation; not a new measurement"
+      },
+      {
+        "id": "5s_Acidovorax-delafieldii-1",
+        "family": "5s",
+        "sequence": "UGCCUGAUGACCAUAGCAAGUUGGUCCCACUCCUUCCCAUCCCGAACAGGACAGUGAAACGACUUUGCGCCGAUGAUAGUGCGGGUUCCCGUGUGAAAGUAGGUCAUCGUCAGGC",
+        "structure": ".(((((((((.....((((((((.....((((((.............))))..))....)))))).)).((.((....((((((....))))))....)).))...)))))))))",
+        "sourceMember": "archiveII/5s_Acidovorax-delafieldii-1.ct",
+        "sourceSha256": "a3f31d20845597ccbed5b269ee3fabae8caf72e54b5ff50d2ed40e2324659127",
+        "evidence": "ArchiveII comparative/reference secondary-structure annotation; not a new measurement"
+      },
+      {
+        "id": "5s_Saprospira-grandis-1",
+        "family": "5s",
+        "sequence": "CUUCUCGGUGGCCUAUAGCAGCAGGGAACGCCCGGACCCAUUCCGAACCCGGAAGCUAAGCCUGCUAACGCUGAUGGUACUGCAACCGGGAGGUUGUGGGAGAGUAAGAAACCGCCGACAA",
+        "structure": ".(..(((((((......(.((((((....((((((.............))))..))....))))))..).((.((....((((((((....))))))))....)).))...))))))).).",
+        "sourceMember": "archiveII/5s_Saprospira-grandis-1.ct",
+        "sourceSha256": "f4f9fd54a58f42bac77c20b553b70419ca83ea47667b79605385b2aebcf908c8",
+        "evidence": "ArchiveII comparative/reference secondary-structure annotation; not a new measurement"
+      },
+      {
+        "id": "5s_Sporidiobolus-salmonicolor-1",
+        "family": "5s",
+        "sequence": "AUCUGCGGCCAUACCGCGAUGAACCCUCCGCGUCUCGUCCGAUCCGCGCAGAUAAGCAUCGCAGGGGCCAGAGAGUAUUGACGUGGGUGACCAGUCGAGAACACUGUGCUGCCGCAGGU",
+        "structure": "(((((((((....((((((((.....((((((............))))..))....)))))).)).(((((......(((((.(((....)))))))).....))).)).)))))))))",
+        "sourceMember": "archiveII/5s_Sporidiobolus-salmonicolor-1.ct",
+        "sourceSha256": "050039b69498883d789ac8ecbcbd6929cb623516c94721cf8dedabd116612662",
+        "evidence": "ArchiveII comparative/reference secondary-structure annotation; not a new measurement"
+      },
+      {
+        "id": "5s_Aplysia-kurodai-1",
+        "family": "5s",
+        "sequence": "GGCUACGGCCAUACCACGUUGAACCUACCGGUUCUCGUCCGAUCACCGAAGUCAAGCAACGUCGGGCGUGGUUAGUACUUAGAUGGGUGACCGCUUGGGAACACCACGUGCUGUAGGCG",
+        "structure": "(.(((((((....((((((((.....((((((............))))..))....)))))).)).((((((.....((.((.(((....))))).))....)))))).))))))).).",
+        "sourceMember": "archiveII/5s_Aplysia-kurodai-1.ct",
+        "sourceSha256": "df0ac0d0ca6ba9f32c627308a148315d8f0cb06845609429324349a88c003609",
+        "evidence": "ArchiveII comparative/reference secondary-structure annotation; not a new measurement"
+      }
+    ],
+    "validation": [
+      {
+        "id": "tRNA_tdbR00000550-Neurospora_crassa-5141-Tyr-GUA",
+        "family": "tRNA",
+        "sequence": "AGGAGGGUUCCGUUUGUUGGUAUGACGGGUUAAGCUGUAAACUUAAUGACUAAUUAGUCGUCGAAGGUUCAAUUCCUUUCUCUCCUACCA",
+        "structure": "(((((((..((((...........))))((((((.......))))))...............(((((.......))))))))))))....",
+        "sourceMember": "archiveII/tRNA_tdbR00000550-Neurospora_crassa-5141-Tyr-GUA.ct",
+        "sourceSha256": "ec009280dc3c026e90b8df8fc0a918ef5d02fd1fa9b9f6127a062e2af7881b1e",
+        "evidence": "ArchiveII comparative/reference secondary-structure annotation; not a new measurement"
+      },
+      {
+        "id": "tRNA_tdbR00000087-Hordeum_vulgare-4513-Phe-AA",
+        "family": "tRNA",
+        "sequence": "GCGGGGAUAGCUCAGUUGGGAGAGCGUCAGACUGAAGAUCUGAAGGUCGCGUGUUCGAUCCACGCUCACCGCACCA",
+        "structure": "((((.((..((((........)))).(((((.......))))).....(((((.......))))))).))))....",
+        "sourceMember": "archiveII/tRNA_tdbR00000087-Hordeum_vulgare-4513-Phe-AA.ct",
+        "sourceSha256": "affb95048867d396d776f77cd257923f825d31808ad7c1be66cd649ee57fde9f",
+        "evidence": "ArchiveII comparative/reference secondary-structure annotation; not a new measurement"
+      },
+      {
+        "id": "tRNA_tdbR00000161-Zea_mays-4577-Ile-GAU",
+        "family": "tRNA",
+        "sequence": "GGGCUAUUAGCUCAGUGGUAGAGCGCGCCCCUGAUAAGGGCGAGGUCUCUGGUUCAAGUCCAGGAUGGCCCACCA",
+        "structure": "(((((((..((((.......)))).(((((.......))))).....(((((.......))))))))))))....",
+        "sourceMember": "archiveII/tRNA_tdbR00000161-Zea_mays-4577-Ile-GAU.ct",
+        "sourceSha256": "d38da22c655846bc94df8d659ee4da94a519f5731a4e3c3cf1dbb81157250898",
+        "evidence": "ArchiveII comparative/reference secondary-structure annotation; not a new measurement"
+      },
+      {
+        "id": "tRNA_tdbR00000361-Saccharomyces_cerevisiae-4932-Arg-ACG",
+        "family": "tRNA",
+        "sequence": "AUAUCUUUAAUUUAAUGGUAAAAUAUUAGAAUACGAAUCUAAUUAUAUAGGUUCAAAUCCUAUAAGAUAUUCCA",
+        "structure": "(((((((..((((.......))))((((((.......))))))...(((((.......))))))))))))....",
+        "sourceMember": "archiveII/tRNA_tdbR00000361-Saccharomyces_cerevisiae-4932-Arg-ACG.ct",
+        "sourceSha256": "faf70def85295c9c16cb686573644efa021361202d510ad0713fb78eb3fe96bf",
+        "evidence": "ArchiveII comparative/reference secondary-structure annotation; not a new measurement"
+      },
+      {
+        "id": "tRNA_tdbR00000061-Mus_musculus-10090-Glu-CUC",
+        "family": "tRNA",
+        "sequence": "UCCCUGGUGGUCUAGUGGUUAGGAUUCGGCGCUCUCACCGCCGCGGCCCGGGUUCGAUUCCCGGUCAGGGAACCA",
+        "structure": "(((((((..((((........)))).(((((.......)))))....(((((.......))))))))))))....",
+        "sourceMember": "archiveII/tRNA_tdbR00000061-Mus_musculus-10090-Glu-CUC.ct",
+        "sourceSha256": "67caf98d50ca4faf361e744e1279ddd212f86353d10fad0b07e4a235a2f3bab5",
+        "evidence": "ArchiveII comparative/reference secondary-structure annotation; not a new measurement"
+      },
+      {
+        "id": "tRNA_tdbR00000261-Cucumis_sativus-3659-Leu-NAA",
+        "family": "tRNA",
+        "sequence": "GUCAGGAUGGCCGAGUGGUCUAAGGCGCCAGACUUAAGUUCUGGUCCUCUAAGGAGGGCGUGGGUUCAAAUCCCACUUCUGACACCA",
+        "structure": "(((((((..(((...........)))((((((.......))))))..............(((((.......))))))))))))....",
+        "sourceMember": "archiveII/tRNA_tdbR00000261-Cucumis_sativus-3659-Leu-NAA.ct",
+        "sourceSha256": "7a101a61a12298e2a8c0121854b7b52148aa54a4820276e53ba1c130081ecc3b",
+        "evidence": "ArchiveII comparative/reference secondary-structure annotation; not a new measurement"
+      },
+      {
+        "id": "tRNA_tdbR00000158-Escherichia_coli-562-Ile-GAU",
+        "family": "tRNA",
+        "sequence": "AGGCUUGUAGCUCAGGUGGUUAGAGCGCACCCCUGAUAAGGGUGAGGUCGGUGGUUCAAGUCCACUCAGGCCUACCA",
+        "structure": "(((((((..((((.........)))).(((((.......))))).....(((((.......))))))))))))....",
+        "sourceMember": "archiveII/tRNA_tdbR00000158-Escherichia_coli-562-Ile-GAU.ct",
+        "sourceSha256": "cc96f3a6932ef382ac15500302ae567a2dd97a24266f3ff370b097e8b14300ea",
+        "evidence": "ArchiveII comparative/reference secondary-structure annotation; not a new measurement"
+      },
+      {
+        "id": "tRNA_tdbR00000198-Oryctolagus_cuniculus-9986-Lys-CUU",
+        "family": "tRNA",
+        "sequence": "GCCCGGCUAGCUCAGUCGGUAGAGCAUGGGACUCUUAAUCCCAGGGUCGUGGGUUCGAGCCCCACGUUGGGCGCCA",
+        "structure": "(((((((..((((........)))).(((((.......))))).....(((((.......))))))))))))....",
+        "sourceMember": "archiveII/tRNA_tdbR00000198-Oryctolagus_cuniculus-9986-Lys-CUU.ct",
+        "sourceSha256": "449e1c3e8491d44b1af2516fe7bb5905e3e44086eb3e6174d1594596af45828f",
+        "evidence": "ArchiveII comparative/reference secondary-structure annotation; not a new measurement"
+      },
+      {
+        "id": "tRNA_tdbR00000390-Escherichia_coli-562-Ser-CGA",
+        "family": "tRNA",
+        "sequence": "GGAGAGAUGCCGGAGCGGCUGAACGGACCGGUCUCGAAAACCGGAGUAGGGGCAACUCUACCGGGGGUUCAAAUCCCCCUCUCUCCGCCA",
+        "structure": "(((((((..(((...........))).(((((.......)))))..................(((((.......))))))))))))....",
+        "sourceMember": "archiveII/tRNA_tdbR00000390-Escherichia_coli-562-Ser-CGA.ct",
+        "sourceSha256": "2c326257b2ccbe3f0082b62c0b2cbcd89612b4056a74e1d07a8b80e93846a6e1",
+        "evidence": "ArchiveII comparative/reference secondary-structure annotation; not a new measurement"
+      },
+      {
+        "id": "tRNA_tdbR00000542-Mycoplasma_capricolum-2095-Tyr-GUA",
+        "family": "tRNA",
+        "sequence": "GGAGGGGUAGCGAAGUGGCUAAACGCGGGUGGCUGUAACCCACUUCCUUACGGUUCGGGGGUUCGAAUCCCUCCCCCUCCACCA",
+        "structure": "(((((((..(((...........)))((((((.......))))))...........(((((.......))))))))))))....",
+        "sourceMember": "archiveII/tRNA_tdbR00000542-Mycoplasma_capricolum-2095-Tyr-GUA.ct",
+        "sourceSha256": "4372f3928b4a3139b39e1639adc6ca0e8126c3b58fe9e35fc725d02b21de0bb0",
+        "evidence": "ArchiveII comparative/reference secondary-structure annotation; not a new measurement"
+      },
+      {
+        "id": "tRNA_tdbR00000046-Escherichia_coli-562-Glu-SUC",
+        "family": "tRNA",
+        "sequence": "GUCCCCUUCGUCUAGAGGCCCAGGACACCGCCCUUUCACGGCGGUAACAGGGGUUCGAAUCCCCUAGGGGACGCCA",
+        "structure": "(((((((..((((.........))))((((((.......))))))...(((((.......))))))))))))....",
+        "sourceMember": "archiveII/tRNA_tdbR00000046-Escherichia_coli-562-Glu-SUC.ct",
+        "sourceSha256": "54ed5055276f654a39c2d6cf58518350a130b9f391fd085889fa76511e500844",
+        "evidence": "ArchiveII comparative/reference secondary-structure annotation; not a new measurement"
+      },
+      {
+        "id": "tRNA_tdbR00000115-Staphylococcus_epidermidis-1282-Gly-UCC",
+        "family": "tRNA",
+        "sequence": "GCGGGAGUAGUUCAAUUUUAGAACACAUUCCUUCCCGGAAUGAGGUAUAGGUGCAAGUCCUAUCUUCCGCUCCA",
+        "structure": "(((((((..((((.......)))).(((((.......)))))....(((((.......))))))))))))....",
+        "sourceMember": "archiveII/tRNA_tdbR00000115-Staphylococcus_epidermidis-1282-Gly-UCC.ct",
+        "sourceSha256": "2d908cb47b66913bfa5f19d916c78b2a3c53a372112912938f2bca6371553592",
+        "evidence": "ArchiveII comparative/reference secondary-structure annotation; not a new measurement"
+      },
+      {
+        "id": "tRNA_tdbR00000122-Codium_fragile-3133-Gly-UCC",
+        "family": "tRNA",
+        "sequence": "GCAGUACUGGUGUAAUGGUUAGCGCCUUAGAUUUCCAAUCUAAAGGUAGGGGUUCGAUUCCCCUGUACUGCUCCA",
+        "structure": "(((((((..((((........)))).(((((.......)))))....(((((.......))))))))))))....",
+        "sourceMember": "archiveII/tRNA_tdbR00000122-Codium_fragile-3133-Gly-UCC.ct",
+        "sourceSha256": "fb3444188c3b5d724362d9153a954ce1d9a6bc108758c358f610b9c90c79ffc4",
+        "evidence": "ArchiveII comparative/reference secondary-structure annotation; not a new measurement"
+      },
+      {
+        "id": "tRNA_tdbR00000056-Hordeum_vulgare-4513-Glu-UPC",
+        "family": "tRNA",
+        "sequence": "UCCGUCGUAGUCUAGGUGGUUAGGAUACUCGGCUUUCACCCGAGAGACCCGGGUUCAAGUCCCGGCGACGGAACCA",
+        "structure": "(((((((..((((.........)))).(((((.......)))))....(((((.......))))))))))))....",
+        "sourceMember": "archiveII/tRNA_tdbR00000056-Hordeum_vulgare-4513-Glu-UPC.ct",
+        "sourceSha256": "e06810ee8108d4feb998c7333522498fb4237ba6c9479355212854e20713974e",
+        "evidence": "ArchiveII comparative/reference secondary-structure annotation; not a new measurement"
+      },
+      {
+        "id": "tRNA_tdbR00000564-Drosophila_melanogaster-7227-Tyr-QPA",
+        "family": "tRNA",
+        "sequence": "CCUUCGAUAGCUCAGUUGGUAGAGCGGUGGACUGUAGAUCCAUAGGUCGCUGGUUCAAAUCCGGCUCGAAGGACCA",
+        "structure": "(((((((..((((........)))).(((((.......))))).....(((((.......))))))))))))....",
+        "sourceMember": "archiveII/tRNA_tdbR00000564-Drosophila_melanogaster-7227-Tyr-QPA.ct",
+        "sourceSha256": "f70816ca99dbb9b46e8e4d46ef61d861f72e8fd692a94120020e4698c859da2b",
+        "evidence": "ArchiveII comparative/reference secondary-structure annotation; not a new measurement"
+      },
+      {
+        "id": "tRNA_tdbR00000022-Enterobacteria_phage_T5-10726-Asp-GUC",
+        "family": "tRNA",
+        "sequence": "GCGACCGGGGCUGGCUUGGUAAUGGUACUCCCCUGUCACGGGAGAGAAUGUGGGUUCAAAUCCCAUCGGUCGCGCCA",
+        "structure": "(((((((..((((.........)))).(((((.......))))).....(((((.......))))))))))))....",
+        "sourceMember": "archiveII/tRNA_tdbR00000022-Enterobacteria_phage_T5-10726-Asp-GUC.ct",
+        "sourceSha256": "fb3af36b0c5ffa7520482a409199cac6bbdf2e6c024f6f2e8d2e0a0e04688e70",
+        "evidence": "ArchiveII comparative/reference secondary-structure annotation; not a new measurement"
+      }
+    ],
+    "test": [
+      {
+        "id": "srp_Rhod.palu._CP000463",
+        "family": "srp",
+        "sequence": "GGGAGAUUGGCGGUGGACGAGCCACUCGCCAACCGGGUCAGGUCCGGAAGGAAGCAGCCCUAACGAGGUCCGGAUCGGGUCGCUCGUCAGUCUCCUACUUGUUUU",
+        "structure": "(((((((((..(((((.(((.((.((((......((((....(((....)))....))))...))))....)).)))..)))))...))))))))).........",
+        "sourceMember": "archiveII/srp_Rhod.palu._CP000463.ct",
+        "sourceSha256": "ff7fa0414eaaf8922037b8aaff3635264ddfcc21239fc84cde421bca5e2fef1e",
+        "evidence": "ArchiveII comparative/reference secondary-structure annotation; not a new measurement"
+      },
+      {
+        "id": "srp_Psyc.arct._CP000082",
+        "family": "srp",
+        "sequence": "GGUAGCCCCGCUGGUGGCUUCGCAAUUGUACUCUGUGAACCCCGCCAGGACCGGAAGGUAGCAACGGUAGCAGAUCUAUGAUGUGCCGAAGUUUUGCUAGUGGGGUUGCCACCAUU",
+        "structure": "(......((.(.....(((((((.((((((.(..((.....(((.....(((....))).....)))..)).).)..))))))...)))))).........).))......)....",
+        "sourceMember": "archiveII/srp_Psyc.arct._CP000082.ct",
+        "sourceSha256": "14e7c27f8d5472ad40b5596b026e2f5e9c34ad10512566ef6bc09e0b45bd48ed",
+        "evidence": "ArchiveII comparative/reference secondary-structure annotation; not a new measurement"
+      },
+      {
+        "id": "srp_Chla.pneu._AE001624",
+        "family": "srp",
+        "sequence": "GUUGGGGGCCUUUUAAGAGAAGGAACCUGCGAAUCGGGUCAGGACUGGAAGGUAGCAGCCCUAAGGAGAGUUUUCUUUUGCUAAAAGAAUGUUCUCCAACUUAC",
+        "structure": "..((((((.(((((..(((.(((...((.(.....((((....(((....)))....))))...).))...))).)))....)))))....)).))))......",
+        "sourceMember": "archiveII/srp_Chla.pneu._AE001624.ct",
+        "sourceSha256": "d66454b5e7ab0148537d8bac69d1591968bd91bed04661ccc9690a02026a40f2",
+        "evidence": "ArchiveII comparative/reference secondary-structure annotation; not a new measurement"
+      },
+      {
+        "id": "srp_Hahe.chej._CP000155",
+        "family": "srp",
+        "sequence": "GACUUGGUUUCCACGCAAUGAUAGAUUGUCAACCCCGCCAGGUCUGGAAGGAAGCAACGGUAACUUUUGAUUCAUGUGCCGUGUCAAGGCUAAGUCAGCA",
+        "structure": "...((((((..(((((.((((..((..((.....(((.....(((....))).....)))..))..))...)))))...))))........)).))))..",
+        "sourceMember": "archiveII/srp_Hahe.chej._CP000155.ct",
+        "sourceSha256": "18212c023bd4b7ba51bdf5e1d750e10284ec834d76399cee5f5fc33985cfcf35",
+        "evidence": "ArchiveII comparative/reference secondary-structure annotation; not a new measurement"
+      },
+      {
+        "id": "srp_Ther.ther._AE017221",
+        "family": "srp",
+        "sequence": "AGCCCCCGGUCCAGCGCGGCGGGCCAGGCGUGAACCGGGUCAGGUCCGGAAGGAAGCAGCCCUAAGCGCCUCGGUCCGGGCGCCGCUGGGAAGCCGGGGGCGCUU",
+        "structure": ".(((((((((((((((((.(((((.((((((.....((((....(((....)))....))))...))))))..)))))..)).)))))))...))))))))....",
+        "sourceMember": "archiveII/srp_Ther.ther._AE017221.ct",
+        "sourceSha256": "3197ffb659192f7d1adebf16b5c32ab74a2826184a6c0c8209299a41f6096563",
+        "evidence": "ArchiveII comparative/reference secondary-structure annotation; not a new measurement"
+      },
+      {
+        "id": "srp_Dein.geot._CP000359",
+        "family": "srp",
+        "sequence": "UGAACCUGGUCAGGGCCGGAAGGCAGCAGCCA",
+        "structure": "......((((....(((....)))....))))",
+        "sourceMember": "archiveII/srp_Dein.geot._CP000359.ct",
+        "sourceSha256": "d4f88074aa4188f0dfd82c3c960f2be6f21e928f5862e12b2ced9288fdbff945",
+        "evidence": "ArchiveII comparative/reference secondary-structure annotation; not a new measurement"
+      },
+      {
+        "id": "srp_Lact.acid._CP000033",
+        "family": "srp",
+        "sequence": "UCAUACUUGAUGGGCAAUGUUUGACCUCUGAAUCGUGUCAGGACCGGAAGGUAGCAGCACUAAGGUUGUUCAGGCAUGUGCCUUUUAUUAGAAAUUAACAA",
+        "structure": "....(...((((((((.(((.(.((..((.....((((....(((....)))....))))...))..))....).)))))...)))))).....)......",
+        "sourceMember": "archiveII/srp_Lact.acid._CP000033.ct",
+        "sourceSha256": "bcf972e9c0cce28c3162cb3542f4d4af9e1e6d50820237fc3febed83d1c8d705",
+        "evidence": "ArchiveII comparative/reference secondary-structure annotation; not a new measurement"
+      },
+      {
+        "id": "srp_Thal.pseu._GSP-296543",
+        "family": "srp",
+        "sequence": "GCCCGAGAGCAUAUAAUUGUAAAAACUAAAUCUUGUCAGAACCGGAAGGUAGCAGCAAUAAUGUUUCAAUACAAAAGUUAUGAUUUUCGGGUGUUU",
+        "structure": "....((..((.(.(...(....((((......((((....(((....)))....))))....))))..)...).).)).....))...........",
+        "sourceMember": "archiveII/srp_Thal.pseu._GSP-296543.ct",
+        "sourceSha256": "ebab1dd4229182d7565293c0a9e1eb2549ff5bb9f1721dfa0773428a145e2838",
+        "evidence": "ArchiveII comparative/reference secondary-structure annotation; not a new measurement"
+      },
+      {
+        "id": "srp_Myco.capr._CP000123",
+        "family": "srp",
+        "sequence": "UAAUCUAGCCAUUACAACAAUUAACACGAACCAUGUCAGGUCAGAAAUGAAGCAGCAUUAAGUAUCUUAAUUGUGUGUAAUGGCUUUUUUAUUUAUUA",
+        "structure": "(((...((((((((((.(((((.(.((.....((((....(((....)))....))))...)).)...)))))))..))))))....))...)))...",
+        "sourceMember": "archiveII/srp_Myco.capr._CP000123.ct",
+        "sourceSha256": "a4ba784481168d042a4d17ad30075c68978439ba4ad15f0d828a311e326cfe7e",
+        "evidence": "ArchiveII comparative/reference secondary-structure annotation; not a new measurement"
+      },
+      {
+        "id": "srp_Cyan.mero._AY286123",
+        "family": "srp",
+        "sequence": "GCCCGGAUAUGUACUAGCUAUUUAUAUUGCGAGGACUGGAAAGUUGCAGCAAGAAAUAGUCUGAAAGUGCUAAGUCCGGGUUUUU",
+        "structure": "((((((((((.(.(..((((((....((((....(((....)))....))))..))))))..).).)).....))))))))....",
+        "sourceMember": "archiveII/srp_Cyan.mero._AY286123.ct",
+        "sourceSha256": "5a7621631962b88c7b52b725f56aa7f0624efeda67924b489d48dcb07509895a",
+        "evidence": "ArchiveII comparative/reference secondary-structure annotation; not a new measurement"
+      },
+      {
+        "id": "srp_Legi.pneu._CP000675",
+        "family": "srp",
+        "sequence": "GGAAACCUUCUCGGUCUCUCGCAACGGUGUCUGGUUUACUCGGUCAGGUCCGGAAGGAAGCAGCCAAAGUCGGAAUUACUGUGUGCCGAGAAGAAGCUGGGAAGGUUUCCGCC",
+        "structure": "(((((((((((((((.((((((.(((((((((((((...(.(((....(((....)))....))).))))))))..)))))))...)))))....)))))))))))))))...",
+        "sourceMember": "archiveII/srp_Legi.pneu._CP000675.ct",
+        "sourceSha256": "8cbbe199039feac2a0cd129eefe857c782d78d60a8c210cbd0498c0f2499b532",
+        "evidence": "ArchiveII comparative/reference secondary-structure annotation; not a new measurement"
+      },
+      {
+        "id": "srp_Lact.delb._AF496545",
+        "family": "srp",
+        "sequence": "UGUAUUGGGCAAUGUUCGACCUCCGAAGCGUGUCAGGACCGGAAGGUAGCAGCACUAAGGUCGCUUGGACAUGUGCCCUUUAUUUAGC",
+        "structure": "...(.((((((.(((....(..((.....((((....(((....)))....))))...))..).......)))))...)))).)....",
+        "sourceMember": "archiveII/srp_Lact.delb._AF496545.ct",
+        "sourceSha256": "86c4cc0dd07aa8537d240764211cb79c815e411eba1be139e086113411a893a1",
+        "evidence": "ArchiveII comparative/reference secondary-structure annotation; not a new measurement"
+      },
+      {
+        "id": "srp_Yers.pest._AJ414155",
+        "family": "srp",
+        "sequence": "UGUUGGUUCUCCCGCAACACUAACUUGUGAACUCGGUCAGGUCCGGAAGGAAGCAGCCGCAGCAGGCGAGGUGUGUGCCGGGAUGUAGCUGGCAGGGC",
+        "structure": "((((((((.((((((.(((((..(((((.....((((....(((....)))....))))..)))))...))))))...)))))...))))))))....",
+        "sourceMember": "archiveII/srp_Yers.pest._AJ414155.ct",
+        "sourceSha256": "8f158793db32ad68990246a7578d31b2a7b04861d5d2d33498d0cea4a3c41586",
+        "evidence": "ArchiveII comparative/reference secondary-structure annotation; not a new measurement"
+      },
+      {
+        "id": "srp_Shew.spec._CP000444",
+        "family": "srp",
+        "sequence": "GGUGACCCUAGGGUCCCCCCGCAAUGAUAACUUGUGAACUCGGCCAGGCCCGGAAGGGAGCAACCGCAGCAAGCGACUCGUGUGCCGGGGUGUCGGCUCUAGGGGAACCUCCAAAU",
+        "structure": "(.(..((...((.(..((((((.((((...(((((.....(((.....(((....))).....)))..)))))....)))))...)))))....).))...))..).)........",
+        "sourceMember": "archiveII/srp_Shew.spec._CP000444.ct",
+        "sourceSha256": "f19001f2dfa8431876cf5a0f7220aa1b4944833b3a044ea281447d4a96cbcb7b",
+        "evidence": "ArchiveII comparative/reference secondary-structure annotation; not a new measurement"
+      },
+      {
+        "id": "srp_Lact.delb._CR954253",
+        "family": "srp",
+        "sequence": "UGGGCAAUGUUCGACCUCCGAAGCGUGUCAGGACCGGAAGGUAGCAGCACUAAGGUCGCUUGGACAUGUGCCCUUUAUUUAGCAAUUAACA",
+        "structure": "((((((.(((....(..((.....((((....(((....)))....))))...))..).......)))))...))))..............",
+        "sourceMember": "archiveII/srp_Lact.delb._CR954253.ct",
+        "sourceSha256": "04df56238278132d34ef443a353faaf4fd71eec49950fc6910a85ec9f73f43f5",
+        "evidence": "ArchiveII comparative/reference secondary-structure annotation; not a new measurement"
+      },
+      {
+        "id": "srp_Shew.loih._CP000606",
+        "family": "srp",
+        "sequence": "UUUCGGUCCCCUCGCAAUGAUACUCUGUGAACUCGGCCAGGUCCGGAAGGAAGCAACCGCAGCAGACGACUCAUGUGCCGAGGUGUGGCUGAUUGGGU",
+        "structure": "..((((((.((((((.((((...(((((.....(((.....(((....))).....)))..)))))....)))))...)))))...))))))......",
+        "sourceMember": "archiveII/srp_Shew.loih._CP000606.ct",
+        "sourceSha256": "02038c96c70a94268fdb9287e5055fd87b6459296739c7c6520f5f08cf414560",
+        "evidence": "ArchiveII comparative/reference secondary-structure annotation; not a new measurement"
+      },
+      {
+        "id": "srp_Stre.pyog._BA000034",
+        "family": "srp",
+        "sequence": "AUAAUAGGCGGAGCAACACUUGUGCGUGAAGUGGGUCAGGGGAGGAAUCCAGCAGCCCUAAGCGAUUUUCGGGUGUGUGCUCUUUUUUUUGUUGACUUU",
+        "structure": ".(((..((.((((((.((((.(..(((.....((((....(((....)))....))))...)))..)....))))))..)))).)).....))).....",
+        "sourceMember": "archiveII/srp_Stre.pyog._BA000034.ct",
+        "sourceSha256": "cce69894b994ee2f83159188365e6b6da5be0c7d6b64dddf26dfbda9e2c737a8",
+        "evidence": "ArchiveII comparative/reference secondary-structure annotation; not a new measurement"
+      },
+      {
+        "id": "srp_Lact.brev._CP000416",
+        "family": "srp",
+        "sequence": "GCAAGGGUGGGCUUACGAAUCGUGUCAGGUCCGGAAGGAAGCAGCACUAAGUUUG",
+        "structure": "...........(..((.....((((....(((....)))....))))...))..)",
+        "sourceMember": "archiveII/srp_Lact.brev._CP000416.ct",
+        "sourceSha256": "40f861b0490609d2b11a62e9ff6495d5d622a5ca451c952903a49470d3ec528a",
+        "evidence": "ArchiveII comparative/reference secondary-structure annotation; not a new measurement"
+      },
+      {
+        "id": "srp_Xyle.fast._AE012554",
+        "family": "srp",
+        "sequence": "GGUGGCCCCGUCGGUCCCUCGCGACGCUAGAUCGAAAAUCCCGCCAGGGCCGGAAGGCAGCAACGGUAUCGAUUGAUGCGGGCGCCGAGGUCAACCGGCGGGGACACCACCCCA",
+        "structure": "((((.((((((((((.((((((..(((..((((((.....(((.....(((....))).....)))..))))))...))).)...)))))...)))))))))).))))......",
+        "sourceMember": "archiveII/srp_Xyle.fast._AE012554.ct",
+        "sourceSha256": "78e48d92d9af9fe980eab71569bc89be8bbe4cce7512e98392960a5ef347640c",
+        "evidence": "ArchiveII comparative/reference secondary-structure annotation; not a new measurement"
+      },
+      {
+        "id": "srp_Stre.pneu._AE007319",
+        "family": "srp",
+        "sequence": "AUAGUGGAGCAACAGUUCUGCGUGAAGCGGGUCAGGGGAGGAAUCCAGCAGCCCUAAGCGAUUUGAAUUGUGUGCUCUUUUU",
+        "structure": "..((.((((((.(((((...(((.....((((....(((....)))....))))...))).....)))))))..))))..))",
+        "sourceMember": "archiveII/srp_Stre.pneu._AE007319.ct",
+        "sourceSha256": "a4e32828afa4b30982d8b61a6deceba478bc3dff9f3915d7a7cc3b4c892c3915",
+        "evidence": "ArchiveII comparative/reference secondary-structure annotation; not a new measurement"
+      },
+      {
+        "id": "srp_Micr.lyso._M31831",
+        "family": "srp",
+        "sequence": "GGGGACCCCGCGCACCCGACAGAGCCCGUUGACCCUUGCUGCCUUCCAGCCCUGGGGGAGUUCACAGGAUAGACGCCGCGCGGGGUCC",
+        "structure": "((((.(...(.(...(.(.....(.(....).).....).).).)...)))))...................................",
+        "sourceMember": "archiveII/srp_Micr.lyso._M31831.ct",
+        "sourceSha256": "9240da71e3628bdfc11751577529b2ce7e6d6d898ca7f7f887cd56eb708ea151",
+        "evidence": "ArchiveII comparative/reference secondary-structure annotation; not a new measurement"
+      },
+      {
+        "id": "srp_Esch.coli._AE016756",
+        "family": "srp",
+        "sequence": "UGUUGGUUCUCCCGCAACGCUACUCUGUUUACCAGGUCAGGUCCGGAAGGAAGCAGCCAAGGCAGAUGACGCGUGUGCCGGGAUGUAGCUGGCAGGGC",
+        "structure": "((((((((.((((((.((((...((((((.....(((....(((....)))....)))..))))))....)))))...)))))...))))))))....",
+        "sourceMember": "archiveII/srp_Esch.coli._AE016756.ct",
+        "sourceSha256": "5a4f52e4b9d22626f2de49f3663fe00c6c22762a5a5cfca81130ea0fd2f86d59",
+        "evidence": "ArchiveII comparative/reference secondary-structure annotation; not a new measurement"
+      },
+      {
+        "id": "srp_Sili.pome._CP000031",
+        "family": "srp",
+        "sequence": "CGAGAGGUUGGCGCGGGCAAGCGCCUCGCCAACCUGGUCAGGUCCGGAAGGAAGCAGCCACAACGAGCCCCGCUUGGGUCGAUGUCCAGCCUCUCACUU",
+        "structure": ".(((((((((.(((((.((((((.((((......((((....(((....)))....))))...))))...))))))..))).))..)))))))))....",
+        "sourceMember": "archiveII/srp_Sili.pome._CP000031.ct",
+        "sourceSha256": "94c3b97c779c3e3133739d9371306ce122e70d094a8a049d64108142275ecd09",
+        "evidence": "ArchiveII comparative/reference secondary-structure annotation; not a new measurement"
+      },
+      {
+        "id": "srp_Myco.gall._AE016968",
+        "family": "srp",
+        "sequence": "GCCAUUAGAAUAGCAACCUUGUAACUUGGUCAGGACAGAAAUGAAGCAGCCACAUCGAGAAGUGUUAUGUCUAAUGGUUUUU",
+        "structure": "(((((((.(.(((((..((((.....((((.....((....)).....))))...))))...))))))...)))))))....",
+        "sourceMember": "archiveII/srp_Myco.gall._AE016968.ct",
+        "sourceSha256": "70514b7ec3877f7c42336d5a8dfa5cdbeb59d9344197ac4bf6e4b3bca68ea8c3",
+        "evidence": "ArchiveII comparative/reference secondary-structure annotation; not a new measurement"
+      }
+    ]
+  },
+  "sha256": "122735c1f4c10edacd18db561ef629a0bf3eeec1e416793c2f695dec16a16f56"
+}

@@ -1,0 +1,209 @@
+{
+  "schema": "fold.rna-design-modal-verification/1",
+  "approvedTrial": "MODAL_TRIAL.json",
+  "runs": [
+    {
+      "trial": 1,
+      "runId": "b823a61f-514b-41ae-bce2-aaa88e8b826d",
+      "taskId": "1ce4ead9fa9a4c9fad1c8d647b727247",
+      "target": "((((....))))",
+      "request": {
+        "target": "((((....))))",
+        "mask": "NNNNNNNNNNNN",
+        "locks": "............",
+        "maxCandidates": 32,
+        "maxSeconds": 10,
+        "wanted": 3,
+        "seed": 1,
+        "gcMin": 0,
+        "gcMax": 1,
+        "maxHomopolymer": 128,
+        "method": "solver"
+      },
+      "state": "failed",
+      "allocatedSandbox": false,
+      "outcome": "authentication rejected before sandbox allocation"
+    },
+    {
+      "trial": 1,
+      "attempt": 2,
+      "runId": "9560a009-3a0f-4c99-aea4-5b7b7fe0eab4",
+      "taskId": "21a15c53904d4c15a712ff6ea249d03d",
+      "target": "((((....))))",
+      "request": {
+        "target": "((((....))))",
+        "mask": "NNNNNNNNNNNN",
+        "locks": "............",
+        "maxCandidates": 32,
+        "maxSeconds": 10,
+        "wanted": 3,
+        "seed": 1,
+        "gcMin": 0,
+        "gcMax": 1,
+        "maxHomopolymer": 128,
+        "method": "solver"
+      },
+      "state": "completed",
+      "sandboxId": "sb-01M7J75BXJ3BHWER8XYR8C6FA8",
+      "allocatedSandbox": true,
+      "qualifyingCount": 3,
+      "retainedCandidates": 3,
+      "resultSha256": "0ac6a828cdf5896697152da5942a4a059733b95d3910930d54a91465cb6afcb9",
+      "recordId": "4d8016cd-bb3f-4b1d-9a81-4541fdd6c913",
+      "uiImported": true,
+      "uiSaveAndReopen": true,
+      "runtimeUsage": {
+        "runtimeSeconds": 0.10620247099999996,
+        "billedCost": null,
+        "hardware": "1 CPU core, 2048 MiB",
+        "runId": "9560a009-3a0f-4c99-aea4-5b7b7fe0eab4",
+        "persistence": "sync /cache per batch; Modal background and shutdown volume commits"
+      },
+      "estimatedMaximumUSD": 0.00686,
+      "billedCost": null,
+      "localComparison": {
+        "sameRequest": true,
+        "sameSequences": true,
+        "maximumScoreDifference": 0.0,
+        "localMetrics": {
+          "attempts": 4,
+          "solverCalls": 4,
+          "evaluations": 3,
+          "secondaryEvaluations": 3,
+          "batches": 3,
+          "elapsedSeconds": 0.013506082992535084,
+          "firstSuccessSeconds": 0.0014886669960105792,
+          "stopReason": "enough_candidates"
+        },
+        "modalMetrics": {
+          "attempts": 4,
+          "solverCalls": 4,
+          "evaluations": 3,
+          "secondaryEvaluations": 3,
+          "batches": 3,
+          "elapsedSeconds": 0.06484707,
+          "firstSuccessSeconds": 0.005335617999999986,
+          "stopReason": "enough_candidates"
+        }
+      }
+    },
+    {
+      "trial": 2,
+      "runId": "1271ac85-c2fe-469e-91a5-327d0c5bf757",
+      "taskId": "5de12b3d4bd84b2b991c012aafab8db7",
+      "request": {
+        "target": "((..((.......))..(((...)))..))",
+        "mask": "NNNNNNNNNNNNNNNNNNNNNNNNNNNNNN",
+        "locks": "..............................",
+        "maxCandidates": 128,
+        "maxSeconds": 20,
+        "wanted": 3,
+        "seed": 1,
+        "gcMin": 0,
+        "gcMax": 1,
+        "maxHomopolymer": 128,
+        "method": "solver"
+      },
+      "state": "completed",
+      "sandboxId": "sb-01M7JB0FHN6DN8DXEEKTQQWFAV",
+      "retainedCandidates": 128,
+      "qualifyingCount": 0,
+      "metrics": {
+        "attempts": 196,
+        "solverCalls": 196,
+        "evaluations": 128,
+        "secondaryEvaluations": 14,
+        "batches": 128,
+        "elapsedSeconds": 7.410129092,
+        "firstSuccessSeconds": null,
+        "stopReason": "candidate_limit"
+      },
+      "resultSha256": "cc792b8e7b8132df7317ed01cff2471410da07632f46defd92cc04dc246634cf",
+      "allocatedSandbox": true
+    },
+    {
+      "trial": 3,
+      "runId": "324e25c9-3a32-4cb4-9003-ff47d7a7d343",
+      "taskId": "30fe6b04adbc47ca9d72ee524ebb39d9",
+      "sandboxId": "sb-01M7JB5SAPQJ24XJ4WTDZBZ8RZ",
+      "state": "completed",
+      "allocatedSandbox": true,
+      "request": {
+        "target": "((....))",
+        "mask": "NNNNNNNN",
+        "locks": "........",
+        "maxCandidates": 4096,
+        "maxSeconds": 60,
+        "wanted": 20,
+        "seed": 1,
+        "gcMin": 0,
+        "gcMax": 1,
+        "maxHomopolymer": 128,
+        "method": "solver"
+      },
+      "metrics": {
+        "attempts": 39,
+        "solverCalls": 39,
+        "evaluations": 26,
+        "secondaryEvaluations": 25,
+        "batches": 26,
+        "elapsedSeconds": 0.80980557,
+        "firstSuccessSeconds": 0.007606676000000034,
+        "stopReason": "enough_candidates"
+      },
+      "retainedCandidates": 26,
+      "qualifyingCount": 20,
+      "verificationOutcome": "The run finished in 0.80980557 s after 20 qualifiers. It was too fast to qualify cancellation."
+    },
+    {
+      "trial": "approved recovery supplement",
+      "runId": "1271ac85-c2fe-469e-91a5-327d0c5bf757",
+      "taskId": "6f288558510745e1896237cdb1dc0bd3",
+      "sandboxId": "sb-01M7QDJY402PSKPH09Z3SYWH9Z",
+      "state": "stopped",
+      "allocatedSandbox": true,
+      "created": "2026-11-18T13:29:50Z",
+      "finished": "2026-11-18T13:30:46Z",
+      "error": "Stopped by you; 4 file(s) written before the stop were kept.",
+      "retainedEvaluations": 522,
+      "billedCost": null,
+      "runtimeUsage": {
+        "runtimeSeconds": 49.633124375,
+        "billedCost": null,
+        "hardware": "1 CPU core, 2048 MiB",
+        "runId": "1271ac85-c2fe-469e-91a5-327d0c5bf757",
+        "persistence": "sync /cache per batch; Modal background and shutdown volume commits"
+      },
+      "outcome": "Cancellation and partial import passed."
+    },
+    {
+      "trial": "approved recovery supplement",
+      "runId": "1271ac85-c2fe-469e-91a5-327d0c5bf757",
+      "taskId": "2ae33711ff9f4c7baa9e7113e0af8a29",
+      "sandboxId": "sb-01M7QDP2G9JFJ65ZJTVK0S04XP",
+      "state": "failed",
+      "allocatedSandbox": true,
+      "created": "2026-11-18T13:31:32Z",
+      "finished": "2026-11-18T13:32:51Z",
+      "error": "Exit code 2. [dumb-init] bash: Argument list too long",
+      "retainedEvaluations": 522,
+      "billedCost": null,
+      "outcome": "Container startup failed before scientific work. Prior partial state remains."
+    }
+  ],
+  "authentication": {
+    "previousProfileId": "eb65b0e4587044e9870a779eab829c51",
+    "previousFailure": "Token has expired",
+    "failedAttemptHadSandbox": false,
+    "renewedProfileId": "be145cdf8e4f45779da0123407f64971",
+    "renewedState": "connected",
+    "workspaceObservedInOfficialBrowser": "sparklesviii",
+    "credentialExpiryDays": 7,
+    "credentialStorage": "macOS Keychain; no token values copied to reports"
+  },
+  "approvedSupplement": "MODAL_TRIAL_SUPPLEMENT.json",
+  "allocatedContainers": 5,
+  "cancellationVerified": true,
+  "resumeVerified": false,
+  "retryWorkload": "MODAL_RECOVERY_RETRY.json"
+}

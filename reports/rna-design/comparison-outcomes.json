@@ -1,0 +1,268 @@
+{
+  "comparisons": {
+    "qwen": {
+      "primary": {
+        "wins": 0,
+        "ties": 17,
+        "losses": 37,
+        "bothFail": 2
+      },
+      "warmFirstSuccess": {
+        "wins": 4,
+        "ties": 0,
+        "losses": 11
+      },
+      "differentPrimaryOutcomes": [
+        {
+          "target": "g01-v0",
+          "seed": 17,
+          "outcome": "losses"
+        },
+        {
+          "target": "g02-v0",
+          "seed": 17,
+          "outcome": "losses"
+        },
+        {
+          "target": "g02-v0",
+          "seed": 29,
+          "outcome": "losses"
+        },
+        {
+          "target": "g02-v1",
+          "seed": 17,
+          "outcome": "losses"
+        },
+        {
+          "target": "g15-v0",
+          "seed": 17,
+          "outcome": "losses"
+        },
+        {
+          "target": "g15-v0",
+          "seed": 29,
+          "outcome": "losses"
+        },
+        {
+          "target": "g15-v1",
+          "seed": 17,
+          "outcome": "losses"
+        },
+        {
+          "target": "g15-v1",
+          "seed": 29,
+          "outcome": "losses"
+        },
+        {
+          "target": "g15-v2",
+          "seed": 17,
+          "outcome": "losses"
+        },
+        {
+          "target": "g07-v0",
+          "seed": 17,
+          "outcome": "losses"
+        },
+        {
+          "target": "g07-v0",
+          "seed": 29,
+          "outcome": "losses"
+        },
+        {
+          "target": "g07-v1",
+          "seed": 17,
+          "outcome": "losses"
+        },
+        {
+          "target": "g07-v1",
+          "seed": 29,
+          "outcome": "losses"
+        },
+        {
+          "target": "g07-v2",
+          "seed": 17,
+          "outcome": "losses"
+        },
+        {
+          "target": "g07-v2",
+          "seed": 29,
+          "outcome": "losses"
+        },
+        {
+          "target": "g09-v0",
+          "seed": 17,
+          "outcome": "losses"
+        },
+        {
+          "target": "g09-v0",
+          "seed": 29,
+          "outcome": "losses"
+        },
+        {
+          "target": "g09-v1",
+          "seed": 17,
+          "outcome": "losses"
+        },
+        {
+          "target": "g09-v1",
+          "seed": 29,
+          "outcome": "losses"
+        },
+        {
+          "target": "g09-v2",
+          "seed": 17,
+          "outcome": "losses"
+        },
+        {
+          "target": "g09-v2",
+          "seed": 29,
+          "outcome": "losses"
+        },
+        {
+          "target": "g10-v1",
+          "seed": 17,
+          "outcome": "losses"
+        },
+        {
+          "target": "g10-v1",
+          "seed": 29,
+          "outcome": "losses"
+        },
+        {
+          "target": "g10-v2",
+          "seed": 17,
+          "outcome": "losses"
+        },
+        {
+          "target": "g10-v2",
+          "seed": 29,
+          "outcome": "losses"
+        },
+        {
+          "target": "g11-v0",
+          "seed": 17,
+          "outcome": "losses"
+        },
+        {
+          "target": "g11-v0",
+          "seed": 29,
+          "outcome": "losses"
+        },
+        {
+          "target": "g11-v1",
+          "seed": 17,
+          "outcome": "losses"
+        },
+        {
+          "target": "g11-v1",
+          "seed": 29,
+          "outcome": "losses"
+        },
+        {
+          "target": "g11-v2",
+          "seed": 17,
+          "outcome": "losses"
+        },
+        {
+          "target": "g11-v2",
+          "seed": 29,
+          "outcome": "losses"
+        },
+        {
+          "target": "g14-v0",
+          "seed": 17,
+          "outcome": "losses"
+        },
+        {
+          "target": "g14-v0",
+          "seed": 29,
+          "outcome": "losses"
+        },
+        {
+          "target": "g14-v1",
+          "seed": 17,
+          "outcome": "losses"
+        },
+        {
+          "target": "g14-v1",
+          "seed": 29,
+          "outcome": "losses"
+        },
+        {
+          "target": "g14-v2",
+          "seed": 17,
+          "outcome": "losses"
+        },
+        {
+          "target": "g14-v2",
+          "seed": 29,
+          "outcome": "losses"
+        }
+      ]
+    },
+    "hybrid": {
+      "primary": {
+        "wins": 0,
+        "ties": 53,
+        "losses": 1,
+        "bothFail": 2
+      },
+      "warmFirstSuccess": {
+        "wins": 27,
+        "ties": 0,
+        "losses": 24
+      },
+      "differentPrimaryOutcomes": [
+        {
+          "target": "g11-v0",
+          "seed": 29,
+          "outcome": "losses"
+        }
+      ]
+    }
+  },
+  "auditedStructuralStrata": [
+    {
+      "class": "Branched",
+      "method": "solver",
+      "cases": 30,
+      "successes": 28,
+      "meanWallSeconds": 0.4898934527664096
+    },
+    {
+      "class": "Branched",
+      "method": "qwen",
+      "cases": 30,
+      "successes": 0,
+      "meanWallSeconds": 0.36996448606660126
+    },
+    {
+      "class": "Branched",
+      "method": "hybrid",
+      "cases": 30,
+      "successes": 27,
+      "meanWallSeconds": 0.8379570833324882
+    },
+    {
+      "class": "Single stem-tree",
+      "method": "solver",
+      "cases": 24,
+      "successes": 24,
+      "meanWallSeconds": 0.05383681595837212
+    },
+    {
+      "class": "Single stem-tree",
+      "method": "qwen",
+      "cases": 24,
+      "successes": 15,
+      "meanWallSeconds": 0.13138463191777797
+    },
+    {
+      "class": "Single stem-tree",
+      "method": "hybrid",
+      "cases": 24,
+      "successes": 24,
+      "meanWallSeconds": 0.06022702075036553
+    }
+  ]
+}

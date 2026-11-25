@@ -1,7 +1,7 @@
 import type {Item,Job} from './types';
 
 export function jobPresentation(engine:Job['engine']){
- return ({boltz2:{label:'Boltz-2',location:'local'},colabfold:{label:'ColabFold',location:'cloud'},setup:{label:'Engine setup',location:'local'},proteinmpnn:{label:'ProteinMPNN',location:'local'},bindcraft2:{label:'BindCraft2',location:'local'},rdkit:{label:'RDKit',location:'local'},openmm:{label:'OpenMM',location:'local'}} as const)[engine]??{label:String(engine),location:'unknown'};
+ return ({'rna-design':{label:'RNA Design',location:'selected compute'},'qwen-rna':{label:'Qwen RNA',location:'local'},boltz2:{label:'Boltz-2',location:'local'},colabfold:{label:'ColabFold',location:'cloud'},setup:{label:'Engine setup',location:'local'},proteinmpnn:{label:'ProteinMPNN',location:'local'},bindcraft2:{label:'BindCraft2',location:'local'},rdkit:{label:'RDKit',location:'local'},openmm:{label:'OpenMM',location:'local'}} as const)[engine]??{label:String(engine),location:'unknown'};
 }
 
 /** A saved sequence is never a coordinate asset, even when it came from a job. */

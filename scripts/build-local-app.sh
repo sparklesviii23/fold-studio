@@ -2,6 +2,10 @@
 set -euo pipefail
 cd "$(dirname "$0")/.."
 repository="$PWD"
+if ! command -v cargo >/dev/null 2>&1; then
+  exec python3 "$repository/scripts/with-build-toolchain.py"
+fi
+export PYTHONDONTWRITEBYTECODE=1
 app="$repository/../current/FOLD STUDIO Metal Dev.app"
 python3 scripts/install-current-app.py --destination "$app" --check-only
 python3 scripts/check-scientific-package.py --sources

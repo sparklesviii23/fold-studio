@@ -1,0 +1,99 @@
+{
+  "projectId": "78483e09-5775-4f91-8444-9baca455d197",
+  "name": "RNA Design \u00b7 30 nt",
+  "request": {
+    "target": "((..((.......))..(((...)))..))",
+    "mask": "NNNNNNNNNNNNNNNNNNNNNNNNNNNNNN",
+    "locks": "..............................",
+    "maxCandidates": 128,
+    "maxSeconds": 20,
+    "wanted": 3,
+    "seed": 1,
+    "gcMin": 0,
+    "gcMax": 1,
+    "maxHomopolymer": 128,
+    "method": "solver"
+  },
+  "quote": {
+    "request": {
+      "target": "((..((.......))..(((...)))..))",
+      "mask": "NNNNNNNNNNNNNNNNNNNNNNNNNNNNNN",
+      "locks": "..............................",
+      "maxCandidates": 128,
+      "maxSeconds": 20,
+      "wanted": 3,
+      "seed": 1,
+      "gcMin": 0,
+      "gcMax": 1,
+      "maxHomopolymer": 128,
+      "method": "solver"
+    },
+    "mode": "modal",
+    "hardware": "Modal \u00b7 1 CPU core \u00b7 2048 MiB \u00b7 no GPU",
+    "accountId": "be145cdf8e4f45779da0123407f64971",
+    "accountName": "My Modal workspace \u00b7 renewed",
+    "uploads": [
+      "Target dot-bracket",
+      "Sequence constraints",
+      "Seed and run limits",
+      "RNA Design source modules"
+    ],
+    "limits": {
+      "searchSeconds": 20,
+      "containerSeconds": 140,
+      "candidates": 128
+    },
+    "cost": {
+      "currency": "USD",
+      "estimatedMaximum": 0.00739,
+      "planningRatePerSecond": 5.2759999999999996e-05,
+      "rateSource": "https://modal.com/pricing",
+      "rateChecked": "2026-11-16",
+      "billedCost": null,
+      "note": "Estimate only. Includes a 120 s startup allowance. Image build and account charges can differ. Billed cost is not available from this workflow."
+    },
+    "quoteSha256": "fec7ee036d913e96cc3e7a99f55a60f8c196c4af58ff5bc977ac66d782aa684e"
+  },
+  "quoteHistory": [
+    {
+      "request": {
+        "target": "((..((.......))..(((...)))..))",
+        "mask": "NNNNNNNNNNNNNNNNNNNNNNNNNNNNNN",
+        "locks": "..............................",
+        "maxCandidates": 128,
+        "maxSeconds": 20,
+        "wanted": 3,
+        "seed": 1,
+        "gcMin": 0,
+        "gcMax": 1,
+        "maxHomopolymer": 128,
+        "method": "solver"
+      },
+      "mode": "modal",
+      "hardware": "Modal \u00b7 1 CPU core \u00b7 2048 MiB \u00b7 no GPU",
+      "accountId": "be145cdf8e4f45779da0123407f64971",
+      "accountName": "My Modal workspace \u00b7 renewed",
+      "uploads": [
+        "Target dot-bracket",
+        "Sequence constraints",
+        "Seed and run limits",
+        "RNA Design source modules"
+      ],
+      "limits": {
+        "searchSeconds": 20,
+        "containerSeconds": 140,
+        "candidates": 128
+      },
+      "cost": {
+        "currency": "USD",
+        "estimatedMaximum": 0.00739,
+        "planningRatePerSecond": 5.2759999999999996e-05,
+        "rateSource": "https://modal.com/pricing",
+        "rateChecked": "2026-11-16",
+        "billedCost": null,
+        "note": "Estimate only. Includes a 120 s startup allowance. Image build and account charges can differ. Billed cost is not available from this workflow."
+      },
+      "quoteSha256": "fec7ee036d913e96cc3e7a99f55a60f8c196c4af58ff5bc977ac66d782aa684e"
+    }
+  ]
+}

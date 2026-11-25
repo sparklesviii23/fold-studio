@@ -1,0 +1,1484 @@
+{
+  "schema": "fold.rna-design-result/1",
+  "version": "rna-design/1.0.0",
+  "request": {
+    "target": "(((..((((..((((.......))))..))))..(((......)))..)))",
+    "mask": "NNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNN",
+    "locks": "G.................................................C",
+    "maxCandidates": 8,
+    "maxSeconds": 2,
+    "wanted": 20,
+    "seed": 17,
+    "gcMin": 0,
+    "gcMax": 1,
+    "maxHomopolymer": 128,
+    "method": "qwen"
+  },
+  "candidates": [
+    {
+      "id": "43a739bef1408a7e",
+      "sequence": "GAAUACUUACGCGGGAGUUUAUUCUGUCUAAGCGUGUGGGUCUGCAUGUUC",
+      "structure": ".....((((.((((((.....)))))).))))(((((......)))))...",
+      "mfeKcalMol": -11.199999809265137,
+      "targetKcalMol": 0.4000000059604645,
+      "targetGapKcalMol": 11.599999815225601,
+      "targetProbability": 1.6140711046377018e-09,
+      "ensembleDefect": 0.4342599848648317,
+      "pairF1": 0.7586206896551724,
+      "missedPairs": [
+        [
+          1,
+          51
+        ],
+        [
+          2,
+          50
+        ],
+        [
+          3,
+          49
+        ]
+      ],
+      "extraPairs": [
+        [
+          11,
+          27
+        ],
+        [
+          16,
+          22
+        ],
+        [
+          33,
+          48
+        ],
+        [
+          34,
+          47
+        ]
+      ],
+      "source": "qwen proposal with constraint repair",
+      "qualifies": false,
+      "failureReasons": [
+        "3 target pairs are missing.",
+        "4 extra pairs are predicted."
+      ],
+      "constraintViolations": [],
+      "independent": {
+        "structure": "....(((((((((((((....)))).......)))))))))..........",
+        "mfeKcalMol": -7.71,
+        "engine": "RNA Lab reduced Turner nearest-neighbour",
+        "version": "rna-lab.fold/1.0.0",
+        "temperatureC": 37,
+        "sourceSha256": "b91b80420204d19535f369cce8c60c3b7b19723895010c127d87b536d3ba696f",
+        "agreesWithTarget": false,
+        "disagreementPairs": [
+          [
+            5,
+            41
+          ],
+          [
+            6,
+            32
+          ],
+          [
+            6,
+            40
+          ],
+          [
+            7,
+            31
+          ],
+          [
+            7,
+            39
+          ],
+          [
+            8,
+            30
+          ],
+          [
+            8,
+            38
+          ],
+          [
+            9,
+            29
+          ],
+          [
+            9,
+            37
+          ],
+          [
+            10,
+            36
+          ],
+          [
+            11,
+            27
+          ],
+          [
+            11,
+            35
+          ],
+          [
+            12,
+            26
+          ],
+          [
+            12,
+            34
+          ],
+          [
+            13,
+            25
+          ],
+          [
+            13,
+            33
+          ],
+          [
+            14,
+            24
+          ],
+          [
+            14,
+            25
+          ],
+          [
+            15,
+            23
+          ],
+          [
+            15,
+            24
+          ],
+          [
+            16,
+            22
+          ],
+          [
+            16,
+            23
+          ],
+          [
+            17,
+            22
+          ],
+          [
+            33,
+            48
+          ],
+          [
+            34,
+            47
+          ],
+          [
+            35,
+            46
+          ],
+          [
+            36,
+            45
+          ],
+          [
+            37,
+            44
+          ]
+        ]
+      }
+    },
+    {
+      "id": "26cd4cf1a63d344f",
+      "sequence": "GAAUGCCACCCCGGCGAUUGGUGCCGGCGUGGUAACAAAUGACUGUUUUUC",
+      "structure": "...((((((.((((((.....)))))).)))))).................",
+      "mfeKcalMol": -19.299999237060547,
+      "targetKcalMol": -8.600000381469727,
+      "targetGapKcalMol": 10.69999885559082,
+      "targetProbability": 7.259643932034569e-09,
+      "ensembleDefect": 0.32821358564705283,
+      "pairF1": 0.6153846153846154,
+      "missedPairs": [
+        [
+          1,
+          51
+        ],
+        [
+          2,
+          50
+        ],
+        [
+          3,
+          49
+        ],
+        [
+          35,
+          46
+        ],
+        [
+          36,
+          45
+        ],
+        [
+          37,
+          44
+        ]
+      ],
+      "extraPairs": [
+        [
+          4,
+          34
+        ],
+        [
+          5,
+          33
+        ],
+        [
+          11,
+          27
+        ],
+        [
+          16,
+          22
+        ]
+      ],
+      "source": "qwen proposal with constraint repair",
+      "qualifies": false,
+      "failureReasons": [
+        "6 target pairs are missing.",
+        "4 extra pairs are predicted."
+      ],
+      "constraintViolations": [],
+      "independent": {
+        "structure": "...((((((.((((((.....)))))).)))))).................",
+        "mfeKcalMol": -14.2,
+        "engine": "RNA Lab reduced Turner nearest-neighbour",
+        "version": "rna-lab.fold/1.0.0",
+        "temperatureC": 37,
+        "sourceSha256": "b91b80420204d19535f369cce8c60c3b7b19723895010c127d87b536d3ba696f",
+        "agreesWithTarget": false,
+        "disagreementPairs": []
+      }
+    },
+    {
+      "id": "b514f12ac7e9017d",
+      "sequence": "GCGAUCGAUGAAGGGCUAGAGUCCUUGGAUCGACUGUAGAGAUGUAACCGC",
+      "structure": "(((.(((((.((((((....))))))..))))).)))..............",
+      "mfeKcalMol": -13.600000381469727,
+      "targetKcalMol": -2.200000047683716,
+      "targetGapKcalMol": 11.40000033378601,
+      "targetProbability": 3.2733877349283603e-09,
+      "ensembleDefect": 0.5382529910927503,
+      "pairF1": 0.2857142857142857,
+      "missedPairs": [
+        [
+          1,
+          51
+        ],
+        [
+          2,
+          50
+        ],
+        [
+          3,
+          49
+        ],
+        [
+          12,
+          26
+        ],
+        [
+          13,
+          25
+        ],
+        [
+          14,
+          24
+        ],
+        [
+          15,
+          23
+        ],
+        [
+          35,
+          46
+        ],
+        [
+          36,
+          45
+        ],
+        [
+          37,
+          44
+        ]
+      ],
+      "extraPairs": [
+        [
+          1,
+          37
+        ],
+        [
+          2,
+          36
+        ],
+        [
+          3,
+          35
+        ],
+        [
+          5,
+          33
+        ],
+        [
+          11,
+          26
+        ],
+        [
+          12,
+          25
+        ],
+        [
+          13,
+          24
+        ],
+        [
+          14,
+          23
+        ],
+        [
+          15,
+          22
+        ],
+        [
+          16,
+          21
+        ]
+      ],
+      "source": "qwen proposal with constraint repair",
+      "qualifies": false,
+      "failureReasons": [
+        "10 target pairs are missing.",
+        "10 extra pairs are predicted."
+      ],
+      "constraintViolations": [],
+      "independent": {
+        "structure": ".(((((....((((((....)))))).)))))...................",
+        "mfeKcalMol": -9.2,
+        "engine": "RNA Lab reduced Turner nearest-neighbour",
+        "version": "rna-lab.fold/1.0.0",
+        "temperatureC": 37,
+        "sourceSha256": "b91b80420204d19535f369cce8c60c3b7b19723895010c127d87b536d3ba696f",
+        "agreesWithTarget": false,
+        "disagreementPairs": [
+          [
+            1,
+            37
+          ],
+          [
+            2,
+            32
+          ],
+          [
+            2,
+            36
+          ],
+          [
+            3,
+            31
+          ],
+          [
+            3,
+            35
+          ],
+          [
+            4,
+            30
+          ],
+          [
+            5,
+            29
+          ],
+          [
+            5,
+            33
+          ],
+          [
+            6,
+            28
+          ],
+          [
+            6,
+            32
+          ],
+          [
+            7,
+            31
+          ],
+          [
+            8,
+            30
+          ],
+          [
+            9,
+            29
+          ]
+        ]
+      }
+    },
+    {
+      "id": "cc82b2addd3fd36e",
+      "sequence": "GUCCUUUUCCUGUGACUCAAGCUCAUAUGAGAUAUUGCAGCGGCAACCGGC",
+      "structure": ".........((((((((((........))))...))))))(((...)))..",
+      "mfeKcalMol": -7.800000190734863,
+      "targetKcalMol": 0.10000000149011612,
+      "targetGapKcalMol": 7.900000192224979,
+      "targetProbability": 3.962657095416113e-07,
+      "ensembleDefect": 0.6352459213444048,
+      "pairF1": 0.0,
+      "missedPairs": [
+        [
+          1,
+          51
+        ],
+        [
+          2,
+          50
+        ],
+        [
+          3,
+          49
+        ],
+        [
+          6,
+          32
+        ],
+        [
+          7,
+          31
+        ],
+        [
+          8,
+          30
+        ],
+        [
+          9,
+          29
+        ],
+        [
+          12,
+          26
+        ],
+        [
+          13,
+          25
+        ],
+        [
+          14,
+          24
+        ],
+        [
+          15,
+          23
+        ],
+        [
+          35,
+          46
+        ],
+        [
+          36,
+          45
+        ],
+        [
+          37,
+          44
+        ]
+      ],
+      "extraPairs": [
+        [
+          10,
+          40
+        ],
+        [
+          11,
+          39
+        ],
+        [
+          12,
+          38
+        ],
+        [
+          13,
+          37
+        ],
+        [
+          14,
+          36
+        ],
+        [
+          15,
+          35
+        ],
+        [
+          16,
+          31
+        ],
+        [
+          17,
+          30
+        ],
+        [
+          18,
+          29
+        ],
+        [
+          19,
+          28
+        ],
+        [
+          41,
+          49
+        ],
+        [
+          42,
+          48
+        ],
+        [
+          43,
+          47
+        ]
+      ],
+      "source": "qwen proposal with constraint repair",
+      "qualifies": false,
+      "failureReasons": [
+        "14 target pairs are missing.",
+        "13 extra pairs are predicted."
+      ],
+      "constraintViolations": [],
+      "independent": {
+        "structure": "(((....((((((((((((........))))...)))))).)).....)))",
+        "mfeKcalMol": -6.1,
+        "engine": "RNA Lab reduced Turner nearest-neighbour",
+        "version": "rna-lab.fold/1.0.0",
+        "temperatureC": 37,
+        "sourceSha256": "b91b80420204d19535f369cce8c60c3b7b19723895010c127d87b536d3ba696f",
+        "agreesWithTarget": false,
+        "disagreementPairs": [
+          [
+            1,
+            51
+          ],
+          [
+            2,
+            50
+          ],
+          [
+            3,
+            49
+          ],
+          [
+            8,
+            43
+          ],
+          [
+            9,
+            42
+          ],
+          [
+            41,
+            49
+          ],
+          [
+            42,
+            48
+          ],
+          [
+            43,
+            47
+          ]
+        ]
+      }
+    },
+    {
+      "id": "1c736322b8e32f99",
+      "sequence": "GGGGACCUUCUCUCGUCGAGCUUGGGGUGAGGUGAGGUUGAUAUUUCCCCC",
+      "structure": "(((((((((.(((((((........))))))).))))........))))).",
+      "mfeKcalMol": -17.200000762939453,
+      "targetKcalMol": -3.5,
+      "targetGapKcalMol": 13.700000762939453,
+      "targetProbability": 5.751355956139183e-11,
+      "ensembleDefect": 0.7294006545947199,
+      "pairF1": 0.0,
+      "missedPairs": [
+        [
+          1,
+          51
+        ],
+        [
+          2,
+          50
+        ],
+        [
+          3,
+          49
+        ],
+        [
+          6,
+          32
+        ],
+        [
+          7,
+          31
+        ],
+        [
+          8,
+          30
+        ],
+        [
+          9,
+          29
+        ],
+        [
+          12,
+          26
+        ],
+        [
+          13,
+          25
+        ],
+        [
+          14,
+          24
+        ],
+        [
+          15,
+          23
+        ],
+        [
+          35,
+          46
+        ],
+        [
+          36,
+          45
+        ],
+        [
+          37,
+          44
+        ]
+      ],
+      "extraPairs": [
+        [
+          1,
+          50
+        ],
+        [
+          2,
+          49
+        ],
+        [
+          3,
+          48
+        ],
+        [
+          4,
+          47
+        ],
+        [
+          5,
+          46
+        ],
+        [
+          6,
+          37
+        ],
+        [
+          7,
+          36
+        ],
+        [
+          8,
+          35
+        ],
+        [
+          9,
+          34
+        ],
+        [
+          11,
+          32
+        ],
+        [
+          12,
+          31
+        ],
+        [
+          13,
+          30
+        ],
+        [
+          14,
+          29
+        ],
+        [
+          15,
+          28
+        ],
+        [
+          16,
+          27
+        ],
+        [
+          17,
+          26
+        ]
+      ],
+      "source": "qwen proposal with constraint repair",
+      "qualifies": false,
+      "failureReasons": [
+        "14 target pairs are missing.",
+        "16 extra pairs are predicted."
+      ],
+      "constraintViolations": [],
+      "independent": {
+        "structure": "(((((((((..((((((........))))))..))))........))))).",
+        "mfeKcalMol": -12.1,
+        "engine": "RNA Lab reduced Turner nearest-neighbour",
+        "version": "rna-lab.fold/1.0.0",
+        "temperatureC": 37,
+        "sourceSha256": "b91b80420204d19535f369cce8c60c3b7b19723895010c127d87b536d3ba696f",
+        "agreesWithTarget": false,
+        "disagreementPairs": [
+          [
+            11,
+            32
+          ]
+        ]
+      }
+    },
+    {
+      "id": "8f12d006d081b6b0",
+      "sequence": "GGUCUUUAACCUUGAAAGAGGAUCGAACUUAAUGUGGUGCCUCUUGUUGUC",
+      "structure": "(((.....)))....((((((..(..((.....)).)..))))))......",
+      "mfeKcalMol": -10.199999809265137,
+      "targetKcalMol": 10.800000190734863,
+      "targetGapKcalMol": 21.0,
+      "targetProbability": 2.763995274180196e-16,
+      "ensembleDefect": 0.826169579119767,
+      "pairF1": 0.0,
+      "missedPairs": [
+        [
+          1,
+          51
+        ],
+        [
+          2,
+          50
+        ],
+        [
+          3,
+          49
+        ],
+        [
+          6,
+          32
+        ],
+        [
+          7,
+          31
+        ],
+        [
+          8,
+          30
+        ],
+        [
+          9,
+          29
+        ],
+        [
+          12,
+          26
+        ],
+        [
+          13,
+          25
+        ],
+        [
+          14,
+          24
+        ],
+        [
+          15,
+          23
+        ],
+        [
+          35,
+          46
+        ],
+        [
+          36,
+          45
+        ],
+        [
+          37,
+          44
+        ]
+      ],
+      "extraPairs": [
+        [
+          1,
+          11
+        ],
+        [
+          2,
+          10
+        ],
+        [
+          3,
+          9
+        ],
+        [
+          16,
+          45
+        ],
+        [
+          17,
+          44
+        ],
+        [
+          18,
+          43
+        ],
+        [
+          19,
+          42
+        ],
+        [
+          20,
+          41
+        ],
+        [
+          21,
+          40
+        ],
+        [
+          24,
+          37
+        ],
+        [
+          27,
+          35
+        ],
+        [
+          28,
+          34
+        ]
+      ],
+      "source": "qwen proposal with constraint repair",
+      "qualifies": false,
+      "failureReasons": [
+        "14 target pairs are missing.",
+        "12 extra pairs are predicted."
+      ],
+      "constraintViolations": [],
+      "independent": {
+        "structure": "...............((((((((((.........)))).))))))......",
+        "mfeKcalMol": -6.3,
+        "engine": "RNA Lab reduced Turner nearest-neighbour",
+        "version": "rna-lab.fold/1.0.0",
+        "temperatureC": 37,
+        "sourceSha256": "b91b80420204d19535f369cce8c60c3b7b19723895010c127d87b536d3ba696f",
+        "agreesWithTarget": false,
+        "disagreementPairs": [
+          [
+            1,
+            11
+          ],
+          [
+            2,
+            10
+          ],
+          [
+            3,
+            9
+          ],
+          [
+            22,
+            38
+          ],
+          [
+            23,
+            37
+          ],
+          [
+            24,
+            36
+          ],
+          [
+            24,
+            37
+          ],
+          [
+            25,
+            35
+          ],
+          [
+            27,
+            35
+          ],
+          [
+            28,
+            34
+          ]
+        ]
+      }
+    },
+    {
+      "id": "16ed98d243ed7c0e",
+      "sequence": "GCUGCUCAGGAGGACGUGCUGUGUUUGUUUGGGCGCUGCAGGUGGUCGGGC",
+      "structure": "...((((..((..((.(((.((((((....)))))).))).))..))))))",
+      "mfeKcalMol": -15.300000190734863,
+      "targetKcalMol": -1.2999999523162842,
+      "targetGapKcalMol": 14.000000238418579,
+      "targetProbability": 3.346756085349911e-11,
+      "ensembleDefect": 0.8770475419645746,
+      "pairF1": 0.0,
+      "missedPairs": [
+        [
+          1,
+          51
+        ],
+        [
+          2,
+          50
+        ],
+        [
+          3,
+          49
+        ],
+        [
+          6,
+          32
+        ],
+        [
+          7,
+          31
+        ],
+        [
+          8,
+          30
+        ],
+        [
+          9,
+          29
+        ],
+        [
+          12,
+          26
+        ],
+        [
+          13,
+          25
+        ],
+        [
+          14,
+          24
+        ],
+        [
+          15,
+          23
+        ],
+        [
+          35,
+          46
+        ],
+        [
+          36,
+          45
+        ],
+        [
+          37,
+          44
+        ]
+      ],
+      "extraPairs": [
+        [
+          4,
+          51
+        ],
+        [
+          5,
+          50
+        ],
+        [
+          6,
+          49
+        ],
+        [
+          7,
+          48
+        ],
+        [
+          10,
+          47
+        ],
+        [
+          11,
+          46
+        ],
+        [
+          14,
+          43
+        ],
+        [
+          15,
+          42
+        ],
+        [
+          17,
+          40
+        ],
+        [
+          18,
+          39
+        ],
+        [
+          19,
+          38
+        ],
+        [
+          21,
+          36
+        ],
+        [
+          22,
+          35
+        ],
+        [
+          23,
+          34
+        ],
+        [
+          24,
+          33
+        ],
+        [
+          25,
+          32
+        ],
+        [
+          26,
+          31
+        ]
+      ],
+      "source": "qwen proposal with constraint repair",
+      "qualifies": false,
+      "failureReasons": [
+        "14 target pairs are missing.",
+        "17 extra pairs are predicted."
+      ],
+      "constraintViolations": [],
+      "independent": {
+        "structure": "((.(((((((..((((.....))))..)))))))))...............",
+        "mfeKcalMol": -8.3,
+        "engine": "RNA Lab reduced Turner nearest-neighbour",
+        "version": "rna-lab.fold/1.0.0",
+        "temperatureC": 37,
+        "sourceSha256": "b91b80420204d19535f369cce8c60c3b7b19723895010c127d87b536d3ba696f",
+        "agreesWithTarget": false,
+        "disagreementPairs": [
+          [
+            1,
+            36
+          ],
+          [
+            2,
+            35
+          ],
+          [
+            4,
+            34
+          ],
+          [
+            4,
+            51
+          ],
+          [
+            5,
+            33
+          ],
+          [
+            5,
+            50
+          ],
+          [
+            6,
+            32
+          ],
+          [
+            6,
+            49
+          ],
+          [
+            7,
+            31
+          ],
+          [
+            7,
+            48
+          ],
+          [
+            8,
+            30
+          ],
+          [
+            9,
+            29
+          ],
+          [
+            10,
+            28
+          ],
+          [
+            10,
+            47
+          ],
+          [
+            11,
+            46
+          ],
+          [
+            13,
+            25
+          ],
+          [
+            14,
+            24
+          ],
+          [
+            14,
+            43
+          ],
+          [
+            15,
+            23
+          ],
+          [
+            15,
+            42
+          ],
+          [
+            16,
+            22
+          ],
+          [
+            17,
+            40
+          ],
+          [
+            18,
+            39
+          ],
+          [
+            19,
+            38
+          ],
+          [
+            21,
+            36
+          ],
+          [
+            22,
+            35
+          ],
+          [
+            23,
+            34
+          ],
+          [
+            24,
+            33
+          ],
+          [
+            25,
+            32
+          ],
+          [
+            26,
+            31
+          ]
+        ]
+      }
+    },
+    {
+      "id": "eadf2747b96cfd5d",
+      "sequence": "GUGAUCCAGCAAUAGGGGGUCUUUGUGCCUGGAGUAUUCUCCAAUAGCUAC",
+      "structure": "..(((((.........))))).....((.(((((....)))))...))...",
+      "mfeKcalMol": -12.300000190734863,
+      "targetKcalMol": 0.30000001192092896,
+      "targetGapKcalMol": 12.600000202655792,
+      "targetProbability": 2.7520027087172093e-10,
+      "ensembleDefect": 0.8802864417165769,
+      "pairF1": 0.0,
+      "missedPairs": [
+        [
+          1,
+          51
+        ],
+        [
+          2,
+          50
+        ],
+        [
+          3,
+          49
+        ],
+        [
+          6,
+          32
+        ],
+        [
+          7,
+          31
+        ],
+        [
+          8,
+          30
+        ],
+        [
+          9,
+          29
+        ],
+        [
+          12,
+          26
+        ],
+        [
+          13,
+          25
+        ],
+        [
+          14,
+          24
+        ],
+        [
+          15,
+          23
+        ],
+        [
+          35,
+          46
+        ],
+        [
+          36,
+          45
+        ],
+        [
+          37,
+          44
+        ]
+      ],
+      "extraPairs": [
+        [
+          3,
+          21
+        ],
+        [
+          4,
+          20
+        ],
+        [
+          5,
+          19
+        ],
+        [
+          6,
+          18
+        ],
+        [
+          7,
+          17
+        ],
+        [
+          27,
+          48
+        ],
+        [
+          28,
+          47
+        ],
+        [
+          30,
+          43
+        ],
+        [
+          31,
+          42
+        ],
+        [
+          32,
+          41
+        ],
+        [
+          33,
+          40
+        ],
+        [
+          34,
+          39
+        ]
+      ],
+      "source": "qwen proposal with constraint repair",
+      "qualifies": false,
+      "failureReasons": [
+        "14 target pairs are missing.",
+        "12 extra pairs are predicted."
+      ],
+      "constraintViolations": [],
+      "independent": {
+        "structure": "....(((((((.(((((...))))))).)))))..................",
+        "mfeKcalMol": -7.2,
+        "engine": "RNA Lab reduced Turner nearest-neighbour",
+        "version": "rna-lab.fold/1.0.0",
+        "temperatureC": 37,
+        "sourceSha256": "b91b80420204d19535f369cce8c60c3b7b19723895010c127d87b536d3ba696f",
+        "agreesWithTarget": false,
+        "disagreementPairs": [
+          [
+            3,
+            21
+          ],
+          [
+            4,
+            20
+          ],
+          [
+            5,
+            19
+          ],
+          [
+            5,
+            33
+          ],
+          [
+            6,
+            18
+          ],
+          [
+            6,
+            32
+          ],
+          [
+            7,
+            17
+          ],
+          [
+            7,
+            31
+          ],
+          [
+            8,
+            30
+          ],
+          [
+            9,
+            29
+          ],
+          [
+            10,
+            27
+          ],
+          [
+            11,
+            26
+          ],
+          [
+            13,
+            25
+          ],
+          [
+            14,
+            24
+          ],
+          [
+            15,
+            23
+          ],
+          [
+            16,
+            22
+          ],
+          [
+            17,
+            21
+          ],
+          [
+            27,
+            48
+          ],
+          [
+            28,
+            47
+          ],
+          [
+            30,
+            43
+          ],
+          [
+            31,
+            42
+          ],
+          [
+            32,
+            41
+          ],
+          [
+            33,
+            40
+          ],
+          [
+            34,
+            39
+          ]
+        ]
+      }
+    }
+  ],
+  "metrics": {
+    "attempts": 8,
+    "solverCalls": 0,
+    "evaluations": 8,
+    "secondaryEvaluations": 8,
+    "batches": 8,
+    "elapsedSeconds": 0.3654844580014469,
+    "firstSuccessSeconds": null,
+    "stopReason": "candidate_limit"
+  },
+  "qualifyingCount": 0,
+  "scorer": {
+    "engine": "ViennaRNA",
+    "version": "2.7.2",
+    "temperatureC": 37,
+    "dangles": 2,
+    "parameters": "Turner2004",
+    "noLP": false
+  },
+  "constraintRejections": 0,
+  "evidence": "Computational prediction. Solver labels are not experimental measurements.",
+  "inputSeal": "8ff1708c3403ef14ec6f190e6f235897a5d2e0b2127dc8bbfe11c8831f4c3780",
+  "sourceSha256": "ce35482346d57b799e30ec0e0339a7086b5a86af7a9648f60572e9f0bb0f62be",
+  "proposalModel": {
+    "version": "qwen-inverse-head/0.1.0",
+    "checkpointSha256": "71b91acb05b28e23bdc85c79465e4c0c5e76145574820d3bf5742865cbaa3850",
+    "weightsSha256": "bf216bbc05c6098ca53f75c333f6752402ea6d28326ea569ffd30ddf21604af2",
+    "protocolSha256": "3a65f2487c5ac486e95adaa06548948adfe75a420dd8dbdc78eeb9353ccb8aa0",
+    "baseCheckpoint": "/Users/vii/Documents/FoldStudio-MetalPort/validation/bindcraft-fab-amme-native/engine/models/qwen-cell/Qwen2.5-Coder-3B-Instruct",
+    "trained": "Inverse sequence head on frozen Qwen target features. No Qwen backbone or prior folding head was changed.",
+    "device": "cpu",
+    "torch": "2.14.1",
+    "transformers": "4.57.6",
+    "samplingTemperature": 1.0
+  },
+  "cacheHitsThisSession": 0,
+  "solverAccounting": "solverCalls counts RNA.inverse_fold calls. Its internal energy evaluations are not exposed. Explicit final scoring and independent checks are counted separately.",
+  "sha256": "13fa6fcef7589b18a4c4e3a79d70ccf6c75e539a122411bb176b83f7df833afe"
+}

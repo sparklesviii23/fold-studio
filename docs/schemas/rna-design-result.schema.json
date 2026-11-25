@@ -1,0 +1,39 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "fold.rna-design-result/1",
+  "title": "RNA Design computational result",
+  "type": "object",
+  "required": ["schema", "version", "request", "candidates", "metrics", "qualifyingCount", "scorer", "inputSeal", "sha256", "evidence"],
+  "properties": {
+    "schema": {"const": "fold.rna-design-result/1"},
+    "version": {"type": "string"},
+    "inputSeal": {"type": "string", "pattern": "^[a-f0-9]{64}$"},
+    "sha256": {"type": "string", "pattern": "^[a-f0-9]{64}$"},
+    "evidence": {"type": "string"},
+    "request": {"type": "object", "required": ["target", "mask", "locks", "method", "maxCandidates", "maxSeconds", "seed", "wanted"]},
+    "qualifyingCount": {"type": "integer", "minimum": 0},
+    "scorer": {"type": "object", "required": ["engine", "version", "temperatureC", "dangles", "parameters"]},
+    "proposalModel": {"type": ["object", "null"]},
+    "metrics": {"type": "object", "required": ["solverCalls", "evaluations", "secondaryEvaluations", "elapsedSeconds", "firstSuccessSeconds", "stopReason"], "properties": {"elapsedSeconds": {"type": "number", "minimum": 0}, "firstSuccessSeconds": {"type": ["number", "null"]}}},
+    "candidates": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["id", "sequence", "structure", "pairF1", "targetProbability", "targetGapKcalMol", "ensembleDefect", "missedPairs", "extraPairs", "qualifies", "failureReasons", "constraintViolations", "source"],
+        "properties": {
+          "sequence": {"type": "string", "pattern": "^[ACGU]{8,128}$"},
+          "structure": {"type": "string", "pattern": "^[.()]{8,128}$"},
+          "qualifies": {"type": "boolean"},
+          "pairF1": {"type": "number", "minimum": 0, "maximum": 1},
+          "targetProbability": {"type": "number", "minimum": 0, "maximum": 1},
+          "targetGapKcalMol": {"type": "number"},
+          "ensembleDefect": {"type": "number", "minimum": 0, "maximum": 1},
+          "missedPairs": {"$ref": "#/$defs/pairs"},
+          "extraPairs": {"$ref": "#/$defs/pairs"},
+          "independent": {"type": "object", "required": ["engine", "version", "structure", "agreesWithTarget", "disagreementPairs"]}
+        }
+      }
+    }
+  },
+  "$defs": {"pairs": {"type": "array", "items": {"type": "array", "prefixItems": [{"type": "integer", "minimum": 1}, {"type": "integer", "minimum": 1}], "minItems": 2, "maxItems": 2}}}
+}

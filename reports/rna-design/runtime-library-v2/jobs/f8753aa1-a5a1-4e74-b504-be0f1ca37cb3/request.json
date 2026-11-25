@@ -1,0 +1,57 @@
+{
+  "projectId": "71f77ea0-c557-4276-a885-3fd1fdf3d181",
+  "name": "RNA Design \u00b7 8 nt",
+  "request": {
+    "target": "((....))",
+    "mask": "NNNNNNNN",
+    "locks": "........",
+    "maxCandidates": 4096,
+    "maxSeconds": 6,
+    "wanted": 20,
+    "seed": 31,
+    "gcMin": 0,
+    "gcMax": 1,
+    "maxHomopolymer": 128,
+    "method": "solver"
+  },
+  "quote": {
+    "request": {
+      "target": "((....))",
+      "mask": "NNNNNNNN",
+      "locks": "........",
+      "maxCandidates": 4096,
+      "maxSeconds": 5,
+      "wanted": 20,
+      "seed": 31,
+      "gcMin": 0,
+      "gcMax": 1,
+      "maxHomopolymer": 128,
+      "method": "solver"
+    },
+    "mode": "local",
+    "hardware": "This Mac \u00b7 CPU",
+    "uploads": [],
+    "limits": {
+      "searchSeconds": 5,
+      "containerSeconds": 125,
+      "candidates": 4096
+    },
+    "cost": {
+      "currency": "USD",
+      "estimatedMaximum": 0,
+      "planningRatePerSecond": 0,
+      "rateSource": "https://modal.com/pricing",
+      "rateChecked": "2026-11-16",
+      "billedCost": null,
+      "note": "Estimate only. Includes a 120 s startup allowance. Image build and account charges can differ. Billed cost is not available from this workflow."
+    },
+    "quoteSha256": "7fde71ec3303d647e6538c882cbcf755786f0a9688e9a5c317d0028a731a7dd9"
+  },
+  "pid": 46304,
+  "workerPath": "/Users/vii/Documents/FoldStudio-MetalPort/fold-studio/scientific/rna_design_runtime.py",
+  "phase": "cancelled",
+  "startupSeconds": 0.0002632919931784272,
+  "searchSeconds": 0.05473050000728108,
+  "resultSha256": "a6d31b6547d46e0108ec4381e8a5c17fa6d0db758c1763691a9534f60e75e312",
+  "qualifyingCount": 7
+}

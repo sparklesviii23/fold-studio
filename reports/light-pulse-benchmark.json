@@ -1,0 +1,1635 @@
+{
+ "schema": "fold-studio.benchmark/2",
+ "engine": {
+  "id": "fold.light-pulse.ccasr",
+  "version": "2.0.0",
+  "state": {
+   "schema": "fold-studio.cell-state.reporter",
+   "version": 1,
+   "phi": {
+    "value": 1.0,
+    "unit": "MEFL per mature reporter molecule",
+    "mapping": "relative",
+    "provenance": {
+     "kind": "assumed",
+     "note": "MEFL is fluorescence in units of fluorescein molecules, calibrated with beads. The brightness of one sfGFP in this cytometer channel relative to fluorescein was not measured, so one MEFL is taken as one molecule. Molecule numbers are therefore relative: they scale by one unknown constant, and every ratio and time course is unaffected."
+    }
+   }
+  }
+ },
+ "spectral": {
+  "sha256": "4618c633d6819c402d84a65f396dd9bca6460d072ff0aabca3e6a7ef14cfcead",
+  "memberSha256": {
+   "ccasr_data/aas/rgv2_wholepop_aas_concise.xlsx": "568e06d5c479b4dd9176aea7b2d55661c5fafa9f07f025bda91568c6a6efc86e",
+   "ccasr_data/ras/rgv2_wholepop_ras_concise.xlsx": "f624c7111b42189ac2e4821968f55a1d7745ecd614fa6a9f0004a066b539b770",
+   "ccasr_model_parameters/rgv2_m01/k1_k2_results.xlsx": "da60a717903165cf8d8f436b12c4d70d4b9b8d02e6e433cae9fe71972c8e0a7e",
+   "ccasr_model_parameters/rgv2_m01/all_data_with_k2_holds_ratio_onetau_k_fixed.params": "e6587bb7eab53880e80f7047cab3435777d869506798e33e0d55f29db5747701"
+  }
+ },
+ "dataset": {
+  "sha256": "f119e05cfd274a330c8c430938dac26b7ec3c8a99972021f07b77a1bdc662eb9",
+  "authors": "Olson EJ, Tzouanas CN, Tabor JJ",
+  "journal": "Molecular Systems Biology 2017;13(4):926",
+  "doi": "10.15252/msb.20167456",
+  "licence": "CC BY 4.0",
+  "dataset": "Dataset EV2 \u00b7 CcaSR measurements and analysis (MSB-13-926-s010.zip)",
+  "archiveSha256": "0e5d608af1b6c6e016b17d535b79aa96b9c1360e1b3cab6d26d92f840a96b0fa"
+ },
+ "split": {
+  "train": [
+   "step-on-0.15625",
+   "step-on-0.3125",
+   "step-on-0.625",
+   "step-on-2.5",
+   "step-on-5",
+   "step-on-10",
+   "step-off-0.15625",
+   "step-off-0.3125",
+   "step-off-1.25",
+   "step-off-2.5",
+   "step-off-5",
+   "step-off-20"
+  ],
+  "heldOut": [
+   "step-on-1.25",
+   "step-on-20",
+   "step-off-0.625",
+   "step-off-10",
+   "dynamic-green"
+  ],
+  "mixedColour": [
+   "dynamic-green-red-perturbation",
+   "dynamic-green-red-compensated"
+  ],
+  "otherColour": [
+   "dynamic-uv"
+  ]
+ },
+ "runtime": "Python 3.12.14 \u00b7 NumPy 2.5.4 \u00b7 SciPy 1.18.1 \u00b7 arm64",
+ "fitSeconds": 10.8,
+ "experimental": {
+  "metric": "root-mean-square error of log10 fluorescence, shown as a fold error (1.00 is perfect)",
+  "pooledFoldError": {
+   "train": {
+    "mechanistic": 1.122,
+    "green": 1.122,
+    "learned": 1.591,
+    "combined": 1.121,
+    "baseline": 3.974,
+    "published": 1.168
+   },
+   "heldOut": {
+    "mechanistic": 1.172,
+    "green": 1.172,
+    "learned": 1.917,
+    "combined": 1.17,
+    "baseline": 3.79,
+    "published": 1.207
+   },
+   "mixedColour": {
+    "mechanistic": 1.215,
+    "green": 2.786,
+    "learned": 2.26,
+    "combined": 2.783,
+    "baseline": 2.756,
+    "published": 1.275
+   },
+   "otherColour": {
+    "mechanistic": 1.336,
+    "green": 8.384,
+    "learned": 7.33,
+    "combined": 8.439,
+    "baseline": 2.561,
+    "published": 1.428
+   }
+  },
+  "selected": "mechanistic",
+  "best": "combined",
+  "selectionNote": "Mechanistic + learned residual scores 1.1 % better than the mechanistic chain on the held-out schedules, less than the 5 % needed to prefer it, so the mechanistic chain powers the experiment. The held-out schedules were never used to fit parameters; they are used once, here, to choose between predictors.",
+  "gate": {
+   "thresholds": {
+    "rmseLog10": 0.15,
+    "beatsBaselineBy": 2.0
+   },
+   "worstHeldOutRmseLog10": 0.09865299445542829,
+   "baselineRatio": 8.389523209650287,
+   "passed": true,
+   "statement": "Every held-out green-light schedule is predicted within 1.26-fold (root-mean-square), 8.4 times closer than the static baseline. Closed-loop control is enabled."
+  },
+  "intervalCoverage": {
+   "level": 0.9,
+   "train": {
+    "inside": 269,
+    "total": 288,
+    "coverage": 0.9340277777777778
+   },
+   "heldOut": {
+    "inside": 136,
+    "total": 166,
+    "coverage": 0.8192771084337349
+   },
+   "mixedColour": {
+    "inside": 116,
+    "total": 142,
+    "coverage": 0.8169014084507042
+   },
+   "otherColour": {
+    "inside": 52,
+    "total": 66,
+    "coverage": 0.7878787878787878
+   }
+  },
+  "success": {
+   "id": "dynamic-green",
+   "role": "heldOut",
+   "runs": 3,
+   "foldError": {
+    "mechanistic": 1.255,
+    "green": 1.255,
+    "learned": 2.685,
+    "combined": 1.256,
+    "baseline": 3.179,
+    "published": 1.215
+   },
+   "replicateFold": 1.234,
+   "features": {
+    "amplitude": {
+     "measured": 61648.73,
+     "predicted": 59634.918,
+     "relativeError": -0.033,
+     "supported": true
+    },
+    "halfRecoveryMin": {
+     "measured": 92.881,
+     "predicted": 103.044,
+     "relativeError": 0.109,
+     "supported": true
+    },
+    "timeToPeakMin": {
+     "measured": 246.667,
+     "predicted": 220.0,
+     "relativeError": -0.108,
+     "supported": true
+    }
+   },
+   "intervalCoverage": [
+    48,
+    70
+   ]
+  },
+  "regressionCase": {
+   "id": "dynamic-green-red-perturbation",
+   "role": "mixedColour",
+   "runs": 3,
+   "foldError": {
+    "mechanistic": 1.21,
+    "green": 3.071,
+    "learned": 2.213,
+    "combined": 3.064,
+    "baseline": 2.653,
+    "published": 1.279
+   },
+   "replicateFold": 1.226,
+   "features": {
+    "amplitude": {
+     "measured": 22340.377,
+     "predicted": 25421.548,
+     "relativeError": 0.138,
+     "supported": true
+    },
+    "halfRecoveryMin": {
+     "measured": 82.089,
+     "predicted": 79.209,
+     "relativeError": -0.035,
+     "supported": true
+    },
+    "timeToPeakMin": {
+     "measured": 220.0,
+     "predicted": 220.0,
+     "relativeError": 0.0,
+     "supported": true
+    }
+   },
+   "intervalCoverage": [
+    57,
+    71
+   ]
+  },
+  "schedules": [
+   {
+    "id": "step-on-1.25",
+    "role": "heldOut",
+    "runs": 1,
+    "foldError": {
+     "mechanistic": 1.071,
+     "green": 1.071,
+     "learned": 1.604,
+     "combined": 1.069,
+     "baseline": 3.9,
+     "published": 1.107
+    },
+    "replicateFold": null,
+    "features": {
+     "amplitude": {
+      "measured": 65944.687,
+      "predicted": 64743.182,
+      "relativeError": -0.018,
+      "supported": true
+     },
+     "halfRiseMin": {
+      "measured": 105.061,
+      "predicted": 97.819,
+      "relativeError": -0.069,
+      "supported": true
+     }
+    },
+    "intervalCoverage": [
+     24,
+     24
+    ]
+   },
+   {
+    "id": "step-on-20",
+    "role": "heldOut",
+    "runs": 1,
+    "foldError": {
+     "mechanistic": 1.137,
+     "green": 1.137,
+     "learned": 1.961,
+     "combined": 1.127,
+     "baseline": 3.104,
+     "published": 1.287
+    },
+    "replicateFold": null,
+    "features": {
+     "amplitude": {
+      "measured": 107373.44,
+      "predicted": 100413.461,
+      "relativeError": -0.065,
+      "supported": true
+     },
+     "halfRiseMin": {
+      "measured": 63.516,
+      "predicted": 63.231,
+      "relativeError": -0.004,
+      "supported": true
+     }
+    },
+    "intervalCoverage": [
+     22,
+     24
+    ]
+   },
+   {
+    "id": "step-off-0.625",
+    "role": "heldOut",
+    "runs": 1,
+    "foldError": {
+     "mechanistic": 1.147,
+     "green": 1.147,
+     "learned": 1.384,
+     "combined": 1.148,
+     "baseline": 2.908,
+     "published": 1.19
+    },
+    "replicateFold": null,
+    "features": {
+     "amplitude": {
+      "measured": 25952.72,
+      "predicted": 30506.926,
+      "relativeError": 0.175,
+      "supported": true
+     },
+     "halfRecoveryMin": {
+      "measured": 103.902,
+      "predicted": 84.192,
+      "relativeError": -0.19,
+      "supported": true
+     }
+    },
+    "intervalCoverage": [
+     23,
+     24
+    ]
+   },
+   {
+    "id": "step-off-10",
+    "role": "heldOut",
+    "runs": 1,
+    "foldError": {
+     "mechanistic": 1.204,
+     "green": 1.204,
+     "learned": 1.823,
+     "combined": 1.202,
+     "baseline": 6.09,
+     "published": 1.206
+    },
+    "replicateFold": null,
+    "features": {
+     "amplitude": {
+      "measured": 114235.257,
+      "predicted": 99079.517,
+      "relativeError": -0.133,
+      "supported": true
+     },
+     "halfRecoveryMin": {
+      "measured": 96.405,
+      "predicted": 101.81,
+      "relativeError": 0.056,
+      "supported": true
+     }
+    },
+    "intervalCoverage": [
+     19,
+     24
+    ]
+   },
+   {
+    "id": "dynamic-green",
+    "role": "heldOut",
+    "runs": 3,
+    "foldError": {
+     "mechanistic": 1.255,
+     "green": 1.255,
+     "learned": 2.685,
+     "combined": 1.256,
+     "baseline": 3.179,
+     "published": 1.215
+    },
+    "replicateFold": 1.234,
+    "features": {
+     "amplitude": {
+      "measured": 61648.73,
+      "predicted": 59634.918,
+      "relativeError": -0.033,
+      "supported": true
+     },
+     "halfRecoveryMin": {
+      "measured": 92.881,
+      "predicted": 103.044,
+      "relativeError": 0.109,
+      "supported": true
+     },
+     "timeToPeakMin": {
+      "measured": 246.667,
+      "predicted": 220.0,
+      "relativeError": -0.108,
+      "supported": true
+     }
+    },
+    "intervalCoverage": [
+     48,
+     70
+    ]
+   },
+   {
+    "id": "dynamic-green-red-perturbation",
+    "role": "mixedColour",
+    "runs": 3,
+    "foldError": {
+     "mechanistic": 1.21,
+     "green": 3.071,
+     "learned": 2.213,
+     "combined": 3.064,
+     "baseline": 2.653,
+     "published": 1.279
+    },
+    "replicateFold": 1.226,
+    "features": {
+     "amplitude": {
+      "measured": 22340.377,
+      "predicted": 25421.548,
+      "relativeError": 0.138,
+      "supported": true
+     },
+     "halfRecoveryMin": {
+      "measured": 82.089,
+      "predicted": 79.209,
+      "relativeError": -0.035,
+      "supported": true
+     },
+     "timeToPeakMin": {
+      "measured": 220.0,
+      "predicted": 220.0,
+      "relativeError": 0.0,
+      "supported": true
+     }
+    },
+    "intervalCoverage": [
+     57,
+     71
+    ]
+   },
+   {
+    "id": "dynamic-green-red-compensated",
+    "role": "mixedColour",
+    "runs": 3,
+    "foldError": {
+     "mechanistic": 1.22,
+     "green": 2.501,
+     "learned": 2.306,
+     "combined": 2.503,
+     "baseline": 2.859,
+     "published": 1.272
+    },
+    "replicateFold": 1.213,
+    "features": {
+     "amplitude": {
+      "measured": 62483.9,
+      "predicted": 62941.374,
+      "relativeError": 0.007,
+      "supported": true
+     },
+     "halfRecoveryMin": {
+      "measured": 102.534,
+      "predicted": 82.331,
+      "relativeError": -0.197,
+      "supported": true
+     },
+     "timeToPeakMin": {
+      "measured": 240.0,
+      "predicted": 260.0,
+      "relativeError": 0.083,
+      "supported": true
+     }
+    },
+    "intervalCoverage": [
+     59,
+     71
+    ]
+   },
+   {
+    "id": "dynamic-uv",
+    "role": "otherColour",
+    "runs": 3,
+    "foldError": {
+     "mechanistic": 1.336,
+     "green": 8.384,
+     "learned": 7.33,
+     "combined": 8.439,
+     "baseline": 2.561,
+     "published": 1.428
+    },
+    "replicateFold": 1.207,
+    "features": {
+     "amplitude": {
+      "measured": 39205.08,
+      "predicted": 59570.786,
+      "relativeError": 0.519,
+      "supported": true
+     },
+     "halfRecoveryMin": {
+      "measured": 115.256,
+      "predicted": 82.649,
+      "relativeError": -0.283,
+      "supported": true
+     },
+     "timeToPeakMin": {
+      "measured": 220.0,
+      "predicted": 246.667,
+      "relativeError": 0.121,
+      "supported": true
+     }
+    },
+    "intervalCoverage": [
+     52,
+     66
+    ]
+   },
+   {
+    "id": "step-on-0.15625",
+    "role": "train",
+    "runs": 1,
+    "foldError": {
+     "mechanistic": 1.166,
+     "green": 1.166,
+     "learned": 1.2,
+     "combined": 1.168,
+     "baseline": 3.571,
+     "published": 1.18
+    },
+    "replicateFold": null,
+    "features": {
+     "amplitude": {
+      "measured": 2904.787,
+      "predicted": 2269.067,
+      "relativeError": -0.219,
+      "supported": true
+     },
+     "halfRiseMin": {
+      "measured": 96.463,
+      "predicted": 134.386,
+      "relativeError": 0.393,
+      "supported": true
+     }
+    },
+    "intervalCoverage": [
+     18,
+     24
+    ]
+   },
+   {
+    "id": "step-on-0.3125",
+    "role": "train",
+    "runs": 1,
+    "foldError": {
+     "mechanistic": 1.142,
+     "green": 1.142,
+     "learned": 1.269,
+     "combined": 1.139,
+     "baseline": 3.143,
+     "published": 1.145
+    },
+    "replicateFold": null,
+    "features": {
+     "amplitude": {
+      "measured": 9995.047,
+      "predicted": 9137.484,
+      "relativeError": -0.086,
+      "supported": true
+     },
+     "halfRiseMin": {
+      "measured": 141.821,
+      "predicted": 128.733,
+      "relativeError": -0.092,
+      "supported": true
+     }
+    },
+    "intervalCoverage": [
+     23,
+     24
+    ]
+   },
+   {
+    "id": "step-on-0.625",
+    "role": "train",
+    "runs": 1,
+    "foldError": {
+     "mechanistic": 1.105,
+     "green": 1.105,
+     "learned": 1.424,
+     "combined": 1.103,
+     "baseline": 3.137,
+     "published": 1.112
+    },
+    "replicateFold": null,
+    "features": {
+     "amplitude": {
+      "measured": 28600.233,
+      "predicted": 30193.292,
+      "relativeError": 0.056,
+      "supported": true
+     },
+     "halfRiseMin": {
+      "measured": 133.506,
+      "predicted": 116.554,
+      "relativeError": -0.127,
+      "supported": true
+     }
+    },
+    "intervalCoverage": [
+     23,
+     24
+    ]
+   },
+   {
+    "id": "step-on-2.5",
+    "role": "train",
+    "runs": 1,
+    "foldError": {
+     "mechanistic": 1.081,
+     "green": 1.081,
+     "learned": 1.632,
+     "combined": 1.08,
+     "baseline": 3.844,
+     "published": 1.166
+    },
+    "replicateFold": null,
+    "features": {
+     "amplitude": {
+      "measured": 93788.457,
+      "predicted": 88576.04,
+      "relativeError": -0.056,
+      "supported": true
+     },
+     "halfRiseMin": {
+      "measured": 86.663,
+      "predicted": 80.5,
+      "relativeError": -0.071,
+      "supported": true
+     }
+    },
+    "intervalCoverage": [
+     24,
+     24
+    ]
+   },
+   {
+    "id": "step-on-5",
+    "role": "train",
+    "runs": 1,
+    "foldError": {
+     "mechanistic": 1.109,
+     "green": 1.109,
+     "learned": 1.741,
+     "combined": 1.108,
+     "baseline": 3.678,
+     "published": 1.213
+    },
+    "replicateFold": null,
+    "features": {
+     "amplitude": {
+      "measured": 95905.177,
+      "predicted": 97237.7,
+      "relativeError": 0.014,
+      "supported": true
+     },
+     "halfRiseMin": {
+      "measured": 74.784,
+      "predicted": 70.262,
+      "relativeError": -0.06,
+      "supported": true
+     }
+    },
+    "intervalCoverage": [
+     23,
+     24
+    ]
+   },
+   {
+    "id": "step-on-10",
+    "role": "train",
+    "runs": 1,
+    "foldError": {
+     "mechanistic": 1.125,
+     "green": 1.125,
+     "learned": 1.819,
+     "combined": 1.123,
+     "baseline": 3.226,
+     "published": 1.269
+    },
+    "replicateFold": null,
+    "features": {
+     "amplitude": {
+      "measured": 102749.433,
+      "predicted": 99712.757,
+      "relativeError": -0.03,
+      "supported": true
+     },
+     "halfRiseMin": {
+      "measured": 70.217,
+      "predicted": 65.513,
+      "relativeError": -0.067,
+      "supported": true
+     }
+    },
+    "intervalCoverage": [
+     23,
+     24
+    ]
+   },
+   {
+    "id": "step-off-0.15625",
+    "role": "train",
+    "runs": 1,
+    "foldError": {
+     "mechanistic": 1.136,
+     "green": 1.136,
+     "learned": 1.645,
+     "combined": 1.135,
+     "baseline": 3.458,
+     "published": 1.132
+    },
+    "replicateFold": null,
+    "features": {
+     "amplitude": {
+      "measured": 3295.457,
+      "predicted": 2331.286,
+      "relativeError": -0.293,
+      "supported": true
+     },
+     "halfRecoveryMin": {
+      "measured": 79.03,
+      "predicted": 85.401,
+      "relativeError": 0.081,
+      "supported": true
+     }
+    },
+    "intervalCoverage": [
+     23,
+     24
+    ]
+   },
+   {
+    "id": "step-off-0.3125",
+    "role": "train",
+    "runs": 1,
+    "foldError": {
+     "mechanistic": 1.156,
+     "green": 1.156,
+     "learned": 1.358,
+     "combined": 1.156,
+     "baseline": 2.496,
+     "published": 1.175
+    },
+    "replicateFold": null,
+    "features": {
+     "amplitude": {
+      "measured": 9344.913,
+      "predicted": 9320.301,
+      "relativeError": -0.003,
+      "supported": true
+     },
+     "halfRecoveryMin": {
+      "measured": 88.071,
+      "predicted": 84.327,
+      "relativeError": -0.043,
+      "supported": true
+     }
+    },
+    "intervalCoverage": [
+     21,
+     24
+    ]
+   },
+   {
+    "id": "step-off-1.25",
+    "role": "train",
+    "runs": 1,
+    "foldError": {
+     "mechanistic": 1.141,
+     "green": 1.141,
+     "learned": 1.711,
+     "combined": 1.141,
+     "baseline": 4.482,
+     "published": 1.248
+    },
+    "replicateFold": null,
+    "features": {
+     "amplitude": {
+      "measured": 61967.377,
+      "predicted": 64886.78,
+      "relativeError": 0.047,
+      "supported": true
+     },
+     "halfRecoveryMin": {
+      "measured": 102.654,
+      "predicted": 87.078,
+      "relativeError": -0.152,
+      "supported": true
+     }
+    },
+    "intervalCoverage": [
+     19,
+     24
+    ]
+   },
+   {
+    "id": "step-off-2.5",
+    "role": "train",
+    "runs": 1,
+    "foldError": {
+     "mechanistic": 1.097,
+     "green": 1.097,
+     "learned": 1.586,
+     "combined": 1.099,
+     "baseline": 5.11,
+     "published": 1.069
+    },
+    "replicateFold": null,
+    "features": {
+     "amplitude": {
+      "measured": 87016.303,
+      "predicted": 88356.374,
+      "relativeError": 0.015,
+      "supported": true
+     },
+     "halfRecoveryMin": {
+      "measured": 82.901,
+      "predicted": 92.633,
+      "relativeError": 0.117,
+      "supported": true
+     }
+    },
+    "intervalCoverage": [
+     24,
+     24
+    ]
+   },
+   {
+    "id": "step-off-5",
+    "role": "train",
+    "runs": 1,
+    "foldError": {
+     "mechanistic": 1.083,
+     "green": 1.083,
+     "learned": 1.697,
+     "combined": 1.082,
+     "baseline": 5.839,
+     "published": 1.085
+    },
+    "replicateFold": null,
+    "features": {
+     "amplitude": {
+      "measured": 96065.057,
+      "predicted": 96753.367,
+      "relativeError": 0.007,
+      "supported": true
+     },
+     "halfRecoveryMin": {
+      "measured": 95.348,
+      "predicted": 97.923,
+      "relativeError": 0.027,
+      "supported": true
+     }
+    },
+    "intervalCoverage": [
+     24,
+     24
+    ]
+   },
+   {
+    "id": "step-off-20",
+    "role": "train",
+    "runs": 1,
+    "foldError": {
+     "mechanistic": 1.093,
+     "green": 1.093,
+     "learned": 1.796,
+     "combined": 1.09,
+     "baseline": 6.191,
+     "published": 1.118
+    },
+    "replicateFold": null,
+    "features": {
+     "amplitude": {
+      "measured": 102235.45,
+      "predicted": 99701.674,
+      "relativeError": -0.025,
+      "supported": true
+     },
+     "halfRecoveryMin": {
+      "measured": 104.907,
+      "predicted": 104.238,
+      "relativeError": -0.006,
+      "supported": true
+     }
+    },
+    "intervalCoverage": [
+     24,
+     24
+    ]
+   }
+  ],
+  "stages": {
+   "calibration": {
+    "data": "Forward and reverse action spectra: steady-state points after 480 min of constant light, 24 per LED, five experimental runs.",
+    "leds": 22,
+    "points": 528,
+    "rmseLog10": 0.10118279279492783,
+    "greenChain": "fitted first on the green training schedules and not refitted",
+    "shortcutCheck": {
+     "maxRelativeDifference": 0.0019635336898382594,
+     "passed": true,
+     "threshold": "within 2 % of 480 simulated minutes"
+    },
+    "greenSpectrum": {
+     "points": 36,
+     "rmseLog10": 0.03832611384544256,
+     "note": "Green LED alone and green-only wells of the action-spectrum plates, predicted by the fitted chain without refitting."
+    }
+   },
+   "modelSelection": {
+    "method": "Each LED: no effect, off only, on only, or both, by leaving one experimental run out at a time inside its action spectrum; a richer structure must be more than 5 % better.",
+    "structures": {
+     "none": 5,
+     "off": 5,
+     "on": 7,
+     "both": 5
+    },
+    "usedInFinalTest": {
+     "380-SB": {
+      "structure": "on",
+      "cvRmseLog10": {
+       "none": 0.8442958421218049,
+       "off": 0.8442963950038695,
+       "on": 0.045504418770462525,
+       "both": 0.049919618899207305
+      }
+     },
+     "660-LS": {
+      "structure": "off",
+      "cvRmseLog10": {
+       "none": 0.2777945664687397,
+       "off": 0.08623245951554376,
+       "on": 0.27780090195547974,
+       "both": 0.08637707020800162
+      }
+     }
+    }
+   },
+   "finalTest": {
+    "schedules": [
+     "dynamic-green-red-perturbation",
+     "dynamic-green-red-compensated",
+     "dynamic-uv"
+    ],
+    "status": "retrospective",
+    "untouched": false,
+    "statement": "Complete dynamic schedules, never used to fit a parameter or to choose a structure. They are not untouched: version 1 reported the red-light schedules as its failure case before the red input was built, so this result is retrospective, not prospective.",
+    "pooled": {
+     "mechanistic": 0.10012632005779729,
+     "green": 0.645168141086155,
+     "learned": 0.577105815909499,
+     "combined": 0.6463234702909413,
+     "baseline": 0.42992144214451394,
+     "published": 0.12415040020854631
+    },
+    "mixedColour": {
+     "mechanistic": 0.0844652146442153,
+     "green": 0.44494055980710273,
+     "learned": 0.3541061236233348,
+     "combined": 0.44450625392990323,
+     "baseline": 0.4402767724166667,
+     "published": 0.10564232129533492
+    },
+    "otherColour": {
+     "mechanistic": 0.12572626986896035,
+     "green": 0.9234617411104687,
+     "learned": 0.8650844321189792,
+     "combined": 0.9262993388647023,
+     "baseline": 0.40842388102017413,
+     "published": 0.154658868218066
+    },
+    "coverage": {
+     "inside": 168,
+     "total": 208,
+     "coverage": 0.8076923076923077
+    },
+    "failures": [
+     {
+      "id": "dynamic-uv",
+      "name": "Dynamic program \u00b7 UV LED (380 nm)",
+      "foldError": 1.3357533433093223,
+      "replicateFold": 1.2066494987984397,
+      "coverage": 0.7878787878787878,
+      "features": {
+       "amplitude": {
+        "relativeError": 0.5194659964696278,
+        "error": 20365.705948871473,
+        "unit": "MEFL",
+        "supported": true
+       },
+       "halfRecoveryMin": {
+        "relativeError": -0.28291414102690154,
+        "error": -32.60761078044747,
+        "unit": "min",
+        "supported": true
+       },
+       "timeToPeakMin": {
+        "relativeError": 0.12121212121212117,
+        "error": 26.666666666666657,
+        "unit": "min",
+        "supported": true
+       }
+      },
+      "why": [
+       "amplitude",
+       "halfRecoveryMin"
+      ]
+     }
+    ]
+   }
+  },
+  "regression": {
+   "case": "Red light on top of the green program",
+   "schedules": [
+    "dynamic-green-red-perturbation",
+    "dynamic-green-red-compensated"
+   ],
+   "greenOnlyRmseLog10": 0.44494055980710273,
+   "withRedRmseLog10": 0.0844652146442153,
+   "greenOnlyFoldError": 2.7857398691795496,
+   "withRedFoldError": 1.2146893245250463,
+   "publishedFoldError": 1.275387984902054,
+   "failureReproduced": true,
+   "improved": true,
+   "statement": "Without the red input the chain is 2.79-fold off on these schedules (the known failure, kept as a regression case). With the calibrated red input it is 1.21-fold off; the published model is 1.28-fold off."
+  },
+  "publishedNote": "The published model was fitted by its authors to the action spectra and to every step-on and step-off plate, so only the dynamic programs test it out of sample.",
+  "greenOnlyNote": "The learned predictor and the static baseline take green light only. On schedules with another LED their errors show what that omission costs.",
+  "channels": [
+   {
+    "led": "361-LS",
+    "centroidNm": 369.0,
+    "structure": "both",
+    "k1": 0.05869532192367246,
+    "k2": 0.09085038407850242,
+    "rmseLog10": 0.4101047472634732,
+    "cvRmseLog10": {
+     "none": 0.6872702195755896,
+     "off": 0.6880389463375028,
+     "on": 0.5077013984126306,
+     "both": 0.4545477818604961
+    },
+    "published": {
+     "k1": 0.0133738583611,
+     "k2": 0.0125677631208
+    }
+   },
+   {
+    "led": "380-SB",
+    "centroidNm": 389.0,
+    "structure": "on",
+    "k1": 0.02169624122330477,
+    "k2": 0.0,
+    "rmseLog10": 0.04293034334949742,
+    "cvRmseLog10": {
+     "none": 0.8442958421218049,
+     "off": 0.8442963950038695,
+     "on": 0.045504418770462525,
+     "both": 0.049919618899207305
+    },
+    "published": {
+     "k1": 0.00839920607079,
+     "k2": 0.0016871014854
+    }
+   },
+   {
+    "led": "405-SB",
+    "centroidNm": 404.0,
+    "structure": "both",
+    "k1": 0.012795051807177145,
+    "k2": 0.005920907330612032,
+    "rmseLog10": 0.0415073216380283,
+    "cvRmseLog10": {
+     "none": 0.7252991505178589,
+     "off": 0.7252995622085635,
+     "on": 0.07061084149873646,
+     "both": 0.04206667870170899
+    },
+    "published": {
+     "k1": 0.0047971237955,
+     "k2": 0.00543830476198
+    }
+   },
+   {
+    "led": "430-MB",
+    "centroidNm": 433.0,
+    "structure": "both",
+    "k1": 0.008390423871509959,
+    "k2": 0.002131211702832777,
+    "rmseLog10": 0.03872918874971284,
+    "cvRmseLog10": {
+     "none": 0.7152627510288501,
+     "off": 0.7152631813535048,
+     "on": 0.04586187831290887,
+     "both": 0.04092826545485004
+    },
+    "published": {
+     "k1": 0.00308703816105,
+     "k2": 0.00150675813343
+    }
+   },
+   {
+    "led": "450-MB",
+    "centroidNm": 452.0,
+    "structure": "on",
+    "k1": 0.014757224785387341,
+    "k2": 0.0,
+    "rmseLog10": 0.041505219668561515,
+    "cvRmseLog10": {
+     "none": 0.8007217432066689,
+     "off": 0.8007221940934699,
+     "on": 0.04239838568435793,
+     "both": 0.04192520354327247
+    },
+    "published": {
+     "k1": 0.00590196455511,
+     "k2": 0.00188526115227
+    }
+   },
+   {
+    "led": "470-SB",
+    "centroidNm": 470.0,
+    "structure": "on",
+    "k1": 0.03164032695253001,
+    "k2": 0.0,
+    "rmseLog10": 0.04627606632780893,
+    "cvRmseLog10": {
+     "none": 0.8887062424086712,
+     "off": 0.8887066221198873,
+     "on": 0.049318149644765434,
+     "both": 0.0529816003861487
+    },
+    "published": {
+     "k1": 0.0118839758577,
+     "k2": 1e-06
+    }
+   },
+   {
+    "led": "490-MB_R383",
+    "centroidNm": 494.0,
+    "structure": "on",
+    "k1": 0.026288163780710243,
+    "k2": 0.0,
+    "rmseLog10": 0.048709296321846327,
+    "cvRmseLog10": {
+     "none": 0.8701593054052819,
+     "off": 0.8701597821635593,
+     "on": 0.05323336195344411,
+     "both": 0.05758246697641004
+    },
+    "published": {
+     "k1": 0.00984672816996,
+     "k2": 1e-06
+    }
+   },
+   {
+    "led": "505-SB",
+    "centroidNm": 516.0,
+    "structure": "on",
+    "k1": 0.029357874523889965,
+    "k2": 0.0,
+    "rmseLog10": 0.0474128507842904,
+    "cvRmseLog10": {
+     "none": 0.8904868566434947,
+     "off": 0.8904874248998735,
+     "on": 0.061146749985179244,
+     "both": 0.06161415292511501
+    },
+    "published": {
+     "k1": 0.0107383017167,
+     "k2": 1e-06
+    }
+   },
+   {
+    "led": "525-SB_R2003",
+    "centroidNm": 545.0,
+    "structure": "on",
+    "k1": 0.030243132151749955,
+    "k2": 0.0,
+    "rmseLog10": 0.03214498304208843,
+    "cvRmseLog10": {
+     "none": 0.8882347516756119,
+     "off": 0.8882353384175432,
+     "on": 0.03452910625377152,
+     "both": 0.03635162965198113
+    },
+    "published": {
+     "k1": 0.0114524076738,
+     "k2": 1e-06
+    }
+   },
+   {
+    "led": "570-KB",
+    "centroidNm": 573.0,
+    "structure": "on",
+    "k1": 0.015976708646853733,
+    "k2": 0.0,
+    "rmseLog10": 0.047578367050661874,
+    "cvRmseLog10": {
+     "none": 0.8085469029566794,
+     "off": 0.8085474115158615,
+     "on": 0.04927926193995368,
+     "both": 0.050017774177175116
+    },
+    "published": {
+     "k1": 0.00629861636168,
+     "k2": 0.00178097963993
+    }
+   },
+   {
+    "led": "590-SB",
+    "centroidNm": 596.0,
+    "structure": "both",
+    "k1": 0.005205400582023732,
+    "k2": 0.0030022625776820098,
+    "rmseLog10": 0.0413612363435852,
+    "cvRmseLog10": {
+     "none": 0.6096165770080232,
+     "off": 0.6096168256976064,
+     "on": 0.0893894183164092,
+     "both": 0.04247254044136341
+    },
+    "published": {
+     "k1": 0.00191915649441,
+     "k2": 0.00268759606478
+    }
+   },
+   {
+    "led": "605-SB",
+    "centroidNm": 612.0,
+    "structure": "both",
+    "k1": 0.001446106843745752,
+    "k2": 0.0035744889493903196,
+    "rmseLog10": 0.055854826697975986,
+    "cvRmseLog10": {
+     "none": 0.2699229790683718,
+     "off": 0.2594062566276898,
+     "on": 0.17446712696526054,
+     "both": 0.06219067346889762
+    },
+    "published": {
+     "k1": 0.000524789800203,
+     "k2": 0.0033589377933
+    }
+   },
+   {
+    "led": "630-SB",
+    "centroidNm": 637.0,
+    "structure": "off",
+    "k1": 0.0,
+    "k2": 0.0030616030331639893,
+    "rmseLog10": 0.046204092671873274,
+    "cvRmseLog10": {
+     "none": 0.20695163288552396,
+     "off": 0.04676914479050848,
+     "on": 0.20695813936496052,
+     "both": 0.045506530794795996
+    },
+    "published": {
+     "k1": 1e-06,
+     "k2": 0.00297785987042
+    }
+   },
+   {
+    "led": "660-LS",
+    "centroidNm": 657.0,
+    "structure": "off",
+    "k1": 0.0,
+    "k2": 0.004609557867800437,
+    "rmseLog10": 0.08203614812711704,
+    "cvRmseLog10": {
+     "none": 0.2777945664687397,
+     "off": 0.08623245951554376,
+     "on": 0.27780090195547974,
+     "both": 0.08637707020800162
+    },
+    "published": {
+     "k1": 1e-06,
+     "k2": 0.00458194778805
+    }
+   },
+   {
+    "led": "680-MT",
+    "centroidNm": 679.0,
+    "structure": "off",
+    "k1": 0.0,
+    "k2": 0.001671570889380906,
+    "rmseLog10": 0.052438063819982804,
+    "cvRmseLog10": {
+     "none": 0.13542144394053576,
+     "off": 0.056128312296331924,
+     "on": 0.1354276277950311,
+     "both": 0.05781656378110694
+    },
+    "published": {
+     "k1": 1e-06,
+     "k2": 0.0016174303432
+    }
+   },
+   {
+    "led": "700-MB",
+    "centroidNm": 703.0,
+    "structure": "off",
+    "k1": 0.0,
+    "k2": 0.0022216031806075033,
+    "rmseLog10": 0.05009600603260594,
+    "cvRmseLog10": {
+     "none": 0.16832947546142227,
+     "off": 0.05084647198516361,
+     "on": 0.16833591346955662,
+     "both": 0.05085861224906184
+    },
+    "published": {
+     "k1": 1e-06,
+     "k2": 0.00217750421317
+    }
+   },
+   {
+    "led": "720-MB",
+    "centroidNm": 724.0,
+    "structure": "off",
+    "k1": 0.0,
+    "k2": 0.0006179931145918214,
+    "rmseLog10": 0.04907039608283865,
+    "cvRmseLog10": {
+     "none": 0.06950542934819534,
+     "off": 0.049222153980374654,
+     "on": 0.06951020187070367,
+     "both": 0.049222675694513815
+    },
+    "published": {
+     "k1": 1e-06,
+     "k2": 0.000561776645871
+    }
+   },
+   {
+    "led": "740-MT",
+    "centroidNm": 741.0,
+    "structure": "none",
+    "k1": 0.0,
+    "k2": 0.0,
+    "rmseLog10": 0.06378520636250408,
+    "cvRmseLog10": {
+     "none": 0.0637852063625041,
+     "off": 0.07227493920709445,
+     "on": 0.06378754359242196,
+     "both": 0.07229796864190263
+    },
+    "published": {
+     "k1": 1e-06,
+     "k2": 0.000256287374476
+    }
+   },
+   {
+    "led": "760-MB",
+    "centroidNm": 756.0,
+    "structure": "none",
+    "k1": 0.0,
+    "k2": 0.0,
+    "rmseLog10": 0.049585362258975474,
+    "cvRmseLog10": {
+     "none": 0.04958536225897548,
+     "off": 0.07025487817658047,
+     "on": 0.04962009601256593,
+     "both": 0.07027745127214778
+    },
+    "published": {
+     "k1": 1e-06,
+     "k2": 1e-06
+    }
+   },
+   {
+    "led": "780-MB",
+    "centroidNm": 774.0,
+    "structure": "none",
+    "k1": 0.0,
+    "k2": 0.0,
+    "rmseLog10": 0.05276642609630579,
+    "cvRmseLog10": {
+     "none": 0.052766426096305795,
+     "off": 0.05278602314694487,
+     "on": 0.0547412022868613,
+     "both": 0.05476152562954891
+    },
+    "published": {
+     "k1": 1e-06,
+     "k2": 1e-06
+    }
+   },
+   {
+    "led": "850-VI",
+    "centroidNm": 855.0,
+    "structure": "none",
+    "k1": 0.0,
+    "k2": 0.0,
+    "rmseLog10": 0.045891095712510196,
+    "cvRmseLog10": {
+     "none": 0.045891095712510196,
+     "off": 0.04589353233929546,
+     "on": 0.047347002503235376,
+     "both": 0.047349645663482556
+    },
+    "published": {
+     "k1": 1e-06,
+     "k2": 1e-06
+    }
+   },
+   {
+    "led": "940-VI",
+    "centroidNm": 958.0,
+    "structure": "none",
+    "k1": 0.0,
+    "k2": 0.0,
+    "rmseLog10": 0.08614832168156905,
+    "cvRmseLog10": {
+     "none": 0.08614832168156905,
+     "off": 0.08614953554878525,
+     "on": 0.08607184144539064,
+     "both": 0.08607325188878837
+    },
+    "published": {
+     "k1": 1e-06,
+     "k2": 1e-06
+    }
+   }
+  ],
+  "growthCheck": {
+   "fittedDoublingMin": 40.63,
+   "measuredDoublingMin": 37.4,
+   "usedInFit": false
+  }
+ },
+ "numerical": [
+  {
+   "name": "Independent solver (SBML through the Mechanistic Lab, SciPy LSODA)",
+   "value": 1.652503094600505e-05,
+   "threshold": "< 5e-3",
+   "passed": true
+  },
+  {
+   "name": "Step halving (0.1 \u2192 0.05 min)",
+   "value": 1.2335106280722668e-05,
+   "threshold": "< 2e-3",
+   "passed": true
+  },
+  {
+   "name": "Steady state equals the closed form",
+   "value": 5.88418203051333e-15,
+   "threshold": "< 1e-6",
+   "passed": true
+  },
+  {
+   "name": "Regulator activity stays within 0\u20261; reporter positive",
+   "value": [
+    0.0,
+    0.9233281920090188
+   ],
+   "threshold": "0 \u2264 a \u2264 1",
+   "passed": true
+  },
+  {
+   "name": "Every optimiser start reaches the same optimum",
+   "value": 1.1857292925299134e-10,
+   "threshold": "< 1e-3 relative",
+   "passed": true
+  },
+  {
+   "name": "Molecule totals (red-perturbation schedule)",
+   "value": {
+    "start": 2593.889119738409,
+    "end": 3771.663324539966,
+    "produced": 101056.62549627843,
+    "diluted": 99878.86381075262,
+    "gap": 0.012519275747763459,
+    "relativeGap": 1.2388376997829302e-07
+   },
+   "threshold": "change in reporter molecules = produced \u2212 diluted, within 0.5 % of the largest total",
+   "passed": true
+  },
+  {
+   "name": "One reporter count (red-perturbation schedule)",
+   "value": {
+    "maxRelativeDifference": 0.0,
+    "phi": 1.0
+   },
+   "threshold": "fluorescence = \u03c6 \u00d7 mature molecules, exactly",
+   "passed": true
+  },
+  {
+   "name": "Weighted particles (red-perturbation schedule)",
+   "value": {
+    "weight": {
+     "immature": 101,
+     "mature": 101,
+     "regulator": 1
+    },
+    "largestDifference": {
+     "immature": 50.25809115866059,
+     "mature": 50.24477654560178,
+     "regulator": 0.49477535183969934
+    },
+    "peakMolecules": 42039.66680268267,
+    "relativeAtPeak": 0.0012012464379659988
+   },
+   "threshold": "particles \u00d7 weight within half a weight of the molecule number, in every frame",
+   "passed": true
+  },
+  {
+   "name": "Compartments (red-perturbation schedule)",
+   "value": {
+    "outside": 0
+   },
+   "threshold": "every particle inside its compartment",
+   "passed": true
+  },
+  {
+   "name": "Photostationary shortcut used for calibration",
+   "value": 0.0019635336898382594,
+   "threshold": "within 2 % of 480 simulated minutes",
+   "passed": true
+  }
+ ],
+ "parameters": [
+  {
+   "key": "k1",
+   "value": 0.01772245525664861,
+   "unit": "m\u00b2 s \u00b5mol\u207b\u00b9 min\u207b\u00b9",
+   "relativeSe": 0.15121725603545022,
+   "ci95": [
+    0.01323019476464016,
+    0.023904237943168625
+   ],
+   "determined": true,
+   "source": "fitted"
+  },
+  {
+   "key": "k2",
+   "value": 0.0005245196912981462,
+   "unit": "m\u00b2 s \u00b5mol\u207b\u00b9 min\u207b\u00b9",
+   "relativeSe": 1.1187355024713255,
+   "ci95": [
+    2.5958379730777067e-05,
+    0.001829947461877653
+   ],
+   "determined": false,
+   "source": "fitted"
+  },
+  {
+   "key": "kdr",
+   "value": 0.0017392623288354126,
+   "unit": "min\u207b\u00b9",
+   "relativeSe": 0.440033507136469,
+   "ci95": [
+    0.0006460843072905987,
+    0.003491187964863693
+   ],
+   "determined": true,
+   "source": "fitted"
+  },
+  {
+   "key": "kg",
+   "value": 0.01705954356541767,
+   "unit": "min\u207b\u00b9",
+   "relativeSe": 0.022863081915127748,
+   "ci95": [
+    0.016232576773382405,
+    0.017928176699091677
+   ],
+   "determined": true,
+   "source": "fitted"
+  },
+  {
+   "key": "b",
+   "value": 1939.0346821273822,
+   "unit": "MEFL",
+   "relativeSe": 0.016786034114996705,
+   "ci95": [
+    1882.9610067810033,
+    2006.1598831430185
+   ],
+   "determined": true,
+   "source": "fitted"
+  },
+  {
+   "key": "A",
+   "value": 101375.6458999347,
+   "unit": "MEFL",
+   "relativeSe": 0.02151273599635219,
+   "ci95": [
+    96778.6623119831,
+    104898.33646047594
+   ],
+   "determined": true,
+   "source": "fitted"
+  },
+  {
+   "key": "n",
+   "value": 2.1179558994871917,
+   "unit": "",
+   "relativeSe": 0.02221445656243402,
+   "ci95": [
+    2.019093048276011,
+    2.1985235446534723
+   ],
+   "determined": true,
+   "source": "fitted"
+  },
+  {
+   "key": "K",
+   "value": 0.8568302765581904,
+   "unit": "",
+   "relativeSe": 0.1770619307900314,
+   "ci95": [
+    0.606590764354349,
+    1.2149582645254198
+   ],
+   "determined": true,
+   "source": "fitted"
+  },
+  {
+   "key": "kmat",
+   "value": 0.05051358704276861,
+   "unit": "min\u207b\u00b9",
+   "relativeSe": 0.11431381237913217,
+   "ci95": [
+    0.040985674547536995,
+    0.06376782137845113
+   ],
+   "determined": true,
+   "source": "fitted"
+  },
+  {
+   "key": "km",
+   "value": 0.23104906018664842,
+   "unit": "min\u207b\u00b9",
+   "relativeSe": null,
+   "ci95": null,
+   "determined": false,
+   "source": "assumed"
+  }
+ ],
+ "fitSha256": "5d08bc45ff183b08ea45416917374d44f69f8a8c4c6e6cd2fc71c991b0bb965a"
+}

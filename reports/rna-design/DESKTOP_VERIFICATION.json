@@ -1,0 +1,119 @@
+{
+  "schema": "fold.rna-design-desktop-verification/1",
+  "phase": "desktop_passed_modal_approval_pending",
+  "library": "/Users/vii/Documents/FoldStudio-MetalPort/fold-studio/reports/rna-design/release-library",
+  "projectId": "78483e09-5775-4f91-8444-9baca455d197",
+  "simple": {
+    "runId": "ca623920-f6ef-46bd-a373-35d6c64953c9",
+    "recordId": "5ba3098f-16fc-4fe8-8bc1-8ec33d40104f",
+    "resultSha256": "d8f85b360dc0537f6cfeb56dd055e792c0cdbaa35565ad4b155f250f996f7742",
+    "sequence": "GACGUAUUUGUC",
+    "target": "((((....))))",
+    "comparedSequences": [
+      "GCAGAUUUCUGU",
+      "GACGUAUUUGUC"
+    ],
+    "missedPairs": [],
+    "extraPairs": [],
+    "independentDisagreementPairs": [
+      [
+        1,
+        12
+      ],
+      [
+        2,
+        11
+      ],
+      [
+        3,
+        10
+      ],
+      [
+        4,
+        9
+      ]
+    ],
+    "qualifyingCount": 3,
+    "metrics": {
+      "attempts": 4,
+      "solverCalls": 4,
+      "evaluations": 3,
+      "secondaryEvaluations": 3,
+      "batches": 3,
+      "elapsedSeconds": 0.013506082992535084,
+      "firstSuccessSeconds": 0.0014886669960105792,
+      "stopReason": "enough_candidates"
+    },
+    "uiSaveAndReopen": true,
+    "exactCandidateAndScoresMatch": true,
+    "uiRunIdAndSealMatch": true
+  },
+  "harder": {
+    "runId": "104fe9cd-b70d-4b44-a443-e3cdb54dddbf",
+    "recordId": "fef20a45-833b-4598-902c-8a44a6defef9",
+    "resultSha256": "665bf6092b6be3593a9b7a8f9d22c2db071c24762516fa371e80479bb04e63c9",
+    "sequence": "CGGAACAGCACAUUACUGAACUCUUCUACUGAGACCCG",
+    "target": "(((..(((.......)))..(((.......)))..)))",
+    "qualifyingCount": 3,
+    "candidateCount": 9,
+    "metrics": {
+      "attempts": 9,
+      "solverCalls": 9,
+      "evaluations": 9,
+      "secondaryEvaluations": 6,
+      "batches": 9,
+      "elapsedSeconds": 0.3041048329905607,
+      "firstSuccessSeconds": 0.09354454198910389,
+      "stopReason": "enough_candidates"
+    },
+    "wallSeconds": 0.5074604580004234,
+    "startupSeconds": 0.0006874579994473606,
+    "searchSeconds": 0.338490832989919,
+    "exactCandidateAndScoresMatch": true,
+    "uiSaveAndReopen": true,
+    "uiInspectedExtraPairCandidate": "GUCGACUGCACAUUACAGGCCUCUUCUACUGAGACGAC",
+    "uiInspectedMissingPairCandidate": "GUCAACUGCACAUUACGGGCCUAUUCUACUUAGACGAC",
+    "extraPairCount": 1,
+    "missedPairCount": 3
+  },
+  "restoredOriginalState": true,
+  "defaultWindow": {
+    "width": 1440,
+    "height": 960
+  },
+  "observedScreenshotPixels": {
+    "width": 2880,
+    "height": 1920
+  },
+  "layoutChecks": [
+    "Target and predicted folds visible at the native default size",
+    "Distinct candidates selected with keyboard controls",
+    "Near-miss extra and missed pair highlights inspected",
+    "Save control and Research Library reopen tested"
+  ],
+  "signatureAfterDesktop": "passed after quarantining unsealed bytecode caches; saved-result reopen passed without recreating them",
+  "modalApproval": "approved",
+  "signatureLog": "release-signature-after-reopen.log",
+  "cacheQuarantine": "signature-cache-quarantine.json",
+  "recoveryFix": {
+    "schema": "fold.rna-design-installed-resume-verification/1",
+    "runId": "104fe9cd-b70d-4b44-a443-e3cdb54dddbf",
+    "beforeEvaluations": 9,
+    "afterEvaluations": 10,
+    "beforeQualifying": 3,
+    "afterQualifying": 4,
+    "priorCandidatesRetained": true,
+    "priorCandidateFieldsUnchanged": true,
+    "observedAutomaticQueuedToCompleted": true,
+    "noNavigationNeededForPolling": true,
+    "savedRecordId": "85353cac-d830-4a38-81f4-6722b8a1c938",
+    "savedResultEqualsCompletedResult": true,
+    "reopenedInInstalledApp": true,
+    "oldSavedSnapshotUnchanged": true,
+    "resultSha256": "dfb04b037afe501be4a5942cf59235d61e8e98307e094ceb9b83963afd1f32fe",
+    "restoredOriginalLibrary": "/Users/vii/Documents/FoldStudio-MetalPort/validation/bindcraft-fab-amme-native",
+    "restoredOriginalProjectId": "fef08806-d3ac-4846-8143-60a76b8c1e63",
+    "restoredOriginalComputeMode": "modal",
+    "restorationObservedInInstalledApp": true
+  }
+}

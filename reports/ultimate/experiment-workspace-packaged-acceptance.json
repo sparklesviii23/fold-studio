@@ -1,0 +1,311 @@
+{
+ "app": "/Users/vii/Documents/FoldStudio-MetalPort/current/FOLD STUDIO Metal Dev.app",
+ "appExecutableSha256": "51aa00ab551df6b87e977052f6bb6f638187c3c7a7cff98af6a5aed759988a9d",
+ "library": "/private/tmp/claude-501/-Users-vii-Documents-FoldStudio-MetalPort/8bf0002d-1ca7-44f9-acff-8a35f0c62b62/scratchpad/qa",
+ "scope": "Installed app runtime and worker, one process per action as the native host spawns them. The native window itself was not clicked by this script.",
+ "checks": [
+  {
+   "name": "Installed scientific files match the source",
+   "passed": true,
+   "detail": {
+    "cell_em.py": true,
+    "cell_em_actions.py": true,
+    "light_pulse.py": true,
+    "light_pulse_actions.py": true,
+    "virtual_cell_registry.py": true,
+    "virtual_cell_results.py": true,
+    "virtual_cell.py": true,
+    "worker.py": true
+   }
+  },
+  {
+   "name": "Bundled dataset matches the source",
+   "passed": true,
+   "detail": null
+  },
+  {
+   "name": "Every workspace action is admitted by the native host",
+   "passed": true,
+   "detail": []
+  },
+  {
+   "name": "Real EM loads: catalog and contexts",
+   "passed": true,
+   "detail": {
+    "engine": "3.0.0",
+    "s": 8.01
+   }
+  },
+  {
+   "name": "EM volume slab",
+   "passed": true,
+   "detail": {
+    "s": 0.49
+   }
+  },
+  {
+   "name": "Registration of image, masks and simulation",
+   "passed": true,
+   "detail": [
+    "Every array reports 64 \u00d7 64 \u00d7 83.84 nm along x, y, z; the engine uses 64 \u00d7 64 \u00d7 83.84 nm.",
+    "750 \u00d7 100 \u00d7 398 voxels (x, y, z) in every array, in the class grid and in the simulation.",
+    "The image and the segmentations start at the same corner. foreground is offset by 2, 2, 2.62 nm (3.1 % of a voxel) and is used unshifted."
+   ]
+  },
+  {
+   "name": "Structure placement and atomic inspection data",
+   "passed": true,
+   "detail": {
+    "asset": "fefd6c29-e40c-41b8-ae7a-d5cb7c62d7f8.cif",
+    "atoms": 3788,
+    "residues": 460,
+    "chains": [
+     "A"
+    ],
+    "radiusNm": 5.52
+   }
+  },
+  {
+   "name": "Spatial run: confinement, units, counts agree with events",
+   "passed": true,
+   "detail": {
+    "checks": [
+     [
+      "Free-diffusion control",
+      true
+     ],
+     [
+      "Confinement",
+      true
+     ],
+     [
+      "Step length",
+      true
+     ],
+     [
+      "Counts agree with events",
+      true
+     ]
+    ],
+    "events": {
+     "binds": 0,
+     "releases": 0,
+     "pairBinds": 28,
+     "pairReleases": 15,
+     "born": 45,
+     "died": 49,
+     "converted": 0,
+     "saturated": 0,
+     "thick": 0,
+     "crossings": 36
+    },
+    "s": 1.46
+   }
+  },
+  {
+   "name": "Plotted occupancy equals copies present",
+   "passed": true,
+   "detail": {
+    "present": 116,
+    "crossings": {
+     "ne": 36
+    }
+   }
+  },
+  {
+   "name": "Binding events are logged with time, place and compartment",
+   "passed": true,
+   "detail": {
+    "events": 43,
+    "first": {
+     "time": 0.0109656,
+     "frame": 2,
+     "kind": "bind",
+     "a": 56,
+     "b": 220,
+     "species": [
+      "A",
+      "B"
+     ],
+     "position": [
+      13.3808,
+      1.8505,
+      26.3882
+     ],
+     "compartment": "cytosol"
+    }
+   }
+  },
+  {
+   "name": "Event log count equals the binding counter",
+   "passed": true,
+   "detail": {
+    "logged": 28,
+    "counted": 28
+   }
+  },
+  {
+   "name": "Saved-run replay reproduces the first chunk frame for frame",
+   "passed": true,
+   "detail": null
+  },
+  {
+   "name": "Branch and compare at matched time",
+   "passed": true,
+   "detail": {
+    "changed": [
+     "pair interactions"
+    ],
+    "binds": [
+     28,
+     38
+    ],
+    "s": 3.94
+   }
+  },
+  {
+   "name": "Virtual Cell round trip: spatial run",
+   "passed": true,
+   "detail": {
+    "workspace": "spatial",
+    "run": "78456847e3684defa068d2c4f4506e36",
+    "context": "hela-jrc_hela-2"
+   }
+  },
+  {
+   "name": "Five-channel painting plus probe, physical proportions",
+   "passed": true,
+   "detail": {
+    "channels": [
+     "DNA",
+     "RNA",
+     "ER",
+     "AGP",
+     "Mito",
+     "Probe"
+    ],
+    "widthOverHeight": 1.4385,
+    "s": 0.99
+   }
+  },
+  {
+   "name": "Same spatial experiment in the E. coli context with its own calibrated diffusion",
+   "passed": true,
+   "detail": {
+    "D": 7.700910585649722,
+    "geometry": "illustrative"
+   }
+  },
+  {
+   "name": "Registry declares four contexts",
+   "passed": true,
+   "detail": {
+    "hela-jrc_hela-2": [
+     "spatial_diffusion"
+    ],
+    "CVCL_0027": [],
+    "ecoli-bw29655-ccasr": [
+     "light_pulse",
+     "spatial_diffusion"
+    ],
+    "K562": []
+   }
+  },
+  {
+   "name": "Light-pulse catalogue and fit",
+   "passed": true,
+   "detail": {
+    "heldOut": {
+     "mechanistic": 1.172,
+     "learned": 1.917,
+     "combined": 1.17,
+     "baseline": 3.79
+    },
+    "s": 11.7
+   }
+  },
+  {
+   "name": "Light-pulse baseline run and numerical checks",
+   "passed": true,
+   "detail": {
+    "checks": [
+     [
+      "Independent solver",
+      true
+     ],
+     [
+      "Bounds",
+      true
+     ],
+     [
+      "Step size",
+      true
+     ]
+    ],
+    "features": {
+     "amplitude": 74010.79509514043,
+     "timeToPeakMin": 153.3,
+     "halfRecoveryMin": 74.5438350058682
+    },
+    "s": 2.21
+   }
+  },
+  {
+   "name": "Held-out schedule: prediction beside the measurement",
+   "passed": true,
+   "detail": {
+    "foldError": 1.255,
+    "baseline": 3.179,
+    "runToRun": 1.234,
+    "amplitude": {
+     "measured": 61648.73,
+     "predicted": 59634.91762808769
+    },
+    "timeToPeak": {
+     "measured": 246.66666666666666,
+     "predicted": 220.0
+    }
+   }
+  },
+  {
+   "name": "Failure case is reported",
+   "passed": true,
+   "detail": {
+    "foldError": 3.071,
+    "amplitudeError": 1.69
+   }
+  },
+  {
+   "name": "Reopened experiment reproduces every plotted value",
+   "passed": true,
+   "detail": "Recomputed from the saved configuration: every plotted value is identical to the saved run."
+  },
+  {
+   "name": "Reopened comparison reproduces",
+   "passed": true,
+   "detail": [
+    "program"
+   ]
+  },
+  {
+   "name": "Virtual Cell round trip: light-pulse run",
+   "passed": true,
+   "detail": null
+  },
+  {
+   "name": "Closed loop after the open-loop gate",
+   "passed": true,
+   "detail": {
+    "open": 0.0353,
+    "closed": 0.0113,
+    "s": 3.69
+   }
+  },
+  {
+   "name": "Light pulse refused outside its context",
+   "passed": true,
+   "detail": ": The light-pulse experiment is calibrated for the E. coli CcaSR context only. No measurement of this reporter exists for the selected cell."
+  }
+ ],
+ "passed": true
+}

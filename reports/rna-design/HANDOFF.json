@@ -1,0 +1,450 @@
+{
+  "schema": "fold.rna-design-handoff/1",
+  "status": "installed_recovery_fixes_verified_modal_retry_pending",
+  "protocolSha256": "3a65f2487c5ac486e95adaa06548948adfe75a420dd8dbdc78eeb9353ccb8aa0",
+  "benchmarkSha256": "cfd334df989d9cdaaae043f5e47e4de2f8d3c1ea6a0ebabf2de034fc3d466608",
+  "checkpoint": "/Users/vii/Documents/FoldStudio-MetalPort/validation/bindcraft-fab-amme-native/engine/models/rna-design/pilot-v2/checkpoint.json",
+  "checkpointFileSha256": "71b91acb05b28e23bdc85c79465e4c0c5e76145574820d3bf5742865cbaa3850",
+  "selectedEpoch": 1,
+  "trainedParameters": 271188,
+  "frozenBackboneUnchanged": true,
+  "oldFoldingWeightsMatchReceipts": {
+    "compact": true,
+    "qwen_frozen": true,
+    "qwen_adapter": true
+  },
+  "researchDirtyInventoryUnchanged": true,
+  "runtimeLibrary": "/Users/vii/Documents/FoldStudio-MetalPort/fold-studio/reports/rna-design/runtime-library-v3",
+  "runtimeProjectId": "16fa47ca-eaf3-4e7a-ab14-287df0f0008b",
+  "installedDesignResourcePresent": true,
+  "paidCloudRunsLaunched": 5,
+  "modalApproval": "approved",
+  "installedUI": "passed",
+  "blockers": [
+    "Approval for one additional 180 s Modal CPU retry. Exact workload: MODAL_RECOVERY_RETRY.json."
+  ],
+  "sourceFiles": {
+    "scientific/rna_design.py": "584d53494d30814445ad0d411c03fab3db8760f9a857b69142b8984323ed499a",
+    "scientific/rna_design_core.py": "ce35482346d57b799e30ec0e0339a7086b5a86af7a9648f60572e9f0bb0f62be",
+    "scientific/rna_design_runtime.py": "ae1a28e5e17623a658402c27edb4c880cdf722ded3e901634422c625379b962e",
+    "scientific/rna_design_cloud.py": "300c916e0bc05ead6fadf961f1c40437cdbf7b92d88f1b3003595b5585d1a3ae",
+    "scientific/rna_design_qwen.py": "933c73b349e524cae02b68921680d8dbdd497da5c34b502c7061f2b732c91d1c",
+    "scientific/rna_design_recipe.py": "879cef6423f02f63c849e6a85e0f33c58657e2075e3584abf3e1bfd11791dcfb",
+    "scientific/rna_design_actions.py": "f504feb7b386a8f50b2e8eeb8986157c6e5f25318bb5e86b70c5f3cd126a810f",
+    "scientific/rna_design_install.json": "b5f41fbc447302ac6d8af4ca3d1da3e2b598b5ae4198cebfe867dd552c34f7dc",
+    "src/components/rna-lab/RnaDesignWorkspace.tsx": "44e62e8f3732459634f9c393a8df9ccb6f1f5c6050368561712e8c9bdd876ea1",
+    "src/components/rna-lab/rna-design.css": "f5a35cf654d24f9eb17fb569906210ff3c0fa46e7d442c559ef28f55cfab5f59",
+    "src/components/rna-lab/RnaLab.tsx": "86f6f991f930b6c2192df52182c1440b684b81776aac5a561cab14656276beab",
+    "src/App.tsx": "4dcdb7fa015d5af2bd5fe03004707f8c2d3c1c5b3edeb6f22fd106ed1d0ea8e3",
+    "src-tauri/src/main.rs": "e19b4d0b7ce6d5852c2225dd92e63b1880209d34a5e58c72ac63f37f36d5f85e",
+    "src-tauri/tauri.conf.json": "e2ab9d28e12cb9a0b3c34c1d45fe78569015019b6e29ed3fac99ac34ddd6fcb8"
+  },
+  "installedUIObservation": "Both targets passed. Two distinct simple candidates and hard near misses were inspected. Both saved candidates reopened with exact seals.",
+  "releaseVerification": {
+    "phase": "desktop_and_modal_import_verified_recovery_pending",
+    "timestampUTC": "2026-11-16T00:02:43.860563+00:00",
+    "buildAttempt": "release-build-missing-cargo.log",
+    "buildFailure": "cargo metadata: No such file or directory (os error 2)",
+    "fix": "build-local-app.sh now reuses the existing toolchain from reports/qwen-rna/BUILD_COMMAND.json when cargo is absent from PATH",
+    "toolchainCheck": "release-toolchain-check.log",
+    "signatureFinding": "Three added encodings __pycache__ files invalidate the old bundle signature. New build sealing removes caches. Native workers now inherit PYTHONDONTWRITEBYTECODE=1.",
+    "terminalAccess": "Computer Use is not allowed to use the app com.apple.Terminal for safety reasons",
+    "scratch": "release-scratch.json",
+    "originalState": "release-original-state.json",
+    "modalApproval": "original approved; supplement pending",
+    "paidJobsLaunched": 3,
+    "benchmarkAndModels": "Preserved. No retraining or benchmark rerun.",
+    "changedReleaseFiles": {
+      "scripts/with-build-toolchain.py": "15ea121be51fc9117e9a74f276e71929b3d6c37f8802f169c084b1f99f014a11",
+      "scripts/build-local-app.sh": "7dcb46ddc50cbcd5b85120c8b949413c94fd3286d42e7a318a8cc5d1fed70578",
+      "src-tauri/src/main.rs": "4cf2c08f5058d4a1bef6de29138dc630caee51404b6fcd31786148d9daef0db5"
+    },
+    "installedBundle": "/Users/vii/Documents/FoldStudio-MetalPort/validation/RAPID Foundation Engine/FOLD STUDIO Metal Dev.app",
+    "installedBinarySha256": "cc44068c3a7b2e787660b375aefee886f535996a651d3647f53b3de5f5443f95",
+    "bundleVersion": "4.3.0",
+    "resourcesMatchSource": true,
+    "signature": "passed after bytecode cache quarantine and saved-result reopen",
+    "buildLog": "release-build-wal.log",
+    "desktopObservation": "Both targets passed. Two distinct simple candidates and hard near misses were inspected. Both saved candidates reopened with exact seals.",
+    "workspaceFailure": "System sqlite3 -readonly cannot open a closed WAL library: SQLITE_CANTOPEN (14)",
+    "workspaceFix": "Use a mode=rw connection with query_only=ON. Keep header, schema and active-process guards. The mode refuses missing files; SQL writes remain blocked.",
+    "workspaceTests": "release-workspace-tests.log",
+    "signatureLog": "release-signature-after-reopen.log",
+    "workspaceSelector": "passed in installed app on the scratch WAL Library"
+  },
+  "sourceBeforeRelease": {
+    "scientific/rna_design.py": "584d53494d30814445ad0d411c03fab3db8760f9a857b69142b8984323ed499a",
+    "scientific/rna_design_core.py": "ce35482346d57b799e30ec0e0339a7086b5a86af7a9648f60572e9f0bb0f62be",
+    "scientific/rna_design_runtime.py": "ae1a28e5e17623a658402c27edb4c880cdf722ded3e901634422c625379b962e",
+    "scientific/rna_design_cloud.py": "d69a96e27f996cea329889d8e9afc7f65805a0e5b30e3f87f70decb0db4a5936",
+    "scientific/rna_design_qwen.py": "933c73b349e524cae02b68921680d8dbdd497da5c34b502c7061f2b732c91d1c",
+    "scientific/rna_design_recipe.py": "1f05aaafd6608a2686ce6ff8652cae262813e8f42d33823ed9f2a7558a75e6a7",
+    "scientific/rna_design_actions.py": "f504feb7b386a8f50b2e8eeb8986157c6e5f25318bb5e86b70c5f3cd126a810f",
+    "scientific/rna_design_install.json": "b5f41fbc447302ac6d8af4ca3d1da3e2b598b5ae4198cebfe867dd552c34f7dc",
+    "src/components/rna-lab/RnaDesignWorkspace.tsx": "807f5318252dc18bdf2266e4652acb276845e689d466e32c2d2f2c89b6d6b9af",
+    "src/components/rna-lab/rna-design.css": "f5a35cf654d24f9eb17fb569906210ff3c0fa46e7d442c559ef28f55cfab5f59",
+    "src/components/rna-lab/RnaLab.tsx": "86f6f991f930b6c2192df52182c1440b684b81776aac5a561cab14656276beab",
+    "src/App.tsx": "4dcdb7fa015d5af2bd5fe03004707f8c2d3c1c5b3edeb6f22fd106ed1d0ea8e3",
+    "src-tauri/src/main.rs": "71032721d2b34b6bef3cea96d3afc279883901f4bd0377b15d37fc788e6c7959",
+    "src-tauri/tauri.conf.json": "3c15a7fc66d9770200446478f765012278bee7235b9f534d19ad662930ae9852"
+  },
+  "desktop": {
+    "schema": "fold.rna-design-desktop-verification/1",
+    "phase": "desktop_passed_modal_approval_pending",
+    "library": "/Users/vii/Documents/FoldStudio-MetalPort/fold-studio/reports/rna-design/release-library",
+    "projectId": "78483e09-5775-4f91-8444-9baca455d197",
+    "simple": {
+      "runId": "ca623920-f6ef-46bd-a373-35d6c64953c9",
+      "recordId": "5ba3098f-16fc-4fe8-8bc1-8ec33d40104f",
+      "resultSha256": "d8f85b360dc0537f6cfeb56dd055e792c0cdbaa35565ad4b155f250f996f7742",
+      "sequence": "GACGUAUUUGUC",
+      "target": "((((....))))",
+      "comparedSequences": [
+        "GCAGAUUUCUGU",
+        "GACGUAUUUGUC"
+      ],
+      "missedPairs": [],
+      "extraPairs": [],
+      "independentDisagreementPairs": [
+        [
+          1,
+          12
+        ],
+        [
+          2,
+          11
+        ],
+        [
+          3,
+          10
+        ],
+        [
+          4,
+          9
+        ]
+      ],
+      "qualifyingCount": 3,
+      "metrics": {
+        "attempts": 4,
+        "solverCalls": 4,
+        "evaluations": 3,
+        "secondaryEvaluations": 3,
+        "batches": 3,
+        "elapsedSeconds": 0.013506082992535084,
+        "firstSuccessSeconds": 0.0014886669960105792,
+        "stopReason": "enough_candidates"
+      },
+      "uiSaveAndReopen": true,
+      "exactCandidateAndScoresMatch": true,
+      "uiRunIdAndSealMatch": true
+    },
+    "harder": {
+      "runId": "104fe9cd-b70d-4b44-a443-e3cdb54dddbf",
+      "recordId": "fef20a45-833b-4598-902c-8a44a6defef9",
+      "resultSha256": "665bf6092b6be3593a9b7a8f9d22c2db071c24762516fa371e80479bb04e63c9",
+      "sequence": "CGGAACAGCACAUUACUGAACUCUUCUACUGAGACCCG",
+      "target": "(((..(((.......)))..(((.......)))..)))",
+      "qualifyingCount": 3,
+      "candidateCount": 9,
+      "metrics": {
+        "attempts": 9,
+        "solverCalls": 9,
+        "evaluations": 9,
+        "secondaryEvaluations": 6,
+        "batches": 9,
+        "elapsedSeconds": 0.3041048329905607,
+        "firstSuccessSeconds": 0.09354454198910389,
+        "stopReason": "enough_candidates"
+      },
+      "wallSeconds": 0.5074604580004234,
+      "startupSeconds": 0.0006874579994473606,
+      "searchSeconds": 0.338490832989919,
+      "exactCandidateAndScoresMatch": true,
+      "uiSaveAndReopen": true,
+      "uiInspectedExtraPairCandidate": "GUCGACUGCACAUUACAGGCCUCUUCUACUGAGACGAC",
+      "uiInspectedMissingPairCandidate": "GUCAACUGCACAUUACGGGCCUAUUCUACUUAGACGAC",
+      "extraPairCount": 1,
+      "missedPairCount": 3
+    },
+    "restoredOriginalState": true,
+    "defaultWindow": {
+      "width": 1440,
+      "height": 960
+    },
+    "observedScreenshotPixels": {
+      "width": 2880,
+      "height": 1920
+    },
+    "layoutChecks": [
+      "Target and predicted folds visible at the native default size",
+      "Distinct candidates selected with keyboard controls",
+      "Near-miss extra and missed pair highlights inspected",
+      "Save control and Research Library reopen tested"
+    ],
+    "signatureAfterDesktop": "passed after quarantining unsealed bytecode caches; saved-result reopen passed without recreating them",
+    "modalApproval": "approved",
+    "signatureLog": "release-signature-after-reopen.log",
+    "cacheQuarantine": "signature-cache-quarantine.json",
+    "recoveryFix": {
+      "schema": "fold.rna-design-installed-resume-verification/1",
+      "runId": "104fe9cd-b70d-4b44-a443-e3cdb54dddbf",
+      "beforeEvaluations": 9,
+      "afterEvaluations": 10,
+      "beforeQualifying": 3,
+      "afterQualifying": 4,
+      "priorCandidatesRetained": true,
+      "priorCandidateFieldsUnchanged": true,
+      "observedAutomaticQueuedToCompleted": true,
+      "noNavigationNeededForPolling": true,
+      "savedRecordId": "85353cac-d830-4a38-81f4-6722b8a1c938",
+      "savedResultEqualsCompletedResult": true,
+      "reopenedInInstalledApp": true,
+      "oldSavedSnapshotUnchanged": true,
+      "resultSha256": "dfb04b037afe501be4a5942cf59235d61e8e98307e094ceb9b83963afd1f32fe",
+      "restoredOriginalLibrary": "/Users/vii/Documents/FoldStudio-MetalPort/validation/bindcraft-fab-amme-native",
+      "restoredOriginalProjectId": "fef08806-d3ac-4846-8143-60a76b8c1e63",
+      "restoredOriginalComputeMode": "modal",
+      "restorationObservedInInstalledApp": true
+    }
+  },
+  "modal": {
+    "schema": "fold.rna-design-modal-verification/1",
+    "approvedTrial": "MODAL_TRIAL.json",
+    "runs": [
+      {
+        "trial": 1,
+        "runId": "b823a61f-514b-41ae-bce2-aaa88e8b826d",
+        "taskId": "1ce4ead9fa9a4c9fad1c8d647b727247",
+        "target": "((((....))))",
+        "request": {
+          "target": "((((....))))",
+          "mask": "NNNNNNNNNNNN",
+          "locks": "............",
+          "maxCandidates": 32,
+          "maxSeconds": 10,
+          "wanted": 3,
+          "seed": 1,
+          "gcMin": 0,
+          "gcMax": 1,
+          "maxHomopolymer": 128,
+          "method": "solver"
+        },
+        "state": "failed",
+        "allocatedSandbox": false,
+        "outcome": "authentication rejected before sandbox allocation"
+      },
+      {
+        "trial": 1,
+        "attempt": 2,
+        "runId": "9560a009-3a0f-4c99-aea4-5b7b7fe0eab4",
+        "taskId": "21a15c53904d4c15a712ff6ea249d03d",
+        "target": "((((....))))",
+        "request": {
+          "target": "((((....))))",
+          "mask": "NNNNNNNNNNNN",
+          "locks": "............",
+          "maxCandidates": 32,
+          "maxSeconds": 10,
+          "wanted": 3,
+          "seed": 1,
+          "gcMin": 0,
+          "gcMax": 1,
+          "maxHomopolymer": 128,
+          "method": "solver"
+        },
+        "state": "completed",
+        "sandboxId": "sb-01M7J75BXJ3BHWER8XYR8C6FA8",
+        "allocatedSandbox": true,
+        "qualifyingCount": 3,
+        "retainedCandidates": 3,
+        "resultSha256": "0ac6a828cdf5896697152da5942a4a059733b95d3910930d54a91465cb6afcb9",
+        "recordId": "4d8016cd-bb3f-4b1d-9a81-4541fdd6c913",
+        "uiImported": true,
+        "uiSaveAndReopen": true,
+        "runtimeUsage": {
+          "runtimeSeconds": 0.10620247099999996,
+          "billedCost": null,
+          "hardware": "1 CPU core, 2048 MiB",
+          "runId": "9560a009-3a0f-4c99-aea4-5b7b7fe0eab4",
+          "persistence": "sync /cache per batch; Modal background and shutdown volume commits"
+        },
+        "estimatedMaximumUSD": 0.00686,
+        "billedCost": null,
+        "localComparison": {
+          "sameRequest": true,
+          "sameSequences": true,
+          "maximumScoreDifference": 0.0,
+          "localMetrics": {
+            "attempts": 4,
+            "solverCalls": 4,
+            "evaluations": 3,
+            "secondaryEvaluations": 3,
+            "batches": 3,
+            "elapsedSeconds": 0.013506082992535084,
+            "firstSuccessSeconds": 0.0014886669960105792,
+            "stopReason": "enough_candidates"
+          },
+          "modalMetrics": {
+            "attempts": 4,
+            "solverCalls": 4,
+            "evaluations": 3,
+            "secondaryEvaluations": 3,
+            "batches": 3,
+            "elapsedSeconds": 0.06484707,
+            "firstSuccessSeconds": 0.005335617999999986,
+            "stopReason": "enough_candidates"
+          }
+        }
+      },
+      {
+        "trial": 2,
+        "runId": "1271ac85-c2fe-469e-91a5-327d0c5bf757",
+        "taskId": "5de12b3d4bd84b2b991c012aafab8db7",
+        "request": {
+          "target": "((..((.......))..(((...)))..))",
+          "mask": "NNNNNNNNNNNNNNNNNNNNNNNNNNNNNN",
+          "locks": "..............................",
+          "maxCandidates": 128,
+          "maxSeconds": 20,
+          "wanted": 3,
+          "seed": 1,
+          "gcMin": 0,
+          "gcMax": 1,
+          "maxHomopolymer": 128,
+          "method": "solver"
+        },
+        "state": "completed",
+        "sandboxId": "sb-01M7JB0FHN6DN8DXEEKTQQWFAV",
+        "retainedCandidates": 128,
+        "qualifyingCount": 0,
+        "metrics": {
+          "attempts": 196,
+          "solverCalls": 196,
+          "evaluations": 128,
+          "secondaryEvaluations": 14,
+          "batches": 128,
+          "elapsedSeconds": 7.410129092,
+          "firstSuccessSeconds": null,
+          "stopReason": "candidate_limit"
+        },
+        "resultSha256": "cc792b8e7b8132df7317ed01cff2471410da07632f46defd92cc04dc246634cf",
+        "allocatedSandbox": true
+      },
+      {
+        "trial": 3,
+        "runId": "324e25c9-3a32-4cb4-9003-ff47d7a7d343",
+        "taskId": "30fe6b04adbc47ca9d72ee524ebb39d9",
+        "sandboxId": "sb-01M7JB5SAPQJ24XJ4WTDZBZ8RZ",
+        "state": "completed",
+        "allocatedSandbox": true,
+        "request": {
+          "target": "((....))",
+          "mask": "NNNNNNNN",
+          "locks": "........",
+          "maxCandidates": 4096,
+          "maxSeconds": 60,
+          "wanted": 20,
+          "seed": 1,
+          "gcMin": 0,
+          "gcMax": 1,
+          "maxHomopolymer": 128,
+          "method": "solver"
+        },
+        "metrics": {
+          "attempts": 39,
+          "solverCalls": 39,
+          "evaluations": 26,
+          "secondaryEvaluations": 25,
+          "batches": 26,
+          "elapsedSeconds": 0.80980557,
+          "firstSuccessSeconds": 0.007606676000000034,
+          "stopReason": "enough_candidates"
+        },
+        "retainedCandidates": 26,
+        "qualifyingCount": 20,
+        "verificationOutcome": "The run finished in 0.80980557 s after 20 qualifiers. It was too fast to qualify cancellation."
+      },
+      {
+        "trial": "approved recovery supplement",
+        "runId": "1271ac85-c2fe-469e-91a5-327d0c5bf757",
+        "taskId": "6f288558510745e1896237cdb1dc0bd3",
+        "sandboxId": "sb-01M7QDJY402PSKPH09Z3SYWH9Z",
+        "state": "stopped",
+        "allocatedSandbox": true,
+        "created": "2026-11-18T13:29:50Z",
+        "finished": "2026-11-18T13:30:46Z",
+        "error": "Stopped by you; 4 file(s) written before the stop were kept.",
+        "retainedEvaluations": 522,
+        "billedCost": null,
+        "runtimeUsage": {
+          "runtimeSeconds": 49.633124375,
+          "billedCost": null,
+          "hardware": "1 CPU core, 2048 MiB",
+          "runId": "1271ac85-c2fe-469e-91a5-327d0c5bf757",
+          "persistence": "sync /cache per batch; Modal background and shutdown volume commits"
+        },
+        "outcome": "Cancellation and partial import passed."
+      },
+      {
+        "trial": "approved recovery supplement",
+        "runId": "1271ac85-c2fe-469e-91a5-327d0c5bf757",
+        "taskId": "2ae33711ff9f4c7baa9e7113e0af8a29",
+        "sandboxId": "sb-01M7QDP2G9JFJ65ZJTVK0S04XP",
+        "state": "failed",
+        "allocatedSandbox": true,
+        "created": "2026-11-18T13:31:32Z",
+        "finished": "2026-11-18T13:32:51Z",
+        "error": "Exit code 2. [dumb-init] bash: Argument list too long",
+        "retainedEvaluations": 522,
+        "billedCost": null,
+        "outcome": "Container startup failed before scientific work. Prior partial state remains."
+      }
+    ],
+    "authentication": {
+      "previousProfileId": "eb65b0e4587044e9870a779eab829c51",
+      "previousFailure": "Token has expired",
+      "failedAttemptHadSandbox": false,
+      "renewedProfileId": "be145cdf8e4f45779da0123407f64971",
+      "renewedState": "connected",
+      "workspaceObservedInOfficialBrowser": "sparklesviii",
+      "credentialExpiryDays": 7,
+      "credentialStorage": "macOS Keychain; no token values copied to reports"
+    },
+    "approvedSupplement": "MODAL_TRIAL_SUPPLEMENT.json",
+    "allocatedContainers": 5,
+    "cancellationVerified": true,
+    "resumeVerified": false,
+    "retryWorkload": "MODAL_RECOVERY_RETRY.json"
+  },
+  "nextAction": "After approval, resume the same 30 nt run from 522 evaluations to its remaining total 60 s search limit. Verify file upload, automatic UI completion, retained batches and exact new-evaluation accounting. Restore original Library/project/Modal mode.",
+  "sourceBeforeRecovery": {
+    "scientific/rna_design.py": "584d53494d30814445ad0d411c03fab3db8760f9a857b69142b8984323ed499a",
+    "scientific/rna_design_core.py": "ce35482346d57b799e30ec0e0339a7086b5a86af7a9648f60572e9f0bb0f62be",
+    "scientific/rna_design_runtime.py": "ae1a28e5e17623a658402c27edb4c880cdf722ded3e901634422c625379b962e",
+    "scientific/rna_design_cloud.py": "d69a96e27f996cea329889d8e9afc7f65805a0e5b30e3f87f70decb0db4a5936",
+    "scientific/rna_design_qwen.py": "933c73b349e524cae02b68921680d8dbdd497da5c34b502c7061f2b732c91d1c",
+    "scientific/rna_design_recipe.py": "1f05aaafd6608a2686ce6ff8652cae262813e8f42d33823ed9f2a7558a75e6a7",
+    "scientific/rna_design_actions.py": "f504feb7b386a8f50b2e8eeb8986157c6e5f25318bb5e86b70c5f3cd126a810f",
+    "scientific/rna_design_install.json": "b5f41fbc447302ac6d8af4ca3d1da3e2b598b5ae4198cebfe867dd552c34f7dc",
+    "src/components/rna-lab/RnaDesignWorkspace.tsx": "807f5318252dc18bdf2266e4652acb276845e689d466e32c2d2f2c89b6d6b9af",
+    "src/components/rna-lab/rna-design.css": "f5a35cf654d24f9eb17fb569906210ff3c0fa46e7d442c559ef28f55cfab5f59",
+    "src/components/rna-lab/RnaLab.tsx": "86f6f991f930b6c2192df52182c1440b684b81776aac5a561cab14656276beab",
+    "src/App.tsx": "4dcdb7fa015d5af2bd5fe03004707f8c2d3c1c5b3edeb6f22fd106ed1d0ea8e3",
+    "src-tauri/src/main.rs": "e19b4d0b7ce6d5852c2225dd92e63b1880209d34a5e58c72ac63f37f36d5f85e",
+    "src-tauri/tauri.conf.json": "3c15a7fc66d9770200446478f765012278bee7235b9f534d19ad662930ae9852"
+  },
+  "recoveryFix": {
+    "timestampUTC": "2026-11-18T13:44:37.953577+00:00",
+    "buildLog": "recovery-fix-build.log",
+    "resourceHashes": "recovery-fix-installed-resources.json",
+    "moduleClosure": 173,
+    "signatureAfterUse": "recovery-fix-signature-after-use.log",
+    "signaturePassed": true,
+    "backendTests": 33,
+    "interfaceTests": 12,
+    "typeScriptPassed": true,
+    "installedResumePassed": true,
+    "newSavedRecordId": "85353cac-d830-4a38-81f4-6722b8a1c938",
+    "originalWorkspaceRestored": true
+  }
+}

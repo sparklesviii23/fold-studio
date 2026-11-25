@@ -178,3 +178,10 @@ td.down { color: var(--vc-down); }
 .vc-cf-grid figure { margin: 0; display: grid; grid-template-columns: 1fr 1fr; gap: 3px; }
 .vc-cf-grid img { width: 100%; image-rendering: pixelated; border-radius: 6px; }
 .vc-cf-grid figcaption { grid-column: 1 / -1; font-size: 0.66rem; color: var(--text-faint); text-align: center; }
+
+.add-to-cell { position: fixed; top: 14px; right: 220px; z-index: 60; display: inline-flex; align-items: center; gap: 7px; padding: 7px 14px; border-radius: 999px; font-size: 0.8rem; min-height: 0;
+  color: #050816; background: linear-gradient(110deg, #f4f8ff, #cfe9ff 50%, #d9ccff); border: 0; box-shadow: 0 10px 30px -12px rgb(150 210 255 / 0.9); }
+.vc-events { display: grid; gap: 4px; max-height: 260px; overflow: auto; }
+.vc-events button { display: grid; grid-template-columns: 78px 60px 1fr auto; gap: 10px; align-items: center; text-align: left; padding: 6px 10px; border-radius: 10px; font-size: 0.74rem; min-height: 0; background: rgb(255 255 255 / 0.03); border: 1px solid rgb(255 255 255 / 0.06); color: inherit; }
+.vc-events button:hover { background: rgb(159 220 255 / 0.1); border-color: rgb(159 220 255 / 0.35); }
+.vc-events button span:first-child, .vc-events button span:nth-child(2) { font-family: var(--font-mono); font-size: 0.68rem; }

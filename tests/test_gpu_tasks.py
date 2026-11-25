@@ -14,7 +14,7 @@ def svc(tmp):
 class RecipeTests(unittest.TestCase):
     def test_catalog_hides_scripts_and_lists_every_recipe(self):
         c = G.dispatch(svc(tempfile.mkdtemp()), 'gpu_tasks_catalog', {})
-        self.assertEqual(set(c['recipes']), {'rhofold', 'boltz_rna', 'hemocell', 'physicell', 'custom', 'bio_evo2', 'bio_borzoi', 'bio_esmc', 'bio_esmfold2', 'bio_antisense', 'tahoe_atlas'})
+        self.assertEqual(set(c['recipes']), {'rhofold', 'boltz_rna', 'hemocell', 'physicell', 'custom', 'bio_evo2', 'bio_borzoi', 'bio_esmc', 'bio_esmfold2', 'bio_antisense', 'tahoe_atlas', 'rna_design_cpu'})
         self.assertTrue(all('script' not in r for r in c['recipes'].values()))
         self.assertTrue(all(r['license'] for r in c['recipes'].values()))
 
@@ -38,6 +38,68 @@ class RecipeTests(unittest.TestCase):
 
 class LifecycleTests(unittest.TestCase):
     """Simulated provider: verifies launch, polling, download, path safety and the record, with no network or cost."""
+
+    def test_large_design_resume_uses_a_file_and_reaches_the_cloud_worker(self):
+        import os
+        import rna_design_cloud
+        import rna_design_core
+        body = {'request': {'target': '((....))'}, 'runId': 'same-run',
+                'files': {'rna_design_core.py': '# preserved source\n', 'rna_design_cloud.py': '# worker\n', 'rna_lab_fold.py': '# checker\n'},
+                'resumeState': {'evaluations': 522, 'seen': [str(i) * 30 for i in range(4096)]}}
+        inputs = {'design': json.dumps(body)}
+        self.assertGreater(len(json.dumps(inputs).encode()), 131072)
+        provider = mock.MagicMock()
+        provider.Sandbox.create.return_value.object_id = 'sb-file-input'
+        volume = provider.Volume.from_name.return_value
+        uploaded = {}
+        volume.batch_upload.return_value.__enter__.return_value.put_file.side_effect = lambda stream, path: uploaded.update({path: stream.read()})
+        task = {'id': 'a' * 32, 'recipe': 'rna_design_cpu', 'inputs': inputs, 'gpu': None, 'timeout': 180, 'recipeSha256': 'sealed'}
+        with mock.patch.dict(sys.modules, {'modal': provider}), mock.patch.object(G, '_image'):
+            launched = G._remote('gpu_task_launch', {'task': task})
+        self.assertEqual(launched['sandboxId'], 'sb-file-input')
+        launch = provider.Sandbox.create.call_args.kwargs
+        self.assertNotIn('FOLD_INPUT', launch['env'])
+        self.assertLess(sum(len(v) for v in launch['env'].values()), 1024)
+        self.assertEqual((launch['timeout'], launch['cpu'], launch['memory']), (180, (1.0, 1.0), (2048, 2048)))
+        with tempfile.TemporaryDirectory() as tmp:
+            path = pathlib.Path(tmp) / 'input.json'
+            path.write_bytes(uploaded[launch['env']['FOLD_INPUT_FILE'].removeprefix('/cache')])
+            self.assertEqual(json.loads(path.read_text()), inputs)
+            env = {**os.environ, 'FOLD_INPUT_FILE': str(path), 'OUT': tmp}
+            env.pop('FOLD_INPUT', None)
+            code = G.RECIPES['rna_design_cpu']['script'].split("python - <<'PY'\n", 1)[1].split('\nPY\n', 1)[0]
+            subprocess.run([sys.executable, '-c', code], cwd=tmp, env=env, check=True, capture_output=True)
+            for name, content in body['files'].items():
+                self.assertEqual((pathlib.Path(tmp) / name).read_text(), content)
+            with mock.patch.dict(os.environ, env, clear=True), mock.patch.object(rna_design_cloud.signal, 'signal'), mock.patch.object(rna_design_cloud.subprocess, 'run'), mock.patch.object(rna_design_core, 'search') as search:
+                rna_design_cloud.main()
+            self.assertEqual(json.loads((pathlib.Path(tmp) / 'state.json').read_text()), body['resumeState'])
+            self.assertEqual(search.call_args.args[0], body['request'])
+
+    def test_cancel_during_launch_stops_the_late_sandbox_and_fetches_partial_files(self):
+        with tempfile.TemporaryDirectory() as tmp:
+            s = svc(tmp)
+            with mock.patch.object(G, '_provider', return_value=('/usr/bin/true', {}, 'a' * 32)), mock.patch.object(G.subprocess, 'Popen', return_value=mock.MagicMock(pid=999999)):
+                rec = G.dispatch(s, 'gpu_task_submit', {'recipe': 'rhofold', 'inputs': {'sequence': TRNA}, 'approvedRemoteCost': True})
+            with mock.patch.object(G, '_alive', return_value=True):
+                waiting = G.dispatch(s, 'gpu_task_cancel', {'taskId': rec['id']})
+            self.assertEqual(waiting['state'], 'launching')
+            self.assertTrue(waiting['stopRequested'])
+            d = G._folder(s) / rec['id']
+            (d / 'launch.json').write_text(json.dumps({'result': {'sandboxId': 'sb-late', 'appName': G.APP_NAME, 'launched': 0}}))
+            calls = []
+            def remote(service, action, payload, **kwargs):
+                calls.append(action)
+                if action == 'gpu_task_poll':
+                    return {'running': False, 'returncode': 137, 'stdout': 'partial saved', 'stderr': ''}
+                if action == 'gpu_task_fetch':
+                    return {'files': {'partial.json': b'{}'.hex()}}
+                return {}
+            with mock.patch.object(G, '_rpc', side_effect=remote):
+                stopped = G.dispatch(s, 'gpu_task_status', {'taskId': rec['id']})
+            self.assertEqual(calls, ['gpu_task_cancel_remote', 'gpu_task_poll', 'gpu_task_fetch'])
+            self.assertEqual(stopped['state'], 'stopped')
+            self.assertEqual(stopped['outputs'][0]['path'], 'partial.json')
 
     def test_launch_poll_fetch(self):
         with tempfile.TemporaryDirectory() as tmp:

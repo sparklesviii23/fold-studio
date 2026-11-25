@@ -1,0 +1,44 @@
+{
+  "schema": "fold.rna-design-modal-trial-supplement/1",
+  "reason": "The original 8 nt run reached 20 qualifiers in 0.80980557 s before cancellation could be sent. Preserve all results. Use the existing 30 nt run for a longer recovery test.",
+  "hardware": {
+    "cpu": 1,
+    "memoryMiB": 2048,
+    "gpu": null
+  },
+  "logicalRunId": "1271ac85-c2fe-469e-91a5-327d0c5bf757",
+  "reuse": "Resume from its saved 128 evaluations and attempt counters; do not start its completed batches again.",
+  "remainingTests": [
+    {
+      "purpose": "extend the existing 30 nt run, cancel after new batches",
+      "target": "((..((.......))..(((...)))..))",
+      "maxCandidates": 4096,
+      "maxSeconds": 60,
+      "wanted": 20,
+      "seed": 1,
+      "containerSeconds": 180
+    },
+    {
+      "purpose": "resume that same cancelled logical run to its remaining budget",
+      "target": "((..((.......))..(((...)))..))",
+      "maxCandidates": 4096,
+      "maxSeconds": 60,
+      "wanted": 20,
+      "seed": 1,
+      "containerSeconds": 180
+    }
+  ],
+  "additionalContainersBeyondOriginalApproval": 1,
+  "additionalContainerLimitSeconds": 180,
+  "additionalComputeEstimateUSD": 0.0094968,
+  "revisedAggregateContainerLimitSeconds": 810,
+  "revisedComputeEstimateUSD": 0.0427356,
+  "buildStorageAllowanceUSD": 0.06,
+  "billedCostUSD": null,
+  "approval": "approved",
+  "approvalRecord": {
+    "userMessage": "approved",
+    "timestampUTC": "2026-11-16T14:34:59.162930+00:00",
+    "scopeSha256": "e49e5ff4c6ac172f17a141c375dcaff03bd004020d01c0ab317a607313d1ac83"
+  }
+}

@@ -1,0 +1,76 @@
+{
+ "schema": "fold-studio.cell-painting-model/1",
+ "id": "6eca98e091cb4a90b8e18c7311dbbf9d",
+ "created": "2026-11-16T15:09:03Z",
+ "dataset": "jrc_hela-2",
+ "psfFwhmNm": 250.0,
+ "pixelUm": [
+  0.064,
+  0.08384
+ ],
+ "size": [
+  750,
+  398
+ ],
+ "channels": {
+  "DNA": {
+   "stain": "Hoechst 33342 (DNA)",
+   "color": "#3d6bff",
+   "weights": {
+    "chromatin": 1.0,
+    "nucleus": 0.35,
+    "nucleolus": 0.1
+   },
+   "scaledTo": "99.9th percentile"
+  },
+  "RNA": {
+   "stain": "SYTO 14 (nucleoli, cytoplasmic RNA)",
+   "color": "#f2e94e",
+   "weights": {
+    "nucleolus": 1.0,
+    "cytosol": 0.12
+   },
+   "scaledTo": "99.9th percentile"
+  },
+  "ER": {
+   "stain": "Concanavalin A (endoplasmic reticulum)",
+   "color": "#38ff80",
+   "weights": {
+    "er": 1.0,
+    "ne": 0.6
+   },
+   "scaledTo": "99.9th percentile"
+  },
+  "AGP": {
+   "stain": "Phalloidin + WGA (actin, Golgi, plasma membrane)",
+   "color": "#ff8033",
+   "weights": {
+    "golgi": 1.0,
+    "pm": 0.3
+   },
+   "scaledTo": "99.9th percentile"
+  },
+  "Mito": {
+   "stain": "MitoTracker Deep Red (mitochondria)",
+   "color": "#ff3a52",
+   "weights": {
+    "mito": 1.0
+   },
+   "scaledTo": "99.9th percentile"
+  }
+ },
+ "evidence": {
+  "category": "D",
+  "name": "Parameterised hypothesis",
+  "statement": "A forward model of the Cell Painting stains from the EM segmentation of one HeLa cell. Stain weights are assumptions; this is not a fluorescence measurement."
+ },
+ "limitations": [
+  "Actin and cytoplasmic RNA granules are not segmented and are missing from the AGP and RNA channels",
+  "Widefield sum projection with a Gaussian PSF; no noise, bleed-through, illumination or camera model",
+  "Stain weights per compartment are fixed assumptions, not fitted to any image"
+ ],
+ "engine": {
+  "name": "EM-derived Cell Painting model",
+  "version": "3.0.0"
+ }
+}

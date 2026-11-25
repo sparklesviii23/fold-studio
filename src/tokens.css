@@ -124,3 +124,18 @@ h4 {font-size:1rem;}
 .environment-scientific .observatory-caption {color:#39526d;}
 .focus .window-chrome {position:fixed;top:0;left:0;right:0;height:48px;min-height:48px;z-index:50;padding-left:92px;background:#0d2035de;}
 .focus .window-toolbar-controls {display:none;}
+
+/* Instrument palette: dark graphite surfaces, crisp neutral text, one electric accent. Colour is left to the data;
+   glow is used only for the active selection. Later rules win, so these override the earlier navy values. */
+:root {
+  --text-primary: #e9eef4; --text-secondary: #b4bdc9; --text-muted: #96a0ae;
+  --surface: #16191e; --surface-deep: #101216; --surface-glass: #14171cf0; --edge: #3a424e; --accent: #5ee6ff; --mint: #6fe3a1;
+  background: #0a0b0d;
+}
+.shell { background: #0a0b0d; }
+.shell > .cosmos-backdrop { opacity: 0.3; filter: saturate(0.2) brightness(0.8); }
+.window-chrome { border-bottom-color: #2c323b; }
+.sidebar { border-color: #2c323b; }
+.nav-item.active { background: #22262d; box-shadow: inset 2px 0 0 var(--accent); }
+.button.primary { background: var(--accent); color: #04161b; border-color: var(--accent); box-shadow: none; }
+.eyebrow { letter-spacing: 0.12em; }

@@ -1,0 +1,32 @@
+Building image im-gywGRa5xFcDZAm0pYe3Y0b
+=> Step 0: FROM python:3.12-slim
+Getting image source signatures
+Copying blob sha256:05e0eee5572e9c9f50408a2132590133b830a668a1cf2ff2b150f19c57707e2b
+Copying blob sha256:68bced9e0afa4479df17c3646e27c7c7e9ce9ba70c0e6c73b6826487b89037d9
+Copying blob sha256:2dc99d2d0a39fce31e37615eb4c932e16dcc4c2b0ce9993714280081b5dbe085
+Copying blob sha256:37fb86c2a767b88d500c6872195f88078f64765fe0d2f9cc375cc2efbd4c0a41
+Copying config sha256:78976a69c067520ef8be34cde307ef9f6fea6dcefa50edb57039773d241ca0db
+Writing manifest to image destination
+Unpacking OCI image
+   • unpacking rootfs ...     
+   • ... done                 
+   • unpacked image rootfs: /tmp/task-data/ta-01M7J74Z2W6SY61Y03PNGEE9CB/registry-unpacku1cgzW
+Copied image in 869.19ms
+Saving image...
+Image saved, took 1.12s
+Built image im-gywGRa5xFcDZAm0pYe3Y0b in 7.04s
+Building image im-xYzSz01w6vD3FF5FJQctBH
+=> Step 0: FROM base
+=> Step 1: RUN python -m pip install ViennaRNA==2.7.2
+Looking in indexes: http://pypi-mirror.modal.local:5555/simple
+Collecting ViennaRNA==2.7.2
+  Downloading http://pypi-mirror.modal.local:5555/simple/viennarna/viennarna-2.7.2-cp312-cp312-manylinux_2_24_x86_64.manylinux_2_28_x86_64.whl.metadata (13 kB)
+Downloading http://pypi-mirror.modal.local:5555/simple/viennarna/viennarna-2.7.2-cp312-cp312-manylinux_2_24_x86_64.manylinux_2_28_x86_64.whl (13.4 MB)
+   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 13.4/13.4 MB 142.6 MB/s eta 0:00:00
+Installing collected packages: ViennaRNA
+Successfully installed ViennaRNA-2.7.2
+[notice] A new release of pip is available: 25.0.1 -> 26.3
+[notice] To update, run: pip install --upgrade pip
+Saving image...
+Image saved, took 628.10ms
+Built image im-xYzSz01w6vD3FF5FJQctBH in 3.59s

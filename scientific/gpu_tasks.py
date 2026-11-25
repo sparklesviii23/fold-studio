@@ -245,6 +245,8 @@ ls -la $OUT
     },
 }
 
+from rna_design_recipe import RECIPE as RNA_DESIGN_RECIPE
+RECIPES['rna_design_cpu'] = RNA_DESIGN_RECIPE
 RECIPES.update(biological_recipes())
 
 def _folder(s):
@@ -266,7 +268,17 @@ def _clean_inputs(recipe_id, raw):
     for k, spec in r['inputs'].items():
         v = raw.get(k, spec.get('default'))
         t = spec['type']
-        if t == 'antisense_request':
+        if t == 'rna_design_request':
+            import rna_design_core
+            body = json.loads(v)
+            body['request'] = rna_design_core.validate(body['request'])
+            if body['request']['method'] != 'solver':
+                raise ValueError('Modal CPU supports Solver only.')
+            expected = {'rna_design_core.py', 'rna_design_cloud.py', 'rna_lab_fold.py'}
+            if set(body.get('files', {})) != expected or sum(len(x) for x in body['files'].values()) > 2000000:
+                raise ValueError('Invalid RNA Design source bundle.')
+            v = json.dumps(body)
+        elif t == 'antisense_request':
             import antisense_engine
             v = antisense_engine.clean(v)
         elif t in ('dna', 'dna_optional', 'protein'):
@@ -404,10 +416,22 @@ def _remote(action, p):
         kw = {'gpu': rec['gpu'], 'cpu': 8.0} if rec['gpu'] else {'cpu': float(r.get('cpu', 4))}
         if r.get('memory'):
             kw['memory'] = int(r['memory'])
+        if rec['recipe'] == 'rna_design_cpu':
+            kw.update(cpu=(1.0, 1.0), memory=(2048, 2048))
+        env = {'FOLD_TASK_ID': rec['id'], 'FOLD_RECIPE_SHA256': rec['recipeSha256']}
+        if rec['recipe'] == 'rna_design_cpu':
+            import io
+            # Store saved batches in a file to avoid the Linux environment-size limit.
+            input_path = f"/inputs/{_safe_id(rec['id'])}.json"
+            with vol.batch_upload() as batch:
+                batch.put_file(io.BytesIO(json.dumps(rec['inputs']).encode()), input_path)
+            env['FOLD_INPUT_FILE'] = '/cache' + input_path
+        else:
+            env['FOLD_INPUT'] = json.dumps(rec['inputs'])
         # Stream Modal's image-build output to stderr (launch.log) so the app can show build progress.
         with modal.enable_output():
             sb = modal.Sandbox.create('bash', '-lc', _header() + script + _footer(), app=app, image=_image(spec), timeout=int(rec['timeout']), volumes={'/cache': vol},
-                                      env={'FOLD_TASK_ID': rec['id'], 'FOLD_INPUT': json.dumps(rec['inputs']), 'FOLD_RECIPE_SHA256': rec['recipeSha256']}, **kw)
+                                      env=env, **kw)
         return {'sandboxId': sb.object_id, 'appName': APP_NAME, 'launched': time.time()}
     if action == 'gpu_task_poll':
         sb = modal.Sandbox.from_id(p['sandboxId'])
@@ -548,6 +572,10 @@ def status(s, p):
             rec.update(state='failed', error='The launcher stopped: ' + '\n'.join(l for l in log.splitlines() if 'token' not in l.lower())[-1500:])
         _write(s, rec)
     if rec['state'] == 'running':
+        if rec.get('stopRequested') and not rec.get('stopSent'):
+            _rpc(s, 'gpu_task_cancel_remote', {'sandboxId': rec['sandboxId']})
+            rec['stopSent'] = True
+            _write(s, rec)
         try:
             poll = _rpc(s, 'gpu_task_poll', {'sandboxId': rec['sandboxId']})
         except (ValueError, subprocess.TimeoutExpired) as e:
@@ -621,7 +649,12 @@ def dispatch(s, action, p):
         rec = _read(s, p.get('taskId'))
         if rec.get('sandboxId') and rec['state'] == 'running':
             _rpc(s, 'gpu_task_cancel_remote', {'sandboxId': rec['sandboxId']})
+            rec['stopSent'] = True
             rec['stopRequested'] = True     # the next status poll downloads whatever the task already wrote
+            _write(s, rec)
+            return status(s, {'taskId': rec['id']})
+        if rec['state'] == 'launching':
+            rec['stopRequested'] = True
             _write(s, rec)
             return status(s, {'taskId': rec['id']})
         rec['state'] = 'cancelled'
