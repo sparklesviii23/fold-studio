@@ -1,4 +1,6 @@
-# FOLD STUDIO
+<h1 align="center">FOLD STUDIO</h1>
+
+<p align="center"><i>A research workbench for proteins, RNA and cells, built for Apple Silicon.</i></p>
 
 <p align="center">
   <img src="docs/screenshots/home.jpg" alt="FOLD STUDIO home screen" width="100%">
@@ -6,346 +8,285 @@
 
 <p align="center">
   <a href="https://github.com/sparklesviii23/fold-studio/releases/latest"><b>Download for macOS</b></a> ·
-  <a href="#whats-inside">Features</a> ·
+  <a href="#gallery">Gallery</a> ·
+  <a href="#whats-inside">What's inside</a> ·
   <a href="#how-it-works">How it works</a> ·
-  <a href="#getting-started">Build from source</a>
+  <a href="#getting-started">Getting started</a>
 </p>
 
-FOLD STUDIO is an experimental macOS research application for protein design,
-molecular analysis, RNA design, cell simulation and cancer data analysis. It runs
-on Apple Silicon. Heavy jobs can run on this Mac or on a cloud server you connect.
+---
 
-Version 4.3.0. Research software: every result is a computational prediction or
-simulation, not an experimental measurement. Each screen labels what kind of
-evidence it shows.
+FOLD STUDIO puts structure prediction, protein design, RNA folding, cell
+simulation and cancer data analysis in one desktop app. Light work runs on your
+Mac. Heavy models run in containers on your own [Modal](https://modal.com)
+account, and the results come back into the same research library.
 
-## Contents
+Every result keeps its inputs, model version, logs and checksums, so you can
+reopen it and see how it was made. Every screen says what kind of evidence it
+shows: a measurement, a model prediction, a simulation or an illustration.
+Results are computational predictions, not experimental findings.
 
-- [What's inside](#whats-inside)
-- [How it works](#how-it-works)
-- [Getting started](#getting-started)
-- [Project Metal · current macOS scope](#project-metal--current-macos-scope)
-- [Requirements and build](#requirements-and-build)
-- [Current limitations](#current-limitations)
+Version 4.3.0 · macOS on Apple Silicon · app code under the MIT licence.
 
-## What's inside
+## Highlights
 
-The app is organised into areas: **Research**, **Design**, **Analyse** and
-**Visualise**. Each item below links to its detailed document.
+- **Protein design without an NVIDIA GPU.** The original BindCraft2 pipeline
+  (AlphaFold2 design, ProteinMPNN, AlphaFold2 refolding, filters) runs on Apple
+  Silicon through JAX on Metal.
+- **A real cell to experiment in.** Open a HeLa cell imaged by electron
+  microscopy, release molecules into it, and watch them diffuse and bind.
+- **Virtual cells.** Build a K-562 cell from public Perturb-seq and DepMap data,
+  switch genes on or off, add drugs, and compare branches.
+- **Cloud models on your own account.** Each run needs your approval; its files,
+  logs and checksums return to your library.
+- **RNA end to end.** Folding ensembles, exact folding kinetics, inverse design,
+  and 3D prediction checked against crystal structures.
+- **Cancer data you can query.** DepMap dependencies, GDSC drug response and
+  TCGA cohorts in one workspace.
 
-### Protein structures and design
+## Gallery
 
-- **Structure viewer and library.** Import PDB and mmCIF files and view them with
-  Mol* (atoms, cartoons, surfaces, chain and residue colours, measurements). A
-  saved research library keeps names, notes and projects.
-- **BindCraft2 binder design on Apple Silicon.** The original BindCraft2 pipeline
-  runs locally without an NVIDIA GPU: AlphaFold2 design, ProteinMPNN sequence
-  redesign, independent AlphaFold2 refolding, then the original filters and
-  ranking. Campaigns can be paused, continued, reranked and exported. See
-  [Project Metal](#project-metal--current-macos-scope).
-- **Boltz-2 structure prediction** on the Mac GPU (PyTorch/MPS), with affinity
-  prediction.
-- **Molecular Intelligence Lab.** Contacts, clashes, buried surface area,
-  hotspots and interface reports for saved structures.
-  [Details](docs/MOLECULAR_INTELLIGENCE_4_3.md)
-- **Ligand preparation.** Turn a SMILES string into 3D conformers with RDKit and
-  export SDF. [Details](docs/LIGAND_PREPARATION.md)
-- **Short protein dynamics.** OpenMM simulations of saved proteins, and a
-  reference molecular-dynamics demo on Trp-cage.
-  [Pilots](docs/DYNAMICS_PILOTS.md) · [Reference](docs/MD_REFERENCE.md)
-- **Molecular cinema.** Rendered movies of designed complexes.
+Every picture comes from the current app. The experiments were run to make
+them: local ones on an M4 Pro, cloud ones on Modal.
+
+### Proteins and structure
 
 <table>
 <tr>
-<td width="50%"><img src="docs/screenshots/peptide-interface.jpg" alt="Designed peptide at the ANGPTL3 interface"><br><sub>Designed peptide at the ANGPTL3 interface</sub></td>
-<td width="50%"><img src="docs/screenshots/bindcraft-ensemble.jpg" alt="BindCraft2 design ensemble in the Mol* viewer"><br><sub>BindCraft2 design ensemble in the Mol* viewer</sub></td>
+<td width="50%"><img src="docs/screenshots/molecular-viewer.jpg" alt="ANGPTL3 in the Mol* viewer"><br><sub><b>Molecular Viewer.</b> ANGPTL3 from AlphaFold DB, drawn with Mol*.</sub></td>
+<td width="50%"><img src="docs/screenshots/esmfold2-gfp.jpg" alt="GFP predicted by ESMFold2"><br><sub><b>ESMFold2 on Modal (A100).</b> Green fluorescent protein predicted from sequence; the barrel fold comes out.</sub></td>
 </tr>
-</table>
-
-<table>
 <tr>
-<td width="50%"><img src="docs/screenshots/bindcraft-architect.jpg" alt="BindCraft Architect campaign setup"><br><sub>BindCraft Architect campaign setup</sub></td>
-<td width="50%"><img src="docs/screenshots/openmm-dynamics.jpg" alt="OpenMM dynamics with per-residue fluctuations"><br><sub>OpenMM dynamics with per-residue fluctuations</sub></td>
-</tr>
-</table>
-
-### RNA
-
-- **RNA Design.** Give a target secondary structure in dot-bracket notation and
-  get candidate RNA sequences that fold into it, scored with ViennaRNA.
-  [Details](docs/RNA_DESIGN.md)
-- **Qwen RNA engine.** An experimental RNA structure predictor built on
-  Qwen2.5-Coder-3B. It is a research pilot and currently scores below the
-  classical baselines. [Details](docs/QWEN_RNA_ENGINE.md)
-- **RNA-to-Protein Lab.** RNA folding ensembles, exact folding kinetics and
-  translation. [Lab](docs/RNA_TO_PROTEIN_LAB.md) ·
-  [Kinetics](docs/RNA_FOLDING_KINETICS.md)
-- **EditCraft.** Genome and RNA engineering workspace: a versioned biological
-  registry, a workflow editor (gene context → coding-sequence analysis → RNA
-  folding), and off-target, pathway and single-cell engines.
-  [Details](docs/EDITCRAFT_IMPLEMENTATION.md)
-
-<table>
-<tr>
-<td width="50%"><img src="docs/screenshots/editcraft.jpg" alt="EditCraft genome and RNA engineering"><br><sub>EditCraft genome and RNA engineering</sub></td>
-<td width="50%"><img src="docs/screenshots/protein-explorer.jpg" alt="Protein Explorer with UniProt annotations"><br><sub>Protein Explorer with UniProt annotations</sub></td>
+<td width="50%"><img src="docs/screenshots/bindcraft-architect.jpg" alt="BindCraft Architect"><br><sub><b>BindCraft Architect.</b> Binder design campaigns that run locally on Apple Silicon.</sub></td>
+<td width="50%"><img src="docs/screenshots/protein-explorer.jpg" alt="Protein Explorer"><br><sub><b>Protein Explorer.</b> UniProt sequences, annotations and known structures.</sub></td>
 </tr>
 </table>
 
 ### Cells
 
-- **Virtual Cell.** Persistent model cells (K-562, Hep G2 and Tahoe-100M cell
-  lines) that you can perturb, observe, branch and compare, modelled on the AIDO
-  Cell interface. Uses Replogle 2022, Norman 2019, Tahoe-100M, C2S-Pythia and
-  CellFlux. [Overview](docs/VIRTUAL_CELL.md) ·
-  [Capabilities and status](docs/VIRTUAL_CELL_CAPABILITIES.md)
-- **Cell Explorer workspace.** Open a real HeLa cell from electron microscopy
-  (OpenOrganelle `jrc_hela-2`) or an illustrative E. coli. Explore it in 3D, run
-  Brownian-dynamics experiments with binding, synthesis and decay, run
-  light-pulse gene-expression experiments, and compare runs side by side.
-  See `AGENTS.md` and [Living Cell physics](docs/LIVING_CELL_PHYSICS.md).
-- **Mechanistic Biology Lab.** Runs published SBML kinetic models with SciPy and
-  shows inspectable, exportable results.
-  [Details](docs/MECHANISTIC_BIOLOGY_LAB.md)
-- **Multiscale experiments.** One-way coupled molecule-to-cell simulations,
-  spatial reaction-diffusion, and blood-vessel transport.
-  [Kernel](docs/MULTISCALE_KERNEL.md) · [Spatial](docs/SPATIAL_SOLVER.md) ·
-  [Living Biology Lab](docs/LIVING_BIOLOGY_LAB.md)
-
 <table>
 <tr>
-<td width="50%"><img src="docs/screenshots/cell-explorer.jpg" alt="Cell Explorer: illustrative E. coli in 3D"><br><sub>Cell Explorer: illustrative E. coli in 3D</sub></td>
-<td width="50%"><img src="docs/screenshots/cell-experiment.jpg" alt="Brownian-dynamics experiment with live readouts"><br><sub>Brownian-dynamics experiment with live readouts</sub></td>
+<td width="50%"><img src="docs/screenshots/cell-hela.jpg" alt="HeLa cell imaged by FIB-SEM"><br><sub><b>Cell Explorer.</b> A whole HeLa cell imaged by FIB-SEM (OpenOrganelle <code>jrc_hela-2</code>), with machine-learning organelle segmentation.</sub></td>
+<td width="50%"><img src="docs/screenshots/cell-hela-experiment.jpg" alt="Molecules released into the HeLa cell"><br><sub><b>An experiment inside it.</b> 120 copies of a protein released into the cytoplasm, moving by Brownian dynamics, with live counts per compartment.</sub></td>
+</tr>
+<tr>
+<td width="50%"><img src="docs/screenshots/cell-light-pulse.jpg" alt="Light pulse experiment in E. coli"><br><sub><b>Light pulse.</b> Green-light pulses drive a CcaS/CcaR reporter in E. coli; the fitted chain predicts the response.</sub></td>
+<td width="50%"><img src="docs/screenshots/virtual-cell.jpg" alt="Virtual K-562 cell with KLF1 activated"><br><sub><b>Virtual Cell.</b> A K-562 cell built from Norman 2019, Replogle 2022 and DepMap, with KLF1 switched on by CRISPRa.</sub></td>
 </tr>
 </table>
 
+### RNA
+
 <table>
 <tr>
-<td width="50%"><img src="docs/screenshots/multiscale.jpg" alt="Multiscale experiments: mRNA to plasma"><br><sub>Multiscale experiments: mRNA to plasma</sub></td>
-<td width="50%"><img src="docs/screenshots/mechanistic.jpg" alt="Mechanistic Biology Lab with published kinetic models"><br><sub>Mechanistic Biology Lab with published kinetic models</sub></td>
+<td width="50%"><img src="docs/screenshots/rhofold-3d.jpg" alt="tRNA-Phe predicted by RhoFold+"><br><sub><b>RhoFold+ on Modal (A10G).</b> Yeast tRNA-Phe predicted from sequence: the L shape is there.</sub></td>
+<td width="50%"><img src="docs/screenshots/rhofold-vs-crystal.jpg" alt="RhoFold+ prediction compared with crystal structure 1EHZ"><br><sub><b>Checked against the crystal.</b> 1.83 Å C1′ RMSD to 1EHZ, all base pairs correct, no clashes.</sub></td>
+</tr>
+<tr>
+<td width="50%"><img src="docs/screenshots/rna-ensemble.jpg" alt="RNA folding ensemble"><br><sub><b>Folding ensemble.</b> 1,000 ViennaRNA samples of tRNA-Phe, grouped into distinct states with a base-pair probability dot plot.</sub></td>
+<td width="50%"><img src="docs/screenshots/rna-kinetics.jpg" alt="RNA folding kinetics"><br><sub><b>Folding kinetics.</b> Every secondary structure enumerated and the master equation solved exactly, no sampling.</sub></td>
+</tr>
+<tr>
+<td width="50%"><img src="docs/screenshots/rna-design.jpg" alt="RNA inverse design results"><br><sub><b>Inverse design on Modal CPU.</b> Sequences that fold into a branched target, each checked by a second model.</sub></td>
+<td width="50%"><img src="docs/screenshots/boltz-trna.jpg" alt="Boltz-2 RNA ensemble"><br><sub><b>Boltz-2 on Modal (A10G).</b> Five independent diffusion samples of the same tRNA.</sub></td>
 </tr>
 </table>
 
-### Oncology
-
-- **Oncology Universe.** DepMap 24Q4, GDSC, Sanger, NCI ALMANAC and TCGA
-  (cBioPortal) data with gene-dependency, drug-response and mutation analyses,
-  perturbation models and pathology segmentation (NuInsSeg).
-  [Data and analysis](docs/ONCOLOGY_DATA_AND_ANALYSIS.md)
-- **Tumor microenvironment.** PhysiCell agent-based tumour simulations, run on a
-  connected server. [Details](docs/ONCOLOGY_TUMOR_MICROENVIRONMENT.md)
+### Genomes, cancer and mechanisms
 
 <table>
 <tr>
-<td width="50%"><img src="docs/screenshots/oncology.jpg" alt="Oncology Universe: tumour microenvironment"><br><sub>Oncology Universe: tumour microenvironment</sub></td>
-<td width="50%"><img src="docs/screenshots/peptide-overview.jpg" alt="Rendered peptide approach, from Molecular Cinema"><br><sub>Rendered peptide approach, from Molecular Cinema</sub></td>
+<td width="50%"><img src="docs/screenshots/evo2.jpg" alt="Evo 2 DNA scores"><br><sub><b>Evo 2 on Modal (A100).</b> Likelihood of the normal HBB sequence against the sickle-cell variant, plus DNA embeddings.</sub></td>
+<td width="50%"><img src="docs/screenshots/borzoi.jpg" alt="Borzoi regulatory track"><br><sub><b>Borzoi on Modal (A100).</b> A predicted CAGE expression track across a 524 kb window at the HBB locus.</sub></td>
+</tr>
+<tr>
+<td width="50%"><img src="docs/screenshots/oncology-dependency.jpg" alt="Dependency atlas showing KRAS"><br><sub><b>Oncology Universe.</b> DepMap CRISPR knockouts across 1,178 cancer cell lines: which genes each cancer cannot live without.</sub></td>
+<td width="50%"><img src="docs/screenshots/oncology-tumour.jpg" alt="Tumour microenvironment models"><br><sub><b>Tumour microenvironment.</b> PhysiCell agent-based tumour–immune models, run on your server.</sub></td>
+</tr>
+<tr>
+<td width="50%"><img src="docs/screenshots/mechanistic.jpg" alt="MAPK cascade reaction network"><br><sub><b>Mechanistic Biology Lab.</b> The Kholodenko 2000 MAPK cascade integrated with SciPy, drawn as a reaction network.</sub></td>
+<td width="50%"><img src="docs/screenshots/multiscale.jpg" alt="Multiscale experiment from mRNA to plasma"><br><sub><b>Multiscale experiments.</b> One-way coupling from ribosome traffic on an mRNA to protein levels in plasma.</sub></td>
 </tr>
 </table>
 
 ### Compute
 
-- **Compute servers.** One picker for the whole app: this Mac, your Modal
-  account, or a saved SSH/Vast GPU host. Remote jobs show a cost estimate and need
-  your approval before they start. [Details](docs/CLOUD_GPU_TASKS.md) ·
-  [RAPID cloud engine](docs/RAPID_FOUNDATION.md)
-- **Local worker.** A background macOS service for bounded development tasks.
-  [Details](docs/LOCAL_WORKER.md)
-
 <table>
 <tr>
-<td width="50%"><img src="docs/screenshots/cloud-gpu.jpg" alt="Cloud GPU tasks with ready-made recipes"><br><sub>Cloud GPU tasks with ready-made recipes</sub></td>
-<td width="50%"><img src="docs/screenshots/local-compute.jpg" alt="Local compute diagnostics on Apple Silicon"><br><sub>Local compute diagnostics on Apple Silicon</sub></td>
+<td width="50%"><img src="docs/screenshots/cloud-tasks.jpg" alt="Cloud GPU task recipes"><br><sub><b>Cloud GPU Tasks.</b> Ready-made recipes that run in containers on your Modal account.</sub></td>
+<td width="50%"><img src="docs/screenshots/local-compute.jpg" alt="Local compute diagnostics"><br><sub><b>Local Compute.</b> What this Mac can run, and which model files are present and verified.</sub></td>
 </tr>
 </table>
 
+## What's inside
+
+The app is organised into **Research**, **Design**, **Analyse** and
+**Visualise**. Each entry links to its detailed document.
+
+### Proteins
+
+| Feature | What it does |
+| --- | --- |
+| **Structure viewer and library** | Import PDB and mmCIF files; view atoms, cartoons and surfaces with Mol*; keep projects, names and notes in a persistent library. |
+| **BindCraft2 binder design** | The original pipeline on Apple Silicon: AlphaFold2 design → ProteinMPNN → independent AlphaFold2 refolding → the original filters and ranking. Campaigns can be paused, resumed, reranked and exported. |
+| **Boltz-2 prediction** | Structure and binding-affinity prediction on the Mac GPU (PyTorch/MPS), or on Modal. |
+| [**Molecular Intelligence**](docs/MOLECULAR_INTELLIGENCE_4_3.md) | Contacts, clashes, buried surface area, hotspots and interface reports. |
+| [**Ligand preparation**](docs/LIGAND_PREPARATION.md) | SMILES → 3D conformers with RDKit, exported as SDF. |
+| [**Dynamics**](docs/DYNAMICS_PILOTS.md) | Short OpenMM simulations of saved proteins, plus a [reference run](docs/MD_REFERENCE.md) on Trp-cage. |
+| **Molecular Cinema** | Rendered movies of designed complexes. |
+
+### RNA
+
+| Feature | What it does |
+| --- | --- |
+| [**RNA Design**](docs/RNA_DESIGN.md) | Give a target shape in dot-bracket notation; get sequences that fold into it, scored by ViennaRNA and checked by a second model. |
+| [**Folding and kinetics**](docs/RNA_TO_PROTEIN_LAB.md) | Ensembles, [exact folding kinetics](docs/RNA_FOLDING_KINETICS.md) with no sampling, and translation. |
+| **3D prediction** | RhoFold+ and Boltz-2 on Modal, with a built-in comparison against crystal structures. |
+| [**Qwen RNA**](docs/QWEN_RNA_ENGINE.md) | An experimental predictor built on Qwen2.5-Coder. It is a pilot and currently scores below the classical baselines; the app says so. |
+| [**EditCraft**](docs/EDITCRAFT_IMPLEMENTATION.md) | Genome and RNA engineering: a versioned registry, a workflow editor, and off-target, pathway and single-cell engines. |
+
+### Cells
+
+| Feature | What it does |
+| --- | --- |
+| [**Virtual Cell**](docs/VIRTUAL_CELL.md) | Persistent K-562, Hep G2 and Tahoe-100M cells you perturb, read out, branch and design against. [Capability status](docs/VIRTUAL_CELL_CAPABILITIES.md) is tracked per feature. |
+| **Cell Explorer** | A measured HeLa cell from FIB-SEM or an illustrative E. coli. Brownian-dynamics experiments with binding, synthesis, decay and permeable boundaries; light-pulse gene expression; runs compared side by side. See `AGENTS.md` and [Living Cell physics](docs/LIVING_CELL_PHYSICS.md). |
+| [**Mechanistic Biology Lab**](docs/MECHANISTIC_BIOLOGY_LAB.md) | Published SBML kinetic models integrated with SciPy; every number traceable to the equations. |
+| [**Multiscale experiments**](docs/MULTISCALE_KERNEL.md) | One-way coupling across scales, [spatial reaction–diffusion](docs/SPATIAL_SOLVER.md) and blood transport ([Living Biology Lab](docs/LIVING_BIOLOGY_LAB.md)). |
+
+### Oncology
+
+| Feature | What it does |
+| --- | --- |
+| [**Oncology Universe**](docs/ONCOLOGY_DATA_AND_ANALYSIS.md) | DepMap 24Q4, GDSC, Sanger, NCI ALMANAC and TCGA via cBioPortal: gene dependencies, drug response, mutations, perturbation models and pathology segmentation. |
+| [**Tumour microenvironment**](docs/ONCOLOGY_TUMOR_MICROENVIRONMENT.md) | PhysiCell agent-based tumour–immune simulations, run on a connected server. |
+
+### Compute
+
+| Feature | What it does |
+| --- | --- |
+| [**Cloud GPU Tasks**](docs/CLOUD_GPU_TASKS.md) | Ready-made recipes (RhoFold+, Boltz-2, ESMFold2, ESMC, Evo 2, Borzoi, PhysiCell, HemoCell, RNA Design) in containers on your Modal account. Each run is approved by you and returns files, logs and checksums. |
+| **Compute servers** | One picker for the whole app: this Mac, your Modal account, or a saved SSH/Vast GPU host. In cloud mode local stages are refused rather than run silently. |
+| [**Local worker**](docs/LOCAL_WORKER.md) | A background macOS service for bounded development tasks. |
+
 Each engine's tested status is listed in the
-[engine registry](docs/ENGINE_REGISTRY.md).
+[engine registry](docs/ENGINE_REGISTRY.md), and the 70-odd documents in
+[`docs/`](docs/) cover every lab in detail.
 
 ## How it works
 
 ```
 React + TypeScript interface (src/)
         │  Tauri IPC
-Rust desktop shell (src-tauri/)  ── admits only listed scientific actions
+Rust desktop shell (src-tauri/)      admits only listed scientific actions
         │  one Python process per action
 Python scientific service (scientific/worker.py → scientific/*.py)
         │
-        ├─ local runtimes: JAX/Metal (AlphaFold2, BindCraft2), PyTorch/MPS (Boltz-2, Qwen),
-        │                  OpenMM, ViennaRNA, single-cell tools
-        ├─ research library: SQLite + files (projects, structures, jobs, saved results)
-        └─ remote jobs: Modal or your server (remote_worker/)
+        ├─ local runtimes   JAX/Metal (AlphaFold2, BindCraft2), PyTorch/MPS
+        │                   (Boltz-2, Qwen), OpenMM, ViennaRNA, single-cell tools
+        ├─ research library SQLite + files: projects, structures, jobs, results
+        └─ remote jobs      Modal or your own server (remote_worker/)
 ```
 
-- **Interface.** React 19 and TypeScript, with Mol* for molecules and WebGL2 for
-  cell volumes.
-- **Desktop shell.** Tauri 2 in Rust. It opens files, runs the Python service and
-  refuses any scientific action that is not on its allow list.
-- **Scientific service.** Python modules, one per lab. Each action runs in its
-  own process, so no state is kept in memory between actions.
-- **Runtimes.** Separate Python environments per engine, so their dependencies
-  do not conflict. The packaged app carries its own copies.
-- **Research library.** A folder with a SQLite database plus saved files. Every
-  saved result keeps its inputs, model versions and a checksum, so it can be
-  reopened and checked.
-- **Models and data.** Large files live outside the repository and are pinned by
+- **Interface.** React 19 and TypeScript, Mol* for molecules, WebGL2 for cell
+  volumes.
+- **Desktop shell.** Tauri 2 in Rust. It owns file dialogs, starts the Python
+  service, and refuses any scientific action not on its allow list.
+- **Scientific service.** One Python module per lab. Each action runs in a fresh
+  process, so nothing depends on state held in memory.
+- **Runtimes.** A separate Python environment per engine, so their dependencies
+  never collide. The packaged app carries its own copies.
+- **Research library.** A folder with SQLite and files. Each saved result keeps
+  its inputs, model versions and a checksum, so it reopens exactly.
+- **Models and data.** Large files live outside the repository, pinned by
   revision and SHA-256. See [ASSETS.md](ASSETS.md).
 
 ## Getting started
 
 ### Download the app
 
-The ready-to-run app is on the
-[Releases page](https://github.com/sparklesviii23/fold-studio/releases/latest):
-download both `.part` files and follow the install steps there. It includes the
-Python runtimes and AlphaFold2 weights.
+The built app is on the
+[releases page](https://github.com/sparklesviii23/fold-studio/releases/latest).
+Download both `.part` files and follow the install steps there. It includes the
+Python runtimes and the AlphaFold2 weights, so binder design works immediately.
 
 ### Build from source
 
-You need a Mac with Apple Silicon, Python 3.12, pnpm, and Rust (for building the
-desktop app).
+Requires macOS on Apple Silicon, Python 3.12, pnpm and Rust.
 
 ```sh
 brew install python@3.12 pnpm
 curl https://sh.rustup.rs -sSf | sh
 git clone https://github.com/sparklesviii23/fold-studio.git
 cd fold-studio
-bash scripts/setup.sh            # app dependencies + Python runtimes
-bash scripts/setup.sh --models   # model weights, about 18 GB, checksum-verified
-pnpm desktop                     # run the app in development mode
+bash scripts/setup.sh            # dependencies + Python runtimes
+bash scripts/setup.sh --models   # pinned model weights, ~18 GB, checksum-verified
+pnpm desktop                     # run in development
 pnpm bundle                      # or build the .app
 ```
 
-`setup.sh` puts runtimes and models in the folder that contains the clone (set
-`FOLD_WORKSPACE` to use another). Datasets for Virtual Cell and Oncology download
-inside the app the first time you use them.
+`setup.sh` puts runtimes and models in the folder containing the clone; set
+`FOLD_WORKSPACE` to choose another. Datasets for Virtual Cell and Oncology
+download inside the app the first time you open those labs.
 
-Some features need files that are not public: the trained Qwen RNA and RNA
-design checkpoints, and a separately installed UCSF ChimeraX for
-ChimeraX-specific tools. Those features say so when the file is missing.
+To use cloud models, open **Settings → Compute servers** and add a Modal API
+token. Jobs are billed to your account, and the app asks before each run.
 
-## Project Metal · current macOS scope
-
-The core BindCraft2 pipeline runs locally on Apple Silicon without CUDA or NVIDIA:
-original differentiable AlphaFold2 design → ProteinMPNN → independent AlphaFold2
-refolding → original filters/ranking → native structure import, viewing and export.
-A genuine packaged 175-residue hPDL1 campaign completed with one trajectory,
-three passed independent refolds and one retained computational prediction.
-Accepted coordinates and FASTA were exported through the native app and reopened.
-This establishes software execution, not experimental binding.
-
-The development app includes four private scientific runtimes and seven original
-AlphaFold2 checkpoints. Its BindCraft2 core does not require a separate Python,
-ChimeraX installation, NVIDIA GPU or cloud service. Existing ChimeraX-dependent
-laboratory operations continue to require that separately installed runtime.
-
-Native campaign tools include immutable preparation, original optimization,
-remaining-budget continuation, interruption handling, scientific histories,
-saved/custom filter reviews, multi-metric reranking, original metric listings,
-coordinate scoring, statistics, and lossless trajectory compression/restoration.
-Storage conversion checks logical file hashes and uses an atomic macOS stage
-exchange; settings and acceptance decisions are preserved.
-
-Sequence-only FASTA campaigns can use up to three distinct original crop states
-from one immutable input. Native CPU checks include the combined padded size.
-A fixed numeric crop length is normalized to the identical fixed range for a
-pinned upstream logging compatibility issue; the saved recipe and adjustment
-remain recorded. This is experimental support, not a biological disorder claim.
-
-Eleven modality adapters are connected at explicitly bounded experimental scope.
-**Fab is unavailable and explicitly deferred.** Larger dimensions, individual
-property-specific workflows and unrestricted CLI options are not all validated.
-SSD checkpointing remains a separate experiment and is not enabled in the app.
-See [the measured feature inventory](docs/BINDCRAFT_FEATURE_PARITY.json) and
-[the implementation tracker](docs/PROJECT_METAL_MASTER_PROGRESS.md). Historical
-[M1](docs/PROJECT_METAL_M1.md)/[M2](docs/PROJECT_METAL_M2.md) reports describe earlier
-checkpoints. The full port is not declared complete.
-
-## Technology and sources
-
-| Component | Technology and source |
-| --- | --- |
-| Desktop application | [Tauri 2](https://github.com/tauri-apps/tauri), Rust, native file dialogs and IPC |
-| Custom interface | [React 19](https://github.com/facebook/react), TypeScript, CSS, liquid-glass panels and research workflows |
-| Molecular viewport | [Mol*](https://github.com/molstar/molstar): WebGL atoms, cartoons, ribbons and surface presentation |
-| Scientific engine adapter | Original FOLD Python code communicating with the user's separately installed [UCSF ChimeraX](https://www.rbvi.ucsf.edu/chimerax/) 1.12 |
-| Research storage | Python standard-library SQLite and local coordinate assets |
-| Local prediction | Optional [Boltz](https://github.com/jwohlwend/boltz) / boltz-community environment; tested requirements are in scientific/ |
-| Cloud prediction handoff | The official [ColabFold](https://github.com/sokrypton/ColabFold) notebook; results can be imported |
-| Scientific reference data | [UniProt](https://www.uniprot.org/), [AlphaFold DB](https://alphafold.ebi.ac.uk/), [RCSB PDB](https://www.rcsb.org/) and the [wwPDB CCD](https://www.wwpdb.org/data/ccd) |
-| Icons and build tools | [Lucide](https://github.com/lucide-icons/lucide), Vite, pnpm, Cargo and Vitest |
-
-FOLD's interface, project handling, service bridge, state synchronization, library editing and molecular-workflow code are application-specific code developed with AI-assisted coding. Mol* provides its existing graphics implementation; ChimeraX provides its own installed scientific algorithms. FOLD does not implement or train those upstream engines from scratch.
-
-## Molecular Intelligence Lab · 4.3.0
-
-Research → Molecular Intelligence provides six workspaces sharing saved structures and analyses: Structure Inspector, Interface Analyzer, Reproducibility Lab, Peptide Screening, Molecular Explorer and Research Reports. It calculates actual contacts, steric overlaps, conservative interaction geometry, sampled accessible/buried surface areas, verified confidence summaries, hotspot proximity and symmetry-aware target-aligned peptide RMSD. Candidate/control sequences, screening jobs and versioned analyses persist locally. Reports export as PDF, CSV, JSON and Markdown; original coordinate files are retained.
-
-The new numerical code uses Python's standard library. Scientific methods are attributed to Bondi, Shrake–Rupley and Horn. Native atom typing, clash criteria and optional preparation use the separately installed ChimeraX APIs. No AI model supplies scientific measurements. Read [the usage guide, methods, tests and limitations](docs/MOLECULAR_INTELLIGENCE_4_3.md) before interpreting research results. No new paid computing service was added; new multi-seed inference was not run as part of this implementation.
-
-## Requirements and build
-
-For development, install Node.js/pnpm, Rust and the macOS/Xcode command-line
-build tools. Scientific tests additionally need the tested Python dependencies;
-model/runtime integration tests use their explicit isolated environments.
-An installed compatible ChimeraX runtime remains necessary for ChimeraX-specific
-laboratory functions. Boltz model resources are separately managed.
-
-The packaged BindCraft2 core owns its Python interpreters, dependencies and model
-checkpoints. Source builds must stage the four runtime folders and the AlphaFold2
-model folder referenced in `src-tauri/tauri.conf.json`; these large resources are
-outside the Git source checkout. `scripts/prepare-scientific-runtime.py` stages a
-relocatable copy of an existing tested environment and retains dependency notices.
-The local runtime/model paths and pinned versions are recorded in
-[the execution state](docs/PROJECT_METAL_EXECUTION_STATE.json).
-
-New machine: run `bash scripts/setup.sh` (add `--models` for weights); see
-[ASSETS.md](ASSETS.md).
+### Tests
 
 ```sh
-pnpm install --frozen-lockfile
-pnpm test
-python3 -B -m unittest discover -s tests -v
-pnpm desktop
+pnpm test                                   # interface
+node node_modules/typescript/bin/tsc -b     # types
+../runtimes/gbcell/bin/python -B -m unittest discover -s tests
 ```
-
-For an ad-hoc signed local macOS development application:
-
-```sh
-pnpm bundle
-```
-
-Default output: `src-tauri/target/release/bundle/macos/FOLD STUDIO Metal Dev.app`
-(or the corresponding `CARGO_TARGET_DIR` location). The build script signs locally
-ad hoc and verifies the bundle. This is not a notarized Developer ID release.
-Fresh-machine and broader macOS-version acceptance remain outstanding. The main
-validated host is an Apple M4 Pro with 24 GiB unified memory, macOS 26.4.1.
 
 ## Repository layout
 
-- `src/`: React interface, Mol* viewer, scientific panels and molecular construction tools.
-- `src-tauri/`: Rust shell, native capabilities, icons and package configuration.
-- `scientific/`: Python service, ChimeraX adapters, peptide/graph logic and public reference chemistry.
-- `fixtures/`: attributed public protein/reference records and an AlphaFold reference structure.
-- `tests/`, `scripts/`: service tests, validation and build utilities.
+| Path | Contents |
+| --- | --- |
+| `src/` | React interface, Mol* viewer, cell rendering, lab workspaces |
+| `src-tauri/` | Rust shell, native capabilities, action allow list, packaging |
+| `scientific/` | Python service: one module per lab, plus model and data adapters |
+| `remote_worker/` | Code that runs inside cloud containers |
+| `docs/` | Per-lab documentation, validation reports and data provenance |
+| `fixtures/`, `tests/`, `scripts/` | Reference data, tests, build and setup tools |
 
 ## Current limitations
 
-This is research software under active development. Complete ChimeraX feature parity is not achieved: some Qt-only tools, clipping effects, specialist graphics and extension interfaces still need custom adapters. Native surface picking, specialist imaging and exhaustive hardware/extension acceptance remain incomplete. The BindCraft2 core executes as described above; full upstream scope and large-model memory support remain incomplete. PS5 compute workers are not implemented. Prediction confidence and computed geometry do not establish biological binding or experimental accuracy.
+- **Hardware.** Apple Silicon only. The tested machine is an M4 Pro with 24 GB
+  of unified memory on macOS 26.4.1.
+- **Not notarised.** The release is signed locally, so macOS needs
+  `xattr -dr com.apple.quarantine` before first launch.
+- **ChimeraX.** Some tools need a separately installed UCSF ChimeraX 1.12.
+  Feature parity with it is not complete.
+- **Fab is deferred** and not available in this build.
+- **Trained checkpoints** for Qwen RNA and RNA design are not public; features
+  that need them report the checkpoint as missing.
+- **Scientific scope.** Prediction confidence and computed geometry do not
+  establish binding or biological activity. Nothing here is clinical advice.
 
-The existing Mol* viewer remains in place. Renderer regression checks use the
-attributed public ANGPTL3 reference; integration scripts require their documented
-runtime and fixture paths. Scientific acceptance and computational reproducibility
-are separate from biological or experimental validation.
+## Technology and credits
 
-## Privacy and included files
+| Component | Built with |
+| --- | --- |
+| Desktop app | [Tauri 2](https://github.com/tauri-apps/tauri), Rust |
+| Interface | [React 19](https://github.com/facebook/react), TypeScript, [Lucide](https://github.com/lucide-icons/lucide), Vite |
+| Molecular graphics | [Mol*](https://github.com/molstar/molstar) |
+| Structure prediction | [AlphaFold2](https://github.com/google-deepmind/alphafold), [Boltz](https://github.com/jwohlwend/boltz), [BindCraft2](https://github.com/PacesaLab/BindCraft2), [RhoFold+](https://github.com/ml4bio/RhoFold), [ESMFold2](https://github.com/evolutionaryscale/esm) |
+| Genome and cell models | [Evo 2](https://github.com/ArcInstitute/evo2), [Borzoi](https://github.com/calico/borzoi), [Cell2Sentence](https://huggingface.co/vandijklab), [CellFlux](https://github.com/yuhui-zh15/CellFlux) |
+| Simulation | [OpenMM](https://openmm.org/), [ViennaRNA](https://www.tbi.univie.ac.at/RNA/), [PhysiCell](https://github.com/MathCancer/PhysiCell), [HemoCell](https://github.com/UvaCsl/HemoCell), SciPy |
+| Reference data | [UniProt](https://www.uniprot.org/), [AlphaFold DB](https://alphafold.ebi.ac.uk/), [RCSB PDB](https://www.rcsb.org/), [DepMap](https://depmap.org/), [OpenOrganelle](https://openorganelle.janelia.org/), [CELLxGENE](https://cellxgene.cziscience.com/) |
+| Scientific adapter | Original FOLD Python code talking to an installed [UCSF ChimeraX](https://www.rbvi.ucsf.edu/chimerax/) |
 
-The development checkout contains source, lockfiles, tests, attribution and local
-validation receipts. Runtime environments, model weights, databases, build caches
-and packaged apps are stored outside the Git checkout. Application research data
-belongs in its data directory; automated acceptance uses isolated validation roots.
-A public source package requires a deliberate selection of validation artifacts;
-the local development checkout is not itself a published release.
+FOLD STUDIO's interface, project handling, service bridge and workflow code are
+application-specific code written with AI assistance. The upstream engines above
+provide their own implementations; this project does not reimplement or retrain
+them.
 
-## Credits and licensing
+## Licence
 
-FOLD application code includes an MIT license. Third-party libraries, reference data, models and external programs retain their own terms; preserve `LICENSE` and `THIRD_PARTY_NOTICES.md`. ChimeraX executables, its Qt application and upstream scientific implementation are not included. A user's license to run ChimeraX does not itself grant permission to redistribute that runtime. See the installed runtime's license and upstream terms before distributing any external components.
+App code is MIT ([LICENSE](LICENSE)). Third-party libraries, models and datasets
+keep their own terms, including research-only and non-commercial ones; see
+[THIRD_PARTY_NOTICES.md](THIRD_PARTY_NOTICES.md) and [ASSETS.md](ASSETS.md).
+ChimeraX is not included, and a licence to run it does not allow redistributing
+it.

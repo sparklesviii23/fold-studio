@@ -19,7 +19,7 @@ def recipes():
             'inputs': {'sequence': DNA, 'alternate': {'type': 'dna_optional', 'max': 4000}}, 'limits': '7B base checkpoint; 4,000 bases per sequence. Likelihood differences are not calibrated variant effects.'},
         'bio_borzoi': {'title': 'Borzoi · human regulatory tracks', 'purpose': 'Predict one annotated track over a 524,288-base hg38 reference window retrieved from UCSC.',
             'source': 'https://github.com/calico/borzoi/tree/' + BORZOI, 'license': 'Apache-2.0 (Borzoi repository); retain the upstream code, data and checkpoint notices.',
-            'gpu': 'A100-80GB', 'image': {'registry': 'tensorflow/tensorflow:2.15.0-gpu', 'apt': ['git'], 'run': [
+            'gpu': 'A100-80GB', 'image': {'registry': 'tensorflow/tensorflow:2.15.0-gpu', 'apt': ['git', 'ca-certificates'], 'run': [
                 'git clone https://github.com/calico/borzoi.git /opt/borzoi && cd /opt/borzoi && git checkout ' + BORZOI,
                 'pip install git+https://github.com/calico/baskerville-tf.git@' + BASKERVILLE,
                 'pip install --no-deps /opt/borzoi'], 'pip': []},
@@ -28,11 +28,11 @@ def recipes():
             'limits': 'Human reference only. Raw transformed values; single replicate, forward strand. Not a phage model.'},
         'bio_esmc': {'title': 'Biohub ESMC · protein embeddings', 'purpose': 'Export residue-level ESMC-300M representations for a supplied protein.',
             'source': 'https://github.com/Biohub/esm/tree/' + ESM, 'license': 'MIT (current Biohub ESM release); upstream model use conditions apply.',
-            'gpu': 'A10G', 'image': {'registry': 'pytorch/pytorch:2.11.0-cuda12.8-cudnn9-runtime', 'apt': ['git'], 'run': ['pip install git+https://github.com/Biohub/esm.git@' + ESM], 'pip': []},
+            'gpu': 'A10G', 'image': {'registry': 'pytorch/pytorch:2.11.0-cuda12.8-cudnn9-runtime', 'apt': ['git'], 'run': ['pip install --break-system-packages git+https://github.com/Biohub/esm.git@' + ESM], 'pip': []},
             'inputs': {'sequence': PROTEIN}, 'limits': 'Canonical amino acids; up to 1,000 residues. Embedding similarity is not biological activity.'},
         'bio_esmfold2': {'title': 'Biohub ESMFold2 · protein structure', 'purpose': 'Predict one protein structure and retain mmCIF coordinates and confidence.',
             'source': 'https://github.com/Biohub/esm/tree/' + ESM, 'license': 'MIT (current Biohub ESM release); upstream model use conditions apply.',
-            'gpu': 'A100-80GB', 'image': {'registry': 'pytorch/pytorch:2.11.0-cuda12.8-cudnn9-runtime', 'apt': ['git'], 'run': ['pip install git+https://github.com/Biohub/esm.git@' + ESM], 'pip': []},
+            'gpu': 'A100-80GB', 'image': {'registry': 'pytorch/pytorch:2.11.0-cuda12.8-cudnn9-runtime', 'apt': ['git'], 'run': ['pip install --break-system-packages git+https://github.com/Biohub/esm.git@' + ESM], 'pip': []},
             'inputs': {'sequence': {'type': 'protein', 'max': 600}, 'loops': {'type': 'int', 'min': 1, 'max': 20, 'default': 4},
                 'steps': {'type': 'int', 'min': 20, 'max': 100, 'default': 100}, 'seed': {'type': 'int', 'min': 0, 'max': 2147483647, 'default': 0}},
             'limits': 'Single protein, no supplied MSA. Reduced loops by default; not maximum-accuracy qualification.'},

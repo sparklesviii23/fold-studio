@@ -74,7 +74,7 @@ python -c "
 import json,os;d=json.loads(os.environ['FOLD_INPUT'])
 open('/tmp/query.yaml','w').write('version: 1\nsequences:\n  - rna:\n      id: A\n      sequence: '+d['sequence']+'\n')"
 N=$(python -c "import json,os;print(int(json.loads(os.environ['FOLD_INPUT']).get('samples',5)))")
-boltz predict /tmp/query.yaml --out_dir $OUT/boltz --cache /cache/models/boltz --diffusion_samples $N --output_format pdb
+boltz predict /tmp/query.yaml --out_dir $OUT/boltz --cache /cache/models/boltz --diffusion_samples $N --output_format pdb --no_kernels
 ''',
     },
     'hemocell': {
@@ -85,17 +85,19 @@ boltz predict /tmp/query.yaml --out_dir $OUT/boltz --cache /cache/models/boltz -
         'reference': {'citation': 'Závodszky G, van Rooij B, Azizi V, Hoekstra A. Cellular level in-silico modeling of blood rheology with an improved material model for red blood cells. Front Physiol 2017;8:563.', 'doi': '10.3389/fphys.2017.00563'},
         'license': 'AGPL-3.0. Runs only on your own server; the app does not redistribute HemoCell.',
         'gpu': None, 'cpu': 16, 'timeout': 6 * 3600,
-        'image': {'registry': 'ubuntu:22.04', 'apt': ['build-essential', 'cmake', 'git', 'libopenmpi-dev', 'openmpi-bin', 'libhdf5-openmpi-dev', 'python3', 'python3-pip'],
+        'image': {'registry': 'ubuntu:22.04', 'apt': ['build-essential', 'cmake', 'git', 'wget', 'patch', 'libopenmpi-dev', 'openmpi-bin', 'libhdf5-openmpi-dev', 'python3', 'python3-pip'],
                   'run': ['git clone --recursive https://github.com/UvaCsl/HemoCell /opt/HemoCell',
-                          'cd /opt/HemoCell/examples/pipeflow && mkdir -p build && cd build && cmake .. && make -j16'],
+                          'cd /opt/HemoCell && ./setup.sh',
+                          'cd /opt/HemoCell && mkdir -p build && cd build && cmake .. && cmake --build . --target pipeflow -j16'],
                   'pip': ['h5py', 'numpy']},
         'inputs': {'ranks': {'type': 'int', 'min': 1, 'max': 16, 'default': 8}},
         'script': r'''set -euo pipefail
 OUT=/cache/out/$FOLD_TASK_ID; mkdir -p $OUT
 R=$(python3 -c "import json,os;print(int(json.loads(os.environ['FOLD_INPUT']).get('ranks',8)))")
 cd /opt/HemoCell/examples/pipeflow
-mpirun --allow-run-as-root --oversubscribe -n $R ./build/pipeflow config.xml
-cp -r tmp $OUT/hemocell_output
+BIN=$(find /opt/HemoCell -type f -name pipeflow -perm -u+x | head -1)
+mpirun --allow-run-as-root --oversubscribe -n $R "$BIN" config.xml
+cp -r output $OUT/hemocell_output
 ''',
     },
     'physicell': {
@@ -119,7 +121,7 @@ OUT=/cache/out/$FOLD_TASK_ID; mkdir -p $OUT/physicell
 PY=$(command -v python3 || command -v python)
 export SAMPLE=$($PY -c "import json,os;print(json.loads(os.environ['FOLD_INPUT'])['sample'])")
 DAYS=$($PY -c "import json,os;print(int(json.loads(os.environ['FOLD_INPUT'])['days']))")
-cp -r /opt/PhysiCell /work/pc && cd /work/pc
+mkdir -p /work && cp -r /opt/PhysiCell /work/pc && cd /work/pc
 echo "[fold] PhysiCell $(cat VERSION.txt 2>/dev/null || echo 1.14.2) · sample $SAMPLE · $DAYS simulated days · $(nproc) cores"
 make ${SAMPLE//_/-}-sample
 make -j$(nproc) > build.txt 2>&1 || { tail -60 build.txt; exit 1; }

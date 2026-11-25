@@ -80,6 +80,9 @@ def borzoi(inputs, out):
     if not tf.config.list_physical_devices('GPU'): raise RuntimeError('Borzoi requires a remote TensorFlow GPU; CPU fallback disabled.')
     start = inputs['start']; end = start + 524288
     url = 'https://api.genome.ucsc.edu/getData/sequence?' + urllib.parse.urlencode({'genome': 'hg38', 'chrom': inputs['chromosome'], 'start': start, 'end': end})
+    bundle = '/etc/ssl/certs/ca-certificates.crt'  # some provider images ship Python without a CA path
+    if os.path.isfile(bundle):
+        os.environ.setdefault('SSL_CERT_FILE', bundle)
     with urllib.request.urlopen(url, timeout=120) as response:
         body = response.read(2_000_001)
     if len(body) > 2_000_000: raise ValueError('Reference response too large.')
