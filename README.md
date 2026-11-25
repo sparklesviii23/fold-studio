@@ -1,5 +1,16 @@
 # FOLD STUDIO
 
+<p align="center">
+  <img src="docs/screenshots/home.jpg" alt="FOLD STUDIO home screen" width="100%">
+</p>
+
+<p align="center">
+  <a href="https://github.com/sparklesviii23/fold-studio/releases/latest"><b>Download for macOS</b></a> ·
+  <a href="#whats-inside">Features</a> ·
+  <a href="#how-it-works">How it works</a> ·
+  <a href="#getting-started">Build from source</a>
+</p>
+
 FOLD STUDIO is an experimental macOS research application for protein design,
 molecular analysis, RNA design, cell simulation and cancer data analysis. It runs
 on Apple Silicon. Heavy jobs can run on this Mac or on a cloud server you connect.
@@ -44,6 +55,20 @@ The app is organised into areas: **Research**, **Design**, **Analyse** and
   [Pilots](docs/DYNAMICS_PILOTS.md) · [Reference](docs/MD_REFERENCE.md)
 - **Molecular cinema.** Rendered movies of designed complexes.
 
+<table>
+<tr>
+<td width="50%"><img src="docs/screenshots/peptide-interface.jpg" alt="Designed peptide at the ANGPTL3 interface"><br><sub>Designed peptide at the ANGPTL3 interface</sub></td>
+<td width="50%"><img src="docs/screenshots/bindcraft-ensemble.jpg" alt="BindCraft2 design ensemble in the Mol* viewer"><br><sub>BindCraft2 design ensemble in the Mol* viewer</sub></td>
+</tr>
+</table>
+
+<table>
+<tr>
+<td width="50%"><img src="docs/screenshots/bindcraft-architect.jpg" alt="BindCraft Architect campaign setup"><br><sub>BindCraft Architect campaign setup</sub></td>
+<td width="50%"><img src="docs/screenshots/openmm-dynamics.jpg" alt="OpenMM dynamics with per-residue fluctuations"><br><sub>OpenMM dynamics with per-residue fluctuations</sub></td>
+</tr>
+</table>
+
 ### RNA
 
 - **RNA Design.** Give a target secondary structure in dot-bracket notation and
@@ -59,6 +84,13 @@ The app is organised into areas: **Research**, **Design**, **Analyse** and
   registry, a workflow editor (gene context → coding-sequence analysis → RNA
   folding), and off-target, pathway and single-cell engines.
   [Details](docs/EDITCRAFT_IMPLEMENTATION.md)
+
+<table>
+<tr>
+<td width="50%"><img src="docs/screenshots/editcraft.jpg" alt="EditCraft genome and RNA engineering"><br><sub>EditCraft genome and RNA engineering</sub></td>
+<td width="50%"><img src="docs/screenshots/protein-explorer.jpg" alt="Protein Explorer with UniProt annotations"><br><sub>Protein Explorer with UniProt annotations</sub></td>
+</tr>
+</table>
 
 ### Cells
 
@@ -80,6 +112,20 @@ The app is organised into areas: **Research**, **Design**, **Analyse** and
   [Kernel](docs/MULTISCALE_KERNEL.md) · [Spatial](docs/SPATIAL_SOLVER.md) ·
   [Living Biology Lab](docs/LIVING_BIOLOGY_LAB.md)
 
+<table>
+<tr>
+<td width="50%"><img src="docs/screenshots/cell-explorer.jpg" alt="Cell Explorer: illustrative E. coli in 3D"><br><sub>Cell Explorer: illustrative E. coli in 3D</sub></td>
+<td width="50%"><img src="docs/screenshots/cell-experiment.jpg" alt="Brownian-dynamics experiment with live readouts"><br><sub>Brownian-dynamics experiment with live readouts</sub></td>
+</tr>
+</table>
+
+<table>
+<tr>
+<td width="50%"><img src="docs/screenshots/multiscale.jpg" alt="Multiscale experiments: mRNA to plasma"><br><sub>Multiscale experiments: mRNA to plasma</sub></td>
+<td width="50%"><img src="docs/screenshots/mechanistic.jpg" alt="Mechanistic Biology Lab with published kinetic models"><br><sub>Mechanistic Biology Lab with published kinetic models</sub></td>
+</tr>
+</table>
+
 ### Oncology
 
 - **Oncology Universe.** DepMap 24Q4, GDSC, Sanger, NCI ALMANAC and TCGA
@@ -89,6 +135,13 @@ The app is organised into areas: **Research**, **Design**, **Analyse** and
 - **Tumor microenvironment.** PhysiCell agent-based tumour simulations, run on a
   connected server. [Details](docs/ONCOLOGY_TUMOR_MICROENVIRONMENT.md)
 
+<table>
+<tr>
+<td width="50%"><img src="docs/screenshots/oncology.jpg" alt="Oncology Universe: tumour microenvironment"><br><sub>Oncology Universe: tumour microenvironment</sub></td>
+<td width="50%"><img src="docs/screenshots/peptide-overview.jpg" alt="Rendered peptide approach, from Molecular Cinema"><br><sub>Rendered peptide approach, from Molecular Cinema</sub></td>
+</tr>
+</table>
+
 ### Compute
 
 - **Compute servers.** One picker for the whole app: this Mac, your Modal
@@ -97,6 +150,13 @@ The app is organised into areas: **Research**, **Design**, **Analyse** and
   [RAPID cloud engine](docs/RAPID_FOUNDATION.md)
 - **Local worker.** A background macOS service for bounded development tasks.
   [Details](docs/LOCAL_WORKER.md)
+
+<table>
+<tr>
+<td width="50%"><img src="docs/screenshots/cloud-gpu.jpg" alt="Cloud GPU tasks with ready-made recipes"><br><sub>Cloud GPU tasks with ready-made recipes</sub></td>
+<td width="50%"><img src="docs/screenshots/local-compute.jpg" alt="Local compute diagnostics on Apple Silicon"><br><sub>Local compute diagnostics on Apple Silicon</sub></td>
+</tr>
+</table>
 
 Each engine's tested status is listed in the
 [engine registry](docs/ENGINE_REGISTRY.md).
