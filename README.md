@@ -1,8 +1,158 @@
 # FOLD STUDIO
 
-FOLD STUDIO is an experimental macOS application for exploring protein structures, organizing molecular research and working with peptide-design and prediction workflows. It combines a custom React/TypeScript interface with a Rust/Tauri desktop shell, a Python scientific service, and interactive molecular graphics from Mol*. A separately installed UCSF ChimeraX runtime supplies compatible scientific commands and calculations through an original FOLD adapter, without exposing its original Qt interface.
+FOLD STUDIO is an experimental macOS research application for protein design,
+molecular analysis, RNA design, cell simulation and cancer data analysis. It runs
+on Apple Silicon. Heavy jobs can run on this Mac or on a cloud server you connect.
 
-Version: 4.3.0. Primary target: Apple Silicon macOS.
+Version 4.3.0. Research software: every result is a computational prediction or
+simulation, not an experimental measurement. Each screen labels what kind of
+evidence it shows.
+
+## Contents
+
+- [What's inside](#whats-inside)
+- [How it works](#how-it-works)
+- [Getting started](#getting-started)
+- [Project Metal · current macOS scope](#project-metal--current-macos-scope)
+- [Requirements and build](#requirements-and-build)
+- [Current limitations](#current-limitations)
+
+## What's inside
+
+The app is organised into areas: **Research**, **Design**, **Analyse** and
+**Visualise**. Each item below links to its detailed document.
+
+### Protein structures and design
+
+- **Structure viewer and library.** Import PDB and mmCIF files and view them with
+  Mol* (atoms, cartoons, surfaces, chain and residue colours, measurements). A
+  saved research library keeps names, notes and projects.
+- **BindCraft2 binder design on Apple Silicon.** The original BindCraft2 pipeline
+  runs locally without an NVIDIA GPU: AlphaFold2 design, ProteinMPNN sequence
+  redesign, independent AlphaFold2 refolding, then the original filters and
+  ranking. Campaigns can be paused, continued, reranked and exported. See
+  [Project Metal](#project-metal--current-macos-scope).
+- **Boltz-2 structure prediction** on the Mac GPU (PyTorch/MPS), with affinity
+  prediction.
+- **Molecular Intelligence Lab.** Contacts, clashes, buried surface area,
+  hotspots and interface reports for saved structures.
+  [Details](docs/MOLECULAR_INTELLIGENCE_4_3.md)
+- **Ligand preparation.** Turn a SMILES string into 3D conformers with RDKit and
+  export SDF. [Details](docs/LIGAND_PREPARATION.md)
+- **Short protein dynamics.** OpenMM simulations of saved proteins, and a
+  reference molecular-dynamics demo on Trp-cage.
+  [Pilots](docs/DYNAMICS_PILOTS.md) · [Reference](docs/MD_REFERENCE.md)
+- **Molecular cinema.** Rendered movies of designed complexes.
+
+### RNA
+
+- **RNA Design.** Give a target secondary structure in dot-bracket notation and
+  get candidate RNA sequences that fold into it, scored with ViennaRNA.
+  [Details](docs/RNA_DESIGN.md)
+- **Qwen RNA engine.** An experimental RNA structure predictor built on
+  Qwen2.5-Coder-3B. It is a research pilot and currently scores below the
+  classical baselines. [Details](docs/QWEN_RNA_ENGINE.md)
+- **RNA-to-Protein Lab.** RNA folding ensembles, exact folding kinetics and
+  translation. [Lab](docs/RNA_TO_PROTEIN_LAB.md) ·
+  [Kinetics](docs/RNA_FOLDING_KINETICS.md)
+- **EditCraft.** Genome and RNA engineering workspace: a versioned biological
+  registry, a workflow editor (gene context → coding-sequence analysis → RNA
+  folding), and off-target, pathway and single-cell engines.
+  [Details](docs/EDITCRAFT_IMPLEMENTATION.md)
+
+### Cells
+
+- **Virtual Cell.** Persistent model cells (K-562, Hep G2 and Tahoe-100M cell
+  lines) that you can perturb, observe, branch and compare, modelled on the AIDO
+  Cell interface. Uses Replogle 2022, Norman 2019, Tahoe-100M, C2S-Pythia and
+  CellFlux. [Overview](docs/VIRTUAL_CELL.md) ·
+  [Capabilities and status](docs/VIRTUAL_CELL_CAPABILITIES.md)
+- **Cell Explorer workspace.** Open a real HeLa cell from electron microscopy
+  (OpenOrganelle `jrc_hela-2`) or an illustrative E. coli. Explore it in 3D, run
+  Brownian-dynamics experiments with binding, synthesis and decay, run
+  light-pulse gene-expression experiments, and compare runs side by side.
+  See `AGENTS.md` and [Living Cell physics](docs/LIVING_CELL_PHYSICS.md).
+- **Mechanistic Biology Lab.** Runs published SBML kinetic models with SciPy and
+  shows inspectable, exportable results.
+  [Details](docs/MECHANISTIC_BIOLOGY_LAB.md)
+- **Multiscale experiments.** One-way coupled molecule-to-cell simulations,
+  spatial reaction-diffusion, and blood-vessel transport.
+  [Kernel](docs/MULTISCALE_KERNEL.md) · [Spatial](docs/SPATIAL_SOLVER.md) ·
+  [Living Biology Lab](docs/LIVING_BIOLOGY_LAB.md)
+
+### Oncology
+
+- **Oncology Universe.** DepMap 24Q4, GDSC, Sanger, NCI ALMANAC and TCGA
+  (cBioPortal) data with gene-dependency, drug-response and mutation analyses,
+  perturbation models and pathology segmentation (NuInsSeg).
+  [Data and analysis](docs/ONCOLOGY_DATA_AND_ANALYSIS.md)
+- **Tumor microenvironment.** PhysiCell agent-based tumour simulations, run on a
+  connected server. [Details](docs/ONCOLOGY_TUMOR_MICROENVIRONMENT.md)
+
+### Compute
+
+- **Compute servers.** One picker for the whole app: this Mac, your Modal
+  account, or a saved SSH/Vast GPU host. Remote jobs show a cost estimate and need
+  your approval before they start. [Details](docs/CLOUD_GPU_TASKS.md) ·
+  [RAPID cloud engine](docs/RAPID_FOUNDATION.md)
+- **Local worker.** A background macOS service for bounded development tasks.
+  [Details](docs/LOCAL_WORKER.md)
+
+Each engine's tested status is listed in the
+[engine registry](docs/ENGINE_REGISTRY.md).
+
+## How it works
+
+```
+React + TypeScript interface (src/)
+        │  Tauri IPC
+Rust desktop shell (src-tauri/)  ── admits only listed scientific actions
+        │  one Python process per action
+Python scientific service (scientific/worker.py → scientific/*.py)
+        │
+        ├─ local runtimes: JAX/Metal (AlphaFold2, BindCraft2), PyTorch/MPS (Boltz-2, Qwen),
+        │                  OpenMM, ViennaRNA, single-cell tools
+        ├─ research library: SQLite + files (projects, structures, jobs, saved results)
+        └─ remote jobs: Modal or your server (remote_worker/)
+```
+
+- **Interface.** React 19 and TypeScript, with Mol* for molecules and WebGL2 for
+  cell volumes.
+- **Desktop shell.** Tauri 2 in Rust. It opens files, runs the Python service and
+  refuses any scientific action that is not on its allow list.
+- **Scientific service.** Python modules, one per lab. Each action runs in its
+  own process, so no state is kept in memory between actions.
+- **Runtimes.** Separate Python environments per engine, so their dependencies
+  do not conflict. The packaged app carries its own copies.
+- **Research library.** A folder with a SQLite database plus saved files. Every
+  saved result keeps its inputs, model versions and a checksum, so it can be
+  reopened and checked.
+- **Models and data.** Large files live outside the repository and are pinned by
+  revision and SHA-256. See [ASSETS.md](ASSETS.md).
+
+## Getting started
+
+You need a Mac with Apple Silicon, Python 3.12, pnpm, and Rust (for building the
+desktop app).
+
+```sh
+brew install python@3.12 pnpm
+curl https://sh.rustup.rs -sSf | sh
+git clone https://github.com/sparklesviii23/fold-studio.git
+cd fold-studio
+bash scripts/setup.sh            # app dependencies + Python runtimes
+bash scripts/setup.sh --models   # model weights, about 18 GB, checksum-verified
+pnpm desktop                     # run the app in development mode
+pnpm bundle                      # or build the .app
+```
+
+`setup.sh` puts runtimes and models in the folder that contains the clone (set
+`FOLD_WORKSPACE` to use another). Datasets for Virtual Cell and Oncology download
+inside the app the first time you use them.
+
+Some features need files that are not public: the trained Qwen RNA and RNA
+design checkpoints, and a separately installed UCSF ChimeraX for
+ChimeraX-specific tools. Those features say so when the file is missing.
 
 ## Project Metal · current macOS scope
 
@@ -41,7 +191,7 @@ See [the measured feature inventory](docs/BINDCRAFT_FEATURE_PARITY.json) and
 [M1](docs/PROJECT_METAL_M1.md)/[M2](docs/PROJECT_METAL_M2.md) reports describe earlier
 checkpoints. The full port is not declared complete.
 
-## How it is made
+## Technology and sources
 
 | Component | Technology and source |
 | --- | --- |
@@ -62,14 +212,6 @@ FOLD's interface, project handling, service bridge, state synchronization, libra
 Research → Molecular Intelligence provides six workspaces sharing saved structures and analyses: Structure Inspector, Interface Analyzer, Reproducibility Lab, Peptide Screening, Molecular Explorer and Research Reports. It calculates actual contacts, steric overlaps, conservative interaction geometry, sampled accessible/buried surface areas, verified confidence summaries, hotspot proximity and symmetry-aware target-aligned peptide RMSD. Candidate/control sequences, screening jobs and versioned analyses persist locally. Reports export as PDF, CSV, JSON and Markdown; original coordinate files are retained.
 
 The new numerical code uses Python's standard library. Scientific methods are attributed to Bondi, Shrake–Rupley and Horn. Native atom typing, clash criteria and optional preparation use the separately installed ChimeraX APIs. No AI model supplies scientific measurements. Read [the usage guide, methods, tests and limitations](docs/MOLECULAR_INTELLIGENCE_4_3.md) before interpreting research results. No new paid computing service was added; new multi-seed inference was not run as part of this implementation.
-
-## Features
-
-- Protein structure import from PDB and mmCIF, a saved research library, editable names/notes, and recoverable removal.
-- Interactive molecular viewing, chain and residue colours, selections, native surfaces and measurements.
-- A native-command console and a separate trusted scientific Python editor.
-- Research projects, sequence and peptide workspaces, prediction handoffs and experimental molecular construction tools.
-- Genuine ChimeraX session saving and scientific provenance where supported.
 
 ## Requirements and build
 
