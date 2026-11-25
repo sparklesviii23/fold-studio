@@ -1,12 +1,12 @@
 {
   "schema": "fold.qwen-rna-install/1",
-  "checkpoint": "/Users/vii/Documents/FoldStudio-MetalPort/validation/bindcraft-fab-amme-native/engine/models/qwen-rna/pilot-v1/checkpoint.json",
+  "checkpoint": "${FOLD_WORKSPACE}/validation/bindcraft-fab-amme-native/engine/models/qwen-rna/pilot-v1/checkpoint.json",
   "checkpointSha256": "15c1adcfa5b8b6299cafd4138212f2dea3509f9d39680765ffcad60ff166a3d5",
-  "python": "/Users/vii/Documents/FoldStudio-MetalPort/current/FOLD STUDIO Metal Dev.app/Contents/Resources/runtime/bin/python3.12",
-  "trainingRuntime": "/Users/vii/Documents/FoldStudio-MetalPort/runtimes/gbcell/bin/python",
+  "python": "${FOLD_WORKSPACE}/current/FOLD STUDIO Metal Dev.app/Contents/Resources/runtime/bin/python3.12",
+  "trainingRuntime": "${FOLD_WORKSPACE}/runtimes/gbcell/bin/python",
   "sitePackages": [
-    "/Users/vii/Documents/FoldStudio-MetalPort/runtimes/gbcell/lib/python3.12/site-packages",
-    "/Users/vii/Documents/FoldStudio-MetalPort/current/FOLD STUDIO Metal Dev.app/Contents/Resources/runtime-boltz/lib/python3.12/site-packages"
+    "${FOLD_WORKSPACE}/runtimes/gbcell/lib/python3.12/site-packages",
+    "${FOLD_WORKSPACE}/current/FOLD STUDIO Metal Dev.app/Contents/Resources/runtime-boltz/lib/python3.12/site-packages"
   ],
   "mode": "bundled CPython 3.12 with existing qualified scientific site-packages"
 }

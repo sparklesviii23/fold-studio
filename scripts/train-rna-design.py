@@ -28,7 +28,8 @@ def main():
         raise ValueError('Training protocol integrity check failed.')
     config=protocol['training']; seed=config['seed'];random.seed(seed);torch.manual_seed(seed)
     receipt=Path(__file__).resolve().parents[1]/'scientific/qwen_rna_install.json'
-    prior_path=Path(json.loads(receipt.read_text())['checkpoint'])
+    import workspace
+    prior_path=Path(workspace.expand(json.loads(receipt.read_text())['checkpoint']))
     prior=json.loads(prior_path.read_text())
     if Path(prior['baseCheckpoint']).resolve()!=Path(a.base).resolve():
         raise ValueError('Use the preserved, qualified Qwen base for this pilot.')

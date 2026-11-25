@@ -1,10 +1,10 @@
 """Bounded commands in Seatbelt; isolated, review-only exact patches or local Aider."""
 from __future__ import annotations
-import json, os, pathlib, re, signal, subprocess, sys, time, urllib.request
+import json, os, pathlib, re, shutil, signal, subprocess, sys, time, urllib.request
 from .core import DEFAULT_HOME, REPO, digest, run, scoped
 
 PYTHON = REPO.parent/'runtimes/openmm-cpu/bin/python'
-NODE = pathlib.Path('/Users/vii/.cache/codex-runtimes/codex-primary-runtime/dependencies/node/bin/node')
+NODE = pathlib.Path(os.environ.get('FOLD_NODE') or shutil.which('node') or '/opt/homebrew/bin/node')
 
 class Blocked(Exception):pass
 class Cancelled(Exception):pass

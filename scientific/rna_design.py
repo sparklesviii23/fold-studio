@@ -54,7 +54,8 @@ def launch_local(s, job, folder):
     env = {k: v for k, v in os.environ.items() if k not in ('PYTHONPATH', 'PYTHONHOME', '__PYVENV_LAUNCHER__', 'VIRTUAL_ENV', 'PYTHONEXECUTABLE')}
     env.update(PYTHONDONTWRITEBYTECODE='1', PYTHONNOUSERSITE='1', HF_HUB_OFFLINE='1', TRANSFORMERS_OFFLINE='1')
     if job['data']['request']['method'] != 'solver':
-        config = json.loads((HERE / 'qwen_rna_install.json').read_text())
+        from qwen_rna import install_config
+        config = install_config(HERE / 'qwen_rna_install.json')
         env['PYTHONPATH'] = os.pathsep.join(config['sitePackages'])
     runtime = HERE / 'rna_design_runtime.py'
     with (folder / 'execution.log').open('a') as log:
@@ -107,8 +108,9 @@ def checkpoint():
     receipt = HERE / 'rna_design_install.json'
     if not receipt.is_file():
         return HERE / 'missing-inverse-checkpoint.json'
+    import workspace
     config = json.loads(receipt.read_text())
-    path = Path(config['checkpoint'])
+    path = Path(workspace.expand(config['checkpoint']))
     if path.is_file() and __import__('hashlib').sha256(path.read_bytes()).hexdigest() != config['checkpointSha256']:
         raise ValueError('Inverse Qwen checkpoint receipt changed.')
     return path

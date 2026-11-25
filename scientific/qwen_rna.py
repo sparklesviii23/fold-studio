@@ -15,11 +15,23 @@ from qwen_rna_contract import accuracy, clean, digest, pairs
 HERE = pathlib.Path(__file__).resolve().parent
 
 
+def install_config(path):
+    """Read an install receipt and expand ${FOLD_WORKSPACE} in its paths."""
+    import workspace
+    config = json.loads(path.read_text())
+    for key in ('checkpoint', 'python', 'trainingRuntime'):
+        if key in config:
+            config[key] = workspace.expand(config[key])
+    if 'sitePackages' in config:
+        config['sitePackages'] = [workspace.expand(p) for p in config['sitePackages']]
+    return config
+
+
 def installation():
     path = HERE / 'qwen_rna_install.json'
     if not path.is_file():
         raise ValueError('Qwen RNA is not configured. See docs/QWEN_RNA_ENGINE.md for the local runtime and checkpoint contract.')
-    config = json.loads(path.read_text())
+    config = install_config(path)
     checkpoint = pathlib.Path(config['checkpoint'])
     if not checkpoint.is_file() or hashlib.sha256(checkpoint.read_bytes()).hexdigest() != config['checkpointSha256']:
         raise ValueError('Qwen RNA checkpoint receipt is missing or changed. Requalify the checkpoint before use.')

@@ -7,7 +7,7 @@ ROOT=pathlib.Path(__file__).resolve().parents[1];sys.path.insert(0,str(ROOT/'sci
 from worker import Service
 from bindcraft_cpu import failure_from_log
 from unittest.mock import patch
-source=pathlib.Path('/Users/vii/Documents/FoldStudio-MetalPort/validation/bindcraft-fab-amme-native');id='1d0dc714-2456-4bf7-935e-c3501787fa16';original=source/'jobs'/id;log=(original/'execution.log').read_text();diagnostic=failure_from_log(log);assert diagnostic['category']=='metal_memory_limit'
+source=ROOT.parent/'validation/bindcraft-fab-amme-native';id='1d0dc714-2456-4bf7-935e-c3501787fa16';original=source/'jobs'/id;log=(original/'execution.log').read_text();diagnostic=failure_from_log(log);assert diagnostic['category']=='metal_memory_limit'
 root=ROOT.parent/'validation/architect-peptide-cpu';root.mkdir(exist_ok=False);s=Service(root);s.setting_set({'key':'bindcraftPython','value':str((ROOT.parent/'runtimes/jax-cpu/bin/python').absolute())});s.setting_set({'key':'bindcraftMetalPython','value':str((ROOT.parent/'runtimes/jax-metaljax/bin/python').absolute())});s.setting_set({'key':'af2Parameters','value':str(ROOT.parent/'models/alphafold')});project=s.project_create({'name':'Peptide engineering validation · original filters'})
 try:
  target=s.import_structure({'projectId':project['id'],'path':str(original/'input.pdb')});settings=json.loads((original/'settings.json').read_text());before={p.name:hashlib.sha256(p.read_bytes()).hexdigest() for p in original.iterdir() if p.is_file()}

@@ -87,6 +87,9 @@ relocatable copy of an existing tested environment and retains dependency notice
 The local runtime/model paths and pinned versions are recorded in
 [the execution state](docs/PROJECT_METAL_EXECUTION_STATE.json).
 
+New machine: run `bash scripts/setup.sh` (add `--models` for weights); see
+[ASSETS.md](ASSETS.md).
+
 ```sh
 pnpm install --frozen-lockfile
 pnpm test
