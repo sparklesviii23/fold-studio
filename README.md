@@ -132,6 +132,15 @@ Python scientific service (scientific/worker.py → scientific/*.py)
 
 ## Getting started
 
+### Download the app
+
+The ready-to-run app is on the
+[Releases page](https://github.com/sparklesviii23/fold-studio/releases/latest):
+download both `.part` files and follow the install steps there. It includes the
+Python runtimes and AlphaFold2 weights.
+
+### Build from source
+
 You need a Mac with Apple Silicon, Python 3.12, pnpm, and Rust (for building the
 desktop app).
 
