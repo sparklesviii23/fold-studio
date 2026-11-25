@@ -5,6 +5,10 @@
 </p>
 
 <p align="center">
+  <img src="docs/assets/tagline.svg" alt="Structure prediction · protein design · RNA folding · cell simulation · cancer data" width="720">
+</p>
+
+<p align="center">
   <b>Structure prediction, protein design, RNA folding, cell simulation and cancer data, in one Mac app.</b><br>
   <sub>Light work runs on your Mac. Heavy models run on your own Modal account. Every result can be reopened and checked.</sub>
 </p>
@@ -42,6 +46,10 @@
   <img src="docs/screenshots/home.jpg" alt="FOLD STUDIO home screen" width="100%">
 </p>
 
+<p align="center">
+  <img src="docs/assets/stats.svg" alt="9 cloud task recipes · 1,178 cancer cell lines · 1.83 Å RMSD to the tRNA crystal · 70+ lab documents" width="100%">
+</p>
+
 > [!TIP]
 > **Quick start.** Download the app from the [releases page](https://github.com/sparklesviii23/fold-studio/releases/latest) ([install steps](#download-the-app)), or [build it from source](#build-from-source).
 
@@ -58,6 +66,8 @@ shows: a measurement, a model prediction, a simulation or an illustration.
 Results are computational predictions, not experimental findings.
 
 Version 4.3.0 · macOS on Apple Silicon · app code under the MIT licence.
+
+<p align="center"><img src="docs/assets/divider.svg" alt="" width="100%"></p>
 
 ## Highlights
 
@@ -96,6 +106,8 @@ DepMap dependencies, GDSC drug response and TCGA cohorts in one workspace, next 
 > FOLD STUDIO is research software. Every screen labels its evidence as measured, predicted, simulated or illustrative, and nothing here is clinical advice.
 
 <p align="right"><sub><a href="#top">Back to top ↑</a></sub></p>
+
+<p align="center"><img src="docs/assets/divider.svg" alt="" width="100%"></p>
 
 ## Gallery
 
@@ -173,6 +185,8 @@ them: local ones on an M4 Pro, cloud ones on Modal.
 
 <p align="right"><sub><a href="#top">Back to top ↑</a></sub></p>
 
+<p align="center"><img src="docs/assets/divider.svg" alt="" width="100%"></p>
+
 ## What's inside
 
 The app is organised into **Research**, **Design**, **Analyse** and
@@ -246,7 +260,31 @@ Each engine's tested status is listed in the
 
 <p align="right"><sub><a href="#top">Back to top ↑</a></sub></p>
 
+<p align="center"><img src="docs/assets/divider.svg" alt="" width="100%"></p>
+
 ## How it works
+
+```mermaid
+flowchart TD
+    UI["React + TypeScript interface<br/>src/"]
+    SHELL["Rust desktop shell<br/>src-tauri/<br/>admits only listed scientific actions"]
+    PY["Python scientific service<br/>scientific/worker.py → scientific/*.py"]
+    LOCAL["Local runtimes<br/>JAX/Metal (AlphaFold2, BindCraft2)<br/>PyTorch/MPS (Boltz-2, Qwen)<br/>OpenMM, ViennaRNA, single-cell tools"]
+    LIB[("Research library<br/>SQLite + files: projects,<br/>structures, jobs, results")]
+    REMOTE["Remote jobs<br/>Modal or your own server<br/>remote_worker/"]
+    UI -- "Tauri IPC" --> SHELL
+    SHELL -- "one Python process per action" --> PY
+    PY --> LOCAL
+    PY --> LIB
+    PY --> REMOTE
+    classDef box fill:#0b1026,stroke:#9fdcff,color:#e6f2ff
+    classDef store fill:#0b1026,stroke:#b9a6ff,color:#e6f2ff
+    class UI,SHELL,PY,LOCAL,REMOTE box
+    class LIB store
+```
+
+<details>
+<summary><b>Plain-text diagram</b></summary>
 
 ```
 React + TypeScript interface (src/)
@@ -260,6 +298,8 @@ Python scientific service (scientific/worker.py → scientific/*.py)
         ├─ research library SQLite + files: projects, structures, jobs, results
         └─ remote jobs      Modal or your own server (remote_worker/)
 ```
+
+</details>
 
 <details>
 <summary><b>Components in detail</b></summary>
@@ -280,6 +320,8 @@ Python scientific service (scientific/worker.py → scientific/*.py)
 </details>
 
 <p align="right"><sub><a href="#top">Back to top ↑</a></sub></p>
+
+<p align="center"><img src="docs/assets/divider.svg" alt="" width="100%"></p>
 
 ## Getting started
 
@@ -327,6 +369,8 @@ node node_modules/typescript/bin/tsc -b     # types
 
 <p align="right"><sub><a href="#top">Back to top ↑</a></sub></p>
 
+<p align="center"><img src="docs/assets/divider.svg" alt="" width="100%"></p>
+
 ## Repository layout
 
 <details>
@@ -343,6 +387,8 @@ node node_modules/typescript/bin/tsc -b     # types
 
 </details>
 
+<p align="center"><img src="docs/assets/divider.svg" alt="" width="100%"></p>
+
 ## Current limitations
 
 - **Hardware.** Apple Silicon only. The tested machine is an M4 Pro with 24 GB
@@ -357,7 +403,13 @@ node node_modules/typescript/bin/tsc -b     # types
 - **Scientific scope.** Prediction confidence and computed geometry do not
   establish binding or biological activity. Nothing here is clinical advice.
 
+<p align="center"><img src="docs/assets/divider.svg" alt="" width="100%"></p>
+
 ## Technology and credits
+
+<p align="center">
+  <img src="https://skillicons.dev/icons?i=apple,tauri,rust,react,ts,vite,python,sqlite&theme=dark" alt="Apple, Tauri, Rust, React, TypeScript, Vite, Python, SQLite">
+</p>
 
 <details>
 <summary><b>Engines, libraries and data sources</b></summary>
@@ -379,6 +431,8 @@ FOLD STUDIO's interface, project handling, service bridge and workflow code are
 application-specific code written with AI assistance. The upstream engines above
 provide their own implementations; this project does not reimplement or retrain
 them.
+
+<p align="center"><img src="docs/assets/divider.svg" alt="" width="100%"></p>
 
 ## Licence
 
