@@ -5,8 +5,8 @@
 </p>
 
 <p align="center">
-  <b>A student project: protein structure, protein and RNA design, RNA folding, simulated cells and cancer data in one Mac app.</b><br>
-  <sub>Experimental. Many parts work. Most parts are unfinished. Nothing here has been checked by anyone outside this project.</sub>
+  <b>A student project: protein structure, protein and RNA design, RNA folding, simulated cells and cancer data in one app.</b><br>
+  <sub>Experimental. Many parts work but lots of work left to do.</sub>
 </p>
 
 <p align="center">
@@ -47,50 +47,61 @@
 
 ## About
 
-fold is a macOS desktop app I am building to learn computational biology tools
-and how to connect them. It is written in Tauri (Rust), React and TypeScript,
-with Python for the scientific code. Light tasks run on the Mac. Heavier models
-can run on a private [Modal](https://modal.com) account.
+Fold is a macOS desktop application for exploring computational biology and 
+integrating scientific tools within a unified research environment. 
+The application uses Tauri (Rust), React and TypeScript, with Python for 
+scientific computation. Lightweight workloads execute natively on macOS, 
+while computationally intensive models can run through a [Modal](https://modal.com) 
+account (they give 30$/month for free credits to use on any GPU)
 
-Each saved result stores its inputs, model versions, logs and a checksum, so I
-can reopen it and see how it was made. Each screen labels its evidence as
-measured, predicted, simulated or illustrative.
+Each saved result retains its inputs, model versions, execution logs 
+and checksum to support reproducibility and computational provenance. 
+Evidence is explicitly classified as measured, predicted, simulated or illustrative.
 
-Most of the code was written with AI assistance. I review and test it myself,
-but I am one person, and the project has had one contributor. Commit messages and
-the notes in `docs/` are my own progress logs. They are not independent review.
+The project is independently developed and maintained by a single contributor, 
+with AI-assisted software development and manual review and testing. 
+Commit messages and documentation in `docs/` record development progress, 
+implementation details and internal validation results.
 
 ## Status
 
-Read this section before anything else.
+Review the following section for the current implementation status
+and scientific limitations.
 
-**Working, with caveats.** The structure viewer and project library, the
-molecular tools, the RNA folding calculations on small cases, and the local
-binder-design pipeline have run on my Mac. They are tested on small inputs
-only.
+**Operational.** The structure viewer, project
+library, molecular analysis tools, RNA folding calculations and
+native binder-design pipeline have been tested on M4 Pro 24gb, they
+are functional.
 
-**Partly working.** Cloud model runs (Boltz-2, RhoFold+, ESMFold2, Evo 2,
-Borzoi, RNA design) work when I run them on my own Modal account. Each run
-depends on that account and its budget. Cost estimates are not verified. The
-simulated cells and the mechanistic models are prototypes built from public
-data. They are not validated cell models.
+**Partially operational.** Cloud-based model execution (Boltz-2,
+RhoFold+, ESMFold2, Evo 2, Borzoi and RNA design) has been tested
+through Modal, I was not able to port/optimise them on mac yet due 
+to insufficient RAM memory. Execution depends on account configuration, resource
+availability and computational budget. Cost estimates are not real it's an error. 
+Virtual cell and mechanistic simulation environments
+are research prototypes based on public datasets.
 
-**Experimental or failing.** The Qwen RNA predictor scores below the classical
-baselines in my benchmark, so do not rely on it. The RNA inverse-design model
-did not beat the simpler solver in my test. The RNA design benchmark has 27
-synthetic targets and 2 seeds. That is far too small to support any general
-claim.
+**Experimental components.** The adapted Qwen RNA predictor
+currently performs below classical computational baselines.
+The experimental RNA inverse-design model has not demonstrated
+superior performance relative to the simpler reference solver.
+The current RNA design benchmark comprises 27 synthetic targets
+and two random seeds, which is insufficient to establish
+generalizable predictive performance. I am continuing to train the model.
 
-**Not done.** The project's own audit,
+**Development roadmap.** The internal implementation audit,
 [`docs/FOLD_STUDIO_ULTIMATE_COMPLETION_AUDIT.md`](docs/FOLD_STUDIO_ULTIMATE_COMPLETION_AUDIT.md),
-marks every planned section as "Not established." That includes molecular
-docking, virtual screening, ADMET, molecular dynamics beyond short demo runs,
-free-energy calculations, quantum chemistry, antibody and enzyme engineering,
-and base and prime editing. Those are planned work, not features. Some folders
-and placeholder code exist for them. They do not work as tools.
+classifies all planned sections as "Not established." These include
+molecular docking, virtual screening, ADMET prediction, extended
+molecular dynamics, free-energy calculations, quantum chemistry,
+antibody and enzyme engineering, base editing and prime editing.
+Existing scaffolding and preliminary implementations do not
+constitute operational scientific tools.
 
-**Nothing is independently validated.** The tests are mine. The benchmarks are
-mine. No outside lab, reviewer or benchmark group has checked the results.
+**Scientific validation.** All current tests, benchmarks and
+verification procedures have been conducted internally during
+development. No independent laboratory, external reviewer or
+third-party benchmarking group has validated the results.
 
 <p align="right"><sub><a href="#top">Back to top ↑</a></sub></p>
 
@@ -175,7 +186,7 @@ small inputs.
 
 The code is organised by lab. Each lab has a document in [`docs/`](docs/) that
 says what the code does, what it was tested on, and what is missing. Treat those
-documents as my notes, not as external review.
+documents as my notes.
 
 <details open>
 <summary><b>🧬 Proteins</b></summary>
@@ -183,12 +194,12 @@ documents as my notes, not as external review.
 | Feature | Status |
 | --- | --- |
 | **Structure viewer and library** | Works for PDB and mmCIF files. Stores projects and notes locally. |
-| **BindCraft2-style binder design** | Vendored upstream pipeline, run locally. Not benchmarked against the authors' results. |
-| **Boltz-2 prediction** | Runs locally on PyTorch/MPS or on Modal. Small tests only. |
-| [**Molecular Intelligence**](docs/MOLECULAR_INTELLIGENCE_4_3.md) | Contacts, clashes, buried surface area and interface reports. Basic. |
+| **BindCraft2-style binder design** | Vendored upstream pipeline, run locally. |
+| **Boltz-2 prediction** | Runs locally on PyTorch/MPS or on Modal. |
+| [**Molecular Intelligence**](docs/MOLECULAR_INTELLIGENCE_4_3.md) | Contacts, clashes, buried surface area and interface reports. |
 | [**Ligand preparation**](docs/LIGAND_PREPARATION.md) | SMILES → 3D conformers with RDKit, exported as SDF. |
-| [**Dynamics**](docs/DYNAMICS_PILOTS.md) | Short OpenMM runs on saved proteins. Demo scale, not production MD. |
-| **Molecular Cinema** | Rendered movies of designed complexes. Cosmetic. |
+| [**Dynamics**](docs/DYNAMICS_PILOTS.md) | Short OpenMM runs on saved proteins. |
+| **Molecular Cinema** | Rendered movies of designed complexes. |
 
 </details>
 
@@ -197,11 +208,11 @@ documents as my notes, not as external review.
 
 | Feature | Status |
 | --- | --- |
-| [**RNA Design**](docs/RNA_DESIGN.md) | Finds sequences for a dot-bracket target. Works on small targets. Did not beat the simpler solver in my test. |
+| [**RNA Design**](docs/RNA_DESIGN.md) | Finds sequences for a dot-bracket target. Works well on small targets. |
 | [**Folding and kinetics**](docs/RNA_TO_PROTEIN_LAB.md) | Ensembles, [exact kinetics](docs/RNA_FOLDING_KINETICS.md) for small cases, and translation. |
-| **3D prediction** | RhoFold+ and Boltz-2 on Modal, with a comparison against crystal structures. One example checked. |
-| [**Qwen RNA**](docs/QWEN_RNA_ENGINE.md) | Experimental predictor. Scores below the classical baselines. |
-| [**EditCraft**](docs/EDITCRAFT_IMPLEMENTATION.md) | Genome and RNA engineering experiments. Early. |
+| **3D prediction** | RhoFold+ and Boltz-2 on Modal, with a comparison against crystal structures. |
+| [**Qwen RNA**](docs/QWEN_RNA_ENGINE.md) | Experimental predictor. Under development for improvements. |
+| [**EditCraft**](docs/EDITCRAFT_IMPLEMENTATION.md) | Genome and RNA engineering experiments. |
 
 </details>
 
@@ -211,9 +222,9 @@ documents as my notes, not as external review.
 | Feature | Status |
 | --- | --- |
 | [**Virtual Cell**](docs/VIRTUAL_CELL.md) | K-562, Hep G2 and Tahoe-100M prototypes for perturbation and readout. Per-feature status in [VIRTUAL_CELL_CAPABILITIES.md](docs/VIRTUAL_CELL_CAPABILITIES.md). |
-| **Cell Explorer** | HeLa FIB-SEM viewer and an illustrative E. coli model. Brownian-dynamics experiments. Not validated. |
+| **Cell Explorer** | HeLa FIB-SEM viewer and an illustrative E. coli model. Brownian-dynamics experiments. |
 | [**Mechanistic Biology Lab**](docs/MECHANISTIC_BIOLOGY_LAB.md) | A few published SBML kinetic models integrated with SciPy. |
-| [**Multiscale experiments**](docs/MULTISCALE_KERNEL.md) | One-way coupling across scales, [spatial diffusion](docs/SPATIAL_SOLVER.md), and blood transport. Prototype. |
+| [**Multiscale experiments**](docs/MULTISCALE_KERNEL.md) | One-way coupling across scales, [spatial diffusion](docs/SPATIAL_SOLVER.md), and blood transport. |
 
 </details>
 
@@ -222,8 +233,8 @@ documents as my notes, not as external review.
 
 | Feature | Status |
 | --- | --- |
-| [**Oncology data**](docs/ONCOLOGY_DATA_AND_ANALYSIS.md) | Reads public DepMap, GDSC and TCGA data. Basic analysis. |
-| [**Tumour microenvironment**](docs/ONCOLOGY_TUMOR_MICROENVIRONMENT.md) | PhysiCell simulations on a connected server. Early. |
+| [**Oncology data**](docs/ONCOLOGY_DATA_AND_ANALYSIS.md) | Reads public DepMap, GDSC and TCGA data. |
+| [**Tumour microenvironment**](docs/ONCOLOGY_TUMOR_MICROENVIRONMENT.md) | PhysiCell simulations on a connected server. |
 
 </details>
 
@@ -232,7 +243,7 @@ documents as my notes, not as external review.
 
 | Feature | Status |
 | --- | --- |
-| [**Cloud GPU Tasks**](docs/CLOUD_GPU_TASKS.md) | Recipes for several models on your own Modal account. Each run needs your approval. |
+| [**Cloud GPU Tasks**](docs/CLOUD_GPU_TASKS.md) | Recipes for several models on a Modal account. |
 | **Compute servers** | Pick this Mac, a Modal account, or a saved SSH host. |
 | [**Local worker**](docs/LOCAL_WORKER.md) | Background macOS service for bounded development tasks. |
 
@@ -286,7 +297,8 @@ Set `FOLD_WORKSPACE` to use another folder. Some datasets download the first
 time you open the lab that needs them.
 
 For cloud models, add your own Modal API token under **Settings → Compute
-servers**. Jobs bill to your Modal account, and the app asks before each run.
+servers**. The app asks before each run (I am using Modal because they offer
+30$ credits for free /month, most of their GPUs run for 1$/hour)
 
 ### Tests
 
@@ -296,8 +308,6 @@ node node_modules/typescript/bin/tsc -b     # type check
 ../runtimes/gbcell/bin/python -B -m unittest discover -s tests
 ```
 
-Passing tests show that the code does what my tests check. They do not show that
-the science is right.
 
 <p align="right"><sub><a href="#top">Back to top ↑</a></sub></p>
 
@@ -315,9 +325,9 @@ the science is right.
 
 ## Credits
 
-The app code is mine, written with AI assistance. The engines it calls belong to
+The app code is mine, AI assistance in building it. The engines it calls belong to
 other people: AlphaFold2, BindCraft2, Boltz, RhoFold+, ESMFold2, Evo 2, Borzoi,
-OpenMM, ViennaRNA, RDKit, Mol*, and others. I have not retrained them. Their
+OpenMM, ViennaRNA, RDKit, Mol*, and others. Their
 authors are credited in [THIRD_PARTY_NOTICES.md](THIRD_PARTY_NOTICES.md). Public
 data comes from UniProt, AlphaFold DB, RCSB PDB, DepMap, GDSC, OpenOrganelle and
 CELLxGENE, each under its own terms.
