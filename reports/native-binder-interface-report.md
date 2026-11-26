@@ -1,4 +1,4 @@
-# FOLD STUDIO molecular intelligence report
+# fold molecular intelligence report
 
 Analysis: da018f29-5b5a-4db7-bc7a-a0e2feb5a266 · calculation engine 1.1.0
 Source: design_l60_7eeb451168a769ef_seq0

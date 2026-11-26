@@ -6,7 +6,7 @@ Rules (docs/VIRTUAL_CELL.md):
     user's library, after the user has seen its licence.
   * The core virtual cell works without any resource marked plugin=True; a missing plugin makes its readout
     "not available", never an error.
-  * Fold Studio is research-only (decision of 1 Nov 2026), so non-commercial resources are allowed. Their terms are
+  * fold is research-only (decision of 1 Nov 2026), so non-commercial resources are allowed. Their terms are
     still recorded on every result that used them, and NOTICE text is generated from this table.
 
 licenceVerified is True only where the licence text or dataset card was read; otherwise the licence must be checked
@@ -101,7 +101,7 @@ RESOURCES = {
         'name': 'SPARCED proliferation and death signalling model', 'kind': 'model', 'plugin': False,
         'provides': ['signalling readout (ERK, AKT, cyclin D, E2F, p53, cleaved PARP over 24 h)'],
         'licence': 'GPL-2.0 (repository marcbirtwistle/SPARCED)', 'licenceVerified': True, 'nonCommercial': False,
-        'redistribution': 'GPL-2.0: fetched into the library, never committed to Fold Studio',
+        'redistribution': 'GPL-2.0: fetched into the library, never committed to fold',
         'source': 'https://github.com/marcbirtwistle/SPARCED (Demo/SPARCED.xml, commit a957f960)', 'citation': 'SPARCED. Nat Commun 2022. doi:10.1038/s41467-022-31138-1; Bouhaddou M et al. PLoS Comput Biol 2018.',
         'localPath': 'virtualcell/models/sparced/SPARCED.xml', 'install': 'Downloaded (2 MB SBML)'},
     'hpa_subcellular': {
@@ -190,7 +190,7 @@ def terms(ids):
 
 def notice(root):
     """NOTICE text for the resources installed in this library."""
-    lines = ['Fold Studio Virtual Cell: third-party resources used by this installation', '']
+    lines = ['fold Virtual Cell: third-party resources used by this installation', '']
     for r in status(root):
         if r['installed']:
             lines += [f"{r['name']}", f"  Licence: {r['licence']}", f"  Source: {r['source']}", f"  Cite: {r['citation']}"]

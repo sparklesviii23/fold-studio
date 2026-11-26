@@ -1,12 +1,12 @@
-# FOLD STUDIO Ω — EDITCRAFT Ω
+# fold Ω — EDITCRAFT Ω
 ## ADDENDUM VI — THE COMPLETE MOLECULAR BIOLOGY & SCIENTIFIC RESEARCH LABORATORY
 ### Biological Intelligence · Variant Analysis · Experimental Validation · Single-Cell Biology · Molecular Workbench · Scientific Automation · Multiscale Systems Biology
 
 # MASTER DIRECTIVE
 
-Continue the implementation of EditCraft Ω inside the existing Fold Studio application.
+Continue the implementation of EditCraft Ω inside the existing fold application.
 
-**This directive is an extension of the previous EditCraft master plan. Preserve all previous requirements, scientific engines, native macOS interfaces, Modal deployment architecture, and existing Fold Studio functionality.**
+**This directive is an extension of the previous EditCraft master plan. Preserve all previous requirements, scientific engines, native macOS interfaces, Modal deployment architecture, and existing fold functionality.**
 
 We are building more than a CRISPR design application.
 
@@ -41,7 +41,7 @@ The goal is a unified, premium native application with an original scientific ar
 
 ## Non-negotiable architecture
 
-**Native macOS Fold Studio application:**
+**Native macOS fold application:**
 
 - Complete graphical interface.
 - Genome and RNA research workspaces.
@@ -483,7 +483,7 @@ Prevent accidental overwriting of molecular research data.
 
 Do not create a competing, disconnected file library.
 
-Extend the existing Fold Studio Research Library using a unified data model.
+Extend the existing fold Research Library using a unified data model.
 
 ---
 
@@ -1279,13 +1279,13 @@ Preserve parent–child relationships and analysis history.
 
 ---
 
-# 45. DESIGN THE COMPLETE PREMIUM FOLD STUDIO NAVIGATION
+# 45. DESIGN THE COMPLETE PREMIUM fold NAVIGATION
 
 As EditCraft expands, the application must remain usable.
 
 Do not place every individual scientific tool in the main sidebar.
 
-Organize Fold Studio into major research environments.
+Organize fold into major research environments.
 
 ## Primary areas
 
@@ -1500,7 +1500,7 @@ It should demonstrate the interaction between the new EditCraft components.
 6. Inspect variant consequences.
 7. Explore RNA structure and transcript context.
 8. Connect the coding sequence to protein information.
-9. Open supported protein structures in Fold Studio.
+9. Open supported protein structures in fold.
 10. Inspect experimentally characterized variant evidence.
 11. Compare compatible genome- and RNA-level analytical approaches.
 12. Inspect relevant intervention hypotheses.
@@ -1621,7 +1621,7 @@ Implement these features systematically.
 - Interactive pathway graphs.
 - Experiment comparison dashboards.
 - Publication-quality figures.
-- Complete integration with Fold Studio's established design system.
+- Complete integration with fold's established design system.
 
 Dependencies must determine the exact implementation order.
 
@@ -1635,7 +1635,7 @@ At the end of this expansion, provide:
 
 **1. Complete native macOS EditCraft laboratory**
 
-Integrated into the existing Fold Studio application.
+Integrated into the existing fold application.
 
 **2. Biological Context Atlas**
 
@@ -1709,13 +1709,13 @@ Evidence for which components genuinely work and which remain unqualified.
 
 # 53. FINAL EXECUTION DIRECTIVE
 
-**Expand EditCraft Ω into a comprehensive scientific laboratory within the existing native Fold Studio application.**
+**Expand EditCraft Ω into a comprehensive scientific laboratory within the existing native fold application.**
 
 The interface must remain entirely native on macOS.
 
 The scientific computation must use Modal.com.
 
-Preserve all existing Fold Studio functionality.
+Preserve all existing fold functionality.
 
 Preserve the complete prior EditCraft genome/RNA engineering requirements.
 
@@ -1758,7 +1758,7 @@ Do not claim greater therapeutic effectiveness without experimental validation.
 
 ### Final product vision
 
-**Fold Studio Ω should become a complete molecular research environment where protein engineering, genome editing, RNA engineering, biological evidence and experimental analysis work as one scientific system.**
+**fold Ω should become a complete molecular research environment where protein engineering, genome editing, RNA engineering, biological evidence and experimental analysis work as one scientific system.**
 
 The native Mac application is the laboratory.
 

@@ -31,7 +31,7 @@ def clean():
             try:shutil.rmtree(discard);break
             except OSError as error:
                 if error.errno!=errno.ENOTEMPTY or attempt==2:raise
-    app=ROOT/'current/FOLD STUDIO Metal Dev.app/Contents/Resources/models/alphafold'
+    app=ROOT/'current/fold Metal Dev.app/Contents/Resources/models/alphafold'
     for reference in (ROOT/'models/alphafold').glob('params_*.npz'):
         bundled=app/reference.name
         if reference.is_symlink() or bundled.is_symlink() or not bundled.is_file():continue

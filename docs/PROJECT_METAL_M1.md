@@ -5,9 +5,9 @@ code and a narrowly validated numerical port, **not a completed BindCraft2 port*
 
 ## Recovery and isolation
 
-The authoritative development repository is the existing `outputs/fold-studio`,
-clean on `fix/main-app-tools` at `460c2ae` (Fold Studio 4.3). The existing
-`~/Documents/FoldStudio-MetalPort/fold-studio` was a byte-matching public 4.3 export,
+The authoritative development repository is the existing `outputs/fold`,
+clean on `fix/main-app-tools` at `460c2ae` (fold 4.3). The existing
+`~/Documents/FoldStudio-MetalPort/fold` was a byte-matching public 4.3 export,
 with its private fixture deliberately omitted. It was preserved as baseline
 commit `d121311` before changes. New work is on `project-metal/apple-silicon-engine`.
 The original source, research database, compiled applications and release ZIPs
@@ -22,7 +22,7 @@ clipping fixes and all existing viewer/material/lighting code are preserved.
 Public export evidence does not assert full native command validation.
 
 The development app has a separate bundle identity `org.foldstudio.metalport`
-and name `FOLD STUDIO Metal Dev`, isolating its default application data. Preview
+and name `fold Metal Dev`, isolating its default application data. Preview
 uses ports 1424/1425, separate from the original preview. Existing interface CSS,
 renderer, materials, camera controls, navigation and Molecular Intelligence UI
 are unchanged. Architect has one additional button opening an existing glass

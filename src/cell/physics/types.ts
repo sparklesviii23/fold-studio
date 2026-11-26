@@ -12,7 +12,7 @@ export interface PhysicsCatalog {
 }
 
 interface RecordBase<O> {
-  schema: 'fold-studio.research-record'; id: string; kind: string; created: string;
+  schema: 'fold.research-record'; id: string; kind: string; created: string;
   engine: {id: string; name: string; version: string; numericalMethod: string};
   evidence: {category: EvidenceCategory; name: string; statement: string};
   inputs: Record<string, {value: number | number[] | null; unit: string; description: string; provenance?: {kind: string; note: string}}>;

@@ -1,6 +1,6 @@
-# Fold Studio local development worker
+# fold local development worker
 
-This is a separate user-level macOS service, not another Fold Studio app. It does not replace the current app, restart experiments, merge patches, or require a cloud model. Its source is `local_worker/`; control it with `scripts/fold-worker` from this repository.
+This is a separate user-level macOS service, not another fold app. It does not replace the current app, restart experiments, merge patches, or require a cloud model. Its source is `local_worker/`; control it with `scripts/fold-worker` from this repository.
 
 ## Dispatch and retrieve
 
@@ -33,7 +33,7 @@ scripts/fold-worker notifications off
 scripts/fold-worker benchmark
 ```
 
-Stop/disable affect only this development service and its owned children. Emergency stop pauses queued work and stops owned execution; it never signals the molecular app or unrelated scientific processes. Rollback preserves a patch before removing an owned review worktree; it refuses untracked files. There is no automatic merge/apply-to-active-checkout command. Never update worker source while a task is running; stop this service, update and test, then start it again. Reloading this worker does not require rebuilding Fold Studio.
+Stop/disable affect only this development service and its owned children. Emergency stop pauses queued work and stops owned execution; it never signals the molecular app or unrelated scientific processes. Rollback preserves a patch before removing an owned review worktree; it refuses untracked files. There is no automatic merge/apply-to-active-checkout command. Never update worker source while a task is running; stop this service, update and test, then start it again. Reloading this worker does not require rebuilding fold.
 
 State is stored in `~/Library/Application Support/FoldStudioWorker`, mode 0700. The launch agent is `~/Library/LaunchAgents/org.foldstudio.development-worker.plist`. Notifications are best-effort macOS requests; delivery depends on notification settings. Notification outcomes never determine scientific or task success.
 
@@ -65,7 +65,7 @@ The model server exists only during a local-AI task, uses one loaded model and o
 
 ## Local AI installation and boundaries
 
-The user explicitly approved installing Aider/Ollama and one small coding model. Installed versions and model identity are recorded in the validation report. Aider has its own environment under the worker state directory; no Fold Studio scientific runtime was modified. The one model store is the worker's `models/` directory. The initial qualified model is `qwen2.5-coder:3b` (Q4_K_M, about 1.9 GB), selected to keep memory modest rather than to claim frontier coding ability.
+The user explicitly approved installing Aider/Ollama and one small coding model. Installed versions and model identity are recorded in the validation report. Aider has its own environment under the worker state directory; no fold scientific runtime was modified. The one model store is the worker's `models/` directory. The initial qualified model is `qwen2.5-coder:3b` (Q4_K_M, about 1.9 GB), selected to keep memory modest rather than to claim frontier coding ability.
 
 ```sh
 scripts/fold-worker configure-local-ai \

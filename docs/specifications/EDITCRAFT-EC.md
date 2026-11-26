@@ -1,10 +1,10 @@
-# FOLD STUDIO Ω — EDITCRAFT Ω
+# fold Ω — EDITCRAFT Ω
 ## COMPLETE NATIVE macOS GENOME & RNA ENGINEERING LABORATORY
 ### MODAL CLOUD SCIENTIFIC ENGINE · MULTI-MODEL GENOME EDITING · RNA ENGINEERING · MOLECULAR VISUALIZATION
 
 # CRITICAL ARCHITECTURAL INSTRUCTION
 
-We are building **EditCraft Ω as a major native macOS workspace inside the existing Fold Studio application**.
+We are building **EditCraft Ω as a major native macOS workspace inside the existing fold application**.
 
 The previous interpretation that EditCraft should be a separate browser application was incorrect.
 
@@ -12,7 +12,7 @@ The previous interpretation that EditCraft should be a separate browser applicat
 
 The required architecture is:
 
-**FOLD STUDIO — NATIVE macOS APPLICATION**
+**fold — NATIVE macOS APPLICATION**
 
 Genome Explorer  
 CRISPR Architect  
@@ -47,7 +47,7 @@ Resource-aware scientific orchestration
 
 ↓
 
-Results, molecular structures, scientific metrics, sequence annotations and complete provenance return to Fold Studio.
+Results, molecular structures, scientific metrics, sequence annotations and complete provenance return to fold.
 
 The Mac is the scientific workstation.
 
@@ -59,11 +59,11 @@ Keep the architecture portable so that a future local Metal implementation remai
 
 Do not build an independent website, separate browser application or unrelated desktop client.
 
-Reuse the existing Fold Studio design, navigation, Research Library, molecular viewer and Cloud Compute infrastructure.
+Reuse the existing fold design, navigation, Research Library, molecular viewer and Cloud Compute infrastructure.
 
 ---
 
-# 1. PRESERVE THE EXISTING FOLD STUDIO APPLICATION
+# 1. PRESERVE THE EXISTING fold APPLICATION
 
 Inspect the actual repository before modifying anything.
 
@@ -121,7 +121,7 @@ Design inspiration:
 
 **PlayStation 5 × Apple TV × Apple Music × Native macOS × Scientific Instrumentation.**
 
-Use the established Fold Studio design system:
+Use the established fold design system:
 
 - Midnight-navy surfaces.
 - Soft translucent panels.
@@ -525,7 +525,7 @@ Implement correct mapping between:
 
 This must work with reference and alternate alleles, strand orientation and relevant isoforms.
 
-### Integration with Fold Studio
+### Integration with fold
 
 When a supported genetic change produces an altered protein sequence, allow transfer to the existing native molecular viewer.
 
@@ -539,7 +539,7 @@ Do not duplicate the entire protein-design backend inside EditCraft.
 
 This is mandatory.
 
-All visual interfaces must run inside Fold Studio on macOS.
+All visual interfaces must run inside fold on macOS.
 
 Heavy scientific inference, folding, simulation and optimization run remotely.
 
@@ -603,7 +603,7 @@ Distinguish animations from atomistic molecular dynamics simulations.
 
 Selecting a variant in the genome viewer should highlight its corresponding transcript position, relevant codon and protein residue where an unambiguous mapping exists.
 
-Use the native Fold Studio molecular viewer where appropriate.
+Use the native fold molecular viewer where appropriate.
 
 Do not generate arbitrary coordinates to simulate an experimental structure.
 
@@ -762,7 +762,7 @@ Do not reinstall every model for each campaign.
 
 ### Autonomous execution
 
-The cloud engine must continue working if Fold Studio closes or the Mac disconnects.
+The cloud engine must continue working if fold closes or the Mac disconnects.
 
 Persist:
 
@@ -978,7 +978,7 @@ Given a biological target, help the investigator compare computational hypothese
 - Antisense modulation.
 - Protein-level intervention.
 
-Connect to existing Fold Studio protein-research data when appropriate.
+Connect to existing fold protein-research data when appropriate.
 
 Evaluate supported mechanisms, functional context, uncertainty and relevant experimental observations.
 
@@ -1087,7 +1087,7 @@ Do not declare a model implemented if only its name appears in the UI.
 
 The implementation is considered functionally complete only when:
 
-1. Genome & RNA Engineering exists inside the native Fold Studio macOS app.
+1. Genome & RNA Engineering exists inside the native fold macOS app.
 2. The interface maintains our premium PS5 / Apple TV design.
 3. A real genome viewer functions.
 4. DNA and RNA molecular visualizations function.
@@ -1116,7 +1116,7 @@ A complete interface is not equivalent to a scientifically validated engine.
 
 # 25. FINAL EXECUTION DIRECTIVE
 
-**Build EditCraft Ω as a complete native Fold Studio scientific laboratory with an independent Modal-hosted genome and RNA engineering engine.**
+**Build EditCraft Ω as a complete native fold scientific laboratory with an independent Modal-hosted genome and RNA engineering engine.**
 
 The complete visual interface must run locally on macOS.
 
@@ -1144,12 +1144,12 @@ Demonstrate actual computation, reliable cross-model analysis, native molecular 
 
 The final intended user experience is:
 
-**Open Fold Studio → Genome & RNA Engineering → Select Gene or Transcript → Choose Research Mechanism → Configure EditCraft → Select Modal Compute → Run → Monitor Scientific Models → Visualize DNA/RNA/Protein Consequences → Compare Predictions → Export Research Results.**
+**Open fold → Genome & RNA Engineering → Select Gene or Transcript → Choose Research Mechanism → Configure EditCraft → Select Modal Compute → Run → Monitor Scientific Models → Visualize DNA/RNA/Protein Consequences → Compare Predictions → Export Research Results.**
 
-This must feel like a premium professional molecular genetics laboratory built into Fold Studio.
+This must feel like a premium professional molecular genetics laboratory built into fold.
 
 **The scientific engine lives on Modal. The complete laboratory interface lives on the Mac.**
 
-Preserve all functioning Fold Studio research infrastructure and implement this new scientific domain as a coherent extension of our existing platform.
+Preserve all functioning fold research infrastructure and implement this new scientific domain as a coherent extension of our existing platform.
 
 Do not initiate paid compute or external services without explicit user authorization.

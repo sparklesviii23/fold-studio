@@ -1,7 +1,7 @@
 Pre-build scientific resource closure passed: 80 local modules.
 Pinned CPU libraries verified; no model downloads or scientific calculation started.
 Pinned CPU libraries verified; no model downloads or scientific calculation started.
-{"archive": "/Users/vii/Documents/FoldStudio-MetalPort/fold-studio/remote_worker/dist/fold-rapid-0.2.0.tar.gz", "bytes": 1389683, "sha256": "7516a0047244d682f595675cd78eb0a49338d568252a6b09d9a312cb6fc9057c"}
+{"archive": "/Users/vii/Documents/FoldStudio-MetalPort/fold/remote_worker/dist/fold-rapid-0.2.0.tar.gz", "bytes": 1389683, "sha256": "7516a0047244d682f595675cd78eb0a49338d568252a6b09d9a312cb6fc9057c"}
         Info Looking up installed tauri packages to check mismatched versions...
      Running beforeBuildCommand `pnpm build`
 $ tsc -b && vite build
@@ -247,32 +247,32 @@ dist/assets/molecular-engine-4nnKb7vH.js  3,139.42 kB │ gzip: 891.16 kB
    Compiling tauri-macros v2.7.1
    Compiling tauri-plugin-opener v2.7.0
    Compiling tauri-plugin-dialog v2.8.1
-   Compiling fold-studio v4.3.0 (/Users/vii/Documents/FoldStudio-MetalPort/fold-studio/src-tauri)
+   Compiling fold v4.3.0 (/Users/vii/Documents/FoldStudio-MetalPort/fold/src-tauri)
 warning: stripping debug info with `rust-objcopy` failed: signal: 6 (SIGABRT)
   |
   = note: dyld[92266]: Library not loaded: @rpath/libLLVM.dylib
             Referenced from: <D6B3C499-A2AF-3E42-8F77-C42BD658AAB5> /Users/vii/Documents/Codex/2026-10-09/files-pasted-by-the-user-fold/work/toolchain/rustup/toolchains/stable-aarch64-apple-darwin/lib/rustlib/aarch64-apple-darwin/bin/rust-objcopy
-            Reason: tried: '/Users/vii/Documents/Codex/2026-10-09/files-pasted-by-the-user-fold/work/toolchain/rustup/toolchains/stable-aarch64-apple-darwin/lib/rustlib/aarch64-apple-darwin/bin/../lib/libLLVM.dylib' (no such file), '/Users/vii/Documents/Codex/2026-10-09/files-pasted-by-the-user-fold/work/toolchain/rustup/toolchains/stable-aarch64-apple-darwin/lib/rustlib/aarch64-apple-darwin/bin/../lib/libLLVM.dylib' (no such file), '/Users/vii/Documents/FoldStudio-MetalPort/fold-studio/../build-cache/current/release/deps/libLLVM.dylib' (no such file), '/Users/vii/lib/libLLVM.dylib' (no such file), '/usr/local/lib/libLLVM.dylib' (no such file), '/usr/lib/libLLVM.dylib' (no such file, not in dyld cache)
+            Reason: tried: '/Users/vii/Documents/Codex/2026-10-09/files-pasted-by-the-user-fold/work/toolchain/rustup/toolchains/stable-aarch64-apple-darwin/lib/rustlib/aarch64-apple-darwin/bin/../lib/libLLVM.dylib' (no such file), '/Users/vii/Documents/Codex/2026-10-09/files-pasted-by-the-user-fold/work/toolchain/rustup/toolchains/stable-aarch64-apple-darwin/lib/rustlib/aarch64-apple-darwin/bin/../lib/libLLVM.dylib' (no such file), '/Users/vii/Documents/FoldStudio-MetalPort/fold/../build-cache/current/release/deps/libLLVM.dylib' (no such file), '/Users/vii/lib/libLLVM.dylib' (no such file), '/usr/local/lib/libLLVM.dylib' (no such file), '/usr/lib/libLLVM.dylib' (no such file, not in dyld cache)
           
 
-warning: `fold-studio` (build script) generated 1 warning
+warning: `fold` (build script) generated 1 warning
 warning: stripping debug info with `rust-objcopy` failed: signal: 6 (SIGABRT)
   |
   = note: dyld[92287]: Library not loaded: @rpath/libLLVM.dylib
             Referenced from: <D6B3C499-A2AF-3E42-8F77-C42BD658AAB5> /Users/vii/Documents/Codex/2026-10-09/files-pasted-by-the-user-fold/work/toolchain/rustup/toolchains/stable-aarch64-apple-darwin/lib/rustlib/aarch64-apple-darwin/bin/rust-objcopy
-            Reason: tried: '/Users/vii/Documents/Codex/2026-10-09/files-pasted-by-the-user-fold/work/toolchain/rustup/toolchains/stable-aarch64-apple-darwin/lib/rustlib/aarch64-apple-darwin/bin/../lib/libLLVM.dylib' (no such file), '/Users/vii/Documents/Codex/2026-10-09/files-pasted-by-the-user-fold/work/toolchain/rustup/toolchains/stable-aarch64-apple-darwin/lib/rustlib/aarch64-apple-darwin/bin/../lib/libLLVM.dylib' (no such file), '/Users/vii/Documents/FoldStudio-MetalPort/fold-studio/../build-cache/current/release/deps/libLLVM.dylib' (no such file), '/Users/vii/lib/libLLVM.dylib' (no such file), '/usr/local/lib/libLLVM.dylib' (no such file), '/usr/lib/libLLVM.dylib' (no such file, not in dyld cache)
+            Reason: tried: '/Users/vii/Documents/Codex/2026-10-09/files-pasted-by-the-user-fold/work/toolchain/rustup/toolchains/stable-aarch64-apple-darwin/lib/rustlib/aarch64-apple-darwin/bin/../lib/libLLVM.dylib' (no such file), '/Users/vii/Documents/Codex/2026-10-09/files-pasted-by-the-user-fold/work/toolchain/rustup/toolchains/stable-aarch64-apple-darwin/lib/rustlib/aarch64-apple-darwin/bin/../lib/libLLVM.dylib' (no such file), '/Users/vii/Documents/FoldStudio-MetalPort/fold/../build-cache/current/release/deps/libLLVM.dylib' (no such file), '/Users/vii/lib/libLLVM.dylib' (no such file), '/usr/local/lib/libLLVM.dylib' (no such file), '/usr/lib/libLLVM.dylib' (no such file, not in dyld cache)
           
 
-warning: `fold-studio` (bin "fold-studio") generated 1 warning
+warning: `fold` (bin "fold") generated 1 warning
     Finished `release` profile [optimized] target(s) in 53.35s
-       Built application at: /Users/vii/Documents/FoldStudio-MetalPort/fold-studio/../build-cache/current/release/fold-studio
-    Bundling FOLD STUDIO Metal Dev.app (/Users/vii/Documents/FoldStudio-MetalPort/fold-studio/../build-cache/current/release/bundle/macos/FOLD STUDIO Metal Dev.app)
+       Built application at: /Users/vii/Documents/FoldStudio-MetalPort/fold/../build-cache/current/release/fold
+    Bundling fold Metal Dev.app (/Users/vii/Documents/FoldStudio-MetalPort/fold/../build-cache/current/release/bundle/macos/fold Metal Dev.app)
     Finished 1 bundle at:
-        /Users/vii/Documents/FoldStudio-MetalPort/fold-studio/../build-cache/current/release/bundle/macos/FOLD STUDIO Metal Dev.app (5.34 GiB)
+        /Users/vii/Documents/FoldStudio-MetalPort/fold/../build-cache/current/release/bundle/macos/fold Metal Dev.app (5.34 GiB)
 
 Packaged native cloud review passed; no upload or GPU allocation.
 Packaged scientific service imports successfully; checked 80 local modules.
-/Users/vii/Documents/FoldStudio-MetalPort/build-cache/current/release/bundle/macos/FOLD STUDIO Metal Dev.app: replacing existing signature
-/Users/vii/Documents/FoldStudio-MetalPort/build-cache/current/release/bundle/macos/FOLD STUDIO Metal Dev.app: valid on disk
-/Users/vii/Documents/FoldStudio-MetalPort/build-cache/current/release/bundle/macos/FOLD STUDIO Metal Dev.app: satisfies its Designated Requirement
-Updated current app: /Users/vii/Documents/FoldStudio-MetalPort/validation/RAPID Foundation Engine/FOLD STUDIO Metal Dev.app
+/Users/vii/Documents/FoldStudio-MetalPort/build-cache/current/release/bundle/macos/fold Metal Dev.app: replacing existing signature
+/Users/vii/Documents/FoldStudio-MetalPort/build-cache/current/release/bundle/macos/fold Metal Dev.app: valid on disk
+/Users/vii/Documents/FoldStudio-MetalPort/build-cache/current/release/bundle/macos/fold Metal Dev.app: satisfies its Designated Requirement
+Updated current app: /Users/vii/Documents/FoldStudio-MetalPort/validation/RAPID Foundation Engine/fold Metal Dev.app

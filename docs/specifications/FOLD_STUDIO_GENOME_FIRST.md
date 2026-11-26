@@ -1,16 +1,16 @@
-# FOLD STUDIO Ω — GENOME-FIRST TOTAL IMPLEMENTATION DIRECTIVE
+# fold Ω — GENOME-FIRST TOTAL IMPLEMENTATION DIRECTIVE
 ## ONE CONTINUOUS ENGINEERING SESSION
 ### Full Scientific Functionality First · Minimal UI · All Non-Fab Requirements · No Premature Stopping
 
 # 0. YOUR MISSION
 
-You are continuing development of Fold Studio Ω, an existing native macOS scientific research platform.
+You are continuing development of fold Ω, an existing native macOS scientific research platform.
 
 Repository:
 
-`/Users/vii/Documents/FoldStudio-MetalPort/fold-studio`
+`/Users/vii/Documents/FoldStudio-MetalPort/fold`
 
-**I want you to implement the entire remaining non-Fab scientific functionality of Fold Studio during one continuous execution session, as far as the available execution environment, permissions, dependencies and usage budget permit.**
+**I want you to implement the entire remaining non-Fab scientific functionality of fold during one continuous execution session, as far as the available execution environment, permissions, dependencies and usage budget permit.**
 
 This is an implementation mandate.
 
@@ -36,7 +36,7 @@ Finish the underlying computational engines first.
 
 Make them accessible through the minimum usable interface.
 
-We will redesign and beautify Fold Studio later.
+We will redesign and beautify fold later.
 
 ## The new implementation order
 
@@ -171,7 +171,7 @@ Before modifying code, inspect:
 
 `AGENTS.md`
 
-`FOLD_STUDIO_IMPLEMENTATION_AUDIT.md`
+`FOLD_IMPLEMENTATION_AUDIT.md`
 
 `docs/CURRENT_IMPLEMENTATION_CHECKPOINT.md`
 
@@ -220,7 +220,7 @@ Use the full existing specification as the authoritative backlog, reconcile newe
 
 This is the most important new requirement.
 
-I want to open Fold Studio, choose or import an organism, load its genome and conduct computational genomic research through a complete, working scientific workspace.
+I want to open fold, choose or import an organism, load its genome and conduct computational genomic research through a complete, working scientific workspace.
 
 I want to study:
 
@@ -568,7 +568,7 @@ Every tab must perform real operations.
 
 The Priority Zero genome workspace is not complete until the following real workflow works:
 
-1. Open Fold Studio.
+1. Open fold.
 2. Select a supported nonpathogenic bacterial reference.
 3. Load or import its genuine genome.
 4. Verify assembly identity and sequence length.
@@ -1796,7 +1796,7 @@ Do not silently redistribute unavailable or restricted model weights.
 
 # 57. APPLICATION RELIABILITY
 
-Preserve the canonical installed Fold Studio application.
+Preserve the canonical installed fold application.
 
 Complete relevant:
 
@@ -2083,7 +2083,7 @@ Do not imply an unexecuted model is scientifically qualified.
 
 # 70. FINAL MANDATE
 
-**MAKE FOLD STUDIO SCIENTIFICALLY FUNCTIONAL BEFORE MAKING IT BEAUTIFUL.**
+**MAKE fold SCIENTIFICALLY FUNCTIONAL BEFORE MAKING IT BEAUTIFUL.**
 
 The top priority is a complete Genome & RNA Laboratory.
 

@@ -54,7 +54,7 @@ export async function composeFrame(imageURI:string,width:number,height:number,ke
  const paper=style.theme==='paper',panel=Math.round(width*.32);ctx.fillStyle=paper?'#f8f7f3':'#071326';ctx.fillRect(0,0,width,height);
  ctx.drawImage(image,panel,0,width-panel,height);
  const scale=height/1080;ctx.save();ctx.scale(scale,scale);const left=68,max=panel/scale-100;
- ctx.fillStyle=paper?'#827b76':'#90acc5';ctx.font='500 17px -apple-system, sans-serif';ctx.fillText('FOLD STUDIO  /  MOLECULAR CINEMA',left,88);
+ ctx.fillStyle=paper?'#827b76':'#90acc5';ctx.font='500 17px -apple-system, sans-serif';ctx.fillText('fold  /  MOLECULAR CINEMA',left,88);
  ctx.fillStyle=paper?'#25242b':'#eef3fc';ctx.font='600 52px -apple-system, sans-serif';let y=245;
  function wrap(text:string,font:string,lineHeight:number){ctx.font=font;let line='';for(const word of text.split(/\s+/)){const next=line?line+' '+word:word;if(ctx.measureText(next).width>max&&line){ctx.fillText(line,left,y);y+=lineHeight;line=word;}else line=next;}ctx.fillText(line,left,y);y+=lineHeight;}
  wrap(key.title,'600 52px -apple-system, sans-serif',62);y+=30;ctx.fillStyle=paper?'#62605e':'#a7bbd0';wrap(key.caption,'400 28px -apple-system, sans-serif',40);

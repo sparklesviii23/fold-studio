@@ -1,6 +1,6 @@
 """Saved laboratory simulation results, read into one Virtual Cell result shape (read-only).
 
-Sources are the labs' own `fold-studio.research-record` v1 files; their engines are not called or modified:
+Sources are the labs' own `fold.research-record` v1 files; their engines are not called or modified:
   cell_physics  <library>/cell_physics/runs/*.json   Living Cell Brownian dynamics (diffusion, receptor binding)
   cell_em       <library>/cell_em/runs/*.json        Brownian dynamics in the EM-derived HeLa cell (latest cumulative summary)
   rna_lab       <library>/rna_lab/runs/*.json        RNA folding ensembles, TASEP translation
@@ -58,7 +58,7 @@ def listing(root):
                 rec = json.loads(f.read_text())
             except (OSError, ValueError):
                 out.append({'source': source, 'id': f.stem, 'error': 'unreadable record'}); continue
-            if rec.get('schema') != 'fold-studio.research-record':
+            if rec.get('schema') != 'fold.research-record':
                 continue
             out.append({'source': source, 'lab': SOURCES[source]['lab'], 'id': rec.get('id', f.stem), 'kind': rec.get('kind'), 'created': rec.get('created'),
                         'engine': (rec.get('engine') or {}).get('name'), 'version': (rec.get('engine') or {}).get('version'),

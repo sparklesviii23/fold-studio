@@ -898,7 +898,7 @@ def state_dispatch(service, action, p, ref, cell):
                'state': {'composition': replay(ref, cell['history'])['composition'], 'evidence': EVIDENCE[replay(ref, cell['history'])['category']]},
                'coverage': cov, 'missing': {k: v for k, v in cov.items() if v['state'] in ('unsupported', 'not_downloaded', 'unmeasured')},
                'datasets': VR.manifest(root, used), 'capabilities': [{k: c[k] for k in ('id', 'validation', 'validationLabel', 'evidence', 'context')} for c in VR.capabilities()],
-               'snapshots': VSS.listing(root, cell['id']), 'software': {'engine': 'Fold Studio Virtual Cell', 'python': __import__('platform').python_version(), 'numpy': np.__version__},
+               'snapshots': VSS.listing(root, cell['id']), 'software': {'engine': 'fold Virtual Cell', 'python': __import__('platform').python_version(), 'numpy': np.__version__},
                'note': 'Datasets come from different experiments, samples and years; values are not simultaneous measurements of one cell. Simulations are generic unless stated.'}
         rep['sha256'] = _sha(rep)
         return rep

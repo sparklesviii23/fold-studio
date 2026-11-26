@@ -14,7 +14,7 @@ MAX_MANIFEST = 10 * 1024**2
 
 def inspect_archive(parameters):
     if set(parameters) != {'path'} or not isinstance(parameters['path'], str):
-        raise ValueError('Choose one local Fold Studio project ZIP.')
+        raise ValueError('Choose one local fold project ZIP.')
     path = pathlib.Path(parameters['path'])
     if path.suffix.lower() != '.zip' or path.is_symlink() or not path.is_file():
         raise ValueError('Choose a regular project ZIP file.')
@@ -42,8 +42,8 @@ def inspect_archive(parameters):
             if 'project.json' not in names or archive.getinfo('project.json').file_size > MAX_MANIFEST:
                 raise ValueError('A bounded project.json manifest is required.')
             data = json.loads(archive.read('project.json'))
-            if not isinstance(data, dict) or data.get('format') != 'fold-studio-project-v1':
-                raise ValueError('Unsupported Fold Studio project archive format.')
+            if not isinstance(data, dict) or data.get('format') != 'fold-project-v1':
+                raise ValueError('Unsupported fold project archive format.')
             project, records, jobs, manifest = (data.get(key) for key in ('project', 'records', 'jobs', 'assetManifest'))
             if (not isinstance(project, dict) or not isinstance(project.get('name'), str)
                     or not isinstance(records, list) or not isinstance(jobs, list)

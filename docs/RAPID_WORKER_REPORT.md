@@ -167,7 +167,7 @@ pinned source and approved installer, **not trained checkpoints or preinstalled
 scientific environments**. Those install explicitly on the server. Heavy local
 scientific image validation finished successfully; its VM and all temporary images
 were deleted. It does not become another Mac release.
-The native app stays at `../current/FOLD STUDIO Metal Dev.app`.
+The native app stays at `../current/fold Metal Dev.app`.
 
 A genuine previously computed 559-residue full-Fab rejected refold is used only
 as an output-parser/transport fixture. Its original i_pTM rejection is retained.
@@ -183,7 +183,7 @@ or optimistic global completion percentage is made.
 
 ## Repeating development checks
 
-From `/Users/vii/Documents/FoldStudio-MetalPort/fold-studio`:
+From `/Users/vii/Documents/FoldStudio-MetalPort/fold`:
 
 ```sh
 ../runtimes/openmm-cpu/bin/python -m unittest discover -s tests -p 'test_*.py'

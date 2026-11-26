@@ -1,6 +1,6 @@
 #!/bin/bash
 set -euo pipefail
-app="${1:-${CARGO_TARGET_DIR:-src-tauri/target}/release/bundle/macos/FOLD STUDIO Metal Dev.app}"
+app="${1:-${CARGO_TARGET_DIR:-src-tauri/target}/release/bundle/macos/fold Metal Dev.app}"
 app="$(cd "$app" && pwd -P)"
 # Re-sealing changes the ad-hoc identity used by macOS privacy grants. A model
 # worker can outlive its window, so check executable paths before any mutation.
@@ -9,7 +9,7 @@ while IFS= read -r executable; do
     *.app/Contents/*)
       process_app="${executable%%.app/Contents/*}.app"
       if [[ -d "$process_app" ]] && [[ "$(cd "$process_app" && pwd -P)" == "$app" ]]; then
-        printf '%s\n' 'Cannot re-sign a running Fold Studio build. Close its window and finish its scientific jobs first.' >&2
+        printf '%s\n' 'Cannot re-sign a running fold build. Close its window and finish its scientific jobs first.' >&2
         exit 1
       fi
       ;;

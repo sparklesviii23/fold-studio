@@ -16,7 +16,7 @@ With uniform free density this gives the exact equilibrium constant
 K = λ·V_rx / koff = kon / koff for every Δt (λΔt, koffΔt ≤ 0.2 are enforced).
 
 Units throughout: µm, s, µm²/s, µm³/s. RNG: NumPy PCG64 with an explicit seed.
-Nothing here depends on the Fold Studio worker; it can be tested on its own.
+Nothing here depends on the fold worker; it can be tested on its own.
 """
 import math
 import numpy as np

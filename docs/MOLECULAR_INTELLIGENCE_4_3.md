@@ -1,4 +1,4 @@
-# Molecular Intelligence Lab · FOLD STUDIO 4.3.0
+# Molecular Intelligence Lab · fold 4.3.0
 
 This release extends the existing application. It uses the same React/TypeScript interface, Tauri/Rust shell, Mol* renderer, separately installed ChimeraX 1.12 scientific runtime, Python service, SQLite library and Boltz MPS runner. No new external computation service or language-model dependency was added.
 

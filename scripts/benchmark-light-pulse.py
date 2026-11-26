@@ -44,7 +44,7 @@ dry = types.SimpleNamespace(root=None); lp.fitted = lambda service: (fit, bench)
 part = lp.particles(dry, {'schedule': 'dynamic-green-red-perturbation', 'preMin': 480})
 numerical += [{'name': c['name'] + ' (red-perturbation schedule)', 'value': c['value'], 'threshold': c['threshold'], 'passed': c['passed']} for c in part['checks']]
 numerical.append({'name': 'Photostationary shortcut used for calibration', 'value': fit['calibrationCheck']['maxRelativeDifference'], 'threshold': fit['calibrationCheck']['threshold'], 'passed': fit['calibrationCheck']['passed']})
-report = {'schema': 'fold-studio.benchmark/2', 'engine': {'id': lp.ENGINE['id'], 'version': lp.VERSION, 'state': {'schema': lp.STATE['schema'], 'version': lp.STATE['version'], 'phi': lp.PHI}},
+report = {'schema': 'fold.benchmark/2', 'engine': {'id': lp.ENGINE['id'], 'version': lp.VERSION, 'state': {'schema': lp.STATE['schema'], 'version': lp.STATE['version'], 'phi': lp.PHI}},
           'spectral': {'sha256': lp.spectral()['sha256'], 'memberSha256': lp.spectral()['source']['memberSha256']}, 'dataset': {'sha256': lp.dataset()['sha256'], **{k: lp.dataset()['source'][k] for k in ('authors', 'journal', 'doi', 'licence', 'dataset', 'archiveSha256')}},
           'split': lp.SPLIT, 'runtime': f'Python {platform.python_version()} · NumPy {np.__version__} · SciPy {scipy.__version__} · {platform.machine()}', 'fitSeconds': round(t_fit, 1),
           'experimental': {'metric': 'root-mean-square error of log10 fluorescence, shown as a fold error (1.00 is perfect)', 'pooledFoldError': {role: {k: fold(v) for k, v in bench['summary'][role].items()} for role in bench['summary']},

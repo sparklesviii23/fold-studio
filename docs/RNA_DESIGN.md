@@ -53,7 +53,7 @@ Full reports and logs: `reports/rna-design/`. The pilot is small and synthetic. 
 
 ## Commands and verification
 
-Run from `fold-studio`:
+Run from `fold`:
 
 ```sh
 PYTHONPATH=../runtimes/rna-vienna/lib/python3.12/site-packages ../runtimes/gbcell/bin/python -B -m unittest tests.test_rna_design tests.test_gpu_tasks tests.test_native_allowlist tests.test_qwen_rna

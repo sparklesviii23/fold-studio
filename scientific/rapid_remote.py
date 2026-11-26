@@ -19,7 +19,7 @@ v=json.load(sys.stdin)
 if platform.system()!='Linux' or platform.machine() not in ('x86_64','amd64'):raise ValueError('RAPID scientific installation requires Linux AMD64. Use the versioned worker image.')
 b=base64.b64decode(v['code'],validate=True)
 assert len(b)<=8*1024**2 and hashlib.sha256(b).hexdigest()==v['sha256']
-root=pathlib.Path.home()/'.local/share/fold-studio-rapid';folder=root/'releases'/v['sha256'];folder.mkdir(parents=True,exist_ok=True,mode=0o700)
+root=pathlib.Path.home()/'.local/share/fold-rapid';folder=root/'releases'/v['sha256'];folder.mkdir(parents=True,exist_ok=True,mode=0o700)
 with tarfile.open(fileobj=io.BytesIO(b),mode='r:gz') as tar:
  members=tar.getmembers()
  assert sum(m.size for m in members)<100*1024**2
@@ -71,20 +71,20 @@ class RapidRemote:
         self.cloud.update(entry['id'],{'rapid':result});return result
     def gpu_rapid_status(self,p):
         entry=self.cloud.profile(p.get('id'))
-        code="import json,pathlib;root=pathlib.Path.home()/'.local/share/fold-studio-rapid';p=root/'active.json';print(p.read_text() if p.is_file() else json.dumps({'state':'prebuilt_image' if pathlib.Path('/opt/fold-rapid/bin/python').is_file() else 'not_installed','version':'0.2.0' if pathlib.Path('/opt/fold-rapid/bin/python').is_file() else None}))"
+        code="import json,pathlib;root=pathlib.Path.home()/'.local/share/fold-rapid';p=root/'active.json';print(p.read_text() if p.is_file() else json.dumps({'state':'prebuilt_image' if pathlib.Path('/opt/fold-rapid/bin/python').is_file() else 'not_installed','version':'0.2.0' if pathlib.Path('/opt/fold-rapid/bin/python').is_file() else None}))"
         value=self.cloud.ssh(entry,'python3 -I -B -c '+shlex.quote(code),{})
         current=entry.get('rapid',{})
         if current.get('state')=='installing':
             sha=current.get('releaseSha256','')
             if len(sha)!=64 or any(c not in 'abcdef0123456789' for c in sha):raise ValueError('Invalid installed release identity.')
-            code="import json,pathlib;p=pathlib.Path.home()/'.local/share/fold-studio-rapid/releases'/"+repr(sha)+"/'state.json';print(p.read_text() if p.is_file() else json.dumps({'state':'installing'}))"
+            code="import json,pathlib;p=pathlib.Path.home()/'.local/share/fold-rapid/releases'/"+repr(sha)+"/'state.json';print(p.read_text() if p.is_file() else json.dumps({'state':'installing'}))"
             value=self.cloud.ssh(entry,'python3 -I -B -c '+shlex.quote(code),{})
         self.cloud.update(entry['id'],{'rapid':{**current,**value,'checkedUtc':now()}})
         return value
     def call(self,entry,operation,payload):
         if operation not in OPERATIONS:raise ValueError('Unsupported scientific worker operation.')
         request={'apiVersion':2,'requestId':uuid.uuid4().hex,'operation':operation,'payload':payload}
-        runner="import json,os,pathlib,subprocess,sys;p=pathlib.Path.home()/'.local/share/fold-studio-rapid/active.json';v=json.loads(p.read_text()) if p.is_file() else {'python':'/opt/fold-rapid/bin/python','release':'/opt/fold-rapid-release','root':os.environ.get('RAPID_ROOT','/data/rapid')};r=subprocess.run([v['python'],'-m','fold_rapid.cli','--root',v['root'],'rpc'],input=sys.stdin.read(),text=True,capture_output=True,env={**os.environ,'RAPID_RELEASE_DIR':v['release']});print(r.stdout if r.returncode==0 else json.dumps({'error':'Installed RAPID process failed; inspect its installation log.'}))"
+        runner="import json,os,pathlib,subprocess,sys;p=pathlib.Path.home()/'.local/share/fold-rapid/active.json';v=json.loads(p.read_text()) if p.is_file() else {'python':'/opt/fold-rapid/bin/python','release':'/opt/fold-rapid-release','root':os.environ.get('RAPID_ROOT','/data/rapid')};r=subprocess.run([v['python'],'-m','fold_rapid.cli','--root',v['root'],'rpc'],input=sys.stdin.read(),text=True,capture_output=True,env={**os.environ,'RAPID_RELEASE_DIR':v['release']});print(r.stdout if r.returncode==0 else json.dumps({'error':'Installed RAPID process failed; inspect its installation log.'}))"
         value=self.cloud.ssh(entry,'python3 -I -B -c '+shlex.quote(runner),request,timeout=45)
         if value.get('error'):raise ValueError(value['error'])
         if value.get('apiVersion')!=2 or value.get('requestId')!=request['requestId']:raise ValueError('RAPID response version or request identity mismatch.')

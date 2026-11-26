@@ -10,7 +10,7 @@ def notify(broker,id,status):
     if not broker.setting('notifications',True):return {'state':'disabled'}
     script='on run argv\n display notification (item 2 of argv) with title (item 1 of argv)\nend run'
     try:
-        p=run(['/usr/bin/osascript','-e',script,'Fold Studio Worker',status+': '+id[:8]+'. Inspect the local task report.'],timeout=3)
+        p=run(['/usr/bin/osascript','-e',script,'fold Worker',status+': '+id[:8]+'. Inspect the local task report.'],timeout=3)
         return {'state':'requested' if p.returncode==0 else 'unavailable','deliveryVerified':False,'note':'Delivery depends on macOS notification settings; no Work callback was sent.'}
     except (OSError,subprocess.TimeoutExpired):return {'state':'unavailable','deliveryVerified':False}
 

@@ -99,7 +99,7 @@ computed ligands"); bound ligands sit on their receptor, receptors turn amber wh
 steps through recorded frames and moves the playhead on the synchronised charts (MSD ± SE with
 6Dt / 3/5 R², occupancy ± SE with ODE and exact equilibrium, sweep with error bars). Badges:
 "Physics-simulated · B" and, for Demo 2, "Hypothetical parameters"; scale bar in µm. Each result can be
-exported as a `fold-studio.research-record` JSON; every run is also stored under
+exported as a `fold.research-record` JSON; every run is also stored under
 `<library>/cell_physics/runs/<id>.json` (`cell_physics_runs` lists them).
 
 ## Wiring

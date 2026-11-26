@@ -31,7 +31,7 @@ export function openArcade(projectId=''):Promise<void>{
   const stopReady=await listen('fold-arcade-ready',()=>resolveReady());
   const timer=setTimeout(()=>rejectReady(new Error('Arcade opened but did not acknowledge readiness. Bring its window forward and retry.')),20000);
   try{
-   const w=new WebviewWindow('arcade',{url,title:'Molecular Arcade · FOLD STUDIO',width:1360,height:900,minWidth:980,minHeight:690,titleBarStyle:'overlay',hiddenTitle:true,backgroundColor:'#071326'});
+   const w=new WebviewWindow('arcade',{url,title:'Molecular Arcade · fold',width:1360,height:900,minWidth:980,minHeight:690,titleBarStyle:'overlay',hiddenTitle:true,backgroundColor:'#071326'});
    const created=new Promise<void>((resolve,reject)=>{w.once('tauri://created',()=>resolve());w.once('tauri://error',e=>reject(new Error(String(e.payload))));});
    await Promise.all([created,ready]);
   }finally{clearTimeout(timer);stopReady();}

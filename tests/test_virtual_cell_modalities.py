@@ -89,7 +89,7 @@ class ResultTests(unittest.TestCase):
     def test_integrity_recipe_and_split(self):
         with tempfile.TemporaryDirectory() as root:
             d = pathlib.Path(root) / 'cell_physics' / 'runs'; d.mkdir(parents=True)
-            rec = {'schema': 'fold-studio.research-record', 'id': 'a' * 32, 'kind': 'diffusion', 'engine': {'name': 'BD', 'version': '1'}, 'evidence': {'category': 'B', 'name': 'Physics simulation'},
+            rec = {'schema': 'fold.research-record', 'id': 'a' * 32, 'kind': 'diffusion', 'engine': {'name': 'BD', 'version': '1'}, 'evidence': {'category': 'B', 'name': 'Physics simulation'},
                    'inputs': {'D': {'value': 1, 'unit': 'µm²/s'}}, 'solver': {'dt': 0.1},
                    'outputs': {'time': [0, 1, 2], 'timeUnit': 's', 'free': {'msd': [0, 6, 12]}, 'occupancy': [1, 2], 'rate': 0.5}, 'benchmark': {'passed': True, 'checks': []}}
             rec['reproducibility'] = {'contentSha256': VRS._sha({k: rec[k] for k in ('inputs', 'solver', 'outputs')}, float)}

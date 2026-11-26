@@ -148,7 +148,7 @@ def export(root, cell_id, snap_id):
 def validate_bundle(bundle, context):
     """Checks before import: schema, integrity, and that the bundle belongs to the target cell context."""
     if not isinstance(bundle, dict) or bundle.get('schema') != SCHEMA + '+bundle':
-        raise ValueError('Not a Fold Studio virtual cell state bundle.')
+        raise ValueError('Not a fold virtual cell state bundle.')
     if sha({k: v for k, v in bundle.items() if k != 'sha256'}) != bundle.get('sha256'):
         raise ValueError('The bundle was modified after export (checksum mismatch).')
     snap = bundle['snapshot']

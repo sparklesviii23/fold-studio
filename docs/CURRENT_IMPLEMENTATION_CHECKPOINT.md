@@ -1,7 +1,7 @@
 ## RNA Design recovery checkpoint (18 November 2026)
 The installed app includes verified state-file transport and resume-polling fixes. Local design/save/reopen and Modal completion/import/save/reopen/cancellation passed. One additional paid Modal resume retry needs approval. Exact workload, commands, contracts and restored app context: `reports/rna-design/CHECKPOINT.md`; benchmark: `reports/rna-design/BENCHMARK.md`. Keep Solver as default. Do not retrain or repeat the benchmark for this release check.
 
-# Current Fold Studio implementation checkpoint
+# Current fold implementation checkpoint
 
 ## Native Qwen RNA checkpoint · 15 November 2026
 
@@ -23,7 +23,7 @@ Fab is **EXCLUDED_FROM_THIS_SESSION**. Do not develop, inspect, debug, profile, 
 
 ## Installation and preservation
 
-- Exactly one app: `../current/FOLD STUDIO Metal Dev.app`. Use `scripts/build-local-app.sh` and `scripts/open-local-app.py`; replace only when idle. No backup apps or automatic ZIPs.
+- Exactly one app: `../current/fold Metal Dev.app`. Use `scripts/build-local-app.sh` and `scripts/open-local-app.py`; replace only when idle. No backup apps or automatic ZIPs.
 - Real Library: `../validation/bindcraft-fab-amme-native`; never treat it as disposable QA data.
 - Consolidated genome navigation/formats build passed with 70 packaged scientific modules and valid signing: `reports/ultimate/genome-navigation-build.log`. One nonfatal rust-objcopy/libLLVM warning remains.
 - Read-only preservation check retains all 16 baseline structure records, identical metadata digest and original coordinate hashes: `reports/ultimate/genome-continuation-preservation.json`.
@@ -51,7 +51,7 @@ Fab is **EXCLUDED_FROM_THIS_SESSION**. Do not develop, inspect, debug, profile, 
 
 ## Remaining and next work
 
-Full platform/Genome-RNA acceptance remains false; see `docs/EDITCRAFT_FULL_COMPLETION_AUDIT.json` and `docs/FOLD_STUDIO_ULTIMATE_COMPLETION_AUDIT.json`. Missing work includes large-genome streaming/indexing, authoritative organism/assembly discovery, broader genomic formats, authentic essentiality datasets, additional RNA interaction/foundation models and independent biological validation, plus other non-Fab engines in the original audit. Do not invent a completion percentage.
+Full platform/Genome-RNA acceptance remains false; see `docs/EDITCRAFT_FULL_COMPLETION_AUDIT.json` and `docs/FOLD_ULTIMATE_COMPLETION_AUDIT.json`. Missing work includes large-genome streaming/indexing, authoritative organism/assembly discovery, broader genomic formats, authentic essentiality datasets, additional RNA interaction/foundation models and independent biological validation, plus other non-Fab engines in the original audit. Do not invent a completion percentage.
 
 Native tracks/navigation acceptance passed. Commit the current consolidated source/evidence. Continue the next independent unblocked genome/sequence task. Fresh explicit approval is required for additional paid work, model downloads or retries; the two RNA authorizations are spent. Do not resume Fab.
 
@@ -86,9 +86,9 @@ HEAD before this batch: `87e621e`. No subagents, no Fab work, no paid execution 
 - Periodic reported-site neighbour distances use reciprocal-metric image bounds for oblique cells; no symmetry/completeness/bonding inference. Four focused geometric checks and the existing Genome Laboratory entry check passed.
 - Actual RDKit supplied-compound descriptors, SMARTS matches and optional Morgan/Tanimoto comparison; unchanged UTF-8 CSV and graph identities saved. Three focused checks passed; no docking/ADMET/activity qualification.
 
-Consolidated 78-module build/signing/install passed in `reports/ultimate/quantum-genome-chemistry-corrected-build.log`. The initial package failed safely on omitted resource entries; corrected configuration and a new pre-build import-closure check prevent that packaging omission before compilation. Fifteen focused backend and five interface/geometry checks passed; TypeScript passed. Native compound table, pairwise alignment, genuine FASTQ import and H2 density calculation passed; exact installed/source hashes match. Actual owned PySCF subprocess cancellation exited without publishing a result. Evidence: `scientific-continuation-native-acceptance.json`, `quantum-cancellation-reference.json`. The app was reopened on the original Library and is waiting for the confirmed macOS Documents-access prompt; user has been asked once. Update this state when allowed. One current app remains; duplicate temporary quantum wheels/site/venv removed after qualification (~170 MB), scientific inputs/results retained. Updated scoped capability evidence lives in the existing authoritative `docs/FOLD_STUDIO_ULTIMATE_COMPLETION_AUDIT.json`; broad completion and percentage remain unverified. Large-genome indexing, BAM/CRAM, additional RNA/model inference, qualified docking, periodic simulations, workflow/registry and other broad requirements remain. Preserve all original data and unrelated generated/Fab logs.
+Consolidated 78-module build/signing/install passed in `reports/ultimate/quantum-genome-chemistry-corrected-build.log`. The initial package failed safely on omitted resource entries; corrected configuration and a new pre-build import-closure check prevent that packaging omission before compilation. Fifteen focused backend and five interface/geometry checks passed; TypeScript passed. Native compound table, pairwise alignment, genuine FASTQ import and H2 density calculation passed; exact installed/source hashes match. Actual owned PySCF subprocess cancellation exited without publishing a result. Evidence: `scientific-continuation-native-acceptance.json`, `quantum-cancellation-reference.json`. The app was reopened on the original Library and is waiting for the confirmed macOS Documents-access prompt; user has been asked once. Update this state when allowed. One current app remains; duplicate temporary quantum wheels/site/venv removed after qualification (~170 MB), scientific inputs/results retained. Updated scoped capability evidence lives in the existing authoritative `docs/FOLD_ULTIMATE_COMPLETION_AUDIT.json`; broad completion and percentage remain unverified. Large-genome indexing, BAM/CRAM, additional RNA/model inference, qualified docking, periodic simulations, workflow/registry and other broad requirements remain. Preserve all original data and unrelated generated/Fab logs.
 
-Research preservation remains valid: all 16 original structure metadata/coordinate hashes match (`reports/ultimate/scientific-continuation-preservation.json`). No additional paid compute or trained-model downloads. Current app remains Fold Studio 4.3.0 at the canonical current path. Remaining unrelated historical logs/Fab receipts are intentionally uncommitted.
+Research preservation remains valid: all 16 original structure metadata/coordinate hashes match (`reports/ultimate/scientific-continuation-preservation.json`). No additional paid compute or trained-model downloads. Current app remains fold 4.3.0 at the canonical current path. Remaining unrelated historical logs/Fab receipts are intentionally uncommitted.
 
 ## Indexed genomes and periodic models · 29 October
 

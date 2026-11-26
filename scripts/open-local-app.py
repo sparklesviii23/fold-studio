@@ -48,7 +48,7 @@ def choose_app(requested, commands):
         except (OSError, ValueError, KeyError, StopIteration, subprocess.SubprocessError):
             raise RuntimeError('Cannot verify an active app build: ' + str(candidate))
     if len(set(active.values())) > 1:
-        raise RuntimeError('Multiple Fold Studio builds are active. Close their windows before reopening; keep scientific workers running.')
+        raise RuntimeError('Multiple fold builds are active. Close their windows before reopening; keep scientific workers running.')
     if active and signing_requirement(requested) not in active.values():
         return next(iter(active)), True
     return requested, False

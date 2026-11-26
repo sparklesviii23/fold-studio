@@ -129,7 +129,7 @@ def main():
     recipe = os.environ['FOLD_BIO_RECIPE']
     print('[fold] Running ' + recipe, flush=True)
     result = RUNNERS[recipe](inputs, out)
-    result.update(schema='fold-studio.biological-model-result.v1', recipe=recipe, evidence='Model prediction · not independently validated', clinicalUse=False,
+    result.update(schema='fold.biological-model-result.v1', recipe=recipe, evidence='Model prediction · not independently validated', clinicalUse=False,
                   inputsSha256=hashlib.sha256(json.dumps(inputs, sort_keys=True).encode()).hexdigest())
     # Every output must be strict JSON; errors are failures, never successful NaN results.
     text = json.dumps(result, allow_nan=False, indent=2)

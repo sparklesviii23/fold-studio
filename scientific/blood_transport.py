@@ -638,7 +638,7 @@ def record(result, evidence):
     body = {'inputs': result['inputs'], 'settings': result['settings'], 'derived': result['derived'], 'budget': result['budget'], 'stability': result['stability'],
             'dispersion': result.get('dispersion'), 'series': result['series']}
     digest = hashlib.sha256(json.dumps(body, sort_keys=True, default=float).encode()).hexdigest()
-    return {'schema': 'fold-studio.research-record', 'schemaVersion': 1,
+    return {'schema': 'fold.research-record', 'schemaVersion': 1,
             'engine': {**ENGINE, 'numericalMethod': METHOD},
             'evidence': {'category': evidence, 'name': 'Physics simulation' if evidence == 'B' else 'Parameterised hypothesis',
                          'statement': 'Physics-simulated: numerical solution of the stated idealised equations. ' + (

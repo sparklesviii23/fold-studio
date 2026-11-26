@@ -31,7 +31,7 @@ Evo likelihood differences are uncalibrated sequence statistics. ESMC representa
 
 ## Research dossiers
 
-The **Phage & biology research** tab saves an organism/strain, reference accession and research question as an analysis record in the selected project's Research Library. Evidence entries are append-only through this feature, with source, category, timestamp and content hash. Categories distinguish research notes, literature, model predictions and laboratory reports; all user-supplied entries remain explicitly unverified by Fold Studio. Optimistic conflict detection prevents concurrent evidence additions from overwriting one another.
+The **Phage & biology research** tab saves an organism/strain, reference accession and research question as an analysis record in the selected project's Research Library. Evidence entries are append-only through this feature, with source, category, timestamp and content hash. Categories distinguish research notes, literature, model predictions and laboratory reports; all user-supplied entries remain explicitly unverified by fold. Optimistic conflict detection prevents concurrent evidence additions from overwriting one another.
 
 Dossiers survive application restart and can be exported as JSON. Existing Library removal/restoration applies. Generic project archive storage includes their analysis records; remote task artifact packaging into project archives is not implemented by this change. Raw laboratory attachment import, automated phage matching/design and clinical recommendations are outside this implementation.
 

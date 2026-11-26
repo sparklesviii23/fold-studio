@@ -40,7 +40,7 @@ def _sha(obj):
 
 
 def _record(service, kind, engine, evidence, inputs, solver, outputs, assumptions, limitations, seed, benchmark=None):
-    rec = {'schema': 'fold-studio.research-record', 'schemaVersion': 1, 'id': uuid.uuid4().hex, 'kind': kind,
+    rec = {'schema': 'fold.research-record', 'schemaVersion': 1, 'id': uuid.uuid4().hex, 'kind': kind,
            'engine': engine, 'evidence': evidence, 'created': time.strftime('%Y-%m-%dT%H:%M:%SZ', time.gmtime()),
            'inputs': inputs, 'solver': solver, 'outputs': outputs, 'assumptions': assumptions, 'limitations': limitations,
            'reproducibility': {'deterministic': True, 'seed': seed, 'runtime': 'Python ' + platform.python_version() + ' · ' + sys.platform,

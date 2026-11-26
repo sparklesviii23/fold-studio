@@ -141,7 +141,7 @@ class Experiments(unittest.TestCase):
         self.assertEqual({c['name'] for c in r['checks']}, {'Independent solver', 'Bounds', 'Step size', 'Reporter conserved', 'One reporter split'})
         self.assertEqual(r['evidence']['erk'], 'simulated'); self.assertEqual(r['evidence']['nuclear'], 'inferred'); self.assertEqual(r['measured']['measured']['evidence'], 'measured')
         self.assertEqual(r['record']['specimens']['geometryReference']['context'], he.GEOMETRY); self.assertIn('0.74', str(r['record']['resolution']['pixelUm']))
-        self.assertEqual(r['record']['state']['interface'], 'fold-studio.cell-state/' + str(cell_state.SCHEMA_VERSION))
+        self.assertEqual(r['record']['state']['interface'], 'fold.cell-state/' + str(cell_state.SCHEMA_VERSION))
 
     def test_nuclear_and_cytoplasmic_fractions_give_the_readout(self):
         s = self.res['series']; v = he.EM_REFERENCE['volumeRatio']

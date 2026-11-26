@@ -6,7 +6,7 @@ Uses the existing local Qwen/Qwen2.5-Coder-3B-Instruct checkpoint, revision `488
 
 RNA supervision/evaluation uses a small ArchiveII reference-annotation subset from the authors' release https://github.com/marcellszi/dl-rna/releases/tag/Data, archive SHA-256 `a8661c99b49563826f9bef88767b5d8db2907cb8392793d5c39be7a4173c07de`. Cite Szikszai et al., Bioinformatics 2022, doi:10.1093/bioinformatics/btac415, and underlying ArchiveII sources. The repository's CC0 code license is not asserted to relicense every underlying biological dataset. Original archive bytes and source identities are retained for local research audit. Existing RNA Lab/ViennaRNA attribution remains applicable. See `docs/QWEN_RNA_ENGINE.md` for scope and limits.
 
-FOLD STUDIO application code is provided under the MIT license. Third-party packages, downloaded models, reference data, and optional external software retain their own licenses and attribution requirements. Lockfiles identify the exact JavaScript and Rust packages. `scientific/requirements-tested-macos-arm64.txt` identifies the validated inference environment.
+fold application code is provided under the MIT license. Third-party packages, downloaded models, reference data, and optional external software retain their own licenses and attribution requirements. Lockfiles identify the exact JavaScript and Rust packages. `scientific/requirements-tested-macos-arm64.txt` identifies the validated inference environment.
 
 Primary components include React (MIT), Mol* (MIT), Tauri and its plugins (MIT or Apache-2.0), Lucide (ISC), and Boltz community code and model weights (MIT). See the license files in each upstream repository and installed package for authoritative terms and transitive dependencies.
 
@@ -30,7 +30,7 @@ The 20 canonical amino-acid CCD components in `scientific/components/` and their
 `vendor/bindcraft2` is an unmodified source snapshot of BindCraft2 revision
 `c0ee638d11bc010817c2c97ee58ed5c323e664e2`. The source-available hosting-restricted
 license and copyright notices are retained in `vendor/bindcraft2/LICENSE` and
-`README_licensing_section.md`. It is not covered by Fold Studio's MIT license.
+`README_licensing_section.md`. It is not covered by fold's MIT license.
 AlphaFold/ColabDesign code, ProteinMPNN code and HyperMPNN parameters retain their
 upstream notices/terms. The per-file SHA-256 manifest is `vendor/bindcraft2-source.json`.
 The M1 snapshot did not include AlphaFold model parameters. Fold's experimental float32 PyTorch

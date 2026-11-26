@@ -939,7 +939,7 @@ PHI = {'value': 1.0, 'unit': 'MEFL per mature reporter molecule', 'mapping': 're
 SENSOR = {'copies': 100, 'provenance': {'kind': 'assumed', 'note': 'CcaS copies per cell were not measured. One hundred display sites carry the active fraction; only the fraction is modelled.'}}
 DISPLAY = {'reporterCapacity': 420, 'frames': 96, 'voxelJitter': True}
 STATE = {
-    'schema': 'fold-studio.cell-state.reporter', 'version': 1,
+    'schema': 'fold.cell-state.reporter', 'version': 1,
     'variables': [
         {'key': 'regulator', 'name': 'Regulator activity', 'unit': 'fraction of sensor in the active form', 'from': 'a', 'where': 'envelope'},
         {'key': 'transcription', 'name': 'Transcription drive', 'unit': 'MEFL at steady state', 'from': 'T(a)', 'where': 'nucleoid'},
@@ -1085,7 +1085,7 @@ def simulate(service, p):
               [{'output': 'Reporter', 'drivenBy': ['Filtered light history (16 features)', 'Ridge weights fitted to the training schedules']}]
     run_id = uuid.uuid4().hex
     created = datetime.datetime.now(datetime.timezone.utc).strftime('%Y-%m-%dT%H:%M:%SZ')
-    record = {'schema': 'fold-studio.research-record', 'schemaVersion': 1, 'id': run_id, 'kind': 'light_pulse.experiment',
+    record = {'schema': 'fold.research-record', 'schemaVersion': 1, 'id': run_id, 'kind': 'light_pulse.experiment',
               'experiment': {'label': cfg['label'], 'parent': cfg['parent'], 'config': cfg, 'context': CONTEXT, 'rerun': 'Send `config` to light_pulse_simulate. The run is deterministic for a given dataset and model version.'},
               'engine': {k: ENGINE[k] for k in ('id', 'name', 'version', 'numericalMethod')},
               'evidence': {'category': 'B', 'name': 'Mechanistic model fitted to measurements', 'statement': 'A model of one E. coli strain\'s light-responsive reporter, fitted to a subset of published time courses and tested on schedules held out from the fit. This run is a prediction for a light program; it is not a measurement.'},

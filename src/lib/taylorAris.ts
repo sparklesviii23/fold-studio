@@ -168,7 +168,7 @@ export async function capillaryRecord(result:CapillaryResult,presetEvidence:'B'|
   timeSeries:{units:{t:'s',massMol:'mol',centroidLabM:'m',varianceM2:'m²',peakMeanMolPerM3:'mol/m³',detectorMolPerM3:'mol/m³ (null = detector outside solved domain)',boundaryMassFraction:'1'},rows:result.series},
   profiles:{units:{t:'s',zLabUm:'µm',meanMolPerM3:'mol/m³ (cross-sectional mean)'},snapshots:result.snapshots.map(s=>({...s,zLabUm:thin(s.zLabUm,200),meanMolPerM3:thin(s.meanMolPerM3,200)}))}};
  const record:ResearchRecord={
-  schema:'fold-studio.research-record',schemaVersion:1,
+  schema:'fold.research-record',schemaVersion:1,
   engine:{id:capillaryEngine.id,name:capillaryEngine.name,version:capillaryEngine.version,numericalMethod:capillaryEngine.numericalMethod},
   evidence:{category,name:evidenceCategories[category].name,statement:category==='B'
    ?'Numerical solution of an idealised advection–diffusion model, verified against the Taylor–Aris analytical result. Not an experimental measurement.'

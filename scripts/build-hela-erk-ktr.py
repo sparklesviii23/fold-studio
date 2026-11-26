@@ -107,7 +107,7 @@ def main(folder):
         cells, dropped, positions, frames = quantify(z, name.replace('Figure2C_20211008_', ''))
         series.append({'id': name, 'archive': f.name, 'archiveSha256': hashlib.sha256(f.read_bytes()).hexdigest(), 'usable': True, 'egfNgPerMl': 10.0, 'positions': positions, 'frames': frames, 'dropped': dropped, 'cells': cells})
         print(name, len(cells), 'cells', dropped, flush=True)
-    body = {'schema': 'fold-studio.hela-erk-ktr', 'schemaVersion': 1,
+    body = {'schema': 'fold.hela-erk-ktr', 'schemaVersion': 1,
             'source': {'title': 'Quantitative live-cell imaging of GPCR downstream signaling dynamics', 'authors': 'Tany R, Goto Y, Kondo Y, Aoki K', 'journal': 'Biochemical Journal 2022;479(8):883-900', 'doi': '10.1042/BCJ20220021',
                        'repository': 'SSBD ssbd-repos-000232 (232-Tany-SignalingDyn)', 'url': 'https://ssbd.riken.jp/database/project/232', 'licence': 'CC BY',
                        'changes': 'Images were segmented and measured by scripts/build-hela-erk-ktr.py; the images themselves are not bundled. Values are background-subtracted means; no smoothing, no normalisation.'},

@@ -978,7 +978,7 @@ finally:
 def report(r):
  if r.get('kind')=='project-report':
   fmt=lambda v:f'{v:.3f}' if isinstance(v,(int,float)) else 'Unavailable'
-  lines=['# FOLD STUDIO project research report','',r['project']['name'],f"Project: {r['id']} · engine {r['version']} · {r['created']}",'','## Candidate and matched-control measurements','',r['evidence']['method'],'']
+  lines=['# fold project research report','',r['project']['name'],f"Project: {r['id']} · engine {r['version']} · {r['created']}",'','## Candidate and matched-control measurements','',r['evidence']['method'],'']
   for c in r['evidence']['candidates']:
    lines += [f"### {c['name']} · {c['role']}",f"Latest coordinate models (derived copies deduplicated): {c['runs']}; known seeds: {c['knownSeeds'] or 'Unavailable'}.",f"Mean peptide pLDDT: {fmt(c['plddt'])}; target-row to peptide-column PAE: {fmt(c['paeTargetToPeptide'])} Å; peptide-row to target-column PAE: {fmt(c['paePeptideToTarget'])} Å.",f"Mean atomic contacts: {fmt(c['contacts'])}; mean atom clashes: {fmt(c['clashes'])}; mean conventional interface area: {fmt(c['interfaceArea'])} Å².",f"Matched candidate ID: {c['controlFor'] or 'None specified'}; contributing analyses: {', '.join(c['sourceAnalyses']) or 'None'}.",f"Mapped hotspots within threshold: {', '.join(c['hotspotsWithin']) or 'None measured'}.",c['reproducibility'],'']
   if not r['evidence']['candidates']:lines.append('No candidate/control sequences have been registered; no candidate identity was inferred from a filename.')
@@ -991,7 +991,7 @@ def report(r):
   lines+=['## Methods and provenance','','Candidate metrics are descriptive averages over the latest completed analysis per coordinate lineage, matched by exact saved sequence and candidate ID or assigned identity. Derived preparation copies do not add an independent prediction. Multiple diffusion samples from one seed are not independent seeds. Contact, clash and surface criteria are preserved per analysis. Separate single-structure reports document the actual algorithms and prediction provenance. No undocumented composite binding score is used.','','## Conclusions and limitations','','Available computational results do not by themselves establish an advantage over matched controls, sequence-specific binding, inhibition or therapeutic efficacy. Review replicate variability, target symmetry, hotspot numbering, preparation assumptions and missing confidence sources. Experimental validation is required for biological claims. Export the project archive, full analysis JSON/CSV and this project-report JSON together for reproducibility.']
   return '\n'.join(lines)
  if r.get('kind')=='comparison':
-  lines=['# FOLD STUDIO reproducibility report','',f"Saved comparison: {r['id']}",'',r['method'],f"Clustering threshold: {r['clusterRmsd']} Å.",'']
+  lines=['# fold reproducibility report','',f"Saved comparison: {r['id']}",'',r['method'],f"Clustering threshold: {r['clusterRmsd']} Å.",'']
   for pair in r['pairs']:
    lines += [f"## {pair['reference']} versus {pair['moving']}",'',f"Target RMSD: {pair['alignment']['rmsd']:.3f} Å over {pair['alignment']['atoms']} atoms.",f"Peptide positional Cα RMSD: {pair['metrics']['caPositionalRmsd']} Å; internal Cα RMSD: {pair['metrics']['caInternalRmsd']} Å.",f"Reference-interface Cα RMSD after target alignment: {pair['metrics']['interfaceRmsd']} Å.",f"Contact Jaccard: {pair['contactJaccard']}; selected chain mapping: {json.dumps(pair['chainMapping'])}.",pair.get('symmetryWarning') or '',pair.get('clashCriteriaWarning') or '','']
   lines+=['## Pose clusters','']+[f"Cluster {i+1}: {c['occurrence']}/{c['total']} coordinate runs." for i,c in enumerate(r['clusters'])]+['','## Interpretation','','Geometric reproducibility does not establish binding or specificity. Independent seeds must be distinguished from repeated diffusion samples. Review matched controls and experimental evidence.','','## Limitations','']+['- '+x for x in r['limitations']]
@@ -999,7 +999,7 @@ def report(r):
  source=r['source'];s={**DEFAULTS,**r['settings']};summary=r['summary'];conf=r['confidence'];provenance=source.get('metadata',{}).get('provenance',{})
  fmt=lambda v,unit='':f'{v:.3f}{unit}' if isinstance(v,(int,float)) else 'Unavailable'
  atom=lambda i:f"{r['structure']['atoms'][i]['chain']} {r['structure']['atoms'][i]['resname']}{r['structure']['atoms'][i]['num']}{r['structure']['atoms'][i]['ins']} {r['structure']['atoms'][i]['name']}"
- lines=['# FOLD STUDIO molecular intelligence report','',f"Analysis: {r['id']} · calculation engine {r['version']}",f"Source: {source['name']}",f"Coordinate SHA-256: {source['sha256']}",f"Created: {r['created']}",'','## Experiment and structural characterization','']
+ lines=['# fold molecular intelligence report','',f"Analysis: {r['id']} · calculation engine {r['version']}",f"Source: {source['name']}",f"Coordinate SHA-256: {source['sha256']}",f"Created: {r['created']}",'','## Experiment and structural characterization','']
  for c in r['structure']['chains']:
   a=r['assignments'].get(c['id'],{});lines += [f"Chain {c['id']}: {a.get('identity','unassigned')} · {a.get('role','unassigned')} · {c['proteinResidues']} protein residues · {c['atoms']} atoms.",f"Observed sequence: {c['sequence']}",f"Quality: {len(c['missingAtoms'])} residues with missing standard heavy atoms; {len(c['numberingGaps'])} numbering gaps; {len(c['discontinuities'])} unusual consecutive peptide C–N distances.",'']
  lines+=['Prediction metadata retained with the source:']
@@ -1052,7 +1052,7 @@ def pdf_report(r):
   for line in lines[start:start+52]:
    heading=line.startswith('#');size=16 if line.startswith('# ') else 12 if heading else 10;line=line.lstrip('# ') if heading else line
    escaped=line.encode('latin1','replace').decode('latin1').replace('\\','\\\\').replace('(','\\(').replace(')','\\)');content+=('/F2 ' if heading else '/F1 ')+str(size)+' Tf ('+escaped+') Tj /F1 10 Tf T*\n'
-  content+='ET\nBT /F1 8 Tf 42 25 Td (FOLD STUDIO | '+str(start//52+1)+' | '+r['id']+') Tj ET\n';streams.append(content)
+  content+='ET\nBT /F1 8 Tf 42 25 Td (fold | '+str(start//52+1)+' | '+r['id']+') Tj ET\n';streams.append(content)
  if r.get('kind')=='analysis':
   title='1 1 1 rg 0 0 595 842 re f 0.07 0.15 0.25 rg BT /F1 16 Tf 42 795 Td (Measured interface and prediction confidence) Tj ET\n'
   title+='BT /F1 8 Tf 42 774 Td ('+r['source']['sha256']+') Tj ET\n'

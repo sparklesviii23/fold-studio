@@ -1,12 +1,12 @@
 #!/usr/bin/env bash
-# Set up a Fold Studio workspace on a new Apple Silicon Mac.
+# Set up a fold workspace on a new Apple Silicon Mac.
 #
 #   bash scripts/setup.sh              # app dependencies + Python runtimes
 #   bash scripts/setup.sh --models     # also download pinned models (~18 GB)
 #   bash scripts/setup.sh --only gbcell   # rebuild one runtime
 #
 # Layout (the workspace is the folder that contains this repository):
-#   <workspace>/fold-studio   this repository
+#   <workspace>/fold   this repository
 #   <workspace>/runtimes      Python venvs built from runtimes-lock/*.txt
 #   <workspace>/models        AlphaFold parameters
 #   <workspace>/validation    model store and research library
@@ -27,7 +27,7 @@ while [ $# -gt 0 ]; do
 done
 
 if [ "$(uname -s)" != Darwin ] || [ "$(uname -m)" != arm64 ]; then
-  echo "Fold Studio needs macOS on Apple Silicon (Metal). Found $(uname -s) $(uname -m)." >&2
+  echo "fold needs macOS on Apple Silicon (Metal). Found $(uname -s) $(uname -m)." >&2
   exit 1
 fi
 

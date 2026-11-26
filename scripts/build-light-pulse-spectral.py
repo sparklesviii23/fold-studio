@@ -65,7 +65,7 @@ def main(folder):
     scalar = {p[0]: {'value': p[1], 'fitted': bool(p[2])} for p in params if not p[0].startswith(('k1_', 'k2_'))}
     leds = [{'id': r['LED name'], 'centroidNm': r['Centroid'], 'publishedK1': r['k1 (1/min/umol/m2/s)'], 'publishedK2': r['k2 (1/min/umol/m2/s)']} for r in published]
     body = {
-        'schema': 'fold-studio.light-pulse-spectral', 'schemaVersion': 1,
+        'schema': 'fold.light-pulse-spectral', 'schemaVersion': 1,
         'source': {'title': 'A photoconversion model for full spectral programming and multiplexing of optogenetic systems', 'authors': 'Olson EJ, Tzouanas CN, Tabor JJ', 'journal': 'Molecular Systems Biology 2017;13(4):926',
                    'doi': '10.15252/msb.20167456', 'pmcid': 'PMC5408778', 'licence': 'CC BY 4.0', 'dataset': 'Dataset EV2 · CcaSR measurements and analysis (MSB-13-926-s010.zip)',
                    'retrievedFrom': 'https://www.ebi.ac.uk/europepmc/webservices/rest/PMC5408778/supplementaryFiles', 'memberSha256': members,

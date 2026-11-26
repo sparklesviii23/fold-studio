@@ -207,7 +207,7 @@ const VIEW_MODES: [string, string, Tab[] | null, string?][] = [
   ['uncertainty', 'Uncertainty', ['discovery', 'compare', 'assistant', 'records'], 'Where evidence is weak, contradictory or missing: scorecards, model disagreement, gaps.'],
   ['comparison', 'Comparison', ['compare', 'lab', 'pm'], 'Two models or conditions side by side.'],
   ['pathology', 'Pathology', ['pathology'], 'Actual microscopy and histology (Demo I, NuInsSeg H&E images with expert annotations).'],
-  ['molecular', 'Molecular', [], 'Protein structures and interactions live in the main Fold Studio workspace (structure viewer and Evidence graph tab).'],
+  ['molecular', 'Molecular', [], 'Protein structures and interactions live in the main fold workspace (structure viewer and Evidence graph tab).'],
   ['cinematic', 'Cinematic', [], 'Scientific storytelling lives in the Cinema section of the main app; the TME tab plays PhysiCell runs over time.'],
 ];
 

@@ -3,7 +3,7 @@ sys.path.insert(0,str(pathlib.Path(__file__).resolve().parents[1]/'scientific'))
 from worker import Service
 class AlignmentTests(unittest.TestCase):
  def setUp(self):
-  self.tmp=tempfile.TemporaryDirectory();self.root=pathlib.Path(self.tmp.name);self.s=Service(self.root/'library');self.pid=self.s.project_create({'name':'Isolated pairwise numerical QA'})['id'];self.s.setting_set({'key':'enginePython','value':str(pathlib.Path(__file__).resolve().parents[2]/'current/FOLD STUDIO Metal Dev.app/Contents/Resources/runtime-boltz/bin/python3.12')})
+  self.tmp=tempfile.TemporaryDirectory();self.root=pathlib.Path(self.tmp.name);self.s=Service(self.root/'library');self.pid=self.s.project_create({'name':'Isolated pairwise numerical QA'})['id'];self.s.setting_set({'key':'enginePython','value':str(pathlib.Path(__file__).resolve().parents[2]/'current/fold Metal Dev.app/Contents/Resources/runtime-boltz/bin/python3.12')})
  def tearDown(self):self.s.db.close();self.tmp.cleanup()
  def align(self,**change):return self.s.dispatch('sequence_align',{'projectId':self.pid,'target':'ACGTTAC','query':'ACGTAC','alphabet':'DNA','mode':'global','queryOrientation':'forward','matchScore':2,'mismatchScore':-1,'gapOpenScore':-3,'gapExtendScore':-1,**change})
  def test_known_insertion_and_scoring_are_saved_and_reopened(self):

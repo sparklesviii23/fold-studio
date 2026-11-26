@@ -54,7 +54,7 @@ async fn scientific(app: tauri::AppHandle, action: String, payload: Value) -> Re
         // Query-only SQL allows WAL metadata access without changing research data.
         let check = Command::new("/usr/bin/sqlite3").arg("-cmd").arg("PRAGMA query_only=ON;").arg(database_uri.as_str()).arg("SELECT count(*) FROM sqlite_master WHERE type='table' AND name IN ('records','projects','jobs','settings');").output().map_err(|e|e.to_string())?;
         if !check.status.success() { return Err(format!("The research library could not be checked: {}", String::from_utf8_lossy(&check.stderr).trim())); }
-        if String::from_utf8_lossy(&check.stdout).trim() != "4" { return Err("The selected database is not a Fold Studio research library".into()); }
+        if String::from_utf8_lossy(&check.stdout).trim() != "4" { return Err("The selected database is not a fold research library".into()); }
         let old = workspace_root(&app).unwrap_or(app.path().app_data_dir().map_err(|e|e.to_string())?);
         let processes = Command::new("/bin/ps").args(["-axo","command="]).output().map_err(|e|e.to_string())?;
         if String::from_utf8_lossy(&processes.stdout).lines().any(|line| line.contains(&old.to_string_lossy().to_string()) && ["--run-job", "--dynamics-job", "--bindcraft-cpu-job", "--intelligence-job", "--mpnn-job", "--ligand-job"].iter().any(|flag| line.contains(flag))) {
@@ -87,5 +87,5 @@ async fn scientific(app: tauri::AppHandle, action: String, payload: Value) -> Re
 fn main() {
     tauri::Builder::default().manage(WorkspaceRoot(Mutex::new(None))).plugin(tauri_plugin_dialog::init()).plugin(tauri_plugin_opener::init())
         .invoke_handler(tauri::generate_handler![scientific])
-        .run(tauri::generate_context!()).expect("FOLD STUDIO could not launch");
+        .run(tauri::generate_context!()).expect("fold could not launch");
 }

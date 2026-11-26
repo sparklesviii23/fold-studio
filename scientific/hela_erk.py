@@ -68,7 +68,7 @@ LIMITS = {'egfNgPerMl': (0.0, 100.0), 'durationMin': (5.0, 240.0), 'samples': 20
 DT = 0.05
 DISPLAY = {'copies': 600, 'frames': 96, 'provenance': {'kind': 'assumed', 'note': 'Reporter copies per cell were not measured. Six hundred particles carry the nuclear and cytoplasmic fractions; only the fractions are modelled.'}}
 STATE = cell_state.describe(
-    'fold-studio.cell-state.erk-ktr', 1,
+    'fold.cell-state.erk-ktr', 1,
     [{'key': 'egf', 'name': 'EGF in the medium', 'unit': 'ng/ml', 'from': 'input', 'where': 'medium', 'evidence': 'input'},
      {'key': 'receptor', 'name': 'Occupied EGF receptor', 'unit': 'fraction of surface receptor', 'from': 'B', 'where': 'plasma membrane', 'evidence': 'simulated'},
      {'key': 'erk', 'name': 'Active ERK', 'unit': 'fraction of its maximum', 'from': 'E', 'where': 'cytoplasm and nucleus', 'evidence': 'simulated'},
@@ -591,7 +591,7 @@ def simulate(service, p):
               'structure': st, 'parameters': {**fit['theta'], **{k_: v[0] for k_, v in ASSUMED.items()}, 'v': c['v']}, 'context': CONTEXT, 'geometryReference': EM_REFERENCE, 'stateVersion': STATE['version']}
     outputs = {'time': float(t[-1]), 'timeUnit': 'min', 'features': feats, 'events': _events(traj, cfg), 'cnAtEnd': float(traj['cn'][-1]), 'cnPeak': float(traj['cn'].max()), 'evidence': evidence}
     run_id = uuid.uuid4().hex; created = datetime.datetime.now(datetime.timezone.utc).strftime('%Y-%m-%dT%H:%M:%SZ')
-    record = {'schema': 'fold-studio.research-record', 'schemaVersion': 1, 'id': run_id, 'kind': 'hela_erk.experiment',
+    record = {'schema': 'fold.research-record', 'schemaVersion': 1, 'id': run_id, 'kind': 'hela_erk.experiment',
               'experiment': {'label': cfg['label'], 'parent': cfg['parent'], 'config': cfg, 'context': CONTEXT, 'rerun': 'Send `config` to hela_erk_simulate. The run is deterministic for a given dataset and model version.'},
               'engine': {k_: ENGINE[k_] for k_ in ('id', 'name', 'version', 'numericalMethod')},
               'evidence': {'category': 'B', 'name': 'Mechanistic model fitted to measurements', 'statement': 'A model of the ERK reporter in HeLa cells, fitted to single cells of two dishes and tested on other dishes of the same experiment. This run is a prediction; it is not a measurement.'},

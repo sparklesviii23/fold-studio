@@ -89,7 +89,7 @@ def write(out_dir, phenotype, nests, seed):
     a.uns['spatial'] = {'synthetic': {'images': {'hires': render(xy, comp)}, 'scalefactors': {'spot_diameter_fullres': 55.0, 'tissue_hires_scalef': 0.2}}}
     a.uns['synthetic_truth'] = json.dumps(truth)
     a.write_h5ad(out / 'dataset.h5ad')
-    m = {'source': 'In-silico (Fold Studio spatial simulator)', 'datasetId': out.name, 'title': f'Synthetic section · {phenotype} · {nests} nests · seed {seed}', 'synthetic': True,
+    m = {'source': 'In-silico (fold spatial simulator)', 'datasetId': out.name, 'title': f'Synthetic section · {phenotype} · {nests} nests · seed {seed}', 'synthetic': True,
          'params': {'phenotype': phenotype, 'nests': int(nests), 'seed': int(seed)}, 'model': truth['model'], 'sha256': hashlib.sha256((out / 'dataset.h5ad').read_bytes()).hexdigest(),
          'licence': 'Generated locally', 'installed': time.strftime('%Y-%m-%dT%H:%M:%SZ', time.gmtime())}
     (out / 'manifest.json').write_text(json.dumps(m, indent=1)); print('generated', m['title'], flush=True)

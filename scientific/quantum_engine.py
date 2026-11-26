@@ -134,7 +134,7 @@ def calculate(p):
    for first,last in pyscf.lib.prange(0,len(coords),2000):rho[first:last]=dft.numint.eval_rho(mol,mol.eval_gto('GTOval',coords[first:last]),density)
    rho=rho.reshape(n,n,n)
    if not np.all(np.isfinite(rho)) or float(rho.min()) < -1e-8:raise ValueError('Electron-density grid contains nonfinite or materially negative values.')
-   cube.write(rho,str(path),comment='Fold Studio electron density, e/Bohr^3; fixed finite box and grid');raw=path.read_bytes();spacing=np.diag(cube.box)/(n-1);integral=rho
+   cube.write(rho,str(path),comment='fold electron density, e/Bohr^3; fixed finite box and grid');raw=path.read_bytes();spacing=np.diag(cube.box)/(n-1);integral=rho
    for step in spacing[::-1]:integral=np.trapezoid(integral,dx=float(step),axis=-1)
    mid=n//2
    field={'kind':'electron_density','unit':'electrons/Bohr^3','dimensions':[n,n,n],'marginBohr':p['densityMarginBohr'],'originBohr':cube.boxorig.tolist(),'axisStepVectorsBohr':(cube.box/(n-1)).tolist(),'minimum':float(rho.min()),'maximum':float(rho.max()),'boxTrapezoidalElectronIntegral':float(integral),'exactDensityOverlapElectronTrace':trace,'cubeText':raw.decode(),'cubeSha256':hashlib.sha256(raw).hexdigest(),'slice':{'zIndex0Based':mid,'zCoordinateBohr':float(cube.boxorig[2]+spacing[2]*mid),'valuesXThenY':rho[:,:,mid].tolist()},'scope':'Finite 24×24×24 sampling of the converged density in a box extending 3 Bohr beyond the nuclei. The trapezoidal box integral is an approximate discretization/truncation diagnostic, not the exact electron trace. Grid/basis convergence, density accuracy, electrostatic potential and measured charge distributions are not certified.'}

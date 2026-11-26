@@ -76,7 +76,7 @@ class ControllerTests(unittest.TestCase):
             for step in ('dna','protein','structure'):self.run_step(r,step,approvedRemoteCost=True)
         for claim in C._claims(self.s,r['plan']['id']).values():
             task=G._read(self.s,claim['task_id']);folder=G._folder(self.s)/task['id']/'outputs';folder.mkdir()
-            data={'schema':'fold-studio.biological-model-result.v1','recipe':task['recipe'],'inputsSha256':task['inputsSha256'],'model':'synthetic','note':'Synthetic output; not biological evidence.'}
+            data={'schema':'fold.biological-model-result.v1','recipe':task['recipe'],'inputsSha256':task['inputsSha256'],'model':'synthetic','note':'Synthetic output; not biological evidence.'}
             if task['recipe']=='bio_evo2':data['scores']=[-1.0]
             elif task['recipe']=='bio_esmc':data['embeddingShape']=[4,8]
             else:data['pTM']=0.5

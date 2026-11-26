@@ -110,7 +110,7 @@ class DiffusionDemoTests(unittest.TestCase):
 
     def test_record_contract(self):
         r = self.result['record']
-        self.assertEqual(r['schema'], 'fold-studio.research-record')
+        self.assertEqual(r['schema'], 'fold.research-record')
         self.assertEqual(r['evidence']['category'], 'B')
         self.assertEqual(r['inputs']['diffusion']['unit'], 'µm²/s')
         self.assertEqual(r['reproducibility']['seed'], 20261030)

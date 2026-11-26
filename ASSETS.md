@@ -8,8 +8,8 @@ SHA-256) instead. Fetch the files from the original providers.
 ## Quick start on a new Mac
 
 ```sh
-git clone https://github.com/sparklesviii23/fold-studio.git
-cd fold-studio
+git clone https://github.com/sparklesviii23/fold.git
+cd fold
 bash scripts/setup.sh            # pnpm install + Python runtimes from runtimes-lock/
 bash scripts/setup.sh --models   # pinned model weights, about 18 GB, checksum-verified
 ```
@@ -45,7 +45,7 @@ On the development machine these live in the parent workspace folder, outside th
 
 ```
 <workspace>/
-  fold-studio/   this repository
+  fold/   this repository
   models/        AlphaFold params
   runtimes/      Python venvs (jax-metal, jax-cpu, openmm-cpu, singlecell, ...)
   upstream/      BindCraft2, boltzgen, metaljax checkouts (separate git repos)

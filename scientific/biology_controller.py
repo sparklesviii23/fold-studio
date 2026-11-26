@@ -13,7 +13,7 @@ ACTIONS = {'bio_controller_create', 'bio_controller_plans', 'bio_controller_repo
 LIMITATIONS = [
     'No sequence generation, mutation search, host-range optimization or treatment design is implemented.',
     'DNA likelihood, protein embeddings and structure confidence do not establish phage-host compatibility.',
-    'All model integrations await real GPU qualification in Fold Studio.',
+    'All model integrations await real GPU qualification in fold.',
     'Borzoi is a human regulatory model and is not applicable to this microbial reference study.',
 ]
 
@@ -63,10 +63,10 @@ def _cached(s, task):
         if isinstance(value, list):
             for v in value: finite(v)
     finite(r)
-    if r.get('schema') != 'fold-studio.biological-model-result.v1' or r.get('recipe') != task['recipe'] or r.get('inputsSha256') != task['inputsSha256']:
+    if r.get('schema') != 'fold.biological-model-result.v1' or r.get('recipe') != task['recipe'] or r.get('inputsSha256') != task['inputsSha256']:
         raise ValueError('Model result identity mismatch.')
     if task['recipe'] == 'bio_antisense':
-        if r.get('recipeSha256') != task['recipeSha256'] or r.get('analysis', {}).get('schema') != 'fold-studio.antisense-analysis.v1':
+        if r.get('recipeSha256') != task['recipeSha256'] or r.get('analysis', {}).get('schema') != 'fold.antisense-analysis.v1':
             raise ValueError('PNA result recipe or analysis identity mismatch.')
         if r['analysis']['request'] != task['inputs']['request']: raise ValueError('PNA result input mismatch.')
         return _summary(r)

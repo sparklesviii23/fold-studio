@@ -11,7 +11,7 @@ The former Molecular Architect game and oversized configuration modal have been
 replaced by a five-section BindCraft Architect workspace: Overview, Target &
 Design, Scientific Settings, Compute & Run, and Campaign Library. Midnight navy
 glass surfaces, native system typography, compact campaign rows, responsive
-layouts, keyboard focus states and reduced-motion support preserve Fold Studio's
+layouts, keyboard focus states and reduced-motion support preserve fold's
 visual identity. The molecular viewer and other scientific modules are retained.
 
 Configuration survives section navigation and reopening through a versioned,

@@ -14,7 +14,7 @@ class PublicReferenceTests(unittest.TestCase):
   with patch.object(public,'summary',return_value=public.describe(row(),{})),patch.object(public,'retrieve') as transfer,self.assertRaisesRegex(ValueError,'metadata changed'):public.fetch(None,{'approvedReferenceDownload':True,'expectedSummarySha256':'changed'})
   transfer.assert_not_called()
  def test_reference_bytes_publish_only_after_actual_biopython_identity_check(self):
-  runtime=pathlib.Path(__file__).resolve().parents[2]/'current/FOLD STUDIO Metal Dev.app/Contents/Resources/runtime-boltz/bin/python3.12'
+  runtime=pathlib.Path(__file__).resolve().parents[2]/'current/fold Metal Dev.app/Contents/Resources/runtime-boltz/bin/python3.12'
   if not runtime.is_file():self.skipTest('Existing Biopython runtime unavailable')
   raw=b'LOCUS       NC_123456                  9 bp    DNA     linear   SYN 01-JAN-2000\nDEFINITION  Artificial numerical fixture.\nACCESSION   NC_123456\nVERSION     NC_123456.1\nSOURCE      Artificial numerical fixture\n  ORGANISM  Artificial numerical fixture\n            Unclassified.\nFEATURES             Location/Qualifiers\n     source          1..9\n                     /organism="Artificial numerical fixture"\nORIGIN\n        1 atgaaataa\n//\n'
   with tempfile.TemporaryDirectory() as tmp:

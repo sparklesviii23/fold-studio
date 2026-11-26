@@ -8,7 +8,7 @@ p.add_argument('--app',required=True);p.add_argument('--baseline',required=True)
 p.add_argument('--root',required=True);p.add_argument('--report',required=True)
 p.add_argument('--existing-job',help='Optional already completed job directory; copied, never run')
 a=p.parse_args();app=pathlib.Path(a.app).resolve();base=pathlib.Path(a.baseline).resolve();root=pathlib.Path(a.root).resolve()
-source=pathlib.Path(__file__).resolve().parents[1];resources=app/'Contents/Resources';exe=app/'Contents/MacOS/fold-studio'
+source=pathlib.Path(__file__).resolve().parents[1];resources=app/'Contents/Resources';exe=app/'Contents/MacOS/fold'
 if root.exists():raise SystemExit('Choose a new, disposable --root.')
 shutil.copytree(base,root)
 if a.existing_job:

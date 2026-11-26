@@ -15,7 +15,7 @@ Use ordinary structure import for models with differing topology or metadata.
 
 The complete original PDB remains a checksummed library asset and is included in
 the project ZIP. ChimeraX reads it as coordinate sets with the original MODEL
-numbers, while Fold Studio displays the active coordinates in its existing
+numbers, while fold displays the active coordinates in its existing
 viewer. Reopening a linked record retains the authoritative model and current
 frame. Atom handles remain stable across frame changes.
 

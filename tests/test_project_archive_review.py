@@ -21,7 +21,7 @@ class ProjectArchiveReviewTests(unittest.TestCase):
         self.root=pathlib.Path(self.temp.name)
         self.payload=b'ATOM      1  CA  ALA A   1       0.000   0.000   0.000  1.00 20.00           C\nEND\n'
         sha=hashlib.sha256(self.payload).hexdigest()
-        self.data={'format':'fold-studio-project-v1','project':{'name':'Isolated archive fixture'},'records':[{'kind':'structure','data':{'asset':'model.pdb','sha256':sha}}],'jobs':[], 'assetManifest':[{'file':'assets/model.pdb','sha256':sha,'bytes':len(self.payload)}]}
+        self.data={'format':'fold-project-v1','project':{'name':'Isolated archive fixture'},'records':[{'kind':'structure','data':{'asset':'model.pdb','sha256':sha}}],'jobs':[], 'assetManifest':[{'file':'assets/model.pdb','sha256':sha,'bytes':len(self.payload)}]}
         self.path=self.root/'fixture.zip'
     def tearDown(self):self.temp.cleanup()
     def write(self,data=None,extra=None,payload=None):

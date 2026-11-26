@@ -1,4 +1,4 @@
-"""Fold Studio Scientific Simulation Kernel: contracts, provenance and one-way coupling.
+"""fold Scientific Simulation Kernel: contracts, provenance and one-way coupling.
 
 Each stage of a multiscale experiment is a model with a declared contract
 (family, equations, inputs and outputs with units, scale, assumptions,

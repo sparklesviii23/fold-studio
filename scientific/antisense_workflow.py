@@ -32,7 +32,7 @@ def recipe():
     script += """inputs = json.loads(os.environ['FOLD_INPUT'])
 analysis = run(inputs['request'], DATA, log=lambda message: print(message, flush=True))
 analysis['execution'] = {'backend':'modal_cpu'}
-result = {'schema':'fold-studio.biological-model-result.v1','recipe':'bio_antisense','model':VERSION,
+result = {'schema':'fold.biological-model-result.v1','recipe':'bio_antisense','model':VERSION,
  'inputsSha256':hashlib.sha256(json.dumps(inputs,sort_keys=True).encode()).hexdigest(),
  'recipeSha256':os.environ.get('FOLD_RECIPE_SHA256'), 'analysis':analysis,
  'note':'Exploratory PNA baseline and complementary drafts; no experimentally validated activity prediction.'}
@@ -42,7 +42,7 @@ print('[fold] Complete: all PNA computational stages ran on Modal CPU.',flush=Tr
 FOLD_PNA_PY
 """
     return {'title': 'PNA · complete exploratory workflow', 'purpose': 'Published evidence → baseline training and held-out testing → supplied-molecule/complementary-draft analysis → report, entirely on Modal CPU.',
-            'source': 'Fold Studio ' + engine.VERSION + '; published data DOI 10.1093/nar/gkac362 and 10.1002/advs.202504284',
+            'source': 'fold ' + engine.VERSION + '; published data DOI 10.1093/nar/gkac362 and 10.1002/advs.202504284',
             'license': '2022 data CC BY-NC 4.0; 2025 article CC BY 4.0. Research prototype; retain source attribution.',
             'gpu': None, 'cpu': 2, 'memory': 2048, 'timeout': 600, 'demo': 'Biological Models',
             'image': {'registry': 'python:3.12-slim', 'apt': [], 'run': [], 'pip': ['numpy==2.2.6']},

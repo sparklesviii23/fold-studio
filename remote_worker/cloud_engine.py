@@ -15,7 +15,7 @@ def construct(configuration,release):return build_app(configuration,worker_sourc
 
 
 def main():
-    parser=argparse.ArgumentParser(description='Fold Studio RAPID Cloud Engine — source-only CPU deployment; no molecular job or GPU starts')
+    parser=argparse.ArgumentParser(description='fold RAPID Cloud Engine — source-only CPU deployment; no molecular job or GPU starts')
     parser.add_argument('--configuration',type=pathlib.Path,required=True);parser.add_argument('--release',type=pathlib.Path,required=True)
     parser.add_argument('--approve-cpu-build',action='store_true');parser.add_argument('--max-approved-usd',type=float,required=True)
     args=parser.parse_args()

@@ -16,7 +16,7 @@ def check(name,condition,details=None):
 def execute(command):return bridge.chimerax_execute({'projectId':project,'command':command,'confirmed':True})
 try:
     env={**os.environ,'FOLD_DATA_DIR':str(root),'FOLD_NATIVE_AUDIT_DIR':str(report/'inventory')};env.pop('FOLD_LEGACY',None)
-    binary=pathlib.Path(args.app).resolve()/'Contents/MacOS/fold-studio'
+    binary=pathlib.Path(args.app).resolve()/'Contents/MacOS/fold'
     process=subprocess.Popen([str(binary)],env=env,stdin=subprocess.DEVNULL,stdout=subprocess.DEVNULL,stderr=subprocess.DEVNULL,start_new_session=True)
     for _ in range(55):
         if bridge.descriptor.exists():

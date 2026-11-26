@@ -1,4 +1,4 @@
-# Fold Studio RAPID Cloud Engine
+# fold RAPID Cloud Engine
 
 The local Metal backend and standalone Linux NVIDIA backend are separate execution paths. Cloud campaigns are self-contained remote jobs; a Mac client does not advance their model stages. The complete cloud directive remains unfinished until genuine remote model execution and multi-engine acceptance succeed.
 

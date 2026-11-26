@@ -6,9 +6,9 @@ import sys
 from . import API_VERSION,VERSION
 
 def main():
-    parser=argparse.ArgumentParser(description='Fold Studio RAPID scientific worker; authenticated SSH stdio API')
+    parser=argparse.ArgumentParser(description='fold RAPID scientific worker; authenticated SSH stdio API')
     parser.add_argument('--version',action='version',version=VERSION)
-    parser.add_argument('--root',default=os.environ.get('RAPID_ROOT',str(pathlib.Path.home()/'.local/share/fold-studio-rapid/data')))
+    parser.add_argument('--root',default=os.environ.get('RAPID_ROOT',str(pathlib.Path.home()/'.local/share/fold-rapid/data')))
     sub=parser.add_subparsers(dest='command',required=True)
     for name in ('rpc','health','recover','inventory'):sub.add_parser(name)
     sub.add_parser('run-job').add_argument('job_id')

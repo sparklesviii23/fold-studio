@@ -30,7 +30,7 @@ class ProductTests(unittest.TestCase):
   result=annotations('chr\tsrc\texon\t1\t3\t.\t+\t.\tID=e1;Parent=rna%2Ca,other',{'chr':'ATG'},[])
   self.assertEqual(result[0]['parents'],['rna,a','other'])
  def test_actual_biopython_translation_and_exceptions(self):
-  runtime=pathlib.Path(__file__).resolve().parents[2]/'current/FOLD STUDIO Metal Dev.app/Contents/Resources/runtime-boltz/bin/python3.12'
+  runtime=pathlib.Path(__file__).resolve().parents[2]/'current/fold Metal Dev.app/Contents/Resources/runtime-boltz/bin/python3.12'
   if not runtime.is_file():self.skipTest('Existing packaged Biopython runtime unavailable')
   with tempfile.TemporaryDirectory() as tmp:
    s=Service(tmp);s.setting_set({'key':'enginePython','value':str(runtime)})

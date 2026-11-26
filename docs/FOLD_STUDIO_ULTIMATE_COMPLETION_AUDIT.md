@@ -1,4 +1,4 @@
-# Fold Studio ultimate completion audit
+# fold ultimate completion audit
 
 The platform is unfinished. This audit preserves prior scope and separates tested software contracts from scientific qualification. No completion percentage is assigned.
 
@@ -106,7 +106,7 @@ The cloud form supports the original complete upstream Fab scaffold without a fr
 | 83 | COMPLETE COST AND BUDGET CONTROLS | Not established |
 | 84 | COMPLETE THE LOCAL DEVELOPMENT WORKER | Not established |
 | 85 | MEASURE AGENT VALUE | Not established |
-| 86 | PRESERVE THE PROJECT EXTENSION TO FOLD STUDIO | Not established |
+| 86 | PRESERVE THE PROJECT EXTENSION TO fold | Not established |
 | 87 | PS5 EXPERIMENTAL PORT | Not established |
 | 88 | PRESERVE RESEARCH DATA | Not established |
 | 89 | PRIVACY AND CLOUD DATA GOVERNANCE | Not established |
@@ -132,4 +132,4 @@ The cloud form supports the original complete upstream Fab scaffold without a fr
 
 ## Evidence and limitations
 
-The companion JSON contains each original criterion, its unmodified historical assessment, source/test/evidence context, remaining work, dependencies, licensing, resource and acceptance fields. Missing clause-specific validation is explicit; the audit migration does not promote historical statuses. Existing scientific results are described in FOLD_STUDIO_IMPLEMENTATION_AUDIT.md. Notarization remains deferred for local use.
+The companion JSON contains each original criterion, its unmodified historical assessment, source/test/evidence context, remaining work, dependencies, licensing, resource and acceptance fields. Missing clause-specific validation is explicit; the audit migration does not promote historical statuses. Existing scientific results are described in FOLD_IMPLEMENTATION_AUDIT.md. Notarization remains deferred for local use.

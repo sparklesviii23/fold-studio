@@ -164,7 +164,7 @@ def run(request, data, log=lambda value: None):
     stage('Analyse molecules', 'Composition, supplied-background match counts and applicability checks completed')
     stage('Assemble report', 'Measured evidence and exploratory estimates remain distinct')
     histogram = {key: sum(r['qualifier'] == key for r in rows) for key in ['exact', 'range', 'greater_than', 'greater_or_equal']}
-    return {'schema': 'fold-studio.antisense-analysis.v1', 'engineVersion': VERSION, 'stages': stages, 'request': p,
+    return {'schema': 'fold.antisense-analysis.v1', 'engineVersion': VERSION, 'stages': stages, 'request': p,
             'dataset': {'measurementRows': len(rows), 'uniqueSequences': len({r['sequence'] for r in rows}), 'measurementTypes': histogram,
                         'sources': [{'doi': d['source']['doi'], 'url': d['source']['url'], 'license': d['source']['license']} for d in data], 'sha256': sha(data)},
             'model': model, 'benchmark': benchmark, 'candidates': drafts, 'clinicalUse': False, 'activityValidated': False,

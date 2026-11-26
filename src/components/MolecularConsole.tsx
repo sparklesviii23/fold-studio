@@ -12,7 +12,7 @@ export default function MolecularConsole(p:Props){
  async function start(){setRunning(true);try{setStatus(await rpc('chimerax_start'));}catch(e){p.onError(String(e));}finally{setRunning(false);}}
  async function execute(confirmed=false){if(!command.trim()||running)return;setRunning(true);setReview('');try{
    let r:any;if(mode==='chimerax'){r=await rpc('chimerax_execute',{projectId:p.projectId,structureId:p.structureId,sourceSha256:p.sourceSha256,command,confirmed});if(r.state==='review_required'){setReview(r.risk.reason);return;}r.syncStatus=await p.onNative(r);}
-   else {try{r={state:'completed',output:await p.onLocal(command),syncStatus:'FOLD STUDIO only'};}catch(e){r={state:'failed',error:String(e),syncStatus:'FOLD STUDIO only'};}await rpc('console_record',{projectId:p.projectId,engine:'viewer',command,state:r.state,data:{...r,structureId:p.structureId,sourceSha256:p.sourceSha256,method:'Documented local Mol* adapter'}});}
+   else {try{r={state:'completed',output:await p.onLocal(command),syncStatus:'fold only'};}catch(e){r={state:'failed',error:String(e),syncStatus:'fold only'};}await rpc('console_record',{projectId:p.projectId,engine:'viewer',command,state:r.state,data:{...r,structureId:p.structureId,sourceSha256:p.sourceSha256,method:'Documented local Mol* adapter'}});}
    setResult(r);setHistoryIndex(-1);await refresh();
  }catch(e){setResult({state:'connection_failed',error:String(e)});}finally{setRunning(false);}}
  const available=mode==='chimerax'?catalog:localCommands;

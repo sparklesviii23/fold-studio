@@ -92,4 +92,4 @@ Reuse installed runtimes; do not start additional paid GPU/API work automaticall
 
 These are bounded *proposals*, not current charges or guaranteed provider maxima. Recheck prices, availability, actual assets and complete cost estimates at approval time. No external Boltz API spending is included.
 
-Official sources inspected: [Modal pricing](https://modal.com/pricing), [Biohub ESM tutorials and authentic binder-design notebook](https://github.com/Biohub/esm/blob/main/cookbook/tutorials/README.md), [Boltz protein design](https://api.boltz.com/docs/api/guides/protein-design/), [Boltz library screen](https://api.boltz.com/docs/api/guides/protein-library-screen/). These establish published interfaces, not Fold Studio qualification.
+Official sources inspected: [Modal pricing](https://modal.com/pricing), [Biohub ESM tutorials and authentic binder-design notebook](https://github.com/Biohub/esm/blob/main/cookbook/tutorials/README.md), [Boltz protein design](https://api.boltz.com/docs/api/guides/protein-design/), [Boltz library screen](https://api.boltz.com/docs/api/guides/protein-library-screen/). These establish published interfaces, not fold qualification.

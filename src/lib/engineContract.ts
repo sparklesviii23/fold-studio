@@ -18,7 +18,7 @@ export interface EngineDescriptor{
  uncertainty:string;
 }
 export interface ResearchRecord<I=unknown,O=unknown>{
- schema:'fold-studio.research-record';schemaVersion:1;
+ schema:'fold.research-record';schemaVersion:1;
  engine:Pick<EngineDescriptor,'id'|'name'|'version'|'numericalMethod'>;
  evidence:{category:EvidenceCategory;name:string;statement:string};
  created:string;inputs:I;solver:Record<string,unknown>;outputs:O;

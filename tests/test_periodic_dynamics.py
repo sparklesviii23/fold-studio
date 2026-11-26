@@ -4,7 +4,7 @@ from worker import Service
 from periodic_dynamics import validate
 class PeriodicTests(unittest.TestCase):
  def setUp(self):
-  self.tmp=tempfile.TemporaryDirectory();self.s=Service(pathlib.Path(self.tmp.name)/'library');self.pid=self.s.project_create({'name':'Isolated periodic numerical reference'})['id'];self.s.setting_set({'key':'openmmPython','value':str(pathlib.Path(__file__).resolve().parents[2]/'current/FOLD STUDIO Metal Dev.app/Contents/Resources/runtime-openmm/bin/python3.12')})
+  self.tmp=tempfile.TemporaryDirectory();self.s=Service(pathlib.Path(self.tmp.name)/'library');self.pid=self.s.project_create({'name':'Isolated periodic numerical reference'})['id'];self.s.setting_set({'key':'openmmPython','value':str(pathlib.Path(__file__).resolve().parents[2]/'current/fold Metal Dev.app/Contents/Resources/runtime-openmm/bin/python3.12')})
  def tearDown(self):self.s.db.close();self.tmp.cleanup()
  def request(self,**change):return {'projectId':self.pid,'positionsNm':[[.1,.1,.1],[2.7,.1,.1]],'boxLengthsNm':[3,3,3],'sigmaNm':.34,'epsilonKJMol':1.,'massDalton':40.,'cutoffNm':1.,'temperatureK':100.,'frictionPerPs':1.,'stepPs':.001,'steps':0,'reportInterval':10,'seed':42,**change}
  def run_model(self,**change):return self.s.dispatch('periodic_lj_run',self.request(**change))

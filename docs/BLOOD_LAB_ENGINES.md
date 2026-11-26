@@ -1,6 +1,6 @@
 # Blood & Circulation Laboratory — external engine evaluation
 
-30 October 2026. **Evaluation only: nothing was downloaded, installed or run.** The question is which external blood-flow engines could extend the in-app Demo 6 solver (`scientific/blood_transport.py`, see `docs/LIVING_BIOLOGY_LAB.md` §7), what each would add, and what it would cost Fold Studio to bundle or bridge it on macOS arm64.
+30 October 2026. **Evaluation only: nothing was downloaded, installed or run.** The question is which external blood-flow engines could extend the in-app Demo 6 solver (`scientific/blood_transport.py`, see `docs/LIVING_BIOLOGY_LAB.md` §7), what each would add, and what it would cost fold to bundle or bridge it on macOS arm64.
 
 ## What Demo 6 already covers (and does not)
 
@@ -19,12 +19,12 @@ Demo 6 solves dilute-tracer advection–diffusion in **one straight rigid tube o
 ## Per-engine notes
 
 ### SimVascular / svMultiPhysics
-- **Would add:** real vessel geometry from images, 3-D velocity fields (Womersley pulsatile, stenoses, bifurcations), wall deformation, and an advection–diffusion equation on that field. The natural coupling is: SimVascular produces a velocity field → Fold Studio imports it (VTU) → a transport run with the same validation discipline as Demo 6.
-- **Cost:** a separate install the user chooses; Fold Studio would read results, not bundle the app. The svMultiPhysics solver alone is the smallest piece worth evaluating for a headless bridge. Verification: reproduce Poiseuille and Womersley analytical solutions before accepting any vessel result.
+- **Would add:** real vessel geometry from images, 3-D velocity fields (Womersley pulsatile, stenoses, bifurcations), wall deformation, and an advection–diffusion equation on that field. The natural coupling is: SimVascular produces a velocity field → fold imports it (VTU) → a transport run with the same validation discipline as Demo 6.
+- **Cost:** a separate install the user chooses; fold would read results, not bundle the app. The svMultiPhysics solver alone is the smallest piece worth evaluating for a headless bridge. Verification: reproduce Poiseuille and Womersley analytical solutions before accepting any vessel result.
 - **Risk:** licence components differ; anything redistributed must respect TetGen's AGPL and exclude MeshSim.
 
 ### HemoCell
-- **Would add:** the one thing no continuum model gives — explicit red cells, hence hematocrit-dependent viscosity, the cell-free layer, plasma skimming and platelet margination. This is what would be needed before Fold Studio could say anything about whole blood rather than plasma.
+- **Would add:** the one thing no continuum model gives — explicit red cells, hence hematocrit-dependent viscosity, the cell-free layer, plasma skimming and platelet margination. This is what would be needed before fold could say anything about whole blood rather than plasma.
 - **Cost:** AGPL means it must stay a separate executable (no linking into the Tauri app). Compute cost is HPC-scale; a small channel at physiological hematocrit is a cloud job, not a laptop job. macOS support is undocumented, so the realistic route is the existing cloud worker (Linux).
 - **Validation needed:** apparent viscosity vs tube diameter (Fåhræus–Lindqvist; Pries et al. 1992 fits) before use.
 
@@ -38,13 +38,13 @@ Demo 6 solves dilute-tracer advection–diffusion in **one straight rigid tube o
 
 ### Palabos
 - **Would add:** LBM flows in complex geometry (porous/tissue-like media) and is the substrate of HemoCell.
-- **Cost:** AGPL-3.0; source build only. Alone it adds little over OpenFOAM for Fold Studio; its value is as HemoCell's base.
+- **Cost:** AGPL-3.0; source build only. Alone it adds little over OpenFOAM for fold; its value is as HemoCell's base.
 
 ## Recommendation
 
 1. **Keep Demo 6 as the in-app, verified core.** It is fast (< 1 s), dependency-free beyond NumPy/SciPy and fully validated.
 2. **Next external step: svMultiPhysics as an optional external solver** (permissive licence, native macOS ARM), starting with Womersley pulsatile flow in a straight tube as the acceptance test, then importing its velocity field into a 3-D transport run.
-3. **Whole blood (hematocrit > 0): HemoCell on the Linux cloud worker**, kept as a separate AGPL process. Until then every Fold Studio blood result must say "plasma only".
+3. **Whole blood (hematocrit > 0): HemoCell on the Linux cloud worker**, kept as a separate AGPL process. Until then every fold blood result must say "plasma only".
 4. **OpenFOAM** only if non-Newtonian or turbulent cases are needed that svMultiPhysics does not cover. **CRIMSON**: not pursued (no macOS path, overlaps SimVascular).
 
 No engine above makes a modelled vessel equivalent to validated human circulation. That still requires comparison with measured (category A) data for the specific situation.

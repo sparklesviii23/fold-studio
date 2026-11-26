@@ -24,7 +24,7 @@ class LocalAppIdentity(unittest.TestCase):
 
     def test_same_seal_at_relocated_path_can_open(self):
         with patch.object(launcher, 'bundle_id', return_value='fold'), patch.object(launcher, 'signing_requirement', return_value='same'):
-            self.assertEqual(launcher.choose_app(self.new, [str(self.old) + '/Contents/MacOS/fold-studio']), (self.new, False))
+            self.assertEqual(launcher.choose_app(self.new, [str(self.old) + '/Contents/MacOS/fold']), (self.new, False))
 
     def test_no_active_build_allows_update(self):
         with patch.object(launcher, 'bundle_id', return_value='fold'):
@@ -32,8 +32,8 @@ class LocalAppIdentity(unittest.TestCase):
 
     def test_two_already_conflicting_builds_refuse_without_killing_them(self):
         with patch.object(launcher, 'bundle_id', return_value='fold'), patch.object(launcher, 'signing_requirement', side_effect=lambda p: str(p)):
-            with self.assertRaisesRegex(RuntimeError, 'Multiple Fold Studio builds'):
-                launcher.choose_app(self.new, [str(p) + '/Contents/MacOS/fold-studio' for p in (self.old, self.new)])
+            with self.assertRaisesRegex(RuntimeError, 'Multiple fold builds'):
+                launcher.choose_app(self.new, [str(p) + '/Contents/MacOS/fold' for p in (self.old, self.new)])
 
     def test_different_app_and_shell_arguments_are_not_mistaken_for_fold(self):
         other = pathlib.Path('/Applications/Other.app')

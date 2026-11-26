@@ -4,9 +4,9 @@ Native secondary prediction, numerical training/evaluation and the app path are 
 
 ## Worktrees and recovered engine
 
-Main: `/Users/vii/Documents/FoldStudio-MetalPort/fold-studio`, branch `project-omega/ultimate-completion`, initially `2862128`. It already had dirty Cell Explorer, Virtual Cell, native admission, app and documentation changes. This integration adds Qwen files and additive navigation/dispatch/resource/registry edits. Do not reset unrelated work.
+Main: `/Users/vii/Documents/FoldStudio-MetalPort/fold`, branch `project-omega/ultimate-completion`, initially `2862128`. It already had dirty Cell Explorer, Virtual Cell, native admission, app and documentation changes. This integration adds Qwen files and additive navigation/dispatch/resource/registry edits. Do not reset unrelated work.
 
-Research: `/Users/vii/.codex/worktrees/predictive-cell-research/fold-studio`, `codex/predictive-cell-stage2`, initially `a56a766`. Read its `AGENTS.md`, `docs/QWEN_CELL_PREDICTOR.md`, `QWEN_CELL_HYBRID.md`, `CELL_AI_GROUNDED_TRAINING.md` and current checkpoint. Its ten dirty training/UI files were left untouched. Inventories: `reports/qwen-rna/{main,research}-status-at-integration.txt`. Its existing training workspace/code remains in that worktree; it was not silently merged into the main app.
+Research: `/Users/vii/.codex/worktrees/predictive-cell-research/fold`, `codex/predictive-cell-stage2`, initially `a56a766`. Read its `AGENTS.md`, `docs/QWEN_CELL_PREDICTOR.md`, `QWEN_CELL_HYBRID.md`, `CELL_AI_GROUNDED_TRAINING.md` and current checkpoint. Its ten dirty training/UI files were left untouched. Inventories: `reports/qwen-rna/{main,research}-status-at-integration.txt`. Its existing training workspace/code remains in that worktree; it was not silently merged into the main app.
 
 Shared live library: `/Users/vii/Documents/FoldStudio-MetalPort/validation/bindcraft-fab-amme-native`. It is real research, never disposable. Paths below are relative to that library:
 

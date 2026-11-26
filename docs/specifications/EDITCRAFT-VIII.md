@@ -1,11 +1,11 @@
-# FOLD STUDIO Ω — EDITCRAFT Ω
+# fold Ω — EDITCRAFT Ω
 ## ADDENDUM VIII — COMPLETE DNA, RNA AND RIBOSOME 3D MOLECULAR OBSERVATORY
 
 **Append these requirements to the existing EditCraft Master Completion Directive. Preserve all previous requirements.**
 
 # 34. HIGH PRIORITY — MAKE DNA AND RNA STRUCTURES ACTUALLY VIEWABLE
 
-I want to be able to inspect DNA and RNA molecular structures inside Fold Studio, with the same level of interactivity and scientific detail as our existing protein molecular viewer.
+I want to be able to inspect DNA and RNA molecular structures inside fold, with the same level of interactivity and scientific detail as our existing protein molecular viewer.
 
 This is not optional.
 
@@ -13,7 +13,7 @@ The existing RNA secondary-structure diagrams are useful, but they are insuffici
 
 **Implement real, interactive three-dimensional DNA, RNA, DNA–RNA hybrid and ribosomal molecular visualization.**
 
-The complete visual interface must operate inside the native macOS Fold Studio application.
+The complete visual interface must operate inside the native macOS fold application.
 
 Actual structural prediction and other substantial scientific computations should run through our Modal scientific engine.
 
@@ -286,7 +286,7 @@ Do not claim arbitrary RNA or DNA tertiary structures can be predicted accuratel
 
 # 39. PREMIUM MOLECULAR OBSERVATORY DESIGN
 
-The visualizer must follow the existing premium Fold Studio aesthetic:
+The visualizer must follow the existing premium fold aesthetic:
 
 **PlayStation 5 × Apple TV × Scientific Molecular Workstation**
 
@@ -345,7 +345,7 @@ Maintain smooth performance for large biological complexes.
 
 # 40. MANDATORY REAL VIEWER ACCEPTANCE
 
-Do not mark DNA/RNA visualization as complete until the installed Fold Studio application demonstrates:
+Do not mark DNA/RNA visualization as complete until the installed fold application demonstrates:
 
 1. A real double-stranded DNA structure can be opened.
 2. Both DNA strands render correctly.
@@ -368,7 +368,7 @@ Do not mark DNA/RNA visualization as complete until the installed Fold Studio ap
 
 ### Final instruction
 
-**I want to actually SEE DNA and RNA molecules in three dimensions, explore their structure, select nucleotides, examine molecular interactions, and move between sequence, secondary structure and 3D structure inside Fold Studio.**
+**I want to actually SEE DNA and RNA molecules in three dimensions, explore their structure, select nucleotides, examine molecular interactions, and move between sequence, secondary structure and 3D structure inside fold.**
 
 Do not satisfy this requirement with RNA diagrams alone.
 

@@ -1,12 +1,12 @@
-# FOLD STUDIO Ω — EDITCRAFT Ω
+# fold Ω — EDITCRAFT Ω
 ## MASTER COMPLETION DIRECTIVE — FROM SCIENTIFIC FOUNDATION TO FULL GENOME & RNA ENGINEERING LABORATORY
 ### Complete Implementation · Native macOS Interface · Modal Scientific Engine · CRISPR · RNA Engineering · Multi-Omics · Experimental Validation · Original EditCraft Intelligence
 
 # 0. CRITICAL DIRECTIVE — COMPLETE THE ENTIRE PREVIOUS SPECIFICATION
 
-Continue development in the existing Fold Studio repository:
+Continue development in the existing fold repository:
 
-`/Users/vii/Documents/FoldStudio-MetalPort/fold-studio`
+`/Users/vii/Documents/FoldStudio-MetalPort/fold`
 
 Preserve the existing development branch and follow `AGENTS.md`.
 
@@ -26,7 +26,7 @@ It must combine existing published scientific engines into a coherent computatio
 
 All substantive scientific computation must run on Modal.com.
 
-The full interface, visualizers and research workspaces must run natively inside the existing macOS Fold Studio application.
+The full interface, visualizers and research workspaces must run natively inside the existing macOS fold application.
 
 Do not port EditCraft's scientific engines to Apple Silicon during this phase.
 
@@ -34,7 +34,7 @@ Do not build a separate website.
 
 Do not create a disconnected application.
 
-Do not compromise existing Fold Studio functionality.
+Do not compromise existing fold functionality.
 
 ---
 
@@ -48,7 +48,7 @@ The latest worker reported the following progress:
 
 **13 new offline EditCraft tests.**
 
-A first working EditCraft workspace has been installed inside Fold Studio.
+A first working EditCraft workspace has been installed inside fold.
 
 Current reported scientific capabilities include:
 
@@ -471,7 +471,7 @@ Implement distinct scientific workflows for:
 
 ### Deliverable
 
-A researcher must be able to select a real transcript, launch an appropriate RNA analysis on Modal, inspect actual model outputs and visualize the relevant RNA structures inside Fold Studio.
+A researcher must be able to select a real transcript, launch an appropriate RNA analysis on Modal, inspect actual model outputs and visualize the relevant RNA structures inside fold.
 
 ---
 
@@ -769,7 +769,7 @@ Support:
 
 ### Protein visualization
 
-Reuse the existing Fold Studio molecular viewer.
+Reuse the existing fold molecular viewer.
 
 Do not duplicate the entire protein viewer.
 
@@ -882,7 +882,7 @@ Implement:
 
 Do not create duplicate disconnected registries.
 
-Reuse and extend the existing Fold Studio Research Library.
+Reuse and extend the existing fold Research Library.
 
 ---
 
@@ -1226,7 +1226,7 @@ Do not invent datasets, confidence scores, references or experimental observatio
 
 # 26. COMPLETE THE NATIVE macOS INTERFACE
 
-The interface must remain part of Fold Studio.
+The interface must remain part of fold.
 
 No browser-only EditCraft replacement.
 
@@ -1284,7 +1284,7 @@ Do not use fake demonstration data as if it were genuine research output.
 
 A normal user must be able to:
 
-1. Open Fold Studio.
+1. Open fold.
 2. Select Genome & RNA Engineering.
 3. Select a biological project.
 4. Enter a gene or transcript.
@@ -1356,7 +1356,7 @@ Show observed editing results.
 
 Run a reproducible small public dataset through an appropriate Scanpy/Pertpy workflow.
 
-Import the actual analysis outputs into Fold Studio.
+Import the actual analysis outputs into fold.
 
 ### Demonstration H — Biological Context Atlas
 
@@ -1611,7 +1611,7 @@ Report backend tests, interface tests, scientific model tests and actual cloud q
 
 ### I. Research data integrity
 
-Verify previous Fold Studio experiments and research records remain intact.
+Verify previous fold experiments and research records remain intact.
 
 ### J. Scientific limitations
 
@@ -1625,7 +1625,7 @@ Do not hide unfinished work or present partial implementation as complete.
 
 # 35. FINAL MANDATE
 
-**Complete EditCraft Ω as a full computational genome and RNA engineering laboratory within the existing native Fold Studio application.**
+**Complete EditCraft Ω as a full computational genome and RNA engineering laboratory within the existing native fold application.**
 
 The original application must continue functioning.
 
@@ -1689,7 +1689,7 @@ Do not spend additional cloud credits without approval.
 
 Continue through all technically accessible engineering tasks until the specification is completed or a genuine external constraint prevents further work.
 
-**Fold Studio Ω is the native molecular research laboratory.**
+**fold Ω is the native molecular research laboratory.**
 
 **Modal.com is the scientific computational infrastructure.**
 

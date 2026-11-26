@@ -13,7 +13,7 @@ Integrity rules for everything under this heading:
 
 ## 1. Evidence categories
 
-| Category | Name | Meaning | Examples in Fold Studio today |
+| Category | Name | Meaning | Examples in fold today |
 |---|---|---|---|
 | **A** | Experimental | Measured on real samples; source data and protocol identity retained | Imported assay CSVs, PDB/mmCIF experimental structures, FASTQ/BAM reads, public GenBank references |
 | **B** | Physics simulation | Numerical solution of stated physical equations for an idealised model; accurate only inside its model and validated domain | OpenMM implicit-solvent pilots, periodic Lennard-Jones, PySCF HF/PBE, **Demo D capillary transport** |
@@ -27,7 +27,7 @@ A result can move between categories only by evidence: a category-D scenario bec
 
 ## 2. Priority 0 inventory — what runs today
 
-Sources: `docs/FOLD_STUDIO_CURRENT_APPLICATION_AUDIT.md` (29 Oct, the authoritative evidence reconciliation), `docs/CURRENT_IMPLEMENTATION_CHECKPOINT.md`, the code paths named below, and a presence check of local runtimes. No model inference, download or paid compute was run for this audit.
+Sources: `docs/FOLD_CURRENT_APPLICATION_AUDIT.md` (29 Oct, the authoritative evidence reconciliation), `docs/CURRENT_IMPLEMENTATION_CHECKPOINT.md`, the code paths named below, and a presence check of local runtimes. No model inference, download or paid compute was run for this audit.
 
 ### Works within a stated scope
 
@@ -85,7 +85,7 @@ Every Living Biology engine declares an `EngineDescriptor` and emits a `Research
 | `benchmarks[]` | name, reference, acceptance | Analytical or experimental reference with a numeric tolerance |
 | `uncertainty` | What is and isn't quantified | Distinguish discretisation error, parameter uncertainty, model error |
 
-`ResearchRecord` (schema `fold-studio.research-record`, version 1) contains: engine identity and method; evidence category with a plain statement; creation time; every input with value, unit and description; full solver settings (grid, step, scheme, boundaries, initial condition); outputs with units; benchmark results; assumptions; limitations; reproducibility (`deterministic`, `seed` or `null` when no randomness is used, runtime, and a SHA-256 over inputs+solver+outputs).
+`ResearchRecord` (schema `fold.research-record`, version 1) contains: engine identity and method; evidence category with a plain statement; creation time; every input with value, unit and description; full solver settings (grid, step, scheme, boundaries, initial condition); outputs with units; benchmark results; assumptions; limitations; reproducibility (`deterministic`, `seed` or `null` when no randomness is used, runtime, and a SHA-256 over inputs+solver+outputs).
 
 Coupling between engines (future) passes `Quantity` values with units and the upstream record's hash and evidence category. The downstream record's category is the weakest of its inputs.
 

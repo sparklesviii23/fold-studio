@@ -3,7 +3,7 @@ sys.path.insert(0,str(pathlib.Path(__file__).resolve().parents[1]/'scientific'))
 from worker import Service
 class VariantTests(unittest.TestCase):
  def setUp(self):
-  self.tmp=tempfile.TemporaryDirectory();self.root=pathlib.Path(self.tmp.name);self.s=Service(self.root/'library');self.project=self.s.project_create({'name':'Artificial allele tests'})['id'];runtime=pathlib.Path(__file__).resolve().parents[2]/'current/FOLD STUDIO Metal Dev.app/Contents/Resources/runtime-boltz/bin/python3.12';self.runtime=runtime
+  self.tmp=tempfile.TemporaryDirectory();self.root=pathlib.Path(self.tmp.name);self.s=Service(self.root/'library');self.project=self.s.project_create({'name':'Artificial allele tests'})['id'];runtime=pathlib.Path(__file__).resolve().parents[2]/'current/fold Metal Dev.app/Contents/Resources/runtime-boltz/bin/python3.12';self.runtime=runtime
   self.s.setting_set({'key':'enginePython','value':str(runtime)})
  def tearDown(self):self.s.db.close();self.tmp.cleanup()
  def reference(self,strand='+'):

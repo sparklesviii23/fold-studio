@@ -1,9 +1,9 @@
-"""Original FOLD STUDIO adapter, loaded into the user's ChimeraX installation.
+"""Original fold adapter, loaded into the user's ChimeraX installation.
 
 Extends its official REST handler with authentication and introspection. The
 official /run endpoint executes console commands. The measured-comparison route
 calls the installed interpreter and serializes its actual atoms and fit results.
-No ChimeraX source or executable is redistributed by FOLD STUDIO.
+No ChimeraX source or executable is redistributed by fold.
 """
 import hashlib, hmac, json, math, os, pathlib, re, sys, threading, time, urllib.parse
 sys.dont_write_bytecode = True  # Packaged extensions must not mutate the signed app.
@@ -130,7 +130,7 @@ class AuthenticatedRESTHandler(OfficialRESTHandler):
         # holds the random token. Credentials are not exposed to the renderer.
         authorization = self.headers.get('Authorization','')
         if self.headers.get('Origin') or not hmac.compare_digest(authorization,'Bearer '+token):
-            self.send_error(403,'FOLD STUDIO session authorization required'); return
+            self.send_error(403,'fold session authorization required'); return
         path=urllib.parse.urlparse(self.path).path
         if path.startswith('/fold/'):
             try:
@@ -158,14 +158,14 @@ class AuthenticatedRESTHandler(OfficialRESTHandler):
             except Exception as error:
                 data=json.dumps({'error':str(error)}).encode();self.send_response(500);self.send_header('Content-Length',str(len(data)));self.end_headers();self.wfile.write(data)
         else:
-            # Direct delegation, not a FOLD STUDIO command subset or translation.
+            # Direct delegation, not a fold command subset or translation.
             super().do_GET()
     do_POST=do_GET
     def do_OPTIONS(self): self.send_error(403,'Browser command access is disabled')
 
 rest.RESTHandler = AuthenticatedRESTHandler
 run(session,'remotecontrol rest start port %d json true log true cors false'%config['port'])
-session.logger.info('FOLD STUDIO authenticated loopback bridge ready; session '+identity)
+session.logger.info('fold authenticated loopback bridge ready; session '+identity)
 if not session.ui.is_gui:
     # Production scientific helper: no QApplication, window, native tools or GL
     # renderer. The official non-GUI thread_safe implementation runs callbacks.

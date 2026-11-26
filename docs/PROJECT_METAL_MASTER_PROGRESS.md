@@ -2,7 +2,7 @@
 
 Full specification remains the assignment. Milestones are recoverable checkpoints,
 not completion conditions. Branch: `project-metal/apple-silicon-engine`. Verified
-starting point: `53423a4`. Original Fold Studio source, release ZIPs, molecular
+starting point: `53423a4`. Original fold source, release ZIPs, molecular
 viewer and research data remain preserved. Last update: 18 October 2026.
 
 Status vocabulary: NOT STARTED / IN DEVELOPMENT / IMPLEMENTED / TESTED /

@@ -1,12 +1,12 @@
-# FOLD STUDIO Ω
+# fold Ω
 # ULTIMATE MASTER COMPLETION DIRECTIVE
-## Complete Every Remaining Requirement Across the Entire Fold Studio Research Platform
+## Complete Every Remaining Requirement Across the Entire fold Research Platform
 ### Native macOS Scientific Workstation · Cloud-Only Fab · BindCraft · BoltzGen · EditCraft · Molecular Observatory · Drug Discovery · Materials Science · Scientific Intelligence · Project Metal · RAPID
 
 **Directive version:** Ultimate Completion Specification — October 2026  
-**Repository:** `/Users/vii/Documents/FoldStudio-MetalPort/fold-studio`  
-**Primary reference:** `FOLD_STUDIO_IMPLEMENTATION_AUDIT.md`  
-**Primary goal:** Complete and scientifically validate the entire previously specified Fold Studio platform without sacrificing existing research data or functioning scientific engines.
+**Repository:** `/Users/vii/Documents/FoldStudio-MetalPort/fold`  
+**Primary reference:** `FOLD_IMPLEMENTATION_AUDIT.md`  
+**Primary goal:** Complete and scientifically validate the entire previously specified fold platform without sacrificing existing research data or functioning scientific engines.
 
 ---
 
@@ -14,7 +14,7 @@
 
 ## 1. YOUR MISSION
 
-You are continuing engineering work on an existing, functioning native macOS molecular research application called **Fold Studio Ω**.
+You are continuing engineering work on an existing, functioning native macOS molecular research application called **fold Ω**.
 
 This is not a greenfield software project.
 
@@ -30,7 +30,7 @@ Your mission is to inspect the current codebase, identify everything that remain
 
 The complete scope includes:
 
-1. Native macOS Fold Studio.
+1. Native macOS fold.
 2. Project Metal.
 3. BindCraft Architect.
 4. Cloud-only full Fab design.
@@ -178,7 +178,7 @@ Do not guarantee an accepted Fab design: a scientifically valid campaign may rej
 
 Do not automatically restart previously cancelled Fab jobs.
 
-**Fab is cloud-only, permanently for the present Fold Studio architecture.**
+**Fab is cloud-only, permanently for the present fold architecture.**
 
 ## 3. PRESERVE THE EXISTING APPLICATION
 
@@ -247,8 +247,8 @@ Read `AGENTS.md` and all relevant master plans, addenda, implementation document
 
 In particular inspect, where present:
 
-- `FOLD_STUDIO_IMPLEMENTATION_AUDIT.md`
-- `reports/fold-studio-implementation-audit.json`
+- `FOLD_IMPLEMENTATION_AUDIT.md`
+- `reports/fold-implementation-audit.json`
 - `docs/PROJECT_METAL_MASTER_PROGRESS.md`
 - `docs/PROJECT_METAL_EXECUTION_STATE.json`
 - `docs/BINDCRAFT_ARCHITECT_REPORT.md`
@@ -282,9 +282,9 @@ Build a canonical requirements system covering every previous specification.
 
 Maintain:
 
-`docs/FOLD_STUDIO_ULTIMATE_COMPLETION_AUDIT.md`
+`docs/FOLD_ULTIMATE_COMPLETION_AUDIT.md`
 
-`docs/FOLD_STUDIO_ULTIMATE_COMPLETION_AUDIT.json`
+`docs/FOLD_ULTIMATE_COMPLETION_AUDIT.json`
 
 Use the existing audit's original stable identifiers.
 
@@ -1814,7 +1814,7 @@ Review the entire historical 591-command inventory.
 
 For each command family:
 
-- Determine actual relevance to Fold Studio.
+- Determine actual relevance to fold.
 - Verify supported execution.
 - Test parameter mapping.
 - Test result and error behavior.
@@ -1918,7 +1918,7 @@ Never label an illustrative binding animation as a simulated binding trajectory.
 
 ## 62. BUILD THE MATERIALS SCIENCE LABORATORY
 
-Create a major workspace inside the existing Fold Studio application.
+Create a major workspace inside the existing fold application.
 
 Do not create a separate program.
 
@@ -2061,7 +2061,7 @@ BindCraft, peptide chemistry, interfaces and candidate evolution.
 Endpoint-specific QSAR/ADMET analysis and evidence interpretation.
 
 ### Protein Engineering
-Fold Studio's unified protein design infrastructure.
+fold's unified protein design infrastructure.
 
 ### PyMOL
 Broad molecular graphics capabilities and appropriately supported interoperability.
@@ -2540,7 +2540,7 @@ Keep the laptop responsive.
 
 # PART XX — EXPERIMENTAL PROJECT EXTENSIONS
 
-## 86. PRESERVE THE PROJECT EXTENSION TO FOLD STUDIO
+## 86. PRESERVE THE PROJECT EXTENSION TO fold
 
 The following are longer-term research directions and must remain separate from completed scientific engines:
 
@@ -2560,7 +2560,7 @@ Do not use the former Project Phoenix name as the primary product title.
 
 Use:
 
-**Project Extension to Fold Studio**
+**Project Extension to fold**
 
 ### Required present work
 
@@ -3039,7 +3039,7 @@ If requirements remain unaccepted, report that status accurately.
 
 # FINAL EXECUTION DIRECTIVE
 
-**Implement the entire remaining Fold Studio Ω specification.**
+**Implement the entire remaining fold Ω specification.**
 
 Preserve the current native macOS application, existing scientific results, validated model integrations and original research data.
 
@@ -3085,7 +3085,7 @@ Work systematically through the complete requirements backlog, creating recovera
 
 ## FINAL PRODUCT VISION
 
-**Fold Studio Ω is a unified, native macOS scientific research laboratory connecting molecular biology, computational protein design, genome engineering, RNA science, drug discovery, structural chemistry, quantum chemistry and materials science.**
+**fold Ω is a unified, native macOS scientific research laboratory connecting molecular biology, computational protein design, genome engineering, RNA science, drug discovery, structural chemistry, quantum chemistry and materials science.**
 
 The Mac provides the interactive laboratory.
 

@@ -1,7 +1,7 @@
 import os, pathlib, subprocess, sys, tempfile, time, types, unittest
 sys.path.insert(0, str(pathlib.Path(__file__).resolve().parents[1] / 'scientific'))
 
-APP = pathlib.Path(__file__).resolve().parents[2] / 'current' / 'FOLD STUDIO Metal Dev.app' / 'Contents' / 'Resources' / 'runtime-openmm' / 'bin' / 'python3'
+APP = pathlib.Path(__file__).resolve().parents[2] / 'current' / 'fold Metal Dev.app' / 'Contents' / 'Resources' / 'runtime-openmm' / 'bin' / 'python3'
 OPENMM = os.environ.get('FOLD_OPENMM_PYTHON') or (str(APP) if APP.is_file() else '')
 
 

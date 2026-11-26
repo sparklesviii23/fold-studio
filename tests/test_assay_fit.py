@@ -14,7 +14,7 @@ class AssayFitTests(unittest.TestCase):
     for tech in range(technical):rows.append({'concentration':dose,'response':response+offset,'biologicalReplicate':bio,'technicalReplicate':str(tech),'sampleGroup':'supplied'})
   return {'name':'Synthetic 4PL numerical reference only','endpoint':'Authored numerical response','concentrationUnit':'nM','responseUnit':'Artificial RU','replicateDesign':'explicit_biological_technical','rows':rows}
  def configure(self):
-  runtime=pathlib.Path(__file__).resolve().parents[2]/'current/FOLD STUDIO Metal Dev.app/Contents/Resources/runtime-boltz/bin/python3.12'
+  runtime=pathlib.Path(__file__).resolve().parents[2]/'current/fold Metal Dev.app/Contents/Resources/runtime-boltz/bin/python3.12'
   if not runtime.is_file():self.skipTest('Existing SciPy runtime unavailable')
   self.s.setting_set({'key':'enginePython','value':str(runtime)})
  def test_actual_scipy_recovers_known_curve_both_directions_without_affinity_claim(self):

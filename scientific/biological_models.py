@@ -85,7 +85,7 @@ def dispatch(s, action, p):
                 raw = f.read_bytes()
                 if len(raw) > 2_000_000 or hashlib.sha256(raw).hexdigest() != manifest['sha256']: raise ValueError('Model result checksum mismatch.')
                 result = json.loads(raw)
-                if result.get('schema') != 'fold-studio.biological-model-result.v1' or result.get('recipe') != rec['recipe'] or result.get('inputsSha256') != rec['inputsSha256']:
+                if result.get('schema') != 'fold.biological-model-result.v1' or result.get('recipe') != rec['recipe'] or result.get('inputsSha256') != rec['inputsSha256']:
                     raise ValueError('Model result identity mismatch.')
         full = gpu.dispatch(s, 'gpu_task_record', p)
         return {'run': {**full, **rec}, 'result': result}
@@ -107,7 +107,7 @@ def dispatch(s, action, p):
         if len(evidence) >= 200: raise ValueError('A dossier supports up to 200 entries.')
         entry = {'id': uuid.uuid4().hex, 'category': kind, 'title': _text(p, 'title', 200), 'source': _text(p, 'source', 1000),
                  'summary': _text(p, 'summary', 6000), 'recorded': time.strftime('%Y-%m-%dT%H:%M:%SZ', time.gmtime()),
-                 'verification': 'User-supplied; not independently verified by Fold Studio'}
+                 'verification': 'User-supplied; not independently verified by fold'}
         entry['sha256'] = _sha(entry); evidence.append(entry)
         row['data']['sha256'] = _sha(row['data']['content'])
         # Compare-and-swap protects concurrent append operations without overwriting evidence.

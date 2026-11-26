@@ -8,7 +8,7 @@ if [ -n "${RAPID_DEFAULT_CONFIG:-}" ] && [ ! -e "${RAPID_ROOT}/config.json" ]; t
 fi
 python3 - <<'PY'
 import json,os,pathlib
-root=pathlib.Path.home()/'.local/share/fold-studio-rapid';root.mkdir(parents=True,exist_ok=True,mode=0o700)
+root=pathlib.Path.home()/'.local/share/fold-rapid';root.mkdir(parents=True,exist_ok=True,mode=0o700)
 active=root/'active.json'
 if not active.exists():active.write_text(json.dumps({'state':'installed','version':'0.2.0','python':'/opt/fold-rapid/bin/python','release':os.environ['RAPID_RELEASE_DIR'],'root':os.environ['RAPID_ROOT']}))
 PY

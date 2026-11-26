@@ -27,7 +27,7 @@ export default function CloudCompute({onLocal,projectId='',structures=[],onImpor
  async function parse(){const value=await act('Reading connection','gpu_parse_connection',{connection});if(value)patch(value);}
  const reading=profile?.lastWorkerReading?.result,health=profile?.health,devices=reading?.gpu?.devices??health?.gpu?.devices??[];
  return <div className="cloud-workspace page-content">
-  <header className="cloud-heading"><div><span className="eyebrow">RAPID · COMPUTE CONNECTIONS</span><h1>Cloud Compute</h1><p>Connect a GPU server. Keep your research in Fold Studio.</p></div><button className="button primary" onClick={()=>{setEditingId('');setEditing(true);setResult(null);setError('');}}><Plus size={16}/>Connect Your GPU</button></header>
+  <header className="cloud-heading"><div><span className="eyebrow">RAPID · COMPUTE CONNECTIONS</span><h1>Cloud Compute</h1><p>Connect a GPU server. Keep your research in fold.</p></div><button className="button primary" onClick={()=>{setEditingId('');setEditing(true);setResult(null);setError('');}}><Plus size={16}/>Connect Your GPU</button></header>
   <div className="cloud-foundation"><ShieldCheck size={17}/><p>RAPID scientific adapters · install the engine and qualify your actual CUDA GPU before research use. Your local BindCraft and Metal workflows remain available.</p></div>
   {error&&<div className="cloud-notice error" role="alert">{error}<button className="text-button" onClick={()=>setError('')}>Dismiss</button></div>}
   {busy&&<div className="cloud-notice" role="status"><RefreshCw className="cloud-spin" size={16}/>{busy}… You can continue using other workspaces.</div>}

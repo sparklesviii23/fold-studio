@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """Release licence check: fail if the repository tracks third-party weights, datasets or their cached outputs.
 
-    python3 scripts/check-release-licenses.py            # checks `git ls-files` in the fold-studio repository
+    python3 scripts/check-release-licenses.py            # checks `git ls-files` in the fold repository
     python3 scripts/check-release-licenses.py FILE...    # checks the given paths (used by tests)
 
 The virtual cell fetches every outside model and dataset into the user's library after the user has seen its licence

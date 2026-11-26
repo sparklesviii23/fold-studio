@@ -108,7 +108,7 @@ class BiologicalModelsTests(unittest.TestCase):
 
     def test_result_identity_and_checksum_are_verified_before_display(self):
         tid='a'*32;d=G._folder(self.s)/tid;(d/'outputs').mkdir(parents=True)
-        result={'schema':'fold-studio.biological-model-result.v1','recipe':'bio_esmc','inputsSha256':'fixture'}
+        result={'schema':'fold.biological-model-result.v1','recipe':'bio_esmc','inputsSha256':'fixture'}
         raw=json.dumps(result).encode();(d/'outputs/result.json').write_bytes(raw)
         rec={'id':tid,'projectId':self.pid,'recipe':'bio_esmc','state':'done','created':'test','inputsSha256':'fixture',
              'outputs':[{'path':'result.json','sha256':hashlib.sha256(raw).hexdigest()}]}

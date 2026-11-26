@@ -1,18 +1,18 @@
-# FOLD STUDIO Ω — EDITCRAFT Ω
+# fold Ω — EDITCRAFT Ω
 ## MASTER DIRECTIVE VII — COMPLETE EVERY UNFINISHED REQUIREMENT
 ### Full Specification Closure · Scientific Engine Integration · Native macOS Laboratory · Modal Cloud Execution · Research Validation · Final Product Qualification
 
 # 0. NON-NEGOTIABLE OBJECTIVE
 
-Continue development of the existing Fold Studio application.
+Continue development of the existing fold application.
 
 Repository:
 
-`/Users/vii/Documents/FoldStudio-MetalPort/fold-studio`
+`/Users/vii/Documents/FoldStudio-MetalPort/fold`
 
 Preserve the current development branch, scientific outputs, deployed infrastructure, research database and original molecular-engineering functionality.
 
-**Your objective is to identify, implement, integrate, test and validate every unfinished requirement from our previous Fold Studio, EditCraft Ω, Genome & RNA Engineering, RAPID Cloud Compute and Molecular Biology Laboratory specifications.**
+**Your objective is to identify, implement, integrate, test and validate every unfinished requirement from our previous fold, EditCraft Ω, Genome & RNA Engineering, RAPID Cloud Compute and Molecular Biology Laboratory specifications.**
 
 This is not another feature-planning task.
 
@@ -151,7 +151,7 @@ Use paragraph-level evidence to distinguish completed requirements from missing 
 
 Before expanding the scientific platform, address the unfinished application-startup and native viewer verification.
 
-The latest checkpoint states that Fold Studio was waiting inside a system file-open operation for its Documents research database.
+The latest checkpoint states that fold was waiting inside a system file-open operation for its Documents research database.
 
 ### Required actions
 
@@ -258,7 +258,7 @@ Some data-model or interface requirements will have different applicable checks.
 
 ### Coverage
 
-Audit the complete EditCraft requirements and the shared Fold Studio/RAPID requirements on which EditCraft depends.
+Audit the complete EditCraft requirements and the shared fold/RAPID requirements on which EditCraft depends.
 
 Preserve separate namespaces so completion of an EditCraft feature does not falsely mark an unrelated protein-engine feature complete.
 
@@ -1216,7 +1216,7 @@ Launch, monitoring, real results, storage, reconnection and completion entirely 
 
 ### M. Regression preservation
 
-Existing Fold Studio protein design and visualization functionality remains intact.
+Existing fold protein design and visualization functionality remains intact.
 
 ---
 
@@ -1308,7 +1308,7 @@ Do not create unnecessary duplicate documentation.
 
 Do not create separate copies of the application.
 
-Preserve one canonical installed Fold Studio app.
+Preserve one canonical installed fold app.
 
 Follow the guarded installer and existing build process.
 
@@ -1471,7 +1471,7 @@ Do not replace these details with a vague percentage or claims of general readin
 
 # 33. FINAL EXECUTION MANDATE
 
-**Complete every remaining technically accessible requirement from the full Fold Studio Ω / EditCraft Ω specification.**
+**Complete every remaining technically accessible requirement from the full fold Ω / EditCraft Ω specification.**
 
 Preserve the scientific engines already validated:
 
@@ -1495,11 +1495,11 @@ Finish the original EditCraft Intelligence Core.
 
 Finish Modal production integration, robust monitoring, user controls and scientific qualification.
 
-Preserve all original Fold Studio protein-engineering capabilities and research results.
+Preserve all original fold protein-engineering capabilities and research results.
 
 **The desired final experience is:**
 
-Open Fold Studio.
+Open fold.
 
 Enter Genome & RNA Engineering.
 

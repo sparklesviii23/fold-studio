@@ -16,7 +16,7 @@ SCHEMA_VERSION = 1
 
 def describe(schema, version, variables, clocks, handoffs, readout):
     """The description saved with every run: what the state holds, on which clocks, and how it is handed on."""
-    return {'schema': schema, 'version': version, 'interface': 'fold-studio.cell-state/' + str(SCHEMA_VERSION), 'variables': variables, 'clocks': clocks, 'handoffs': handoffs, 'readout': readout}
+    return {'schema': schema, 'version': version, 'interface': 'fold.cell-state/' + str(SCHEMA_VERSION), 'variables': variables, 'clocks': clocks, 'handoffs': handoffs, 'readout': readout}
 
 
 def check(name, passed, threshold, value, detail):

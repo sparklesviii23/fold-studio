@@ -18,7 +18,7 @@ def analysis_modules():
             if str(folder) not in sys.path:sys.path.insert(0,str(folder))
             import biology_assessment
             return biology_assessment
-    raise ValueError('The shared Fold Studio assessment source is absent; no substitute metrics will be used.')
+    raise ValueError('The shared fold assessment source is absent; no substitute metrics will be used.')
 
 
 def campaign(value):

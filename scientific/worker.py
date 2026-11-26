@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""FOLD STUDIO scientific service. stdlib-only IPC; isolated Boltz process.
+"""fold scientific service. stdlib-only IPC; isolated Boltz process.
 Native host invokes one JSON request on stdin. No network listener in production.
 """
 import argparse, base64, datetime, hashlib, json, math, os, pathlib, platform, re, shutil, signal, sqlite3, subprocess, sys, time, urllib.error, urllib.parse, urllib.request, uuid, zipfile
@@ -101,7 +101,7 @@ def fetch(url, raw=False):
         raise ValueError('Unsupported scientific provider URL.')
     for attempt in range(3):
         try:
-            request = urllib.request.Request(url, headers={'User-Agent': 'FOLD-STUDIO/0.1 scientific workstation', 'Accept': '*/*' if raw else 'application/json'})
+            request = urllib.request.Request(url, headers={'User-Agent': 'fold/0.1 scientific workstation', 'Accept': '*/*' if raw else 'application/json'})
             with urllib.request.urlopen(request, timeout=30) as response:
                 body = response.read(MAX_FILE + 1)
                 if len(body) > MAX_FILE: raise ValueError('Remote file exceeds the 100 MB limit.')
@@ -251,7 +251,7 @@ class Service:
         row = self.db.execute('SELECT * FROM cache WHERE url=?',(url,)).fetchone()
         if row and time.time()-row['created'] < 3600: return json.loads(row['data'])
         try:
-            request = urllib.request.Request(url,headers={'User-Agent':'FOLD-STUDIO/0.1'})
+            request = urllib.request.Request(url,headers={'User-Agent':'fold/0.1'})
             with urllib.request.urlopen(request,timeout=30) as response:
                 result = json.load(response)
                 link = response.headers.get('Link','')
@@ -505,7 +505,7 @@ class Service:
         self.job_update(job['id'],'results_imported',{'outputs':[s['id'] for s in imported],'confidenceFiles':metadata,'imported':now(),'sequenceCorrespondence':'Verify by sequence alignment in the viewer; import alone does not prove correspondence.'})
         return {'job':self.job(job['id']),'structures':imported}
     def export_project(self,p):
-        self.project(p['id']); library=self.library({}); data={'format':'fold-studio-project-v1','exported':now(),'project':self.project(p['id']),'records':[r for r in library['records'] if r['project_id']==p['id']],'jobs':[j for j in library['jobs'] if j['project_id']==p['id']]}
+        self.project(p['id']); library=self.library({}); data={'format':'fold-project-v1','exported':now(),'project':self.project(p['id']),'records':[r for r in library['records'] if r['project_id']==p['id']],'jobs':[j for j in library['jobs'] if j['project_id']==p['id']]}
         if self.db.execute("SELECT 1 FROM sqlite_master WHERE name='scientific_record_domains'").fetchone():
             data['scientificExecutionDomains']=[dict(row) for row in self.rows('SELECT d.* FROM scientific_record_domains d JOIN records r ON r.id=d.record_id WHERE r.project_id=? ORDER BY d.record_id,d.domain,d.source',(p['id'],))]
         research=Observatory(self)

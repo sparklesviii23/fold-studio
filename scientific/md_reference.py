@@ -1,6 +1,6 @@
 """Demo 12 reference molecular dynamics: Trp-cage (PDB 1L2Y) in implicit solvent with OpenMM.
 
-Runs in the bundled OpenMM runtime as a separate process (no Fold Studio imports):
+Runs in the bundled OpenMM runtime as a separate process (no fold imports):
     python md_reference.py <input.json> <output.json>
 
 Physics: Amber ff14SB (amber14-all.xml) with the GBn2 generalised-Born implicit solvent,

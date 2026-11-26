@@ -128,7 +128,7 @@ def build(s, gene='KRAS', log=print):
         rel = D.Release(s); r = S.mutation_scan(rel, gene, 'hotspot', top=20000)
         h = next(x for x in r['hits'] if x['gene'] == gene); rank = r['hits'].index(h) + 1
         DS = g.node('dataset:depmap', 'dataset', f'DepMap {rel.release} CRISPR (Chronos)')
-        g.edge(DS, G, f'{gene}-mutant models depend on {gene}', 'computed', f'Fold Studio · DepMap {rel.release}', strength=f'β {h["beta"]:.2f} ({h["ci"][0]:.2f} to {h["ci"][1]:.2f}), q {h["q"]:.1e}, rank {rank}',
+        g.edge(DS, G, f'{gene}-mutant models depend on {gene}', 'computed', f'fold · DepMap {rel.release}', strength=f'β {h["beta"]:.2f} ({h["ci"][0]:.2f} to {h["ci"][1]:.2f}), q {h["q"]:.1e}, rank {rank}',
                context=f'{r["mutant"]} mutant of {r["n"]} models, lineage-adjusted', citation=rel.manifest.get('citation'))
         computed['depmap'] = {'beta': h['beta'], 'ci': h['ci'], 'q': h['q'], 'rank': rank, 'mutant': r['mutant'], 'n': r['n']}
         prof = S.gene_profile(rel, gene); top = prof['lineages'][0]
@@ -140,7 +140,7 @@ def build(s, gene='KRAS', log=print):
         b = R.biomarker_scan(s, gene); DG = g.node('dataset:gdsc', 'dataset', 'GDSC2 drug response')
         for x in [r for r in b['results'] if r['q'] < 0.01][:8]:
             n = g.node('drug:' + x['drug'], 'drug', x['drug'], target=x['target'])
-            g.edge(G, n, f'mutation {"sensitises to" if x["deltaLnIC50"] < 0 else "associated with resistance to"}', 'computed', 'Fold Studio · GDSC 8.5 × DepMap', strength=f'Δ ln IC50 {x["deltaLnIC50"]:.2f} ({x["ci"][0]:.2f} to {x["ci"][1]:.2f}), q {x["q"]:.1e}',
+            g.edge(G, n, f'mutation {"sensitises to" if x["deltaLnIC50"] < 0 else "associated with resistance to"}', 'computed', 'fold · GDSC 8.5 × DepMap', strength=f'Δ ln IC50 {x["deltaLnIC50"]:.2f} ({x["ci"][0]:.2f} to {x["ci"][1]:.2f}), q {x["q"]:.1e}',
                    context=f'{x["mutant"]} mutant vs {x["wildtype"]} wild-type lines, lineage-adjusted', via=DG)
         computed['gdsc'] = [{k: x[k] for k in ('drug', 'target', 'deltaLnIC50', 'ci', 'q', 'mutant')} for x in b['results'][:12]]
     except Exception as e:
@@ -154,9 +154,9 @@ def build(s, gene='KRAS', log=print):
         for x in pr['pairs']:
             if gene in (x['a'], x['b']) and x['q'] < 0.05:
                 other = x['b'] if x['a'] == gene else x['a']; n = g.node('gene:' + other, 'interactor', other)
-                g.edge(G, n, x['tendency'], 'computed', 'Fold Studio · TCGA', strength=f'log2 OR {x["log2OR"]:.2f}, q {x["q"]:.1e}', context=f'{ctx["disease"]} tumors')
+                g.edge(G, n, x['tendency'], 'computed', 'fold · TCGA', strength=f'log2 OR {x["log2OR"]:.2f}, q {x["q"]:.1e}', context=f'{ctx["disease"]} tumors')
         sv = C.survival(s, ctx['study'], gene)
-        g.edge(G, DIS, 'alteration and overall survival', 'computed', 'Fold Studio · TCGA', strength=f'HR {sv["cox"][0]["hr"]:.2f} ({sv["cox"][0]["ci"][0]:.2f}–{sv["cox"][0]["ci"][1]:.2f}), age-adjusted', context=f'{sv["patients"]} patients')
+        g.edge(G, DIS, 'alteration and overall survival', 'computed', 'fold · TCGA', strength=f'HR {sv["cox"][0]["hr"]:.2f} ({sv["cox"][0]["ci"][0]:.2f}–{sv["cox"][0]["ci"][1]:.2f}), age-adjusted', context=f'{sv["patients"]} patients')
         computed['tcga'] = {'freq': row['freq'], 'altered': row['altered'], 'n': sm['profiledSamples'], 'hr': sv['cox'][0]}
     except Exception as e:
         g.node('unavailable:tcga', 'unavailable', f'TCGA computation unavailable ({type(e).__name__})')

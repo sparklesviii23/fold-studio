@@ -228,7 +228,7 @@ class BoltzArtifactTests(Fixture):
 class PeptideChemistryTests(Fixture):
     def test_genuine_rdkit_job_preserves_parent_and_saves_explicit_graph(self):
         import peptide_chemistry
-        runtime=ROOT.parent/'current/FOLD STUDIO Metal Dev.app/Contents/Resources/runtime-boltz/bin/python3.12'
+        runtime=ROOT.parent/'current/fold Metal Dev.app/Contents/Resources/runtime-boltz/bin/python3.12'
         if not runtime.is_file():self.skipTest('Existing licensed local RDKit runtime is unavailable on this host.')
         with patch.object(self.s,'engine_python',return_value=str(runtime)),patch.object(self.s,'spawn',side_effect=lambda job,flag:job):
             job=peptide_chemistry.dispatch(self.s,'biology_peptide_chemistry_start',self.params(approved=True,headToTail=True))

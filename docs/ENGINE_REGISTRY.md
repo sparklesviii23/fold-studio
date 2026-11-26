@@ -2,7 +2,7 @@
 
 Status as of 30 October 2026, using the directive's vocabulary. Nothing here is rated above what was actually run.
 
-## Running inside Fold Studio
+## Running inside fold
 
 | Engine | Version / source | Purpose | Licence | Status | Evidence of status |
 |---|---|---|---|---|---|

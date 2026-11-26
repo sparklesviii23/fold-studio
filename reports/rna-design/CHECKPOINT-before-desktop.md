@@ -31,10 +31,10 @@ The native fix needs the requested guarded rebuild. Read `release-build-wal.log`
 
 ## Exact next action
 
-1. Close Fold Studio after checking that its workers are idle. Run from a user Terminal:
+1. Close fold after checking that its workers are idle. Run from a user Terminal:
 
    ```sh
-   cd /Users/vii/Documents/FoldStudio-MetalPort/fold-studio
+   cd /Users/vii/Documents/FoldStudio-MetalPort/fold
    bash scripts/build-local-app.sh > reports/rna-design/build-user.log 2>&1
    ```
 

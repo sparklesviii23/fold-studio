@@ -8,7 +8,7 @@ No keyword match or test-count percentage is treated as scientific acceptance.
 import copy,datetime,hashlib,json,pathlib,re
 
 ROOT=pathlib.Path(__file__).resolve().parents[1]
-DEST=ROOT/'docs/FOLD_STUDIO_ULTIMATE_COMPLETION_AUDIT'
+DEST=ROOT/'docs/FOLD_ULTIMATE_COMPLETION_AUDIT'
 
 def sha(raw):return hashlib.sha256(raw).hexdigest()
 def normalized(text):return ' '.join(text.split())
@@ -38,7 +38,7 @@ def inventory():
     'resourceRequirements':clause.get('resourceRequirements',{'newPaidWorkApproved':False}),
     'historicalAssessment':copy.deepcopy(clause),
     'architectureOverride':'Full Fab execution is now cloud-only. Any earlier local Fab engineering obligation is historical and superseded; evidence is retained.'})
- raw=(ROOT/'docs/specifications/FOLD_STUDIO_ULTIMATE.md').read_bytes();lines=raw.decode().splitlines()
+ raw=(ROOT/'docs/specifications/FOLD_ULTIMATE.md').read_bytes();lines=raw.decode().splitlines()
  sections=[];occurrences=[];current=None;pending=[];start=None
  def flush():
   nonlocal pending,start
@@ -105,7 +105,7 @@ def inventory():
 
  legacy_ids={c['id'] for f in legacy['features'] for c in f['requirements']}
  assert len(requirements)==len(legacy_ids)+1+sum(counters.values()) and len(legacy_ids)==1933
- source={'id':'ULT','path':'docs/specifications/FOLD_STUDIO_ULTIMATE.md','sha256':sha(raw),'lines':len(lines)}
+ source={'id':'ULT','path':'docs/specifications/FOLD_ULTIMATE.md','sha256':sha(raw),'lines':len(lines)}
  return {'schemaVersion':1,'updated':datetime.datetime.now(datetime.timezone.utc).isoformat(),
   'complete':False,'scientificCertification':False,'completionPercentage':None,
   'inventoryReconciliationComplete':False,
@@ -119,10 +119,10 @@ def inventory():
   'architecture':{'fullFab':'cloud_only','localFabEngineering':'retired; preserve original evidence and numerical drift limitation','historicalDataPreserved':True,'notarization':'deferred_local_use'},
   'releaseTrains':[{'number':i,'state':'in_progress' if i==1 else 'remaining','fullyAccepted':False} for i in range(1,11)],
   'externalGates':['Fresh explicit paid-work approval','Licensed Rosetta runtime and validation','Additional official model/data permissions and downloads','Real model/reference qualification','Legitimate SDK access for speculative PS5 work'],
-  'evidenceContext':['docs/FOLD_STUDIO_IMPLEMENTATION_AUDIT.md','reports/fold-studio-implementation-audit.json','docs/EDITCRAFT_FULL_COMPLETION_AUDIT.json','reports/editcraft/requirement-closure.json']}
+  'evidenceContext':['docs/FOLD_IMPLEMENTATION_AUDIT.md','reports/fold-implementation-audit.json','docs/EDITCRAFT_FULL_COMPLETION_AUDIT.json','reports/editcraft/requirement-closure.json']}
 
 def render(value):
- lines=['# Fold Studio ultimate completion audit','',
+ lines=['# fold ultimate completion audit','',
   'The platform is unfinished. This audit preserves prior scope and separates tested software contracts from scientific qualification. No completion percentage is assigned.','',
   '## Architectural change','',
   'Full Fab is cloud-only. Native launch, recovery, repeat, direct-runner and known Fab downstream entry points reject before computation. Local history, cancelled attempts, model assets and read-only molecular workflows remain available. The independent-trajectory numerical drift limitation remains historical evidence.','',
@@ -144,7 +144,7 @@ def render(value):
   '4. Complete downstream two-chain redesign/refolding, independent model evidence and native import/inspection. Single-chain seeded Fab refinement remains refused.',
   '5. Continue the ten release trains in dependency order. BoltzGen/ESM/RFdiffusion/Rosetta, advanced EditCraft, materials and fresh-machine acceptance remain incomplete.','',
   '## Evidence and limitations','',
-  'The companion JSON contains each original criterion, its unmodified historical assessment, source/test/evidence context, remaining work, dependencies, licensing, resource and acceptance fields. Missing clause-specific validation is explicit; the audit migration does not promote historical statuses. Existing scientific results are described in FOLD_STUDIO_IMPLEMENTATION_AUDIT.md. Notarization remains deferred for local use.']
+  'The companion JSON contains each original criterion, its unmodified historical assessment, source/test/evidence context, remaining work, dependencies, licensing, resource and acceptance fields. Missing clause-specific validation is explicit; the audit migration does not promote historical statuses. Existing scientific results are described in FOLD_IMPLEMENTATION_AUDIT.md. Notarization remains deferred for local use.']
  return '\n'.join(lines)+'\n'
 
 if __name__=='__main__':

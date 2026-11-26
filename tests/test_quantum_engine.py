@@ -10,7 +10,7 @@ class QuantumTests(unittest.TestCase):
    with self.subTest(change=change),self.assertRaises(ValueError):validate(self.request(**change))
  def setUp(self):
   self.tmp=tempfile.TemporaryDirectory();self.s=Service(pathlib.Path(self.tmp.name)/'library');self.pid=self.s.project_create({'name':'Isolated quantum reference qualification'})['id'];runtime=pathlib.Path(os.environ.get('FOLD_TEST_QUANTUM_PYTHON','/tmp/fold-pyscf-probe/venv/bin/python3.12'))
-  bundled=pathlib.Path(__file__).resolve().parents[2]/'current/FOLD STUDIO Metal Dev.app/Contents/Resources/runtime-boltz/bin/python3.12'
+  bundled=pathlib.Path(__file__).resolve().parents[2]/'current/fold Metal Dev.app/Contents/Resources/runtime-boltz/bin/python3.12'
   self.s.setting_set({'key':'enginePython','value':str(runtime if runtime.is_file() else bundled)})
  def tearDown(self):self.s.db.close();self.tmp.cleanup()
  def calculate(self,**change):

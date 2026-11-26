@@ -8,7 +8,7 @@ import pathlib, re, shlex, stat, subprocess, sys, uuid
 import selectors, time
 ACTIONS={'gpu_profiles','gpu_profile_save','gpu_profile_archive','gpu_parse_connection','gpu_host_scan','gpu_host_trust','gpu_connection_test','gpu_worker_prepare','gpu_worker_health','gpu_worker_selftest'}
 SSH='/usr/bin/ssh'; KEYSCAN='/usr/bin/ssh-keyscan'; KEYGEN='/usr/bin/ssh-keygen'
-REMOTE_BASE='.local/share/fold-studio-rapid/worker'
+REMOTE_BASE='.local/share/fold-rapid/worker'
 KEY_TYPES={'ssh-ed25519','ecdsa-sha2-nistp256','ecdsa-sha2-nistp384','ecdsa-sha2-nistp521','ssh-rsa'}
 
 def bounded_transport(argv, *, input, timeout):
@@ -219,7 +219,7 @@ class CloudCompute:
         installer="""import base64,hashlib,json,os,pathlib,sys
 v=json.load(sys.stdin);b=base64.b64decode(v['code'],validate=True)
 assert len(b)<=262144 and hashlib.sha256(b).hexdigest()==v['sha256']
-p=pathlib.Path.home()/'.local/share/fold-studio-rapid/worker'/v['sha256'];p.mkdir(parents=True,exist_ok=True,mode=0o700)
+p=pathlib.Path.home()/'.local/share/fold-rapid/worker'/v['sha256'];p.mkdir(parents=True,exist_ok=True,mode=0o700)
 f=p/'rapid_worker.py'
 if f.exists():assert not f.is_symlink() and hashlib.sha256(f.read_bytes()).hexdigest()==v['sha256']
 else:

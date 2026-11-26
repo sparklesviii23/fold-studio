@@ -338,7 +338,7 @@ class Research:
     def research_export(self, p):
         data=self.research_candidate(p)
         data['exported']=utc()
-        data['software']='Fold Studio Research Suite 1'
+        data['software']='fold Research Suite 1'
         encoded=json.dumps(data,indent=2,allow_nan=False)
         return {'name':'fold-candidate-study.json','text':encoded,'sha256':hashlib.sha256(encoded.encode()).hexdigest()}
 

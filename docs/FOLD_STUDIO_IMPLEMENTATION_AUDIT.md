@@ -1,12 +1,12 @@
-# Fold Studio — implementation and evidence audit
+# fold — implementation and evidence audit
 
 **Audit date:** 26 October 2026, Europe/Bucharest.
 **Source reviewed:** `project-editcraft/native-cloud-laboratory`, commit `c02caf608074cc1ae2f2813b76f79a6a7642a82a`.
-**Scope:** the existing Fold Studio application, Project Metal, molecular intelligence/research/cinema, cloud molecular engines, development worker and EditCraft. Historical directives remain in scope; a feature appearing in a menu or registry is not counted as a completed integration.
+**Scope:** the existing fold application, Project Metal, molecular intelligence/research/cinema, cloud molecular engines, development worker and EditCraft. Historical directives remain in scope; a feature appearing in a menu or registry is not counted as a completed integration.
 
 ## 1. Overall finding
 
-Fold Studio is a working macOS molecular research application with a shared library, interactive molecular viewer, genuine local prediction/design calculations, molecular measurements, research records, movie export, cloud campaign controls and several executing genome/RNA/single-cell methods.
+fold is a working macOS molecular research application with a shared library, interactive molecular viewer, genuine local prediction/design calculations, molecular measurements, research records, movie export, cloud campaign controls and several executing genome/RNA/single-cell methods.
 
 It is **not yet the complete platform described across all the master directives**. The largest unfinished areas are full model/strategy qualification, accepted full-Fab generation, complete adaptive BindCraft–BoltzGen coordination, several additional scientific engines, broad EditCraft coverage and fresh-machine distribution acceptance.
 
@@ -29,8 +29,8 @@ Numerical agreement, model inference, upstream filter acceptance, independent bi
 
 | Item | Audit finding |
 |---|---|
-| Source repository | `/Users/vii/Documents/FoldStudio-MetalPort/fold-studio` |
-| Canonical current app | `/Users/vii/Documents/FoldStudio-MetalPort/current/FOLD STUDIO Metal Dev.app` |
+| Source repository | `/Users/vii/Documents/FoldStudio-MetalPort/fold` |
+| Canonical current app | `/Users/vii/Documents/FoldStudio-MetalPort/current/fold Metal Dev.app` |
 | Packaging policy | One current installed app, replaced through the guarded build script; no automatic versioned backup apps or ZIP releases |
 | Live research root | `/Users/vii/Documents/FoldStudio-MetalPort/validation/bindcraft-fab-amme-native` |
 | Recorded backend regression run | **742 passed**, zero failed |
@@ -44,7 +44,7 @@ Numerical agreement, model inference, upstream filter acceptance, independent bi
 | Notarization | Deferred for local use; local signing is available |
 | Full-platform completion | **False** |
 
-The new machine-readable companion, `reports/fold-studio-implementation-audit.json`, records source/package hashes, operation contracts, literal action sets and the exact audit baseline. It does not contain credentials or claim live provider availability.
+The new machine-readable companion, `reports/fold-implementation-audit.json`, records source/package hashes, operation contracts, literal action sets and the exact audit baseline. It does not contain credentials or claim live provider availability.
 
 ## 3. Architecture and source origins
 
@@ -60,7 +60,7 @@ The new machine-readable companion, `reports/fold-studio-implementation-audit.js
 | Local optional AI | Approved Ollama/Aider integration with a pinned Qwen2.5-Coder 3B model; bounded development/retrieval tasks, not validated autonomous biological reasoning |
 | Genome/RNA/cellular methods | Ensembl/Biopython, ViennaRNA, Rule Set 3, BE-DICT, PRIDICT2, Cas-OFFinder, Scanpy/AnnData and original explicit-background enrichment code |
 
-Third-party projects remain distinct from Fold Studio's orchestration/interface code. Relevant source pins, original notices, asset checksums and runtime manifests are retained under `vendor/`, the scientific manifests and the remote worker. Source availability or project permission does not by itself resolve every dependency's redistribution terms; licensed Rosetta remains gated.
+Third-party projects remain distinct from fold's orchestration/interface code. Relevant source pins, original notices, asset checksums and runtime manifests are retained under `vendor/`, the scientific manifests and the remote worker. Source availability or project permission does not by itself resolve every dependency's redistribution terms; licensed Rosetta remains gated.
 
 ## 4. Application, library and shared molecular state
 
@@ -389,7 +389,7 @@ The source snapshot and operation-specific receipts take precedence over an olde
 
 | Area | Principal local evidence |
 |---|---|
-| Current package/tests/inventory | `reports/fold-studio-implementation-audit.json`; `reports/editcraft/integration-checks.json` |
+| Current package/tests/inventory | `reports/fold-implementation-audit.json`; `reports/editcraft/integration-checks.json` |
 | Original research preservation | `reports/editcraft/preservation-current.json` |
 | Local AF2/BindCraft/Metal | `docs/PROJECT_METAL_MASTER_PROGRESS.md`; `docs/PROJECT_METAL_EXECUTION_STATE.json`; operation-specific reports |
 | Fab memory/cancellation/drift | `reports/amme-integration-status.json`; `docs/FAB_AMME_VALIDATION.md` |
@@ -403,4 +403,4 @@ The source snapshot and operation-specific receipts take precedence over an olde
 | Full EditCraft scope | `docs/EDITCRAFT_FULL_COMPLETION_AUDIT.json`; `reports/editcraft/requirement-closure.json` |
 | Development worker | `reports/local-worker-validation.json`; `docs/LOCAL_WORKER.md` |
 
-**Conclusion:** substantial genuine implementations, saved molecular outputs, native controls and numerical references exist. Fold Studio is usable as a scoped research platform. The complete multi-engine, full-Fab, systems-biology and EditCraft vision is still unfinished, and no implemented feature should be promoted beyond the exact evidence recorded here.
+**Conclusion:** substantial genuine implementations, saved molecular outputs, native controls and numerical references exist. fold is usable as a scoped research platform. The complete multi-engine, full-Fab, systems-biology and EditCraft vision is still unfinished, and no implemented feature should be promoted beyond the exact evidence recorded here.

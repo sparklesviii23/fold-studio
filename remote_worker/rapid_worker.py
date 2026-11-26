@@ -1,4 +1,4 @@
-"""Fold Studio RAPID worker protocol v1. Transport: authenticated SSH stdin.
+"""fold RAPID worker protocol v1. Transport: authenticated SSH stdin.
 
 No public network listener, automatic installs, model downloads or CPU fallback.
 The foundation reports engine execution unavailable until separately validated.

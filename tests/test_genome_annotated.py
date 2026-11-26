@@ -3,7 +3,7 @@ sys.path.insert(0,str(pathlib.Path(__file__).resolve().parents[1]/'scientific'))
 from worker import Service
 class AnnotatedImportTests(unittest.TestCase):
  def test_actual_biopython_genbank_and_embl_roundtrip_preserves_original(self):
-  runtime=pathlib.Path(__file__).resolve().parents[2]/'current/FOLD STUDIO Metal Dev.app/Contents/Resources/runtime-boltz/bin/python3.12'
+  runtime=pathlib.Path(__file__).resolve().parents[2]/'current/fold Metal Dev.app/Contents/Resources/runtime-boltz/bin/python3.12'
   if not runtime.is_file():self.skipTest('Existing Biopython runtime unavailable')
   with tempfile.TemporaryDirectory() as tmp:
    root=pathlib.Path(tmp)

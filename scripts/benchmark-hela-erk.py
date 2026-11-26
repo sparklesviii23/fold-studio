@@ -26,7 +26,7 @@ for role, rs in bench['schedules'].items():
                      'cellRmseRelative': {k: r3(v['pooledRmseRelative']) for k, v in r['models'].items()}, 'rmseOfMeanRelative': {k: r3(v['rmseOfMeanRelative']) for k, v in r['models'].items()},
                      'amplitude': {k: r3(m['features']['amplitude'][k]) for k in ('measured', 'predicted')}, 'halfRiseMin': {k: r3(m['features']['halfRiseMin'][k]) for k in ('measured', 'predicted')},
                      'peakTime': 'not reached by the measurement', 'recovery': 'not reached by the measurement', 'intervalCoverage': [m['interval']['inside'], m['interval']['total']]})
-report = {'schema': 'fold-studio.benchmark/2', 'engine': {'id': he.ENGINE['id'], 'version': he.VERSION, 'state': {'schema': he.STATE['schema'], 'version': he.STATE['version'], 'interface': he.STATE['interface']}},
+report = {'schema': 'fold.benchmark/2', 'engine': {'id': he.ENGINE['id'], 'version': he.VERSION, 'state': {'schema': he.STATE['schema'], 'version': he.STATE['version'], 'interface': he.STATE['interface']}},
           'dataset': {'sha256': he.dataset()['sha256'], **he.dataset()['source'], 'archives': [{k: s.get(k) for k in ('id', 'archiveSha256', 'usable', 'reason', 'dropped')} | {'cells': len(s['cells'])} for s in he.dataset()['series']]},
           'specimens': {'liveCell': he.dataset()['specimen'], 'geometryReference': he.EM_REFERENCE}, 'resolution': he.RESOLUTION, 'split': he.SPLIT, 'unexplainedDishes': he.UNEXPLAINED,
           'runtime': f'Python {platform.python_version()} · NumPy {np.__version__} · SciPy {scipy.__version__} · {platform.machine()}', 'fitSeconds': round(t_fit, 1),

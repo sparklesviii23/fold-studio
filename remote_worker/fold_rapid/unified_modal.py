@@ -171,7 +171,7 @@ def attach(app,cfg,image,data,state,model_volume):
             from fold_rapid.registry import inventory
             import socket,platform,os
             from fold_rapid import VERSION,API_VERSION
-            return {'deploymentReachable':True,'name':'Fold Studio RAPID Cloud Engine','version':VERSION,'apiVersion':API_VERSION,'executionHost':socket.gethostname(),'executionPlatform':platform.platform(),'provider':os.environ.get('FOLD_COMPUTE_PROVIDER'),'controllerLocation':'remote','sourceCodeSha256':os.environ.get('BGMEE_CODE_SHA256'),'imageRecipeSha256':os.environ.get('RAPID_IMAGE_RECIPE_SHA256'),'scientificCloudQualified':False,'models':inventory('/models/rapid'),'campaignStatesDurable':True,'executionPolicy':'modular_sequential'}
+            return {'deploymentReachable':True,'name':'fold RAPID Cloud Engine','version':VERSION,'apiVersion':API_VERSION,'executionHost':socket.gethostname(),'executionPlatform':platform.platform(),'provider':os.environ.get('FOLD_COMPUTE_PROVIDER'),'controllerLocation':'remote','sourceCodeSha256':os.environ.get('BGMEE_CODE_SHA256'),'imageRecipeSha256':os.environ.get('RAPID_IMAGE_RECIPE_SHA256'),'scientificCloudQualified':False,'models':inventory('/models/rapid'),'campaignStatesDurable':True,'executionPolicy':'modular_sequential'}
         id=identifier(payload.get('campaignId'))
         if operation=='cancel':state['unified-cancel:'+id]=True;return {'campaignId':id,'state':'cancel_requested','billingStopped':False}
         live=state.get('unified:'+id)

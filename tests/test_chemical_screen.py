@@ -3,7 +3,7 @@ sys.path.insert(0,str(pathlib.Path(__file__).resolve().parents[1]/'scientific'))
 from worker import Service
 class ChemicalTableTests(unittest.TestCase):
  def setUp(self):
-  self.tmp=tempfile.TemporaryDirectory();self.s=Service(pathlib.Path(self.tmp.name)/'library');self.pid=self.s.project_create({'name':'Isolated chemical table QA'})['id'];self.s.setting_set({'key':'enginePython','value':str(pathlib.Path(__file__).resolve().parents[2]/'current/FOLD STUDIO Metal Dev.app/Contents/Resources/runtime-boltz/bin/python3.12')})
+  self.tmp=tempfile.TemporaryDirectory();self.s=Service(pathlib.Path(self.tmp.name)/'library');self.pid=self.s.project_create({'name':'Isolated chemical table QA'})['id'];self.s.setting_set({'key':'enginePython','value':str(pathlib.Path(__file__).resolve().parents[2]/'current/fold Metal Dev.app/Contents/Resources/runtime-boltz/bin/python3.12')})
  def tearDown(self):self.s.db.close();self.tmp.cleanup()
  def run_table(self,**change):return self.s.dispatch('chemical_screen',{'projectId':self.pid,'csvText':'id,smiles\nethanol,CCO\npropane,CCC\nethanol_equivalent,C(C)O\n','querySmiles':'CCO','smarts':'[#8]',**change})
  def test_exact_graph_similarity_descriptors_atom_matches_and_original(self):

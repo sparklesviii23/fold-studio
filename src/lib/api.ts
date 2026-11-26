@@ -47,4 +47,4 @@ export function geneName(p:any):string{return p.genes?.[0]?.geneName?.value??p.p
 
 export async function chooseDirectory():Promise<string|null>{if(!isTauri())throw new Error("Choose folders from the native FOLD app.");const path=await open({multiple:false,directory:true});return typeof path==="string"?path:null;}
 
-export async function chooseSSHKey():Promise<string|null>{if(!isTauri())throw new Error("Choose a key from the native Fold Studio app.");const path=await open({multiple:false,directory:false,title:"Choose an existing SSH private key"});return typeof path==="string"?path:null;}
+export async function chooseSSHKey():Promise<string|null>{if(!isTauri())throw new Error("Choose a key from the native fold app.");const path=await open({multiple:false,directory:false,title:"Choose an existing SSH private key"});return typeof path==="string"?path:null;}

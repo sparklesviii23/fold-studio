@@ -6,7 +6,7 @@ if ! command -v cargo >/dev/null 2>&1; then
   exec python3 "$repository/scripts/with-build-toolchain.py"
 fi
 export PYTHONDONTWRITEBYTECODE=1
-app="$repository/../current/FOLD STUDIO Metal Dev.app"
+app="$repository/../current/fold Metal Dev.app"
 python3 scripts/install-current-app.py --destination "$app" --check-only
 python3 scripts/check-scientific-package.py --sources
 # One disposable build directory, one installed app. No dated release directories.
@@ -52,7 +52,7 @@ python3 scripts/prepare-quantum-runtime.py "${rna_args[@]}"
 # This small source-only artifact excludes research and trained weights.
 python3 scripts/build-rapid-release.py --output remote_worker/dist
 node node_modules/@tauri-apps/cli/tauri.js build --bundles app
-built="$CARGO_TARGET_DIR/release/bundle/macos/FOLD STUDIO Metal Dev.app"
+built="$CARGO_TARGET_DIR/release/bundle/macos/fold Metal Dev.app"
 python3 scripts/check-scientific-package.py "$built"
 bash scripts/seal-app.sh "$built"
 python3 scripts/install-current-app.py --source "$built" --destination "$app"

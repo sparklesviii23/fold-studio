@@ -11,7 +11,7 @@ occupancy is compared with the exact ideal-particle equilibrium and with the
 well-mixed mass-action ODE composed and integrated by the Mechanistic Biology
 Lab engine (SBML → SciPy). kon and koff are hypothetical generic values.
 
-Every run is stored as a `fold-studio.research-record` JSON (schema of
+Every run is stored as a `fold.research-record` JSON (schema of
 src/lib/engineContract.ts) under <library>/cell_physics/runs with a SHA-256.
 """
 import datetime, hashlib, json, math, pathlib, platform, uuid
@@ -116,7 +116,7 @@ def _sha(obj):
 
 
 def _record(service, kind, evidence, statement, inputs, solver, outputs, benchmark, seed):
-    body = {'schema': 'fold-studio.research-record', 'schemaVersion': 1,
+    body = {'schema': 'fold.research-record', 'schemaVersion': 1,
             'engine': {k: ENGINE[k] for k in ('id', 'name', 'version', 'numericalMethod')}, 'kind': kind,
             'evidence': {'category': evidence, 'name': 'Physics simulation', 'statement': statement},
             'created': datetime.datetime.now(datetime.timezone.utc).strftime('%Y-%m-%dT%H:%M:%SZ'),

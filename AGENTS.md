@@ -8,7 +8,7 @@ Integration: `scientific/rna_design*.py`, `scientific/gpu_tasks.py`, `src/compon
 Context Mode remains enabled. Fresh session: `ctx_resume`, then `ctx_doctor`; large logs/data: `ctx_execute`/`ctx_search`. First 18 November doctor failed on modified hooks and setup was blocked by EPERM; recheck passed all functional checks. Version 2.2.0 has a 2.2.1 update warning. No host setup or plugin upgrade was performed.
 # Local build and storage policy
 
-- Keep exactly one installed current Fold Studio build, at `../current/FOLD STUDIO Metal Dev.app`. The current directory is a symlink to the existing app location; do not duplicate the bundle to a new release directory.
+- Keep exactly one installed current fold build, at `../current/fold Metal Dev.app`. The current directory is a symlink to the existing app location; do not duplicate the bundle to a new release directory.
 - Use `bash scripts/build-local-app.sh` for packaging. It guards running app/worker identities, replaces the existing app only when idle, verifies signatures, removes the prior bundle, and removes disposable build products. Do not create dated/versioned backup apps or automatic ZIP exports.
 - Packaging runtime inputs in `../runtime-build` are disposable. The build script recreates them from the tested standalone runtimes inside the current app, then removes them. Keep independently configured development environments in `../runtimes` only when needed for scientific validation.
 - Preserve source, Git history, trained model files, required runtimes, saved research, settings, and private credentials. The live research root is `../validation/bindcraft-fab-amme-native`; its name does not make it disposable test data.
@@ -138,7 +138,7 @@ Each has a word and a symbol as well as a colour: Measured EM, ML segmentation, 
 ## Testing and verifying
 
 ```bash
-PYTHONDONTWRITEBYTECODE=1 "../current/FOLD STUDIO Metal Dev.app/Contents/Resources/runtime/bin/python3.12" -B -m unittest tests.test_cell_em tests.test_light_pulse tests.test_native_allowlist tests.test_virtual_cell
+PYTHONDONTWRITEBYTECODE=1 "../current/fold Metal Dev.app/Contents/Resources/runtime/bin/python3.12" -B -m unittest tests.test_cell_em tests.test_light_pulse tests.test_native_allowlist tests.test_virtual_cell
 ```
 
 ```bash

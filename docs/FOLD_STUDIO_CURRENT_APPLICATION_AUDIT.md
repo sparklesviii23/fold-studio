@@ -1,11 +1,11 @@
-# Fold Studio — current application implementation audit
+# fold — current application implementation audit
 
 **29 October 2026 · Europe/Bucharest**  
-**Application:** 4.3.0, FOLD STUDIO Metal Dev  
+**Application:** 4.3.0, fold Metal Dev  
 **Source baseline:** `a3258dd98adbb8a0a86adb26577e5ca75a63ffc5`  
 **Branch:** `project-omega/ultimate-completion`
 
-Fold Studio is a functioning macOS research application with an existing molecular viewer, persistent research library, real local calculations, cloud campaign controls, molecular cinema, and executing parts of genome/RNA, editing, single-cell and chemical research. **The full platform in the accumulated master specifications is unfinished.** Full NVIDIA-free parity, all requested scientific models and strategies, universal workflow integration and production distribution have not been demonstrated.
+fold is a functioning macOS research application with an existing molecular viewer, persistent research library, real local calculations, cloud campaign controls, molecular cinema, and executing parts of genome/RNA, editing, single-cell and chemical research. **The full platform in the accumulated master specifications is unfinished.** Full NVIDIA-free parity, all requested scientific models and strategies, universal workflow integration and production distribution have not been demonstrated.
 
 This audit covers the application as a whole, including the additions since the 26 October implementation audit. It distinguishes implemented code, actual scientific execution, native interaction checks and missing work. It does not treat a menu, adapter, passing import or attractive visualization as a completed scientific engine.
 
@@ -20,7 +20,7 @@ This audit covers the application as a whole, including the additions since the 
 
 This is an evidence reconciliation, not a fresh comprehensive regression run. Today’s checks reviewed repository/package metadata, existing receipts and exact hashes of **25 non-Fab scientific files**; all 25 match the installed app. No new model inference, model download, paid computation, provider-balance query or full test suite was started to write this audit. Fab code and research outputs were not reopened for investigation; its summary below is historical only.
 
-Machine-readable current findings and exact file hashes: [current-application-audit.json](../reports/current-application-audit.json). Historical baseline: [26 October implementation audit](FOLD_STUDIO_IMPLEMENTATION_AUDIT.md). Requirement-level scope: [Ultimate audit JSON](FOLD_STUDIO_ULTIMATE_COMPLETION_AUDIT.json) and [EditCraft audit JSON](EDITCRAFT_FULL_COMPLETION_AUDIT.json).
+Machine-readable current findings and exact file hashes: [current-application-audit.json](../reports/current-application-audit.json). Historical baseline: [26 October implementation audit](FOLD_IMPLEMENTATION_AUDIT.md). Requirement-level scope: [Ultimate audit JSON](FOLD_ULTIMATE_COMPLETION_AUDIT.json) and [EditCraft audit JSON](EDITCRAFT_FULL_COMPLETION_AUDIT.json).
 
 ## 2. Project folder and installed application
 
@@ -28,17 +28,17 @@ The parent folder opened in Finder is `/Users/vii/Documents/FoldStudio-MetalPort
 
 | Location | Contents / policy |
 |---|---|
-| `fold-studio/` | Active source repository, interface, scientific services, cloud worker, tests, documentation and reports |
-| `current/FOLD STUDIO Metal Dev.app` | The single current application; updates replace it through the guarded installer |
+| `fold/` | Active source repository, interface, scientific services, cloud worker, tests, documentation and reports |
+| `current/fold Metal Dev.app` | The single current application; updates replace it through the guarded installer |
 | `validation/` | Saved research, scientific validation evidence and the actual app location reached by `current` |
 | `validation/bindcraft-fab-amme-native/` | The real research library, assets and settings; its historical name does not make it disposable |
 | `artifacts/` | Exported deliverables, including the ANGPTL3/8 peptide movie |
 | `runtimes/`, `models/`, `upstream/` | Development runtimes, model assets and upstream scientific source |
-| `fold-studio/docs/`, `fold-studio/reports/` | Implementation records, requirement audits and execution evidence |
+| `fold/docs/`, `fold/reports/` | Implementation records, requirement audits and execution evidence |
 
 The latest build receipt records a **5.34 GiB application bundle**, successful import/resource checks for **80 local modules**, and valid local signatures. That size is the build-time bundle size, not a fresh measurement of total project disk use. Models, libraries and scientific data outside the bundle add storage. This audit did not rescan or clean storage.
 
-The current path resolves to `validation/RAPID Foundation Engine/FOLD STUDIO Metal Dev.app`; it is the same canonical app, not an extra release. No new backup app or ZIP was created. No replacement or rebuild was necessary for this report.
+The current path resolves to `validation/RAPID Foundation Engine/fold Metal Dev.app`; it is the same canonical app, not an extra release. No new backup app or ZIP was created. No replacement or rebuild was necessary for this report.
 
 **Evidence:** [latest build log](../reports/ultimate/bgzf-coverage-final-build.log), [storage policy](STORAGE_POLICY.md), [current checkpoint](CURRENT_IMPLEMENTATION_CHECKPOINT.md).
 
@@ -58,7 +58,7 @@ The current path resolves to `validation/RAPID Foundation Engine/FOLD STUDIO Met
 | Cloud | RAPID remote worker, SSH transport and independent Modal molecular/EditCraft services |
 | Optional local coding assistant | Approved Ollama/Aider integration with a local Qwen coding model, separate from scientific validation |
 
-Fold Studio supplies the interface, orchestration, record models, adapters and research workflows. It does not originate the trained models or underlying third-party methods. Pins, manifests and original notices live under `vendor/`, scientific manifests and `THIRD_PARTY_NOTICES.md`. Permission to use project source does not establish every dependency’s redistribution/license conditions. Rosetta remains license-gated.
+fold supplies the interface, orchestration, record models, adapters and research workflows. It does not originate the trained models or underlying third-party methods. Pins, manifests and original notices live under `vendor/`, scientific manifests and `THIRD_PARTY_NOTICES.md`. Permission to use project source does not establish every dependency’s redistribution/license conditions. Rosetta remains license-gated.
 
 ## 4. Whole-application status at a glance
 
@@ -102,7 +102,7 @@ The complete **4V9D ribosome assembly, 146,921 atoms**, has actual rendering and
 
 **Remaining:** the full native camera/pan/multi-atom measurement/representation matrix; universal hardware acceptance; extensive ChimeraX feature parity and self-contained distribution qualification. The historical command CSV records **22 scoped tested entries out of 591**, not certification of all commands. No complete mRNA translation chemistry, whole-cell behavior or tumor-microenvironment simulation is implemented.
 
-**Evidence:** [Molecular Intelligence documentation](MOLECULAR_INTELLIGENCE_4_3.md), [command compatibility CSV](CHIMERAX_COMMAND_COMPATIBILITY.csv), nucleic-acid receipts in `reports/editcraft/`, historical [implementation audit](FOLD_STUDIO_IMPLEMENTATION_AUDIT.md).
+**Evidence:** [Molecular Intelligence documentation](MOLECULAR_INTELLIGENCE_4_3.md), [command compatibility CSV](CHIMERAX_COMMAND_COMPATIBILITY.csv), nucleic-acid receipts in `reports/editcraft/`, historical [implementation audit](FOLD_IMPLEMENTATION_AUDIT.md).
 
 ## 7. Local prediction and the Apple Silicon port
 

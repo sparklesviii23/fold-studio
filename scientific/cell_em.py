@@ -186,7 +186,7 @@ def folder(root):
 def _http(url, tries=4):
     for attempt in range(tries):
         try:
-            with urllib.request.urlopen(urllib.request.Request(url, headers={'User-Agent': 'fold-studio'}), timeout=60) as r:
+            with urllib.request.urlopen(urllib.request.Request(url, headers={'User-Agent': 'fold'}), timeout=60) as r:
                 return r.read()
         except Exception:
             if attempt == tries - 1:
@@ -1002,7 +1002,7 @@ def simulate(service, p, classes=None):
               'crossingProbability': {f"{sp[i]['name']}·{names[c]}": float(kin['hop'][i, c]) for i in range(ns) for c in range(EDGE + 1) if kin['hop'][i, c]} if kinetic else None}
     created = (state or {}).get('created') or datetime.datetime.now(datetime.timezone.utc).strftime('%Y-%m-%dT%H:%M:%SZ')
     measured = context == HELA
-    record = {'schema': 'fold-studio.research-record', 'schemaVersion': 1, 'id': run_id, 'kind': 'cell_em.brownian',
+    record = {'schema': 'fold.research-record', 'schemaVersion': 1, 'id': run_id, 'kind': 'cell_em.brownian',
               'experiment': {'label': cfg['label'], 'parent': cfg['parent'], 'config': cfg, 'chunks': chunk + 1, 'context': context,
                              'rerun': 'Send `config` to cell_em_simulate, then the returned `state` for each further chunk; the same seed and chunk sequence reproduce every frame.'},
               'engine': {k: ENGINE[k] for k in ('id', 'name', 'version', 'numericalMethod')},
@@ -1151,7 +1151,7 @@ def paint(service, p):
         img, _, _ = np.histogram2d(pts[:, 2], pts[:, 0], bins=(classes.shape[0], classes.shape[2]), range=((0, classes.shape[0] * VOXEL[2]), (0, classes.shape[2] * VOXEL[0])))
         finish('Probe', img.astype(np.float32), '#ffffff', 'Simulated molecules (labelled probe)', {'molecule positions': 1.0})
     buf = io.BytesIO(); Image.fromarray((np.clip(rgb, 0, 1) * 255).astype(np.uint8)).save(buf, 'PNG')
-    body = {'schema': 'fold-studio.cell-painting-model/1', 'id': uuid.uuid4().hex, 'created': datetime.datetime.now(datetime.timezone.utc).strftime('%Y-%m-%dT%H:%M:%SZ'),
+    body = {'schema': 'fold.cell-painting-model/1', 'id': uuid.uuid4().hex, 'created': datetime.datetime.now(datetime.timezone.utc).strftime('%Y-%m-%dT%H:%M:%SZ'),
             'dataset': DATASET['id'], 'psfFwhmNm': psf, 'pixelUm': [VOXEL[0], VOXEL[2]], 'size': [classes.shape[2], classes.shape[0]], 'channels': channels,
             'evidence': {'category': 'D', 'name': 'Parameterised hypothesis', 'statement': 'A forward model of the Cell Painting stains from the EM segmentation of one HeLa cell. Stain weights are assumptions; this is not a fluorescence measurement.'},
             'limitations': ['Actin and cytoplasmic RNA granules are not segmented and are missing from the AGP and RNA channels', 'Widefield sum projection with a Gaussian PSF; no noise, bleed-through, illumination or camera model',
