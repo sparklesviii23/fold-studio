@@ -41,7 +41,7 @@
 </p>
 
 > [!IMPORTANT]
-> This is a student project and an open-source experiment. It is not a product, not a release, and not validated. Outputs are computational predictions. They are not measurements and not evidence of binding, activity, toxicity or any biological effect. Do not use them for medical, clinical or safety decisions.
+> This is a student project and an open-source experiment. Outputs are computational predictions. Do not use them for medical, clinical or safety decisions.
 
 <p align="right"><sub><a href="#top">Back to top ↑</a></sub></p>
 
